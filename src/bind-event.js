@@ -1,12 +1,3 @@
-function activeSidebar () {
-  document.addEventListener('click', ({ target }) => {
-    if (target.classList.contains('section-link') && target.nodeName === 'A') {
-      [].slice.call(document.querySelectorAll('.sidebar li')).forEach(node => node.classList.remove('active'))
-      target.parentNode.classList.toggle('active')
-    }
-  })
-}
-
 function scrollActiveSidebar () {
   if (/mobile/i.test(navigator.userAgent)) return
 
