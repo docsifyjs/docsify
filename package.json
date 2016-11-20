@@ -2,14 +2,14 @@
   "name": "docsify",
   "version": "0.0.0",
   "description": "A magical documentation generator.",
-  "main": "index.js",
+  "main": "lib/docsify.js",
   "files": [
     "lib",
     "themes"
   ],
   "scripts": {
-    "build": "rollup -c && uglifyjs lib/docsify.js -o lib/docsify.min.js",
-    "dev": "nodemon -w src -x 'rollup -c && node test/server.js'",
+    "build": "node build/build.js && uglifyjs lib/docsify.js -o lib/docsify.min.js",
+    "dev": "nodemon -w src -x 'node build/build.js && node test/server.js'",
     "test": "eslint src server"
   },
   "keywords": [
