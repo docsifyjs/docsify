@@ -4,7 +4,9 @@
   "description": "A magical documentation generator.",
   "main": "lib/docsify.js",
   "files": [
-    "lib"
+    "lib",
+    "src",
+    "themes"
   ],
   "scripts": {
     "build": "node build/build.js && uglifyjs lib/docsify.js -o lib/docsify.min.js",
