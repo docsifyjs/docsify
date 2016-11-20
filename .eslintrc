@@ -1,0 +1,6 @@
+{
+  "extends": ["vue"],
+  "globals": {
+    "XMLHttpRequest": true
+  }
+}

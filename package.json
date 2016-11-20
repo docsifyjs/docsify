@@ -1,0 +1,38 @@
+{
+  "name": "docsify",
+  "version": "0.0.0",
+  "description": "A magical documentation generator.",
+  "main": "index.js",
+  "files": [
+    "lib",
+    "themes"
+  ],
+  "scripts": {
+    "build": "rollup -c && uglifyjs lib/docsify.js -o lib/docsify.min.js",
+    "dev": "nodemon -w src -x 'rollup -c && node test/server.js'",
+    "test": "eslint src server"
+  },
+  "keywords": [
+    "doc",
+    "docs",
+    "documentation",
+    "creator",
+    "generator"
+  ],
+  "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
+  "license": "MIT",
+  "devDependencies": {
+    "buffet": "^1.0.10",
+    "eslint": "^3.10.2",
+    "eslint-config-vue": "^2.0.1",
+    "eslint-plugin-vue": "^1.0.0",
+    "nodemon": "^1.11.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-buble": "^0.14.0",
+    "uglify-js": "^2.7.4"
+  },
+  "dependencies": {
+    "marked": "^0.3.6",
+    "prismjs": "^1.5.1"
+  }
+}
