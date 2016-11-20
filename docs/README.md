@@ -18,11 +18,11 @@ Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
 </head>
 <body></body>
 <script src="//unpkg.com/marked/marked.min.js"></script>
-<script src="//unpkg.com/highlight.js/lib/highlight.js"></script>
+<script src="//unpkg.com/prismjs/prism.js"></script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 </html>
 ```
