@@ -35,8 +35,9 @@ function scrollActiveSidebar () {
   highlight()
 
   function scrollIntoView () {
-    var id = window.location.hash.slice(1)
-    var section = document.querySelector('#' + id)
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    const section = document.querySelector('#' + id)
 
     if (section) section.scrollIntoView()
   }
