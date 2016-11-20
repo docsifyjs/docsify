@@ -1,6 +1,5 @@
-# docsify
+# docsify [WIP]
 [![Build Status](https://travis-ci.org/QingWei-Li/docsify.svg?branch=master)](https://travis-ci.org/QingWei-Li/docsify)
-[![Coverage Status](https://coveralls.io/repos/github/QingWei-Li/docsify/badge.svg?branch=master)](https://coveralls.io/github/QingWei-Li/docsify?branch=master)
 [![npm](https://img.shields.io/npm/v/docsify.svg)](https://www.npmjs.com/package/docsify)
 
 >🃏 A magical documentation site generator.
@@ -10,7 +9,7 @@
 - Custom themes and plugins
 
 ## Quick start
-Such as [./docs](./docs), Just create `404.html` and `README.md` into `/docs`.
+Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create `404.html` and `README.md` into `/docs`.
 
 404.html
 

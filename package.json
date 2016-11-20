@@ -4,13 +4,12 @@
   "description": "A magical documentation generator.",
   "main": "lib/docsify.js",
   "files": [
-    "lib",
-    "themes"
+    "lib"
   ],
   "scripts": {
     "build": "node build/build.js && uglifyjs lib/docsify.js -o lib/docsify.min.js",
     "dev": "nodemon -w src -x 'node build/build.js && node test/server.js'",
-    "test": "eslint src server"
+    "test": "eslint src test"
   },
   "keywords": [
     "doc",
