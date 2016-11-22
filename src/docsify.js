@@ -12,8 +12,10 @@ class Docsify {
   constructor (opts) {
     Docsify.installed = true
 
-    this.replace = true
     this.opts = Object.assign({}, opts, DEFAULT_OPTS)
+    this.opts.title = (this.opts.title ? this.opts.sep : '') + this.opts.title
+
+    this.replace = true
     this.dom = document.querySelector(this.opts.el)
     if (!this.dom) {
       this.dom = document.body

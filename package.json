@@ -24,6 +24,7 @@
     "generator"
   ],
   "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
+  "homepage": "https://QingWei-Li.github.io/docsify",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^3.10.2",
