@@ -2,15 +2,14 @@
   "name": "docsify",
   "version": "0.0.3",
   "description": "A magical documentation generator.",
-  "main": "lib/docsify.js",
+  "main": "lib/docsify.pack.js",
   "files": [
     "lib",
     "src",
     "themes"
   ],
   "scripts": {
-    "build": "node build/build.js && uglifyjs lib/docsify.js -o lib/docsify.min.js",
-    "dev": "nodemon -w src -x 'node build/build.js && node test/server.js'",
+    "build": "node build/build.js",
     "test": "eslint src test"
   },
   "keywords": [
@@ -23,14 +22,14 @@
   "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
   "license": "MIT",
   "devDependencies": {
-    "buffet": "^1.0.10",
     "eslint": "^3.10.2",
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",
-    "nodemon": "^1.11.0",
     "rollup": "^0.36.3",
     "rollup-plugin-buble": "^0.14.0",
-    "uglify-js": "^2.7.4"
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-uglify": "^1.0.1"
   },
   "dependencies": {
     "marked": "^0.3.6",

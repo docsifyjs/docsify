@@ -21,12 +21,9 @@ Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
 </head>
 <body></body>
-<script src="//unpkg.com/marked/marked.min.js"></script>
-<script src="//unpkg.com/prismjs/prism.js"></script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify"></script>
 </html>
 ```
-
 
 ## License
 MIT
