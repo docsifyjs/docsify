@@ -12,6 +12,10 @@
     "build": "node build/build.js",
     "test": "eslint src test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QingWei-Li/docsify.git"
+  },
   "keywords": [
     "doc",
     "docs",

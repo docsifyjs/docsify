@@ -97,6 +97,16 @@ main {
   padding-top: 20px;
 }
 
+@media screen(max-width: 600px) {
+  .sidebar {
+    left: -300px;
+  }
+
+  .content {
+    left: 0;
+  }
+}
+
 /* markdown content found on pages */
 .markdown-section {
   position: relative;
