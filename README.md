@@ -1,5 +1,5 @@
 # docsify [WIP]
-[![Build Status](https://travis-ci.org/QingWei-Li/docsify.svg?branch=master)](https://travis-ci.org/QingWei-Li/docwsify)
+[![Build Status](https://travis-ci.org/QingWei-Li/docsify.svg?branch=master)](https://travis-ci.org/QingWei-Li/docsify)
 [![npm](https://img.shields.io/npm/v/docsify.svg)](https://www.npmjs.com/package/docsify)
 
 >🃏 A magical documentation site generator.
