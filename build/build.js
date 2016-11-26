@@ -23,12 +23,12 @@ var build = function (opts) {
 }
 
 build({
-  entry: 'docsify.js',
+  entry: 'index.js',
   output: 'docsify.js',
   plugins: [commonjs(), nodeResolve()]
 })
 build({
-  entry: 'docsify.js',
+  entry: 'index.js',
   output: 'docsify.min.js',
   plugins: [commonjs(), nodeResolve(), uglify()]
 })

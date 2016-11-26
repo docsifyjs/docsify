@@ -4,8 +4,6 @@ import bindEvent from './bind-event'
 
 const DEFAULT_OPTS = {
   el: '#app',
-  title: document.title,
-  sep: ' - ',
   repo: ''
 }
 
@@ -22,7 +20,6 @@ class Docsify {
     Docsify.installed = true
 
     this.opts = Object.assign({}, opts, DEFAULT_OPTS)
-    this.opts.title = (this.opts.title ? this.opts.sep : '') + this.opts.title
 
     this.replace = true
     this.dom = document.querySelector(this.opts.el)
@@ -51,9 +48,6 @@ class Docsify {
   }
 
   render (content) {
-    if (this.loc.slice(1) !== 'README') {
-      document.title = this.loc.slice(1) + this.opts.title
-    }
     this.dom[this.replace ? 'outerHTML' : 'innerHTML'] = render(content, this.opts)
   }
 
