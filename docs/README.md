@@ -25,5 +25,11 @@ Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create
 </html>
 ```
 
+```javascript
+import Vue from 'vue'
+
+Vue.use(ElementUI)
+```
+
 ## License
 MIT

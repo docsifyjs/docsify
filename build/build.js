@@ -46,7 +46,3 @@ build({
   plugins: [commonjs(), nodeResolve(), uglify()],
   inline: false
 })
-build({
-  entry: 'plugins/nav.js',
-  moduleName: 'Docsify.Nav'
-})

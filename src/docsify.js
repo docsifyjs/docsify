@@ -5,7 +5,16 @@ import bindEvent from './bind-event'
 const DEFAULT_OPTS = {
   el: '#app',
   title: document.title,
-  sep: ' - '
+  sep: ' - ',
+  repo: ''
+}
+
+const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
+
+if (script) {
+  for (const prop in DEFAULT_OPTS) {
+    DEFAULT_OPTS[prop] = script.getAttribute('data-' + prop) || DEFAULT_OPTS[prop]
+  }
 }
 
 class Docsify {
@@ -39,17 +48,8 @@ class Docsify {
   }
 
   render (content) {
-    document.title = this.loc.slice(1) + this.opts.sep + this.opts.title
-    this.dom[this.replace ? 'outerHTML' : 'innerHTML'] = render(content)
-  }
-}
-
-Docsify.use = function () {
-  const plugin = arguments[0]
-  if (typeof plugin === 'function') {
-    plugin.call(Docsify)
-  } else {
-    throw TypeError('[docsify] Invalid plugin ' + plugin.name)
+    document.title = this.loc.slice(1) + this.opts.title
+    this.dom[this.replace ? 'outerHTML' : 'innerHTML'] = render(content, this.opts)
   }
 }
 

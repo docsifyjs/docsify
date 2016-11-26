@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600');
+s@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600');
 
 * {
   -webkit-box-sizing: border-box;
@@ -9,6 +9,43 @@
   -webkit-text-size-adjust: none;
   -webkit-touch-callout: none;
   -webkit-font-smoothing: antialiased;
+}
+
+/* github corner */
+.github-corner {
+  display: block;
+  position: relative;
+  z-index: 10;
+}
+
+.github-corner svg {
+  border: 0;
+  color: #fff;
+  fill: #42b983;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 80px;
+  width: 80px;
+}
+
+.github-corner:hover .octo-arm {
+  animation:octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave {
+  0%,100%{ transform: rotate(0); }
+  20%,60%{ transform: rotate(-25deg); }
+  40%,80%{ transform: rotate(10deg); }
+}
+
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
 }
 
 html, body {
@@ -97,7 +134,7 @@ main {
   padding-top: 20px;
 }
 
-@media screen(max-width: 600px) {
+@media screen and (max-width: 600px) {
   .sidebar {
     left: -300px;
   }
@@ -226,19 +263,18 @@ main {
   padding: 3px 5px;
   white-space: nowrap;
   font-size: 0.8em;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  background-color: #f8f8f8;
 }
 
 .markdown-section pre {
-  padding: 1.2em 1.4em;
-  line-height: 1.5em;
-  margin: 0;
-}
-
-.markdown-section code, .markdown-section pre {
   font-family: 'Roboto Mono', Monaco, courier, monospace;
-  -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
+  -webkit-font-smoothing: initial;
   background-color: #f8f8f8;
+  line-height: 1.5em;
+  margin: 1.2em 0;
+  padding: 1.2em 1.4em;
 }
 
 /* code highlight */
@@ -337,26 +373,6 @@ main {
   cursor: help;
 }
 
-/* overrides color-values for the Line Numbers plugin
- * http://prismjs.com/plugins/line-numbers/
- */
-.line-numbers .line-numbers-rows {
-  border-right-color: #dfe2f1;
-}
-
-.line-numbers-rows > span:before {
-  color: #979db4;
-}
-
-/* overrides color-values for the Line Highlight plugin
- * http://prismjs.com/plugins/line-highlight/
- */
-.line-highlight {
-  background: rgba(107, 115, 148, 0.2);
-  background: -webkit-linear-gradient(left, rgba(107, 115, 148, 0.2) 70%, rgba(107, 115, 148, 0));
-  background: linear-gradient(to right, rgba(107, 115, 148, 0.2) 70%, rgba(107, 115, 148, 0));
-}
-
 .markdown-section pre>code {
   -moz-osx-font-smoothing: initial;
   -webkit-font-smoothing: initial;
@@ -372,8 +388,7 @@ main {
   white-space: inherit;
 }
 
-.markdown-section code:after, .markdown-section code:before {
-  content: none;
+.markdown-section code::after, .markdown-section code::before {
   letter-spacing: 0.05em;
 }
 
@@ -393,11 +408,9 @@ pre code {
   border-radius: 2px;
 }
 
-pre code.lang-html:after,
-pre code.lang-js:after,
-pre code.lang-bash:after,
-pre code.lang-css:after {
+pre code::after {
   color: #ccc;
+  content: attr(data-lang);
   font-size: 0.75em;
   font-weight: 600;
   height: 15px;
@@ -407,22 +420,6 @@ pre code.lang-css:after {
   right: 0;
   text-align: right;
   top: 0;
-}
-
-pre code.lang-html:after {
-  content: 'HTML';
-}
-
-pre code.lang-js:after {
-  content: 'JS';
-}
-
-pre code.lang-bash:after {
-  content: 'Shell';
-}
-
-pre code.lang-css:after {
-  content: 'CSS';
 }
 
 .content img {
@@ -439,9 +436,4 @@ pre code.lang-css:after {
   margin-left: 20px;
   vertical-align: middle;
   width: 280px;
-}
-
-/* these aren't in gitbook at the moment, but leaving them in for future reference */
-img {
-  border: none;
 }
