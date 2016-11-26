@@ -4,8 +4,9 @@
 
 >🃏 A magical documentation site generator.
 
-## CLI
-[https://github.com/QingWei-Li/docsify-cli](https://github.com/QingWei-Li/docsify-cli)
+## Links
+- [Documentation](https://qingwei-li.github.io/docsify)
+- [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
 - Easy and lightweight
