@@ -15,10 +15,6 @@ var build = function (opts) {
 
       console.log(dest)
       bundle.write({
-        globals: !opts.inline ? {
-          marked: 'marked',
-          prismjs: 'Prism'
-        } : {},
         format: 'umd',
         moduleName: opts.moduleName || 'Docsify',
         dest: dest
@@ -27,22 +23,12 @@ var build = function (opts) {
 }
 
 build({
-  entry: 'docsify.js'
+  entry: 'docsify.js',
+  output: 'docsify.js',
+  plugins: [commonjs(), nodeResolve()]
 })
 build({
   entry: 'docsify.js',
   output: 'docsify.min.js',
-  plugins: [uglify()]
-})
-build({
-  entry: 'docsify.js',
-  output: 'docsify.pack.js',
-  plugins: [commonjs(), nodeResolve()],
-  inline: false
-})
-build({
-  entry: 'docsify.js',
-  output: 'docsify.pack.min.js',
-  plugins: [commonjs(), nodeResolve(), uglify()],
-  inline: false
+  plugins: [commonjs(), nodeResolve(), uglify()]
 })
