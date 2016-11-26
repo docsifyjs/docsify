@@ -283,13 +283,14 @@ main {
 }
 
 .markdown-section pre {
-  font-family: 'Roboto Mono', Monaco, courier, monospace;
   -moz-osx-font-smoothing: initial;
   -webkit-font-smoothing: initial;
   background-color: #f8f8f8;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
   line-height: 1.5em;
   margin: 1.2em 0;
   padding: 1.2em 1.4em;
+  position: relative;
 }
 
 /* code highlight */
@@ -415,7 +416,6 @@ code .token {
 
 pre code {
   overflow-x: auto;
-  position: relative;
   padding: 0;
   background-color: #f8f8f8;
   padding: 0.8em 0.8em 0.4em;
@@ -423,7 +423,7 @@ pre code {
   border-radius: 2px;
 }
 
-pre code::after {
+pre::after {
   color: #ccc;
   content: attr(data-lang);
   font-size: 0.75em;

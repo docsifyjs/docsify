@@ -362,9 +362,10 @@ main {
 }
 
 .markdown-section pre>code {
-  padding: 0;
+  display: block;
   font-family: Inconsolata;
   line-height: 1.2em;
+  padding: 0;
 }
 
 .markdown-section code::after, .markdown-section code::before {

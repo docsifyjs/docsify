@@ -30,7 +30,7 @@ renderer.heading = function (text, level) {
 renderer.code = function (code, lang) {
   const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
 
-  return `<pre><code class="lang-${lang}" data-lang="${lang}">${hl}</code></pre>`
+  return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
 }
 marked.setOptions({ renderer })
 
