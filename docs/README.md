@@ -86,8 +86,8 @@ Code in `404.html`
 
 ```html
 <nav>
-  <a href="/">En</a>
-  <a href="/zh-cn">中文</a>
+  <a href="/docsify/">En</a>
+  <a href="/docsify/zh-cn">中文</a>
 </nav>
 ```
 
