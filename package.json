@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "node build/build.js",
+    "dev": "node app.js & nodemon --watch src themes --exec 'npm run build'",
     "test": "eslint src test"
   },
   "repository": {
@@ -30,11 +31,13 @@
     "eslint": "^3.10.2",
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",
+    "nodemon": "^1.11.0",
     "rollup": "^0.36.3",
     "rollup-plugin-buble": "^0.14.0",
     "rollup-plugin-commonjs": "^5.0.5",
     "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-uglify": "^1.0.1"
+    "rollup-plugin-uglify": "^1.0.1",
+    "serve-static": "^1.11.1"
   },
   "dependencies": {
     "marked": "^0.3.6",

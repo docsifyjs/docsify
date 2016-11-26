@@ -30,5 +30,10 @@ Create `404.html` and `README.md` into `/docs`.
 </html>
 ```
 
+## How to contribute
+
+- Fork it and clone!
+- Run `npm i && npm run dev`
+
 ## License
 MIT
