@@ -1,17 +1,23 @@
-# docsify [WIP]
-[![Build Status](https://travis-ci.org/QingWei-Li/docsify.svg?branch=master)](https://travis-ci.org/QingWei-Li/docsify)
-[![npm](https://img.shields.io/npm/v/docsify.svg)](https://www.npmjs.com/package/docsify)
+# docsify
 
->🃏 A magical documentation site generator.
+> A magical documentation site generator.
 
 ## Features
 - Easy and lightweight
-- Custom themes and plugins
+- Custom themes
+- No build
 
-## Quick start
-Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create `404.html` and `README.md` into `/docs`.
+## Quick Start
 
-404.html
+### Create a project
+First create a project, then create a `docs` folder
+```shell
+mkdir my-project && cd my-project
+mkdir docs && cd docs
+```
+
+### Create entry file
+Create a `404.html` file
 
 ```html
 <!DOCTYPE html>
@@ -20,16 +26,73 @@ Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create
   <meta charset="UTF-8">
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
 </head>
-<body></body>
+<body>
+  <div id="app"></div>
+</body>
 <script src="//unpkg.com/docsify"></script>
 </html>
 ```
 
-```javascript
-import Vue from 'vue'
+Create `README.md` as the main page
 
-Vue.use(ElementUI)
+```
+# Title
+
+## balabala
 ```
 
-## License
-MIT
+### Deploy!
+Push and open the **GitHub Pages** feature
+![image](https://cloud.githubusercontent.com/assets/7565692/20639058/e65e6d22-b3f3-11e6-9b8b-6309c89826f2.png)
+
+## CLI
+
+Easy to setup and preivew a docs.
+
+### Install
+```shell
+npm i docsify-cli -g
+```
+
+### Setup
+
+Setup a boilerplate docs
+```shell
+docsify init docs
+```
+
+### Preview
+Preview and serve your docs using
+```shell
+docsify serve docs
+```
+
+Read more [docsify-cli](https://github.com/QingWei-Li/docsify-cli)
+
+## Themes
+Currently available `vue.css` and `buble.css`
+```html
+<link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+<link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css">
+```
+
+## More
+
+### Multiple pages
+If you need other pages, directly create the markdown file, such as `guide.md` is `/guide`.
+
+### Navbar
+Code in `404.html`
+
+```html
+<nav>
+  <a href="/">En</a>
+  <a href="/zh-cn">中文</a>
+</nav>
+```
+
+### GitHub Corner
+Modify your `404.html`
+```html
+<script src="//unpkg.com/docsify" data-repo="your/repo"></script>
+```

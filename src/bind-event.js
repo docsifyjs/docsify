@@ -18,12 +18,12 @@ function scrollActiveSidebar () {
       const node = anchors[i].parentNode
       const bcr = node.getBoundingClientRect()
 
-      if (bcr.top < 150 && bcr.bottom > 150) {
-        const li = nav[ node.id ]
+      if (bcr.top < 10 && bcr.bottom > 10) {
+        const li = nav[node.id]
         if (li === active) return
-        if (active) active.classList.remove('active')
+        if (active) active.setAttribute('class', '')
 
-        li.classList.add('active')
+        li.setAttribute('class', 'active')
         active = li
 
         return

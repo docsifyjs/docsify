@@ -14,8 +14,8 @@ const tocToTree = function (toc) {
       last[len].children.push(headline)
     } else {
       headlines.push(headline)
-      last[level] = headline
     }
+    last[level] = headline
   })
 
   return headlines
@@ -27,13 +27,15 @@ const buildHeadlinesTree = function (tree, tpl = '') {
   tree.forEach((node) => {
     tpl += `<li><a class="section-link" href="#${node.slug}">${node.title}</a></li>`
     if (node.children) {
-      tpl += `<li><ul class="children">${buildHeadlinesTree(node.children)}</li>`
+      tpl += `<li><ul class="children">${buildHeadlinesTree(node.children)}</li></ul>`
     }
   })
 
-  return tpl + '</ul>'
+  return tpl
 }
 
 export default function (toc) {
-  return buildHeadlinesTree(tocToTree(toc), '<ul>')
+  var tree = tocToTree(toc)
+  var result = buildHeadlinesTree(tree, '<ul>')
+  return result
 }

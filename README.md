@@ -13,7 +13,7 @@
 - No build
 
 ## Quick start
-Such as [./docs](https://github.com/QingWei-Li/docsify/tree/master/docs), Create `404.html` and `README.md` into `/docs`.
+Create `404.html` and `README.md` into `/docs`.
 
 404.html
 

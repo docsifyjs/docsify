@@ -11,20 +11,45 @@ s@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pr
   -webkit-font-smoothing: antialiased;
 }
 
+/* navbar */
+nav {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  margin: 25px 60px 0 0;
+  text-align: right;
+}
+
+nav a {
+  margin: 0 1em;
+  padding: 5px 0;
+  font-size: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: color .3s;
+}
+
+nav a:hover {
+  color: #42b983;
+}
+
+nav a.active {
+  color: #42b983;
+  border-bottom: 2px solid #42b983;
+}
+
 /* github corner */
 .github-corner {
-  display: block;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   z-index: 10;
 }
 
 .github-corner svg {
-  border: 0;
   color: #fff;
   fill: #42b983;
-  position: absolute;
-  right: 0;
-  top: 0;
   height: 80px;
   width: 80px;
 }
@@ -63,11 +88,6 @@ body {
   margin: 0;
 }
 
-li a {
-  color: #42b983;
-  font-weight: 600;
-}
-
 /* main */
 main {
   height: 100%;
@@ -101,7 +121,7 @@ main {
 .sidebar ul li a {
   color: #7f8c8d;
   display: block;
-  padding: 10px 15px;
+  padding: 6px 15px;
   border-bottom: none;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -115,7 +135,7 @@ main {
 
 .sidebar ul li.active>a {
   color: #42b983;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .sidebar ul li ul {
@@ -229,11 +249,6 @@ main {
 .markdown-section ul,
 .markdown-section ol {
   padding-left: 1.5em;
-}
-
-.markdown-section a {
-  color: #42b983;
-  font-weight: 600;
 }
 
 .markdown-section blockquote {

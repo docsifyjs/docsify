@@ -33,6 +33,9 @@ class Docsify {
     this.loc = document.location.pathname
     if (/\/$/.test(this.loc)) this.loc += 'README'
     this.load()
+
+    const nav = document.querySelector('nav')
+    if (nav) this.activeNav(nav)
   }
 
   load () {
@@ -48,8 +51,20 @@ class Docsify {
   }
 
   render (content) {
-    document.title = this.loc.slice(1) + this.opts.title
+    if (this.loc.slice(1) !== 'README') {
+      document.title = this.loc.slice(1) + this.opts.title
+    }
     this.dom[this.replace ? 'outerHTML' : 'innerHTML'] = render(content, this.opts)
+  }
+
+  activeNav (elm) {
+    const host = document.location.origin + document.location.pathname
+
+    ;[].slice.call(elm.querySelectorAll('a')).forEach(node => {
+      if (node.href === host) {
+        node.setAttribute('class', 'active')
+      }
+    })
   }
 }
 
