@@ -19,7 +19,7 @@ const renderer = new marked.Renderer()
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
-  const slug = text.toLowerCase().replace(/[\s\n\t]+/g, '-')
+  const slug = text.replace(/<(?:.|\n)*?>/gm, '').toLowerCase().replace(/[\s\n\t]+/g, '-')
 
   toc.push({ level, slug, title: text })
 
