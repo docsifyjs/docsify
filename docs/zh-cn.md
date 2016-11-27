@@ -75,7 +75,7 @@ docsify serve docs
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css">
 ```
 
-### 压缩版
+压缩版
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">

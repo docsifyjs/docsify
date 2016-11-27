@@ -27,7 +27,7 @@ renderer.heading = function (text, level) {
 }
 
 // highlight code
-renderer.code = function (code, lang) {
+renderer.code = function (code, lang = '') {
   const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
 
   return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
