@@ -9,7 +9,7 @@
     "themes"
   ],
   "scripts": {
-    "build": "node build/build.js",
+    "build": "rm -rf lib && node build/build.js && mkdir lib/themes && node build/build-css.js",
     "dev": "node app.js & nodemon --watch src themes --exec 'npm run build'",
     "test": "eslint src test"
   },
@@ -28,6 +28,7 @@
   "homepage": "https://QingWei-Li.github.io/docsify",
   "license": "MIT",
   "devDependencies": {
+    "cssnano": "^3.8.1",
     "eslint": "^3.10.2",
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",

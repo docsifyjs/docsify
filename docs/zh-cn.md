@@ -75,6 +75,13 @@ docsify serve docs
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css">
 ```
 
+### 压缩版
+
+```html
+<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css">
+```
+
 ## 更多功能
 
 ### 多页面

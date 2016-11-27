@@ -76,6 +76,13 @@ Currently available `vue.css` and `buble.css`
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css">
 ```
 
+Minified files
+
+```html
+<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css">
+```
+
 ## More
 
 ### Multiple pages
