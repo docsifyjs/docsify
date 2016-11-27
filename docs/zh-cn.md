@@ -119,7 +119,7 @@ docsify serve docs
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
-#### 自定义 sidebar
+#### sidebar
 
 设置后 toc 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
 
