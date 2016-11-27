@@ -119,4 +119,26 @@ docsify serve docs
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
+#### sidebar
+
+设置后 TOC 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
+
+![image](https://cloud.githubusercontent.com/assets/7565692/20647425/de5ab1c2-b4ce-11e6-863a-135868f2f9b4.png)
+
+```html
+<script>
+  window.sidebar = [
+    { slug: '/', title: 'Home' },
+    {
+      slug: '/pageA',
+      title: 'page A',
+      children: [
+        { slug: '/pageA/childrenB', title: 'children B' }
+      ]
+    },
+    { slug: '/PageC', title: 'Page C' }
+  ]
+</script>
+<script src="/lib/docsify.js" data-sidebar="sidebar"></script>
+```
 

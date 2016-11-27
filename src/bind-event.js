@@ -1,5 +1,5 @@
-function scrollActiveSidebar () {
-  if (/mobile/i.test(navigator.userAgent)) return
+function scrollActiveSidebar (isCustom) {
+  if (/mobile/i.test(navigator.userAgent) || isCustom) return
 
   const anchors = document.querySelectorAll('.anchor')
   const nav = {}
@@ -48,6 +48,6 @@ function scrollActiveSidebar () {
   scrollIntoView()
 }
 
-export default function () {
-  scrollActiveSidebar()
+export default function (isCustom) {
+  scrollActiveSidebar(isCustom)
 }
