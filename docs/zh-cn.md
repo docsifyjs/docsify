@@ -121,7 +121,7 @@ docsify serve docs
 
 #### sidebar
 
-设置后 toc 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
+设置后 TOC 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
 
 ![image](https://cloud.githubusercontent.com/assets/7565692/20647425/de5ab1c2-b4ce-11e6-863a-135868f2f9b4.png)
 
