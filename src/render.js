@@ -21,7 +21,7 @@ const renderer = new marked.Renderer()
 renderer.heading = function (text, level) {
   const slug = text.replace(/<(?:.|\n)*?>/gm, '').toLowerCase().replace(/[\s\n\t]+/g, '-')
 
-  toc.push({ level, slug, title: text })
+  toc.push({ level, slug: '#' + slug, title: text })
 
   return `<h${level} id="${slug}"><a href="#${slug}" class="anchor"></a>${text}</h${level}>`
 }
@@ -45,7 +45,7 @@ export default function (content, opts = {}) {
   const section = `<section class="content">
     <article class="markdown-section">${marked(content)}</article>
   </section>`
-  const sidebar = `<aside class="sidebar">${genToc(toc, opts['max-level'])}</aside>`
+  const sidebar = `<aside class="sidebar">${genToc(toc, opts)}</aside>`
 
   return `${corner}<main>${sidebar}${section}</main>`
 }

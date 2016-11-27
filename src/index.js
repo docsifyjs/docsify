@@ -5,7 +5,8 @@ import bindEvent from './bind-event'
 const DEFAULT_OPTS = {
   el: '#app',
   repo: '',
-  'max-level': 6
+  'max-level': 6,
+  sidebar: ''
 }
 
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
@@ -21,15 +22,17 @@ class Docsify {
     Docsify.installed = true
 
     this.opts = Object.assign({}, opts, DEFAULT_OPTS)
-
     this.replace = true
     this.dom = document.querySelector(this.opts.el)
     if (!this.dom) {
       this.dom = document.body
       this.replace = false
     }
+    if (this.opts.sidebar) this.opts.sidebar = window[this.opts.sidebar]
+
     this.loc = document.location.pathname
     if (/\/$/.test(this.loc)) this.loc += 'README'
+
     this.load()
 
     const nav = document.querySelector('nav')
@@ -43,7 +46,10 @@ class Docsify {
         this.render('not found')
       } else {
         this.render(res.target.response)
-        bindEvent()
+        bindEvent(!!this.opts.sidebar)
+        if (this.opts.sidebar) {
+          this.activeNav(document.querySelector('aside.sidebar'), true)
+        }
       }
     })
   }
@@ -52,12 +58,14 @@ class Docsify {
     this.dom[this.replace ? 'outerHTML' : 'innerHTML'] = render(content, this.opts)
   }
 
-  activeNav (elm) {
+  activeNav (elm, activeParentNode) {
     const host = document.location.origin + document.location.pathname
 
     ;[].slice.call(elm.querySelectorAll('a')).forEach(node => {
       if (node.href === host) {
-        node.setAttribute('class', 'active')
+        activeParentNode
+          ? node.parentNode.setAttribute('class', 'active')
+          : node.setAttribute('class', 'active')
       }
     })
   }

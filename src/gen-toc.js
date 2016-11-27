@@ -25,8 +25,8 @@ const tocToTree = function (toc, maxLevel) {
 const buildHeadlinesTree = function (tree, tpl = '') {
   if (!tree || !tree.length) return ''
 
-  tree.forEach((node) => {
-    tpl += `<li><a class="section-link" href="#${node.slug}">${node.title}</a></li>`
+  tree.forEach(node => {
+    tpl += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`
     if (node.children) {
       tpl += `<li><ul class="children">${buildHeadlinesTree(node.children)}</li></ul>`
     }
@@ -35,7 +35,10 @@ const buildHeadlinesTree = function (tree, tpl = '') {
   return tpl
 }
 
-export default function (toc, maxLevel) {
-  var tree = tocToTree(toc, maxLevel)
+export default function (toc, opts) {
+  var tree = Array.isArray(opts.sidebar)
+    ? opts.sidebar
+    : tocToTree(toc, opts['max-level'])
+
   return buildHeadlinesTree(tree, '<ul>')
 }

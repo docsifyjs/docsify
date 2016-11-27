@@ -121,3 +121,26 @@ Root element.
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
+#### sidebar
+
+Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on the `data-sidebar`.
+
+![image](https://cloud.githubusercontent.com/assets/7565692/20647425/de5ab1c2-b4ce-11e6-863a-135868f2f9b4.png)
+
+```html
+<script>
+  window.sidebar = [
+    { slug: '/', title: 'Home' },
+    {
+      slug: '/pageA',
+      title: 'page A',
+      children: [
+        { slug: '/pageA/childrenB', title: 'children B' }
+      ]
+    },
+    { slug: '/PageC', title: 'Page C' }
+  ]
+</script>
+<script src="/lib/docsify.js" data-sidebar="sidebar"></script>
+```
+
