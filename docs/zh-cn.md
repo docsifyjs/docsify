@@ -90,11 +90,26 @@ docsify serve docs
 </nav>
 ```
 
-### GitHub Corner
+### 配置参数
+
+#### repo
 参考本文档的右上角的 GitHub 图标，如果要开启的话，将 `404.html` 里的 script 改成
 
 ```html
 <script src="//unpkg.com/docsify" data-repo="your/repo"></script>
+```
+
+#### max-level
+目录最大展开层级，默认值为 6
+
+```html
+<script src="//unpkg.com/docsify" data-max-level="6"></script>
+```
+
+#### el
+替换节点元素，默认为 `#app`
+```html
+<script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
 

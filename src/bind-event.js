@@ -20,6 +20,8 @@ function scrollActiveSidebar () {
 
       if (bcr.top < 10 && bcr.bottom > 10) {
         const li = nav[node.id]
+
+        if (!li) return
         if (li === active) return
         if (active) active.setAttribute('class', '')
 

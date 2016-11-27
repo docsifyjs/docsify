@@ -91,8 +91,26 @@ Code in `404.html`
 </nav>
 ```
 
-### GitHub Corner
-Modify your `404.html`
+### Options
+
+#### repo
+Display the [GitHub Corner](http://tholman.com/github-corners/) widget.
+
 ```html
 <script src="//unpkg.com/docsify" data-repo="your/repo"></script>
 ```
+
+#### max-level
+Toc level.
+
+```html
+<script src="//unpkg.com/docsify" data-max-level="6"></script>
+```
+
+#### el
+Root element.
+
+```html
+<script src="//unpkg.com/docsify" data-el="#app"></script>
+```
+

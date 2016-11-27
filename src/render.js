@@ -45,7 +45,7 @@ export default function (content, opts = {}) {
   const section = `<section class="content">
     <article class="markdown-section">${marked(content)}</article>
   </section>`
-  const sidebar = `<aside class="sidebar">${genToc(toc)}</aside>`
+  const sidebar = `<aside class="sidebar">${genToc(toc, opts['max-level'])}</aside>`
 
   return `${corner}<main>${sidebar}${section}</main>`
 }

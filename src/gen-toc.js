@@ -1,7 +1,7 @@
 /**
  * @link from https://github.com/killercup/grock/blob/5280ae63e16c5739e9233d9009bc235ed7d79a50/styles/solarized/assets/js/behavior.coffee#L54-L81
  */
-const tocToTree = function (toc) {
+const tocToTree = function (toc, maxLevel) {
   const headlines = []
   const last = {}
 
@@ -9,6 +9,7 @@ const tocToTree = function (toc) {
     const level = headline.level || 1
     const len = level - 1
 
+    if (level > maxLevel) return
     if (last[len]) {
       last[len].children = last[len].children || []
       last[len].children.push(headline)
@@ -34,8 +35,7 @@ const buildHeadlinesTree = function (tree, tpl = '') {
   return tpl
 }
 
-export default function (toc) {
-  var tree = tocToTree(toc)
-  var result = buildHeadlinesTree(tree, '<ul>')
-  return result
+export default function (toc, maxLevel) {
+  var tree = tocToTree(toc, maxLevel)
+  return buildHeadlinesTree(tree, '<ul>')
 }

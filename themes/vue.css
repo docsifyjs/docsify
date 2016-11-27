@@ -208,10 +208,8 @@ main {
 }
 
 .markdown-section h2 {
-  border-bottom: 1px solid #ddd;
   font-size: 1.75em;
   margin: 45px 0 0.8em;
-  padding-bottom: 0.7em;
 }
 
 .markdown-section h3 {

@@ -4,7 +4,8 @@ import bindEvent from './bind-event'
 
 const DEFAULT_OPTS = {
   el: '#app',
-  repo: ''
+  repo: '',
+  'max-level': 6
 }
 
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
