@@ -15,10 +15,13 @@ var build = function (opts) {
 
       console.log(dest)
       bundle.write({
-        format: 'umd',
+        format: 'iife',
         moduleName: opts.moduleName || 'Docsify',
         dest: dest
       })
+    })
+    .catch(function (err) {
+      console.error(err)
     })
 }
 

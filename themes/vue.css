@@ -21,6 +21,11 @@ nav {
   text-align: right;
 }
 
+nav ul, nav li {
+  list-style: none;
+  display: inline-block;
+}
+
 nav a {
   margin: 0 1em;
   padding: 5px 0;
@@ -118,10 +123,13 @@ main {
   list-style: none;
 }
 
+.sidebar li {
+  margin: 12px 15px;
+}
+
 .sidebar ul li a {
   color: #7f8c8d;
   display: block;
-  padding: 6px 15px;
   border-bottom: none;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -136,10 +144,6 @@ main {
 .sidebar ul li.active>a {
   color: #42b983;
   font-weight: 500;
-}
-
-.sidebar ul li ul {
-  padding-left: 20px;
 }
 
 /* main content */

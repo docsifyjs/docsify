@@ -144,3 +144,60 @@ Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on th
 <script src="/lib/docsify.js" data-sidebar="sidebar"></script>
 ```
 
+
+#### load-sidebar
+
+Load sidebar markdown file. If it is configured, load  the current directory `_sidebar.md` by default. If the file isn't exist, sidebar will appear TOC.
+
+```html
+<script src="/lib/docsify.js" data-load-sidebar></script>
+```
+
+You can specify a file:
+
+```html
+<script src="/lib/docsify.js" data-load-sidebar="_sidebar.md"></script>
+```
+
+The contents of the file can be:
+
+```markdown
+- [Home](/)
+- [Installation](/installation)
+- Essentials
+  - [Getting Started](/getting-started)
+  - [Dynamic Route Matching](/dynamic-matching)
+  - [Nested Routes](/nested-routes)
+  - [Programmatic Navigation](/navigation)
+  - [Named Routes](/named-routes)
+  - [Named Views](/named-views)
+  - [Redirect and Alias](/redirect-and-alias)
+  - [HTML5 History Mode](/history-mode)
+```
+
+#### load-navbar
+
+Load navbar markdown file. If it is configured, load  the current directory `_navbar.md` by default.
+
+```html
+<script src="/lib/docsify.js" data-load-navbar></script>
+```
+
+You can specify a file:
+
+```html
+<script src="/lib/docsify.js" data-load-navbar="_navbar.md"></script>
+```
+
+The contents of the file can be:
+
+```markdown
+- [en](/)
+- [chinese](/zh-cn)
+```
+
+## FAQ
+
+### Why use `404.html` instead of `index.html`
+
+[issues/7](https://github.com/QingWei-Li/docsify/issues/7)

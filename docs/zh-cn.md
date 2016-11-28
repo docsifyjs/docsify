@@ -142,3 +142,63 @@ docsify serve docs
 <script src="/lib/docsify.js" data-sidebar="sidebar"></script>
 ```
 
+#### load-sidebar
+
+读取侧边栏配置文件，如果配置，默认加载当前目录下的 `_sidebar.md`。如果文件不存在，会显示 TOC 作为侧边栏内容。如果你有二级目录，也应该放置一份配置文件。
+
+```html
+<script src="/lib/docsify.js" data-load-sidebar></script>
+```
+
+你可以指定侧边栏文件名
+
+```html
+<script src="/lib/docsify.js" data-load-sidebar="_sidebar.md"></script>
+```
+
+`_sidebar.md` 的内容可以是这样的
+
+```markdown
+- [Home](/)
+- [Installation](/installation)
+- Essentials
+  - [Getting Started](/getting-started)
+  - [Dynamic Route Matching](/dynamic-matching)
+  - [Nested Routes](/nested-routes)
+  - [Programmatic Navigation](/navigation)
+  - [Named Routes](/named-routes)
+  - [Named Views](/named-views)
+  - [Redirect and Alias](/redirect-and-alias)
+  - [HTML5 History Mode](/history-mode)
+```
+
+#### load-navbar
+
+读取导航配置文件，如果配置，默认加载当前目录下的 `_navbar.md`。如果文件不存在，会显示 html 里定义的导航栏。
+
+```html
+<script src="/lib/docsify.js" data-load-navbar></script>
+```
+
+你可以指定导航栏文件名
+
+```html
+<script src="/lib/docsify.js" data-load-navbar="_navbar.md"></script>
+```
+
+`_navbar.md` 的内容可以是这样
+
+```markdown
+- [en](/)
+- [中文](/zh-cn)
+```
+
+## FAQ
+
+### 为什么是 `404.html` 而不用 `index.html`
+
+docsify 想要实现的是用最简单的方式 **动态渲染内容**。
+
+例如我有两个文档分别为 `README.md` 和 `guide.md`，如果我用 `index.html` 作为文件名，`README.md` 可以被正确的渲染因为我们已经规定它为首页文件，但是如果我们访问 `my-domain.com/guide` 想要得到的结果是 `guide.md` 的内容，它将无法工作，因为目录下并不存在一个 `guide.html` 的文件。
+
+但是 GitHub Pages 服务器找不到资源， 就会回退并渲染 `404.html` 文件。😄

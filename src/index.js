@@ -1,81 +1,52 @@
-import ajax from './ajax'
-import render from './render'
-import bindEvent from './bind-event'
+import { load, camel2kebab, isNil } from './util'
+import * as render from './render'
 
-const DEFAULT_OPTS = {
+const OPTIONS = {
   el: '#app',
   repo: '',
-  'max-level': 6,
-  sidebar: ''
+  maxLevel: 6,
+  sidebar: '',
+  loadSidebar: null,
+  loadNavbar: null
 }
-
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 
+// load configuration for script attribute
 if (script) {
-  for (const prop in DEFAULT_OPTS) {
-    DEFAULT_OPTS[prop] = script.getAttribute('data-' + prop) || DEFAULT_OPTS[prop]
+  for (const prop in OPTIONS) {
+    const val = script.getAttribute('data-' + camel2kebab(prop))
+    OPTIONS[prop] = isNil(val) ? OPTIONS[prop] : true
+  }
+  if (OPTIONS.loadSidebar === true) OPTIONS.loadSidebar = '_sidebar.md'
+  if (OPTIONS.loadNavbar === true) OPTIONS.loadNavbar = '_navbar.md'
+  if (OPTIONS.sidebar) OPTIONS.sidebar = window[OPTIONS.sidebar]
+}
+
+const Docsify = function () {
+  const dom = document.querySelector(OPTIONS.el) || document.body
+  const replace = dom !== document.body
+  let loc = document.location.pathname
+
+  if (/\/$/.test(loc)) loc += 'README'
+
+  // Render app
+  render.renderApp(dom, replace, OPTIONS)
+
+  // Render markdown file
+  load(`${loc}.md`)
+    .then(render.renderArticle, _ => render.renderArticle())
+
+  // Render sidebar
+  if (OPTIONS.loadSidebar) {
+    load(OPTIONS.loadSidebar)
+      .then(content => render.renderSidebar(content, OPTIONS))
+  }
+
+  // Render navbar
+  if (OPTIONS.loadNavbar) {
+    load(OPTIONS.loadNavbar)
+      .then(content => render.renderNavbar(content, OPTIONS))
   }
 }
 
-class Docsify {
-  constructor (opts) {
-    Docsify.installed = true
-
-    this.opts = Object.assign({}, opts, DEFAULT_OPTS)
-    this.replace = true
-    this.dom = document.querySelector(this.opts.el)
-    if (!this.dom) {
-      this.dom = document.body
-      this.replace = false
-    }
-    if (this.opts.sidebar) this.opts.sidebar = window[this.opts.sidebar]
-
-    this.loc = document.location.pathname
-    if (/\/$/.test(this.loc)) this.loc += 'README'
-
-    this.load()
-
-    const nav = document.querySelector('nav')
-    if (nav) this.activeNav(nav)
-  }
-
-  load () {
-    ajax(`${this.loc}.md`)
-    .then(res => {
-      const target = res.target
-      if (target.status >= 400) {
-        this.render('not found')
-      } else {
-        this.render(res.target.response)
-        bindEvent(!!this.opts.sidebar)
-        if (this.opts.sidebar) {
-          this.activeNav(document.querySelector('aside.sidebar'), true)
-        }
-      }
-    })
-    .catch(_ => this.render('not found'))
-  }
-
-  render (content) {
-    this.dom[this.replace ? 'outerHTML' : 'innerHTML'] = render(content, this.opts)
-  }
-
-  activeNav (elm, activeParentNode) {
-    const host = document.location.origin + document.location.pathname
-
-    ;[].slice.call(elm.querySelectorAll('a')).forEach(node => {
-      if (node.href === host) {
-        activeParentNode
-          ? node.parentNode.setAttribute('class', 'active')
-          : node.setAttribute('class', 'active')
-      }
-    })
-  }
-}
-
-window.addEventListener('load', () => {
-  if (Docsify.installed) return
-  new Docsify()
-})
-
-export default Docsify
+export default Docsify()
