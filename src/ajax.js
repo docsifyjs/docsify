@@ -5,7 +5,13 @@ export default function (url, options = {}) {
   xhr.send()
 
   return {
-    then: cb => xhr.addEventListener('load', cb),
-    catch: cb => xhr.addEventListener('error', cb)
+    then: function (cb) {
+      xhr.addEventListener('load', cb)
+      return this
+    },
+    catch: function (cb) {
+      xhr.addEventListener('error', cb)
+      return this
+    }
   }
 }

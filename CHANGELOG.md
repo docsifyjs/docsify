@@ -1,3 +1,7 @@
+## 0.4.2
+## Bug fixes
+- Correct catch ajax error
+
 ## 0.4.1
 ## Bug fixes
 - catch ajax error
