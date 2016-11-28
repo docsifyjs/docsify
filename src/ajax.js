@@ -5,6 +5,7 @@ export default function (url, options = {}) {
   xhr.send()
 
   return {
-    then: cb => xhr.addEventListener('load', cb)
+    then: cb => xhr.addEventListener('load', cb),
+    catch: cb => xhr.addEventListener('error', cb)
   }
 }

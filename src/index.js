@@ -40,7 +40,8 @@ class Docsify {
   }
 
   load () {
-    ajax(`${this.loc}.md`).then(res => {
+    ajax(`${this.loc}.md`)
+    .then(res => {
       const target = res.target
       if (target.status >= 400) {
         this.render('not found')
@@ -52,6 +53,7 @@ class Docsify {
         }
       }
     })
+    .catch(_ => this.render('not found'))
   }
 
   render (content) {
