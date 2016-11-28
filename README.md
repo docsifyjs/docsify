@@ -5,7 +5,7 @@
 >🃏 A magical documentation site generator.
 
 ## Links
-- [Documentation](https://qingwei-li.github.io/docsify)
+- [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
