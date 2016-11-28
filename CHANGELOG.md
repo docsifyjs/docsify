@@ -1,3 +1,7 @@
+## 0.4.1
+## Bug fixes
+- catch ajax error
+
 ## 0.4.0
 ### Features
 - Custom sidebar
