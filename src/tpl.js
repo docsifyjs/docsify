@@ -1,4 +1,3 @@
-import { genTree } from './util'
 
 /**
  * Render github corner
@@ -6,6 +5,7 @@ import { genTree } from './util'
  * @return {String}
  */
 export function corner (data) {
+  if (!data) return ''
   if (!/\/\//.test(data)) data = 'https://github.com/' + data
 
   return `
@@ -19,63 +19,33 @@ export function corner (data) {
 }
 
 /**
- * Render sidebar
- * @param  {Object} data
- * @return {String}
- */
-export function sidebar (data) {
-  return `<aside class="sidebar">${data}</aside>`
-}
-
-/**
- * Render article
- * @param  {Object} data
- * @return {String}
- */
-export function article (data) {
-  return `<section class="content">
-    <article class="markdown-section">${data}</article>
-  </section>`
-}
-
-/**
  * Render main content
- * @param  {[type]} data - { toc: '', article: '' }
  * @return {[type]}      [description]
  */
-export function main (data) {
-  return `<main>${data.sidebar}${data.article}</main>`
-}
-
-/**
- * Render tree tpl
- * @param  {Array} tree
- * @param  {String} tpl
- * @return {String}
- */
-const renderTree = function (tree, tpl = '<ul>') {
-  if (!tree || !tree.length) return ''
-
-  tree.forEach(node => {
-    tpl += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`
-    if (node.children) {
-      tpl += `<li><ul class="children">${renderTree(node.children)}</li></ul>`
-    }
-  })
-
-  return tpl
+export function main () {
+  return `<main>
+    <aside class="sidebar"></aside>
+    <section class="content">
+      <article class="markdown-section"></article>
+    </section>
+  </main>`
 }
 
 /**
  * Render tree
- * @param  {Array} toc
- * @param  {Object} opts - docsify options
+ * @param  {Array} tree
+ * @param  {String} tpl
  * @return {String}
  */
-export function tree (toc, opts) {
-  const _tree = Array.isArray(opts.sidebar)
-    ? opts.sidebar
-    : genTree(toc, opts['max-level'])
+export function tree (toc, tpl = '') {
+  if (!toc || !toc.length) return ''
 
-  return renderTree(_tree)
+  toc.forEach(node => {
+    tpl += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`
+    if (node.children) {
+      tpl += `<li><ul class="children">${tree(node.children)}</li></ul>`
+    }
+  })
+
+  return tpl
 }

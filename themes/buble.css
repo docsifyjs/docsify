@@ -105,7 +105,7 @@ main {
   overflow-y: auto;
   position: absolute;
   top: 0;
-  width: 14em;
+  width: 16em;
   z-index: 1;
   padding-top: 40px;
 }
@@ -141,7 +141,7 @@ main {
 /* main content */
 .content {
   bottom: 0;
-  left: 14em;
+  left: 16em;
   overflow-y: auto;
   position: absolute;
   right: 0;
@@ -152,7 +152,7 @@ main {
 
 @media screen and (max-width: 600px) {
   .sidebar {
-    left: -14em;
+    left: -16em;
   }
 
   .content {
@@ -164,7 +164,7 @@ main {
 .markdown-section {
   position: relative;
   margin: 0 auto;
-  max-width: 64em;
+  max-width: 60em;
   padding: 20px 15px 40px 15px;
 }
 

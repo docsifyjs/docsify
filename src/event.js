@@ -1,6 +1,7 @@
 
 /**
  * Active sidebar when scroll
+ * @link https://buble.surge.sh/
  */
 export function scrollActiveSidebar () {
   if (/mobile/i.test(navigator.userAgent)) return

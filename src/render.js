@@ -1,7 +1,15 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
+import { activeLink, scrollActiveSidebar } from './event'
+import { genTree } from './util'
 
+const renderTo = function (dom, content) {
+  dom = typeof dom === 'object' ? dom : document.querySelector(dom)
+  dom.innerHTML = content
+
+  return dom
+}
 const toc = []
 const renderer = new marked.Renderer()
 
@@ -24,10 +32,52 @@ renderer.code = function (code, lang = '') {
 }
 marked.setOptions({ renderer })
 
-export default function (content, opts = {}) {
-  const corner = opts.repo ? tpl.corner(opts.repo) : ''
-  const article = tpl.article(marked(content))
-  const sidebar = tpl.sidebar(tpl.tree(toc, opts))
+/**
+ * App
+ */
+export function renderApp (dom, replace, opts) {
+  const nav = document.querySelector('nav') || document.createElement('nav')
 
-  return corner + tpl.main({ article, sidebar })
+  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(opts.repo) + tpl.main()
+  document.body.insertBefore(nav, document.body.children[0])
+}
+
+/**
+ * article
+ */
+export function renderArticle (content = 'not found') {
+  renderTo('article', marked(content))
+  if (!renderSidebar.rendered) renderSidebar(null)
+  if (!renderNavbar.rendered) renderNavbar(null)
+}
+
+/**
+ * navbar
+ */
+export function renderNavbar (content, OPTIONS = {}) {
+  renderNavbar.rendered = true
+
+  if (content) renderTo('nav', marked(content))
+  activeLink('nav')
+}
+
+/**
+ * sidebar
+ */
+export function renderSidebar (content, OPTIONS = {}) {
+  renderSidebar.rendered = true
+
+  let isToc = false
+
+  if (content) {
+    content = marked(content)
+  } else if (OPTIONS.sidebar) {
+    content = tpl.tree(OPTIONS.sidebar, '<ul>')
+  } else {
+    content = tpl.tree(genTree(toc, OPTIONS.maxLevel), '<ul>')
+    isToc = true
+  }
+
+  renderTo('aside.sidebar', content)
+  isToc ? scrollActiveSidebar() : activeLink('aside.sidebar', true)
 }
