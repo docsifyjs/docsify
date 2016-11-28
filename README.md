@@ -30,6 +30,12 @@ Create `404.html` and `README.md` into `/docs`.
 </html>
 ```
 
+## Showcase
+These open-source projects are using docsify to generate their sites.
+
+- [docsify](https://docsify.js.org) - A magical documentation site generator.
+
+
 ## How to contribute
 
 - Fork it and clone!
