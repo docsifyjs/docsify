@@ -1,5 +1,9 @@
-function scrollActiveSidebar (isCustom) {
-  if (/mobile/i.test(navigator.userAgent) || isCustom) return
+
+/**
+ * Active sidebar when scroll
+ */
+export function scrollActiveSidebar () {
+  if (/mobile/i.test(navigator.userAgent)) return
 
   const anchors = document.querySelectorAll('.anchor')
   const nav = {}
@@ -48,6 +52,20 @@ function scrollActiveSidebar (isCustom) {
   scrollIntoView()
 }
 
-export default function (isCustom) {
-  scrollActiveSidebar(isCustom)
+/**
+ * Acitve link
+ */
+export function activeLink (dom, activeParent) {
+  const host = document.location.origin + document.location.pathname
+
+  dom = typeof dom === 'object' ? dom : document.querySelector(dom)
+  if (!dom) return
+
+  ;[].slice.call(dom.querySelectorAll('a')).forEach(node => {
+    if (node.href === host) {
+      activeParent
+        ? node.parentNode.setAttribute('class', 'active')
+        : node.setAttribute('class', 'active')
+    }
+  })
 }
