@@ -193,6 +193,15 @@ docsify serve docs
 - [中文](/zh-cn)
 ```
 
+当然也支持二级列表，将生成一个下拉列表
+```markdown
+- [download](/download)
+- language
+  - [en](/)
+  - [中文](/zh-cn)
+```
+
+
 ## FAQ
 
 ### 为什么是 `404.html` 而不用 `index.html`

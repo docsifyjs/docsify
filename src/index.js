@@ -6,6 +6,7 @@ const OPTIONS = {
   repo: '',
   maxLevel: 6,
   sidebar: '',
+  newTab: false,
   loadSidebar: null,
   loadNavbar: null
 }

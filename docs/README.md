@@ -196,6 +196,15 @@ The contents of the file can be:
 - [chinese](/zh-cn)
 ```
 
+If you write a sub level list, it will generate a dropdown list.
+
+```markdown
+- [download](/download)
+- language
+  - [en](/)
+  - [chinese](/zh-cn)
+```
+
 ## FAQ
 
 ### Why use `404.html` instead of `index.html`

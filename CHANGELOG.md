@@ -1,3 +1,10 @@
+## 0.6.0
+### Features
+- Navbar support dropdown list, #6
+
+### Bug fixes
+- Fix ineffective option, fixed #10
+
 ## 0.5.0
 ### Features
 - Custom sidebars and navbars by markdown file

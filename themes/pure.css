@@ -19,6 +19,51 @@ nav {
   text-align: right;
 }
 
+nav ul, nav li {
+  list-style: none;
+  display: inline-block;
+}
+
+/* navbar dropdown */
+nav li {
+  position: relative;
+}
+
+nav li ul {
+  padding: 0;
+  max-height: 0;
+  position: absolute;
+  top: 24px;
+  background-color: rgba(255, 255, 255, .6);
+  border: 1px solid #000;
+  right: 0;
+  overflow: hidden;
+  opacity: 0;
+  overflow-y: auto;
+  transition: opacity .3s ease, max-height .5s ease;
+}
+
+nav li:hover ul {
+  opacity: 1;
+  max-height: 100px;
+}
+
+nav li ul li {
+  display: block;
+}
+
+nav li ul a {
+  display: block;
+  font-size: 14px;
+  margin: 0;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+nav li ul a.active {
+  border-bottom: 0;
+}
+
 nav a {
   margin: 0 1em;
   padding: 5px 0;
@@ -124,6 +169,14 @@ main {
 }
 
 @media screen and (max-width: 600px) {
+  nav {
+    margin-top: 16px;
+  }
+
+  nav li ul {
+    top: 30px;
+  }
+
   .sidebar {
     left: -300px;
   }
