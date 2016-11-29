@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
 
 * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -38,28 +40,17 @@ nav li ul {
   position: absolute;
   right: 0;
   top: 26px;
-  -webkit-transform-origin: 100% 0%;
-          transform-origin: 100% 0%;
-  -webkit-transform: scale(1, 0);
-          transform: scale(1, 0);
-  -webkit-transition: opacity .4s ease-out, -webkit-transform .2s ease;
-  transition: opacity .4s ease-out, -webkit-transform .2s ease;
+  transform-origin: 100% 0%;
+  transform: scale(1, 0);
   transition: opacity .4s ease-out, transform .2s ease;
-  transition: opacity .4s ease-out, transform .2s ease, -webkit-transform .2s ease;
-  -webkit-transition-delay: .3s;
-          transition-delay: .3s;
+  transition-delay: .3s;
 }
 
 nav li:hover ul {
   opacity: 1;
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
-  -webkit-transition: opacity .4s ease, -webkit-transform .2s ease-out;
-  transition: opacity .4s ease, -webkit-transform .2s ease-out;
+  transform: scale(1, 1);
   transition: opacity .4s ease, transform .2s ease-out;
-  transition: opacity .4s ease, transform .2s ease-out, -webkit-transform .2s ease-out;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  transition-delay: 0;
 }
 
 nav li ul li {
@@ -86,7 +77,6 @@ nav a {
   font-size: 16px;
   text-decoration: none;
   color: inherit;
-  -webkit-transition: color .3s;
   transition: color .3s;
 }
 
@@ -115,30 +105,21 @@ nav a.active {
 }
 
 .github-corner:hover .octo-arm {
-  -webkit-animation:octocat-wave 560ms ease-in-out;
-          animation:octocat-wave 560ms ease-in-out;
-}
-
-@-webkit-keyframes octocat-wave {
-  0%, 100%{ -webkit-transform: rotate(0); transform: rotate(0); }
-  20%, 60%{ -webkit-transform: rotate(-25deg); transform: rotate(-25deg); }
-  40%, 80%{ -webkit-transform: rotate(10deg); transform: rotate(10deg); }
+  animation:octocat-wave 560ms ease-in-out;
 }
 
 @keyframes octocat-wave {
-  0%, 100%{ -webkit-transform: rotate(0); transform: rotate(0); }
-  20%, 60%{ -webkit-transform: rotate(-25deg); transform: rotate(-25deg); }
-  40%, 80%{ -webkit-transform: rotate(10deg); transform: rotate(10deg); }
+  0%,100%{ transform: rotate(0); }
+  20%,60%{ transform: rotate(-25deg); }
+  40%,80%{ transform: rotate(10deg); }
 }
 
 @media (max-width: 500px) {
   .github-corner:hover .octo-arm {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
   .github-corner .octo-arm {
-    -webkit-animation: octocat-wave 560ms ease-in-out;
-            animation: octocat-wave 560ms ease-in-out;
+    animation: octocat-wave 560ms ease-in-out;
   }
 }
 
@@ -179,10 +160,7 @@ main {
   z-index: 1;
   padding-top: 40px;
   left: 0;
-  -webkit-transition: -webkit-transform 250ms ease-out;
-  transition: -webkit-transform 250ms ease-out;
   transition: transform 250ms ease-out;
-  transition: transform 250ms ease-out, -webkit-transform 250ms ease-out;
 }
 
 .sidebar ul {
@@ -221,7 +199,6 @@ main {
   left: 10px;
   position: absolute;
   text-align: center;
-  -webkit-transition: opacity .3s;
   transition: opacity .3s;
   width: 30px;
   z-index: 10;
@@ -253,8 +230,7 @@ main {
 }
 
 body.close .sidebar {
-  -webkit-transform: translateX(-16em);
-          transform: translateX(-16em);
+  transform: translateX(-16em);
 }
 
 body.close .content {
@@ -272,40 +248,29 @@ body.close .content {
 
   .sidebar {
     left: -16em;
-    -webkit-transition: -webkit-transform 250ms ease;
-    transition: -webkit-transform 250ms ease;
     transition: transform 250ms ease;
-    transition: transform 250ms ease, -webkit-transform 250ms ease;
   }
 
   .content {
     left: 0;
     min-width: 100vw;
-    -webkit-transition: -webkit-transform 250ms ease-out;
-    transition: -webkit-transform 250ms ease-out;
     transition: transform 250ms ease-out;
-    transition: transform 250ms ease-out, -webkit-transform 250ms ease-out;
   }
 
   body.close .sidebar {
-    -webkit-transform: translateX(16em);
-            transform: translateX(16em);
+    transform: translateX(16em);
   }
 
   body.close .content {
-    -webkit-transform: translateX(16em);
-            transform: translateX(16em);
+    transform: translateX(16em);
   }
   nav, .github-corner {
-    -webkit-transition: -webkit-transform 250ms ease-out;
-    transition: -webkit-transform 250ms ease-out;
     transition: transform 250ms ease-out;
-    transition: transform 250ms ease-out, -webkit-transform 250ms ease-out;
   }
 
-  body.close nav, body.close .github-corner {
-    -webkit-transform: translateX(16em);
-            transform: translateX(16em);
+  body.close nav,
+  body.close .github-corner {
+    transform: translateX(16em);
   }
 }
 
@@ -327,7 +292,11 @@ body.close .content {
   margin-top: 0!important;
 }
 
-.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong {
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section strong {
   font-weight: 400;
   color: #333;
 }
@@ -337,7 +306,9 @@ body.close .content {
   font-weight: 400;
 }
 
-.markdown-section p, .markdown-section ul, .markdown-section ol {
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
   word-spacing: 0.05em;
 }
 
@@ -348,9 +319,7 @@ body.close .content {
 }
 
 .markdown-section h2 {
-  padding: 16px 0 0 0;
   padding: 1rem 0 0 0;
-  margin: 0 0 16px 0;
   margin: 0 0 1rem 0;
   font-size: 1.8em;
   font-weight: 400;
@@ -375,16 +344,22 @@ body.close .content {
   color: #777;
 }
 
-.markdown-section figure, .markdown-section p, .markdown-section ul, .markdown-section ol {
+.markdown-section figure,
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
   margin: 1.2em 0;
 }
 
-.markdown-section p, .markdown-section ul, .markdown-section ol {
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
   margin: 0 0 1em 0;
   line-height: 1.5;
 }
 
-.markdown-section ul, .markdown-section ol {
+.markdown-section ul,
+.markdown-section ol {
   padding-left: 1.5em;
 }
 
@@ -432,7 +407,10 @@ body.close .content {
 }
 
 /* code highlight */
-.token.comment, .token.prolog, .token.doctype, .token.cdata {
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
   color: #93a1a1; /* base1 */
 }
 
@@ -444,11 +422,23 @@ body.close .content {
   opacity: .7;
 }
 
-.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted {
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
   color: #268bd2; /* blue */
 }
 
-.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.url, .token.inserted {
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.url,
+.token.inserted {
   color: #2aa198; /* cyan */
 }
 
@@ -457,7 +447,9 @@ body.close .content {
   background: #eee8d5; /* base2 */
 }
 
-.token.atrule, .token.attr-value, .token.keyword {
+.token.atrule,
+.token.attr-value,
+.token.keyword {
   color: #a11; /* green */
 }
 
@@ -465,12 +457,15 @@ body.close .content {
   color: #b58900; /* yellow */
 }
 
-.token.regex, .token.important, .token.variable {
+.token.regex,
+.token.important,
+.token.variable {
   color: #cb4b16; /* orange */
 }
 
-.token.important, .token.bold {
-  font-weight: 700;
+.token.important,
+.token.bold {
+  font-weight: bold;
 }
 .token.italic {
   font-style: italic;

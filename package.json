@@ -33,6 +33,8 @@
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",
     "nodemon": "^1.11.0",
+    "postcss": "^5.2.6",
+    "postcss-salad": "^1.0.5",
     "rollup": "^0.36.3",
     "rollup-plugin-buble": "^0.14.0",
     "rollup-plugin-commonjs": "^5.0.5",

@@ -1,20 +1,37 @@
 var fs = require('fs')
 var cssnano = require('cssnano').process
 var resolve = require('path').resolve
+var postcss = require('postcss')
 
-var save = function (file, content) {
+var processor = postcss([require('postcss-salad')])
+
+var saveMin = function (file, content) {
   fs.writeFileSync(resolve(__dirname, '../lib/themes/', file), content)
 }
+var save = function (file, content) {
+  fs.writeFileSync(resolve(__dirname, '../themes/', file), content)
+}
 var load = function (file) {
+  return fs.readFileSync(resolve(__dirname, '../src/themes/', file)).toString()
+}
+var loadLib = function (file) {
   return fs.readFileSync(resolve(__dirname, '../themes/', file)).toString()
 }
 
-var list = fs.readdirSync(resolve(__dirname, '../themes'))
+var list = fs.readdirSync(resolve(__dirname, '../src/themes'))
 
 list.forEach(function (file) {
-  cssnano(load(file))
+  processor.process(load(file))
     .then(function (result) {
       save(file, result.css)
-      console.log('cssnao - ' + file)
+      console.log('salad - ' + file)
+      cssnano(loadLib(file))
+        .then(function (result) {
+          saveMin(file, result.css)
+          console.log('cssnao - ' + file)
+        })
+    }).catch(function (err) {
+      console.log(err)
     })
 })
+
