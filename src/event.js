@@ -77,7 +77,12 @@ export function activeLink (dom, activeParent) {
 export function bindToggle (dom) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
   if (!dom) return
-  const main = document.querySelector('main')
+  const body = document.body
 
-  dom.addEventListener('click', () => main.classList.toggle('close'))
+  dom.addEventListener('click', () => body.classList.toggle('close'))
+
+  if (!/mobile/i.test(navigator.userAgent)) return
+  document.querySelector('aside').addEventListener('click', event => {
+    body.classList.toggle('close')
+  })
 }
