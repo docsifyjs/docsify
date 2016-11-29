@@ -7,6 +7,7 @@
 export function corner (data) {
   if (!data) return ''
   if (!/\/\//.test(data)) data = 'https://github.com/' + data
+  data = data.replace(/^git\+/, '')
 
   return `
   <a href="${data}" class="github-corner" aria-label="View source on Github">
