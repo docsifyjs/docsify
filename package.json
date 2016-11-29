@@ -9,7 +9,7 @@
     "themes"
   ],
   "scripts": {
-    "build": "rm -rf lib && node build/build.js && mkdir lib/themes && node build/build-css.js",
+    "build": "rm -rf lib && node build/build.js && mkdir lib/themes && mkdir themes && node build/build-css.js",
     "dev": "node app.js & nodemon --watch src themes --exec 'npm run build'",
     "test": "eslint src test"
   },
