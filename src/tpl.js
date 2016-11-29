@@ -7,6 +7,7 @@
 export function corner (data) {
   if (!data) return ''
   if (!/\/\//.test(data)) data = 'https://github.com/' + data
+  data = data.replace(/^git\+/, '')
 
   return `
   <a href="${data}" class="github-corner" aria-label="View source on Github">
@@ -29,6 +30,13 @@ export function main () {
       <article class="markdown-section"></article>
     </section>
   </main>`
+}
+
+export function toggle (bool) {
+  if (!bool) return ''
+  return `<button class="sidebar-toggle">
+    <span></span><span></span><span></span>
+  </button>`
 }
 
 /**

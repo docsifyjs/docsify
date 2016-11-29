@@ -121,6 +121,14 @@ Root element.
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
+#### sidebar-toggle
+
+Sidebar with toggle
+
+```html
+<script src="//unpkg.com/docsify" data-sidebar-toggle></script>
+```
+
 #### sidebar
 
 Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on the `data-sidebar`.
@@ -194,6 +202,15 @@ The contents of the file can be:
 ```markdown
 - [en](/)
 - [chinese](/zh-cn)
+```
+
+If you write a sub level list, it will generate a dropdown list.
+
+```markdown
+- [download](/download)
+- language
+  - [en](/)
+  - [chinese](/zh-cn)
 ```
 
 ## FAQ

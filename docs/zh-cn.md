@@ -119,6 +119,14 @@ docsify serve docs
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
+#### sidebar-toggle
+
+Sidebar 开关按钮
+
+```html
+<script src="//unpkg.com/docsify" data-sidebar-toggle></script>
+```
+
 #### sidebar
 
 设置后 TOC 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
@@ -192,6 +200,15 @@ docsify serve docs
 - [en](/)
 - [中文](/zh-cn)
 ```
+
+当然也支持二级列表，将生成一个下拉列表
+```markdown
+- [download](/download)
+- language
+  - [en](/)
+  - [中文](/zh-cn)
+```
+
 
 ## FAQ
 

@@ -1,7 +1,7 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
-import { activeLink, scrollActiveSidebar } from './event'
+import { activeLink, scrollActiveSidebar, bindToggle } from './event'
 import { genTree } from './util'
 
 const renderTo = function (dom, content) {
@@ -38,17 +38,20 @@ marked.setOptions({ renderer })
 export function renderApp (dom, replace, opts) {
   const nav = document.querySelector('nav') || document.createElement('nav')
 
-  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(opts.repo) + tpl.main()
+  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.toggle(opts.sidebarToggle) + tpl.corner(opts.repo) + tpl.main()
   document.body.insertBefore(nav, document.body.children[0])
+
+  // bind toggle
+  bindToggle('button.sidebar-toggle')
 }
 
 /**
  * article
  */
-export function renderArticle (content = 'not found') {
+export function renderArticle (content = 'not found', OPTIONS) {
   renderTo('article', marked(content))
-  if (!renderSidebar.rendered) renderSidebar(null)
-  if (!renderNavbar.rendered) renderNavbar(null)
+  if (!renderSidebar.rendered) renderSidebar(null, OPTIONS)
+  if (!renderNavbar.rendered) renderNavbar(null, OPTIONS)
 }
 
 /**

@@ -70,3 +70,14 @@ export function activeLink (dom, activeParent) {
     }
   })
 }
+
+/**
+ * sidebar toggle
+ */
+export function bindToggle (dom) {
+  dom = typeof dom === 'object' ? dom : document.querySelector(dom)
+  if (!dom) return
+  const main = document.querySelector('main')
+
+  dom.addEventListener('click', () => main.classList.toggle('close'))
+}
