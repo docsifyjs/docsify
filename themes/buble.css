@@ -17,7 +17,7 @@ nav {
   right: 0;
   left: 0;
   z-index: 10;
-  margin: 25px 60px 0 0;
+  margin: 15px 60px 0 0;
   text-align: right;
 }
 
@@ -32,34 +32,39 @@ nav li {
 }
 
 nav li ul {
-  padding: 0;
-  max-height: 0;
-  position: absolute;
-  top: 24px;
   background-color: rgba(255, 255, 255, .6);
   border: 1px solid #0074D9;
-  right: 0;
-  overflow: hidden;
   opacity: 0;
-  overflow-y: auto;
-  transition: opacity .3s ease, max-height .5s ease;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 26px;
+  transform-origin: 100% 0%;
+  transform: scale(1, 0);
+  transition: opacity .4s ease-out, transform .2s ease;
+  transition-delay: .3s;
 }
 
 nav li:hover ul {
   opacity: 1;
-  max-height: 100px;
+  transform: scale(1, 1);
+  transition: opacity .4s ease, transform .2s ease-out;
+  transition-delay: 0;
 }
 
 nav li ul li {
-  display: block;
-}
-
-nav li ul a {
   display: block;
   font-size: 14px;
   margin: 0;
   padding: 4px 10px;
   white-space: nowrap;
+}
+
+nav li ul a {
+  display: block;
+  padding: 0;
+  margin: 0;
 }
 
 nav li ul a.active {
@@ -89,7 +94,7 @@ nav a.active {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 10;
+  z-index: 1;
 }
 
 .github-corner svg {
@@ -132,6 +137,7 @@ body {
   font-size: 15px;
   letter-spacing: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 /* main */
@@ -154,7 +160,7 @@ main {
   z-index: 1;
   padding-top: 40px;
   left: 0;
-  transition: left 250ms ease-out;
+  transition: transform 250ms ease-out;
 }
 
 .sidebar ul {
@@ -221,14 +227,13 @@ main {
   top: 0;
   overflow-x: hidden;
   padding-top: 20px;
-  transition: left 250ms ease;
 }
 
-main.close .sidebar {
-  left: -16em;
+body.close .sidebar {
+  transform: translateX(-16em);
 }
 
-main.close .content {
+body.close .content {
   left: 0;
 }
 
@@ -243,21 +248,29 @@ main.close .content {
 
   .sidebar {
     left: -16em;
-    transition: left 250ms ease;
+    transition: transform 250ms ease;
   }
 
   .content {
     left: 0;
     min-width: 100vw;
-    transition: left 250ms ease-out;
+    transition: transform 250ms ease-out;
   }
 
-  main.close .sidebar {
-    left: 0;
+  body.close .sidebar {
+    transform: translateX(16em);
   }
 
-  main.close .content {
-    left: 16em;
+  body.close .content {
+    transform: translateX(16em);
+  }
+  nav, .github-corner {
+    transition: transform 250ms ease-out;
+  }
+
+  body.close nav,
+  body.close .github-corner {
+    transform: translateX(16em);
   }
 }
 

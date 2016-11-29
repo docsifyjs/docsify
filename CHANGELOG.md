@@ -1,3 +1,9 @@
+## 0.6.1
+### Bug fixes
+- In the mobile, it should collapse the sidebar when toggle is clicked.
+- Fix the dropdown list style.
+- Fix sidebar animation.
+
 ## 0.6.0
 ### Features
 - Navbar support dropdown list, #6
