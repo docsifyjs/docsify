@@ -32,6 +32,13 @@ export function main () {
   </main>`
 }
 
+export function toggle (bool) {
+  if (!bool) return ''
+  return `<button class="sidebar-toggle">
+    <span></span><span></span><span></span>
+  </button>`
+}
+
 /**
  * Render tree
  * @param  {Array} tree

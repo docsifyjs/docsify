@@ -6,7 +6,7 @@ const OPTIONS = {
   repo: '',
   maxLevel: 6,
   sidebar: '',
-  newTab: false,
+  sidebarToggle: false,
   loadSidebar: null,
   loadNavbar: null
 }
@@ -35,7 +35,8 @@ const Docsify = function () {
 
   // Render markdown file
   load(`${loc}.md`)
-    .then(render.renderArticle, _ => render.renderArticle())
+    .then(content => render.renderArticle(content, OPTIONS),
+      _ => render.renderArticle(null, OPTIONS))
 
   // Render sidebar
   if (OPTIONS.loadSidebar) {

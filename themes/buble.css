@@ -153,6 +153,8 @@ main {
   width: 16em;
   z-index: 1;
   padding-top: 40px;
+  left: 0;
+  transition: left 250ms ease-out;
 }
 
 .sidebar ul {
@@ -183,6 +185,32 @@ main {
   color: #333;
 }
 
+/* sidebar toggle */
+.sidebar-toggle {
+  background-color: transparent;
+  border: 0;
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+  text-align: center;
+  transition: opacity .3s;
+  width: 30px;
+  z-index: 10;
+  outline: none;
+}
+
+.sidebar-toggle:hover {
+  opacity: .4;
+}
+
+.sidebar-toggle span {
+  background-color: #0074D9;
+  display: block;
+  height: 2px;
+  margin-bottom: 4px;
+  width: 16px;
+}
+
 /* main content */
 .content {
   bottom: 0;
@@ -193,6 +221,15 @@ main {
   top: 0;
   overflow-x: hidden;
   padding-top: 20px;
+  transition: left 250ms ease;
+}
+
+main.close .sidebar {
+  left: -16em;
+}
+
+main.close .content {
+  left: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -206,10 +243,21 @@ main {
 
   .sidebar {
     left: -16em;
+    transition: left 250ms ease;
   }
 
   .content {
     left: 0;
+    min-width: 100vw;
+    transition: left 250ms ease-out;
+  }
+
+  main.close .sidebar {
+    left: 0;
+  }
+
+  main.close .content {
+    left: 16em;
   }
 }
 

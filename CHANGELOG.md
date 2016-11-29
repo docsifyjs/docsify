@@ -1,6 +1,7 @@
 ## 0.6.0
 ### Features
 - Navbar support dropdown list, #6
+- Sidebar with toggle
 
 ### Bug fixes
 - Fix ineffective option, fixed #10

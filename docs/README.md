@@ -121,6 +121,14 @@ Root element.
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
+#### sidebar-toggle
+
+Sidebar with toggle
+
+```html
+<script src="//unpkg.com/docsify" data-sidebar-toggle></script>
+```
+
 #### sidebar
 
 Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on the `data-sidebar`.
