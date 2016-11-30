@@ -21,7 +21,8 @@ var loadLib = function (file) {
 var list = fs.readdirSync(resolve(__dirname, '../src/themes'))
 
 list.forEach(function (file) {
-  processor.process(load(file))
+  if (!/\.css$/.test(file)) return
+  processor.process(load(file), { from: resolve(__dirname, '../src/themes/', file) })
     .then(function (result) {
       save(file, result.css)
       console.log('salad - ' + file)
