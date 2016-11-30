@@ -14,7 +14,7 @@
 - No build
 
 ## Quick start
-Create `404.html` and `README.md` into `/docs`.
+Create a `404.html` and `README.md` into `/docs`.
 
 404.html
 
