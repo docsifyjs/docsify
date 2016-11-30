@@ -148,6 +148,8 @@ body {
   font-family: Inconsolata;
   padding: 12px 10px 12px 12px;
   font-size: 16px;
+  overflow: auto;
+  word-wrap: normal;
 }
 
 /* code highlight */
@@ -222,8 +224,13 @@ body {
 .markdown-section pre>code {
   display: block;
   font-family: Inconsolata;
-  line-height: 1.2em;
-  padding: 0;
+  overflow: inherit;
+  max-width: inherit;
+  position: relative;
+  background-color: #f8f8f8;
+  padding: 0.8em 0.8em 0.4em;
+  line-height: 1.1em;
+  border-radius: 2px;
 }
 
 .markdown-section code::after, .markdown-section code::before {
@@ -234,16 +241,6 @@ code .token {
   min-height: 1.5em;
   -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
-}
-
-pre code {
-  overflow-x: auto;
-  position: relative;
-  padding: 0;
-  background-color: #f8f8f8;
-  padding: 0.8em 0.8em 0.4em;
-  line-height: 1.1em;
-  border-radius: 2px;
 }
 
 .content img {

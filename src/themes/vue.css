@@ -147,6 +147,8 @@ body {
   margin: 1.2em 0;
   padding: 1.2em 1.4em;
   position: relative;
+  overflow: auto;
+  word-wrap: normal;
 }
 
 /* code highlight */
@@ -256,9 +258,10 @@ body {
   font-size: 0.8em;
   line-height: inherit;
   margin: 0 2px;
-  overflow-x: auto;
+  overflow: inherit;
   padding: 3px 5px;
   white-space: inherit;
+  max-width: inherit;
 }
 
 .markdown-section code::after, .markdown-section code::before {
