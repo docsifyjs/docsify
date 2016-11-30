@@ -235,13 +235,13 @@ body.close {
 
   .sidebar {
     left: -$sidebar-width;
-    transition: transform 250ms ease;
+    transition: transform 250ms ease-out;
   }
 
   .content {
     left: 0;
     min-width: 100vw;
-    transition: transform 250ms ease-out;
+    transition: transform 250ms ease;
   }
 
   nav, .github-corner {
