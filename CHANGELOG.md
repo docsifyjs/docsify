@@ -3,7 +3,8 @@
 - `themes/` was removed, only exists in the npm package.
 
 ### Bug fixes
-- Fix style
+- Fix style.
+- Fix sidebar animation again.
 
 ## 0.6.1
 ### Bug fixes
