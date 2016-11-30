@@ -1,0 +1,279 @@
+
+* {
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-size-adjust: none;
+  -webkit-touch-callout: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #fff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* navbar */
+nav {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  margin: 25px 60px 0 0;
+  text-align: right;
+
+  p {
+    margin: 0;
+  }
+
+  ul, li {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+  }
+
+  a {
+    margin: 0 1em;
+    padding: 5px 0;
+    font-size: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: color .3s;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &.active {
+      color: $color-primary;
+      border-bottom: 2px solid $color-primary;
+    }
+  }
+
+  /* navbar dropdown */
+  li {
+    position: relative;
+    display: inline-block;
+
+    ul {
+      background-color: rgba(#fff, .6);
+      border: 1px solid $color-primary;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      right: 1em;
+      top: 26px;
+      transform-origin: 100% 0%;
+      transform: scale(1, 0);
+      transition: opacity .4s ease-out, transform .2s ease;
+      transition-delay: .3s;
+
+      li {
+        display: block;
+        font-size: 14px;
+        margin: 0;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+
+      a {
+        display: block;
+        margin: 0;
+        padding: 0;
+
+        &.active {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    &:hover ul {
+      opacity: 1;
+      transform: scale(1, 1);
+      transition: opacity .4s ease, transform .2s ease-out;
+      transition-delay: 0;
+    }
+  }
+}
+
+/* github corner */
+.github-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+
+  &:hover .octo-arm {
+    animation:octocat-wave 560ms ease-in-out;
+  }
+
+  svg {
+    color: #fff;
+    height: 80px;
+    width: 80px;
+    fill: $color-primary;
+  }
+}
+
+/* main */
+main {
+  size: 100% 100%;
+  position: relative;
+}
+
+/* sidebar */
+.sidebar {
+  background-color: #fff;
+  border-right: 1px solid rgba(0, 0, 0, .07);
+  overflow-y: auto;
+  padding-top: 40px;
+  position: absolute 0 * 0 0;
+  transition: transform 250ms ease-out;
+  width: $sidebar-width;
+  z-index: 20;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul, ul li {
+    list-style: none;
+  }
+
+  ul li a {
+    display: block;
+    border-bottom: none;
+  }
+
+  ul li ul {
+    padding-left: 20px;
+  }
+}
+
+/* sidebar toggle */
+.sidebar-toggle {
+  background-color: transparent;
+  border: 0;
+  bottom: 10px;
+  left: 10px;
+  outline: none;
+  position: absolute;
+  text-align: center;
+  transition: opacity .3s;
+  width: 30px;
+  z-index: 30;
+  outline: none;
+
+  &:hover {
+    opacity: .4;
+  }
+
+  span {
+    background-color: $color-primary;
+    display: block;
+    size: 16px 2px;
+    margin-bottom: 4px;
+  }
+}
+
+/* main content */
+.content {
+  overflow-y: auto;
+  position: absolute 0 0 0 $sidebar-width;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: left 250ms ease;
+}
+
+/* markdown content found on pages */
+.markdown-section {
+  position: relative;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px 15px 40px 15px;
+
+  > * {
+    box-sizing: border-box;
+    font-size: inherit;
+  }
+
+  >:first-child {
+    margin-top: 0!important;
+  }
+}
+
+body.close {
+  .sidebar {
+    transform: translateX(-$sidebar-width);
+  }
+
+  .content {
+    left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    margin-top: 16px;
+  }
+
+  nav li ul {
+    top: 30px;
+  }
+
+  .sidebar {
+    left: -$sidebar-width;
+    transition: transform 250ms ease-out;
+  }
+
+  .content {
+    left: 0;
+    min-width: 100vw;
+    transition: transform 250ms ease;
+  }
+
+  nav, .github-corner {
+    transition: transform 250ms ease-out;
+  }
+
+  body.close {
+    .sidebar {
+      transform: translateX($sidebar-width);
+    }
+
+    .content {
+      transform: translateX($sidebar-width);
+    }
+
+    nav, .github-corner {
+      transform: translateX($sidebar-width);
+    }
+  }
+
+  .github-corner {
+    &:hover .octo-arm {
+        animation: none;
+      }
+    .octo-arm {
+      animation: octocat-wave 560ms ease-in-out;
+    }
+  }
+}
+
+@keyframes octocat-wave {
+  0%,100% { transform: rotate(0); }
+  20%,60% { transform: rotate(-25deg); }
+  40%,80% { transform: rotate(10deg); }
+}

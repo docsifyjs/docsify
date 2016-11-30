@@ -1,3 +1,10 @@
+## 0.7.0
+### Breaking change
+- `themes/` was removed, only exists in the npm package.
+
+### Bug fixes
+- Fix style
+
 ## 0.6.1
 ### Bug fixes
 - In the mobile, it should collapse the sidebar when toggle is clicked.

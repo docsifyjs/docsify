@@ -48,8 +48,8 @@ export function renderApp (dom, replace, opts) {
 /**
  * article
  */
-export function renderArticle (content = 'not found', OPTIONS) {
-  renderTo('article', marked(content))
+export function renderArticle (content, OPTIONS) {
+  renderTo('article', content ? marked(content) : 'not found')
   if (!renderSidebar.rendered) renderSidebar(null, OPTIONS)
   if (!renderNavbar.rendered) renderNavbar(null, OPTIONS)
 }
