@@ -31,15 +31,16 @@ Create a `404.html` and `README.md` into `/docs`.
 ```
 
 ## Showcase
-These open-source projects are using docsify to generate their sites.
+These open-source projects are using docsify to generate their sites. Pull requests welcome : )
 
 - [docsify](https://docsify.js.org) - A magical documentation site generator.
-
+- [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
 
 ## How to contribute
 
-- Fork it and clone!
+- Fork it!
 - Run `npm i && npm run dev`
+- open `localhost:3000`
 
 ## License
 MIT
