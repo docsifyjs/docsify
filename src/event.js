@@ -42,9 +42,9 @@ export function scrollActiveSidebar () {
   highlight()
 
   function scrollIntoView () {
-    const id = window.location.hash.slice(1)
-    if (!id) return
-    const section = document.querySelector('#' + id)
+    const id = window.location.hash.match(/#[^#\/]+$/g)
+    if (!id || !id.length) return
+    const section = document.querySelector(id[0])
 
     if (section) section.scrollIntoView()
   }
@@ -57,7 +57,7 @@ export function scrollActiveSidebar () {
  * Acitve link
  */
 export function activeLink (dom, activeParent) {
-  const host = document.location.origin + document.location.pathname
+  const host = window.location.href
 
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
   if (!dom) return
@@ -67,6 +67,10 @@ export function activeLink (dom, activeParent) {
       activeParent
         ? node.parentNode.setAttribute('class', 'active')
         : node.setAttribute('class', 'active')
+    } else {
+      activeParent
+        ? node.parentNode.removeAttribute('class')
+        : node.removeAttribute('class')
     }
   })
 }

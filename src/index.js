@@ -1,4 +1,4 @@
-import { load, camel2kebab, isNil } from './util'
+import { load, camel2kebab, isNil, getRoute } from './util'
 import * as render from './render'
 
 const OPTIONS = {
@@ -8,7 +8,8 @@ const OPTIONS = {
   sidebar: '',
   sidebarToggle: false,
   loadSidebar: null,
-  loadNavbar: null
+  loadNavbar: null,
+  router: false
 }
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 
@@ -23,32 +24,38 @@ if (script) {
   if (OPTIONS.sidebar) OPTIONS.sidebar = window[OPTIONS.sidebar]
 }
 
-const Docsify = function () {
-  const dom = document.querySelector(OPTIONS.el) || document.body
-  const replace = dom !== document.body
-  let loc = document.location.pathname
+// load options
+render.config(OPTIONS)
 
-  if (/\/$/.test(loc)) loc += 'README'
+const mainRender = function () {
+  const route = getRoute()
+  let basePath = route
 
-  // Render app
-  render.renderApp(dom, replace, OPTIONS)
+  if (!/\/$/.test(basePath)) basePath = basePath.match(/(\S+\/)[^\/]+$/)[1]
 
   // Render markdown file
-  load(`${loc}.md`)
-    .then(content => render.renderArticle(content, OPTIONS),
-      _ => render.renderArticle(null, OPTIONS))
+  load(/\/$/.test(route) ? `${route}README.md` : `${route}.md`)
+    .then(render.renderArticle, _ => render.renderArticle(null))
 
   // Render sidebar
   if (OPTIONS.loadSidebar) {
-    load(OPTIONS.loadSidebar)
-      .then(content => render.renderSidebar(content, OPTIONS))
+    load(basePath + OPTIONS.loadSidebar).then(render.renderSidebar)
   }
 
   // Render navbar
   if (OPTIONS.loadNavbar) {
-    load(OPTIONS.loadNavbar)
-      .then(content => render.renderNavbar(content, OPTIONS))
+    load(basePath + OPTIONS.loadNavbar).then(render.renderNavbar)
   }
+}
+
+const Docsify = function () {
+  const dom = document.querySelector(OPTIONS.el) || document.body
+  const replace = dom !== document.body
+
+  // Render app
+  render.renderApp(dom, replace)
+  mainRender()
+  if (OPTIONS.router) window.addEventListener('hashchange', mainRender)
 }
 
 export default Docsify()
