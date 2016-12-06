@@ -20,15 +20,16 @@ const renderer = new marked.Renderer()
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
-  const slug = text.toLowerCase().replace(/<(?:.|\n)*?>/gm, '').replace(/[\s\n\t]+/g, '-')
-  const route = getRoute()
-  let path = ''
+  const slug = text.toLowerCase().replace(/<(?:.|\n)*?>/gm, '').replace(/[^\w|\u4e00-\u9fa5]+/g, '-')
+  let route = ''
 
-  if (route !== '/') path = `/#/${route}`
+  if (OPTIONS.router) {
+    route = `#/${getRoute()}`
+  }
 
-  toc.push({ level, slug: `${path}#${slug}`, title: text })
+  toc.push({ level, slug: `${route}#${slug}`, title: text })
 
-  return `<h${level} id="${slug}"><a href="#${slug}" class="anchor"></a>${text}</h${level}>`
+  return `<h${level} id="${slug}"><a href="${route}#${slug}" class="anchor"></a>${text}</h${level}>`
 }
 // highlight code
 renderer.code = function (code, lang = '') {

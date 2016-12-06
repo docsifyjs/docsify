@@ -13,9 +13,11 @@ export function scrollActiveSidebar () {
 
   for (let i = 0, len = lis.length; i < len; i += 1) {
     const li = lis[i]
-    const a = li.querySelector('a')
+    let href = li.querySelector('a').getAttribute('href')
 
-    nav[a.getAttribute('href').slice(1)] = li
+    if (href !== '/') href = href.match(/#([^#]+)$/g)[0].slice(1)
+
+    nav[href] = li
   }
 
   function highlight () {
@@ -26,8 +28,7 @@ export function scrollActiveSidebar () {
       if (bcr.top < 10 && bcr.bottom > 10) {
         const li = nav[node.id]
 
-        if (!li) return
-        if (li === active) return
+        if (!li || li === active) return
         if (active) active.setAttribute('class', '')
 
         li.setAttribute('class', 'active')

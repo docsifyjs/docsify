@@ -27,14 +27,22 @@ if (script) {
 // load options
 render.config(OPTIONS)
 
+let cacheRoute = null
+
 const mainRender = function () {
   const route = getRoute()
-  let basePath = route
+  if (cacheRoute === route) return
 
-  if (!/\/$/.test(basePath)) basePath = basePath.match(/(\S+\/)[^\/]+$/)[1]
+  let basePath = cacheRoute = route
+
+  if (!/\//.test(basePath)) {
+    basePath = ''
+  } else if (basePath && !/\/$/.test(basePath)) {
+    basePath = basePath.match(/(\S+\/)[^\/]+$/)[1]
+  }
 
   // Render markdown file
-  load(/\/$/.test(route) ? `${route}README.md` : `${route}.md`)
+  load((!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`)
     .then(render.renderArticle, _ => render.renderArticle(null))
 
   // Render sidebar
@@ -55,7 +63,10 @@ const Docsify = function () {
   // Render app
   render.renderApp(dom, replace)
   mainRender()
-  if (OPTIONS.router) window.addEventListener('hashchange', mainRender)
+  if (OPTIONS.router) {
+    if (!/^#\//.test(window.location.hash)) window.location.hash = '#/'
+    window.addEventListener('hashchange', mainRender)
+  }
 }
 
 export default Docsify()
