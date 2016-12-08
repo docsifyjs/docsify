@@ -97,6 +97,10 @@ docsify serve docs
 </nav>
 ```
 
+### CDN
+
+目前可用的 CDN 有 [UNPKG](unpkg.com/docsify)，如果觉得访问较慢可以将文件放到 Pages 的目录下。
+
 ### 配置参数
 
 #### repo
@@ -209,6 +213,14 @@ Sidebar 开关按钮
   - [中文](/zh-cn)
 ```
 
+
+### router
+
+开启 hash router 功能，此时可以创建 `index.html` 作为入口文件，同时多页面切换不会重新加载资源。资源路径会被替换成 `/#/` 的形式。
+
+```html
+<script src="/lib/docsify.js" data-router></script>
+```
 
 ## FAQ
 

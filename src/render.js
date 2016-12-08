@@ -2,7 +2,9 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
 import { activeLink, scrollActiveSidebar, bindToggle } from './event'
-import { genTree } from './util'
+import { genTree, getRoute } from './util'
+
+let OPTIONS = {}
 
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
@@ -10,7 +12,7 @@ const renderTo = function (dom, content) {
 
   return dom
 }
-const toc = []
+let toc = []
 const renderer = new marked.Renderer()
 
 /**
@@ -18,11 +20,16 @@ const renderer = new marked.Renderer()
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
-  const slug = text.toLowerCase().replace(/<(?:.|\n)*?>/gm, '').replace(/[\s\n\t]+/g, '-')
+  const slug = text.toLowerCase().replace(/<(?:.|\n)*?>/gm, '').replace(/[^\w|\u4e00-\u9fa5]+/g, '-')
+  let route = ''
 
-  toc.push({ level, slug: '#' + slug, title: text })
+  if (OPTIONS.router) {
+    route = `#/${getRoute()}`
+  }
 
-  return `<h${level} id="${slug}"><a href="#${slug}" class="anchor"></a>${text}</h${level}>`
+  toc.push({ level, slug: `${route}#${slug}`, title: text })
+
+  return `<h${level} id="${slug}"><a href="${route}#${slug}" class="anchor"></a>${text}</h${level}>`
 }
 // highlight code
 renderer.code = function (code, lang = '') {
@@ -30,15 +37,22 @@ renderer.code = function (code, lang = '') {
 
   return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
 }
+renderer.link = function (href, title, text) {
+  if (OPTIONS.router && !/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(href)) {
+    href = !/^\/#/.test(href) ? `#${href}` : href
+  }
+
+  return `<a href="${href}" title="${title || ''}">${text}</a>`
+}
 marked.setOptions({ renderer })
 
 /**
  * App
  */
-export function renderApp (dom, replace, opts) {
+export function renderApp (dom, replace) {
   const nav = document.querySelector('nav') || document.createElement('nav')
 
-  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.toggle(opts.sidebarToggle) + tpl.corner(opts.repo) + tpl.main()
+  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.toggle(OPTIONS.sidebarToggle) + tpl.corner(OPTIONS.repo) + tpl.main()
   document.body.insertBefore(nav, document.body.children[0])
 
   // bind toggle
@@ -48,16 +62,18 @@ export function renderApp (dom, replace, opts) {
 /**
  * article
  */
-export function renderArticle (content, OPTIONS) {
+export function renderArticle (content) {
   renderTo('article', content ? marked(content) : 'not found')
   if (!renderSidebar.rendered) renderSidebar(null, OPTIONS)
   if (!renderNavbar.rendered) renderNavbar(null, OPTIONS)
+  renderSidebar.rendered = false
+  renderNavbar.rendered = false
 }
 
 /**
  * navbar
  */
-export function renderNavbar (content, OPTIONS = {}) {
+export function renderNavbar (content) {
   renderNavbar.rendered = true
 
   if (content) renderTo('nav', marked(content))
@@ -67,7 +83,7 @@ export function renderNavbar (content, OPTIONS = {}) {
 /**
  * sidebar
  */
-export function renderSidebar (content, OPTIONS = {}) {
+export function renderSidebar (content) {
   renderSidebar.rendered = true
 
   let isToc = false
@@ -83,4 +99,9 @@ export function renderSidebar (content, OPTIONS = {}) {
 
   renderTo('aside.sidebar', content)
   isToc ? scrollActiveSidebar() : activeLink('aside.sidebar', true)
+  toc = []
+}
+
+export function config (options) {
+  OPTIONS = options
 }

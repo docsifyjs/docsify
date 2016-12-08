@@ -25,7 +25,7 @@
     "generator"
   ],
   "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
-  "homepage": "https://QingWei-Li.github.io/docsify",
+  "homepage": "https://docsify.js.org",
   "license": "MIT",
   "devDependencies": {
     "cssnano": "^3.8.1",

@@ -30,6 +30,22 @@ Create a `404.html` and `README.md` into `/docs`.
 </html>
 ```
 
+Or Create a `index.html` and using `hash router`.
+
+index.html
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+</head>
+<body></body>
+<script src="//unpkg.com/docsify" data-router></script>
+</html>
+```
+
 ## Showcase
 These open-source projects are using docsify to generate their sites. Pull requests welcome : )
 

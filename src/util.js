@@ -66,3 +66,26 @@ export function camel2kebab (str) {
 export function isNil (o) {
   return o === null || o === undefined
 }
+
+let cacheRoute = null
+let cacheHash = null
+
+/**
+ * hash route
+ */
+export function getRoute () {
+  const loc = window.location
+  if (cacheHash === loc.hash && !isNil(cacheRoute)) return cacheRoute
+
+  let route = loc.hash.match(/^#\/([^#]+)/)
+
+  if (route && route.length === 2) {
+    route = route[1]
+  } else {
+    route = /^#\//.test(loc.hash) ? '' : loc.pathname
+  }
+  cacheRoute = route
+  cacheHash = loc.hash
+
+  return route
+}

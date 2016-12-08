@@ -1,3 +1,10 @@
+## 1.0.0
+## Features
+- Support hash router
+
+### Bug fixes
+- Improved scrolling on mobile
+
 ## 0.7.0
 ### Breaking change
 - `themes/` was removed, only exists in the npm package.

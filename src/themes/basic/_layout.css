@@ -13,7 +13,6 @@ html, body {
 }
 
 body {
-  background-color: #fff;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
@@ -21,6 +20,12 @@ body {
   letter-spacing: 0;
   margin: 0;
   overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 /* navbar */
@@ -113,6 +118,13 @@ nav {
   top: 0;
   right: 0;
   z-index: 1;
+  text-decoration: none;
+  border-bottom: 0;
+
+  &:hover {
+    background-color: inherit;
+    color: inherit;
+  }
 
   &:hover .octo-arm {
     animation:octocat-wave 560ms ease-in-out;
@@ -134,7 +146,6 @@ main {
 
 /* sidebar */
 .sidebar {
-  background-color: #fff;
   border-right: 1px solid rgba(0, 0, 0, .07);
   overflow-y: auto;
   padding-top: 40px;
@@ -225,6 +236,10 @@ body.close {
 }
 
 @media (max-width: 600px) {
+  nav, .github-corner, .sidebar-toggle, .sidebar {
+    position: fixed;
+  }
+
   nav {
     margin-top: 16px;
   }
@@ -242,6 +257,8 @@ body.close {
     left: 0;
     min-width: 100vw;
     transition: transform 250ms ease;
+    position: static;
+    overflow-y: auto;
   }
 
   nav, .github-corner {
@@ -264,8 +281,8 @@ body.close {
 
   .github-corner {
     &:hover .octo-arm {
-        animation: none;
-      }
+      animation: none;
+    }
     .octo-arm {
       animation: octocat-wave 560ms ease-in-out;
     }

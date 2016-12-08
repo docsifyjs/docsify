@@ -7,6 +7,6 @@ http.createServer(function (req, res) {
     res.writeHead(404, { 'Content-Type': 'text/html' })
     res.end(fs.readFileSync('404.dev.html'))
   })
-}).listen(3000)
+}).listen(3000, '0.0.0.0')
 
-console.log(`\nListening at http://localhost:3000\n`)
+console.log(`\nListening at http://0.0.0.0:3000\n`)
