@@ -145,7 +145,7 @@ body {
   font-family: 'Roboto Mono', Monaco, courier, monospace;
   line-height: 1.5em;
   margin: 1.2em 0;
-  padding: 1.2em 1.4em;
+  padding: 0 1.4em;
   position: relative;
   overflow: auto;
   word-wrap: normal;
@@ -259,7 +259,7 @@ body {
   line-height: inherit;
   margin: 0 2px;
   overflow: inherit;
-  padding: 3px 5px;
+  padding: 2.2em 5px;
   white-space: inherit;
   max-width: inherit;
 }

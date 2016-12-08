@@ -236,6 +236,10 @@ body.close {
 }
 
 @media (max-width: 600px) {
+  nav, .github-corner, .sidebar-toggle, .sidebar {
+    position: fixed;
+  }
+
   nav {
     margin-top: 16px;
   }
@@ -253,6 +257,8 @@ body.close {
     left: 0;
     min-width: 100vw;
     transition: transform 250ms ease;
+    position: static;
+    overflow-y: auto;
   }
 
   nav, .github-corner {
@@ -275,8 +281,8 @@ body.close {
 
   .github-corner {
     &:hover .octo-arm {
-        animation: none;
-      }
+      animation: none;
+    }
     .octo-arm {
       animation: octocat-wave 560ms ease-in-out;
     }

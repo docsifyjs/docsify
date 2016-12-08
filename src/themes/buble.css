@@ -146,7 +146,7 @@ body {
   padding: 8px;
   margin: 0 0 1em 0;
   font-family: Inconsolata;
-  padding: 12px 10px 12px 12px;
+  padding: 0 10px 12px 0;
   font-size: 16px;
   overflow: auto;
   word-wrap: normal;
@@ -228,7 +228,7 @@ body {
   max-width: inherit;
   position: relative;
   background-color: #f8f8f8;
-  padding: 0.8em 0.8em 0.4em;
+  padding: 20px 0.8em 20px;
   line-height: 1.1em;
   border-radius: 2px;
 }
