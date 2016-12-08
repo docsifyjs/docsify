@@ -1,3 +1,7 @@
+## 1.0.1
+### Bug fixes
+- `img` style
+
 ## 1.0.0
 ## Features
 - Support hash router
