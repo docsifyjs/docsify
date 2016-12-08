@@ -87,6 +87,5 @@ export function getRoute () {
   cacheRoute = route
   cacheHash = loc.hash
 
-  console.log(route)
   return route
 }
