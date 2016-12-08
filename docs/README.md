@@ -213,8 +213,10 @@ If you write a sub level list, it will generate a dropdown list.
   - [chinese](/zh-cn)
 ```
 
-## FAQ
+### router
 
-### Why use `404.html` instead of `index.html`
+Hash router. You can replace `404.html` with `index.html`.
 
-[issues/7](https://github.com/QingWei-Li/docsify/issues/7)
+```html
+<script src="/lib/docsify.js" data-router></script>
+```

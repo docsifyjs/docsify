@@ -288,10 +288,6 @@ pre::after {
   top: 0;
 }
 
-.content img {
-  max-width: 100%;
-}
-
 .content span.light {
   color: #7f8c8d;
 }

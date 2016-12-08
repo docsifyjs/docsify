@@ -243,10 +243,6 @@ code .token {
   -moz-osx-font-smoothing: initial;
 }
 
-.content img {
-  max-width: 100%;
-}
-
 .content span.light {
   color: #7f8c8d;
 }
