@@ -1,3 +1,8 @@
+## 1.0.2
+### Bug fixes
+- Fix binding events bug, fixed #24
+- Fix regular expression, fixed #23
+
 ## 1.0.1
 ### Bug fixes
 - `img` style
