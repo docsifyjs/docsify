@@ -38,7 +38,7 @@ const mainRender = function () {
   if (!/\//.test(basePath)) {
     basePath = ''
   } else if (basePath && !/\/$/.test(basePath)) {
-    basePath = basePath.match(/(\S+\/)[^\/]+$/)[1]
+    basePath = basePath.match(/(\S*\/)[^\/]+$/)[1]
   }
 
   // Render markdown file
