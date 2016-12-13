@@ -75,7 +75,7 @@ export function renderArticle (content) {
  * navbar
  */
 export function renderNavbar (content) {
-  if (CACHE['navbar'] === content) return
+  if (CACHE['navbar'] && CACHE['navbar'] === content) return
   CACHE['navbar'] = content
   renderNavbar.rendered = true
 
@@ -87,10 +87,6 @@ export function renderNavbar (content) {
  * sidebar
  */
 export function renderSidebar (content) {
-  if (CACHE['sidebar'] === content) return
-  CACHE['sidebar'] = content
-  renderSidebar.rendered = true
-
   let isToc = false
 
   if (content) {
@@ -102,6 +98,9 @@ export function renderSidebar (content) {
     isToc = true
   }
 
+  renderSidebar.rendered = true
+  if (CACHE['sidebar'] && CACHE['sidebar'] === content) return
+  CACHE['sidebar'] = content
   renderTo('aside.sidebar', content)
   if (isToc) scrollActiveSidebar()
   toc = []
