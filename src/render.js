@@ -5,6 +5,7 @@ import { activeLink, scrollActiveSidebar, bindToggle } from './event'
 import { genTree, getRoute } from './util'
 
 let OPTIONS = {}
+const CACHE = {}
 
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
@@ -74,6 +75,8 @@ export function renderArticle (content) {
  * navbar
  */
 export function renderNavbar (content) {
+  if (CACHE['navbar'] === content) return
+  CACHE['navbar'] = content
   renderNavbar.rendered = true
 
   if (content) renderTo('nav', marked(content))
@@ -84,6 +87,8 @@ export function renderNavbar (content) {
  * sidebar
  */
 export function renderSidebar (content) {
+  if (CACHE['sidebar'] === content) return
+  CACHE['sidebar'] = content
   renderSidebar.rendered = true
 
   let isToc = false
