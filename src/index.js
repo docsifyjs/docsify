@@ -1,4 +1,5 @@
 import { load, camel2kebab, isNil, getRoute } from './util'
+import { activeLink, scrollIntoView } from './event'
 import * as render from './render'
 
 const OPTIONS = {
@@ -29,25 +30,37 @@ render.config(OPTIONS)
 
 let cacheRoute = null
 
-const mainRender = function () {
+const mainRender = function (cb) {
   const route = getRoute()
-  if (cacheRoute === route) return
-
+  if (cacheRoute === route) return cb()
+  let wait
   let basePath = cacheRoute = route
 
   if (!/\//.test(basePath)) {
     basePath = ''
   } else if (basePath && !/\/$/.test(basePath)) {
-    basePath = basePath.match(/(\S+\/)[^\/]+$/)[1]
+    basePath = basePath.match(/(\S*\/)[^\/]+$/)[1]
   }
 
   // Render markdown file
   load((!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`)
-    .then(render.renderArticle, _ => render.renderArticle(null))
+    .then(result => {
+      render.renderArticle(result)
+      if (OPTIONS.loadSidebar) {
+        if (wait === false) cb()
+        wait = false
+      } else {
+        cb()
+      }
+    }, _ => render.renderArticle(null))
 
   // Render sidebar
   if (OPTIONS.loadSidebar) {
-    load(basePath + OPTIONS.loadSidebar).then(render.renderSidebar)
+    load(basePath + OPTIONS.loadSidebar).then(result => {
+      render.renderSidebar(result)
+      if (wait === false) cb()
+      wait = false
+    })
   }
 
   // Render navbar
@@ -59,13 +72,19 @@ const mainRender = function () {
 const Docsify = function () {
   const dom = document.querySelector(OPTIONS.el) || document.body
   const replace = dom !== document.body
+  const main = function () {
+    mainRender(_ => {
+      activeLink('aside.sidebar', true)
+      scrollIntoView()
+    })
+  }
 
   // Render app
   render.renderApp(dom, replace)
-  mainRender()
+  main()
   if (OPTIONS.router) {
     if (!/^#\//.test(window.location.hash)) window.location.hash = '#/'
-    window.addEventListener('hashchange', mainRender)
+    window.addEventListener('hashchange', main)
   }
 }
 
