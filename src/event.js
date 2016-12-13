@@ -39,19 +39,18 @@ export function scrollActiveSidebar () {
     }
   }
 
-  document.querySelector('main .content').addEventListener('scroll', highlight)
+  const dom = document.querySelector('main .content')
+  dom.removeEventListener('scroll', highlight)
+  dom.addEventListener('scroll', highlight)
   highlight()
+}
 
-  function scrollIntoView () {
-    const id = window.location.hash.match(/#[^#\/]+$/g)
-    if (!id || !id.length) return
-    const section = document.querySelector(id[0])
+export function scrollIntoView () {
+  const id = window.location.hash.match(/#[^#\/]+$/g)
+  if (!id || !id.length) return
+  const section = document.querySelector(id[0])
 
-    if (section) section.scrollIntoView()
-  }
-
-  window.addEventListener('hashchange', scrollIntoView)
-  scrollIntoView()
+  if (section) section.scrollIntoView()
 }
 
 /**

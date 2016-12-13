@@ -98,7 +98,7 @@ export function renderSidebar (content) {
   }
 
   renderTo('aside.sidebar', content)
-  isToc ? scrollActiveSidebar() : activeLink('aside.sidebar', true)
+  if (isToc) scrollActiveSidebar()
   toc = []
 }
 
