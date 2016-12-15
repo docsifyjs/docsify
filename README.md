@@ -60,3 +60,8 @@ These open-source projects are using docsify to generate their sites. Pull reque
 
 ## License
 MIT
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/QingWei-Li/docsify/badge.svg?style=beer-square)](https://beerpay.io/QingWei-Li/docsify)  [![Beerpay](https://beerpay.io/QingWei-Li/docsify/make-wish.svg?style=flat-square)](https://beerpay.io/QingWei-Li/docsify?focus=wish)
