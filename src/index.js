@@ -10,7 +10,8 @@ const OPTIONS = {
   sidebarToggle: false,
   loadSidebar: null,
   loadNavbar: null,
-  router: false
+  router: false,
+  auto2top: false
 }
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 

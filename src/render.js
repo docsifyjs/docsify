@@ -111,7 +111,6 @@ export function renderSidebar (content) {
  * @return {[type]} [description]
  */
 export function renderLoading ({ loaded, total }) {
-  console.log(loaded / total)
   const num = Math.floor(loaded / total * 100)
 
   if (!CACHE['loading']) {
@@ -121,7 +120,6 @@ export function renderLoading ({ loaded, total }) {
     document.body.appendChild(div)
     CACHE['loading'] = div
   }
-  console.log(num)
   CACHE['loading'].style.width = num >= 95 ? '0%' : num + '%'
 }
 
