@@ -8,6 +8,18 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.progress {
+  background-color: $color-primary;
+  height: 2px;
+  left: 0px;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  transition: width 0.2s, opacity 0.4s;
+  width: 0%;
+  z-index: 999999;
+}
+
 html, body {
   height: 100%;
 }

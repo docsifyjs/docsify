@@ -43,7 +43,8 @@ const mainRender = function (cb) {
   }
 
   // Render markdown file
-  load((!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`)
+  load((!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`,
+    'GET', render.renderLoading)
     .then(result => {
       render.renderArticle(result)
       if (OPTIONS.loadSidebar) {

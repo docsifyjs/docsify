@@ -106,6 +106,29 @@ export function renderSidebar (content) {
   toc = []
 }
 
+/**
+ * render loading bar
+ * @return {[type]} [description]
+ */
+export function renderLoading ({ loaded, total }) {
+  const num = Math.floor(loaded / total * 100)
+
+  if (!CACHE['loading']) {
+    const div = document.createElement('div')
+
+    div.classList.add('progress')
+    document.body.appendChild(div)
+    CACHE['loading'] = div
+  }
+
+  CACHE['loading'].style.width = num >= 95 ? '0%' : num + '%'
+}
+
+/**
+ * Load Config
+ * @param  {Object} options
+ */
 export function config (options) {
   OPTIONS = options
 }
+
