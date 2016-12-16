@@ -21,7 +21,8 @@ export function load (url, method = 'GET', loading) {
       xhr.addEventListener('load', ({ target }) => {
         target.status >= 400 ? error(target) : success(target.response)
       })
-    }
+    },
+    abort: () => xhr.readyState !== 4 && xhr.abort()
   }
 }
 
