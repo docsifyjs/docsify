@@ -1,3 +1,8 @@
+## 1.1.0
+## Features
+- Add progress bar
+- Add `auto2top` option for hash router
+
 ## 1.0.3
 ### Bug fixes
 - Fix cache

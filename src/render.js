@@ -1,7 +1,7 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
-import { activeLink, scrollActiveSidebar, bindToggle } from './event'
+import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top } from './event'
 import { genTree, getRoute } from './util'
 
 let OPTIONS = {}
@@ -69,6 +69,8 @@ export function renderArticle (content) {
   if (!renderNavbar.rendered) renderNavbar(null, OPTIONS)
   renderSidebar.rendered = false
   renderNavbar.rendered = false
+
+  if (OPTIONS.auto2top) scroll2Top('section.content')
 }
 
 /**
@@ -106,6 +108,28 @@ export function renderSidebar (content) {
   toc = []
 }
 
+/**
+ * render loading bar
+ * @return {[type]} [description]
+ */
+export function renderLoading ({ loaded, total }) {
+  const num = Math.floor(loaded / total * 100)
+
+  if (!CACHE['loading']) {
+    const div = document.createElement('div')
+
+    div.classList.add('progress')
+    document.body.appendChild(div)
+    CACHE['loading'] = div
+  }
+  CACHE['loading'].style.width = num >= 95 ? '0%' : num + '%'
+}
+
+/**
+ * Load Config
+ * @param  {Object} options
+ */
 export function config (options) {
   OPTIONS = options
 }
+

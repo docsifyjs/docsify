@@ -1,10 +1,11 @@
 /**
  * Simple ajax
  * @param  {String} url
- * @param  {String} [method=get]
+ * @param  {String} [method=GET]
+ * @param {Function} [loading] handle loading
  * @return {Promise}
  */
-export function load (url, method = 'get') {
+export function load (url, method = 'GET', loading) {
   const xhr = new XMLHttpRequest()
 
   xhr.open(method, url)
@@ -12,11 +13,16 @@ export function load (url, method = 'get') {
 
   return {
     then: function (success, error = function () {}) {
+      if (loading) {
+        xhr.addEventListener('progress', loading)
+        xhr.addEventListener('loaded', loading)
+      }
       xhr.addEventListener('error', error)
       xhr.addEventListener('load', ({ target }) => {
         target.status >= 400 ? error(target) : success(target.response)
       })
-    }
+    },
+    abort: () => xhr.readyState !== 4 && xhr.abort()
   }
 }
 

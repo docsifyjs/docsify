@@ -220,3 +220,13 @@ Hash router. You can replace `404.html` with `index.html`.
 ```html
 <script src="/lib/docsify.js" data-router></script>
 ```
+
+### auto2top
+
+Scroll to the top on changing hash.
+
+
+```html
+<script src="/lib/docsify.js" data-auto2top></script>
+```
+

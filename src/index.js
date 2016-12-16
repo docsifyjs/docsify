@@ -10,7 +10,8 @@ const OPTIONS = {
   sidebarToggle: false,
   loadSidebar: null,
   loadNavbar: null,
-  router: false
+  router: false,
+  auto2top: false
 }
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 
@@ -29,6 +30,7 @@ if (script) {
 render.config(OPTIONS)
 
 let cacheRoute = null
+let cacheXhr = null
 
 const mainRender = function (cb) {
   const route = getRoute()
@@ -42,17 +44,22 @@ const mainRender = function (cb) {
     basePath = basePath.match(/(\S*\/)[^\/]+$/)[1]
   }
 
+  cacheXhr && cacheXhr.abort && cacheXhr.abort()
   // Render markdown file
-  load((!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`)
-    .then(result => {
-      render.renderArticle(result)
-      if (OPTIONS.loadSidebar) {
-        if (wait === false) cb()
-        wait = false
-      } else {
-        cb()
-      }
-    }, _ => render.renderArticle(null))
+  cacheXhr = load(
+    (!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`,
+    'GET',
+    render.renderLoading)
+
+  cacheXhr.then(result => {
+    render.renderArticle(result)
+    if (OPTIONS.loadSidebar) {
+      if (wait === false) cb()
+      wait = false
+    } else {
+      cb()
+    }
+  }, _ => render.renderArticle(null))
 
   // Render sidebar
   if (OPTIONS.loadSidebar) {

@@ -57,3 +57,4 @@ export function tree (toc, tpl = '') {
 
   return tpl
 }
+

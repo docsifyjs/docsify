@@ -221,3 +221,13 @@ Sidebar 开关按钮
 ```html
 <script src="/lib/docsify.js" data-router></script>
 ```
+
+### auto2top
+
+切换路由时自动跳转到页面顶部
+
+
+```html
+<script src="/lib/docsify.js" data-auto2top></script>
+```
+
