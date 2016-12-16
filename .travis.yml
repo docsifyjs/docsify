@@ -1,3 +1,6 @@
 sudo: false
+cache:
+  directories:
+  - $HOME/.yarn-cache
 language: node_js
 node_js: stable
