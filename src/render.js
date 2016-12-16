@@ -1,7 +1,7 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
-import { activeLink, scrollActiveSidebar, bindToggle } from './event'
+import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top } from './event'
 import { genTree, getRoute } from './util'
 
 let OPTIONS = {}
@@ -69,6 +69,8 @@ export function renderArticle (content) {
   if (!renderNavbar.rendered) renderNavbar(null, OPTIONS)
   renderSidebar.rendered = false
   renderNavbar.rendered = false
+
+  if (OPTIONS.auto2top) scroll2Top('section.content')
 }
 
 /**

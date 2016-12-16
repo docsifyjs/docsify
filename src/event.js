@@ -90,3 +90,9 @@ export function bindToggle (dom) {
     body.classList.toggle('close')
   })
 }
+
+let cacheContentDOM
+export function scroll2Top (dom) {
+  cacheContentDOM = cacheContentDOM || document.querySelector(dom)
+  cacheContentDOM.scrollTop = 0
+}
