@@ -49,7 +49,7 @@ export function scrollActiveSidebar () {
 export function scrollIntoView () {
   const id = window.location.hash.match(/#[^#\/]+$/g)
   if (!id || !id.length) return
-  const section = document.querySelector(id[0])
+  const section = document.querySelector(decodeURIComponent(id[0]))
 
   if (section) section.scrollIntoView()
 }

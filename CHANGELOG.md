@@ -1,3 +1,7 @@
+## 1.1.4
+### Bug fixes
+- Fixed chinese auchor link
+
 ## 1.1.3
 ### Bug fixes
 - Optimize progress bar again
