@@ -125,6 +125,7 @@ export function renderLoading ({ loaded, total }) {
 
   if (num >= 95) {
     clearTimeout(renderLoading.cacheTImeout)
+    CACHE['loading'].style.width = '100%'
     renderLoading.cacheTImeout = setTimeout(_ => {
       CACHE['loading'].style.opacity = 0
       CACHE['loading'].style.width = '0%'
