@@ -95,3 +95,8 @@ export function getRoute () {
 
   return route
 }
+
+export function isMobile () {
+  return /mobile/i.test(navigator.userAgent)
+}
+

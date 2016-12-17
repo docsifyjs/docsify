@@ -1,10 +1,11 @@
+import { isMobile } from './util'
 
 /**
  * Active sidebar when scroll
  * @link https://buble.surge.sh/
  */
 export function scrollActiveSidebar () {
-  if (/mobile/i.test(navigator.userAgent)) return
+  if (isMobile()) return
 
   const anchors = document.querySelectorAll('.anchor')
   const nav = {}
@@ -92,7 +93,10 @@ export function bindToggle (dom) {
 }
 
 let cacheContentDOM
-export function scroll2Top (dom) {
-  cacheContentDOM = cacheContentDOM || document.querySelector(dom)
+export function scroll2Top () {
+  if (!cacheContentDOM) {
+    const dom = isMobile() ? 'body' : 'section.content'
+    cacheContentDOM = document.querySelector(dom)
+  }
   cacheContentDOM.scrollTop = 0
 }

@@ -70,7 +70,7 @@ export function renderArticle (content) {
   renderSidebar.rendered = false
   renderNavbar.rendered = false
 
-  if (OPTIONS.auto2top) scroll2Top('section.content')
+  if (OPTIONS.auto2top) scroll2Top()
 }
 
 /**
@@ -123,14 +123,15 @@ export function renderLoading ({ loaded, total }) {
     CACHE['loading'] = div
   }
 
-  CACHE['loading'].style.opacity = 1
-  CACHE['loading'].style.width = num + '%'
   if (num >= 95) {
     clearTimeout(renderLoading.cacheTImeout)
     renderLoading.cacheTImeout = setTimeout(_ => {
       CACHE['loading'].style.opacity = 0
       CACHE['loading'].style.width = '0%'
     }, 200)
+  } else {
+    CACHE['loading'].style.opacity = 1
+    CACHE['loading'].style.width = num + '%'
   }
 }
 
