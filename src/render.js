@@ -122,7 +122,16 @@ export function renderLoading ({ loaded, total }) {
     document.body.appendChild(div)
     CACHE['loading'] = div
   }
-  CACHE['loading'].style.width = num >= 95 ? '0%' : num + '%'
+
+  CACHE['loading'].style.opacity = 1
+  CACHE['loading'].style.width = num + '%'
+  if (num >= 95) {
+    clearTimeout(renderLoading.cacheTImeout)
+    renderLoading.cacheTImeout = setTimeout(_ => {
+      CACHE['loading'].style.opacity = 0
+      CACHE['loading'].style.width = '0%'
+    }, 200)
+  }
 }
 
 /**

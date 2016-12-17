@@ -1,3 +1,7 @@
+## 1.1.1
+### Bug fixes
+- Optimize progress bar
+
 ## 1.1.0
 ## Features
 - Add progress bar
