@@ -1,3 +1,7 @@
+## 1.1.3
+### Bug fixes
+- Optimize progress bar again
+
 ## 1.1.2
 ### Bug fixes
 - fix failed `auto2top` in mobile

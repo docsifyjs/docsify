@@ -77,8 +77,8 @@ export function renderArticle (content) {
  * navbar
  */
 export function renderNavbar (content) {
-  if (CACHE['navbar'] && CACHE['navbar'] === content) return
-  CACHE['navbar'] = content
+  if (CACHE.navbar && CACHE.navbar === content) return
+  CACHE.navbar = content
   renderNavbar.rendered = true
 
   if (content) renderTo('nav', marked(content))
@@ -101,8 +101,8 @@ export function renderSidebar (content) {
   }
 
   renderSidebar.rendered = true
-  if (CACHE['sidebar'] && CACHE['sidebar'] === content) return
-  CACHE['sidebar'] = content
+  if (CACHE.sidebar && CACHE.sidebar === content) return
+  CACHE.sidebar = content
   renderTo('aside.sidebar', content)
   if (isToc) scrollActiveSidebar()
   toc = []
@@ -115,24 +115,23 @@ export function renderSidebar (content) {
 export function renderLoading ({ loaded, total }) {
   const num = Math.floor(loaded / total * 100)
 
-  if (!CACHE['loading']) {
+  if (!CACHE.loading) {
     const div = document.createElement('div')
 
     div.classList.add('progress')
     document.body.appendChild(div)
-    CACHE['loading'] = div
+    CACHE.loading = div
   }
+
+  CACHE.loading.style.opacity = 1
+  CACHE.loading.style.width = num >= 95 ? '100%' : num + '%'
 
   if (num >= 95) {
     clearTimeout(renderLoading.cacheTImeout)
-    CACHE['loading'].style.width = '100%'
     renderLoading.cacheTImeout = setTimeout(_ => {
-      CACHE['loading'].style.opacity = 0
-      CACHE['loading'].style.width = '0%'
+      CACHE.loading.style.opacity = 0
+      CACHE.loading.style.width = '0%'
     }, 200)
-  } else {
-    CACHE['loading'].style.opacity = 1
-    CACHE['loading'].style.width = num + '%'
   }
 }
 
