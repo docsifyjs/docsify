@@ -25,7 +25,9 @@ Create a `404.html` and `README.md` into `/docs`.
   <meta charset="UTF-8">
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
 </head>
-<body></body>
+<body>
+  <div id="app"></div>
+</body>
 <script src="//unpkg.com/docsify"></script>
 </html>
 ```
@@ -41,7 +43,9 @@ index.html
   <meta charset="UTF-8">
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
 </head>
-<body></body>
+<body>
+  <div id="app"></div>
+</body>
 <script src="//unpkg.com/docsify" data-router></script>
 </html>
 ```
