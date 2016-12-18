@@ -1,3 +1,11 @@
+## 1.1.5
+### Features
+- Add table style
+
+### Bug fixes
+- Not fixed position of hte navbar in the mobile browser
+- Correct calculation of whether the mobile browser
+
 ## 1.1.4
 ### Bug fixes
 - Fixed chinese auchor link

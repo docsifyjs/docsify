@@ -97,6 +97,6 @@ export function getRoute () {
 }
 
 export function isMobile () {
-  return /mobile/i.test(navigator.userAgent)
+  return document.body.clientWidth <= 600
 }
 
