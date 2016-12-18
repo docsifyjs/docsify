@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://travis-ci.org/QingWei-Li/docsify.svg?branch=master"></a>
-  <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg"></a>
+  <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square"></a>
+  <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
   <a href="https://beerpay.io/QingWei-Li/docsify"><img alt="npm" src="https://beerpay.io/QingWei-Li/docsify/badge.svg?style=beer-square"></a>
 </p>
 
