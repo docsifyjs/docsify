@@ -241,6 +241,7 @@ main {
   overflow: auto;
   border-spacing: 0;
   border-collapse: collapse;
+  margin-bottom: 1em;
 }
 
 .markdown-section th {
@@ -255,7 +256,6 @@ main {
 }
 
 .markdown-section tr {
-  background-color: #fff;
   border-top: 1px solid #ccc;
   &:nth-child(2n) {
     background-color: #f8f8f8;

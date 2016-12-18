@@ -1,11 +1,15 @@
-# docsify
+<p align="center">
+  <img alt="docsify" src="https://cloud.githubusercontent.com/assets/7565692/21292094/5c206de4-c533-11e6-9493-29ea67b01dde.png">
+</p>
 
-> 无需构建快速生成文档页
+<p align="center">
+  无需构建快速生成文档页
+</p>
 
 ## 特性
 - 无需构建，写完 markdown 直接发布
 - 支持自定义主题
-- 容易使用并且轻量
+- 容易使用并且轻量 (~12kB gzipped)
 
 ## 快速上手
 
@@ -214,7 +218,7 @@ Sidebar 开关按钮
 ```
 
 
-### router
+#### router
 
 开启 hash router 功能，此时可以创建 `index.html` 作为入口文件，同时多页面切换不会重新加载资源。资源路径会被替换成 `/#/` 的形式。
 
@@ -222,7 +226,7 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-router></script>
 ```
 
-### auto2top
+#### auto2top
 
 切换路由时自动跳转到页面顶部
 

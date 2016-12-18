@@ -54,6 +54,8 @@ body {
 .markdown-section ul,
 .markdown-section ol {
   word-spacing: 0.05em;
+  line-height: 1.6em;
+  margin: 0 0 1em 0;
 }
 
 .markdown-section h1 {
@@ -93,13 +95,6 @@ body {
 .markdown-section ul,
 .markdown-section ol {
   margin: 1.2em 0;
-}
-
-.markdown-section p,
-.markdown-section ul,
-.markdown-section ol {
-  margin: 0 0 1em 0;
-  line-height: 1.5;
 }
 
 .markdown-section ul,

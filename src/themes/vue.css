@@ -55,12 +55,6 @@ body {
   font-weight: 600;
 }
 
-.markdown-section p,
-.markdown-section ul,
-.markdown-section ol {
-  word-spacing: 0.05em;
-}
-
 .markdown-section h1 {
   margin: 0 0 1em;
   font-size: 2em;
@@ -100,6 +94,7 @@ body {
 .markdown-section ul,
 .markdown-section ol {
   line-height: 1.6em;
+  word-spacing: 0.05em;
 }
 
 .markdown-section ul,
