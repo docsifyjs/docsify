@@ -277,7 +277,7 @@ code .token {
 pre::after {
   color: #ccc;
   content: attr(data-lang);
-  font-size: 0.75em;
+  font-size: 0.6em;
   font-weight: 600;
   height: 15px;
   line-height: 15px;

@@ -235,6 +235,33 @@ main {
   }
 }
 
+.markdown-section table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.markdown-section th {
+  font-weight: bold;
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-section td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-section tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  &:nth-child(2n) {
+    background-color: #f8f8f8;
+  }
+}
+
 body.close {
   .sidebar {
     transform: translateX(-$sidebar-width);
@@ -246,11 +273,12 @@ body.close {
 }
 
 @media (max-width: 600px) {
-  nav, .github-corner, .sidebar-toggle, .sidebar {
+  .github-corner, .sidebar-toggle, .sidebar {
     position: fixed;
   }
 
   nav {
+    position: static;
     margin-top: 16px;
   }
 
