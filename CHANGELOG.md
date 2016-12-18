@@ -1,3 +1,10 @@
+## 1.1.6
+### Features
+- Add logo 😂
+
+### Bug fixes
+- Remove table background color
+
 ## 1.1.5
 ### Features
 - Add table style

@@ -1,4 +1,7 @@
-# docsify
+<p align="center">
+  <img alt="docsify" src="./media/docsify.png">
+</p>
+
 [![Build Status](https://travis-ci.org/QingWei-Li/docsify.svg?branch=master)](https://travis-ci.org/QingWei-Li/docsify)
 [![npm](https://img.shields.io/npm/v/docsify.svg)](https://www.npmjs.com/package/docsify)
 
