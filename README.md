@@ -1,18 +1,25 @@
 <p align="center">
-  <img alt="docsify" src="./media/docsify.png">
+  <a href="https://docsify.js.org">
+    <img alt="docsify" src="./media/docsify.png">
+  </a>
 </p>
 
-[![Build Status](https://travis-ci.org/QingWei-Li/docsify.svg?branch=master)](https://travis-ci.org/QingWei-Li/docsify)
-[![npm](https://img.shields.io/npm/v/docsify.svg)](https://www.npmjs.com/package/docsify)
+<p align="center">
+  A magical documentation site generator.
+</p>
 
->🃏 A magical documentation site generator.
+<p align="center">
+  <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://travis-ci.org/QingWei-Li/docsify.svg?branch=master"></a>
+  <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg"></a>
+  <a href="https://beerpay.io/QingWei-Li/docsify"><img alt="npm" src="https://beerpay.io/QingWei-Li/docsify/badge.svg?style=beer-square"></a>
+</p>
 
 ## Links
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
-- Easy and lightweight
+- Easy and lightweight (~12kB gzipped)
 - Custom themes
 - No build
 
@@ -68,7 +75,3 @@ These open-source projects are using docsify to generate their sites. Pull reque
 ## License
 MIT
 
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/QingWei-Li/docsify/badge.svg?style=beer-square)](https://beerpay.io/QingWei-Li/docsify)  [![Beerpay](https://beerpay.io/QingWei-Li/docsify/make-wish.svg?style=flat-square)](https://beerpay.io/QingWei-Li/docsify?focus=wish)

@@ -2,10 +2,12 @@
   <img alt="docsify" src="https://cloud.githubusercontent.com/assets/7565692/21292094/5c206de4-c533-11e6-9493-29ea67b01dde.png">
 </p>
 
-> A magical documentation site generator.
+<p align="center">
+  A magical documentation site generator.
+</p>
 
 ## Features
-- Easy and lightweight
+- Easy and lightweight (~12kB gzipped)
 - Custom themes
 - No build
 
@@ -215,7 +217,7 @@ If you write a sub level list, it will generate a dropdown list.
   - [chinese](/zh-cn)
 ```
 
-### router
+#### router
 
 Hash router. You can replace `404.html` with `index.html`.
 
@@ -223,7 +225,7 @@ Hash router. You can replace `404.html` with `index.html`.
 <script src="/lib/docsify.js" data-router></script>
 ```
 
-### auto2top
+#### auto2top
 
 Scroll to the top on changing hash.
 
