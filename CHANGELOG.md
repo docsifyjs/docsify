@@ -4,6 +4,7 @@
 
 ### Bug fixes
 - Remove table background color
+- Fixed highlight sidebar using chinese ids
 
 ## 1.1.5
 ### Features

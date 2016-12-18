@@ -18,7 +18,7 @@ export function scrollActiveSidebar () {
 
     if (href !== '/') href = href.match(/#([^#]+)$/g)[0].slice(1)
 
-    nav[href] = li
+    nav[decodeURIComponent(href)] = li
   }
 
   function highlight () {
