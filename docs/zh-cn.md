@@ -161,6 +161,7 @@ Sidebar 开关按钮
 #### load-sidebar
 
 读取侧边栏配置文件，如果配置，默认加载当前目录下的 `_sidebar.md`。如果文件不存在，会显示 TOC 作为侧边栏内容。如果你有二级目录，也应该放置一份配置文件。
+**如果用 `_` 开头作为文件名，你应该在文档目录下添加 `.nojekyll`，阻止 GitHub Pages 忽略下划线开头的文件。**
 
 ```html
 <script src="/lib/docsify.js" data-load-sidebar></script>

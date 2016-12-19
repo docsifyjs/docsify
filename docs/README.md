@@ -160,6 +160,7 @@ Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on th
 #### load-sidebar
 
 Load sidebar markdown file. If it is configured, load  the current directory `_sidebar.md` by default. If the file isn't exist, sidebar will appear TOC.
+** you should add `.nojekyll` into docs folder, to prevent GitHub Pages from ignoring the `_sidebar.md`**
 
 ```html
 <script src="/lib/docsify.js" data-load-sidebar></script>
