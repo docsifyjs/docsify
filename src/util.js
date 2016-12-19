@@ -14,8 +14,14 @@ export function load (url, method = 'GET', loading) {
   return {
     then: function (success, error = function () {}) {
       if (loading) {
+        const id = setInterval(_ =>
+          loading({ step: Math.floor(Math.random() * 5 + 1) }),
+        500)
         xhr.addEventListener('progress', loading)
-        xhr.addEventListener('loaded', loading)
+        xhr.addEventListener('loadend', evt => {
+          loading(evt)
+          clearInterval(id)
+        })
       }
       xhr.addEventListener('error', error)
       xhr.addEventListener('load', ({ target }) => {
