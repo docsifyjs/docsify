@@ -7,7 +7,7 @@
 </p>
 
 ## Features
-- Easy and lightweight (~12kB gzipped)
+- Easy and lightweight (~12kb gzipped)
 - Custom themes
 - No build
 
