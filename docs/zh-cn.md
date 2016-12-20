@@ -237,3 +237,14 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-auto2top></script>
 ```
 
+#### homepage
+
+默认情况下网站会将根目录下 `README.md` 作为首页渲染，但是有些时候我们想指定其他文件，甚至想直接将 repo 下的 README 作为首页。你可以这样做：
+
+
+```html
+<script src="/lib/docsify.js" data-homepage="https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md"></script>
+<!-- 或者将 Welcome.md 作为首页 -->
+<script src="/lib/docsify.js" data-homepage="Welcome.md"></script>
+```
+

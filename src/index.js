@@ -11,6 +11,7 @@ const OPTIONS = {
   loadSidebar: null,
   loadNavbar: null,
   router: false,
+  homepage: 'README.md',
   auto2top: false
 }
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
@@ -44,13 +45,18 @@ const mainRender = function (cb) {
     basePath = basePath.match(/(\S*\/)[^\/]+$/)[1]
   }
 
+  let page
+  if (!route) {
+    page = OPTIONS.homepage || 'README.md'
+  } else if (/\/$/.test(route)) {
+    page = `${route}README.md`
+  } else {
+    page = `${route}.md`
+  }
+
   cacheXhr && cacheXhr.abort && cacheXhr.abort()
   // Render markdown file
-  cacheXhr = load(
-    (!route || /\/$/.test(route)) ? `${route}README.md` : `${route}.md`,
-    'GET',
-    render.renderLoading)
-
+  cacheXhr = load(page, 'GET', render.renderLoading)
   cacheXhr.then(result => {
     render.renderArticle(result)
     if (OPTIONS.loadSidebar) {

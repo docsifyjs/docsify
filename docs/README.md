@@ -240,3 +240,12 @@ Scroll to the top on changing hash.
 <script src="/lib/docsify.js" data-auto2top></script>
 ```
 
+#### homepage
+
+`README.md` will be render as homepage for your website in docs folder, but sometimes we want to specify another file as a homepage, or even use the `README.md` in your repo. we can use:
+
+```html
+<script src="/lib/docsify.js" data-homepage="https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md"></script>
+<!-- Or using `Welcome.md` as homepge -->
+<script src="/lib/docsify.js" data-homepage="Welcome.md"></script>
+```
