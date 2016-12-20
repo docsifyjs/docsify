@@ -1,3 +1,8 @@
+## 1.2.0
+### Features
+- custom basePath
+- custom homepage
+
 ## 1.1.7
 ### Bug fixes
 - Optimize progress bar
