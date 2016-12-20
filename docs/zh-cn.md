@@ -101,9 +101,10 @@ docsify serve docs
 </nav>
 ```
 
-### CDN
 
-目前可用的 CDN 有 [UNPKG](unpkg.com/docsify)，如果觉得访问较慢可以将文件放到 Pages 的目录下。
+### CDN
+- UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
+- jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
 
 ### 配置参数
 

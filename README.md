@@ -60,6 +60,10 @@ index.html
 </html>
 ```
 
+## CDN
+- UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
+- jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
+
 ## Showcase
 These open-source projects are using docsify to generate their sites. Pull requests welcome : )
 

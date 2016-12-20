@@ -102,6 +102,11 @@ Code in `404.html`
 </nav>
 ```
 
+
+### CDN
+- UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
+- jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
+
 ### Options
 
 #### repo
