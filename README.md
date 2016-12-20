@@ -19,30 +19,12 @@
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
-- Easy and lightweight (~12kb gzipped)
-- Custom themes
-- No build
+- Simple and lightweight (~12kb gzipped)
+- Multiple themes
+- Not build static html files
 
 ## Quick start
-Create a `404.html` and `README.md` into `/docs`.
-
-404.html
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
-</head>
-<body>
-  <div id="app"></div>
-</body>
-<script src="//unpkg.com/docsify"></script>
-</html>
-```
-
-Or Create a `index.html` and using `hash router`.
+Create a `index.html` and using `hash router`.
 
 index.html
 
@@ -60,6 +42,12 @@ index.html
 </html>
 ```
 
+Or create a `404.html` and `README.md` into `/docs`. Just remove `data-router`
+
+```html
+<script src="//unpkg.com/docsify"></script>
+```
+
 ## CDN
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
 - jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
@@ -70,11 +58,21 @@ These open-source projects are using docsify to generate their sites. Pull reque
 - [docsify](https://docsify.js.org) - A magical documentation site generator.
 - [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
 
-## How to contribute
+## Contributing
 
 - Fork it!
-- Run `npm i && npm run dev`
-- open `localhost:3000`
+- Create your feature branch: git checkout -b my-new-feature
+- Commit your changes: git commit -am 'Add some feature'
+- Push to the branch: git push origin my-new-feature
+- Submit a pull request :D
+
+
+## Development
+
+```shell
+npm i && npm run dev
+open http://localhost:3000
+```
 
 ## License
 MIT

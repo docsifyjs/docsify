@@ -7,9 +7,9 @@
 </p>
 
 ## Features
-- Easy and lightweight (~12kb gzipped)
-- Custom themes
-- No build
+- Simple and lightweight (~12kb gzipped)
+- Multiple themes
+- Not build static html files
 
 ## Quick Start
 
