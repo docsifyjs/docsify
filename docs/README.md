@@ -249,3 +249,15 @@ Scroll to the top on changing hash.
 <!-- Or using `Welcome.md` as homepge -->
 <script src="/lib/docsify.js" data-homepage="Welcome.md"></script>
 ```
+
+
+#### basePath
+
+If your HTML entry file and the markdown files are in different directories, we can use:
+
+```html
+<script src="/lib/docsify.js" data-base-path="/base/"></script>
+
+<!-- Even if the docs is on another site 😄 -->
+<script src="/lib/docsify.js" data-base-path="https://docsify.js.org/"></script>
+```

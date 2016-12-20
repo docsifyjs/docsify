@@ -248,3 +248,13 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-homepage="Welcome.md"></script>
 ```
 
+#### basePath
+
+指定加载文档的路径，如果你的 HTML 入口文件和文档是放在不同地方，你可以设置：
+
+```html
+<script src="/lib/docsify.js" data-base-path="/base/"></script>
+
+<!-- 甚至文档是在其他站点下 😄 -->
+<script src="/lib/docsify.js" data-base-path="https://docsify.js.org/"></script>
+```

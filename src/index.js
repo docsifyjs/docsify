@@ -12,6 +12,7 @@ const OPTIONS = {
   loadNavbar: null,
   router: false,
   homepage: 'README.md',
+  basePath: '',
   auto2top: false
 }
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
@@ -34,8 +35,9 @@ let cacheRoute = null
 let cacheXhr = null
 
 const mainRender = function (cb) {
-  const route = getRoute()
+  const route = OPTIONS.basePath + getRoute()
   if (cacheRoute === route) return cb()
+
   let wait
   let basePath = cacheRoute = route
 
