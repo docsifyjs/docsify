@@ -4,6 +4,7 @@ $color-primary: #0074D9;
 $sidebar-width: 16em;
 
 @import "basic/layout";
+@import "basic/coverpage";
 
 body {
   color: #34495e;
@@ -11,6 +12,7 @@ body {
 /* sidebar */
 .sidebar {
   color: #364149;
+  background-color: #fff;
 
   a {
     color: #666;

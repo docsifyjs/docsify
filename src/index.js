@@ -1,5 +1,5 @@
 import { load, camel2kebab, isNil, getRoute } from './util'
-import { activeLink, scrollIntoView } from './event'
+import { activeLink, scrollIntoView, sticky } from './event'
 import * as render from './render'
 
 const OPTIONS = {
@@ -12,6 +12,7 @@ const OPTIONS = {
   loadNavbar: null,
   router: false,
   homepage: 'README.md',
+  coverpage: '',
   basePath: '',
   auto2top: false
 }
@@ -25,6 +26,7 @@ if (script) {
   }
   if (OPTIONS.loadSidebar === true) OPTIONS.loadSidebar = '_sidebar.md'
   if (OPTIONS.loadNavbar === true) OPTIONS.loadNavbar = '_navbar.md'
+  if (OPTIONS.coverpage === true) OPTIONS.coverpage = '_coverpage.md'
   if (OPTIONS.sidebar) OPTIONS.sidebar = window[OPTIONS.sidebar]
 }
 
@@ -54,6 +56,15 @@ const mainRender = function (cb) {
     page = `${route}README.md`
   } else {
     page = `${route}.md`
+  }
+
+  // Render Cover page
+  if (OPTIONS.coverpage) {
+    if (page === OPTIONS.homepage) {
+      load(OPTIONS.coverpage).then(render.renderCover)
+    } else {
+      render.renderCover()
+    }
   }
 
   cacheXhr && cacheXhr.abort && cacheXhr.abort()
@@ -91,6 +102,7 @@ const Docsify = function () {
     mainRender(_ => {
       activeLink('aside.sidebar', true)
       scrollIntoView()
+      OPTIONS.coverpage && sticky()
     })
   }
 

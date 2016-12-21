@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
@@ -38,6 +37,17 @@ img {
   max-width: 100%;
 }
 
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  margin-bottom : 3px;
+  font-size: 12px !important;
+  line-height: 12px;
+  vertical-align: middle;
+  border: solid 1px #ccc;
+  border-radius: 3px;
+}
+
 /* navbar */
 nav {
   position: absolute;
@@ -46,6 +56,10 @@ nav {
   z-index: 10;
   margin: 25px 60px 0 0;
   text-align: right;
+
+  &.no-badge {
+    margin-right: 25px;
+  }
 
   p {
     margin: 0;
@@ -124,17 +138,12 @@ nav {
 
 /* github corner */
 .github-corner {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   z-index: 1;
   text-decoration: none;
   border-bottom: 0;
-
-  &:hover {
-    background-color: inherit;
-    color: inherit;
-  }
 
   &:hover .octo-arm {
     animation:octocat-wave 560ms ease-in-out;
@@ -152,6 +161,16 @@ nav {
 main {
   size: 100% 100%;
   position: relative;
+}
+
+.anchor {
+  text-decoration: none;
+  transition: all .3s;
+  display: block;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 /* sidebar */
@@ -209,11 +228,15 @@ main {
   }
 }
 
+body.sticky {
+  .sidebar, .sidebar-toggle {
+    position: fixed;
+  }
+}
+
 /* main content */
 .content {
-  overflow-y: auto;
   position: absolute 0 0 0 $sidebar-width;
-  overflow-x: hidden;
   padding-top: 20px;
   transition: left 250ms ease;
 }
@@ -278,7 +301,6 @@ body.close {
   }
 
   nav {
-    position: static;
     margin-top: 16px;
   }
 
@@ -295,8 +317,6 @@ body.close {
     left: 0;
     min-width: 100vw;
     transition: transform 250ms ease;
-    position: static;
-    overflow-y: auto;
   }
 
   nav, .github-corner {

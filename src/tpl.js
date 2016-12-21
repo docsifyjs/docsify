@@ -21,10 +21,10 @@ export function corner (data) {
 
 /**
  * Render main content
- * @return {[type]}      [description]
  */
-export function main () {
+export function main (tpl) {
   return `<main>
+    ${tpl}
     <aside class="sidebar"></aside>
     <section class="content">
       <article class="markdown-section"></article>
@@ -32,8 +32,19 @@ export function main () {
   </main>`
 }
 
-export function toggle (bool) {
-  if (!bool) return ''
+/**
+ * Cover Page
+ */
+export function cover () {
+  const SL = ', 100%, 85%'
+  const bgc = `linear-gradient(to left bottom, hsl(${Math.floor(Math.random() * 255) + SL}) 0%, hsl(${Math.floor(Math.random() * 255) + SL}) 100%)`
+
+  return `<section class="cover" style="background: ${bgc}">
+    <div class="cover-main"></div>
+  </section>`
+}
+
+export function toggle () {
   return `<button class="sidebar-toggle">
     <span></span><span></span><span></span>
   </button>`
