@@ -163,6 +163,15 @@ main {
   position: relative;
 }
 
+.anchor {
+  text-decoration: none;
+  transition: all .3s;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 /* sidebar */
 .sidebar {
   border-right: 1px solid rgba(0, 0, 0, .07);

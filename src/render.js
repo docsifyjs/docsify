@@ -32,7 +32,7 @@ renderer.heading = function (text, level) {
 
   toc.push({ level, slug: `${route}#${encodeURIComponent(slug)}`, title: text })
 
-  return `<h${level} id="${slug}"><a href="${route}#${slug}" class="anchor"></a>${text}</h${level}>`
+  return `<a href="${route}#${slug}" class="anchor"><h${level} id="${slug}">${text}</h${level}></a>`
 }
 // highlight code
 renderer.code = function (code, lang = '') {
