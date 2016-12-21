@@ -1,3 +1,13 @@
+## 1.3.0
+### Features
+
+- Add cover page
+
+### Bug fixes
+- sidebar highlight
+- headling can be cliked
+- add `<kbd>` style
+
 ## 1.2.0
 ### Features
 - custom basePath
