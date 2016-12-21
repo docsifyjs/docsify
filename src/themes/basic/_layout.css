@@ -166,6 +166,7 @@ main {
 .anchor {
   text-decoration: none;
   transition: all .3s;
+  display: block;
 
   &:hover {
     text-decoration: underline;

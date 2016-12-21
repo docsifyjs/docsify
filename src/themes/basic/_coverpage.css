@@ -13,12 +13,22 @@ section.cover {
     margin: 0 16px;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   h1 {
     text-align: center;
     font-size: 2.5rem;
     position: relative;
     margin: .625rem 0 2.5rem;
     font-weight: 300;
+    color: inherit;
 
     small {
       position: absolute;

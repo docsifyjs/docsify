@@ -23,11 +23,11 @@ export function scrollActiveSidebar () {
 
   function highlight () {
     for (let i = 0, len = anchors.length; i < len; i += 1) {
-      const node = anchors[i].parentNode
+      const node = anchors[i]
       const bcr = node.getBoundingClientRect()
 
       if (bcr.top < 10 && bcr.bottom > 10) {
-        const li = nav[node.id]
+        const li = nav[node.getAttribute('data-id')]
 
         if (!li || li === active) return
         if (active) active.setAttribute('class', '')
