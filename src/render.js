@@ -65,7 +65,11 @@ export function renderApp (dom, replace) {
   // bind toggle
   bindToggle('button.sidebar-toggle')
   // bind sticky effect
-  !isMobile() && OPTIONS.coverpage && window.addEventListener('scroll', sticky)
+  if (OPTIONS.coverpage) {
+    !isMobile() && window.addEventListener('scroll', sticky)
+  } else {
+    document.body.classList.add('sticky')
+  }
 }
 
 /**

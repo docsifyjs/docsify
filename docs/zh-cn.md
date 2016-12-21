@@ -99,6 +99,28 @@ docsify serve docs
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
 - jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
 
+### 封面
+
+只需要写几行简单的 markdown 就可以拥有一页精致的封面，通过添加 `data-coverpage` 属性，并创建 `_coverpage.md`，按照下面的格式书写即可。
+
+```markdown
+![logo](_media/icon.svg)
+
+# docsify <small>1.2.0</small>
+
+> A magical documentation site generator.
+
+- Simple and lightweight (~12kb gzipped)
+- Multiple themes
+- Not build static html files
+
+
+[GitHub](https://github.com/QingWei-Li/docsify/)
+[Get Started](#quick-start)
+```
+
+
+
 ### 配置参数
 
 #### repo
@@ -250,4 +272,15 @@ Sidebar 开关按钮
 
 <!-- 甚至文档是在其他站点下 😄 -->
 <script src="/lib/docsify.js" data-base-path="https://docsify.js.org/"></script>
+```
+
+#### coverpage
+
+生成封面，参考 [#封面](#封面).
+
+```html
+<script src="/lib/docsify.js" data-coverpage></script>
+<!-- or -->
+<script src="/lib/docsify.js" data-coverpage="other.md"></script>
+
 ```

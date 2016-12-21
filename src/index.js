@@ -102,7 +102,7 @@ const Docsify = function () {
     mainRender(_ => {
       activeLink('aside.sidebar', true)
       scrollIntoView()
-      sticky()
+      OPTIONS.coverpage && sticky()
     })
   }
 

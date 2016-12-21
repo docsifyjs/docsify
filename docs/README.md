@@ -94,6 +94,28 @@ Code in `404.html`
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
 - jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
 
+
+### Cover Page
+
+Through the markdown can generate a cover page. create a `_coverpage.md` and set `data-coverpage` in script tag.
+
+```markdown
+![logo](_media/icon.svg)
+
+# docsify <small>1.2.0</small>
+
+> A magical documentation site generator.
+
+- Simple and lightweight (~12kb gzipped)
+- Multiple themes
+- Not build static html files
+
+
+[GitHub](https://github.com/QingWei-Li/docsify/)
+[Get Started](#quick-start)
+```
+
+
 ### Options
 
 #### repo
@@ -247,4 +269,15 @@ If your HTML entry file and the markdown files are in different directories, we 
 
 <!-- Even if the docs is on another site 😄 -->
 <script src="/lib/docsify.js" data-base-path="https://docsify.js.org/"></script>
+```
+
+
+#### coverpage
+
+Generate cover page.
+
+```html
+<script src="/lib/docsify.js" data-coverpage></script>
+<!-- or -->
+<script src="/lib/docsify.js" data-coverpage="other.md"></script>
 ```
