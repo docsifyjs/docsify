@@ -1,12 +1,15 @@
 ## 1.3.0
 ### Features
-
 - Add cover page
+- add `<kbd>` style
+- headling can be cliked
 
 ### Bug fixes
 - sidebar highlight
-- headling can be cliked
-- add `<kbd>` style
+
+
+### break change
+- Navbar no longer fixed at the top
 
 ## 1.2.0
 ### Features
