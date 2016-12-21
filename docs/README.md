@@ -1,16 +1,3 @@
-<p align="center">
-  <img alt="docsify" src="https://cloud.githubusercontent.com/assets/7565692/21292094/5c206de4-c533-11e6-9493-29ea67b01dde.png">
-</p>
-
-<p align="center">
-  A magical documentation site generator.
-</p>
-
-## Features
-- Simple and lightweight (~12kb gzipped)
-- Multiple themes
-- Not build static html files
-
 ## Quick Start
 
 ### Create a project

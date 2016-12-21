@@ -1,0 +1,72 @@
+section.cover {
+  &.hidden {
+    display: none;
+  }
+
+  height: 100vh;
+  position: relative;
+
+  .cover-main {
+    position: absolute 0 0 0 0;
+    padding: 20vh 0;
+    text-align: center;
+    margin: 0 16px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    position: relative;
+    margin: .625rem 0 2.5rem;
+    font-weight: 300;
+
+    small {
+      position: absolute;
+      bottom: -.4375rem;
+      font-size: 1rem;
+    }
+  }
+
+  blockquote {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  ul {
+    max-width: 500px;
+    list-style-type: none;
+    margin: 1em auto;
+    padding: 0;
+    line-height: 1.8;
+  }
+
+  p a {
+    margin-top: 1em;
+    border-radius: 2em;
+    border: 1px solid $color-primary;
+    box-sizing: border-box;
+    color: $color-primary;
+    font-size: 1.05em;
+    letter-spacing: 0.1em;
+    padding: 0.75em 2em;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    margin-right: 1em;
+    display: inline-block;
+
+    &:last-child {
+      margin-right: 0;
+      background-color: $color-primary;
+      color: #fff;
+
+      &:hover {
+        opacity: .8;
+        color: inherit;
+      }
+    }
+
+    &:hover {
+      color: inherit;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
-import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top } from './event'
-import { genTree, getRoute } from './util'
+import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from './event'
+import { genTree, getRoute, isMobile } from './util'
 
 let OPTIONS = {}
 const CACHE = {}
@@ -55,11 +55,17 @@ marked.setOptions({ renderer })
 export function renderApp (dom, replace) {
   const nav = document.querySelector('nav') || document.createElement('nav')
 
-  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.toggle(OPTIONS.sidebarToggle) + tpl.corner(OPTIONS.repo) + tpl.main()
+  if (!OPTIONS.repo) nav.classList.add('no-badge')
+
+  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(OPTIONS.repo) +
+    (OPTIONS.coverpage ? tpl.cover() : '') +
+    tpl.main(OPTIONS.sidebarToggle ? tpl.toggle() : '')
   document.body.insertBefore(nav, document.body.children[0])
 
   // bind toggle
   bindToggle('button.sidebar-toggle')
+  // bind sticky effect
+  !isMobile() && OPTIONS.coverpage && window.addEventListener('scroll', sticky)
 }
 
 /**
@@ -108,6 +114,20 @@ export function renderSidebar (content) {
   renderTo('aside.sidebar', content)
   if (isToc) scrollActiveSidebar()
   toc = []
+}
+
+/**
+ * Cover Page
+ */
+export function renderCover (content) {
+  renderCover.dom = renderCover.dom || document.querySelector('section.cover')
+  if (!content) {
+    renderCover.dom.classList.add('hidden')
+  } else {
+    renderCover.dom.classList.remove('hidden')
+    !renderCover.rendered && renderTo('.cover-main', marked(content))
+    renderCover.rendered = true
+  }
 }
 
 /**

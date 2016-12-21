@@ -40,9 +40,8 @@ export function scrollActiveSidebar () {
     }
   }
 
-  const dom = document.querySelector('main .content')
-  dom.removeEventListener('scroll', highlight)
-  dom.addEventListener('scroll', highlight)
+  window.removeEventListener('scroll', highlight)
+  window.addEventListener('scroll', highlight)
   highlight()
 }
 
@@ -99,4 +98,17 @@ export function scroll2Top () {
     cacheContentDOM = document.querySelector(dom)
   }
   cacheContentDOM.scrollTop = 0
+}
+
+export function sticky () {
+  const dom = document.querySelector('section.cover')
+  const coverHeight = dom.getBoundingClientRect().height
+
+  return (function () {
+    if (window.pageYOffset >= coverHeight || dom.classList.contains('hidden')) {
+      document.body.classList.add('sticky')
+    } else {
+      document.body.classList.remove('sticky')
+    }
+  })()
 }

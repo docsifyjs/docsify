@@ -11,6 +11,7 @@ body {
 /* sidebar */
 .sidebar {
   color: #364149;
+  background-color: #fff;
 
   a {
     color: #666;

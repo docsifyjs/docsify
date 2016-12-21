@@ -1,10 +1,3 @@
-<p align="center">
-  <img alt="docsify" src="https://cloud.githubusercontent.com/assets/7565692/21292094/5c206de4-c533-11e6-9493-29ea67b01dde.png">
-</p>
-
-<p align="center">
-  无需构建快速生成文档页
-</p>
 
 ## 特性
 - 无需构建，写完 markdown 直接发布
