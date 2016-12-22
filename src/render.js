@@ -42,7 +42,7 @@ renderer.code = function (code, lang = '') {
 }
 renderer.link = function (href, title, text) {
   if (OPTIONS.router && !/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(href)) {
-    href = !/^\/#/.test(href) ? `#${href}` : href
+    href = !/^\/#/.test(href) ? `#/${getRoute()}${href}` : href
   }
 
   return `<a href="${href}" title="${title || ''}">${text}</a>`

@@ -1,14 +1,14 @@
 section.cover {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+
   &.hidden {
     display: none;
   }
 
-  height: 100vh;
-  position: relative;
-
   .cover-main {
-    position: absolute 0 0 0 0;
-    padding: 20vh 0;
+    flex: 1;
     text-align: center;
     margin: 0 16px;
   }
@@ -20,6 +20,11 @@ section.cover {
     &:hover {
       text-decoration: none;
     }
+  }
+
+  p {
+    margin: 1em 0;
+    line-height: 1.5rem;
   }
 
   h1 {
@@ -50,8 +55,7 @@ section.cover {
     line-height: 1.8;
   }
 
-  p a {
-    margin-top: 1em;
+  .cover-main p:last-child a {
     border-radius: 2em;
     border: 1px solid $color-primary;
     box-sizing: border-box;

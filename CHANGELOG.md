@@ -1,3 +1,9 @@
+## 1.3.1
+
+### Bug fixes
+- Fixed cover page style
+- Generate the correct link when rendering the article
+
 ## 1.3.0
 ### Features
 - Add cover page
