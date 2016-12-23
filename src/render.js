@@ -132,6 +132,8 @@ export function renderCover (content) {
     !renderCover.rendered && renderTo('.cover-main', marked(content))
     renderCover.rendered = true
   }
+
+  sticky()
 }
 
 /**

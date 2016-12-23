@@ -59,12 +59,8 @@ const mainRender = function (cb) {
   }
 
   // Render Cover page
-  if (OPTIONS.coverpage) {
-    if (page === OPTIONS.homepage) {
-      load(OPTIONS.coverpage).then(render.renderCover)
-    } else {
-      render.renderCover()
-    }
+  if (OPTIONS.coverpage && page === OPTIONS.homepage) {
+    load(OPTIONS.coverpage).then(render.renderCover)
   }
 
   cacheXhr && cacheXhr.abort && cacheXhr.abort()
@@ -72,6 +68,9 @@ const mainRender = function (cb) {
   cacheXhr = load(page, 'GET', render.renderLoading)
   cacheXhr.then(result => {
     render.renderArticle(result)
+    // clear cover
+    if (OPTIONS.coverpage && page !== OPTIONS.homepage) render.renderCover()
+    // render sidebar
     if (OPTIONS.loadSidebar) {
       if (wait === false) cb()
       wait = false
@@ -102,7 +101,6 @@ const Docsify = function () {
     mainRender(_ => {
       activeLink('aside.sidebar', true)
       scrollIntoView()
-      OPTIONS.coverpage && sticky()
     })
   }
 

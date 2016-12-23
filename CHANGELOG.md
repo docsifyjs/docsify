@@ -1,3 +1,7 @@
+## 1.3.3
+### Bug fixes
+- Fixed cover rendering timing
+
 ## 1.3.2
 
 ### Bug fixes
