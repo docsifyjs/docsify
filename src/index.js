@@ -1,5 +1,5 @@
 import { load, camel2kebab, isNil, getRoute } from './util'
-import { activeLink, scrollIntoView, sticky } from './event'
+import { activeLink, scrollIntoView } from './event'
 import * as render from './render'
 
 const OPTIONS = {
