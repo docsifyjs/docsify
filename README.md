@@ -58,6 +58,10 @@ These open-source projects are using docsify to generate their sites. Pull reque
 - [docsify](https://docsify.js.org) - A magical documentation site generator.
 - [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
 
+## Similar projects
+- [docute](https://github.com/egoist/docute) - 📜 Effortlessly documentation done right
+- [docpress](https://github.com/docpress/docpress) - Documentation website generator
+
 ## Contributing
 
 - Fork it!
