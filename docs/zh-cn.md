@@ -94,6 +94,15 @@ docsify serve docs
 </nav>
 ```
 
+### Hash router
+`404.html` 对 SEO 不友好, 你可以用 `index.html` 代替并开启 `hash router` 功能。 [issue#7](https://github.com/QingWei-Li/docsify/issues/7)
+
+index.html
+
+```html
+<script src="//unpkg.com/docsify" data-router></script>
+```
+
 
 ### CDN
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)

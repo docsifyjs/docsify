@@ -89,6 +89,14 @@ Code in `404.html`
 </nav>
 ```
 
+### Hash router
+`404.html` is not SEO friendly, you can replace it use `index.html` and `data-router` [issue#7](https://github.com/QingWei-Li/docsify/issues/7)
+
+index.html
+
+```html
+<script src="//unpkg.com/docsify" data-router></script>
+```
 
 ### CDN
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
