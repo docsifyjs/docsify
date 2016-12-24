@@ -14,7 +14,7 @@ mkdir docs && cd docs
 ```
 
 ### 创建入口文件
-创建一个 `404.html` 文件，内容为
+创建一个 `index.html` 文件，内容为
 ```html
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@ mkdir docs && cd docs
 <body>
   <div id="app"></div>
 </body>
-<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/docsify" data-router></script>
 </html>
 ```
 
@@ -66,7 +66,7 @@ docsify serve docs
 更多选项参考 [docsify-cli](https://github.com/QingWei-Li/docsify-cli)
 
 ## 主题
-目前提供 vue.css 和 buble.css，直接修改 `404.html` 里的 cdn 地址即可
+目前提供 vue.css 和 buble.css，直接修改 `index.html` 里的 cdn 地址即可
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css">
@@ -82,26 +82,18 @@ docsify serve docs
 ## 更多功能
 
 ### 多页面
-`README.md` 作为主页面，如果需要其他页面，直接在文档目录下创建对应的 `*.md` 文件，例如创建一个 `guide.md` 那么对应的路由就是 `/guide`。
+`README.md` 作为主页面，如果需要其他页面，直接在文档目录下创建对应的 `*.md` 文件，例如创建一个 `guide.md` 那么对应的路由就是 `/#/guide`。
 
 ### 导航
-导航需要自己写在 `404.html` 文件里，效果参考本文档
+导航需要自己写在 `index.html` 文件里，效果参考本文档
 
 ```html
 <nav>
-  <a href="/docsify/">En</a>
-  <a href="/docsify/zh-cn">中文</a>
+  <a href="/#/docsify/">En</a>
+  <a href="/#/docsify/zh-cn">中文</a>
 </nav>
 ```
 
-### Hash router
-`404.html` 对 SEO 不友好, 你可以用 `index.html` 代替并开启 `hash router` 功能。 [issue#7](https://github.com/QingWei-Li/docsify/issues/7)
-
-index.html
-
-```html
-<script src="//unpkg.com/docsify" data-router></script>
-```
 
 
 ### CDN
@@ -133,7 +125,7 @@ index.html
 ### 配置参数
 
 #### repo
-参考本文档的右上角的 GitHub 图标，如果要开启的话，将 `404.html` 里的 script 改成
+参考本文档的右上角的 GitHub 图标，如果要开启的话，将 `index.html` 里的 script 改成
 
 ```html
 <script src="//unpkg.com/docsify" data-repo="your/repo"></script>
@@ -246,7 +238,7 @@ Sidebar 开关按钮
 
 #### router
 
-开启 hash router 功能，此时可以创建 `index.html` 作为入口文件，同时多页面切换不会重新加载资源。资源路径会被替换成 `/#/` 的形式。
+开启 hash router 功能，同时多页面切换不会重新加载资源。资源路径会被替换成 `/#/` 的形式。
 
 ```html
 <script src="/lib/docsify.js" data-router></script>

@@ -42,12 +42,6 @@ index.html
 </html>
 ```
 
-Or create a `404.html` and `README.md` into `/docs`. Just remove `data-router`
-
-```html
-<script src="//unpkg.com/docsify"></script>
-```
-
 ## CDN
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
 - jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)

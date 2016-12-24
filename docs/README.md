@@ -8,7 +8,7 @@ mkdir docs && cd docs
 ```
 
 ### Create entry file
-Create a `404.html` file
+Create a `index.html` file
 
 ```html
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ Create a `404.html` file
 <body>
   <div id="app"></div>
 </body>
-<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/docsify" data-router></script>
 </html>
 ```
 
@@ -77,25 +77,16 @@ Minified files
 ## More
 
 ### Multiple pages
-If you need other pages, directly create the markdown file, such as `guide.md` is `/guide`.
+If you need other pages, directly create the markdown file, such as `guide.md` is `/#/guide`.
 
 ### Navbar
-Code in `404.html`
+Code in `index.html`
 
 ```html
 <nav>
-  <a href="/docsify/">En</a>
-  <a href="/docsify/zh-cn">中文</a>
+  <a href="/#/docsify/">En</a>
+  <a href="/#/docsify/zh-cn">中文</a>
 </nav>
-```
-
-### Hash router
-`404.html` is not SEO friendly, you can replace it use `index.html` and `data-router` [issue#7](https://github.com/QingWei-Li/docsify/issues/7)
-
-index.html
-
-```html
-<script src="//unpkg.com/docsify" data-router></script>
 ```
 
 ### CDN
@@ -242,7 +233,7 @@ If you write a sub level list, it will generate a dropdown list.
 
 #### router
 
-Hash router. You can replace `404.html` with `index.html`.
+Hash router.
 
 ```html
 <script src="/lib/docsify.js" data-router></script>
