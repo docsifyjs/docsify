@@ -1,3 +1,13 @@
+
+## 1.3.5
+### Bug fixes
+- Fix vue
+
+## 1.3.4
+### Bug fixes
+
+- Supports [vuep](https://github.com/QingWei-Li/vuep)
+
 ## 1.3.3
 ### Bug fixes
 - Fixed cover rendering timing
