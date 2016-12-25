@@ -1,5 +1,6 @@
 // Fork https://github.com/HermannBjorgvin/SnowJs/blob/master/snow.js
 (function(){
+    if (new Date().getDate() > 25) return
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
     var flakeArray = [];
