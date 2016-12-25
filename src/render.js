@@ -37,6 +37,7 @@ renderer.heading = function (text, level) {
 // highlight code
 renderer.code = function (code, lang = '') {
   const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
+    .replace(/{{/g, '<span>{{</span>')
 
   return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
 }
@@ -82,7 +83,7 @@ export function renderArticle (content) {
   renderSidebar.rendered = false
   renderNavbar.rendered = false
 
-  if (typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') new Vue({ el: 'main' }) // eslint-disable-line
+  if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') new Vue({ el: 'main' }) // eslint-disable-line
   if (OPTIONS.auto2top) scroll2Top()
 }
 
