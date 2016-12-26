@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "marked": "^0.3.6",
-    "prismjs": "^1.5.1"
+    "prismjs": "^1.5.1",
+    "set-cookie-parser": "^2.0.0"
   }
 }
