@@ -83,7 +83,10 @@ export function renderArticle (content) {
   renderSidebar.rendered = false
   renderNavbar.rendered = false
 
-  if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') new Vue({ el: 'main' }) // eslint-disable-line
+  if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') {
+    const vm = new Vue({ el: 'main' }) // eslint-disable-line
+    vm.$nextTick(_ => scrollActiveSidebar())
+  }
   if (OPTIONS.auto2top) scroll2Top()
 }
 
@@ -118,7 +121,9 @@ export function renderSidebar (content) {
   if (CACHE.sidebar && CACHE.sidebar === content) return
   CACHE.sidebar = content
   renderTo('aside.sidebar', content)
-  if (isToc) scrollActiveSidebar()
+  if (isToc) {
+    scrollActiveSidebar()
+  }
   toc = []
 }
 
