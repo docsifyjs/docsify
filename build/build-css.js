@@ -6,7 +6,7 @@ var postcss = require('postcss')
 var processor = postcss([require('postcss-salad')])
 
 var saveMin = function (file, content) {
-  fs.writeFileSync(resolve(__dirname, '../lib/themes/', file), content)
+  fs.writeFileSync(resolve(__dirname, '../public/lib/themes/', file), content)
 }
 var save = function (file, content) {
   fs.writeFileSync(resolve(__dirname, '../themes/', file), content)

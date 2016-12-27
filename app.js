@@ -1,15 +1,28 @@
-const serveStatic = require('serve-static')
-const http = require('http')
 const fs = require('fs')
 const path = require('path')
-const setCookie = require('set-cookie-parser')
+
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const express = require('express')
+
+const app = express()
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(express.static('public'))
+
+/**
+ * Viewing Password feature has been added.
+ * Set 'keepItSecret' to true to enable this feature.
+ * By LancerComet at 16:31, 2016.12.27.
+ */
 
 /**
  * App Configuration.
  */
 const keepItSecret = true   // Visitors need to provide correct password if it is set to true.
 const password = 'test'     // Password.
-const sessionPool = []      // Session Storage. Empty every 30 mins.
+const sessionPool = []      // Session Storage.
 
 /**
  * Server Configuration.
@@ -20,57 +33,56 @@ const hostname = '0.0.0.0'  // Hostname.
 /**
  * Create Static Server.
  */
-http.createServer(startStaticServer).listen(port, hostname)
+app.listen(port, hostname)
 
 /**
- * Setup Static Server.
- *
- * @return void
+ * Index Controller.
  */
-function startStaticServer (req, res) {
-  /**
-   * Index controller.
-   */
-  serveStatic('/')(req, res, function () {
-    res.writeHead(200, { 'Content-Type': 'text/html' })
-    if (keepItSecret) {
-      // Check Session in Cookie.
-      const sessionID = getSessionFromCookie(req.headers.cookie)
-      !sessionID || !checkSession(sessionID)
-        ? renderPassword(res)
-        : renderIndex(res)
-    } else {
-      renderIndex(res)
-    }
-  })
+app.get('/', function (req, res, next) {
+  res.writeHead(200, { 'Content-Type': 'text/html' })
+  if (keepItSecret) {
+    // Check Session in Cookie.
+    const sessionID = req.cookies.session
+    !sessionID || !checkSession(sessionID)
+      ? renderPassword(res)
+      : renderIndex(res)
+  } else {
+    renderIndex(res)
+  }
+})
 
-  /**
-   * Password submitting controller.
-   */
-  serveStatic('/password')(req, res, function () {
-    const url = req.url  // localhost:3000/password?value=xxx
-    const matching = url.match(/value=[^&]+/)
+/**
+ * Password Controller.
+ */
+app.post('/password', function (req, res, next) {
+  const password = req.body.value
+  if (comparePassword(password)) {
+    // Password is correct.
+    const sessionID = addNewSession()
+    res.cookie('session', sessionID, {
+      maxAge: 1000 * 60 * 60,
+      httpOnly: true
+    })
+    res.redirect('/')
+  } else {
+    res.status(400).json({
+      status: 400,
+      msg: 'Password is incorrect.'
+    })
+  }
+})
 
-    // Chcek password and set cookie.
-    if (matching) {
-      const value = matching[0].substring(6)
+/**
+ * Logout Controller.
+ */
+app.get('/logout', function (req, res, next) {
+  const sessionID = req.cookies.sessionID
+  const index = sessionPool.indexOf(sessionID)
+  if (index > -1) sessionPool.splice(index, 1)
+  res.cookie('session', null)
+  res.redirect('/')
+})
 
-      if (comparePassword(value)) {
-        // Password is correct.
-        const sessionID = addNewSession()
-        setCookie.parse(res, {
-          name: 'session',
-          value: sessionID
-        })
-
-        // TODO: redirect to index.
-      } else {
-        // Password is wrong.
-        // TODO: send wrong information.
-      }
-    }
-  })
-}
 
 /**
  * Sign new session id.
@@ -90,11 +102,6 @@ function addNewSession () {
  */
 function checkSession (sessionID) {
   return sessionPool.indexOf(sessionID) > -1
-}
-
-// TODO: getSessionFromCookie.
-function getSessionFromCookie (cookieStr) {
-
 }
 
 /**

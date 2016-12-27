@@ -11,7 +11,7 @@ var build = function (opts) {
       plugins: [buble()].concat(opts.plugins || [])
     })
     .then(function (bundle) {
-      var dest = 'lib/' + (opts.output || opts.entry)
+      var dest = 'public/lib/' + (opts.output || opts.entry)
 
       console.log(dest)
       bundle.write({
