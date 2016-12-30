@@ -29,7 +29,7 @@ Create `README.md` as the main page
 ```
 # Title
 
-## balabala
+## blabla
 ```
 
 ### Deploy!
@@ -38,7 +38,7 @@ Push and open the **GitHub Pages** feature
 
 ## CLI
 
-Easy to setup and preivew a docs.
+Easy to setup and preview a docs.
 
 ### Install
 ```shell
@@ -96,7 +96,7 @@ Code in `index.html`
 
 ### Cover Page
 
-Through the markdown can generate a cover page. create a `_coverpage.md` and set `data-coverpage` in script tag.
+Generate a cover page through with markdown. Create a `_coverpage.md` and set `data-coverpage` in script tag.
 
 ```markdown
 ![logo](_media/icon.svg)
@@ -125,7 +125,7 @@ Display the [GitHub Corner](http://tholman.com/github-corners/) widget.
 ```
 
 #### max-level
-Toc level.
+TOC level.
 
 ```html
 <script src="//unpkg.com/docsify" data-max-level="6"></script>
@@ -148,7 +148,7 @@ Sidebar with toggle
 
 #### sidebar
 
-Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on the `data-sidebar`.
+Custom sidebar. If it's set, the TOC will be disabled. Bind global variables on the `data-sidebar`.
 
 ![image](https://cloud.githubusercontent.com/assets/7565692/20647425/de5ab1c2-b4ce-11e6-863a-135868f2f9b4.png)
 
@@ -172,8 +172,8 @@ Custom sidebar. if it'set, the TOC will be disabeld. Bind global variables on th
 
 #### load-sidebar
 
-Load sidebar markdown file. If it is configured, load  the current directory `_sidebar.md` by default. If the file isn't exist, sidebar will appear TOC.
-** you should add `.nojekyll` into docs folder, to prevent GitHub Pages from ignoring the `_sidebar.md`**
+Load sidebar markdown file. If it is configured, load the current directory `_sidebar.md` by default. If the file isn't exist, sidebar will appear as a TOC.
+** you should add `.nojekyll` into docs folder to prevent GitHub Pages from ignoring the `_sidebar.md`**
 
 ```html
 <script src="/lib/docsify.js" data-load-sidebar></script>
@@ -215,7 +215,7 @@ Display TOC in the custom sidebar. The default value is 0.
 
 #### load-navbar
 
-Load navbar markdown file. If it is configured, load  the current directory `_navbar.md` by default.
+Load navbar markdown file. If it is configured, load the current directory `_navbar.md` by default.
 
 ```html
 <script src="/lib/docsify.js" data-load-navbar></script>
@@ -262,7 +262,7 @@ Scroll to the top on changing hash.
 
 #### homepage
 
-`README.md` will be render as homepage for your website in docs folder, but sometimes we want to specify another file as a homepage, or even use the `README.md` in your repo. we can use (need `data-router`):
+`README.md` will be rendered as a homepage for your website in the docs folder, but sometimes we want to specify another file as a homepage, or even use the `README.md` in your repo. We can use (need `data-router`):
 
 ```html
 <script src="/lib/docsify.js" data-homepage="https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md"></script>
