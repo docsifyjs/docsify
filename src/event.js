@@ -16,7 +16,10 @@ export function scrollActiveSidebar () {
     const li = lis[i]
     let href = li.querySelector('a').getAttribute('href')
 
-    if (href !== '/') href = href.match(/#([^#]+)$/g)[0].slice(1)
+    if (href !== '/') {
+      const match = href.match('#([^#]+)$')
+      if (match && match.length) href = match[0].slice(1)
+    }
 
     nav[decodeURIComponent(href)] = li
   }
@@ -61,18 +64,22 @@ export function activeLink (dom, activeParent) {
 
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
   if (!dom) return
+  let target
 
   ;[].slice.call(dom.querySelectorAll('a')).forEach(node => {
-    if (node.href === host) {
+    if (node.href === host && !target) {
       activeParent
         ? node.parentNode.setAttribute('class', 'active')
         : node.setAttribute('class', 'active')
+      target = node
     } else {
       activeParent
         ? node.parentNode.removeAttribute('class')
         : node.removeAttribute('class')
     }
   })
+
+  return target
 }
 
 /**

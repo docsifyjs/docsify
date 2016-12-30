@@ -1,11 +1,12 @@
 import { load, camel2kebab, isNil, getRoute } from './util'
-import { activeLink, scrollIntoView } from './event'
+import { scrollIntoView } from './event'
 import * as render from './render'
 
 const OPTIONS = {
   el: '#app',
   repo: '',
   maxLevel: 6,
+  maxSubLevel: 0,
   sidebar: '',
   sidebarToggle: false,
   loadSidebar: null,
@@ -40,7 +41,6 @@ const mainRender = function (cb) {
   const route = OPTIONS.basePath + getRoute()
   if (cacheRoute === route) return cb()
 
-  let wait
   let basePath = cacheRoute = route
 
   if (!/\//.test(basePath)) {
@@ -72,21 +72,15 @@ const mainRender = function (cb) {
     if (OPTIONS.coverpage && page !== OPTIONS.homepage) render.renderCover()
     // render sidebar
     if (OPTIONS.loadSidebar) {
-      if (wait === false) cb()
-      wait = false
+      load(basePath + OPTIONS.loadSidebar)
+        .then(result => {
+          render.renderSidebar(result)
+          cb()
+        })
     } else {
       cb()
     }
   }, _ => render.renderArticle(null))
-
-  // Render sidebar
-  if (OPTIONS.loadSidebar) {
-    load(basePath + OPTIONS.loadSidebar).then(result => {
-      render.renderSidebar(result)
-      if (wait === false) cb()
-      wait = false
-    })
-  }
 
   // Render navbar
   if (OPTIONS.loadNavbar) {
@@ -98,10 +92,7 @@ const Docsify = function () {
   const dom = document.querySelector(OPTIONS.el) || document.body
   const replace = dom !== document.body
   const main = function () {
-    mainRender(_ => {
-      activeLink('aside.sidebar', true)
-      scrollIntoView()
-    })
+    mainRender(_ => scrollIntoView())
   }
 
   // Render app

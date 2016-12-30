@@ -78,10 +78,7 @@ export function renderApp (dom, replace) {
  */
 export function renderArticle (content) {
   renderTo('article', content ? marked(content) : 'not found')
-  if (!renderSidebar.rendered) renderSidebar(null, OPTIONS)
-  if (!renderNavbar.rendered) renderNavbar(null, OPTIONS)
-  renderSidebar.rendered = false
-  renderNavbar.rendered = false
+  if (!OPTIONS.sidebar && !OPTIONS.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') {
     const vm = new Vue({ el: 'main' }) // eslint-disable-line
@@ -96,7 +93,6 @@ export function renderArticle (content) {
 export function renderNavbar (content) {
   if (CACHE.navbar && CACHE.navbar === content) return
   CACHE.navbar = content
-  renderNavbar.rendered = true
 
   if (content) renderTo('nav', marked(content))
   activeLink('nav')
@@ -106,25 +102,27 @@ export function renderNavbar (content) {
  * sidebar
  */
 export function renderSidebar (content) {
-  let isToc = false
+  let html
 
   if (content) {
-    content = marked(content)
+    html = marked(content)
   } else if (OPTIONS.sidebar) {
-    content = tpl.tree(OPTIONS.sidebar, '<ul>')
+    html = tpl.tree(OPTIONS.sidebar, '<ul>')
   } else {
-    content = tpl.tree(genTree(toc, OPTIONS.maxLevel), '<ul>')
-    isToc = true
+    html = tpl.tree(genTree(toc, OPTIONS.maxLevel), '<ul>')
   }
 
-  renderSidebar.rendered = true
-  if (CACHE.sidebar && CACHE.sidebar === content) return
-  CACHE.sidebar = content
-  renderTo('aside.sidebar', content)
-  if (isToc) {
-    scrollActiveSidebar()
-  }
+  renderTo('aside.sidebar', html)
+  const target = activeLink('aside.sidebar', true)
+  if (content) renderSubSidebar(target)
   toc = []
+
+  scrollActiveSidebar()
+}
+
+export function renderSubSidebar (target) {
+  if (!OPTIONS.maxSubLevel) return
+  target.parentNode.innerHTML += tpl.tree(genTree(toc, OPTIONS.maxSubLevel), '<ul>')
 }
 
 /**
