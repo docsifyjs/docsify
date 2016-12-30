@@ -201,6 +201,18 @@ The contents of the file can be:
   - [HTML5 History Mode](/history-mode)
 ```
 
+#### max-sub-level
+
+Display TOC in the custom sidebar. The default value is 0.
+
+
+```html
+<script src="/lib/docsify.js" data-load-sidebar data-max-sub-level="4"></script>
+```
+
+![image](https://cloud.githubusercontent.com/assets/7565692/21563209/a8894512-ceba-11e6-80eb-fef00b80625c.png)
+
+
 #### load-navbar
 
 Load navbar markdown file. If it is configured, load  the current directory `_navbar.md` by default.

@@ -206,6 +206,18 @@ Sidebar 开关按钮
   - [HTML5 History Mode](/history-mode)
 ```
 
+#### max-sub-level
+
+显示 TOC 在自定义的侧边栏里，默认最大显示 0 层。
+
+
+```html
+<script src="/lib/docsify.js" data-load-sidebar data-max-sub-level="4"></script>
+```
+
+![image](https://cloud.githubusercontent.com/assets/7565692/21563209/a8894512-ceba-11e6-80eb-fef00b80625c.png)
+
+
 #### load-navbar
 
 读取导航配置文件，如果配置，默认加载当前目录下的 `_navbar.md`。如果文件不存在，会显示 html 里定义的导航栏。
