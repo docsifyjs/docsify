@@ -1,20 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600');
 
 $color-primary: #42b983;
+$color-bg: #fff;
 $sidebar-width: 300px;
 
 @import "basic/layout";
 @import "basic/coverpage";
 
 body {
-  background-color: #fff;
+  background-color: $color-bg;
   color: #34495e;
 }
 
 /* sidebar */
 .sidebar {
   color: #364149;
-  background-color: #fff;
+  background-color: $color-bg;
 
   li {
     margin: 6px 15px;

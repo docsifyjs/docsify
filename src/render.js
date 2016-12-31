@@ -131,19 +131,31 @@ export function renderSubSidebar (target) {
 export function renderCover (content) {
   renderCover.dom = renderCover.dom || document.querySelector('section.cover')
   if (!content) {
-    renderCover.dom.classList.add('hidden')
-  } else {
-    renderCover.dom.classList.remove('hidden')
-    if (!renderCover.rendered) {
-      const html = marked(content)
-      const div = document.createElement('div')
-      div.innerHTML = html
-      const a = div.querySelector('p:last-child')
-      console.log(a)
-      renderTo('.cover-main', marked(content))
-    }
-    renderCover.rendered = true
+    renderCover.dom.classList.remove('show')
+    return
   }
+  renderCover.dom.classList.add('show')
+  if (renderCover.rendered) return
+
+  // render cover
+  let html = marked(content)
+  const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)"></p>$')
+
+  // render background
+  if (match) {
+    const coverEl = document.querySelector('section.cover')
+
+    if (match[2] === 'color') {
+      coverEl.style.background = match[1]
+    } else {
+      coverEl.classList.add('has-mask')
+      coverEl.style.backgroundImage = `url(${match[1]})`
+    }
+    html = html.replace(match[0], '')
+  }
+
+  renderTo('.cover-main', html)
+  renderCover.rendered = true
 
   sticky()
 }

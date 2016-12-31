@@ -121,6 +121,23 @@ docsify serve docs
 ```
 
 
+#### 自定义封面背景
+默认的背景是随机生成的，你可以自定义背景色或者背景图片。只需要在文档末尾用添加图片的 Markdown 语法
+
+```markdown
+# docsify <small>1.2.0</small>
+
+> xxx
+
+[GitHub](https://github.com/QingWei-Li/docsify/)
+[Get Started](#quick-start)
+
+<!-- 背景图片 -->
+![](_media/bg.png)
+<!-- 背景色 -->
+![color](#f0f0f0)
+```
+
 
 ### 配置参数
 
@@ -289,7 +306,7 @@ Sidebar 开关按钮
 
 #### coverpage
 
-生成封面，参考 [#封面](#封面).
+生成封面，参考 [#封面](/zh-cn#封面).
 
 ```html
 <script src="/lib/docsify.js" data-coverpage></script>

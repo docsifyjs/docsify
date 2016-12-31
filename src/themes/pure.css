@@ -1,3 +1,4 @@
 $color-primary: #000;
+$color-bg: #fff;
 $sidebar-width: 300px;
 @import "basic/layout";

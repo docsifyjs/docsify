@@ -95,7 +95,7 @@ nav {
     display: inline-block;
 
     ul {
-      background-color: rgba(#fff, .6);
+      background-color: rgba($color-bg, .6);
       border: 1px solid $color-primary;
       opacity: 0;
       overflow: hidden;
@@ -150,7 +150,7 @@ nav {
   }
 
   svg {
-    color: #fff;
+    color: $color-bg;
     height: 80px;
     width: 80px;
     fill: $color-primary;

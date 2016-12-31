@@ -114,6 +114,23 @@ Generate a cover page through with markdown. Create a `_coverpage.md` and set `d
 [Get Started](#quick-start)
 ```
 
+#### Custom background
+Currently the background of cover page is generated randomly. We can customize the background, just using the syntax to add image.
+
+```markdown
+# docsify <small>1.2.0</small>
+
+> xxx
+
+[GitHub](https://github.com/QingWei-Li/docsify/)
+[Get Started](#quick-start)
+
+<!-- background image -->
+![](_media/bg.png)
+<!-- background color -->
+![color](#f0f0f0)
+```
+
 
 ### Options
 

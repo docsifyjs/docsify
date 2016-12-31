@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
 
 $color-primary: #0074D9;
+$color-bg: #fff;
 $sidebar-width: 16em;
 
 @import "basic/layout";
@@ -12,7 +13,7 @@ body {
 /* sidebar */
 .sidebar {
   color: #364149;
-  background-color: #fff;
+  background-color: $color-bg;
 
   a {
     color: #666;
