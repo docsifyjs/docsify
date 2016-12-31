@@ -2,7 +2,7 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
 import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from './event'
-import { genTree, getRoute, isMobile } from './util'
+import { genTree, getRoute, isMobile, slugify } from './util'
 
 let OPTIONS = {}
 const CACHE = {}
@@ -21,9 +21,7 @@ const renderer = new marked.Renderer()
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
-  const slug = text.toLowerCase()
-      .replace(/<(?:.|\n)*?>/gm, '')
-      .replace(/[^\w|\u4e00-\u9fa5]+/g, '-')
+  const slug = slugify(text)
   let route = ''
 
   if (OPTIONS.router) {
@@ -42,7 +40,7 @@ renderer.code = function (code, lang = '') {
   return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
 }
 renderer.link = function (href, title, text) {
-  if (OPTIONS.router && !/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(href)) {
+  if (OPTIONS.router && !/:/.test(href)) {
     href = `#/${href}`.replace(/\/\//g, '/')
   }
 
@@ -121,8 +119,8 @@ export function renderSidebar (content) {
 }
 
 export function renderSubSidebar (target) {
-  if (!OPTIONS.maxSubLevel) return
-  target.parentNode.innerHTML += tpl.tree(genTree(toc, OPTIONS.maxSubLevel), '<ul>')
+  if (!OPTIONS.subMaxLevel) return
+  target.parentNode.innerHTML += tpl.tree(genTree(toc, OPTIONS.subMaxLevel), '<ul>')
 }
 
 /**
@@ -131,12 +129,31 @@ export function renderSubSidebar (target) {
 export function renderCover (content) {
   renderCover.dom = renderCover.dom || document.querySelector('section.cover')
   if (!content) {
-    renderCover.dom.classList.add('hidden')
-  } else {
-    renderCover.dom.classList.remove('hidden')
-    !renderCover.rendered && renderTo('.cover-main', marked(content))
-    renderCover.rendered = true
+    renderCover.dom.classList.remove('show')
+    return
   }
+  renderCover.dom.classList.add('show')
+  if (renderCover.rendered) return
+
+  // render cover
+  let html = marked(content)
+  const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)"></p>$')
+
+  // render background
+  if (match) {
+    const coverEl = document.querySelector('section.cover')
+
+    if (match[2] === 'color') {
+      coverEl.style.background = match[1]
+    } else {
+      coverEl.classList.add('has-mask')
+      coverEl.style.backgroundImage = `url(${match[1]})`
+    }
+    html = html.replace(match[0], '')
+  }
+
+  renderTo('.cover-main', html)
+  renderCover.rendered = true
 
   sticky()
 }

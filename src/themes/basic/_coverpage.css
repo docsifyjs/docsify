@@ -1,16 +1,27 @@
 section.cover {
-  height: 100vh;
-  display: flex;
   align-items: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: none;
 
-  &.hidden {
-    display: none;
+  &.show {
+    display: flex;
+  }
+
+  &.has-mask .mask {
+    position: absolute;
+    size: 100%;
+    background-color: $color-bg;
+    opacity: .8;
   }
 
   .cover-main {
     flex: 1;
     text-align: center;
     margin: 0 16px;
+    z-index: 1;
   }
 
   a {

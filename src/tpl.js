@@ -41,13 +41,16 @@ export function cover () {
 
   return `<section class="cover" style="background: ${bgc}">
     <div class="cover-main"></div>
+    <div class="mask"></div>
   </section>`
 }
 
 export function toggle () {
   return `<button class="sidebar-toggle">
-    <span></span><span></span><span></span>
-  </button>`
+      <div class="sidebar-toggle-button">
+        <span></span><span></span><span></span>
+      </div>
+    </button>`
 }
 
 /**

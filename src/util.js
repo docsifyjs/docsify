@@ -106,3 +106,31 @@ export function isMobile () {
   return document.body.clientWidth <= 600
 }
 
+export function slugify (string) {
+  const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@\[\]^`{|}~]/g
+  const maintainCase = false
+  const replacement = '-'
+  slugify.occurrences = slugify.occurrences || {}
+
+  if (typeof string !== 'string') return ''
+  if (!maintainCase) string = string.toLowerCase()
+
+  let slug = string.trim()
+    .replace(re, '')
+    .replace(/\s/g, replacement)
+  let occurrences = slugify.occurrences[slug]
+
+  if (slugify.occurrences.hasOwnProperty(slug)) {
+    occurrences++
+  } else {
+    occurrences = 0
+  }
+
+  slugify.occurrences[slug] = occurrences
+
+  if (occurrences) {
+    slug = slug + '-' + occurrences
+  }
+
+  return slug
+}

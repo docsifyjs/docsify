@@ -1,3 +1,22 @@
+## 1.4.2
+
+### Bug fixes
+- Fix toggle button style.
+- Support `mailto`, `tel`, etc. href type
+- Fix scroll to top.
+
+
+## 1.4.1
+### Bug fixes
+- Fix generate slug.
+
+## 1.4.0 Happly new year 🎉
+### Features
+- Display TOC in the custom sidebar, `data-sub-max-level`.
+- Custom background in coverpage.
+
+### Bug fixes
+- Fix scroll highlight when Vue exist.
 
 ## 1.3.5
 ### Bug fixes
