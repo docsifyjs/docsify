@@ -1,4 +1,4 @@
-## xxx
+## 1.4.3
 
 ### Bug fixes
 - Fix toggle button style.
