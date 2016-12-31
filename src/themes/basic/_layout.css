@@ -177,7 +177,7 @@ main {
 .sidebar {
   border-right: 1px solid rgba(0, 0, 0, .07);
   overflow-y: auto;
-  padding-top: 40px;
+  padding: 40px 0;
   position: absolute 0 * 0 0;
   transition: transform 250ms ease-out;
   width: $sidebar-width;
@@ -206,17 +206,18 @@ main {
 .sidebar-toggle {
   background-color: transparent;
   border: 0;
-  bottom: 10px;
-  left: 10px;
   outline: none;
-  position: absolute;
+  position: absolute * * 0 0;
   text-align: center;
   transition: opacity .3s;
   width: 30px;
   z-index: 30;
   outline: none;
+  width: calc($sidebar-width - 16px);
+  padding: 10px;
+  background-color: rgba($color-bg, .8);
 
-  &:hover {
+  .sidebar-toggle-button:hover {
     opacity: .4;
   }
 
@@ -290,6 +291,10 @@ body.close {
     transform: translateX(-$sidebar-width);
   }
 
+  .sidebar-toggle {
+    width: auto;
+  }
+
   .content {
     left: 0;
   }
@@ -323,9 +328,17 @@ body.close {
     transition: transform 250ms ease-out;
   }
 
+  .sidebar-toggle {
+    width: auto;
+  }
+
   body.close {
     .sidebar {
       transform: translateX($sidebar-width);
+    }
+
+    .sidebar-toggle {
+      width: calc($sidebar-width - 16px);
     }
 
     .content {

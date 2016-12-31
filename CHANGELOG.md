@@ -1,3 +1,7 @@
+## 1.4.2
+### Bug fixes
+- Fix scroll to top.
+
 ## 1.4.1
 ### Bug fixes
 - Fix generate slug.

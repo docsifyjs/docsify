@@ -47,8 +47,10 @@ export function cover () {
 
 export function toggle () {
   return `<button class="sidebar-toggle">
-    <span></span><span></span><span></span>
-  </button>`
+      <div class="sidebar-toggle-button">
+        <span></span><span></span><span></span>
+      </div>
+    </button>`
 }
 
 /**

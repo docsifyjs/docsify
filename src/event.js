@@ -94,19 +94,14 @@ export function bindToggle (dom) {
 
   dom.addEventListener('click', () => body.classList.toggle('close'))
 
-  if (!/mobile/i.test(navigator.userAgent)) return
-  document.querySelector('aside').addEventListener('click', event => {
-    body.classList.toggle('close')
-  })
+  if (isMobile()) {
+    document.querySelector('aside')
+      .addEventListener('click', _ => body.classList.toggle('close'))
+  }
 }
 
-let cacheContentDOM
 export function scroll2Top () {
-  if (!cacheContentDOM) {
-    const dom = isMobile() ? 'body' : 'section.content'
-    cacheContentDOM = document.querySelector(dom)
-  }
-  cacheContentDOM.scrollTop = 0
+  document.body.scrollTop = 0
 }
 
 export function sticky () {
