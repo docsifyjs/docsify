@@ -1,3 +1,9 @@
+## xxx
+
+### Bug fixes
+- Fix toggle button style.
+
+
 ## 1.4.2
 ### Bug fixes
 - Fix scroll to top.
