@@ -201,7 +201,7 @@ The contents of the file can be:
   - [HTML5 History Mode](/history-mode)
 ```
 
-#### max-sub-level
+#### sub-max-level
 
 Display TOC in the custom sidebar. The default value is 0.
 

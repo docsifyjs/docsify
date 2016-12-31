@@ -1,3 +1,10 @@
+## 1.4.0
+### Features
+- Display TOC in the custom sidebar.
+- Custom background in coverpage.
+
+### Bug fixes
+- Fix scroll highlight when Vue exist.
 
 ## 1.3.5
 ### Bug fixes

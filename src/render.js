@@ -121,8 +121,8 @@ export function renderSidebar (content) {
 }
 
 export function renderSubSidebar (target) {
-  if (!OPTIONS.maxSubLevel) return
-  target.parentNode.innerHTML += tpl.tree(genTree(toc, OPTIONS.maxSubLevel), '<ul>')
+  if (!OPTIONS.subMaxLevel) return
+  target.parentNode.innerHTML += tpl.tree(genTree(toc, OPTIONS.subMaxLevel), '<ul>')
 }
 
 /**
@@ -134,7 +134,14 @@ export function renderCover (content) {
     renderCover.dom.classList.add('hidden')
   } else {
     renderCover.dom.classList.remove('hidden')
-    !renderCover.rendered && renderTo('.cover-main', marked(content))
+    if (!renderCover.rendered) {
+      const html = marked(content)
+      const div = document.createElement('div')
+      div.innerHTML = html
+      const a = div.querySelector('p:last-child')
+      console.log(a)
+      renderTo('.cover-main', marked(content))
+    }
     renderCover.rendered = true
   }
 

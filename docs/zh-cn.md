@@ -206,7 +206,7 @@ Sidebar 开关按钮
   - [HTML5 History Mode](/history-mode)
 ```
 
-#### max-sub-level
+#### sub-max-level
 
 显示 TOC 在自定义的侧边栏里，默认最大显示 0 层。
 

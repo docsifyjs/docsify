@@ -6,7 +6,7 @@ const OPTIONS = {
   el: '#app',
   repo: '',
   maxLevel: 6,
-  maxSubLevel: 0,
+  subMaxLevel: 0,
   sidebar: '',
   sidebarToggle: false,
   loadSidebar: null,
