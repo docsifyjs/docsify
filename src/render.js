@@ -40,7 +40,7 @@ renderer.code = function (code, lang = '') {
   return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
 }
 renderer.link = function (href, title, text) {
-  if (OPTIONS.router && !/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(href)) {
+  if (OPTIONS.router && !/:/.test(href)) {
     href = `#/${href}`.replace(/\/\//g, '/')
   }
 

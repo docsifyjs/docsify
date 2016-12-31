@@ -2,6 +2,7 @@
 
 ### Bug fixes
 - Fix toggle button style.
+- Support `mailto`, `tel`, etc. href type
 
 
 ## 1.4.2
