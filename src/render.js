@@ -2,7 +2,7 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
 import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from './event'
-import { genTree, getRoute, isMobile } from './util'
+import { genTree, getRoute, isMobile, slugify } from './util'
 
 let OPTIONS = {}
 const CACHE = {}
@@ -21,9 +21,7 @@ const renderer = new marked.Renderer()
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
-  const slug = text.toLowerCase()
-      .replace(/<(?:.|\n)*?>/gm, '')
-      .replace(/[^\w|\u4e00-\u9fa5]+/g, '-')
+  const slug = slugify(text)
   let route = ''
 
   if (OPTIONS.router) {

@@ -1,3 +1,7 @@
+## 1.4.1
+### Bug fixes
+- Fix generate slug.
+
 ## 1.4.0 Happly new year 🎉
 ### Features
 - Display TOC in the custom sidebar, `data-sub-max-level`.
