@@ -1,13 +1,10 @@
-## 1.4.3
+## 1.4.2
 
 ### Bug fixes
 - Fix toggle button style.
 - Support `mailto`, `tel`, etc. href type
-
-
-## 1.4.2
-### Bug fixes
 - Fix scroll to top.
+
 
 ## 1.4.1
 ### Bug fixes
