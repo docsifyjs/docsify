@@ -1,4 +1,4 @@
-
+import { isMobile } from './util'
 /**
  * Render github corner
  * @param  {Object} data
@@ -23,13 +23,13 @@ export function corner (data) {
  * Render main content
  */
 export function main (tpl) {
-  return `<main>
-    ${tpl}
-    <aside class="sidebar"></aside>
-    <section class="content">
+  const aside = `${tpl}<aside class="sidebar"></aside>`
+
+  return (isMobile() ? `${aside}<main>` : `<main>${aside}`) +
+    `<section class="content">
       <article class="markdown-section"></article>
     </section>
-  </main>`
+    </main>`
 }
 
 /**
