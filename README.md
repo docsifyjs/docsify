@@ -51,6 +51,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 
 - [docsify](https://docsify.js.org) - A magical documentation site generator.
 - [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
+- [puck](https://puck.zz173.com/) - A small & magical php framework.
 
 ## Similar projects
 - [docute](https://github.com/egoist/docute) - 📜 Effortlessly documentation done right
@@ -67,10 +68,29 @@ These open-source projects are using docsify to generate their sites. Pull reque
 
 ## Development
 
+### prepare
 ```shell
 npm i && npm run dev
 open http://localhost:3000
 ```
+
+### MoreLanguageHighlight
+
+By default,docsify will only highlight faw language ,such as `html`,`css`,`javascript` eg.  
+if u want to add more ,like php. just edit `src/render.js` ,and then add a language import.
+
+```javacript
+import marked from 'marked'
+import Prism from 'prismjs'
+//this line ↓
+import prism_php from 'prismjs/components/prism-php'
+// or
+import prism_ruby from 'prismjs/components/prism-ruby'
+// and so on...
+import prism_markdown from 'prismjs/components/prism-markdown'
+import * as tpl from './tpl'
+```
+
 
 ## License
 MIT
