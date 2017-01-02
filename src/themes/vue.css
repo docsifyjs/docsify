@@ -2,6 +2,7 @@
 
 $color-primary: #42b983;
 $color-bg: #fff;
+$color-text: #34495e;
 $sidebar-width: 300px;
 
 @import "basic/layout";
@@ -9,7 +10,6 @@ $sidebar-width: 300px;
 
 body {
   background-color: $color-bg;
-  color: #34495e;
 }
 
 /* sidebar */

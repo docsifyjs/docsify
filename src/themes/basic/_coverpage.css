@@ -20,7 +20,7 @@ section.cover {
   .cover-main {
     flex: 1;
     text-align: center;
-    margin: 0 16px;
+    margin: -20px 16px 0;
     z-index: 1;
   }
 
@@ -45,6 +45,10 @@ section.cover {
     margin: .625rem 0 2.5rem;
     font-weight: 300;
     color: inherit;
+
+    a {
+      display: block;
+    }
 
     small {
       position: absolute;

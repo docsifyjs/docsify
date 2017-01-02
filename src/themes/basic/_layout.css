@@ -31,6 +31,7 @@ body {
   letter-spacing: 0;
   margin: 0;
   overflow-x: hidden;
+  color: $color-text;
 }
 
 img {
@@ -159,14 +160,18 @@ nav {
 
 /* main */
 main {
-  size: 100% 100%;
+  size: 100vw 100%;
   position: relative;
 }
 
 .anchor {
   text-decoration: none;
   transition: all .3s;
-  display: block;
+  display: inline-block;
+
+  span {
+    color: $color-text;
+  }
 
   &:hover {
     text-decoration: underline;
@@ -313,6 +318,11 @@ body.close {
     top: 30px;
   }
 
+  main {
+    height: auto;
+    overflow-x: hidden;
+  }
+
   .sidebar {
     left: -$sidebar-width;
     transition: transform 250ms ease-out;
@@ -320,7 +330,8 @@ body.close {
 
   .content {
     left: 0;
-    min-width: 100vw;
+    max-width: 100vw;
+    position: static;
     transition: transform 250ms ease;
   }
 
@@ -330,6 +341,7 @@ body.close {
 
   .sidebar-toggle {
     width: auto;
+    background-color: transparent;
   }
 
   body.close {
@@ -339,6 +351,8 @@ body.close {
 
     .sidebar-toggle {
       width: calc($sidebar-width - 16px);
+      background-color: rgba($color-bg, .8);
+      transition: 1s background-color;
     }
 
     .content {
@@ -346,7 +360,7 @@ body.close {
     }
 
     nav, .github-corner {
-      transform: translateX($sidebar-width);
+      display: none;
     }
   }
 

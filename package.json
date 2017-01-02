@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "A magical documentation generator.",
   "main": "lib/docsify.js",
   "files": [

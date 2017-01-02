@@ -2,14 +2,12 @@
 
 $color-primary: #0074D9;
 $color-bg: #fff;
+$color-text: #34495e;
 $sidebar-width: 16em;
 
 @import "basic/layout";
 @import "basic/coverpage";
 
-body {
-  color: #34495e;
-}
 /* sidebar */
 .sidebar {
   color: #364149;
