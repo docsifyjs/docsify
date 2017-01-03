@@ -110,6 +110,7 @@ export function slugify (string) {
   const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@\[\]^`{|}~]/g
   const maintainCase = false
   const replacement = '-'
+
   slugify.occurrences = slugify.occurrences || {}
 
   if (typeof string !== 'string') return ''
@@ -133,4 +134,8 @@ export function slugify (string) {
   }
 
   return slug
+}
+
+slugify.clear = function () {
+  slugify.occurrences = {}
 }
