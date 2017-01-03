@@ -74,23 +74,13 @@ npm i && npm run dev
 open http://localhost:3000
 ```
 
-### MoreLanguageHighlight
+### More Language Highlight
 
-By default,docsify will only highlight faw language ,such as `html`,`css`,`javascript` eg.  
-if u want to add more ,like php. just edit `src/render.js` ,and then add a language import.
-
-```javacript
-import marked from 'marked'
-import Prism from 'prismjs'
-//this line ↓
-import prism_php from 'prismjs/components/prism-php'
-// or
-import prism_ruby from 'prismjs/components/prism-ruby'
-// and so on...
-import prism_markdown from 'prismjs/components/prism-markdown'
-import * as tpl from './tpl'
+```html
+<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-php.js"></script>
 ```
-
 
 ## License
 MIT

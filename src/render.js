@@ -10,6 +10,7 @@ const CACHE = {}
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
   dom.innerHTML = content
+  slugify.clear()
 
   return dom
 }

@@ -1,3 +1,6 @@
+### Bug fixes
+- Fix slugify.
+
 ## 1.4.3
 ### Bug fixes
 - Tweak style.
