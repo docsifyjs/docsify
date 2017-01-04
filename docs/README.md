@@ -98,7 +98,7 @@ Code in `index.html`
 
 ### Cover Page
 
-Generate a cover page through with markdown. Create a `_coverpage.md` and set `data-coverpage` in script tag.
+Generate a cover page with markdown. Create a `_coverpage.md` and set `data-coverpage` in the script tag.
 
 ```markdown
 ![logo](_media/icon.svg)
@@ -117,7 +117,7 @@ Generate a cover page through with markdown. Create a `_coverpage.md` and set `d
 ```
 
 #### Custom background
-Currently the background of cover page is generated randomly. We can customize the background, just using the syntax to add image.
+Currently the background of the cover page is generated randomly. We can customize the background color, or add a background image.
 
 ```markdown
 # docsify <small>1.2.0</small>
@@ -135,7 +135,7 @@ Currently the background of cover page is generated randomly. We can customize t
 
 ### Markdown parser
 
-Docsify uses [marked](https://github.com/chjj/marked) to parse markdown, we can configure it
+Docsify uses [marked](https://github.com/chjj/marked) to parse markdown. We can configure it
 
 ```js
 window.$docsify = {
@@ -145,7 +145,7 @@ window.$docsify = {
 }
 ```
 
-And can even be completely customized
+And it can even be customized
 
 ```js
 window.$docsify = {
@@ -159,7 +159,7 @@ window.$docsify = {
 
 ## Options
 
-You can add configuration by script tag attributes or `window.$docsify`.
+You can add configurations in the script tag attributes or with `window.$docsify`.
 
 ### repo
 Display the [GitHub Corner](http://tholman.com/github-corners/) widget.
@@ -247,7 +247,7 @@ window.$docsify = {
 
 ### load-sidebar
 
-Load sidebar markdown file. If it is configured, load the current directory `_sidebar.md` by default. If the file isn't exist, sidebar will appear as a TOC.
+Load sidebar markdown file. If it is configured, load the current directory `_sidebar.md` by default. If the file doesn't exist, the sidebar will appear as a TOC.
 ** you should add `.nojekyll` into docs folder to prevent GitHub Pages from ignoring the `_sidebar.md`**
 
 ```html
