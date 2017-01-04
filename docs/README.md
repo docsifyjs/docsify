@@ -60,7 +60,11 @@ docsify serve docs
 
 Read more [docsify-cli](https://github.com/QingWei-Li/docsify-cli)
 
-## Themes
+
+
+## More
+
+### Themes
 Currently available `vue.css` and `buble.css`
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
@@ -73,8 +77,6 @@ Minified files
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css">
 ```
-
-## More
 
 ### Multiple pages
 If you need other pages, directly create the markdown file, such as `guide.md` is `/#/guide`.
@@ -131,31 +133,75 @@ Currently the background of cover page is generated randomly. We can customize t
 ![color](#f0f0f0)
 ```
 
+### Markdown parser
 
-### Options
+Docsify uses [marked](https://github.com/chjj/marked) to parse markdown, we can configure it
 
-#### repo
+```js
+window.$docsify = {
+  markdown: {
+    smartypants: true
+  }
+}
+```
+
+And can even be completely customized
+
+```js
+window.$docsify = {
+  markdown: function(marked) {
+    // ...
+
+    return marked
+  }
+}
+```
+
+## Options
+
+You can add configuration by script tag attributes or `window.$docsify`.
+
+### repo
 Display the [GitHub Corner](http://tholman.com/github-corners/) widget.
 
 ```html
 <script src="//unpkg.com/docsify" data-repo="your/repo"></script>
 ```
 
-#### max-level
+
+```js
+window.$docsify = {
+  repo: 'your/repo'
+}
+```
+
+### max-level
 TOC level.
 
 ```html
 <script src="//unpkg.com/docsify" data-max-level="6"></script>
 ```
 
-#### el
+```js
+window.$docsify = {
+  maxLevel: 6
+}
+```
+
+### el
 Root element.
 
 ```html
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
-#### sidebar-toggle
+```js
+window.$docsify = {
+  el: '#app'
+}
+```
+
+### sidebar-toggle
 
 Sidebar with toggle
 
@@ -163,7 +209,13 @@ Sidebar with toggle
 <script src="//unpkg.com/docsify" data-sidebar-toggle></script>
 ```
 
-#### sidebar
+```js
+window.$docsify = {
+  sidebarToggle: true
+}
+```
+
+### sidebar
 
 Custom sidebar. If it's set, the TOC will be disabled. Bind global variables on the `data-sidebar`.
 
@@ -187,7 +239,13 @@ Custom sidebar. If it's set, the TOC will be disabled. Bind global variables on 
 ```
 
 
-#### load-sidebar
+```js
+window.$docsify = {
+  sidebar: 'sidebar'
+}
+```
+
+### load-sidebar
 
 Load sidebar markdown file. If it is configured, load the current directory `_sidebar.md` by default. If the file isn't exist, sidebar will appear as a TOC.
 ** you should add `.nojekyll` into docs folder to prevent GitHub Pages from ignoring the `_sidebar.md`**
@@ -202,6 +260,12 @@ You can specify a file:
 <script src="/lib/docsify.js" data-load-sidebar="_sidebar.md"></script>
 ```
 
+```js
+window.$docsify = {
+  loadSidebar: '_sidebar.md'
+}
+```
+
 The contents of the file can be:
 
 ```markdown
@@ -211,14 +275,9 @@ The contents of the file can be:
   - [Getting Started](/getting-started)
   - [Dynamic Route Matching](/dynamic-matching)
   - [Nested Routes](/nested-routes)
-  - [Programmatic Navigation](/navigation)
-  - [Named Routes](/named-routes)
-  - [Named Views](/named-views)
-  - [Redirect and Alias](/redirect-and-alias)
-  - [HTML5 History Mode](/history-mode)
 ```
 
-#### sub-max-level
+### sub-max-level
 
 Display TOC in the custom sidebar. The default value is 0.
 
@@ -227,10 +286,14 @@ Display TOC in the custom sidebar. The default value is 0.
 <script src="/lib/docsify.js" data-load-sidebar data-max-sub-level="4"></script>
 ```
 
-![image](https://cloud.githubusercontent.com/assets/7565692/21563209/a8894512-ceba-11e6-80eb-fef00b80625c.png)
 
+```js
+window.$docsify = {
+  maxSubLevel: 4
+}
+```
 
-#### load-navbar
+### load-navbar
 
 Load navbar markdown file. If it is configured, load the current directory `_navbar.md` by default.
 
@@ -242,6 +305,12 @@ You can specify a file:
 
 ```html
 <script src="/lib/docsify.js" data-load-navbar="_navbar.md"></script>
+```
+
+```js
+window.$docsify = {
+  loadNavbar: '_navbar.md'
+}
 ```
 
 The contents of the file can be:
@@ -260,7 +329,7 @@ If you write a sub level list, it will generate a dropdown list.
   - [chinese](/zh-cn)
 ```
 
-#### router
+### router
 
 Hash router.
 
@@ -268,7 +337,14 @@ Hash router.
 <script src="/lib/docsify.js" data-router></script>
 ```
 
-#### auto2top
+```js
+window.$docsify = {
+  router: true
+}
+```
+
+
+### auto2top
 
 Scroll to the top on changing hash.
 
@@ -277,7 +353,13 @@ Scroll to the top on changing hash.
 <script src="/lib/docsify.js" data-auto2top></script>
 ```
 
-#### homepage
+```js
+window.$docsify = {
+  auto2top: true
+}
+```
+
+### homepage
 
 `README.md` will be rendered as a homepage for your website in the docs folder, but sometimes we want to specify another file as a homepage, or even use the `README.md` in your repo. We can use (need `data-router`):
 
@@ -288,7 +370,14 @@ Scroll to the top on changing hash.
 ```
 
 
-#### basePath
+```js
+window.$docsify = {
+  homepage: true
+}
+```
+
+
+### basePath
 
 If your HTML entry file and the markdown files are in different directories, we can use:
 
@@ -300,7 +389,14 @@ If your HTML entry file and the markdown files are in different directories, we 
 ```
 
 
-#### coverpage
+```js
+window.$docsify = {
+  basePath: '/base/'
+}
+```
+
+
+### coverpage
 
 Generate cover page.
 
@@ -308,4 +404,10 @@ Generate cover page.
 <script src="/lib/docsify.js" data-coverpage></script>
 <!-- or -->
 <script src="/lib/docsify.js" data-coverpage="other.md"></script>
+```
+
+```js
+window.$docsify = {
+  coverpage: true
+}
 ```

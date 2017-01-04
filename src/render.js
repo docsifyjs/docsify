@@ -2,9 +2,11 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
 import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from './event'
-import { genTree, getRoute, isMobile, slugify } from './util'
+import { genTree, getRoute, isMobile, slugify, merge } from './util'
 
 let OPTIONS = {}
+let markdown = marked
+let toc = []
 const CACHE = {}
 
 const renderTo = function (dom, content) {
@@ -14,40 +16,53 @@ const renderTo = function (dom, content) {
 
   return dom
 }
-let toc = []
-const renderer = new marked.Renderer()
 
 /**
- * render anchor tag
- * @link https://github.com/chjj/marked#overriding-renderer-methods
+ * init render
+ * @param  {Object} options
  */
-renderer.heading = function (text, level) {
-  const slug = slugify(text)
-  let route = ''
+export function init (options) {
+  OPTIONS = options
 
-  if (OPTIONS.router) {
-    route = `#/${getRoute()}`
+  const renderer = new marked.Renderer()
+  /**
+   * render anchor tag
+   * @link https://github.com/chjj/marked#overriding-renderer-methods
+   */
+  renderer.heading = function (text, level) {
+    const slug = slugify(text)
+    let route = ''
+
+    if (OPTIONS.router) {
+      route = `#/${getRoute()}`
+    }
+
+    toc.push({ level, slug: `${route}#${encodeURIComponent(slug)}`, title: text })
+
+    return `<h${level} id="${slug}"><a href="${route}#${slug}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
+  }
+  // highlight code
+  renderer.code = function (code, lang = '') {
+    const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
+      .replace(/{{/g, '<span>{{</span>')
+
+    return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
+  }
+  renderer.link = function (href, title, text) {
+    if (OPTIONS.router && !/:/.test(href)) {
+      href = `#/${href}`.replace(/\/\//g, '/')
+    }
+
+    return `<a href="${href}" title="${title || ''}">${text}</a>`
   }
 
-  toc.push({ level, slug: `${route}#${encodeURIComponent(slug)}`, title: text })
-
-  return `<h${level} id="${slug}"><a href="${route}#${slug}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
-}
-// highlight code
-renderer.code = function (code, lang = '') {
-  const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
-    .replace(/{{/g, '<span>{{</span>')
-
-  return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
-}
-renderer.link = function (href, title, text) {
-  if (OPTIONS.router && !/:/.test(href)) {
-    href = `#/${href}`.replace(/\/\//g, '/')
+  if (typeof OPTIONS.markdown === 'function') {
+    markdown.setOptions({ renderer })
+    markdown = OPTIONS.markdown.call(this, markdown)
+  } else {
+    markdown.setOptions(merge({ renderer }, OPTIONS.markdown))
   }
-
-  return `<a href="${href}" title="${title || ''}">${text}</a>`
 }
-marked.setOptions({ renderer })
 
 /**
  * App
@@ -76,7 +91,7 @@ export function renderApp (dom, replace) {
  * article
  */
 export function renderArticle (content) {
-  renderTo('article', content ? marked(content) : 'not found')
+  renderTo('article', content ? markdown(content) : 'not found')
   if (!OPTIONS.sidebar && !OPTIONS.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') {
@@ -93,7 +108,7 @@ export function renderNavbar (content) {
   if (CACHE.navbar && CACHE.navbar === content) return
   CACHE.navbar = content
 
-  if (content) renderTo('nav', marked(content))
+  if (content) renderTo('nav', markdown(content))
   activeLink('nav')
 }
 
@@ -104,7 +119,7 @@ export function renderSidebar (content) {
   let html
 
   if (content) {
-    html = marked(content)
+    html = markdown(content)
   } else if (OPTIONS.sidebar) {
     html = tpl.tree(OPTIONS.sidebar, '<ul>')
   } else {
@@ -137,7 +152,7 @@ export function renderCover (content) {
   if (renderCover.rendered) return
 
   // render cover
-  let html = marked(content)
+  let html = markdown(content)
   const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)"></p>$')
 
   // render background
@@ -191,12 +206,3 @@ export function renderLoading ({ loaded, total, step }) {
     }, 200)
   }
 }
-
-/**
- * Load Config
- * @param  {Object} options
- */
-export function config (options) {
-  OPTIONS = options
-}
-

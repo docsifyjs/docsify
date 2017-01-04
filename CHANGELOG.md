@@ -1,5 +1,12 @@
+## 1.5.0
+
 ### Bug fixes
 - Fix slugify.
+- Fix nav highlight.
+
+### Features
+- Initialize the configuration by `window.$docsify`.
+- Markdown parser is configurable.
 
 ## 1.4.3
 ### Bug fixes

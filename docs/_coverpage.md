@@ -1,10 +1,10 @@
 ![logo](_media/icon.svg)
 
-# docsify <small>1.4.3</small>
+# docsify <small>1.5.0</small>
 
 > A magical documentation site generator.
 
-- Simple and lightweight (~12kb gzipped)
+- Simple and lightweight (~13kB gzipped)
 - Multiple themes
 - Not build static html files
 

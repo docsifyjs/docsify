@@ -1,8 +1,8 @@
-import { load, camel2kebab, isNil, getRoute } from './util'
-import { scrollIntoView } from './event'
+import { load, camel2kebab, isNil, getRoute, merge } from './util'
+import { scrollIntoView, activeLink } from './event'
 import * as render from './render'
 
-const OPTIONS = {
+const OPTIONS = merge({
   el: '#app',
   repo: '',
   maxLevel: 6,
@@ -16,7 +16,7 @@ const OPTIONS = {
   coverpage: '',
   basePath: '',
   auto2top: false
-}
+}, window.$docsify)
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 
 // load configuration for script attribute
@@ -32,7 +32,7 @@ if (script) {
 }
 
 // load options
-render.config(OPTIONS)
+render.init(OPTIONS)
 
 let cacheRoute = null
 let cacheXhr = null
@@ -92,7 +92,10 @@ const Docsify = function () {
   const dom = document.querySelector(OPTIONS.el) || document.body
   const replace = dom !== document.body
   const main = function () {
-    mainRender(_ => scrollIntoView())
+    mainRender(_ => {
+      scrollIntoView()
+      activeLink('nav')
+    })
   }
 
   // Render app

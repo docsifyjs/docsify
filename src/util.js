@@ -139,3 +139,18 @@ export function slugify (string) {
 slugify.clear = function () {
   slugify.occurrences = {}
 }
+
+const hasOwnProperty = Object.prototype.hasOwnProperty
+export const merge = Object.assign || function (to) {
+  for (let i = 1; i < arguments.length; i++) {
+    const from = Object(arguments[i])
+
+    for (const key in from) {
+      if (hasOwnProperty.call(from, key)) {
+        to[key] = from[key]
+      }
+    }
+  }
+
+  return to
+}
