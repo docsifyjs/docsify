@@ -1,5 +1,5 @@
 import { load, camel2kebab, isNil, getRoute } from './util'
-import { scrollIntoView } from './event'
+import { scrollIntoView, activeLink } from './event'
 import * as render from './render'
 
 const OPTIONS = {
@@ -92,7 +92,10 @@ const Docsify = function () {
   const dom = document.querySelector(OPTIONS.el) || document.body
   const replace = dom !== document.body
   const main = function () {
-    mainRender(_ => scrollIntoView())
+    mainRender(_ => {
+      scrollIntoView()
+      activeLink('nav')
+    })
   }
 
   // Render app
