@@ -5,6 +5,7 @@ import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from 
 import { genTree, getRoute, isMobile, slugify, merge } from './util'
 
 let OPTIONS = {}
+let markdown = marked
 let toc = []
 const CACHE = {}
 
@@ -54,7 +55,13 @@ export function init (options) {
 
     return `<a href="${href}" title="${title || ''}">${text}</a>`
   }
-  marked.setOptions(merge({ renderer }, OPTIONS.marked))
+
+  if (typeof OPTIONS.markdown === 'function') {
+    markdown.setOptions({ renderer })
+    markdown = OPTIONS.markdown.call(this, markdown)
+  } else {
+    markdown.setOptions(merge({ renderer }, OPTIONS.markdown))
+  }
 }
 
 /**
@@ -84,7 +91,7 @@ export function renderApp (dom, replace) {
  * article
  */
 export function renderArticle (content) {
-  renderTo('article', content ? marked(content) : 'not found')
+  renderTo('article', content ? markdown(content) : 'not found')
   if (!OPTIONS.sidebar && !OPTIONS.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') {
@@ -101,7 +108,7 @@ export function renderNavbar (content) {
   if (CACHE.navbar && CACHE.navbar === content) return
   CACHE.navbar = content
 
-  if (content) renderTo('nav', marked(content))
+  if (content) renderTo('nav', markdown(content))
   activeLink('nav')
 }
 
@@ -112,7 +119,7 @@ export function renderSidebar (content) {
   let html
 
   if (content) {
-    html = marked(content)
+    html = markdown(content)
   } else if (OPTIONS.sidebar) {
     html = tpl.tree(OPTIONS.sidebar, '<ul>')
   } else {
@@ -145,7 +152,7 @@ export function renderCover (content) {
   if (renderCover.rendered) return
 
   // render cover
-  let html = marked(content)
+  let html = markdown(content)
   const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)"></p>$')
 
   // render background
