@@ -65,7 +65,10 @@ docsify serve docs
 
 更多选项参考 [docsify-cli](https://github.com/QingWei-Li/docsify-cli)
 
-## 主题
+
+## 更多功能
+
+### 主题
 目前提供 vue.css 和 buble.css，直接修改 `index.html` 里的 cdn 地址即可
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
@@ -78,8 +81,6 @@ docsify serve docs
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css">
 ```
-
-## 更多功能
 
 ### 多页面
 `README.md` 作为主页面，如果需要其他页面，直接在文档目录下创建对应的 `*.md` 文件，例如创建一个 `guide.md` 那么对应的路由就是 `/#/guide`。
@@ -138,30 +139,77 @@ docsify serve docs
 ![color](#f0f0f0)
 ```
 
+### 自定义 Markdown parser
 
-### 配置参数
+默认使用 [marked](https://github.com/chjj/marked) 处理 markdown 部分，你可以修改默认配置
 
-#### repo
+```js
+window.$docsify = {
+  markdown: {
+    smartypants: true
+  }
+}
+```
+
+甚至可以完全定制化
+
+```js
+window.$docsify = {
+  markdown: function(marked) {
+    // ...
+
+    return marked
+  }
+}
+```
+
+
+## 配置参数
+
+你可以通过在标签上添加属性的方式，或者给 `window.$docsify` 传配置信息。
+
+### repo
 参考本文档的右上角的 GitHub 图标，如果要开启的话，将 `index.html` 里的 script 改成
 
 ```html
 <script src="//unpkg.com/docsify" data-repo="your/repo"></script>
 ```
 
-#### max-level
+
+```js
+window.$docsify = {
+  repo: 'your/repo'
+}
+```
+
+### max-level
 目录最大展开层级，默认值为 6
 
 ```html
 <script src="//unpkg.com/docsify" data-max-level="6"></script>
 ```
 
-#### el
+
+```js
+window.$docsify = {
+  maxLevel: 6
+}
+```
+
+### el
 替换节点元素，默认为 `#app`
 ```html
 <script src="//unpkg.com/docsify" data-el="#app"></script>
 ```
 
-#### sidebar-toggle
+
+```js
+window.$docsify = {
+  el: '#app'
+}
+```
+
+### sidebar-toggle
 
 Sidebar 开关按钮
 
@@ -169,7 +217,14 @@ Sidebar 开关按钮
 <script src="//unpkg.com/docsify" data-sidebar-toggle></script>
 ```
 
-#### sidebar
+
+```js
+window.$docsify = {
+  sidebarToggle: true
+}
+```
+
+### sidebar
 
 设置后 TOC 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
 
@@ -192,7 +247,14 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-sidebar="sidebar"></script>
 ```
 
-#### load-sidebar
+
+```js
+window.$docsify = {
+  sidebar: 'sidebar'
+}
+```
+
+### load-sidebar
 
 读取侧边栏配置文件，如果配置，默认加载当前目录下的 `_sidebar.md`。如果文件不存在，会显示 TOC 作为侧边栏内容。如果你有二级目录，也应该放置一份配置文件。
 **如果用 `_` 开头作为文件名，你应该在文档目录下添加 `.nojekyll`，阻止 GitHub Pages 忽略下划线开头的文件。**
@@ -201,10 +263,17 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-load-sidebar></script>
 ```
 
+
 你可以指定侧边栏文件名
 
 ```html
 <script src="/lib/docsify.js" data-load-sidebar="_sidebar.md"></script>
+```
+
+```js
+window.$docsify = {
+  loadSidebar: '_sidebar.md'
+}
 ```
 
 `_sidebar.md` 的内容可以是这样的
@@ -216,14 +285,9 @@ Sidebar 开关按钮
   - [Getting Started](/getting-started)
   - [Dynamic Route Matching](/dynamic-matching)
   - [Nested Routes](/nested-routes)
-  - [Programmatic Navigation](/navigation)
-  - [Named Routes](/named-routes)
-  - [Named Views](/named-views)
-  - [Redirect and Alias](/redirect-and-alias)
-  - [HTML5 History Mode](/history-mode)
 ```
 
-#### sub-max-level
+### sub-max-level
 
 显示 TOC 在自定义的侧边栏里，默认最大显示 0 层。
 
@@ -232,10 +296,13 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-load-sidebar data-max-sub-level="4"></script>
 ```
 
-![image](https://cloud.githubusercontent.com/assets/7565692/21563209/a8894512-ceba-11e6-80eb-fef00b80625c.png)
+```js
+window.$docsify = {
+  maxSubLevel: 4
+}
+```
 
-
-#### load-navbar
+### load-navbar
 
 读取导航配置文件，如果配置，默认加载当前目录下的 `_navbar.md`。如果文件不存在，会显示 html 里定义的导航栏。
 
@@ -247,6 +314,12 @@ Sidebar 开关按钮
 
 ```html
 <script src="/lib/docsify.js" data-load-navbar="_navbar.md"></script>
+```
+
+```js
+window.$docsify = {
+  loadNavbar: '_navbar.md'
+}
 ```
 
 `_navbar.md` 的内容可以是这样
@@ -265,7 +338,7 @@ Sidebar 开关按钮
 ```
 
 
-#### router
+### router
 
 开启 hash router 功能，同时多页面切换不会重新加载资源。资源路径会被替换成 `/#/` 的形式。
 
@@ -273,7 +346,13 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-router></script>
 ```
 
-#### auto2top
+```js
+window.$docsify = {
+  router: true
+}
+```
+
+### auto2top
 
 切换路由时自动跳转到页面顶部
 
@@ -282,7 +361,13 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-auto2top></script>
 ```
 
-#### homepage
+```js
+window.$docsify = {
+  auto2top: true
+}
+```
+
+### homepage
 
 默认情况下网站会将根目录下 `README.md` 作为首页渲染，但是有些时候我们想指定其他文件，甚至想直接将 repo 下的 README 作为首页。你可以这样做（需要设置 `data-router`）：
 
@@ -293,7 +378,13 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-homepage="Welcome.md"></script>
 ```
 
-#### basePath
+```js
+window.$docsify = {
+  homepage: true
+}
+```
+
+### basePath
 
 指定加载文档的路径，如果你的 HTML 入口文件和文档是放在不同地方，你可以设置：
 
@@ -304,7 +395,14 @@ Sidebar 开关按钮
 <script src="/lib/docsify.js" data-base-path="https://docsify.js.org/"></script>
 ```
 
-#### coverpage
+
+```js
+window.$docsify = {
+  basePath: '/base/'
+}
+```
+
+### coverpage
 
 生成封面，参考 [#封面](/zh-cn#封面).
 
@@ -313,4 +411,11 @@ Sidebar 开关按钮
 <!-- or -->
 <script src="/lib/docsify.js" data-coverpage="other.md"></script>
 
+```
+
+
+```js
+window.$docsify = {
+  coverpage: true
+}
 ```
