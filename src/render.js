@@ -2,9 +2,10 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
 import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from './event'
-import { genTree, getRoute, isMobile, slugify } from './util'
+import { genTree, getRoute, isMobile, slugify, merge } from './util'
 
 let OPTIONS = {}
+let toc = []
 const CACHE = {}
 
 const renderTo = function (dom, content) {
@@ -14,40 +15,47 @@ const renderTo = function (dom, content) {
 
   return dom
 }
-let toc = []
-const renderer = new marked.Renderer()
 
 /**
- * render anchor tag
- * @link https://github.com/chjj/marked#overriding-renderer-methods
+ * init render
+ * @param  {Object} options
  */
-renderer.heading = function (text, level) {
-  const slug = slugify(text)
-  let route = ''
+export function init (options) {
+  OPTIONS = options
 
-  if (OPTIONS.router) {
-    route = `#/${getRoute()}`
+  const renderer = new marked.Renderer()
+  /**
+   * render anchor tag
+   * @link https://github.com/chjj/marked#overriding-renderer-methods
+   */
+  renderer.heading = function (text, level) {
+    const slug = slugify(text)
+    let route = ''
+
+    if (OPTIONS.router) {
+      route = `#/${getRoute()}`
+    }
+
+    toc.push({ level, slug: `${route}#${encodeURIComponent(slug)}`, title: text })
+
+    return `<h${level} id="${slug}"><a href="${route}#${slug}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
   }
+  // highlight code
+  renderer.code = function (code, lang = '') {
+    const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
+      .replace(/{{/g, '<span>{{</span>')
 
-  toc.push({ level, slug: `${route}#${encodeURIComponent(slug)}`, title: text })
-
-  return `<h${level} id="${slug}"><a href="${route}#${slug}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
-}
-// highlight code
-renderer.code = function (code, lang = '') {
-  const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
-    .replace(/{{/g, '<span>{{</span>')
-
-  return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
-}
-renderer.link = function (href, title, text) {
-  if (OPTIONS.router && !/:/.test(href)) {
-    href = `#/${href}`.replace(/\/\//g, '/')
+    return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
   }
+  renderer.link = function (href, title, text) {
+    if (OPTIONS.router && !/:/.test(href)) {
+      href = `#/${href}`.replace(/\/\//g, '/')
+    }
 
-  return `<a href="${href}" title="${title || ''}">${text}</a>`
+    return `<a href="${href}" title="${title || ''}">${text}</a>`
+  }
+  marked.setOptions(merge({ renderer }, OPTIONS.marked))
 }
-marked.setOptions({ renderer })
 
 /**
  * App
@@ -191,12 +199,3 @@ export function renderLoading ({ loaded, total, step }) {
     }, 200)
   }
 }
-
-/**
- * Load Config
- * @param  {Object} options
- */
-export function config (options) {
-  OPTIONS = options
-}
-
