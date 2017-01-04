@@ -4,7 +4,7 @@
 
 > A magical documentation site generator.
 
-- Simple and lightweight (~12kb gzipped)
+- Simple and lightweight (~13kB gzipped)
 - Multiple themes
 - Not build static html files
 
