@@ -33,7 +33,7 @@ Create `README.md` as the main page
 ```
 
 ### Deploy!
-Push and open the **GitHub Pages** feature
+Push code and activate **GitHub Pages** via your repo's settings
 ![image](https://cloud.githubusercontent.com/assets/7565692/20639058/e65e6d22-b3f3-11e6-9b8b-6309c89826f2.png)
 
 ## CLI
