@@ -117,6 +117,7 @@ export function slugify (string) {
   if (!maintainCase) string = string.toLowerCase()
 
   let slug = string.trim()
+    .replace(/<[^>]+>/g, '')
     .replace(re, '')
     .replace(/\s/g, replacement)
   let occurrences = slugify.occurrences[slug]

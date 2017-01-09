@@ -1,3 +1,7 @@
+## 1.5.1
+### Bug fixes
+- Remove HTML tag when handling slug
+
 ## 1.5.0
 
 ### Bug fixes
