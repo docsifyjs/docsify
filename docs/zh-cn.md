@@ -8,7 +8,7 @@
 
 ### 创建项目
 新建一个空项目，接着创建一个 `docs` 目录并进入到 docs 目录下
-```shell
+```bash
 mkdir my-project && cd my-project
 mkdir docs && cd docs
 ```
@@ -46,20 +46,20 @@ mkdir docs && cd docs
 方便快速创建文档目录，会读取项目的 `package.json` 里的选项作为 docsify 的配置，支持本地预览。
 
 ### 安装
-```shell
+```bash
 npm i docsify-cli -g
 ```
 
 ### 初始化文档
 
 默认初始化在当前目录，推荐将文档放在 `docs` 目录下
-```shell
+```bash
 docsify init docs
 ```
 
 ### 启动本地服务
 启动一个 server 方便预览，打开 http://localhost:3000
-```shell
+```bash
 docsify serve docs
 ```
 

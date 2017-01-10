@@ -2,7 +2,7 @@
 
 ### Create a project
 First create a project, then create a `docs` folder
-```shell
+```bash
 mkdir my-project && cd my-project
 mkdir docs && cd docs
 ```
@@ -41,20 +41,20 @@ Push code and activate **GitHub Pages** via your repo's settings
 Easy to setup and preview a docs.
 
 ### Install
-```shell
+```bash
 npm i docsify-cli -g
 ```
 
 ### Setup
 
 Setup a boilerplate docs
-```shell
+```bash
 docsify init docs
 ```
 
 ### Preview
 Preview and serve your docs using
-```shell
+```bash
 docsify serve docs
 ```
 

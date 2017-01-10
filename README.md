@@ -69,7 +69,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 ## Development
 
 ### prepare
-```shell
+```bash
 npm i && npm run dev
 open http://localhost:3000
 ```
