@@ -351,11 +351,14 @@ Scroll to the top on changing hash.
 
 ```html
 <script src="/lib/docsify.js" data-auto2top></script>
+<!-- Set offset top -->
+<script src="/lib/docsify.js" data-auto2top="50"></script>
 ```
 
 ```js
 window.$docsify = {
-  auto2top: true
+  auto2top: true,
+  // auto2top: 50
 }
 ```
 

@@ -7,10 +7,12 @@ import { isMobile } from './util'
 export function scrollActiveSidebar () {
   if (isMobile()) return
 
+  let hoveredOverSidebar = false
   const anchors = document.querySelectorAll('.anchor')
+  const sidebar = document.querySelector('aside.sidebar')
   const nav = {}
-  const lis = document.querySelectorAll('.sidebar li')
-  let active = null
+  const lis = sidebar.querySelectorAll('li')
+  let active = sidebar.querySelector('li.active')
 
   for (let i = 0, len = lis.length; i < len; i += 1) {
     const li = lis[i]
@@ -25,27 +27,34 @@ export function scrollActiveSidebar () {
   }
 
   function highlight () {
+    const top = document.body.scrollTop
+    let last
+
     for (let i = 0, len = anchors.length; i < len; i += 1) {
       const node = anchors[i]
-      const bcr = node.getBoundingClientRect()
 
-      if (bcr.top < 10 && bcr.bottom > 10) {
-        const li = nav[node.getAttribute('data-id')]
-
-        if (!li || li === active) return
-        if (active) active.setAttribute('class', '')
-
-        li.setAttribute('class', 'active')
-        active = li
-
-        return
+      if (node.offsetTop > top) {
+        if (!last) last = node
+        break
+      } else {
+        last = node
       }
     }
+    if (!last) return
+    const li = nav[last.getAttribute('data-id')]
+
+    if (!li || li === active) return
+    if (active) active.classList.remove('active')
+
+    li.classList.add('active')
+    active = li
+    !hoveredOverSidebar && active.scrollIntoView()
   }
 
   window.removeEventListener('scroll', highlight)
   window.addEventListener('scroll', highlight)
-  highlight()
+  sidebar.addEventListener('mouseover', () => { hoveredOverSidebar = true })
+  sidebar.addEventListener('mouseleave', () => { hoveredOverSidebar = false })
 }
 
 export function scrollIntoView () {
@@ -53,7 +62,9 @@ export function scrollIntoView () {
   if (!id || !id.length) return
   const section = document.querySelector(decodeURIComponent(id[0]))
 
-  if (section) section.scrollIntoView()
+  if (section) setTimeout(() => section.scrollIntoView(), 0)
+
+  return section
 }
 
 /**
@@ -71,13 +82,13 @@ export function activeLink (dom, activeParent) {
     .forEach(node => {
       if (host.indexOf(node.href) === 0 && !target) {
         activeParent
-          ? node.parentNode.setAttribute('class', 'active')
-          : node.setAttribute('class', 'active')
+          ? node.parentNode.classList.add('active')
+          : node.classList.add('active')
         target = node
       } else {
         activeParent
-          ? node.parentNode.removeAttribute('class')
-          : node.removeAttribute('class')
+          ? node.parentNode.classList.remove('active')
+          : node.classList.remove('active')
       }
     })
 
@@ -95,13 +106,16 @@ export function bindToggle (dom) {
   dom.addEventListener('click', () => body.classList.toggle('close'))
 
   if (isMobile()) {
-    document.querySelector('aside')
-      .addEventListener('click', _ => body.classList.toggle('close'))
+    const sidebar = document.querySelector('aside.sidebar')
+    document.body.addEventListener('click', e => {
+      if (e.target !== dom && !dom.contains(e.target)) body.classList.toggle('close')
+      if (sidebar.contains(e.target)) setTimeout(() => activeLink(sidebar, true), 0)
+    })
   }
 }
 
-export function scroll2Top () {
-  document.body.scrollTop = 0
+export function scroll2Top (offset = 0) {
+  document.body.scrollTop = offset === true ? 0 : Number(offset)
 }
 
 export function sticky () {

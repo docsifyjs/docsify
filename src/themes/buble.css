@@ -238,15 +238,3 @@ code .token {
   -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
 }
-
-.content span.light {
-  color: #7f8c8d;
-}
-
-.content span.info {
-  display: inline-block;
-  font-size: 0.85em;
-  margin-left: 20px;
-  vertical-align: middle;
-  width: 280px;
-}

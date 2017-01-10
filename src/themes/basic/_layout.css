@@ -291,6 +291,40 @@ body.sticky {
   }
 }
 
+.markdown-section p.tip {
+  padding: 12px 24px 12px 30px;
+  margin: 2em 0;
+  border-left: 4px solid #f66;
+  background-color: #f8f8f8;
+  position: relative;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+
+  &:before {
+    position: absolute;
+    top: 14px;
+    left: -12px;
+    background-color: #f66;
+    color: $color-bg;
+    content: "!";
+    size: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  code {
+    background-color: #efefef;
+  }
+
+  em {
+    color: $color-text;
+  }
+}
+
 body.close {
   .sidebar {
     transform: translateX(-$sidebar-width);

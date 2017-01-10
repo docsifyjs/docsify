@@ -1,13 +1,14 @@
 import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
-import { activeLink, scrollActiveSidebar, bindToggle, scroll2Top, sticky } from './event'
+import * as event from './event'
 import { genTree, getRoute, isMobile, slugify, merge } from './util'
 
 let OPTIONS = {}
 let markdown = marked
 let toc = []
 const CACHE = {}
+const TIP_RE = /^!\s/
 
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
@@ -55,6 +56,10 @@ export function init (options) {
 
     return `<a href="${href}" title="${title || ''}">${text}</a>`
   }
+  renderer.paragraph = function (text) {
+    const isTip = TIP_RE.test(text)
+    return isTip ? `<p class="tip">${text.replace(TIP_RE, '')}</p>` : `<p>${text}</p>`
+  }
 
   if (typeof OPTIONS.markdown === 'function') {
     markdown.setOptions({ renderer })
@@ -78,10 +83,10 @@ export function renderApp (dom, replace) {
   document.body.insertBefore(nav, document.body.children[0])
 
   // bind toggle
-  bindToggle('button.sidebar-toggle')
+  event.bindToggle('button.sidebar-toggle')
   // bind sticky effect
   if (OPTIONS.coverpage) {
-    !isMobile() && window.addEventListener('scroll', sticky)
+    !isMobile() && window.addEventListener('scroll', event.sticky)
   } else {
     document.body.classList.add('sticky')
   }
@@ -96,9 +101,9 @@ export function renderArticle (content) {
 
   if (content && typeof Vue !== 'undefined' && typeof Vuep !== 'undefined') {
     const vm = new Vue({ el: 'main' }) // eslint-disable-line
-    vm.$nextTick(_ => scrollActiveSidebar())
+    vm.$nextTick(_ => event.scrollActiveSidebar())
   }
-  if (OPTIONS.auto2top) scroll2Top()
+  if (OPTIONS.auto2top) setTimeout(() => event.scroll2Top(OPTIONS.auto2top), 0)
 }
 
 /**
@@ -109,7 +114,7 @@ export function renderNavbar (content) {
   CACHE.navbar = content
 
   if (content) renderTo('nav', markdown(content))
-  activeLink('nav')
+  event.activeLink('nav')
 }
 
 /**
@@ -127,11 +132,11 @@ export function renderSidebar (content) {
   }
 
   renderTo('aside.sidebar', html)
-  const target = activeLink('aside.sidebar', true)
-  if (content) renderSubSidebar(target)
+  const target = event.activeLink('aside.sidebar', true)
+  if (target) renderSubSidebar(target)
   toc = []
 
-  scrollActiveSidebar()
+  event.scrollActiveSidebar()
 }
 
 export function renderSubSidebar (target) {
@@ -171,7 +176,7 @@ export function renderCover (content) {
   renderTo('.cover-main', html)
   renderCover.rendered = true
 
-  sticky()
+  event.sticky()
 }
 
 /**
