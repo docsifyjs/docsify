@@ -120,6 +120,8 @@ export function slugify (string) {
     .replace(/<[^>\d]+>/g, '')
     .replace(re, '')
     .replace(/\s/g, replacement)
+    .replace(/-+/g, replacement)
+    .replace(/^(\d)/, '_$1')
   let occurrences = slugify.occurrences[slug]
 
   if (slugify.occurrences.hasOwnProperty(slug)) {

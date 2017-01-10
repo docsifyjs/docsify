@@ -1,3 +1,7 @@
+## 1.5.2
+### Bug fixes
+- Fixed number at the beginning of the slug
+
 ## 1.5.1
 ### Bug fixes
 - Remove HTML tag when handling slug
