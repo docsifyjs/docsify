@@ -157,6 +157,26 @@ window.$docsify = {
 }
 ```
 
+### Doc Helpers
+#### p.tip
+
+'! ' add your content will rendered as `<p class="tip">content</p>`
+
+```markdown
+! Important **information**
+```
+
+It will be rendered
+
+```html
+<p class="tip">Important <strong>information</strong></p>
+```
+
+e.g.
+
+! Important **information**
+
+
 ## Options
 
 You can add configurations in the script tag attributes or with `window.$docsify`.
