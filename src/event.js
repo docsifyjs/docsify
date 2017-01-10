@@ -48,7 +48,7 @@ export function scrollActiveSidebar () {
 
     li.classList.add('active')
     active = li
-    !hoveredOverSidebar && active.scrollIntoView()
+    !hoveredOverSidebar && sticky.isSticky && active.scrollIntoView()
   }
 
   window.removeEventListener('scroll', highlight)
@@ -125,8 +125,10 @@ export function sticky () {
   return (function () {
     if (window.pageYOffset >= coverHeight || dom.classList.contains('hidden')) {
       document.body.classList.add('sticky')
+      sticky.isSticky = true
     } else {
       document.body.classList.remove('sticky')
+      sticky.isSticky = false
     }
   })()
 }
