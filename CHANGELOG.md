@@ -1,5 +1,5 @@
 ### Bug fixes
-- fixed custom cover background, fixed #52
+- Fixed custom cover background, fixed #52
 
 ## 1.6.1
 ### Bug fixes
