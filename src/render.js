@@ -125,12 +125,15 @@ export function renderSidebar (content) {
 
   if (content) {
     html = markdown(content)
+    // find url tag
+    html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
   } else if (OPTIONS.sidebar) {
     html = tpl.tree(OPTIONS.sidebar, '<ul>')
   } else {
     html = tpl.tree(genTree(toc, OPTIONS.maxLevel), '<ul>')
   }
 
+  html = (OPTIONS.name ? `<h1><a href="/">${OPTIONS.name}</a></h1>` : '') + html
   renderTo('aside.sidebar', html)
   const target = event.activeLink('aside.sidebar', true)
   if (target) renderSubSidebar(target)
