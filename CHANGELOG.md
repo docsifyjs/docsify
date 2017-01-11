@@ -1,3 +1,6 @@
+### Bug fixes
+- fixed custom cover background, fixed #52
+
 ## 1.6.1
 ### Bug fixes
 - Fixed sidebar bug when the coverpage exist

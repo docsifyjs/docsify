@@ -158,14 +158,14 @@ export function renderCover (content) {
 
   // render cover
   let html = markdown(content)
-  const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)"></p>$')
+  const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
 
   // render background
   if (match) {
     const coverEl = document.querySelector('section.cover')
 
     if (match[2] === 'color') {
-      coverEl.style.background = match[1]
+      coverEl.style.background = match[1] + (match[3] || '')
     } else {
       coverEl.classList.add('has-mask')
       coverEl.style.backgroundImage = `url(${match[1]})`
