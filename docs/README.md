@@ -26,7 +26,7 @@ Create a `index.html` file
 
 Create `README.md` as the main page
 
-```
+```markdown
 # Title
 
 ## blabla
