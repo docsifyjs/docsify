@@ -96,6 +96,7 @@ nav {
     display: inline-block;
 
     ul {
+      border-radius: 2px;
       background-color: rgba($color-bg, .6);
       border: 1px solid $color-primary;
       opacity: 0;
@@ -160,6 +161,7 @@ nav {
 
 /* main */
 main {
+  display: block;
   size: 100vw 100%;
   position: relative;
 }
