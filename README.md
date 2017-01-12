@@ -52,6 +52,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 - [docsify](https://docsify.js.org) - A magical documentation site generator.
 - [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
 - [puck](https://puck.zz173.com/) - A small & magical php framework.
+- [Samaritan](http://samaritan.stockdb.org) - An Algorithmic Trading Framework for Digital Currency.
 
 ## Similar projects
 - [docute](https://github.com/egoist/docute) - 📜 Effortlessly documentation done right
