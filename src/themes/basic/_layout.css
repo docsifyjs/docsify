@@ -190,6 +190,18 @@ main {
   width: $sidebar-width;
   z-index: 20;
 
+  > h1 {
+    text-align: center;
+    margin: 0 auto 1em;
+    font-size: 1.5em;
+    font-weight: 300;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
   ul {
     margin: 0;
     padding: 0;

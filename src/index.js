@@ -15,7 +15,8 @@ const OPTIONS = merge({
   homepage: 'README.md',
   coverpage: '',
   basePath: '',
-  auto2top: false
+  auto2top: false,
+  name: ''
 }, window.$docsify)
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 
