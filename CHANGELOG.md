@@ -1,5 +1,6 @@
 ### Bug fixes
 - Fixed custom cover background, fixed #52
+- Fixed sticky sidebar
 
 ## 1.6.1
 ### Bug fixes
