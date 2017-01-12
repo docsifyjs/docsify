@@ -434,3 +434,34 @@ window.$docsify = {
   coverpage: true
 }
 ```
+
+### name
+
+Project name. It is displayed in the sidebar.
+
+```html
+<script src="/lib/docsify.js" data-name="docsify"></script>
+```
+
+```js
+window.$docsify = {
+  name: 'docsify'
+}
+```
+
+### nameLink
+
+Name link. The default value is `window.location.pathname`.
+
+
+```html
+<script src="/lib/docsify.js" data-name-link="/"></script>
+```
+
+```js
+window.$docsify = {
+  nameLink: '/'
+}
+```
+
+

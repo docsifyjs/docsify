@@ -437,3 +437,33 @@ window.$docsify = {
   coverpage: true
 }
 ```
+
+
+### name
+
+项目名，将显示在侧边栏。
+
+```html
+<script src="/lib/docsify.js" data-name="docsify"></script>
+```
+
+```js
+window.$docsify = {
+  name: 'docsify'
+}
+```
+
+### nameLink
+
+项目名链接，默认为 `window.location.pathname`。
+
+```html
+<script src="/lib/docsify.js" data-name-link="/"></script>
+```
+
+```js
+window.$docsify = {
+  nameLink: '/'
+}
+```
+

@@ -1,6 +1,11 @@
+## 1.7.0
+
 ### Bug fixes
 - Fixed custom cover background, fixed #52
 - Fixed sticky sidebar
+
+## Features
+- Add `name` and `nameLink`
 
 ## 1.6.1
 ### Bug fixes
