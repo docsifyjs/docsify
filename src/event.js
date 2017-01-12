@@ -48,7 +48,7 @@ export function scrollActiveSidebar () {
 
     li.classList.add('active')
     active = li
-    !hoveredOverSidebar && !sticky.noSticky && active.scrollIntoView()
+    !hoveredOverSidebar && !sticky.noSticky && active.scrollIntoView(false)
   }
 
   window.removeEventListener('scroll', highlight)

@@ -16,7 +16,8 @@ const OPTIONS = merge({
   coverpage: '',
   basePath: '',
   auto2top: false,
-  name: ''
+  name: '',
+  nameLink: location.pathname
 }, window.$docsify)
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 

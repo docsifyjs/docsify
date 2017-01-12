@@ -133,7 +133,7 @@ export function renderSidebar (content) {
     html = tpl.tree(genTree(toc, OPTIONS.maxLevel), '<ul>')
   }
 
-  html = (OPTIONS.name ? `<h1><a href="/">${OPTIONS.name}</a></h1>` : '') + html
+  html = (OPTIONS.name ? `<h1><a href="${OPTIONS.nameLink}">${OPTIONS.name}</a></h1>` : '') + html
   renderTo('aside.sidebar', html)
   const target = event.activeLink('aside.sidebar', true)
   if (target) renderSubSidebar(target)
