@@ -182,13 +182,22 @@ main {
 
 /* sidebar */
 .sidebar {
-  border-right: 1px solid rgba(0, 0, 0, .07);
   overflow-y: auto;
   padding: 40px 0;
   position: absolute 0 * 0 0;
   transition: transform 250ms ease-out;
   width: $sidebar-width;
   z-index: 20;
+  margin-bottom: 40px;
+
+  &::after {
+    content: '';
+    position: inherit;
+    left: $sidebar-width;
+    top: 0;
+    height: 100vh;
+    border-right: 1px solid rgba(0, 0, 0, .07);
+  }
 
   > h1 {
     text-align: center;
