@@ -119,11 +119,11 @@ export function scroll2Top (offset = 0) {
 }
 
 export function sticky () {
-  const dom = document.querySelector('section.cover')
-  const coverHeight = dom.getBoundingClientRect().height
+  sticky.dom = sticky.dom || document.querySelector('section.cover')
+  const coverHeight = sticky.dom.getBoundingClientRect().height
 
   return (function () {
-    if (window.pageYOffset >= coverHeight || dom.classList.contains('hidden')) {
+    if (window.pageYOffset >= coverHeight || sticky.dom.classList.contains('hidden')) {
       document.body.classList.add('sticky')
       sticky.noSticky = false
     } else {

@@ -154,7 +154,7 @@ export function renderCover (content) {
     return
   }
   renderCover.dom.classList.add('show')
-  if (renderCover.rendered) return
+  if (renderCover.rendered) return event.sticky()
 
   // render cover
   let html = markdown(content)
