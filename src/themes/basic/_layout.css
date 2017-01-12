@@ -193,7 +193,7 @@ main {
   &::after {
     content: '';
     position: inherit;
-    left: $sidebar-width;
+    left: calc($sidebar-width - 1px);
     top: 0;
     height: 100vh;
     border-right: 1px solid rgba(0, 0, 0, .07);
@@ -365,6 +365,15 @@ body.close {
 @media (max-width: 600px) {
   .github-corner, .sidebar-toggle, .sidebar {
     position: fixed;
+  }
+
+  .sidebar {
+    margin-bottom: 0;
+    border-right: 1px solid rgba(0, 0, 0, .07);
+
+    &::after {
+      content: none;
+    }
   }
 
   nav {

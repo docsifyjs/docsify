@@ -1,3 +1,7 @@
+## 1.7.1
+### Bug fixes
+- Fix sidebar style in mobile browser.
+
 ## 1.7.0
 
 ### Bug fixes
