@@ -107,9 +107,9 @@ export function bindToggle (dom) {
 
   if (isMobile()) {
     const sidebar = document.querySelector('aside.sidebar')
-    document.body.addEventListener('click', e => {
-      if (e.target !== dom && !dom.contains(e.target)) body.classList.toggle('close')
-      if (sidebar.contains(e.target)) setTimeout(() => activeLink(sidebar, true), 0)
+    sidebar.addEventListener('click', () => {
+      body.classList.toggle('close')
+      setTimeout(() => activeLink(sidebar, true), 0)
     })
   }
 }

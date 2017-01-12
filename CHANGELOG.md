@@ -1,5 +1,9 @@
 ## 1.7.1
 ### Bug fixes
+- Fix sidebar click event in mobile browser.
+
+## 1.7.1
+### Bug fixes
 - Fix sidebar style in mobile browser.
 
 ## 1.7.0
