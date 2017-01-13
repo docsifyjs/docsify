@@ -160,8 +160,11 @@ export function renderCover (content) {
   if (renderCover.rendered) return event.sticky()
 
   // render cover
+  const cacheToc = toc.slice()
   let html = markdown(content)
   const match = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
+
+  toc = cacheToc.slice()
 
   // render background
   if (match) {

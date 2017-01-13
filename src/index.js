@@ -25,11 +25,13 @@ const script = document.currentScript || [].slice.call(document.getElementsByTag
 if (script) {
   for (const prop in OPTIONS) {
     const val = script.getAttribute('data-' + camel2kebab(prop))
-    OPTIONS[prop] = isNil(val) ? OPTIONS[prop] : (typeof OPTIONS[prop] === 'string' ? val : true)
+    OPTIONS[prop] = isNil(val) ? OPTIONS[prop] : (val || true)
   }
   if (OPTIONS.loadSidebar === true) OPTIONS.loadSidebar = '_sidebar.md'
   if (OPTIONS.loadNavbar === true) OPTIONS.loadNavbar = '_navbar.md'
   if (OPTIONS.coverpage === true) OPTIONS.coverpage = '_coverpage.md'
+  if (OPTIONS.repo === true) OPTIONS.repo = ''
+  if (OPTIONS.name === true) OPTIONS.name = ''
   if (OPTIONS.sidebar) OPTIONS.sidebar = window[OPTIONS.sidebar]
 }
 

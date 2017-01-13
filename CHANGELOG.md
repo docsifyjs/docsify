@@ -1,3 +1,7 @@
+## 1.7.4
+### Bug fixes
+- Fix bugs caused by the previous version
+
 ## 1.7.3
 ### Bug fixes
 - Add `hr` style
