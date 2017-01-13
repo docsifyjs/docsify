@@ -287,6 +287,12 @@ body.sticky {
   }
 }
 
+.markdown-section hr {
+  border: none;
+  margin: 2em 0;
+  border-bottom: 1px solid #eee;
+}
+
 .markdown-section table {
   display: block;
   width: 100%;
