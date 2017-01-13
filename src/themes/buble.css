@@ -28,7 +28,7 @@ $sidebar-width: 16em;
     padding: 0;
   }
 
-  .active {
+  li.active {
     background-color: #eee;
 
     a {
