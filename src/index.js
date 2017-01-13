@@ -25,7 +25,7 @@ const script = document.currentScript || [].slice.call(document.getElementsByTag
 if (script) {
   for (const prop in OPTIONS) {
     const val = script.getAttribute('data-' + camel2kebab(prop))
-    OPTIONS[prop] = isNil(val) ? OPTIONS[prop] : (typeof OPTIONS[prop] === 'string' ? val : true);
+    OPTIONS[prop] = isNil(val) ? OPTIONS[prop] : (typeof OPTIONS[prop] === 'string' ? val : true)
   }
   if (OPTIONS.loadSidebar === true) OPTIONS.loadSidebar = '_sidebar.md'
   if (OPTIONS.loadNavbar === true) OPTIONS.loadNavbar = '_navbar.md'
