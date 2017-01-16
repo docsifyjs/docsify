@@ -54,6 +54,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 - [puck](https://puck.zz173.com/) - A small & magical php framework.
 - [Samaritan](http://samaritan.stockdb.org) - An Algorithmic Trading Framework for Digital Currency.
 - [Vudash](http://vudash.github.io/vudash/) - Powerful, Flexible, Open Source dashboards for anything
+- [Trilogy](http://trilogy.js.org) - No-hassle SQLite with a Promise-based, document store style API.
 
 ## Similar projects
 - [docute](https://github.com/egoist/docute) - 📜 Effortlessly documentation done right
