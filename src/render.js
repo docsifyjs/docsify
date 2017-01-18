@@ -45,9 +45,8 @@ export function init (options) {
   // highlight code
   renderer.code = function (code, lang = '') {
     const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
-      .replace(/{{/g, '<span>{{</span>')
 
-    return `<pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
+    return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
   }
   renderer.link = function (href, title, text) {
     if (OPTIONS.router && !/:/.test(href)) {
