@@ -79,7 +79,7 @@ const mainRender = function (cb) {
       const renderSidebar = result => { render.renderSidebar(result); cb() }
 
       load(basePath + OPTIONS.loadSidebar).then(renderSidebar,
-        load(OPTIONS.loadSidebar).then(renderSidebar))
+        _ => load(OPTIONS.loadSidebar).then(renderSidebar))
     } else {
       cb()
     }
@@ -88,7 +88,7 @@ const mainRender = function (cb) {
   // Render navbar
   if (OPTIONS.loadNavbar) {
     load(basePath + OPTIONS.loadNavbar).then(render.renderNavbar,
-      () => load(OPTIONS.loadNavbar).then(render.renderNavbar))
+      _ => load(OPTIONS.loadNavbar).then(render.renderNavbar))
   }
 }
 
