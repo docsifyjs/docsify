@@ -1,4 +1,4 @@
-## xxx
+## 1.8.0
 ### Bug fixes
 - Using `v-pre` skip compilation.
 
