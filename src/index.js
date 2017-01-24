@@ -76,11 +76,10 @@ const mainRender = function (cb) {
     if (OPTIONS.coverpage && page !== OPTIONS.homepage) render.renderCover()
     // render sidebar
     if (OPTIONS.loadSidebar) {
-      load(basePath + OPTIONS.loadSidebar)
-        .then(result => {
-          render.renderSidebar(result)
-          cb()
-        })
+      const renderSidebar = result => { render.renderSidebar(result); cb() }
+
+      load(basePath + OPTIONS.loadSidebar).then(renderSidebar,
+        load(OPTIONS.loadSidebar).then(renderSidebar))
     } else {
       cb()
     }
@@ -88,7 +87,8 @@ const mainRender = function (cb) {
 
   // Render navbar
   if (OPTIONS.loadNavbar) {
-    load(basePath + OPTIONS.loadNavbar).then(render.renderNavbar)
+    load(basePath + OPTIONS.loadNavbar).then(render.renderNavbar,
+      () => load(OPTIONS.loadNavbar).then(render.renderNavbar))
   }
 }
 
