@@ -1,3 +1,4 @@
+## 1.9.0
 
 ### Bug fixes
 - Destroys the vue instance when the route is changed

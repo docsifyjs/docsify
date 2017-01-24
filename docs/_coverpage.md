@@ -1,6 +1,6 @@
 ![logo](_media/icon.svg)
 
-# docsify <small>1.8.0</small>
+# docsify <small>1.9.0</small>
 
 > A magical documentation site generator.
 
