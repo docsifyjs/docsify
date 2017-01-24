@@ -354,6 +354,12 @@ body.sticky {
   }
 }
 
+.markdown-section p.warn {
+  padding: 1em;
+  background: rgba($color-primary, 0.1);
+  border-radius: 2px;
+}
+
 body.close {
   .sidebar {
     transform: translateX(-$sidebar-width);

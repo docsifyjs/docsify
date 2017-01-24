@@ -72,3 +72,6 @@ export function tree (toc, tpl = '') {
   return tpl
 }
 
+export function helper (className, content) {
+  return `<p class="${className}">${content.slice(5).trim()}</p>`
+}

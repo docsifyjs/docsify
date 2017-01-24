@@ -8,7 +8,6 @@ let OPTIONS = {}
 let markdown = marked
 let toc = []
 const CACHE = {}
-const TIP_RE = /^!\s/
 
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
@@ -56,8 +55,12 @@ export function init (options) {
     return `<a href="${href}" title="${title || ''}">${text}</a>`
   }
   renderer.paragraph = function (text) {
-    const isTip = TIP_RE.test(text)
-    return isTip ? `<p class="tip">${text.replace(TIP_RE, '')}</p>` : `<p>${text}</p>`
+    if (/^!&gt;/.test(text)) {
+      return tpl.helper('tip', text)
+    } else if (/^\?&gt;/.test(text)) {
+      return tpl.helper('warn', text)
+    }
+    return `<p>${text}</p>`
   }
 
   if (typeof OPTIONS.markdown === 'function') {
