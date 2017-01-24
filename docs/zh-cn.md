@@ -166,10 +166,10 @@ window.$docsify = {
 ### 文档助手
 #### 内置「提示」语法
 
-感叹号加空格，后面接内容，会渲染成带 tip 类名的段落。
+`!>`后面接内容，会渲染成带 tip 类名的段落。
 
 ```markdown
-! 提示信息，**支持其他 markdown 语法**
+!> 提示信息，**支持其他 markdown 语法**
 ```
 
 将被渲染成
@@ -180,7 +180,51 @@ window.$docsify = {
 
 效果
 
-! 适合显示醒目的内容
+!> 适合显示醒目的内容
+
+#### 内置「警示」语法
+
+`?>`后面接内容，会渲染成带 warn 类名的段落。
+
+```markdown
+?> 警示内容样式
+```
+
+效果
+
+?> 警示内容样式
+
+### 结合 Vue
+
+`index.html` 内引入 Vue 后，可以在文档里直接写 Vue 语法。默认会自己初始化一个 Vue 示例，当然我们也可以手动初始化一个实例。
+
+index.html
+```html
+<script src="//unpkg.com/vue"></script>
+<script src="//unpkg.com/docsify" data-router></script>
+```
+
+```markdown
+<ul>
+  <li v-for="i in 10">{{ i }}</li>
+</ul>
+```
+
+手动初始化示例
+
+```markdown
+<div>
+  <input type="text" v-model="msg">
+  <p>Hello, {{ msg }}</p>
+</div>
+
+<script>
+  new Vue({
+    el: 'main',
+    data: { msg: 'Docsify' }
+  })
+</script>
+```
 
 ## 配置参数
 

@@ -160,10 +160,10 @@ window.$docsify = {
 ### Doc Helpers
 #### p.tip
 
-'! ' add your content will rendered as `<p class="tip">content</p>`
+`!> ` add your content will rendered as `<p class="tip">content</p>`
 
 ```markdown
-! Important **information**
+!> Important **information**
 ```
 
 It will be rendered
@@ -174,8 +174,47 @@ It will be rendered
 
 e.g.
 
-! Important **information**
+!> Important **information**
 
+
+#### p.warn
+
+```markdown
+?> todo info
+```
+
+?> todo info
+
+### Combining Vue
+We can write the Vue syntax directly in the markdown file, when the Vue library is loaded into `index.html`. Default will automatically initialize a Vue instance, of course, we can also manually.
+
+index.html
+```html
+<script src="//unpkg.com/vue"></script>
+<script src="//unpkg.com/docsify" data-router></script>
+```
+
+```markdown
+<ul>
+  <li v-for="i in 10">{{ i }}</li>
+</ul>
+```
+
+Manual initialization
+
+```markdown
+<div>
+  <input type="text" v-model="msg">
+  <p>Hello, {{ msg }}</p>
+</div>
+
+<script>
+  new Vue({
+    el: 'main',
+    data: { msg: 'Docsify' }
+  })
+</script>
+```
 
 ## Options
 
