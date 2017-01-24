@@ -1,3 +1,13 @@
+
+### Bug fixes
+- Destroys the vue instance when the route is changed
+
+### Features
+- Add `!>` and `?>` doc helper.
+
+### Break change
+- Remove `!` doc helper.
+
 ## 1.8.0
 ### Bug fixes
 - Using `v-pre` skip compilation.
