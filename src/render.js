@@ -100,12 +100,13 @@ export function renderArticle (content) {
 
   if (content && typeof Vue !== 'undefined') {
     const script = content.match('<script[^>]*?>([^<]+)</script>')
-    script && document.body.querySelector('article script').remove()
 
-    const vm = script
+    script && document.body.querySelector('article script').remove()
+    CACHE.vm && CACHE.vm.$destroy()
+    CACHE.vm = script
       ? new Function(`return ${script[1].trim()}`)()
       : new Vue({ el: 'main' }) // eslint-disable-line
-    vm && vm.$nextTick(_ => event.scrollActiveSidebar())
+    CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
   }
   if (OPTIONS.auto2top) setTimeout(() => event.scroll2Top(OPTIONS.auto2top), 0)
 }
