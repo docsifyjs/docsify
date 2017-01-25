@@ -7,6 +7,11 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.emoji {
+  height: 1.2em;
+  vertical-align: middle;
+}
+
 .progress {
   background-color: $color-primary;
   height: 2px;

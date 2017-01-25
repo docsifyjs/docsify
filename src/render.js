@@ -63,6 +63,10 @@ export function init (options) {
     return `<p>${text}</p>`
   }
 
+  renderer.text = function (text) {
+    return text.replace(/:(\S*?):/ig, '<img class="emoji" src="https://assets-cdn.github.com/images/icons/emoji/$1.png" alt="$1" />')
+  }
+
   if (typeof OPTIONS.markdown === 'function') {
     markdown.setOptions({ renderer })
     markdown = OPTIONS.markdown.call(this, markdown)

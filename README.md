@@ -22,6 +22,7 @@
 - Simple and lightweight (~13kB gzipped)
 - Multiple themes
 - Not build static html files
+- Support emoji :laughing:
 
 ## Quick start
 Create a `index.html` and using `hash router`.
