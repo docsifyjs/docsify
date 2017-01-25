@@ -1,3 +1,7 @@
+## 1.10.2
+### Bug fixes
+- Fix render emojis again
+
 ## 1.10.1
 ### Bug fixes
 - Fix render emojis
