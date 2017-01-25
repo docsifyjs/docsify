@@ -157,3 +157,10 @@ export const merge = Object.assign || function (to) {
 
   return to
 }
+
+export function emojify (text) {
+  return text
+    .replace(/:(\S*?):/ig, '<img class="emoji" src="https://assets-cdn.github.com/images/icons/emoji/$1.png" alt="$1" />')
+    .replace(/__colon__/g, ':')
+}
+
