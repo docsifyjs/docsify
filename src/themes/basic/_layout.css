@@ -193,16 +193,7 @@ main {
   transition: transform 250ms ease-out;
   width: $sidebar-width;
   z-index: 20;
-  margin-bottom: 40px;
-
-  &::after {
-    content: '';
-    position: inherit;
-    left: calc($sidebar-width - 1px);
-    top: 0;
-    height: 100vh;
-    border-right: 1px solid rgba(0, 0, 0, .07);
-  }
+  border-right: 1px solid rgba(0, 0, 0, .07);
 
   > h1 {
     text-align: center;
@@ -382,15 +373,6 @@ body.close {
 @media (max-width: 600px) {
   .github-corner, .sidebar-toggle, .sidebar {
     position: fixed;
-  }
-
-  .sidebar {
-    margin-bottom: 0;
-    border-right: 1px solid rgba(0, 0, 0, .07);
-
-    &::after {
-      content: none;
-    }
   }
 
   nav {

@@ -10,6 +10,8 @@ export function scrollActiveSidebar () {
   let hoveredOverSidebar = false
   const anchors = document.querySelectorAll('.anchor')
   const sidebar = document.querySelector('aside.sidebar')
+  const sidebarHeight = sidebar.clientHeight
+
   const nav = {}
   const lis = sidebar.querySelectorAll('li')
   let active = sidebar.querySelector('li.active')
@@ -48,7 +50,25 @@ export function scrollActiveSidebar () {
 
     li.classList.add('active')
     active = li
-    !hoveredOverSidebar && !sticky.noSticky && active.scrollIntoView(false)
+
+    // scroll into view
+    // https://github.com/vuejs/vuejs.org/blob/master/themes/vue/source/js/common.js#L282-L297
+    if (!hoveredOverSidebar && !sticky.noSticky) {
+      const currentPageOffset = 0
+      const currentActiveOffset = active.offsetTop + active.clientHeight + 40
+      const currentActiveIsInView = (
+        active.offsetTop >= sidebar.scrollTop &&
+        currentActiveOffset <= sidebar.scrollTop + sidebarHeight
+      )
+      const linkNotFurtherThanSidebarHeight = currentActiveOffset - currentPageOffset < sidebarHeight
+      const newScrollTop = currentActiveIsInView
+        ? sidebar.scrollTop
+        : linkNotFurtherThanSidebarHeight
+          ? currentPageOffset
+          : currentActiveOffset - sidebarHeight
+
+      sidebar.scrollTop = newScrollTop
+    }
   }
 
   window.removeEventListener('scroll', highlight)
