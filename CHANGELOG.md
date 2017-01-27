@@ -1,3 +1,7 @@
+## 1.10.4
+### Bug fixes
+- fix execute script
+
 ## 1.10.3
 ### Bug fixes
 - compatible vuep QingWei-Li/vuep/issues/2
