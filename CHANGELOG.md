@@ -1,3 +1,8 @@
+## 1.10.3
+### Bug fixes
+- compatible vuep QingWei-Li/vuep/issues/2
+- fix sidebar scroll, fixed #63
+
 ## 1.10.2
 ### Bug fixes
 - Fix render emojis again
