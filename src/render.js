@@ -106,13 +106,17 @@ export function renderArticle (content) {
   if (!OPTIONS.sidebar && !OPTIONS.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined') {
-    const script = content.match('<script[^>]*?>([^<]+)</script>')
-
-    script && document.body.querySelector('article script').remove()
     CACHE.vm && CACHE.vm.$destroy()
-    CACHE.vm = script
-      ? new Function(`return ${script[1].trim()}`)()
+
+    const script = [].slice.call(
+      document.body.querySelectorAll('article>script'))
+        .filter(script => !/template/.test(script.type)
+      )[0]
+
+    CACHE.vm = script && script.remove()
+      ? new Function(`return ${script.innerText.trim()}`)()
       : new Vue({ el: 'main' }) // eslint-disable-line
+
     CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
   }
   if (OPTIONS.auto2top) setTimeout(() => event.scroll2Top(OPTIONS.auto2top), 0)
