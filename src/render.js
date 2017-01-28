@@ -112,12 +112,13 @@ export function renderArticle (content) {
       document.body.querySelectorAll('article>script'))
         .filter(script => !/template/.test(script.type)
       )[0]
+    const code = script ? script.innerText.trim() : null
 
-    CACHE.vm = script
-      ? new Function(`return ${script.innerText.trim()}`)()
+    script && script.remove()
+    CACHE.vm = code
+      ? new Function(`return ${code}`)()
       : new Vue({ el: 'main' }) // eslint-disable-line
     CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
-    script && script.remove()
   }
   if (OPTIONS.auto2top) setTimeout(() => event.scroll2Top(OPTIONS.auto2top), 0)
 }
