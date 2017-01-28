@@ -1,3 +1,7 @@
+## 1.10.5
+### Bug fixes
+- fix initialize the Vue instance
+
 ## 1.10.4
 ### Bug fixes
 - fix execute script
