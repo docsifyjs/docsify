@@ -1,6 +1,7 @@
 {
   "extends": ["vue"],
   "globals": {
-    "XMLHttpRequest": true
+    "XMLHttpRequest": true,
+    "__docsify__": true
   }
 }

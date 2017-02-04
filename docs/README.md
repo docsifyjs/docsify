@@ -503,4 +503,17 @@ window.$docsify = {
 }
 ```
 
+### theme-color
 
+Customize the theme color.
+
+
+```html
+<script src="/lib/docsify.js" data-theme-color="#3F51B5"></script>
+```
+
+```js
+window.$docsify = {
+  themeColor: '#3F51B5'
+}
+```

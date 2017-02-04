@@ -17,6 +17,7 @@ const OPTIONS = merge({
   basePath: '',
   auto2top: false,
   name: '',
+  themeColor: '',
   nameLink: window.location.pathname
 }, window.$docsify)
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
@@ -34,6 +35,9 @@ if (script) {
   if (OPTIONS.name === true) OPTIONS.name = ''
   if (OPTIONS.sidebar) OPTIONS.sidebar = window[OPTIONS.sidebar]
 }
+
+// utils
+window.__docsify__ = OPTIONS
 
 // load options
 render.init(OPTIONS)
