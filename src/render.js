@@ -2,9 +2,9 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import * as tpl from './tpl'
 import * as event from './event'
+import * as polyfill from './polyfill'
 import { genTree, getRoute, isMobile, slugify, merge, emojify } from './util'
 
-let OPTIONS = {}
 let markdown = marked
 let toc = []
 const CACHE = {}
@@ -19,11 +19,8 @@ const renderTo = function (dom, content) {
 
 /**
  * init render
- * @param  {Object} options
  */
-export function init (options) {
-  OPTIONS = options
-
+export function init () {
   const renderer = new marked.Renderer()
   /**
    * render anchor tag
@@ -33,7 +30,7 @@ export function init (options) {
     const slug = slugify(text)
     let route = ''
 
-    if (OPTIONS.router) {
+    if (__docsify__.router) {
       route = `#/${getRoute()}`
     }
 
@@ -48,7 +45,7 @@ export function init (options) {
     return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl.replace(/:/g, '__colon__')}</code></pre>`
   }
   renderer.link = function (href, title, text) {
-    if (OPTIONS.router && !/:/.test(href)) {
+    if (__docsify__.router && !/:/.test(href)) {
       href = `#/${href}`.replace(/\/\//g, '/')
     }
 
@@ -63,11 +60,11 @@ export function init (options) {
     return `<p>${text}</p>`
   }
 
-  if (typeof OPTIONS.markdown === 'function') {
+  if (typeof __docsify__.markdown === 'function') {
     markdown.setOptions({ renderer })
-    markdown = OPTIONS.markdown.call(this, markdown)
+    markdown = __docsify__.markdown.call(this, markdown)
   } else {
-    markdown.setOptions(merge({ renderer }, OPTIONS.markdown))
+    markdown.setOptions(merge({ renderer }, __docsify__.markdown))
   }
 
   const md = markdown
@@ -81,17 +78,23 @@ export function init (options) {
 export function renderApp (dom, replace) {
   const nav = document.querySelector('nav') || document.createElement('nav')
 
-  if (!OPTIONS.repo) nav.classList.add('no-badge')
+  if (!__docsify__.repo) nav.classList.add('no-badge')
 
-  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(OPTIONS.repo) +
-    (OPTIONS.coverpage ? tpl.cover() : '') +
-    tpl.main(OPTIONS.sidebarToggle ? tpl.toggle() : '')
+  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(__docsify__.repo) +
+    (__docsify__.coverpage ? tpl.cover() : '') +
+    tpl.main(__docsify__.sidebarToggle ? tpl.toggle() : '')
   document.body.insertBefore(nav, document.body.children[0])
+
+  // theme color
+  if (__docsify__.themeColor) {
+    document.head.innerHTML += tpl.theme(__docsify__.themeColor)
+    polyfill.cssVars()
+  }
 
   // bind toggle
   event.bindToggle('button.sidebar-toggle')
   // bind sticky effect
-  if (OPTIONS.coverpage) {
+  if (__docsify__.coverpage) {
     !isMobile() && window.addEventListener('scroll', event.sticky)
   } else {
     document.body.classList.add('sticky')
@@ -103,7 +106,7 @@ export function renderApp (dom, replace) {
  */
 export function renderArticle (content) {
   renderTo('article', content ? markdown(content) : 'not found')
-  if (!OPTIONS.sidebar && !OPTIONS.loadSidebar) renderSidebar()
+  if (!__docsify__.sidebar && !__docsify__.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined') {
     CACHE.vm && CACHE.vm.$destroy()
@@ -120,7 +123,7 @@ export function renderArticle (content) {
       : new Vue({ el: 'main' }) // eslint-disable-line
     CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
   }
-  if (OPTIONS.auto2top) setTimeout(() => event.scroll2Top(OPTIONS.auto2top), 0)
+  if (__docsify__.auto2top) setTimeout(() => event.scroll2Top(__docsify__.auto2top), 0)
 }
 
 /**
@@ -144,13 +147,13 @@ export function renderSidebar (content) {
     html = markdown(content)
     // find url tag
     html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
-  } else if (OPTIONS.sidebar) {
-    html = tpl.tree(OPTIONS.sidebar, '<ul>')
+  } else if (__docsify__.sidebar) {
+    html = tpl.tree(__docsify__.sidebar, '<ul>')
   } else {
-    html = tpl.tree(genTree(toc, OPTIONS.maxLevel), '<ul>')
+    html = tpl.tree(genTree(toc, __docsify__.maxLevel), '<ul>')
   }
 
-  html = (OPTIONS.name ? `<h1><a href="${OPTIONS.nameLink}">${OPTIONS.name}</a></h1>` : '') + html
+  html = (__docsify__.name ? `<h1><a href="${__docsify__.nameLink}">${__docsify__.name}</a></h1>` : '') + html
   renderTo('aside.sidebar', html)
   const target = event.activeLink('aside.sidebar', true)
   if (target) renderSubSidebar(target)
@@ -160,8 +163,8 @@ export function renderSidebar (content) {
 }
 
 export function renderSubSidebar (target) {
-  if (!OPTIONS.subMaxLevel) return
-  target.parentNode.innerHTML += tpl.tree(genTree(toc, OPTIONS.subMaxLevel), '<ul>')
+  if (!__docsify__.subMaxLevel) return
+  target.parentNode.innerHTML += tpl.tree(genTree(toc, __docsify__.subMaxLevel), '<ul>')
 }
 
 /**

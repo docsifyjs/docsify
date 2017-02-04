@@ -75,3 +75,7 @@ export function tree (toc, tpl = '') {
 export function helper (className, content) {
   return `<p class="${className}">${content.slice(5).trim()}</p>`
 }
+
+export function theme (color) {
+  return `<style>:root{--theme-color: ${color};}</style>`
+}

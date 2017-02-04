@@ -1,3 +1,7 @@
+## 2.0.0
+### Features
+- Customize the theme color
+
 ## 1.10.5
 ### Bug fixes
 - fix initialize the Vue instance

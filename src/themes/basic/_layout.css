@@ -13,7 +13,7 @@
 }
 
 .progress {
-  background-color: $color-primary;
+  background-color: var(--theme-color, $color-primary);
   height: 2px;
   left: 0px;
   position: fixed;
@@ -86,12 +86,12 @@ nav {
     transition: color .3s;
 
     &:hover {
-      color: $color-primary;
+      color: var(--theme-color, $color-primary);
     }
 
     &.active {
-      color: $color-primary;
-      border-bottom: 2px solid $color-primary;
+      color: var(--theme-color, $color-primary);
+      border-bottom: 2px solid var(--theme-color, $color-primary);
     }
   }
 
@@ -103,7 +103,7 @@ nav {
     ul {
       border-radius: 2px;
       background-color: rgba($color-bg, .6);
-      border: 1px solid $color-primary;
+      border: 1px solid var(--theme-color, $color-primary);
       opacity: 0;
       overflow: hidden;
       padding: 0;
@@ -160,7 +160,7 @@ nav {
     color: $color-bg;
     height: 80px;
     width: 80px;
-    fill: $color-primary;
+    fill: var(--theme-color, $color-primary);
   }
 }
 
@@ -246,7 +246,7 @@ main {
   }
 
   span {
-    background-color: $color-primary;
+    background-color: var(--theme-color, $color-primary);
     display: block;
     size: 16px 2px;
     margin-bottom: 4px;

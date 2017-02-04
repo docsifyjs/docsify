@@ -72,9 +72,9 @@ section.cover {
 
   .cover-main p:last-child a {
     border-radius: 2em;
-    border: 1px solid $color-primary;
+    border: 1px solid var(--theme-color, $color-primary);
     box-sizing: border-box;
-    color: $color-primary;
+    color: var(--theme-color, $color-primary);
     font-size: 1.05em;
     letter-spacing: 0.1em;
     padding: 0.75em 2em;
@@ -85,7 +85,7 @@ section.cover {
 
     &:last-child {
       margin-right: 0;
-      background-color: $color-primary;
+      background-color: var(--theme-color, $color-primary);
       color: #fff;
 
       &:hover {

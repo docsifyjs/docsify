@@ -3,7 +3,15 @@ var cssnano = require('cssnano').process
 var resolve = require('path').resolve
 var postcss = require('postcss')
 
-var processor = postcss([require('postcss-salad')])
+var processor = postcss([require('postcss-salad')({
+  features: {
+    precss: {
+      properties: {
+        preserve: true
+      }
+    }
+  }
+})])
 
 var saveMin = function (file, content) {
   fs.writeFileSync(resolve(__dirname, '../lib/themes/', file), content)

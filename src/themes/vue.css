@@ -38,7 +38,7 @@ body {
   }
 
   ul li.active>a {
-    color: $color-primary;
+    color: var(--theme-color, $color-primary);
     font-weight: 600;
   }
 }
@@ -54,7 +54,7 @@ body {
 }
 
 .markdown-section a {
-  color: $color-primary;
+  color: var(--theme-color, $color-primary);
   font-weight: 600;
 }
 
@@ -107,7 +107,7 @@ body {
 
 .markdown-section blockquote {
   color: #858585;
-  border-left: 4px solid $color-primary;
+  border-left: 4px solid var(--theme-color, $color-primary);
   margin: 2em 0;
   padding-left: 20px;
 }
@@ -179,7 +179,7 @@ body {
 }
 
 .token.string {
-  color: $color-primary;
+  color: var(--theme-color, $color-primary);
 }
 
 .token.selector {
@@ -201,7 +201,7 @@ body {
 .token.control,
 .token.directive,
 .token.unit {
-  color: $color-primary;
+  color: var(--theme-color, $color-primary);
 }
 
 .token.keyword {
