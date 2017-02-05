@@ -22,8 +22,8 @@ export function corner (data) {
 /**
  * Render main content
  */
-export function main (tpl) {
-  const aside = `${tpl}<aside class="sidebar"></aside>`
+export function main () {
+  const aside = `${toggle()}<aside class="sidebar"></aside>`
 
   return (isMobile() ? `${aside}<main>` : `<main>${aside}`) +
     `<section class="content">

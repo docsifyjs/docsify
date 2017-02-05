@@ -2,6 +2,9 @@
 ### Features
 - Customize the theme color
 
+### Break change
+- Remove `data-router`, `data-sidebar`, `data-sidebar-toggle` APIs
+
 ## 1.10.5
 ### Bug fixes
 - fix initialize the Vue instance
