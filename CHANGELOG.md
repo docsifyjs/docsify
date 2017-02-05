@@ -1,3 +1,8 @@
+## 2.0.2
+
+### Bug fixes
+- fix button style in cover page.
+
 ## 2.0.1
 ### Bug fixes
 - border style.
