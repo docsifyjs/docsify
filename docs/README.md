@@ -381,7 +381,7 @@ window.$docsify = {
 ```
 
 
-### basePath
+### base-path
 
 If your HTML entry file and the markdown files are in different directories, we can use:
 
@@ -430,7 +430,7 @@ window.$docsify = {
 }
 ```
 
-### nameLink
+### name-link
 
 Name link. The default value is `window.location.pathname`.
 

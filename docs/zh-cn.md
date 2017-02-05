@@ -387,7 +387,7 @@ window.$docsify = {
 }
 ```
 
-### basePath
+### base-path
 
 指定加载文档的路径，如果你的 HTML 入口文件和文档是放在不同地方，你可以设置：
 
@@ -438,7 +438,7 @@ window.$docsify = {
 }
 ```
 
-### nameLink
+### name-link
 
 项目名链接，默认为 `window.location.pathname`。
 
@@ -452,7 +452,7 @@ window.$docsify = {
 }
 ```
 
-### themeColor
+### theme-color
 
 自定义主题色。
 
