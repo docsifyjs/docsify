@@ -20,7 +20,7 @@ Create a `index.html` file
 <body>
   <div id="app"></div>
 </body>
-<script src="//unpkg.com/docsify" data-router></script>
+<script src="//unpkg.com/docsify"></script>
 </html>
 ```
 
@@ -191,7 +191,7 @@ We can write the Vue syntax directly in the markdown file, when the Vue library 
 index.html
 ```html
 <script src="//unpkg.com/vue"></script>
-<script src="//unpkg.com/docsify" data-router></script>
+<script src="//unpkg.com/docsify"></script>
 ```
 
 ```markdown
@@ -257,50 +257,6 @@ Root element.
 ```js
 window.$docsify = {
   el: '#app'
-}
-```
-
-### sidebar-toggle
-
-Sidebar with toggle
-
-```html
-<script src="//unpkg.com/docsify" data-sidebar-toggle></script>
-```
-
-```js
-window.$docsify = {
-  sidebarToggle: true
-}
-```
-
-### sidebar
-
-Custom sidebar. If it's set, the TOC will be disabled. Bind global variables on the `data-sidebar`.
-
-![image](https://cloud.githubusercontent.com/assets/7565692/20647425/de5ab1c2-b4ce-11e6-863a-135868f2f9b4.png)
-
-```html
-<script>
-  window.sidebar = [
-    { slug: '/', title: 'Home' },
-    {
-      slug: '/pageA',
-      title: 'page A',
-      children: [
-        { slug: '/pageA/childrenB', title: 'children B' }
-      ]
-    },
-    { slug: '/PageC', title: 'Page C' }
-  ]
-</script>
-<script src="/lib/docsify.js" data-sidebar="sidebar"></script>
-```
-
-
-```js
-window.$docsify = {
-  sidebar: 'sidebar'
 }
 ```
 
@@ -388,20 +344,6 @@ If you write a sub level list, it will generate a dropdown list.
   - [chinese](/zh-cn)
 ```
 
-### router
-
-Hash router.
-
-```html
-<script src="/lib/docsify.js" data-router></script>
-```
-
-```js
-window.$docsify = {
-  router: true
-}
-```
-
 
 ### auto2top
 
@@ -423,7 +365,7 @@ window.$docsify = {
 
 ### homepage
 
-`README.md` will be rendered as a homepage for your website in the docs folder, but sometimes we want to specify another file as a homepage, or even use the `README.md` in your repo. We can use (need `data-router`):
+`README.md` will be rendered as a homepage for your website in the docs folder, but sometimes we want to specify another file as a homepage, or even use the `README.md` in your repo.
 
 ```html
 <script src="/lib/docsify.js" data-homepage="https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md"></script>

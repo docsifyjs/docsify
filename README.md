@@ -25,7 +25,7 @@
 - Support emoji :laughing:
 
 ## Quick start
-Create a `index.html` and using `hash router`.
+Create a `index.html`.
 
 index.html
 
@@ -39,13 +39,17 @@ index.html
 <body>
   <div id="app"></div>
 </body>
-<script src="//unpkg.com/docsify" data-router></script>
+<script src="//unpkg.com/docsify"></script>
 </html>
 ```
 
 ## CDN
 - UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
 - jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
+
+## Browser Support
+
+Modern browsers and Internet Explorer 9+.
 
 ## Showcase
 These open-source projects are using docsify to generate their sites. Pull requests welcome : )

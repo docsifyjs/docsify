@@ -30,10 +30,7 @@ export function init () {
     const slug = slugify(text)
     let route = ''
 
-    if (__docsify__.router) {
-      route = `#/${getRoute()}`
-    }
-
+    route = `#/${getRoute()}`
     toc.push({ level, slug: `${route}#${encodeURIComponent(slug)}`, title: text })
 
     return `<h${level} id="${slug}"><a href="${route}#${slug}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
@@ -45,7 +42,7 @@ export function init () {
     return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl.replace(/:/g, '__colon__')}</code></pre>`
   }
   renderer.link = function (href, title, text) {
-    if (__docsify__.router && !/:/.test(href)) {
+    if (!/:/.test(href)) {
       href = `#/${href}`.replace(/\/\//g, '/')
     }
 
@@ -82,7 +79,7 @@ export function renderApp (dom, replace) {
 
   dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(__docsify__.repo) +
     (__docsify__.coverpage ? tpl.cover() : '') +
-    tpl.main(__docsify__.sidebarToggle ? tpl.toggle() : '')
+    tpl.main()
   document.body.insertBefore(nav, document.body.children[0])
 
   // theme color
@@ -106,7 +103,7 @@ export function renderApp (dom, replace) {
  */
 export function renderArticle (content) {
   renderTo('article', content ? markdown(content) : 'not found')
-  if (!__docsify__.sidebar && !__docsify__.loadSidebar) renderSidebar()
+  if (!__docsify__.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined') {
     CACHE.vm && CACHE.vm.$destroy()
@@ -147,8 +144,6 @@ export function renderSidebar (content) {
     html = markdown(content)
     // find url tag
     html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
-  } else if (__docsify__.sidebar) {
-    html = tpl.tree(__docsify__.sidebar, '<ul>')
   } else {
     html = tpl.tree(genTree(toc, __docsify__.maxLevel), '<ul>')
   }

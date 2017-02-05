@@ -25,7 +25,7 @@ mkdir docs && cd docs
 <body>
   <div id="app"></div>
 </body>
-<script src="//unpkg.com/docsify" data-router></script>
+<script src="//unpkg.com/docsify"></script>
 </html>
 ```
 
@@ -201,7 +201,7 @@ window.$docsify = {
 index.html
 ```html
 <script src="//unpkg.com/vue"></script>
-<script src="//unpkg.com/docsify" data-router></script>
+<script src="//unpkg.com/docsify"></script>
 ```
 
 ```markdown
@@ -268,51 +268,6 @@ window.$docsify = {
 ```js
 window.$docsify = {
   el: '#app'
-}
-```
-
-### sidebar-toggle
-
-Sidebar 开关按钮
-
-```html
-<script src="//unpkg.com/docsify" data-sidebar-toggle></script>
-```
-
-
-```js
-window.$docsify = {
-  sidebarToggle: true
-}
-```
-
-### sidebar
-
-设置后 TOC 功能将不可用，适合导航较多的文档，`data-sidebar` 传入全局变量名。
-
-![image](https://cloud.githubusercontent.com/assets/7565692/20647425/de5ab1c2-b4ce-11e6-863a-135868f2f9b4.png)
-
-```html
-<script>
-  window.sidebar = [
-    { slug: '/', title: 'Home' },
-    {
-      slug: '/pageA',
-      title: 'page A',
-      children: [
-        { slug: '/pageA/childrenB', title: 'children B' }
-      ]
-    },
-    { slug: '/PageC', title: 'Page C' }
-  ]
-</script>
-<script src="/lib/docsify.js" data-sidebar="sidebar"></script>
-```
-
-
-```js
-window.$docsify = {
-  sidebar: 'sidebar'
 }
 ```
 
@@ -400,20 +355,6 @@ window.$docsify = {
 ```
 
 
-### router
-
-开启 hash router 功能，同时多页面切换不会重新加载资源。资源路径会被替换成 `/#/` 的形式。
-
-```html
-<script src="/lib/docsify.js" data-router></script>
-```
-
-```js
-window.$docsify = {
-  router: true
-}
-```
-
 ### auto2top
 
 切换路由时自动跳转到页面顶部
@@ -431,7 +372,7 @@ window.$docsify = {
 
 ### homepage
 
-默认情况下网站会将根目录下 `README.md` 作为首页渲染，但是有些时候我们想指定其他文件，甚至想直接将 repo 下的 README 作为首页。你可以这样做（需要设置 `data-router`）：
+默认情况下网站会将根目录下 `README.md` 作为首页渲染，但是有些时候我们想指定其他文件，甚至想直接将 repo 下的 README 作为首页。
 
 
 ```html
