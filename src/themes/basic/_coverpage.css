@@ -72,7 +72,9 @@ section.cover {
 
   .cover-main p:last-child a {
     border-radius: 2em;
-    border: 1px solid var(--theme-color, $color-primary);
+    border-width: 1px;
+    border-style:  solid;
+    border-width: var(--theme-color, $color-primary);
     box-sizing: border-box;
     color: var(--theme-color, $color-primary);
     font-size: 1.05em;

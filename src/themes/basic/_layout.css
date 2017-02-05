@@ -103,7 +103,9 @@ nav {
     ul {
       border-radius: 2px;
       background-color: rgba($color-bg, .6);
-      border: 1px solid var(--theme-color, $color-primary);
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--theme-color, $color-primary);
       opacity: 0;
       overflow: hidden;
       padding: 0;

@@ -1,3 +1,7 @@
+## 2.0.1
+### Bug fixes
+- border style.
+
 ## 2.0.0
 ### Features
 - Customize the theme color
