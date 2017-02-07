@@ -16,7 +16,7 @@ export function cssVars () {
     } else if (block.nodeName === 'LINK') {
       const href = block.getAttribute('href')
 
-      if (/\.css$/.test(href)) return
+      if (!/\.css$/.test(href)) return
 
       load(href).then(res => {
         const style = document.createElement('style')
