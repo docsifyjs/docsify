@@ -1,3 +1,7 @@
+## 2.0.3
+### Bug fixes
+- fix: css var polyfill
+
 ## 2.0.2
 
 ### Bug fixes

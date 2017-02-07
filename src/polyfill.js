@@ -14,14 +14,17 @@ export function cssVars () {
     if (block.nodeName === 'STYLE') {
       replaceVar(block)
     } else if (block.nodeName === 'LINK') {
-      load(block.getAttribute('href'))
-        .then(res => {
-          const style = document.createElement('style')
+      const href = block.getAttribute('href')
 
-          style.innerHTML = res
-          document.head.appendChild(style)
-          replaceVar(style)
-        })
+      if (/\.css$/.test(href)) return
+
+      load(href).then(res => {
+        const style = document.createElement('style')
+
+        style.innerHTML = res
+        document.head.appendChild(style)
+        replaceVar(style)
+      })
     }
   })
 }
