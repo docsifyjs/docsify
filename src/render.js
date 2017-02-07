@@ -39,7 +39,7 @@ export function init () {
   renderer.code = function (code, lang = '') {
     const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
 
-    return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl.replace(/:/g, '__colon__')}</code></pre>`
+    return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
   }
   renderer.link = function (href, title, text) {
     if (!/:/.test(href)) {
