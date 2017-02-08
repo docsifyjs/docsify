@@ -9,7 +9,7 @@ export function scrollActiveSidebar () {
 
   let hoveredOverSidebar = false
   const anchors = document.querySelectorAll('.anchor')
-  const sidebar = document.querySelector('aside.sidebar')
+  const sidebar = document.querySelector('.sidebar>div')
   const sidebarHeight = sidebar.clientHeight
 
   const nav = {}
@@ -126,7 +126,7 @@ export function bindToggle (dom) {
   dom.addEventListener('click', () => body.classList.toggle('close'))
 
   if (isMobile()) {
-    const sidebar = document.querySelector('aside.sidebar')
+    const sidebar = document.querySelector('.sidebar div')
     sidebar.addEventListener('click', () => {
       body.classList.toggle('close')
       setTimeout(() => activeLink(sidebar, true), 0)

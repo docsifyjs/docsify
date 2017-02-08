@@ -1,7 +1,7 @@
 import { load } from './util'
 
 function replaceVar (block) {
-  block.innerHTML = block.innerHTML.replace(/var\(\s*--theme-color.*?\)/g, __docsify__.themeColor)
+  block.innerHTML = block.innerHTML.replace(/var\(\s*--theme-color.*?\)/g, $docsify.themeColor)
 }
 
 export function cssVars () {
