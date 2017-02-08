@@ -57,16 +57,18 @@ export function init () {
     return `<p>${text}</p>`
   }
 
-  if (typeof __docsify__.markdown === 'function') {
+  if (typeof $docsify.markdown === 'function') {
     markdown.setOptions({ renderer })
-    markdown = __docsify__.markdown.call(this, markdown)
+    markdown = $docsify.markdown.call(this, markdown)
   } else {
-    markdown.setOptions(merge({ renderer }, __docsify__.markdown))
+    markdown.setOptions(merge({ renderer }, $docsify.markdown))
   }
 
   const md = markdown
 
   markdown = text => emojify(md(text))
+
+  window.Docsify.utils.marked = markdown
 }
 
 /**
@@ -75,23 +77,29 @@ export function init () {
 export function renderApp (dom, replace) {
   const nav = document.querySelector('nav') || document.createElement('nav')
 
-  if (!__docsify__.repo) nav.classList.add('no-badge')
+  if (!$docsify.repo) nav.classList.add('no-badge')
 
-  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner(__docsify__.repo) +
-    (__docsify__.coverpage ? tpl.cover() : '') +
+  dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner($docsify.repo) +
+    ($docsify.coverpage ? tpl.cover() : '') +
     tpl.main()
   document.body.insertBefore(nav, document.body.children[0])
 
   // theme color
-  if (__docsify__.themeColor) {
-    document.head.innerHTML += tpl.theme(__docsify__.themeColor)
+  if ($docsify.themeColor) {
+    document.head.innerHTML += tpl.theme($docsify.themeColor)
     polyfill.cssVars()
+  }
+
+  // render name
+  if ($docsify.name) {
+    const aside = document.querySelector('.sidebar')
+    aside.innerHTML = `<h1><a href="${$docsify.nameLink}">${$docsify.name}</a></h1>` + aside.innerHTML
   }
 
   // bind toggle
   event.bindToggle('button.sidebar-toggle')
   // bind sticky effect
-  if (__docsify__.coverpage) {
+  if ($docsify.coverpage) {
     !isMobile() && window.addEventListener('scroll', event.sticky)
   } else {
     document.body.classList.add('sticky')
@@ -103,7 +111,7 @@ export function renderApp (dom, replace) {
  */
 export function renderArticle (content) {
   renderTo('article', content ? markdown(content) : 'not found')
-  if (!__docsify__.loadSidebar) renderSidebar()
+  if (!$docsify.loadSidebar) renderSidebar()
 
   if (content && typeof Vue !== 'undefined') {
     CACHE.vm && CACHE.vm.$destroy()
@@ -120,7 +128,7 @@ export function renderArticle (content) {
       : new Vue({ el: 'main' }) // eslint-disable-line
     CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
   }
-  if (__docsify__.auto2top) setTimeout(() => event.scroll2Top(__docsify__.auto2top), 0)
+  if ($docsify.auto2top) setTimeout(() => event.scroll2Top($docsify.auto2top), 0)
 }
 
 /**
@@ -145,12 +153,12 @@ export function renderSidebar (content) {
     // find url tag
     html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
   } else {
-    html = tpl.tree(genTree(toc, __docsify__.maxLevel), '<ul>')
+    html = tpl.tree(genTree(toc, $docsify.maxLevel), '<ul>')
   }
 
-  html = (__docsify__.name ? `<h1><a href="${__docsify__.nameLink}">${__docsify__.name}</a></h1>` : '') + html
-  renderTo('aside.sidebar', html)
-  const target = event.activeLink('aside.sidebar', true)
+  console.log(html)
+  renderTo('.sidebar>div', html)
+  const target = event.activeLink('.sidebar>div', true)
   if (target) renderSubSidebar(target)
   toc = []
 
@@ -158,8 +166,8 @@ export function renderSidebar (content) {
 }
 
 export function renderSubSidebar (target) {
-  if (!__docsify__.subMaxLevel) return
-  target.parentNode.innerHTML += tpl.tree(genTree(toc, __docsify__.subMaxLevel), '<ul>')
+  if (!$docsify.subMaxLevel) return
+  target.parentNode.innerHTML += tpl.tree(genTree(toc, $docsify.subMaxLevel), '<ul>')
 }
 
 /**

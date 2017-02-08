@@ -1,8 +1,8 @@
-import { load, camel2kebab, isNil, getRoute, merge } from './util'
+import * as utils from './util'
 import { scrollIntoView, activeLink } from './event'
 import * as render from './render'
 
-const OPTIONS = merge({
+const OPTIONS = utils.merge({
   el: '#app',
   repo: '',
   maxLevel: 6,
@@ -22,8 +22,8 @@ const script = document.currentScript || [].slice.call(document.getElementsByTag
 // load configuration for script attribute
 if (script) {
   for (const prop in OPTIONS) {
-    const val = script.getAttribute('data-' + camel2kebab(prop))
-    OPTIONS[prop] = isNil(val) ? OPTIONS[prop] : (val || true)
+    const val = script.getAttribute('data-' + utils.camel2kebab(prop))
+    OPTIONS[prop] = utils.isNil(val) ? OPTIONS[prop] : (val || true)
   }
   if (OPTIONS.loadSidebar === true) OPTIONS.loadSidebar = '_sidebar.md'
   if (OPTIONS.loadNavbar === true) OPTIONS.loadNavbar = '_navbar.md'
@@ -33,16 +33,20 @@ if (script) {
 }
 
 // utils
-window.__docsify__ = OPTIONS
+window.$docsify = OPTIONS
+window.Docsify = {
+  installed: true,
+  utils: utils.merge({}, utils)
+}
 
 // load options
-render.init(OPTIONS)
+render.init()
 
 let cacheRoute = null
 let cacheXhr = null
 
 const mainRender = function (cb) {
-  const route = OPTIONS.basePath + getRoute()
+  const route = OPTIONS.basePath + utils.getRoute()
   if (cacheRoute === route) return cb()
 
   let basePath = cacheRoute = route
@@ -64,12 +68,12 @@ const mainRender = function (cb) {
 
   // Render Cover page
   if (OPTIONS.coverpage && page === OPTIONS.homepage) {
-    load(OPTIONS.coverpage).then(render.renderCover)
+    utils.load(OPTIONS.coverpage).then(render.renderCover)
   }
 
   cacheXhr && cacheXhr.abort && cacheXhr.abort()
   // Render markdown file
-  cacheXhr = load(page, 'GET', render.renderLoading)
+  cacheXhr = utils.load(page, 'GET', render.renderLoading)
   cacheXhr.then(result => {
     render.renderArticle(result)
     // clear cover
@@ -78,8 +82,8 @@ const mainRender = function (cb) {
     if (OPTIONS.loadSidebar) {
       const renderSidebar = result => { render.renderSidebar(result); cb() }
 
-      load(basePath + OPTIONS.loadSidebar).then(renderSidebar,
-        _ => load(OPTIONS.loadSidebar).then(renderSidebar))
+      utils.load(basePath + OPTIONS.loadSidebar).then(renderSidebar,
+        _ => utils.load(OPTIONS.loadSidebar).then(renderSidebar))
     } else {
       cb()
     }
@@ -87,8 +91,8 @@ const mainRender = function (cb) {
 
   // Render navbar
   if (OPTIONS.loadNavbar) {
-    load(basePath + OPTIONS.loadNavbar).then(render.renderNavbar,
-      _ => load(OPTIONS.loadNavbar).then(render.renderNavbar))
+    utils.load(basePath + OPTIONS.loadNavbar).then(render.renderNavbar,
+      _ => utils.load(OPTIONS.loadNavbar).then(render.renderNavbar))
   }
 }
 
@@ -99,6 +103,7 @@ const Docsify = function () {
     mainRender(_ => {
       scrollIntoView()
       activeLink('nav')
+      ;[].concat(window.$docsify.plugins).forEach(fn => fn && fn())
     })
   }
 
