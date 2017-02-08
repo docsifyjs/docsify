@@ -24,6 +24,15 @@
   z-index: 999999;
 }
 
+.search a:hover {
+  color: var(--theme-color, $color-primary);
+}
+
+.search .search-keyword {
+  color: var(--theme-color, $color-primary);
+  font-style: normal;
+}
+
 html, body {
   height: 100%;
 }

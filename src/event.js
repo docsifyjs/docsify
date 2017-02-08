@@ -9,7 +9,7 @@ export function scrollActiveSidebar () {
 
   let hoveredOverSidebar = false
   const anchors = document.querySelectorAll('.anchor')
-  const sidebar = document.querySelector('.sidebar>div')
+  const sidebar = document.querySelector('.sidebar')
   const sidebarHeight = sidebar.clientHeight
 
   const nav = {}

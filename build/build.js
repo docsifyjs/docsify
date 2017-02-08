@@ -3,6 +3,7 @@ var buble = require('rollup-plugin-buble')
 var commonjs = require('rollup-plugin-commonjs')
 var nodeResolve = require('rollup-plugin-node-resolve')
 var uglify = require('rollup-plugin-uglify')
+var isProd = process.argv[process.argv.length - 1] !== '--dev'
 
 var build = function (opts) {
   rollup
@@ -16,7 +17,7 @@ var build = function (opts) {
       console.log(dest)
       bundle.write({
         format: 'iife',
-        moduleName: opts.moduleName || 'Docsify',
+        moduleName: opts.moduleName || 'D',
         dest: dest
       })
     })
@@ -30,8 +31,19 @@ build({
   output: 'docsify.js',
   plugins: [commonjs(), nodeResolve()]
 })
-build({
+isProd && build({
   entry: 'index.js',
   output: 'docsify.min.js',
   plugins: [commonjs(), nodeResolve(), uglify()]
+})
+build({
+  entry: 'plugins/search.js',
+  output: 'plugins/search.js',
+  moduleName: 'D.Search'
+})
+isProd && build({
+  entry: 'plugins/search.js',
+  output: 'plugins/search.min.js',
+  moduleName: 'D.Search',
+  plugins: [uglify()]
 })
