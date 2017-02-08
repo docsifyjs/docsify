@@ -68,7 +68,11 @@ export function init () {
 
   markdown = text => emojify(md(text))
 
-  window.Docsify.utils.marked = markdown
+  window.Docsify.utils.marked = text => {
+    const result = markdown(text)
+    toc = []
+    return result
+  }
 }
 
 /**
@@ -76,17 +80,19 @@ export function init () {
  */
 export function renderApp (dom, replace) {
   const nav = document.querySelector('nav') || document.createElement('nav')
+  const body = document.body
+  const head = document.head
 
   if (!$docsify.repo) nav.classList.add('no-badge')
 
   dom[replace ? 'outerHTML' : 'innerHTML'] = tpl.corner($docsify.repo) +
     ($docsify.coverpage ? tpl.cover() : '') +
     tpl.main()
-  document.body.insertBefore(nav, document.body.children[0])
+  body.insertBefore(nav, body.children[0])
 
   // theme color
   if ($docsify.themeColor) {
-    document.head.innerHTML += tpl.theme($docsify.themeColor)
+    head.innerHTML += tpl.theme($docsify.themeColor)
     polyfill.cssVars()
   }
 
@@ -102,7 +108,7 @@ export function renderApp (dom, replace) {
   if ($docsify.coverpage) {
     !isMobile() && window.addEventListener('scroll', event.sticky)
   } else {
-    document.body.classList.add('sticky')
+    body.classList.add('sticky')
   }
 }
 
@@ -156,9 +162,8 @@ export function renderSidebar (content) {
     html = tpl.tree(genTree(toc, $docsify.maxLevel), '<ul>')
   }
 
-  console.log(html)
-  renderTo('.sidebar>div', html)
-  const target = event.activeLink('.sidebar>div', true)
+  renderTo('.sidebar-nav', html)
+  const target = event.activeLink('.sidebar-nav', true)
   if (target) renderSubSidebar(target)
   toc = []
 

@@ -1,7 +1,9 @@
 {
   "extends": ["vue"],
+  "env": {
+    "browser": true
+  },
   "globals": {
-    "XMLHttpRequest": true,
-    "__docsify__": true
+    "$docsify": true
   }
 }
