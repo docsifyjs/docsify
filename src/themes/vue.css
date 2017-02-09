@@ -22,11 +22,12 @@ body {
   }
 
   ul li a {
-    color: #7f8c8d;
+    color: #505d6b;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     text-decoration: none;
+    font-size: 14px;
 
     &:hover {
       text-decoration: underline;
