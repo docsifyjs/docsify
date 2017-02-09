@@ -58,6 +58,7 @@ const mainRender = function (cb) {
   }
 
   let page
+
   if (!route) {
     page = OPTIONS.homepage || 'README.md'
   } else if (/\/$/.test(route)) {

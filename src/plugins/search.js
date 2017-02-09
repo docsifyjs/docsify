@@ -50,14 +50,14 @@ const genFilePath = function (path) {
 
   filePath = basePath + filePath
 
-  return filePath.replace(/\/\//g, '/')
+  return filePath.replace(/\/+/g, '/')
 }
 
 /**
  * generate index
  */
 const genIndex = function (path, content = '') {
-  // INDEXS[path] = {}
+  INDEXS[path] = { slug: '', title: '', body: '' }
   let slug
 
   content
@@ -73,7 +73,7 @@ const genIndex = function (path, content = '') {
         // <h1 id="xxx"></h1>
         const id = attr.match(/id="(\S+)"/)[1]
 
-        slug = `#/${path}#${id}`.replace(/\/\//, '/')
+        slug = `#/${path}#${id}`.replace(/\/+/, '/')
         INDEXS[slug] = { slug, title: text, body: '' }
       } else {
         // other html tag
@@ -221,12 +221,10 @@ class SearchComponent {
     for (let i = 0; i < data.length; i++) {
       const post = data[i]
       let isMatch = false
-      let matchingNum = 0
       let resultStr = ''
       const postTitle = post.title && post.title.trim()
       const postContent = post.body && post.body.trim()
       const postUrl = post.slug || ''
-      const postType = post.pagetitle
 
       if (postTitle !== '' && postContent !== '') {
         keywords.forEach((keyword, i) => {
@@ -241,7 +239,6 @@ class SearchComponent {
             isMatch = false
           } else {
             isMatch = true
-            matchingNum++
             if (indexContent < 0) indexContent = 0
 
             let start = 0
@@ -266,9 +263,7 @@ class SearchComponent {
           const matchingPost = {
             title: escapeHtml(postTitle),
             content: resultStr,
-            url: postUrl,
-            type: postType,
-            matchingNum: matchingNum
+            url: postUrl
           }
 
           matchingResults.push(matchingPost)
@@ -280,23 +275,30 @@ class SearchComponent {
   }
 }
 
-// TODO 如果不存在就重新加载
 const searchPlugin = function () {
-  if (localStorage.getItem('docsify.search.expires') > Date.now()) {
-    INDEXS = JSON.parse(localStorage.getItem('docsify.search.index'))
+  const isAuto = CONFIG.paths === 'auto'
+  const isExpired = localStorage.getItem('docsify.search.expires') < Date.now()
+
+  INDEXS = JSON.parse(localStorage.getItem('docsify.search.index'))
+
+  if (isExpired) {
+    INDEXS = {}
+  } else if (!isAuto) {
     return
   }
 
-  const paths = CONFIG.paths === 'auto' ? getAllPaths() : CONFIG.paths
+  let count = 0
+  const paths = isAuto ? getAllPaths() : CONFIG.paths
   const len = paths.length
   const { load, marked, slugify } = window.Docsify.utils
-  let count = 0
   const done = () => {
     localStorage.setItem('docsify.search.expires', Date.now() + CONFIG.maxAge)
     localStorage.setItem('docsify.search.index', JSON.stringify(INDEXS))
   }
 
   paths.forEach(path => {
+    if (INDEXS[path]) return count++
+
     load(genFilePath(path)).then(content => {
       genIndex(path, marked(content))
       slugify.clear()

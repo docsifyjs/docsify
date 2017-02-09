@@ -459,3 +459,39 @@ window.$docsify = {
   themeColor: '#3F51B5'
 }
 ```
+
+## Plugins
+
+### Full Text Search
+
+If a document can have a search, can enhance some user experience. The introduction of search plugin is easy. such as
+
+
+```html
+<script src="//unpkg.com/docsify/lib/docsify.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+```
+
+By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
+
+!> Configure the content before the plugin is installed.
+
+```js
+window.$docsify = {
+  search: 'auto', // default
+
+  search : [
+    '/',            // => /README.md
+    '/guide',       // => /guide.md
+    '/get-started', // => /get-started.md
+    '/zh-cn/',      // => /zh-cn/README.md
+  ],
+
+  // Full configuration
+  search: {
+    maxAge: 86400000, // Expiration time, the default one day
+    paths: [], // or 'auto'
+    placeholder: 'Type to search'
+  }
+}
+```

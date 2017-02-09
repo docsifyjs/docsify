@@ -43,7 +43,7 @@ export function init () {
   }
   renderer.link = function (href, title, text) {
     if (!/:/.test(href)) {
-      href = `#/${href}`.replace(/\/\//g, '/')
+      href = `#/${href}`.replace(/\/+/g, '/')
     }
 
     return `<a href="${href}" title="${title || ''}">${text}</a>`

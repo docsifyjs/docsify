@@ -1,3 +1,11 @@
+## 2.1.0
+### Features
+- Add search plugin
+```html
+<script src="//unpkg.com/docsify/lib/docsify.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+```
+
 ## 2.0.3
 ### Bug fixes
 - fix: rendering emojis
