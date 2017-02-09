@@ -235,6 +235,23 @@ main {
   ul li ul {
     padding-left: 20px;
   }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.4);
+  }
+
+  &:hover::-webkit-scrollbar-track {
+    background: rgba(136, 136, 136, 0.1);
+  }
 }
 
 /* sidebar toggle */
