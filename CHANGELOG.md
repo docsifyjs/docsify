@@ -6,6 +6,9 @@
 <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
 ```
 
+### Bug fixes
+- fix sidebar style
+
 ## 2.0.3
 ### Bug fixes
 - fix: rendering emojis
