@@ -468,7 +468,7 @@ If a document can have a search, can enhance some user experience. Installing th
 
 
 ```html
-<script src="//unpkg.com/docsify/lib/docsify.js"></script>
+<script src="//unpkg.com/docsify"></script>
 <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
 ```
 
@@ -493,5 +493,22 @@ window.$docsify = {
     paths: [], // or 'auto'
     placeholder: 'Type to search'
   }
+}
+```
+
+### Google Analytics
+
+Install the plugin and configure the track id.
+
+```html
+<script src="//unpkg.com/docsify" data-ga="UA-XXXXX-Y"></script>
+<script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
+```
+
+or
+
+```js
+window.$docsify = {
+  ga: 'UA-XXXXX-Y'
 }
 ```

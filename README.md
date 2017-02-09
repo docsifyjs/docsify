@@ -76,13 +76,12 @@ These open-source projects are using docsify to generate their sites. Pull reque
 
 ## Development
 
-### prepare
 ```bash
 npm i && npm run dev
 open http://localhost:3000
 ```
 
-### More Language Highlight
+## More Language Highlight
 
 ```html
 <script src="//unpkg.com/docsify"></script>

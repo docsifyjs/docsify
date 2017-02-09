@@ -47,3 +47,14 @@ isProd && build({
   moduleName: 'D.Search',
   plugins: [uglify()]
 })
+build({
+  entry: 'plugins/ga.js',
+  output: 'plugins/ga.js',
+  moduleName: 'D.GA'
+})
+isProd && build({
+  entry: 'plugins/ga.js',
+  output: 'plugins/ga.min.js',
+  moduleName: 'D.GA',
+  plugins: [uglify()]
+})

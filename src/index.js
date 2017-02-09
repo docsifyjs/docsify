@@ -15,7 +15,8 @@ const OPTIONS = utils.merge({
   auto2top: false,
   name: '',
   themeColor: '',
-  nameLink: window.location.pathname
+  nameLink: window.location.pathname,
+  ga: ''
 }, window.$docsify)
 const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
 

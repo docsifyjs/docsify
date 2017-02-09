@@ -501,3 +501,20 @@ window.$docsify = {
   }
 }
 ```
+
+### Google Analytics
+
+安装插件并且配置 track id。
+
+```html
+<script src="//unpkg.com/docsify" data-ga="UA-XXXXX-Y"></script>
+<script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
+```
+
+或者
+
+```js
+window.$docsify = {
+  ga: 'UA-XXXXX-Y'
+}
+```
