@@ -1,3 +1,8 @@
+## 2.2.0
+
+### Features
+- Add `Google Analytics` plugin.
+
 ## 2.1.0
 ### Features
 - Add search plugin
