@@ -466,3 +466,38 @@ window.$docsify = {
   themeColor: '#3F51B5'
 }
 ```
+
+## Plugins
+
+### 全文检索 - search
+
+一份文档如果能有搜索功能会提升一些用户体验，加载搜索插件也很简单，直接引入就自动安装并启用。默认情况下会自动分析当前页面上的超链接，获取内容后建立索引并存储在 localStorage 里，默认过期时间为一天，当然这是可配置的。
+
+自动识别的方式不一定能识别完整或者如果你想指定某些文件可索引，你可以自己指定文件的路径。
+
+```html
+<script src="//unpkg.com/docsify/lib/docsify.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+```
+
+!> 配置要在 docsify 引入之前
+
+```js
+window.$docsify = {
+  search: 'auto', // default
+
+  search : [
+    '/',            // => /README.md
+    '/guide',       // => /guide.md
+    '/get-started', // => /get-started.md
+    '/zh-cn/',      // => /zh-cn/README.md
+  ],
+
+  // Full configuration
+  search: {
+    maxAge: 86400000, // Expiration time, the default one day
+    paths: [], // or 'auto'
+    placeholder: 'Type to search'
+  }
+}
+```

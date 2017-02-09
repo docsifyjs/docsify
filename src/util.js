@@ -89,7 +89,7 @@ export function getRoute () {
   const loc = window.location
   if (cacheHash === loc.hash && !isNil(cacheRoute)) return cacheRoute
 
-  let route = loc.hash.match(/^#\/([^#]+)/)
+  let route = loc.hash.replace(/%23/g, '#').match(/^#\/([^#]+)/)
 
   if (route && route.length === 2) {
     route = route[1]
