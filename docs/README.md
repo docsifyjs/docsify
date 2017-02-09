@@ -464,7 +464,7 @@ window.$docsify = {
 
 ### Full Text Search
 
-If a document can have a search, can enhance some user experience. The introduction of search plugin is easy. such as
+If a document can have a search, can enhance some user experience. Installing the search plugin is easy. Such as
 
 
 ```html
