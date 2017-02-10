@@ -60,6 +60,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 - [Samaritan](http://samaritan.stockdb.org) - An Algorithmic Trading Framework for Digital Currency.
 - [Vudash](http://vudash.github.io/vudash/) - Powerful, Flexible, Open Source dashboards for anything
 - [Trilogy](http://trilogy.js.org) - No-hassle SQLite with a Promise-based, document store style API.
+- [Mybatis-Plus](http://mp.baomidou.com/) - An enhanced toolkit of Mybatis to simplify development
 
 ## Similar projects
 - [docute](https://github.com/egoist/docute) - 📜 Effortlessly documentation done right
