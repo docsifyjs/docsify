@@ -1,7 +1,14 @@
 ## 2.3.0
 
 > 2017-02-11
+
+### Features
+
 - feat(src): add alias feature
+
+### Bug fixes
+- fix(event): `auto2top` has no effect on a FF mobile browser, fixed #67
+
 
 ## 2.2.1
 

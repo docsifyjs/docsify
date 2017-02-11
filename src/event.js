@@ -135,8 +135,10 @@ export function bindToggle (dom) {
   }
 }
 
+const scrollingElement = document.scrollingElement || document.documentElement
+
 export function scroll2Top (offset = 0) {
-  document.body.scrollTop = offset === true ? 0 : Number(offset)
+  scrollingElement.scrollTop = offset === true ? 0 : Number(offset)
 }
 
 export function sticky () {
