@@ -47,10 +47,11 @@ let cacheRoute = null
 let cacheXhr = null
 
 const mainRender = function (cb) {
-  const route = OPTIONS.basePath + utils.getRoute()
+  let page
+  let route = utils.getRoute()
   if (cacheRoute === route) return cb()
 
-  let basePath = cacheRoute = route
+  let basePath = cacheRoute = OPTIONS.basePath + route
 
   if (!/\//.test(basePath)) {
     basePath = ''
@@ -58,7 +59,12 @@ const mainRender = function (cb) {
     basePath = basePath.match(/(\S*\/)[^\/]+$/)[1]
   }
 
-  let page
+  // replace route
+  if (OPTIONS.alias && OPTIONS.alias['/' + route]) {
+    route = OPTIONS.alias['/' + route]
+  } else {
+    route = OPTIONS.basePath + route
+  }
 
   if (!route) {
     page = OPTIONS.homepage || 'README.md'

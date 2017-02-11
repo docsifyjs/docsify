@@ -12,9 +12,17 @@
   <nav>
     <a href="#/">En</a>
     <a href="#/zh-cn">中文</a>
+    <a href="#/changelog">Changlog</a>
   </nav>
   <div id="app"></div>
 </body>
+<script>
+  window.$docsify = {
+    alias: {
+      '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+    }
+  }
+</script>
 <script
   src="//unpkg.com/docsify/lib/docsify.min.js"
   data-max-level="4"

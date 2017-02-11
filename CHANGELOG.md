@@ -15,6 +15,7 @@
 <script src="//unpkg.com/docsify" data-ga="UA-XXXXX-Y"></script>
 <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
 ```
+
 ## 2.1.0
 ### Features
 - Add search plugin

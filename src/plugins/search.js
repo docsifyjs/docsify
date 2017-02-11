@@ -44,8 +44,7 @@ const getAllPaths = function () {
 /**
  * return file path
  */
-const genFilePath = function (path) {
-  const basePath = window.$docsify.basePath
+const genFilePath = function (path, basePath = window.$docsify.basePath) {
   let filePath = /\/$/.test(path) ? `${path}README.md` : `${path}.md`
 
   filePath = basePath + filePath
@@ -294,6 +293,7 @@ const searchPlugin = function () {
   const paths = isAuto ? getAllPaths() : CONFIG.paths
   const len = paths.length
   const { load, marked, slugify } = window.Docsify.utils
+  const alias = window.$docsify.alias
   const done = () => {
     localStorage.setItem('docsify.search.expires', Date.now() + CONFIG.maxAge)
     localStorage.setItem('docsify.search.index', JSON.stringify(INDEXS))
@@ -301,8 +301,16 @@ const searchPlugin = function () {
 
   paths.forEach(path => {
     if (INDEXS[path]) return count++
+    let route
 
-    load(genFilePath(path)).then(content => {
+    // replace route
+    if (alias && alias[path]) {
+      route = genFilePath(alias[path] || path, '')
+    } else {
+      route = genFilePath(path)
+    }
+
+    load(route).then(content => {
       genIndex(path, marked(content))
       slugify.clear()
       count++
