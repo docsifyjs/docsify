@@ -460,6 +460,18 @@ window.$docsify = {
 }
 ```
 
+### alias
+
+Create aliases to certain other pages more easily.
+
+```js
+window.$docsify = {
+  alias: {
+    '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+  }
+}
+```
+
 ## Plugins
 
 ### Full Text Search

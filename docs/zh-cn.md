@@ -467,6 +467,18 @@ window.$docsify = {
 }
 ```
 
+### alias
+
+设置别名方便自定义路由或者引入其他文件。
+
+```js
+window.$docsify = {
+  alias: {
+    '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+  }
+}
+```
+
 ## Plugins
 
 ### 全文检索 - search
