@@ -76,6 +76,7 @@ const genIndex = function (path, content = '') {
         slug = `#/${path}#${id}`.replace(/\/+/, '/')
         INDEXS[slug] = { slug, title: text, body: '' }
       } else {
+        if (!slug) return
         // other html tag
         if (!INDEXS[slug]) {
           INDEXS[slug] = {}
