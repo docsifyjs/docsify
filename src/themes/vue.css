@@ -18,7 +18,7 @@ body {
   background-color: $color-bg;
 
   li {
-    margin: 6px 15px;
+    margin: 6px 0 6px 15px;
   }
 
   ul li a {
@@ -28,6 +28,7 @@ body {
     white-space: nowrap;
     text-decoration: none;
     font-size: 14px;
+    font-weight: normal;
 
     &:hover {
       text-decoration: underline;
@@ -41,6 +42,7 @@ body {
   ul li.active>a {
     color: var(--theme-color, $color-primary);
     font-weight: 600;
+    border-right: 2px solid;
   }
 }
 

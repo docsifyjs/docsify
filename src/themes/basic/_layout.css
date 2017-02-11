@@ -223,6 +223,11 @@ main {
     padding: 0;
   }
 
+  li>p {
+    font-weight: 700;
+    margin: 0;
+  }
+
   ul, ul li {
     list-style: none;
   }

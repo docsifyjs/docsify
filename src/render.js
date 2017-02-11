@@ -8,6 +8,7 @@ import { genTree, getRoute, isMobile, slugify, merge, emojify } from './util'
 let markdown = marked
 let toc = []
 const CACHE = {}
+const originTitle = document.title
 
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
@@ -163,15 +164,21 @@ export function renderSidebar (content) {
   }
 
   renderTo('.sidebar-nav', html)
+
+  if (toc[0] && toc[0].level === 1) {
+    document.title = `${toc[0].title}${originTitle ? ' - ' + originTitle : ''}`
+  }
+
   const target = event.activeLink('.sidebar-nav', true)
   if (target) renderSubSidebar(target)
-  toc = []
 
+  toc = []
   event.scrollActiveSidebar()
 }
 
 export function renderSubSidebar (target) {
   if (!$docsify.subMaxLevel) return
+  toc[0] && toc[0].level === 1 && toc.shift()
   target.parentNode.innerHTML += tpl.tree(genTree(toc, $docsify.subMaxLevel), '<ul>')
 }
 

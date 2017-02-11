@@ -25,6 +25,9 @@ function collect () {
 }
 
 const install = function () {
+  if (install.installed) return
+  install.installed = true
+
   if (!window.Docsify || !window.Docsify.installed) {
     console.error('[Docsify] Please load docsify.js first.')
     return
