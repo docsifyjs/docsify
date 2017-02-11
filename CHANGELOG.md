@@ -1,3 +1,12 @@
+## 2.2.1
+
+> 2017-02-11
+
+### Bug fixes
+- fix(search): crash when not content, fixed #68
+- fix(event): scroll active sidebar
+- fix(search): not work in mobile
+
 ## 2.2.0
 
 ### Features
