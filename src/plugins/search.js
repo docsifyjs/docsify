@@ -180,9 +180,11 @@ class SearchComponent {
   }
 
   bindEvent () {
-    const input = document.querySelector('.search input')
-    const panel = document.querySelector('.results-panel')
+    const search = document.querySelector('.search')
+    const input = search.querySelector('.search input')
+    const panel = search.querySelector('.results-panel')
 
+    search.addEventListener('click', e => e.target.tagName !== 'A' && e.stopPropagation())
     input.addEventListener('input', e => {
       const target = e.target
 
