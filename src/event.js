@@ -10,6 +10,7 @@ export function scrollActiveSidebar () {
   let hoveredOverSidebar = false
   const anchors = document.querySelectorAll('.anchor')
   const sidebar = document.querySelector('.sidebar')
+  const sidebarContainer = sidebar.querySelector('.sidebar-nav')
   const sidebarHeight = sidebar.clientHeight
 
   const nav = {}
@@ -57,12 +58,12 @@ export function scrollActiveSidebar () {
       const currentPageOffset = 0
       const currentActiveOffset = active.offsetTop + active.clientHeight + 40
       const currentActiveIsInView = (
-        active.offsetTop >= sidebar.scrollTop &&
-        currentActiveOffset <= sidebar.scrollTop + sidebarHeight
+        active.offsetTop >= sidebarContainer.scrollTop &&
+        currentActiveOffset <= sidebarContainer.scrollTop + sidebarHeight
       )
       const linkNotFurtherThanSidebarHeight = currentActiveOffset - currentPageOffset < sidebarHeight
       const newScrollTop = currentActiveIsInView
-        ? sidebar.scrollTop
+        ? sidebarContainer.scrollTop
         : linkNotFurtherThanSidebarHeight
           ? currentPageOffset
           : currentActiveOffset - sidebarHeight
