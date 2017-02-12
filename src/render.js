@@ -43,7 +43,7 @@ export function init () {
     return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
   }
   renderer.link = function (href, title, text) {
-    if (!/:/.test(href)) {
+    if (!/[:|\/+]/.test(href)) {
       href = `#/${href}`.replace(/\/+/g, '/')
     }
 
@@ -58,7 +58,7 @@ export function init () {
     return `<p>${text}</p>`
   }
   renderer.image = function (href, title, text) {
-    const url = /:/.test(href) ? href : ($docsify.basePath + href).replace(/\/+/g, '/')
+    const url = /[:|\/+]/.test(href) ? href : ($docsify.basePath + href).replace(/\/+/g, '/')
     const titleHTML = title ? ` title="${title}"` : ''
 
     return `<img src="${url}" alt="${text}"${titleHTML} />`
