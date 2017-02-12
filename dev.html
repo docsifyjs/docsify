@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>docsify</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="/themes/vue.css">
 </head>
 <body>
   <nav>
-    <a href="#/">en</a>
-    <a href="#/zh-cn">中文</a>
-    <a href="#/changelog">Changlog</a>
+    <a href="#/">EN</a>
+    <a href="#/zh-cn/">中文</a>
   </nav>
   <div id="app"></div>
 </body>
 <script>
   window.$docsify = {
     alias: {
-      '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+      '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+      '/zh-cn/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
     },
     search: {
       maxAge: 0
@@ -25,9 +26,9 @@
 </script>
 <script
   src="/lib/docsify.js"
-  data-repo="qingwei-li/docsify"
   data-name="docsify"
+  data-load-sidebar
+  data-sub-max-level="2"
   data-base-path="docs/"
   data-auto2top></script>
-<script src="/lib/plugins/search.js"></script>
 </html>

@@ -82,14 +82,5 @@ npm i && npm run dev
 open http://localhost:3000
 ```
 
-## More Language Highlight
-
-```html
-<script src="//unpkg.com/docsify"></script>
-<script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
-<script src="//unpkg.com/prismjs/components/prism-php.js"></script>
-```
-
 ## License
 MIT
-
