@@ -80,6 +80,11 @@ nav {
     margin: 0;
   }
 
+  >a {
+    margin: 0 1em;
+    padding: 5px 0;
+  }
+
   ul, li {
     list-style: none;
     display: inline-block;
