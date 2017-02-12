@@ -51,8 +51,6 @@ let cacheRoute = null
 let cacheXhr = null
 
 const getAlias = function (route) {
-  route = route.replace(/\/+/, '/')
-
   if (OPTIONS.alias[route]) {
     return getAlias(OPTIONS.alias[route])
   } else {
@@ -74,10 +72,11 @@ const mainRender = function (cb) {
   }
 
   // replace route
-  if (OPTIONS.alias && OPTIONS.alias['/' + route]) {
-    route = getAlias('/' + route)
+  route = '/' + route
+  if (OPTIONS.alias && OPTIONS.alias[route]) {
+    route = getAlias(route)
   } else {
-    route = OPTIONS.basePath + route
+    route = (OPTIONS.basePath + route).replace(/\/+/, '/')
   }
 
   if (!route) {
