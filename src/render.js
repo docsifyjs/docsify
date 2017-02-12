@@ -57,6 +57,12 @@ export function init () {
     }
     return `<p>${text}</p>`
   }
+  renderer.image = function (href, title, text) {
+    const url = /:/.test(href) ? href : ($docsify.basePath + href).replace(/\/+/g, '/')
+    const titleHTML = title ? ` title="${title}"` : ''
+
+    return `<img src="${url}" alt="${text}"${titleHTML} />`
+  }
 
   if (typeof $docsify.markdown === 'function') {
     markdown.setOptions({ renderer })
