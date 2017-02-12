@@ -16,14 +16,14 @@
 
 ## 获取指定版本
 
-如果你担心频繁地版本更新又可能引入未知 Bug，你也可以使用具体的版本。规则是 `//unpkg.com/docsify/VERSION/`
+如果担心频繁地版本更新又可能引入未知 Bug，我们也可以使用具体的版本。规则是 `//unpkg.com/docsify@VERSION/`
 
 ```html
 <!-- 引入 css -->
-<link rel="stylesheet" href="//unpkg.com/docsify/2.0.0/themes/vue.css">
+<link rel="stylesheet" href="//unpkg.com/docsify@2.0.0/themes/vue.css">
 
 <!-- 引入 script -->
-<script src="//unpkg.com/docsify/2.0.0/lib/docsify.js"></script>
+<script src="//unpkg.com/docsify@2.0.0/lib/docsify.js"></script>
 ```
 
 !> 指定 *VERSION* 为 `latest` 可以强制每次都请求最新版本。

@@ -1,6 +1,6 @@
 # 文档助手
 
-docsify 扩展了一些 Markdown 语法，可以让你的文档更易读。
+docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 
 
 ## 强调内容

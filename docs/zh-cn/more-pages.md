@@ -1,6 +1,6 @@
 # 多页文档
 
-如果你的文档需要创建多个页面，或者需要提供多语言的文档。在 docsify 里也能很容易的实现。例如创建一个 `guide.md` 文件，那么对应的路由就是 `/#/guide`。
+如果需要创建多个页面，或者需要提供多语言的文档。在 docsify 里也能很容易的实现。例如创建一个 `guide.md` 文件，那么对应的路由就是 `/#/guide`。
 
 一个简单的例子：
 
@@ -24,9 +24,9 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 ## 定制侧边栏
 
-默认情况下，侧边栏会根据当前文档的目录生成。你可以定制成文档链接，效果如当前的文档的侧边栏。
+默认情况下，侧边栏会根据当前文档的标题生成目录。也可以设置文档链接，通过 Markdown 文件生成，效果如当前的文档的侧边栏。
 
-首先配置 docsify 的 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](zh-cn/configuration#load-sidebar)一章。
+首先配置 docsify 的 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](zh-cn/configuration#load-sidebar)一节。
 
 ```html
 <script>
@@ -44,8 +44,10 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 - [指南](zh-cn/guide)
 ```
 
-!> 需要在文档更目录创建 `.nojekyll` 命名的空文件，阻止 GitHub Pages 忽略命名是下划线开头的文件。
+!> 需要在文档根目录创建 `.nojekyll` 命名的空文件，阻止 GitHub Pages 忽略命名是下划线开头的文件。
 
+
+`_sidebar.md` 的加载逻辑是从每层目录下获取文件，如果当前目录不存在该文件则回退到上一级目录。例如当前路径为 `/zh-cn/more-pages` 则从 `/zh-cn/_sidebar.md` 获取文件，如果不存在则从 `/_sidebar.md` 获取。
 
 ## 显示目录
 
@@ -60,3 +62,5 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 </script>
 <script src="//unpkg.com/docsify"></script>
 ```
+
+

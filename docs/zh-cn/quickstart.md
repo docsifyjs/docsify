@@ -8,7 +8,7 @@ npm i docsify-cli -g
 
 ## 初始化项目
 
-如果你想在项目的 `./docs` 目录里写文档，直接通过 `init` 初始化项目。
+如果想在项目的 `./docs` 目录里写文档，直接通过 `init` 初始化项目。
 
 ```bash
 docsify init ./docs
@@ -22,7 +22,7 @@ docsify init ./docs
 - `README.md` 会做为主页内容渲染
 - `.nojekyll` 用于阻止 GitHub Pages 会忽略掉下划线开头的文件
 
-直接编辑 `docs/README.md` 就能更新网站内容，当然你可以[写多个页面](zh-cn/more-pages)。
+直接编辑 `docs/README.md` 就能更新网站内容，当然也可以[写多个页面](zh-cn/more-pages)。
 
 ## 本地预览网站
 
@@ -36,7 +36,7 @@ docsify serve docs
 
 ## 手动初始化
 
-如果你不喜欢 npm 安装工具，或者不需要本地预览文档功能，我们其实只需要直接创建一个 `index.html` 文件。
+如果不喜欢 npm 安装工具，或者不需要本地预览文档功能，我们其实只需要直接创建一个 `index.html` 文件。
 
 ```html
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ docsify serve docs
 </html>
 ```
 
-如果你设备里安装 Python 的话，也可以很轻易的启动一个静态服务器。
+如果系统里安装 Python 的话，也可以很轻易的启动一个静态服务器。
 
 ```bash
 cd docs && python -m SimpleHTTPServer 3000

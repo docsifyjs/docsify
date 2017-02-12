@@ -1,6 +1,6 @@
 # 代码高亮
 
-内置的代码高亮工具是 [Prism](https://github.com/PrismJS/prism)，默认支持 CSS、JavaScript 和 HTML。如果你需要高亮其语言——例如 PHP——你可以手动引入代码高亮插件。
+内置的代码高亮工具是 [Prism](https://github.com/PrismJS/prism)，默认支持 CSS、JavaScript 和 HTML。如果需要高亮其语言——例如 PHP——可以手动引入代码高亮插件。
 
 ```html
 <script src="//unpkg.com/docsify"></script>

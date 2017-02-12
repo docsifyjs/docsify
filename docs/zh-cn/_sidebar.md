@@ -1,7 +1,7 @@
 - 基础
  - [快速开始](zh-cn/quickstart)
  - [多页文档](zh-cn/more-pages)
- - [嵌套导航栏](zh-cn/custom-navbar)
+ - [定制导航栏](zh-cn/custom-navbar)
  - [封面](zh-cn/cover)
 
 - 配置

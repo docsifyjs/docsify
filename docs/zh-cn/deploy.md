@@ -13,7 +13,7 @@ GitHub Pages 支持从三个地方读取文件
 
 ![github pages](_images/deploy-github-pages.png)
 
-!> 你可以将文档放在根目录下，然后选择 **master 分支** 作为文档目录。
+!> 可以将文档放在根目录下，然后选择 **master 分支** 作为文档目录。
 
 ## 部署 VPS
 

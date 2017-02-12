@@ -4,7 +4,7 @@
 
 ### 全文检索 - Search
 
-全文检索插件会根据当前页面上的超链接获取文档内容，在 `localStorage` 内建立文档索引。默认过期时间为一天，当然你可以自己指定需要缓存的文件列表或者配置过期时间。
+全文检索插件会根据当前页面上的超链接获取文档内容，在 `localStorage` 内建立文档索引。默认过期时间为一天，当然我们可以自己指定需要缓存的文件列表或者配置过期时间。
 
 
 ```html
@@ -45,6 +45,13 @@
 <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
 ```
 
+也可以通过 `data-ga` 配置 id。
+
+```html
+<script src="//unpkg.com/docsify" data-ga="UA-XXXXX-Y"></script>
+<script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
+```
+
 ## 自定义插件
 
 docsify 提供了一套插件注册机制，其中提供的钩子（hook）支持处理异步逻辑，可以很方便的扩展功能。
@@ -59,7 +66,7 @@ window.$docsify = {
       // 初始化时调用，只调用一次
     })
     hook.beforeEach(function(content) {
-      // 每次开始解析 markdown 内容时调用
+      // 每次开始解析 Markdown 内容时调用
       // ...
       return content
     })
@@ -76,6 +83,8 @@ window.$docsify = {
  ]
 }
 ```
+
+!> 如果需要用 docsify 的内部方法，可以通过 `window.Docsify.utils` 获取。
 
 #### 例子
 
