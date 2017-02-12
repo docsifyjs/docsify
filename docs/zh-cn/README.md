@@ -24,4 +24,4 @@ docsify 是一个动态生成文档网站的工具。不同于 GitBook、Hexo �
 
 ## 捐赠
 
-如果你觉得 docsify 对你有帮助，或者想对我的工作一点资瓷，欢迎给我[捐赠](https://github.com/QingWei-Li/donate)。
+如果你觉得 docsify 对你有帮助，或者想对我微小的工作一些资瓷，欢迎给我[捐赠](https://github.com/QingWei-Li/donate)。

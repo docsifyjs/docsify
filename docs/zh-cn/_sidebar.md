@@ -1,4 +1,4 @@
-- 基础
+- 入门
  - [快速开始](zh-cn/quickstart)
  - [多页文档](zh-cn/more-pages)
  - [定制导航栏](zh-cn/custom-navbar)

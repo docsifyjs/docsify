@@ -5,13 +5,14 @@
 #### Features
 
 - feat(src): add alias feature
-- update all docs
-- dynamic title
+- update all documents
+- feat(src): dynamic title
+- feat(hook): support custom plugin
 
 #### Bug fixes
 - fix(event): `auto2top` has no effect on a FF mobile browser, fixed #67
 - fix: sidebar style
-
+- fix(render): fix render link
 
 ### 2.2.1
 
