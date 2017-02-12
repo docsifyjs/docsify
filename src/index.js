@@ -1,6 +1,7 @@
 import * as utils from './util'
 import { scrollIntoView, activeLink } from './event'
 import * as render from './render'
+import Hook from './hook'
 
 const OPTIONS = utils.merge({
   el: '#app',
@@ -33,11 +34,14 @@ if (script) {
   if (OPTIONS.name === true) OPTIONS.name = ''
 }
 
+const hook = new Hook()
+
 // utils
 window.$docsify = OPTIONS
 window.Docsify = {
   installed: true,
-  utils: utils.merge({}, utils)
+  utils: utils.merge({}, utils),
+  hook
 }
 
 // load options
@@ -107,21 +111,26 @@ const mainRender = function (cb) {
 }
 
 const Docsify = function () {
-  const dom = document.querySelector(OPTIONS.el) || document.body
-  const replace = dom !== document.body
-  const main = function () {
-    mainRender(_ => {
-      scrollIntoView()
-      activeLink('nav')
-      ;[].concat(window.$docsify.plugins).forEach(fn => fn && fn())
-    })
-  }
+  setTimeout(_ => {
+    ;[].concat(OPTIONS.plugins).forEach(fn => typeof fn === 'function' && fn(hook))
+    window.Docsify.hook.emit('init')
 
-  // Render app
-  render.renderApp(dom, replace)
-  main()
-  if (!/^#\//.test(window.location.hash)) window.location.hash = '#/'
-  window.addEventListener('hashchange', main)
+    const dom = document.querySelector(OPTIONS.el) || document.body
+    const replace = dom !== document.body
+    const main = function () {
+      mainRender(_ => {
+        scrollIntoView()
+        activeLink('nav')
+      })
+    }
+
+    // Render app
+    render.renderApp(dom, replace)
+    main()
+    if (!/^#\//.test(window.location.hash)) window.location.hash = '#/'
+    window.addEventListener('hashchange', main)
+    window.Docsify.hook.emit('ready')
+  }, 0)
 }
 
 export default Docsify()

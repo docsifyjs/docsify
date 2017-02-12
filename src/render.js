@@ -123,25 +123,34 @@ export function renderApp (dom, replace) {
  * article
  */
 export function renderArticle (content) {
-  renderTo('article', content ? markdown(content) : 'not found')
-  if (!$docsify.loadSidebar) renderSidebar()
+  const hook = window.Docsify.hook
+  const renderFn = function (data) {
+    renderTo('article', data)
+    if (!$docsify.loadSidebar) renderSidebar()
 
-  if (content && typeof Vue !== 'undefined') {
-    CACHE.vm && CACHE.vm.$destroy()
+    if (data && typeof Vue !== 'undefined') {
+      CACHE.vm && CACHE.vm.$destroy()
 
-    const script = [].slice.call(
-      document.body.querySelectorAll('article>script'))
-        .filter(script => !/template/.test(script.type)
-      )[0]
-    const code = script ? script.innerText.trim() : null
+      const script = [].slice.call(
+        document.body.querySelectorAll('article>script'))
+          .filter(script => !/template/.test(script.type)
+        )[0]
+      const code = script ? script.innerText.trim() : null
 
-    script && script.remove()
-    CACHE.vm = code
-      ? new Function(`return ${code}`)()
-      : new Vue({ el: 'main' }) // eslint-disable-line
-    CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
+      script && script.remove()
+      CACHE.vm = code
+        ? new Function(`return ${code}`)()
+        : new Vue({ el: 'main' }) // eslint-disable-line
+      CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
+    }
+    if ($docsify.auto2top) setTimeout(() => event.scroll2Top($docsify.auto2top), 0)
   }
-  if ($docsify.auto2top) setTimeout(() => event.scroll2Top($docsify.auto2top), 0)
+
+  hook.emit('before', content, result => {
+    const html = result ? markdown(result) : ''
+
+    hook.emit('after', html, result => renderFn(result || 'not found'))
+  })
 }
 
 /**

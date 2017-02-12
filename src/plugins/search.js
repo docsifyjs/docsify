@@ -324,13 +324,6 @@ const install = function () {
   if (install.installed) return
   install.installed = true
 
-  if (!window.Docsify || !window.Docsify.installed) {
-    console.error('[Docsify] Please load docsify.js first.')
-    return
-  }
-
-  window.$docsify.plugins = [].concat(window.$docsify.plugins, searchPlugin)
-
   const userConfig = window.$docsify.search
   const isNil = window.Docsify.utils.isNil
 
@@ -342,7 +335,15 @@ const install = function () {
     CONFIG.placeholder = userConfig.placeholder || CONFIG.placeholder
   }
 
-  new SearchComponent()
+  window.$docsify.plugins = [].concat(hook => {
+    const isAuto = CONFIG.paths === 'auto'
+
+    hook.ready(() => {
+      new SearchComponent()
+      !isAuto && searchPlugin()
+    })
+    isAuto && hook.beforeEach(searchPlugin)
+  }, window.$docsify.plugins)
 }
 
 export default install()
