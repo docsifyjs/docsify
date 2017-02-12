@@ -50,6 +50,16 @@ render.init()
 let cacheRoute = null
 let cacheXhr = null
 
+const getAlias = function (route) {
+  route = route.replace(/\/+/, '/')
+
+  if (OPTIONS.alias[route]) {
+    return getAlias(OPTIONS.alias[route])
+  } else {
+    return route
+  }
+}
+
 const mainRender = function (cb) {
   let page
   let route = utils.getRoute()
@@ -65,7 +75,7 @@ const mainRender = function (cb) {
 
   // replace route
   if (OPTIONS.alias && OPTIONS.alias['/' + route]) {
-    route = OPTIONS.alias['/' + route]
+    route = getAlias('/' + route)
   } else {
     route = OPTIONS.basePath + route
   }
