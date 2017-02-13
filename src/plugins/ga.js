@@ -25,18 +25,18 @@ function collect () {
 }
 
 const install = function () {
-  if (!window.Docsify || !window.Docsify.installed) {
-    console.error('[Docsify] Please load docsify.js first.')
-    return
-  }
+  if (install.installed) return
+  install.installed = true
 
   if (!window.$docsify.ga) {
     console.error('[Docsify] ga is required.')
     return
   }
 
-  collect()
-  window.$docsify.plugins = [].concat(window.$docsify.plugins, collect)
+  window.$docsify.plugins = [].concat(function (hook) {
+    hook.init(collect)
+    hook.beforeEach(collect)
+  }, window.$docsify.plugins)
 }
 
 export default install()

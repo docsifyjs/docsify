@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
-  <a href="https://github.com/vuejs/vue"><img alt="code style" src="https://img.shields.io/badge/code%20style-vue-orange.svg?style=flat-square"></a>
+  <a href="https://github.com/QingWei-Li/donate"><img alt="donate" src="https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square"></a>
 </p>
 
 ## Links
@@ -19,10 +19,12 @@
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
-- Simple and lightweight (~13kB gzipped)
-- Multiple themes
 - Not build static html files
-- Support emoji :laughing:
+- Simple and lightweight (~13kB gzipped)
+- Smart full-text search plugin
+- Multiple themes
+- Useful plugin API
+- Compatible with IE9+
 
 ## Quick start
 Create a `index.html`.
@@ -43,10 +45,6 @@ index.html
 </html>
 ```
 
-## CDN
-- UNPKG [https://unpkg.com/docsify/](https://unpkg.com/docsify/)
-- jsDelivr [http://www.jsdelivr.com/projects/docsify](http://www.jsdelivr.com/projects/docsify)
-
 ## Browser Support
 
 Modern browsers and Internet Explorer 9+.
@@ -54,7 +52,6 @@ Modern browsers and Internet Explorer 9+.
 ## Showcase
 These open-source projects are using docsify to generate their sites. Pull requests welcome : )
 
-- [docsify](https://docsify.js.org) - A magical documentation site generator.
 - [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
 - [puck](https://puck.zz173.com/) - A small & magical php framework.
 - [Samaritan](http://samaritan.stockdb.org) - An Algorithmic Trading Framework for Digital Currency.
@@ -82,14 +79,5 @@ npm i && npm run dev
 open http://localhost:3000
 ```
 
-## More Language Highlight
-
-```html
-<script src="//unpkg.com/docsify"></script>
-<script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
-<script src="//unpkg.com/prismjs/components/prism-php.js"></script>
-```
-
 ## License
 MIT
-

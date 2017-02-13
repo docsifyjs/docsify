@@ -8,6 +8,7 @@ import { genTree, getRoute, isMobile, slugify, merge, emojify } from './util'
 let markdown = marked
 let toc = []
 const CACHE = {}
+const originTitle = document.title
 
 const renderTo = function (dom, content) {
   dom = typeof dom === 'object' ? dom : document.querySelector(dom)
@@ -42,10 +43,9 @@ export function init () {
     return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
   }
   renderer.link = function (href, title, text) {
-    if (!/:/.test(href)) {
+    if (!/:|(\/{2})/.test(href)) {
       href = `#/${href}`.replace(/\/+/g, '/')
     }
-
     return `<a href="${href}" title="${title || ''}">${text}</a>`
   }
   renderer.paragraph = function (text) {
@@ -55,6 +55,12 @@ export function init () {
       return tpl.helper('warn', text)
     }
     return `<p>${text}</p>`
+  }
+  renderer.image = function (href, title, text) {
+    const url = /:|(\/{2})/.test(href) ? href : ($docsify.basePath + href).replace(/\/+/g, '/')
+    const titleHTML = title ? ` title="${title}"` : ''
+
+    return `<img src="${url}" alt="${text}"${titleHTML} />`
   }
 
   if (typeof $docsify.markdown === 'function') {
@@ -118,25 +124,34 @@ export function renderApp (dom, replace) {
  * article
  */
 export function renderArticle (content) {
-  renderTo('article', content ? markdown(content) : 'not found')
-  if (!$docsify.loadSidebar) renderSidebar()
+  const hook = window.Docsify.hook
+  const renderFn = function (data) {
+    renderTo('article', data)
+    if (!$docsify.loadSidebar) renderSidebar()
 
-  if (content && typeof Vue !== 'undefined') {
-    CACHE.vm && CACHE.vm.$destroy()
+    if (data && typeof Vue !== 'undefined') {
+      CACHE.vm && CACHE.vm.$destroy()
 
-    const script = [].slice.call(
-      document.body.querySelectorAll('article>script'))
-        .filter(script => !/template/.test(script.type)
-      )[0]
-    const code = script ? script.innerText.trim() : null
+      const script = [].slice.call(
+        document.body.querySelectorAll('article>script'))
+          .filter(script => !/template/.test(script.type)
+        )[0]
+      const code = script ? script.innerText.trim() : null
 
-    script && script.remove()
-    CACHE.vm = code
-      ? new Function(`return ${code}`)()
-      : new Vue({ el: 'main' }) // eslint-disable-line
-    CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
+      script && script.remove()
+      CACHE.vm = code
+        ? new Function(`return ${code}`)()
+        : new Vue({ el: 'main' }) // eslint-disable-line
+      CACHE.vm && CACHE.vm.$nextTick(_ => event.scrollActiveSidebar())
+    }
+    if ($docsify.auto2top) setTimeout(() => event.scroll2Top($docsify.auto2top), 0)
   }
-  if ($docsify.auto2top) setTimeout(() => event.scroll2Top($docsify.auto2top), 0)
+
+  hook.emit('before', content, result => {
+    const html = result ? markdown(result) : ''
+
+    hook.emit('after', html, result => renderFn(result || 'not found'))
+  })
 }
 
 /**
@@ -165,15 +180,21 @@ export function renderSidebar (content) {
   }
 
   renderTo('.sidebar-nav', html)
+
+  if (toc[0] && toc[0].level === 1) {
+    document.title = `${toc[0].title}${originTitle ? ' - ' + originTitle : ''}`
+  }
+
   const target = event.activeLink('.sidebar-nav', true)
   if (target) renderSubSidebar(target)
-  toc = []
 
+  toc = []
   event.scrollActiveSidebar()
 }
 
 export function renderSubSidebar (target) {
   if (!$docsify.subMaxLevel) return
+  toc[0] && toc[0].level === 1 && toc.shift()
   target.parentNode.innerHTML += tpl.tree(genTree(toc, $docsify.subMaxLevel), '<ul>')
 }
 

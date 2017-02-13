@@ -19,7 +19,9 @@ export function scrollActiveSidebar () {
 
   for (let i = 0, len = lis.length; i < len; i += 1) {
     const li = lis[i]
-    let href = li.querySelector('a').getAttribute('href')
+    const a = li.querySelector('a')
+    if (!a) continue
+    let href = a.getAttribute('href')
 
     if (href !== '/') {
       const match = href.match('#([^#]+)$')
@@ -135,8 +137,10 @@ export function bindToggle (dom) {
   }
 }
 
+const scrollingElement = document.scrollingElement || document.documentElement
+
 export function scroll2Top (offset = 0) {
-  document.body.scrollTop = offset === true ? 0 : Number(offset)
+  scrollingElement.scrollTop = offset === true ? 0 : Number(offset)
 }
 
 export function sticky () {

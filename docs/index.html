@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>docsify - A magical documentation site generator.</title>
-  <link rel="icon" href="favicon.ico">
+  <title>docsify</title>
+  <link rel="icon" href="_media/favicon.ico">
+  <meta name="keywords" content="doc,docs,documentation,gitbook,creator,generator,github,jekyll,github-pages">
   <meta name="description" content="A magical documentation generator.">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
@@ -11,16 +12,27 @@
 <body>
   <nav>
     <a href="#/">En</a>
-    <a href="#/zh-cn">中文</a>
+    <a href="#/zh-cn/">中文</a>
   </nav>
   <div id="app"></div>
 </body>
-<script
-  src="//unpkg.com/docsify/lib/docsify.min.js"
-  data-max-level="4"
-  data-coverpage
-  data-name="docsify"></script>
+<script>
+  window.$docsify = {
+    name: 'docsify',
+    maxLevel: 4,
+    subMaxLevel: 2,
+    auto2top: true,
+    coverpage: true,
+    loadSidebar: true,
+    alias: {
+      '/zh-cn/changelog': '/changelog',
+      '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+    }
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
 </html>

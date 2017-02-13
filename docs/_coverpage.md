@@ -6,7 +6,6 @@
 
 - Simple and lightweight (~13kB gzipped)
 - Not build static html files
-- Support emoji :laughing:
 - Multiple themes
 
 
