@@ -19,10 +19,12 @@
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
-- Simple and lightweight (~13kB gzipped)
-- Multiple themes
 - Not build static html files
-- Support emoji :laughing:
+- Simple and lightweight (~13kB gzipped)
+- Smart full-text search plugin
+- Multiple themes
+- Useful plugin API
+- Compatible with IE9+
 
 ## Quick start
 Create a `index.html`.

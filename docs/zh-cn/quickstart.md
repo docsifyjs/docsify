@@ -36,7 +36,9 @@ docsify serve docs
 
 ## 手动初始化
 
-如果不喜欢 npm 安装工具，或者不需要本地预览文档功能，我们其实只需要直接创建一个 `index.html` 文件。
+如果不喜欢 npm 或者觉得安装工具太麻烦，我们其实只需要直接创建一个 `index.html` 文件。
+
+*index.html*
 
 ```html
 <!DOCTYPE html>

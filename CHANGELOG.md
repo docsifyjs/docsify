@@ -1,13 +1,14 @@
 ### 2.3.0
 
-> 2017-02-12
+> 2017-02-13
 
 #### Features
 
 - feat(src): add alias feature
-- update all documents
+- docs: update all documents
 - feat(src): dynamic title
 - feat(hook): support custom plugin
+- feat(themes): add dark theme
 
 #### Bug fixes
 - fix(event): `auto2top` has no effect on a FF mobile browser, fixed #67

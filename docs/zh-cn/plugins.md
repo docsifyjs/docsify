@@ -10,7 +10,7 @@
 ```html
 <script>
   window.$docsify = {
-    search: 'auto', // 默认配置，window.$docsify.search 可以不用配置
+    search: 'auto', // 默认值
 
     search : [
       '/',            // => /README.md
@@ -54,7 +54,7 @@
 
 ## 自定义插件
 
-docsify 提供了一套插件注册机制，其中提供的钩子（hook）支持处理异步逻辑，可以很方便的扩展功能。
+docsify 提供了一套插件机制，其中提供的钩子（hook）支持处理异步逻辑，可以很方便的扩展功能。
 
 #### 完整功能
 
@@ -65,17 +65,20 @@ window.$docsify = {
     hook.init(function() {
       // 初始化时调用，只调用一次
     })
+
     hook.beforeEach(function(content) {
       // 每次开始解析 Markdown 内容时调用
       // ...
       return content
     })
+
     hook.afterEach(function(html, next) {
       // 解析成 html 后调用。beforeEach 和 afterEach 支持处理异步逻辑
       // ...
-      // 处理完成后调用 next(html) 返回结果
+      // 异步处理完成后调用 next(html) 返回结果
       next(html)
     })
+
     hook.ready(function() {
       // docsify 初始化完成后调用，只调用一次
     })

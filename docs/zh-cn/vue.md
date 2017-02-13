@@ -1,18 +1,18 @@
 # 兼容 Vue
 
-Docsify 的一大特色是可以配合 Vue 一起使用。你可以直接在 Markdown 文件里写 Vue 代码，它将被执行。我们可以用它写一些 Vue 的 Demo 或者示例代码。
+你可以直接在 Markdown 文件里写 Vue 代码，它将被执行。我们可以用它写一些 Vue 的 Demo 或者示例代码。
 
 
 ## 基础用法
 
-用法很简单，首先在 `index.html` 里引入 Vue 脚本。
+在 `index.html` 里引入 Vue。
 
 ```html
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/docsify"></script>
 ```
 
-接着就可以直接在 Markdown 里写 Vue 了。默认会自动执行 `new Vue({ el: 'main' })` 脚本。
+接着就可以愉快地在 Markdown 里写 Vue 了。默认会执行 `new Vue({ el: 'main' })` 创建示例。
 
 *README.md*
 
@@ -40,6 +40,7 @@ Docsify 的一大特色是可以配合 Vue 一起使用。你可以直接在 Mar
 # Vue 的基本用法
 
 <div>hello {{ msg }}</div>
+
 <script>
   new Vue({
     el: 'main',

@@ -8,4 +8,4 @@
 <script src="//unpkg.com/prismjs/components/prism-php.js"></script>
 ```
 
-其他的语言高亮插件可以查看[Prims 仓库](https://github.com/PrismJS/prism/tree/gh-pages/components)。
+?> 其他的语言高亮插件可以查看[Prims 仓库](https://github.com/PrismJS/prism/tree/gh-pages/components)。

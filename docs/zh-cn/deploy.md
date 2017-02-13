@@ -2,7 +2,7 @@
 
 和 GitBook 生成的文档一样，我们可以直接把文档网站部署到 GitHub Pages 或者 VPS 上。
 
-## 部署 GitHub Pages
+## GitHub Pages
 
 GitHub Pages 支持从三个地方读取文件
 - `docs/` 目录
@@ -15,9 +15,9 @@ GitHub Pages 支持从三个地方读取文件
 
 !> 可以将文档放在根目录下，然后选择 **master 分支** 作为文档目录。
 
-## 部署 VPS
+## VPS
 
-和部署所有静态网站一样，将服务器的访问根目录设定为 `index.html` 文件。
+和部署所有静态网站一样，只需将服务器的访问根目录设定为 `index.html` 文件。
 
 例如 nginx 的配置
 

@@ -1,6 +1,6 @@
 # Markdown 配置
 
-内置的 Markdown 解析插件是 [marked](https://github.com/chjj/marked)，可以修改它的配置。
+内置的 Markdown 解析器是 [marked](https://github.com/chjj/marked)，可以修改它的配置。
 
 ```js
 window.$docsify = {
@@ -17,7 +17,7 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  markdown: function(marked) {
+  markdown: function(marked, renderer) {
     // ...
 
     return marked

@@ -1,7 +1,7 @@
-- Get started
+- Getting started
  - [Quick start](/quickstart)
  - [Writing more pages](/more-pages)
- - [Custom nav](/custom-navbar)
+ - [Custom navbar](/custom-navbar)
  - [Cover page](/cover)
 
 - Configuration

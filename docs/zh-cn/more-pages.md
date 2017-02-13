@@ -1,8 +1,8 @@
 # 多页文档
 
-如果需要创建多个页面，或者需要提供多语言的文档。在 docsify 里也能很容易的实现。例如创建一个 `guide.md` 文件，那么对应的路由就是 `/#/guide`。
+如果需要创建多个页面，或者需要多级路由的网站，在 docsify 里也能很容易的实现。例如创建一个 `guide.md` 文件，那么对应的路由就是 `/#/guide`。
 
-一个简单的例子：
+假设你的目录结构如下：
 
 ```text
 -| docs/
@@ -26,7 +26,7 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 默认情况下，侧边栏会根据当前文档的标题生成目录。也可以设置文档链接，通过 Markdown 文件生成，效果如当前的文档的侧边栏。
 
-首先配置 docsify 的 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](zh-cn/configuration#load-sidebar)一节。
+首先配置 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](zh-cn/configuration#load-sidebar)。
 
 ```html
 <script>

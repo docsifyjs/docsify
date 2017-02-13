@@ -17,7 +17,7 @@
 
 ## 配置文件
 
-如果不想手工写导航栏组件，或者需要根据不同目录加载不同的导航栏，那我们可以通过 Markdown 文件来配置。首先配置 `loadNavbar`，默认加载的文件为 `_navbar.md`。具体配置规则见[配置项#load-navbar](zh-cn/configuration#load-navbar)一节。
+那我们可以通过 Markdown 文件来配置导航。首先配置 `loadNavbar`，默认加载的文件为 `_navbar.md`。具体配置规则见[配置项#load-navbar](zh-cn/configuration#load-navbar)。
 
 *index.html*
 
@@ -51,7 +51,7 @@
 - 基础
  - [快速开始](zh-cn/quickstart)
  - [多页文档](zh-cn/more-pages)
- - [嵌套导航栏](zh-cn/custom-navbar)
+ - [定制导航栏](zh-cn/custom-navbar)
  - [封面](zh-cn/cover)
 
 - 配置

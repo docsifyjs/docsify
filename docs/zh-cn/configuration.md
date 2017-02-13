@@ -1,6 +1,6 @@
 # 配置项
 
-docsify 有两种配置参数的方式。一种是配置 `window.$docsify` 对象，另一种是给 `script` 标签添加 `data-*` 属性。
+docsify 有两种配置参数的方式。一种是配置在 `window.$docsify` 里，另一种是给 `script` 标签添加 `data-*` 属性。
 
 ```html
 <!-- 方法 1 -->
@@ -137,7 +137,7 @@ window.$docsify = {
 - 类型：`String`
 - 默认值: `README.md`
 
-设置首页文件加载路径。适合不想将 `README.md` 作为入口文件渲染，或者是文档在仓库根目录的情况使用。
+设置首页文件加载路径。适合不想将 `README.md` 作为入口文件渲染，或者是文档存放在其他位置的情况使用。
 
 ```js
 window.$docsify = {
@@ -162,7 +162,7 @@ window.$docsify = {
   // 直接渲染其他域名的文档
   basePath: 'https://docsify.js.org/',
 
-  // 甚至直接渲染其他仓库下的内容
+  // 甚至直接渲染其他仓库 readme
   basePath: 'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/'
 }
 ```
@@ -216,11 +216,20 @@ window.$docsify = {
 
 参考 [Markdown 配置](/zh-cn/markdown)。
 
+```js
+window.$docsify = {
+  markdown: function (marked, renderer) {
+    // ...
+    return marked
+  }
+}
+```
+
 ## theme-color
 
 - 类型：`String`
 
-替换默认的主题配置。利用 CSS3 支持变量的特性，对于老的浏览器有 polyfill 处理。
+替换主题色。利用 [CSS3 支持变量]((https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)的特性，对于老的浏览器有 polyfill 处理。
 
 ```js
 window.$docsify = {
@@ -229,6 +238,8 @@ window.$docsify = {
 ```
 
 ## alias
+
+- 类型：`Object`
 
 定义路由别名，可以更自由的定义路由规则。
 
