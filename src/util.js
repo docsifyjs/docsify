@@ -164,4 +164,3 @@ export function emojify (text) {
     .replace(/:(\w*?):/ig, '<img class="emoji" src="https://assets-cdn.github.com/images/icons/emoji/$1.png" alt="$1" />')
     .replace(/__colon__/g, ':')
 }
-
