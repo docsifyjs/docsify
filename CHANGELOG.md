@@ -3,7 +3,7 @@
 > 2017-02-13
 
 #### Bug fixes
-- fix(index): cover page.
+- fix(index): cover page
 
 ### 2.4.0
 
