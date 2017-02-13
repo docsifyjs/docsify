@@ -64,9 +64,11 @@ export function init () {
   }
 
   if (typeof $docsify.markdown === 'function') {
-    markdown.setOptions({ renderer })
-    markdown = $docsify.markdown.call(this, markdown)
+    markdown = $docsify.markdown.call(this, markdown, renderer)
   } else {
+    if ($docsify.markdown.renderer) {
+      $docsify.markdown.renderer = merge(renderer, $docsify.markdown.renderer)
+    }
     markdown.setOptions(merge({ renderer }, $docsify.markdown))
   }
 
