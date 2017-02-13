@@ -90,7 +90,7 @@ const mainRender = function (cb) {
   }
 
   // Render Cover page
-  if (OPTIONS.coverpage && page === OPTIONS.homepage) {
+  if (OPTIONS.coverpage && page === ('/' + OPTIONS.homepage).replace(/\/+/, '/')) {
     utils.load(OPTIONS.coverpage).then(render.renderCover)
   }
 
