@@ -149,7 +149,7 @@ And it can even be customized
 
 ```js
 window.$docsify = {
-  markdown: function(marked) {
+  markdown: function(marked, renderer) {
     // ...
 
     return marked

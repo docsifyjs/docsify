@@ -155,7 +155,7 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  markdown: function(marked) {
+  markdown: function(marked, renderer) {
     // ...
 
     return marked
