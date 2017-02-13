@@ -67,7 +67,7 @@ window.$docsify = {
  plugins: [
   function (hook) {
     hook.init(function() {
-      // Called when the script starts running, only trigger once.
+      // Called when the script starts running, only trigger once, no arguments,
     })
 
     hook.beforeEach(function(content) {
@@ -84,8 +84,13 @@ window.$docsify = {
       next(html)
     })
 
+    hook.doneEach(function() {
+      // Invoked each time after the data is fully loaded, no arguments,
+      // ...
+    })
+
     hook.ready(function() {
-      // Called after initialization is complete. Only trigger once.
+      // Called after initialization is complete. Only trigger once, no arguments.
     })
   }
  ]

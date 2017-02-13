@@ -130,6 +130,7 @@ const Docsify = function () {
       mainRender(_ => {
         scrollIntoView()
         activeLink('nav')
+        window.Docsify.hook.emit('doneEach')
       })
     }
 

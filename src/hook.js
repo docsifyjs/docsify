@@ -4,6 +4,7 @@ export default class Hook {
     this.afterHooks = []
     this.initHooks = []
     this.readyHooks = []
+    this.doneEachHooks = []
   }
 
   beforeEach (fn) {
@@ -12,6 +13,10 @@ export default class Hook {
 
   afterEach (fn) {
     this.afterHooks.push(fn)
+  }
+
+  doneEach (fn) {
+    this.doneEachHooks.push(fn)
   }
 
   init (fn) {

@@ -342,7 +342,7 @@ const install = function () {
       new SearchComponent()
       !isAuto && searchPlugin()
     })
-    isAuto && hook.beforeEach(searchPlugin)
+    isAuto && hook.doneEach(searchPlugin)
   }, window.$docsify.plugins)
 }
 

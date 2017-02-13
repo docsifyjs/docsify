@@ -63,7 +63,7 @@ window.$docsify = {
  plugins: [
   function (hook) {
     hook.init(function() {
-      // 初始化时调用，只调用一次
+      // 初始化时调用，只调用一次，没有参数。
     })
 
     hook.beforeEach(function(content) {
@@ -79,8 +79,13 @@ window.$docsify = {
       next(html)
     })
 
+    hook.doneEach(function() {
+      // 每次路由切换时数据全部加载完成后调用，没有参数。
+      // ...
+    })
+
     hook.ready(function() {
-      // docsify 初始化完成后调用，只调用一次
+      // 初始化完成后调用，只调用一次，没有参数。
     })
   }
  ]
