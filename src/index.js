@@ -72,9 +72,8 @@ const mainRender = function (cb) {
   }
 
   // replace route
-  route = '/' + route
-  if (OPTIONS.alias && OPTIONS.alias[route]) {
-    route = getAlias(route)
+  if (OPTIONS.alias && OPTIONS.alias['/' + route]) {
+    route = getAlias('/' + route)
   } else {
     route = (OPTIONS.basePath + route).replace(/\/+/, '/')
   }
@@ -90,7 +89,7 @@ const mainRender = function (cb) {
   }
 
   // Render Cover page
-  if (OPTIONS.coverpage && page === ('/' + OPTIONS.homepage).replace(/\/+/, '/')) {
+  if (OPTIONS.coverpage && page === OPTIONS.homepage) {
     utils.load(OPTIONS.coverpage).then(render.renderCover)
   }
 
