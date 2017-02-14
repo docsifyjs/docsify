@@ -1,3 +1,11 @@
+### 2.4.2
+
+> 2017-02-14
+
+#### Bug fixes
+- fix(index): load file path error
+
+
 ### 2.4.1
 
 > 2017-02-13
