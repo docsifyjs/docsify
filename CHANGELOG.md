@@ -1,3 +1,10 @@
+### 2.4.3
+
+> 2017-02-15
+
+#### Bug fixes
+* fix emoji replacing error (#76)
+
 ### 2.4.2
 
 > 2017-02-14
