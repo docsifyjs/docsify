@@ -235,36 +235,3 @@ export function renderCover (content) {
 
   event.sticky()
 }
-
-/**
- * render loading bar
- * @return {[type]} [description]
- */
-export function renderLoading ({ loaded, total, step }) {
-  let num
-
-  if (!CACHE.loading) {
-    const div = document.createElement('div')
-
-    div.classList.add('progress')
-    document.body.appendChild(div)
-    CACHE.loading = div
-  }
-  if (step) {
-    num = parseInt(CACHE.loading.style.width, 10) + step
-    num = num > 80 ? 80 : num
-  } else {
-    num = Math.floor(loaded / total * 100)
-  }
-
-  CACHE.loading.style.opacity = 1
-  CACHE.loading.style.width = num >= 95 ? '100%' : num + '%'
-
-  if (num >= 95) {
-    clearTimeout(renderLoading.cacheTimeout)
-    renderLoading.cacheTimeout = setTimeout(_ => {
-      CACHE.loading.style.opacity = 0
-      CACHE.loading.style.width = '0%'
-    }, 200)
-  }
-}

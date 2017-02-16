@@ -1,4 +1,4 @@
-import { isMobile } from './util'
+import { isMobile } from '../util/core'
 /**
  * Render github corner
  * @param  {Object} data
