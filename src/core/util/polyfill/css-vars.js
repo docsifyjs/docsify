@@ -1,4 +1,4 @@
-import { load } from './util'
+import { get } from '../fetch/ajax'
 
 function replaceVar (block) {
   block.innerHTML = block.innerHTML.replace(/var\(\s*--theme-color.*?\)/g, $docsify.themeColor)
@@ -18,7 +18,7 @@ export function cssVars () {
 
       if (!/\.css$/.test(href)) return
 
-      load(href).then(res => {
+      get(href).then(res => {
         const style = document.createElement('style')
 
         style.innerHTML = res
