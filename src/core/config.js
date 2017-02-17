@@ -17,7 +17,9 @@ const config = merge({
   ga: ''
 }, window.$docsify)
 
-const script = document.currentScript || [].slice.call(document.getElementsByTagName('script')).pop()
+const script = document.currentScript ||
+  [].slice.call(document.getElementsByTagName('script'))
+    .filter(n => /docsify\./.test(n.src))[0]
 
 if (script) {
   for (const prop in config) {

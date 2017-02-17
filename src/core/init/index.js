@@ -9,7 +9,7 @@ import { isFn } from '../util/core'
 export function initMixin (Docsify) {
   Docsify.prototype._init = function () {
     const vm = this
-    vm._config = config || {}
+    vm.config = config || {}
 
     initLifecycle(vm) // Init hooks
     initPlugin(vm) // Install plugins
@@ -23,5 +23,5 @@ export function initMixin (Docsify) {
 }
 
 function initPlugin (vm) {
-  [].concat(vm.config.plugins).forEach(fn => isFn(fn) && fn(vm.bindHook))
+  [].concat(vm.config.plugins).forEach(fn => isFn(fn) && fn(vm._lifecycle, vm))
 }

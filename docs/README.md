@@ -15,7 +15,7 @@ See the [Quick start](/quickstart) for more details.
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE9+
+- Compatible with IE10+
 
 ## Examples
 

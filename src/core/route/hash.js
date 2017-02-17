@@ -1,5 +1,4 @@
-import { cleanPath, getLocation } from './util'
-
+// import { cleanPath, getLocation } from './util'
 export function ensureSlash () {
   const path = getHash()
   if (path.charAt(0) === '/') return

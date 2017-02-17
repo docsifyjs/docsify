@@ -1,7 +1,8 @@
 import { callHook } from '../init/lifecycle'
 
 export function fetchMixin (Docsify) {
-  Docsify.prototype.$fetch = function () {
+  Docsify.prototype.$fetch = function (path) {
+    // 加载侧边栏、导航、内容
   }
 }
 
