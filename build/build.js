@@ -27,34 +27,39 @@ var build = function (opts) {
 }
 
 build({
-  entry: 'index.js',
+  entry: 'core/index.js',
   output: 'docsify.js',
   plugins: [commonjs(), nodeResolve()]
 })
-isProd && build({
-  entry: 'index.js',
-  output: 'docsify.min.js',
-  plugins: [commonjs(), nodeResolve(), uglify()]
-})
-build({
-  entry: 'plugins/search.js',
-  output: 'plugins/search.js',
-  moduleName: 'D.Search'
-})
-isProd && build({
-  entry: 'plugins/search.js',
-  output: 'plugins/search.min.js',
-  moduleName: 'D.Search',
-  plugins: [uglify()]
-})
-build({
-  entry: 'plugins/ga.js',
-  output: 'plugins/ga.js',
-  moduleName: 'D.GA'
-})
-isProd && build({
-  entry: 'plugins/ga.js',
-  output: 'plugins/ga.min.js',
-  moduleName: 'D.GA',
-  plugins: [uglify()]
-})
+
+// build({
+//   entry: 'plugins/search.js',
+//   output: 'plugins/search.js',
+//   moduleName: 'D.Search'
+// })
+
+// build({
+//   entry: 'plugins/ga.js',
+//   output: 'plugins/ga.js',
+//   moduleName: 'D.GA'
+// })
+
+if (isProd) {
+  build({
+    entry: 'index.js',
+    output: 'docsify.min.js',
+    plugins: [commonjs(), nodeResolve(), uglify()]
+  })
+  build({
+    entry: 'plugins/search.js',
+    output: 'plugins/search.min.js',
+    moduleName: 'D.Search',
+    plugins: [uglify()]
+  })
+  build({
+    entry: 'plugins/ga.js',
+    output: 'plugins/ga.min.js',
+    moduleName: 'D.GA',
+    plugins: [uglify()]
+  })
+}

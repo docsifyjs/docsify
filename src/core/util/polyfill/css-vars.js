@@ -1,29 +1,32 @@
-import { get } from '../fetch/ajax'
+import { dom } from '../dom'
+import { get } from '../../fetch/ajax'
 
-function replaceVar (block) {
-  block.innerHTML = block.innerHTML.replace(/var\(\s*--theme-color.*?\)/g, $docsify.themeColor)
+function replaceVar (block, themeColor) {
+  block.innerHTML = block.innerHTML
+    .replace(/var\(\s*--theme-color.*?\)/g, themeColor)
 }
 
-export function cssVars () {
-  // variable support
-  if (window.CSS && window.CSS.supports && window.CSS.supports('(--foo: red)')) return
+export default function (themeColor) {
+  // Variable support
+  if (window.CSS
+      && window.CSS.supports
+      && window.CSS.supports('(--foo: red)')) return
 
-  const styleBlocks = document.querySelectorAll('style:not(.inserted),link')
+  const styleBlocks = dom.findAll('style:not(.inserted),link')
 
   ;[].forEach.call(styleBlocks, block => {
     if (block.nodeName === 'STYLE') {
-      replaceVar(block)
+      replaceVar(block, themeColor)
     } else if (block.nodeName === 'LINK') {
       const href = block.getAttribute('href')
 
       if (!/\.css$/.test(href)) return
 
       get(href).then(res => {
-        const style = document.createElement('style')
+        const style = dom.create('style', res)
 
-        style.innerHTML = res
-        document.head.appendChild(style)
-        replaceVar(style)
+        dom.head.appendChild(style)
+        replaceVar(style, themeColor)
       })
     }
   })

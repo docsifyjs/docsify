@@ -4,10 +4,10 @@ export function initLifecycle (vm) {
   const hooks = ['init', 'beforeEach', 'afterEach', 'doneEach', 'ready']
 
   vm._hooks = {}
-  vm.bindHook = {}
+  vm._lifecycle = {}
   hooks.forEach(hook => {
     const arr = vm._hooks[hook] = []
-    vm._bindHook[hook] = fn => arr.push(fn)
+    vm._lifecycle[hook] = fn => arr.push(fn)
   })
 }
 

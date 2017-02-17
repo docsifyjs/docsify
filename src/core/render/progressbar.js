@@ -1,3 +1,4 @@
+import { dom } from '../util/dom'
 import { isPrimitive } from '../util/core'
 
 let loadingEl
@@ -8,10 +9,10 @@ let timeId
  */
 function init () {
   if (loadingEl) return
-  const div = document.createElement('div')
+  const div = dom.create('div')
 
   div.classList.add('progress')
-  document.body.appendChild(div)
+  dom.appendTo(div, dom.body)
   loadingEl = div
 }
 /**
