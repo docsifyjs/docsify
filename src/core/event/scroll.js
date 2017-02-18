@@ -9,7 +9,6 @@ export function scrollActiveSidebar () {
   const anchors = dom.findAll('.anchor')
   const sidebar = dom.find('.sidebar')
   const wrap = dom.find(sidebar, '.sidebar-nav')
-  const height = sidebar.clientHeight
 
   const nav = {}
   const lis = dom.findAll(sidebar, 'li')
@@ -54,6 +53,7 @@ export function scrollActiveSidebar () {
     // scroll into view
     // https://github.com/vuejs/vuejs.org/blob/master/themes/vue/source/js/common.js#L282-L297
     if (!hoverOver && dom.body.classList.contains('sticky')) {
+      const height = sidebar.clientHeight
       const curOffset = 0
       const cur = active.offsetTop + active.clientHeight + 40
       const isInView = (

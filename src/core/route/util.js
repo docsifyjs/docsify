@@ -38,17 +38,17 @@ export const getBasePath = cached(base => {
 })
 
 export function getPath (...args) {
-  const path = args.find(path => /:|(\/{2})/.test(path))
-
-  if (path) return path
-
   return cleanPath(args.join('/'))
 }
+
+export const isResolvePath = cached(path => {
+  return /:|(\/{2})/.test(path)
+})
 
 export const getRoot = cached(path => {
   return /\/$/g.test(path) ? path : path.match(/(\S*\/)[^\/]+$/)[1]
 })
 
-export function cleanPath (path) {
+export const cleanPath = cached(path => {
   return path.replace(/\/+/g, '/')
-}
+})

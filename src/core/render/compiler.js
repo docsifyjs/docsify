@@ -5,7 +5,7 @@ import { genTree } from './gen-tree'
 import { slugify, clearSlugCache } from './slugify'
 import { emojify } from './emojify'
 import { toURL, parse } from '../route/hash'
-import { getBasePath, getPath } from '../route/util'
+import { getBasePath, isResolvePath, getPath } from '../route/util'
 import { isFn, merge, cached } from '../util/core'
 
 let markdownCompiler = marked
@@ -84,8 +84,12 @@ renderer.paragraph = function (text) {
   return `<p>${text}</p>`
 }
 renderer.image = function (href, title, text) {
-  const url = getPath(contentBase, href)
+  let url = href
   const titleHTML = title ? ` title="${title}"` : ''
+
+  if (!isResolvePath(href)) {
+    url = getPath(contentBase, href)
+  }
 
   return `<img src="${url}" data-origin="${href}" alt="${text}"${titleHTML}>`
 }
