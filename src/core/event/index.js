@@ -2,11 +2,6 @@ import { isMobile } from '../util/env'
 import { body, on } from '../util/dom'
 import * as sidebar from './sidebar'
 
-export function eventMixin (Docsify) {
-  Docsify.prototype.$resetEvents = function () {
-  }
-}
-
 export function initEvent (vm) {
   // Bind toggle button
   sidebar.btn('button.sidebar-toggle')
