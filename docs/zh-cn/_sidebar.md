@@ -4,7 +4,7 @@
  - [定制导航栏](zh-cn/custom-navbar)
  - [封面](zh-cn/cover)
 
-- 配置
+- 定制化
   - [配置项](zh-cn/configuration)
   - [主题](zh-cn/themes)
   - [使用插件](zh-cn/plugins)

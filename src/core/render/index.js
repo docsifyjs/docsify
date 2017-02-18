@@ -28,9 +28,9 @@ function renderMain (html) {
   // execute script
   this.config.executeScript && executeScript()
 
-  if (!this.config.executeScript
-      && typeof window.Vue !== 'undefined'
-      && !executeScript()) {
+  if (!this.config.executeScript &&
+      typeof window.Vue !== 'undefined' &&
+      !executeScript()) {
     window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
   }
 

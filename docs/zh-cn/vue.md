@@ -12,7 +12,7 @@
 <script src="//unpkg.com/docsify"></script>
 ```
 
-接着就可以愉快地在 Markdown 里写 Vue 了。默认会执行 `new Vue({ el: 'main' })` 创建示例。
+接着就可以愉快地在 Markdown 里写 Vue 了。默认会执行 `new Vue({ el: '#main' })` 创建示例。
 
 *README.md*
 
@@ -43,7 +43,7 @@
 
 <script>
   new Vue({
-    el: 'main',
+    el: '#main',
     data: { msg: 'Vue' }
   })
 </script>
