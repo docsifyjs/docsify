@@ -2,7 +2,6 @@ import { initMixin } from './init'
 import { routeMixin } from './route'
 import { renderMixin } from './render'
 import { fetchMixin } from './fetch'
-import { eventMixin } from './event'
 import initGlobalAPI from './global-api'
 
 function Docsify () {
@@ -13,7 +12,6 @@ initMixin(Docsify)
 routeMixin(Docsify)
 renderMixin(Docsify)
 fetchMixin(Docsify)
-eventMixin(Docsify)
 
 /**
  * Global API

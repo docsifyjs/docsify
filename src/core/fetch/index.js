@@ -2,6 +2,8 @@ import { get } from './ajax'
 import { callHook } from '../init/lifecycle'
 import { getRoot } from '../route/util'
 import { noop } from '../util/core'
+import { scrollIntoView } from '../event/scroll'
+import { getAndActive } from '../event/sidebar'
 
 export function fetchMixin (Docsify) {
   let last
@@ -57,7 +59,8 @@ export function fetchMixin (Docsify) {
 export function initFetch (vm) {
   vm._fetchCover(vm)
   vm._fetch(result => {
-    vm.$resetEvents()
+    scrollIntoView(vm.route.query.id)
+    getAndActive('nav')
     callHook(vm, 'doneEach')
   })
 }
