@@ -23,4 +23,4 @@ initGlobalAPI()
 /**
  * Run Docsify
  */
-setTimeout(() => new Docsify(), 0)
+new Docsify()

@@ -1,4 +1,5 @@
-import { parseQuery } from './util'
+import { merge } from '../util/core'
+import { parseQuery, stringifyQuery, cleanPath } from './util'
 
 function replaceHash (path) {
   const i = window.location.href.indexOf('#')
@@ -34,11 +35,11 @@ export function getHash () {
 }
 
 /**
- * Parse the current url
+ * Parse the url
+ * @param {string} [path=window.location.herf]
  * @return {object} { path, query }
  */
-export function parse () {
-  let path = window.location.href
+export function parse (path = window.location.href) {
   let query = ''
 
   const queryIndex = path.indexOf('?')
@@ -57,9 +58,14 @@ export function parse () {
 
 /**
  * to URL
- * @param  {String} path
- * @param  {String} qs   query string
+ * @param  {string} path
+ * @param  {object} qs   query params
  */
-export function toURL (path, qs) {
+export function toURL (path, params) {
+  const route = parse(path)
 
+  route.query = merge({}, route.query, params)
+  path = route.path + stringifyQuery(route.query)
+
+  return '#' + path
 }

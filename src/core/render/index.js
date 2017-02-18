@@ -1,30 +1,47 @@
 import * as dom from '../util/dom'
 import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
+import { markdown, sidebar } from './compiler'
+import { callHook } from '../init/lifecycle'
 
-function renderMain () {
-
-}
-
-function renderNav () {
-}
-
-function renderSidebar () {
+function renderMain (html) {
+  if (!html) {
+    // TODO: Custom 404 page
+  }
+  this._renderTo('.markdown-section', html)
 }
 
 export function renderMixin (Docsify) {
-  Docsify.prototype._renderTo = function (el, content, replace) {
+  const proto = Docsify.prototype
+
+  proto._renderTo = function (el, content, replace) {
     const node = dom.getNode(el)
     if (node) node[replace ? 'outerHTML' : 'innerHTML'] = content
   }
 
-  Docsify.prototype._renderSidebar = renderSidebar
-  Docsify.prototype._renderNav = renderNav
-  Docsify.prototype._renderMain = renderMain
+  proto._renderSidebar = function (text) {
+    this._renderTo('.sidebar-nav', sidebar(text))
+    // bind event
+  }
+
+  proto._renderNav = function (text) {
+    this._renderTo('nav', markdown(text))
+  }
+
+  proto._renderMain = function (text) {
+    callHook(this, 'beforeEach', text, result => {
+      const html = markdown(result)
+      callHook(this, 'afterEach', html, text => renderMain.call(this, text))
+    })
+  }
 }
 
 export function initRender (vm) {
   const config = vm.config
+
+  // Init markdown compiler
+  markdown.init(vm.config.markdown)
+
   const id = config.el || '#app'
   const navEl = dom.find('nav') || dom.create('nav')
 
