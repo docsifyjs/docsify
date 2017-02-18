@@ -15,6 +15,9 @@ export function fetchMixin (proto) {
 
     last = get(this.$getFile(path), true)
 
+    // Current page is html
+    this.isHTML = /\.html$/g.test(path)
+
     // Load main content
     last.then(text => {
       this._renderMain(text)
@@ -42,13 +45,15 @@ export function fetchMixin (proto) {
   proto._fetchCover = function () {
     const { coverpage } = this.config
     const root = getRoot(this.route.path)
+    const path = this.$getFile(root + coverpage)
 
     if (this.route.path !== '/' || !coverpage) {
       this._renderCover()
       return
     }
 
-    get(this.$getFile(root + coverpage))
+    this.coverIsHTML = /\.html$/g.test(path)
+    get(path)
       .then(text => this._renderCover(text))
   }
 

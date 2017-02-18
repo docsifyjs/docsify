@@ -23,7 +23,7 @@ export function routeMixin (proto) {
 
     path = getAlias(path, config.alias)
     path = getFileName(path)
-    path = path === '/README.md' ? ('/' + config.homepage || path) : path
+    path = path === '/README.md' ? (config.homepage || path) : path
     path = getPath(base, path)
 
     return path
