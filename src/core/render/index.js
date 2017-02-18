@@ -1,14 +1,19 @@
 import * as dom from '../util/dom'
+import { getAndActive } from '../event/sidebar'
+import { scrollActiveSidebar } from '../event/scroll'
 import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
-import { markdown, sidebar } from './compiler'
+import { markdown, sidebar, subSidebar } from './compiler'
 import { callHook } from '../init/lifecycle'
 
 function renderMain (html) {
   if (!html) {
     // TODO: Custom 404 page
   }
+
   this._renderTo('.markdown-section', html)
+  // Render sidebar with the TOC
+  !this.config.loadSidebar && this._renderSidebar()
 }
 
 export function renderMixin (Docsify) {
@@ -20,8 +25,12 @@ export function renderMixin (Docsify) {
   }
 
   proto._renderSidebar = function (text) {
-    this._renderTo('.sidebar-nav', sidebar(text))
+    const { maxLevel, subMaxLevel } = this.config
+
+    this._renderTo('.sidebar-nav', sidebar(text, maxLevel))
+    subSidebar(getAndActive('.sidebar-nav', true), subMaxLevel)
     // bind event
+    scrollActiveSidebar()
   }
 
   proto._renderNav = function (text) {

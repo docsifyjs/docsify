@@ -38,11 +38,12 @@ export function initRoute (vm) {
 
   on('hashchange', _ => {
     normalize()
-    lastRoute = vm.route = parse()
+    vm.route = parse()
     if (lastRoute.path === vm.route.path) {
       // TODO: goto xxx
       return
     }
     vm._fetch()
+    lastRoute = vm.route
   })
 }

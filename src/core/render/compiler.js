@@ -1,6 +1,7 @@
 import marked from 'marked'
 import Prism from 'prismjs'
-import { helper as helperTpl } from './tpl'
+import { helper as helperTpl, tree as treeTpl } from './tpl'
+import { genTree } from './gen-tree'
 import { slugify, clearSlugCache } from './slugify'
 import { emojify } from './emojify'
 import { toURL } from '../route/hash'
@@ -9,8 +10,7 @@ import { isFn, merge, cached } from '../util/core'
 let markdownCompiler = marked
 let contentBase = ''
 let renderer = new marked.Renderer()
-
-const toc = []
+let toc = []
 
 /**
  * Compile markdown content
@@ -29,8 +29,8 @@ export const markdown = cached(text => {
 
 markdown.renderer = renderer
 
-markdown.init = function (config = {}, context = window.location.pathname) {
-  contentBase = context
+markdown.init = function (config = {}, base = window.location.pathname) {
+  contentBase = base
 
   if (isFn(config)) {
     markdownCompiler = config(marked, renderer)
@@ -85,6 +85,34 @@ renderer.image = function (href, title, text) {
 /**
  * Compile sidebar
  */
-export function sidebar (text) {
+export function sidebar (text, level) {
+  let html = ''
 
+  if (text) {
+    html = markdown(text)
+    html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
+  } else {
+    const tree = genTree(toc, level)
+    html = treeTpl(tree, '<ul>')
+  }
+
+  return html
+}
+
+/**
+ * Compile sub sidebar
+ */
+export function subSidebar (el, level) {
+  if (el) {
+    toc[0] && toc[0].level === 1 && toc.shift()
+    const tree = genTree(toc, level)
+    el.parentNode.innerHTML += treeTpl(tree, '<ul>')
+  }
+  toc = []
+}
+
+/**
+ * Compile cover page
+ */
+export function cover (text) {
 }

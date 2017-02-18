@@ -22,12 +22,24 @@ export const body = $.body
 
 export const head = $.head
 
-export function find (node) {
-  return $.querySelector(node)
+/**
+ * Find element
+ * @example
+ * find('nav') => document.querySelector('nav')
+ * find(nav, 'a') => nav.querySelector('a')
+ */
+export function find (el, node) {
+  return node ? el.querySelector(node) : $.querySelector(el)
 }
 
-export function findAll (node) {
-  return [].clice.call($.querySelectorAll(node))
+/**
+ * Find all elements
+ * @example
+ * findAll('a') => [].slice.call(document.querySelectorAll('a'))
+ * findAll(nav, 'a') => [].slice.call(nav.querySelectorAll('a'))
+ */
+export function findAll (el, node) {
+  return [].slice.call(node ? el.querySelectorAll(node) : $.querySelectorAll(el))
 }
 
 export function create (node, tpl) {
@@ -50,4 +62,15 @@ export const off = function on (el, type, handler) {
   isFn(type)
     ? window.removeEventListener(el, type)
     : el.removeEventListener(type, handler)
+}
+
+/**
+ * Toggle class
+ *
+ * @example
+ * toggleClass(el, 'active') => el.classList.toggle('active')
+ * toggleClass(el, 'add', 'active') => el.classList.add('active')
+ */
+export function toggleClass (el, type, val) {
+  el.classList[val ? type : 'toggle'](val || type)
 }
