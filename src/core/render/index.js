@@ -14,7 +14,9 @@ function executeScript () {
   const code = script.innerText.trim()
   if (!code) return false
 
-  window.__EXECUTE_RESULT__ = new Function('return ' + code)()
+  setTimeout(_ => {
+    window.__EXECUTE_RESULT__ = new Function(code)()
+  }, 0)
 }
 
 function renderMain (html) {
@@ -31,11 +33,13 @@ function renderMain (html) {
   if (!this.config.executeScript &&
       typeof window.Vue !== 'undefined' &&
       !executeScript()) {
-    window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
+    setTimeout(_ => {
+      window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
+    }, 0)
   }
 
   if (this.config.auto2top) {
-    setTimeout(() => scroll2Top(this.config.auto2top), 0)
+    scroll2Top(this.config.auto2top)
   }
 }
 

@@ -265,3 +265,25 @@ window.$docsify = {
   autoHeader: true
 }
 ```
+
+## execute-script
+
+- 类型：`Boolean`
+
+执行文档里的 script 标签里的脚本，只执行第一个 script ([demo](zh-cn/themes))。 如果 Vue 存在，则自动开启。
+
+```js
+window.$docsify = {
+  executeScript: true
+}
+```
+
+```markdown
+## This is test
+
+<script>
+  console.log(2333)
+</script>
+
+```
+
