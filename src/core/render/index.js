@@ -1,9 +1,9 @@
 import * as dom from '../util/dom'
-import { getAndActive } from '../event/sidebar'
+import { getAndActive, sticky } from '../event/sidebar'
 import { scrollActiveSidebar } from '../event/scroll'
 import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
-import { markdown, sidebar, subSidebar } from './compiler'
+import { markdown, sidebar, subSidebar, cover } from './compiler'
 import { callHook } from '../init/lifecycle'
 
 function renderMain (html) {
@@ -34,7 +34,8 @@ export function renderMixin (Docsify) {
   }
 
   proto._renderNav = function (text) {
-    this._renderTo('nav', markdown(text))
+    text && this._renderTo('nav', markdown(text))
+    getAndActive('nav')
   }
 
   proto._renderMain = function (text) {
@@ -42,6 +43,31 @@ export function renderMixin (Docsify) {
       const html = markdown(result)
       callHook(this, 'afterEach', html, text => renderMain.call(this, text))
     })
+  }
+
+  proto._renderCover = function (text) {
+    const el = dom.getNode('.cover')
+    if (!text) {
+      dom.toggleClass(el, 'remove', 'show')
+      return
+    }
+    dom.toggleClass(el, 'add', 'show')
+
+    let html = cover(text)
+    const m = html.trim().match('<p><img[^s]+src="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
+
+    if (m) {
+      if (m[2] === 'color') {
+        el.style.background = m[1] + (m[3] || '')
+      } else {
+        dom.toggleClass(el, 'add', 'has-mask')
+        el.style.backgroundImage = `url(${m[1]})`
+      }
+      html = html.replace(m[0], '')
+    }
+
+    this._renderTo('.cover-main', html)
+    sticky()
   }
 }
 

@@ -5,7 +5,7 @@ import { genTree } from './gen-tree'
 import { slugify, clearSlugCache } from './slugify'
 import { emojify } from './emojify'
 import { toURL } from '../route/hash'
-import { isFn, merge, cached } from '../util/core'
+import { isFn, merge, cached, noop } from '../util/core'
 
 let markdownCompiler = marked
 let contentBase = ''
@@ -115,4 +115,10 @@ export function subSidebar (el, level) {
  * Compile cover page
  */
 export function cover (text) {
+  const cacheToc = toc.slice()
+  const html = markdown(text)
+
+  toc = cacheToc.slice()
+
+  return html
 }
