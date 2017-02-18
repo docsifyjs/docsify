@@ -2,13 +2,10 @@ import { get } from './ajax'
 import { callHook } from '../init/lifecycle'
 import { getRoot } from '../route/util'
 import { noop } from '../util/core'
-import { scrollIntoView } from '../event/scroll'
-import { getAndActive } from '../event/sidebar'
 
-export function fetchMixin (Docsify) {
+export function fetchMixin (proto) {
   let last
-
-  Docsify.prototype._fetch = function (cb = noop) {
+  proto._fetch = function (cb = noop) {
     const { path } = this.route
     const { loadNavbar, loadSidebar } = this.config
     const root = getRoot(path)
@@ -42,7 +39,7 @@ export function fetchMixin (Docsify) {
       )
   }
 
-  Docsify.prototype._fetchCover = function () {
+  proto._fetchCover = function () {
     const { coverpage } = this.config
     const root = getRoot(this.route.path)
 
@@ -54,13 +51,16 @@ export function fetchMixin (Docsify) {
     get(this.$getFile(root + coverpage))
       .then(text => this._renderCover(text))
   }
+
+  proto.$fetch = function () {
+    this._fetchCover()
+    this._fetch(result => {
+      this.$resetEvents()
+      callHook(this, 'doneEach')
+    })
+  }
 }
 
 export function initFetch (vm) {
-  vm._fetchCover(vm)
-  vm._fetch(result => {
-    scrollIntoView(vm.route.query.id)
-    getAndActive('nav')
-    callHook(vm, 'doneEach')
-  })
+  vm.$fetch()
 }

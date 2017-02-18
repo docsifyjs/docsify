@@ -1,5 +1,4 @@
 import * as dom from '../util/dom'
-import { isPrimitive } from '../util/core'
 
 let barEl
 let timeId
@@ -22,11 +21,8 @@ export default function ({ loaded, total, step }) {
 
   !barEl && init()
 
-  if (!isPrimitive(step)) {
-    step = Math.floor(Math.random() * 5 + 1)
-  }
   if (step) {
-    num = parseInt(barEl.style.width, 10) + step
+    num = parseInt(barEl.style.width || 0, 10) + step
     num = num > 80 ? 80 : num
   } else {
     num = Math.floor(loaded / total * 100)

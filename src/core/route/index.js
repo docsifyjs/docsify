@@ -1,5 +1,5 @@
 import { normalize, parse } from './hash'
-import { getBasePath, cleanPath } from './util'
+import { getBasePath, getPath } from './util'
 import { on } from '../util/dom'
 
 function getAlias (path, alias) {
@@ -15,16 +15,16 @@ function getFileName (path) {
       : `${path}.md`
 }
 
-export function routeMixin (Docsify) {
-  Docsify.prototype.route = {}
-  Docsify.prototype.$getFile = function (path) {
+export function routeMixin (proto) {
+  proto.route = {}
+  proto.$getFile = function (path) {
     const { config } = this
     const base = getBasePath(config.basePath)
 
     path = getAlias(path, config.alias)
     path = getFileName(path)
     path = path === '/README.md' ? ('/' + config.homepage || path) : path
-    path = cleanPath(base + path)
+    path = getPath(base, path)
 
     return path
   }
@@ -39,14 +39,14 @@ export function initRoute (vm) {
   on('hashchange', _ => {
     normalize()
     vm.route = parse()
+    vm._updateRender()
 
     if (lastRoute.path === vm.route.path) {
-      // TODO: goto xxx
+      vm.$resetEvents()
       return
     }
 
-    vm._fetchCover()
-    vm._fetch()
+    vm.$fetch()
     lastRoute = vm.route
   })
 }

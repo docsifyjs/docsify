@@ -4,12 +4,15 @@ import { helper as helperTpl, tree as treeTpl } from './tpl'
 import { genTree } from './gen-tree'
 import { slugify, clearSlugCache } from './slugify'
 import { emojify } from './emojify'
-import { toURL } from '../route/hash'
-import { isFn, merge, cached, noop } from '../util/core'
+import { toURL, parse } from '../route/hash'
+import { getBasePath, getPath } from '../route/util'
+import { isFn, merge, cached } from '../util/core'
 
 let markdownCompiler = marked
 let contentBase = ''
+let currentPath = ''
 let renderer = new marked.Renderer()
+const TOC = {}
 let toc = []
 
 /**
@@ -30,7 +33,8 @@ export const markdown = cached(text => {
 markdown.renderer = renderer
 
 markdown.init = function (config = {}, base = window.location.pathname) {
-  contentBase = base
+  contentBase = getBasePath(base)
+  currentPath = parse().path
 
   if (isFn(config)) {
     markdownCompiler = config(marked, renderer)
@@ -40,13 +44,17 @@ markdown.init = function (config = {}, base = window.location.pathname) {
   }
 }
 
+markdown.update = function () {
+  currentPath = parse().path
+}
+
 /**
  * render anchor tag
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
   const slug = slugify(text)
-  const url = toURL(contentBase, { id: slug })
+  const url = toURL(currentPath, { id: slug })
 
   toc.push({ level, slug: url, title: text })
 
@@ -60,8 +68,7 @@ renderer.code = function (code, lang = '') {
 }
 renderer.link = function (href, title, text) {
   if (!/:|(\/{2})/.test(href)) {
-    // TODO
-    href = `#/${href}`.replace(/\/+/g, '/')
+    href = toURL(href)
   }
   return `<a href="${href}" title="${title || ''}">${text}</a>`
 }
@@ -74,12 +81,10 @@ renderer.paragraph = function (text) {
   return `<p>${text}</p>`
 }
 renderer.image = function (href, title, text) {
-  // TODO
-  // get base path
-  // const url = /:|(\/{2})/.test(href) ? href : ($docsify.basePath + href).replace(/\/+/g, '/')
-  // const titleHTML = title ? ` title="${title}"` : ''
+  const url = getPath(contentBase, href)
+  const titleHTML = title ? ` title="${title}"` : ''
 
-  // return `<img src="${url}" alt="${text}"${titleHTML} />`
+  return `<img src="${url}" data-origin="${href}" alt="${text}"${titleHTML}>`
 }
 
 /**
@@ -105,8 +110,11 @@ export function sidebar (text, level) {
 export function subSidebar (el, level) {
   if (el) {
     toc[0] && toc[0].level === 1 && toc.shift()
-    const tree = genTree(toc, level)
-    el.parentNode.innerHTML += treeTpl(tree, '<ul>')
+    const tree = genTree(TOC[currentPath] || toc, level)
+    el.parentNode.innerHTML += treeTpl(tree, '<ul class="app-sub-sidebar">')
+  }
+  if (toc.length) {
+    TOC[currentPath] = toc.slice()
   }
   toc = []
 }

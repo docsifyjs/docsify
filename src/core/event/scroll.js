@@ -1,5 +1,6 @@
 import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
+import { parse } from '../route/hash'
 
 export function scrollActiveSidebar () {
   if (isMobile) return
@@ -21,8 +22,7 @@ export function scrollActiveSidebar () {
     let href = a.getAttribute('href')
 
     if (href !== '/') {
-      const match = href.match('#([^#]+)$')
-      if (match && match.length) href = match[0].slice(1)
+      href = parse(href).query.id
     }
 
     nav[decodeURIComponent(href)] = li

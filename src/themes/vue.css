@@ -46,6 +46,15 @@ body {
   }
 }
 
+.app-sub-sidebar {
+  .section-link {
+    &::before {
+      content: '-';
+      padding-right: 4px;
+    }
+  }
+}
+
 /* markdown content found on pages */
 .markdown-section h1,
 .markdown-section h2,
