@@ -67,7 +67,13 @@ renderer.code = function (code, lang = '') {
   return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
 }
 renderer.link = function (href, title, text) {
-  return `<a href="${toURL(href)}" title="${title || text}">${text}</a>`
+  let blank = ''
+  if (!/:|(\/{2})/.test(href)) {
+    href = toURL(href)
+  } else {
+    blank = ' target="_blank"'
+  }
+  return `<a href="${href}" title="${title || text}"${blank}>${text}</a>`
 }
 renderer.paragraph = function (text) {
   if (/^!&gt;/.test(text)) {
