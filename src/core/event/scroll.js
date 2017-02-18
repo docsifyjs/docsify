@@ -1,4 +1,4 @@
-export function activeSidebar () {
+export function scrollActiveSidebar () {
 
 }
 
