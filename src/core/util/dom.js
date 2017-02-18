@@ -52,6 +52,10 @@ export function appendTo (target, el) {
   return target.appendChild(el)
 }
 
+export function before (target, el) {
+  return target.insertBefore(el, target.children[0])
+}
+
 export function on (el, type, handler) {
   isFn(type)
     ? window.addEventListener(el, type)
@@ -72,5 +76,5 @@ export const off = function on (el, type, handler) {
  * toggleClass(el, 'add', 'active') => el.classList.add('active')
  */
 export function toggleClass (el, type, val) {
-  el.classList[val ? type : 'toggle'](val || type)
+  el && el.classList[val ? type : 'toggle'](val || type)
 }

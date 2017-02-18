@@ -1,5 +1,5 @@
 import { merge, cached } from '../util/core'
-import { parseQuery, stringifyQuery } from './util'
+import { parseQuery, stringifyQuery, cleanPath } from './util'
 
 function replaceHash (path) {
   const i = window.location.href.indexOf('#')
@@ -70,5 +70,5 @@ export function toURL (path, params) {
   route.query = merge({}, route.query, params)
   path = route.path + stringifyQuery(route.query)
 
-  return '#' + path
+  return cleanPath('#/' + path)
 }

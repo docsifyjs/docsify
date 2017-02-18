@@ -1,43 +1,51 @@
 import { isMobile } from '../util/env'
-import { getNode, on, body, findAll, toggleClass } from '../util/dom'
+import * as dom from '../util/dom'
 import { getHash } from '../route/hash'
 
+const title = dom.$.title
 /**
  * Toggle button
  */
 export function btn (el) {
-  const toggle = () => body.classList.toggle('close')
+  const toggle = () => dom.body.classList.toggle('close')
 
-  el = getNode(el)
-  on(el, 'click', toggle)
+  el = dom.getNode(el)
+  dom.on(el, 'click', toggle)
 
   if (isMobile) {
-    const sidebar = getNode('.sidebar')
+    const sidebar = dom.getNode('.sidebar')
 
-    on(sidebar, 'click', () => {
+    dom.on(sidebar, 'click', () => {
       toggle()
-      setTimeout(() => getAndActive(true), 0)
+      setTimeout(() => getAndActive(sidebar, true, true), 0)
     })
   }
 }
 
 export function sticky () {
-  const cover = getNode('section.cover')
+  const cover = dom.getNode('section.cover')
   if (!cover) return
   const coverHeight = cover.getBoundingClientRect().height
 
   if (window.pageYOffset >= coverHeight || cover.classList.contains('hidden')) {
-    toggleClass(body, 'add', 'sticky')
+    dom.toggleClass(dom.body, 'add', 'sticky')
   } else {
-    toggleClass(body, 'remove', 'sticky')
+    dom.toggleClass(dom.body, 'remove', 'sticky')
   }
 }
 
-export function getAndActive (el, isParent) {
-  const dom = getNode(el)
-  const links = findAll(dom, 'a')
-  const hash = '#' + getHash()
+/**
+ * Get and active link
+ * @param  {string|element}  el
+ * @param  {Boolean} isParent   acitve parent
+ * @param  {Boolean} autoTitle  auto set title
+ * @return {element}
+ */
+export function getAndActive (el, isParent, autoTitle) {
+  el = dom.getNode(el)
 
+  const links = dom.findAll(el, 'a')
+  const hash = '#' + getHash()
   let target
 
   links
@@ -48,11 +56,15 @@ export function getAndActive (el, isParent) {
 
       if (hash.indexOf(href) === 0 && !target) {
         target = a
-        toggleClass(node, 'add', 'active')
+        dom.toggleClass(node, 'add', 'active')
       } else {
-        toggleClass(node, 'remove', 'active')
+        dom.toggleClass(node, 'remove', 'active')
       }
     })
+
+  if (autoTitle) {
+    dom.$.title = target ? `${target.innerText} - ${title}` : title
+  }
 
   return target
 }
