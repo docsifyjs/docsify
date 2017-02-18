@@ -46,12 +46,22 @@ export function renderMixin (proto) {
   }
 
   proto._renderSidebar = function (text) {
-    const { maxLevel, subMaxLevel } = this.config
+    const { maxLevel, subMaxLevel, autoHeader } = this.config
 
     this._renderTo('.sidebar-nav', sidebar(text, maxLevel))
-    subSidebar(getAndActive('.sidebar-nav', true), subMaxLevel)
+    const active = getAndActive('.sidebar-nav', true, true)
+    subSidebar(active, subMaxLevel)
     // bind event
     scrollActiveSidebar()
+
+    if (autoHeader && active) {
+      const main = dom.getNode('#main')
+      if (main.children[0].tagName !== 'H1') {
+        const h1 = dom.create('h1')
+        h1.innerText = active.innerText
+        dom.before(main, h1)
+      }
+    }
   }
 
   proto._renderNav = function (text) {
@@ -128,7 +138,7 @@ export function initRender (vm) {
   // Render main app
   vm._renderTo(el, html, true)
   // Add nav
-  dom.body.insertBefore(navEl, dom.body.children[0])
+  dom.before(dom.body, navEl)
 
   if (config.themeColor) {
     dom.$.head += tpl.theme(config.themeColor)
