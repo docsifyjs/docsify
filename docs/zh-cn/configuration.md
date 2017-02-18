@@ -229,7 +229,7 @@ window.$docsify = {
 
 - 类型：`String`
 
-替换主题色。利用 [CSS3 支持变量]((https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)的特性，对于老的浏览器有 polyfill 处理。
+替换主题色。利用 [CSS3 支持变量](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)的特性，对于老的浏览器有 polyfill 处理。
 
 ```js
 window.$docsify = {
@@ -253,3 +253,15 @@ window.$docsify = {
 }
 ```
 
+## auto-header
+
+- 类型：`Boolean`
+
+同时设置 `loadSidebar` 和 `autoHeader` 后，可以根据 `_sidebar.md` 的内容自动为每个页面增加标题。[#78](https://github.com/QingWei-Li/docsify/issues/78)
+
+```js
+window.$docsify = {
+  loadSidebar: true,
+  autoHeader: true
+}
+```
