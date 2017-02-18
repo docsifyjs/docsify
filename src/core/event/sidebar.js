@@ -1,6 +1,7 @@
 import { isMobile } from '../util/env'
 import { getNode, on, body, findAll, toggleClass } from '../util/dom'
 import { getHash } from '../route/hash'
+
 /**
  * Toggle button
  */
@@ -21,7 +22,15 @@ export function btn (el) {
 }
 
 export function sticky () {
+  const cover = getNode('section.cover')
+  if (!cover) return
+  const coverHeight = cover.getBoundingClientRect().height
 
+  if (window.pageYOffset >= coverHeight || cover.classList.contains('hidden')) {
+    toggleClass(body, 'add', 'sticky')
+  } else {
+    toggleClass(body, 'remove', 'sticky')
+  }
 }
 
 export function getAndActive (el, isParent) {
@@ -45,6 +54,5 @@ export function getAndActive (el, isParent) {
       }
     })
 
-  // TODO FIXED
   return target
 }

@@ -1,5 +1,5 @@
 import { merge } from '../util/core'
-import { parseQuery, stringifyQuery, cleanPath } from './util'
+import { parseQuery, stringifyQuery } from './util'
 
 function replaceHash (path) {
   const i = window.location.href.indexOf('#')

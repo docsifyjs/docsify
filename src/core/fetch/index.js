@@ -15,6 +15,8 @@ export function fetchMixin (Docsify) {
     last && last.abort && last.abort()
 
     last = get(this.$getFile(path), true)
+
+    // Load main content
     last.then(text => {
       this._renderMain(text)
       if (!loadSidebar) return cb()
@@ -23,6 +25,7 @@ export function fetchMixin (Docsify) {
 
       // Load sidebar
       get(this.$getFile(root + loadSidebar))
+        // fallback root navbar when fail
         .then(fn, _ => get(loadSidebar).then(fn))
     },
     _ => this._renderMain(null))
@@ -31,13 +34,28 @@ export function fetchMixin (Docsify) {
     loadNavbar &&
     get(this.$getFile(root + loadNavbar))
       .then(
-        this._renderNav,
-        _ => get(loadNavbar).then(this._renderNav)
+        text => this._renderNav(text),
+        // fallback root navbar when fail
+        _ => get(loadNavbar).then(text => this._renderNav(text))
       )
+  }
+
+  Docsify.prototype._fetchCover = function () {
+    const { coverpage } = this.config
+    const root = getRoot(this.route.path)
+
+    if (this.route.path !== '/' || !coverpage) {
+      this._renderCover()
+      return
+    }
+
+    get(this.$getFile(root + coverpage))
+      .then(text => this._renderCover(text))
   }
 }
 
 export function initFetch (vm) {
+  vm._fetchCover(vm)
   vm._fetch(result => {
     vm.$resetEvents()
     callHook(vm, 'doneEach')
