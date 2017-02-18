@@ -1,6 +1,6 @@
 # Cover
 
-Activate the cover feature by setting `coverpage`. The detail in [Configuration#coverpage](zh-cn/configuration#coverpage).
+Activate the cover feature by setting `coverpage`. The detail in [Configuration#coverpage](configuration#coverpage).
 
 ## Basic usage
 

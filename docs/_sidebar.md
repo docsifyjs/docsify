@@ -4,7 +4,7 @@
  - [Custom navbar](/custom-navbar)
  - [Cover page](/cover)
 
-- Configuration
+- Customization
   - [Configuration](/configuration)
   - [Themes](/themes)
   - [Using plugins](/plugins)

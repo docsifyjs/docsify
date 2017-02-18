@@ -13,7 +13,7 @@ Load the Vue in `index.html`.
 ```
 
 Then you can immediately write Vue code at Markdown file.
-`new Vue({ el: 'main' })` script is executed by default to create instance.
+`new Vue({ el: '#main' })` script is executed by default to create instance.
 
 *README.md*
 
@@ -44,7 +44,7 @@ You can manually initialize a Vue instance.
 
 <script>
   new Vue({
-    el: 'main',
+    el: '#main',
     data: { msg: 'Vue' }
   })
 </script>
