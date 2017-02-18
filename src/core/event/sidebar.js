@@ -1,10 +1,10 @@
 import { isMobile } from '../util/env'
-import { getNode, on, dom } from '../util/dom'
+import { getNode, on, body } from '../util/dom'
 /**
  * Toggle button
  */
 export function btn (el) {
-  const toggle = () => dom.body.classList.toggle('close')
+  const toggle = () => body.classList.toggle('close')
 
   el = getNode(el)
   on(el, 'click', toggle)

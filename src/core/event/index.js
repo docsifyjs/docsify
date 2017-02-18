@@ -1,5 +1,5 @@
 import { isMobile } from '../util/env'
-import { dom, on } from '../util/dom'
+import { body, on } from '../util/dom'
 import * as sidebar from './sidebar'
 
 export function eventMixin (Docsify) {
@@ -14,6 +14,6 @@ export function initEvent (vm) {
   if (vm.config.coverpage) {
     !isMobile && on('scroll', sidebar.sticky)
   } else {
-    dom.body.classList.add('sticky')
+    body.classList.add('sticky')
   }
 }

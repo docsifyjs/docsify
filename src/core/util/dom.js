@@ -10,22 +10,34 @@ const cacheNode = {}
  */
 export function getNode (el, noCache = false) {
   if (typeof el === 'string') {
-    el = noCache ? dom.find(el) : (cacheNode[el] || dom.find(el))
+    el = noCache ? find(el) : (cacheNode[el] || find(el))
   }
 
   return el
 }
 
-export const dom = {
-  body: document.body,
-  head: document.head,
-  find: node => document.querySelector(node),
-  findAll: node => document.querySelectorAll(node),
-  create: (node, tpl) => {
-    node = document.createElement(node)
-    if (tpl) node.innerHTML = tpl
-  },
-  appendTo: (target, el) => target.appendChild(el)
+export const $ = document
+
+export const body = $.body
+
+export const head = $.head
+
+export function find (node) {
+  return $.querySelector(node)
+}
+
+export function findAll (node) {
+  return [].clice.call($.querySelectorAll(node))
+}
+
+export function create (node, tpl) {
+  node = $.createElement(node)
+  if (tpl) node.innerHTML = tpl
+  return node
+}
+
+export function appendTo (target, el) {
+  return target.appendChild(el)
 }
 
 export function on (el, type, handler) {
