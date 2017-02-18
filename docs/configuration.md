@@ -267,3 +267,25 @@ window.$docsify = {
   autoHeader: true
 }
 ```
+
+## execute-script
+
+- type: `Boolean`
+
+Execute the script on the page. Only parse the first script tag([demo](themes)).  If Vue is present, it is turned on by default.
+
+```js
+window.$docsify = {
+  executeScript: true
+}
+```
+
+```markdown
+## This is test
+
+<script>
+  console.log(2333)
+</script>
+
+```
+
