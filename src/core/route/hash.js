@@ -1,4 +1,4 @@
-import { merge } from '../util/core'
+import { merge, cached } from '../util/core'
 import { parseQuery, stringifyQuery } from './util'
 
 function replaceHash (path) {
@@ -8,6 +8,11 @@ function replaceHash (path) {
   )
 }
 
+const replaceSlug = cached(path => {
+  return path
+    .replace('#', '?id=')
+    .replace(/\?(\w+)=/g, (_, slug) => slug === 'id' ? '?id=' : `&${slug}=`)
+})
 /**
  * Normalize the current url
  *
@@ -18,9 +23,7 @@ function replaceHash (path) {
 export function normalize () {
   let path = getHash()
 
-  path = path
-    .replace('#', '?id=')
-    .replace(/\?(\w+)=/g, (_, slug) => slug === 'id' ? '?id=' : `&${slug}=`)
+  path = replaceSlug(path)
 
   if (path.charAt(0) === '/') return replaceHash(path)
   replaceHash('/' + path)
@@ -62,7 +65,7 @@ export function parse (path = window.location.href) {
  * @param  {object} qs   query params
  */
 export function toURL (path, params) {
-  const route = parse(path)
+  const route = parse(replaceSlug(path))
 
   route.query = merge({}, route.query, params)
   path = route.path + stringifyQuery(route.query)

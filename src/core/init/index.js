@@ -6,8 +6,8 @@ import { initEvent } from '../event'
 import { initFetch } from '../fetch'
 import { isFn } from '../util/core'
 
-export function initMixin (Docsify) {
-  Docsify.prototype._init = function () {
+export function initMixin (proto) {
+  proto._init = function () {
     const vm = this
     vm.config = config || {}
 

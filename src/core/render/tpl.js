@@ -38,7 +38,7 @@ export function main (config) {
 
   return (isMobile ? `${aside}<main>` : `<main>${aside}`) +
       '<section class="content">' +
-        '<article class="markdown-section"></article>' +
+        '<article class="markdown-section" id="main"></article>' +
       '</section>' +
     '</main>'
 }

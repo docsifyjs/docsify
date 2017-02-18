@@ -3,7 +3,7 @@ import { cached } from '../util/core'
 const decode = decodeURIComponent
 const encode = encodeURIComponent
 
-export const parseQuery = cached(query => {
+export function parseQuery (query) {
   const res = {}
 
   query = query.trim().replace(/^(\?|#|&)/, '')
@@ -19,7 +19,7 @@ export const parseQuery = cached(query => {
     res[parts[0]] = decode(parts[1])
   })
   return res
-})
+}
 
 export function stringifyQuery (obj) {
   const qs = []
@@ -36,6 +36,14 @@ export const getBasePath = cached(base => {
     ? base
     : cleanPath(window.location.pathname + '/' + base)
 })
+
+export function getPath (...args) {
+  const path = args.find(path => /:|(\/{2})/.test(path))
+
+  if (path) return path
+
+  return cleanPath(args.join('/'))
+}
 
 export const getRoot = cached(path => {
   return /\/$/g.test(path) ? path : path.match(/(\S*\/)[^\/]+$/)[1]

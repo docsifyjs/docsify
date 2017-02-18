@@ -28,7 +28,9 @@ export function get (url, hasBar = false) {
   return {
     then: function (success, error = noop) {
       if (hasBar) {
-        const id = setInterval(_ => progressbar({}), 500)
+        const id = setInterval(_ => progressbar({
+          step: Math.floor(Math.random() * 5 + 1)
+        }), 500)
 
         on('progress', progressbar)
         on('loadend', evt => {
