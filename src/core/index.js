@@ -3,9 +3,7 @@ import { routeMixin } from './route'
 import { renderMixin } from './render'
 import { fetchMixin } from './fetch'
 import { eventMixin } from './event'
-import * as util from './util'
-import { get as load } from './fetch/ajax'
-import * as routeUtil from './route/util'
+import initGlobalAPI from './global-api'
 
 function Docsify () {
   this._init()
@@ -20,9 +18,7 @@ eventMixin(Docsify)
 /**
  * Global API
  */
-window.Docsify = {
-  util: util.merge({ load }, util, routeUtil)
-}
+initGlobalAPI()
 
 /**
  * Run Docsify

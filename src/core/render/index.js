@@ -1,12 +1,26 @@
-import { getNode, dom } from '../util/dom'
+import * as dom from '../util/dom'
 import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
 
+function renderMain () {
+
+}
+
+function renderNav () {
+}
+
+function renderSidebar () {
+}
+
 export function renderMixin (Docsify) {
   Docsify.prototype._renderTo = function (el, content, replace) {
-    const node = getNode(el)
+    const node = dom.getNode(el)
     if (node) node[replace ? 'outerHTML' : 'innerHTML'] = content
   }
+
+  Docsify.prototype._renderSidebar = renderSidebar
+  Docsify.prototype._renderNav = renderNav
+  Docsify.prototype._renderMain = renderMain
 }
 
 export function initRender (vm) {
@@ -40,7 +54,7 @@ export function initRender (vm) {
   dom.body.insertBefore(navEl, dom.body.children[0])
 
   if (config.themeColor) {
-    dom.head += tpl.theme(config.themeColor)
+    dom.$.head += tpl.theme(config.themeColor)
     // Polyfll
     cssVars(config.themeColor)
   }

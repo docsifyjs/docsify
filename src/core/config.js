@@ -1,4 +1,4 @@
-import { merge, camelize, isPrimitive } from './util/core'
+import { merge, hyphenate, isPrimitive } from './util/core'
 
 const config = merge({
   el: '#app',
@@ -23,7 +23,7 @@ const script = document.currentScript ||
 
 if (script) {
   for (const prop in config) {
-    const val = script.getAttribute('data-' + camelize(prop))
+    const val = script.getAttribute('data-' + hyphenate(prop))
 
     if (isPrimitive(val)) {
       config[prop] = val === '' ? true : val

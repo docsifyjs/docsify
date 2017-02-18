@@ -1,7 +1,7 @@
 /**
  * Create a cached version of a pure function.
  */
-function cached (fn) {
+export function cached (fn) {
   const cache = Object.create(null)
   return function cachedFn (str) {
     const hit = cache[str]
@@ -10,11 +10,10 @@ function cached (fn) {
 }
 
 /**
- * Camelize a hyphen-delimited string.
+ * Hyphenate a camelCase string.
  */
-const camelizeRE = /-(\w)/g
-export const camelize = cached((str) => {
-  return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : '')
+export const hyphenate = cached(str => {
+  return str.replace(/([A-Z])/g, m => '-' + m.toLowerCase())
 })
 
 /**

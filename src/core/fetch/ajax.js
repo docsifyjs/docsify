@@ -1,23 +1,33 @@
 import progressbar from '../render/progressbar'
 import { noop } from '../util/core'
 
+const cache = {}
+const RUN_VERSION = Date.now()
+
 /**
  * Simple ajax get
- * @param  {String} url
- * @param {Boolean} [loading=false] has loading bar
+ * @param {string} url
+ * @param {boolean} [hasBar=false] has progress bar
  * @return { then(resolve, reject), abort }
  */
-export function get (url, hasLoading = false) {
+export function get (url, hasBar = false) {
   const xhr = new XMLHttpRequest()
+  const on = function () {
+    xhr.addEventListener.apply(xhr, arguments)
+  }
+
+  url += (/\?(\w+)=/g.test(url) ? '&' : '?') + `v=${RUN_VERSION}`
+
+  if (cache[url]) {
+    return { then: cb => cb(cache[url]), abort: noop }
+  }
 
   xhr.open('GET', url)
   xhr.send()
 
   return {
     then: function (success, error = noop) {
-      const on = xhr.addEventListener
-
-      if (hasLoading) {
+      if (hasBar) {
         const id = setInterval(_ => progressbar({}), 500)
 
         on('progress', progressbar)
@@ -29,9 +39,14 @@ export function get (url, hasLoading = false) {
 
       on('error', error)
       on('load', ({ target }) => {
-        target.status >= 400 ? error(target) : success(target.response)
+        if (target.status >= 400) {
+          error(target)
+        } else {
+          cache[url] = target.response
+          success(target.response)
+        }
       })
     },
-    abort: () => xhr.readyState !== 4 && xhr.abort()
+    abort: _ => xhr.readyState !== 4 && xhr.abort()
   }
 }
