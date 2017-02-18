@@ -111,7 +111,7 @@ Add TOC in custom sidebar.
 
 ```js
 window.$docsify = {
-  subMaxLevel: 3
+  subMaxLevel: 2
 }
 ```
 
@@ -219,6 +219,17 @@ See [Markdown configuration](/markdown).
 
 ```js
 window.$docsify = {
+  // object
+  markdown: {
+    smartypants: true,
+    renderer: {
+      link: function() {
+        // ...
+      }
+    }
+  },
+
+  // function
   markdown: function (marked, renderer) {
     // ...
     return marked

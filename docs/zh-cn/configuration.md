@@ -113,7 +113,7 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  subMaxLevel: 3
+  subMaxLevel: 2
 }
 ```
 
@@ -212,12 +212,23 @@ window.$docsify = {
 
 ## markdown
 
-- 类型: `Function`
+- 类型: `Object|Function`
 
 参考 [Markdown 配置](/zh-cn/markdown)。
 
 ```js
 window.$docsify = {
+  // object
+  markdown: {
+    smartypants: true,
+    renderer: {
+      link: function() {
+        // ...
+      }
+    }
+  },
+
+  // function
   markdown: function (marked, renderer) {
     // ...
     return marked

@@ -1,12 +1,16 @@
 # Markdown 配置
 
-内置的 Markdown 解析器是 [marked](https://github.com/chjj/marked)，可以修改它的配置。
+内置的 Markdown 解析器是 [marked](https://github.com/chjj/marked)，可以修改它的配置。同时可以直接配置 `renderer`。
 
 ```js
 window.$docsify = {
   markdown: {
-    smartypants: true
-    // ...
+    smartypants: true,
+    renderer: {
+      link: function() {
+        // ...
+      }
+    }
   }
 }
 ```
