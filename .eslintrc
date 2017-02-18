@@ -2,8 +2,5 @@
   "extends": ["vue"],
   "env": {
     "browser": true
-  },
-  "globals": {
-    "$docsify": true
   }
 }

@@ -30,13 +30,19 @@ export function routeMixin (Docsify) {
   }
 }
 
+let lastRoute = {}
+
 export function initRoute (vm) {
   normalize()
-  vm.route = parse()
+  lastRoute = vm.route = parse()
 
   on('hashchange', _ => {
     normalize()
-    vm.route = parse()
+    lastRoute = vm.route = parse()
+    if (lastRoute.path === vm.route.path) {
+      // TODO: goto xxx
+      return
+    }
     vm._fetch()
   })
 }
