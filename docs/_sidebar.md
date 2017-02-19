@@ -9,12 +9,12 @@
   - [Themes](/themes)
   - [Using plugins](/plugins)
   - [Markdown configuration](/markdown)
-  - [Lanuage highlight](/language-highlight)
+  - [Lanuage highlighting](/language-highlight)
 
 - Guide
  - [Deploy](/deploy)
- - [Doc helper](/helpers)
- - [Compatible Vue](/vue)
+ - [Helpers](/helpers)
+ - [Vue compatibility](/vue)
  - [CDN](/cdn)
 
 - [Changelog](/changelog)
