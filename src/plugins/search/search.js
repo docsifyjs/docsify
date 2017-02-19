@@ -40,30 +40,36 @@ function saveData (maxAge) {
 export function genIndex (path, content = '') {
   const tokens = window.marked.lexer(content)
   const toURL = Docsify.route.toURL
+  const index = {}
   let slug
 
   tokens.forEach(token => {
-    if (token.type === 'heading' && token.depth === 1) {
+    if (token.type === 'heading' && token.depth <= 2) {
       slug = toURL(path, { id: token.text })
-      INDEXS[slug] = { slug, title: token.text, body: '' }
+      index[slug] = { slug, title: token.text, body: '' }
     } else {
       if (!slug) return
-      if (!INDEXS[slug]) {
-        INDEXS[slug] = { slug, title: '', body: '' }
+      if (!index[slug]) {
+        index[slug] = { slug, title: '', body: '' }
       } else {
-        if (INDEXS[slug].body) {
-          INDEXS[slug].body += '\n' + (token.text || '')
+        if (index[slug].body) {
+          index[slug].body += '\n' + (token.text || '')
         } else {
-          INDEXS[slug].body = token.text
+          index[slug].body = token.text
         }
       }
     }
   })
+
+  return index
 }
 
 export function search (keywords) {
   const matchingResults = []
-  const data = Object.keys(INDEXS).map(key => INDEXS[key])
+  let data = []
+  Object.keys(INDEXS).forEach(key => {
+    data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]))
+  })
 
   keywords = keywords.trim().split(/[\s\-\，\\/]+/)
 
@@ -99,7 +105,7 @@ export function search (keywords) {
           if (end > postContent.length) end = postContent.length
 
           const matchContent = '...' +
-            postContent
+            escapeHtml(postContent)
               .substring(start, end)
               .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
               '...'
@@ -144,11 +150,10 @@ export function init (config, vm) {
   paths.forEach(path => {
     if (INDEXS[path]) return count++
 
-    path = vm.$getFile(path)
     helper
-      .get(path)
+      .get(vm.$getFile(path))
       .then(result => {
-        genIndex(path, result)
+        INDEXS[path] = genIndex(path, result)
         len === ++count && saveData(config.maxAge)
       })
   })
