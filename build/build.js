@@ -9,7 +9,7 @@ var build = function (opts) {
   rollup
     .rollup({
       entry: 'src/' + opts.entry,
-      plugins: [buble()].concat(opts.plugins || [])
+      plugins: [buble(), commonjs(), nodeResolve()].concat(opts.plugins || [])
     })
     .then(function (bundle) {
       var dest = 'lib/' + (opts.output || opts.entry)
@@ -28,38 +28,35 @@ var build = function (opts) {
 
 build({
   entry: 'core/index.js',
-  output: 'docsify.js',
-  plugins: [commonjs(), nodeResolve()]
+  output: 'docsify.js'
 })
 
-build({
-  entry: 'plugins/search/index.js',
-  output: 'plugins/search.js',
-  moduleName: 'D.Search'
-})
+var plugins = [
+  { name: 'search', entry: 'search/index.js', moduleName: 'Search' },
+  { name: 'ga', entry: 'ga.js', moduleName: 'GA' }
+  // { name: 'front-matter', entry: 'front-matter/index.js', moduleName: 'FrontMatter' }
+]
 
-build({
-  entry: 'plugins/ga.js',
-  output: 'plugins/ga.js',
-  moduleName: 'D.GA'
+plugins.forEach(item => {
+  build({
+    entry: 'plugins/' + item.entry,
+    output: 'plugins/' + item.name + '.js',
+    moduleName: 'D.' + item.moduleName
+  })
 })
 
 if (isProd) {
   build({
     entry: 'core/index.js',
     output: 'docsify.min.js',
-    plugins: [commonjs(), nodeResolve(), uglify()]
-  })
-  build({
-    entry: 'plugins/search/index.js',
-    output: 'plugins/search.min.js',
-    moduleName: 'D.Search',
     plugins: [uglify()]
   })
-  build({
-    entry: 'plugins/ga.js',
-    output: 'plugins/ga.min.js',
-    moduleName: 'D.GA',
-    plugins: [uglify()]
+  plugins.forEach(item => {
+    build({
+      entry: 'plugins/' + item.entry,
+      output: 'plugins/' + item.name + '.min.js',
+      moduleName: 'D.' + item.moduleName,
+      plugins: [uglify()]
+    })
   })
 }
