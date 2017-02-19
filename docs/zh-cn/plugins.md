@@ -84,6 +84,10 @@ window.$docsify = {
       // ...
     })
 
+    hook.mounted(function() {
+      // 初始化完成后调用 ，只调用一次，没有参数。
+    })
+
     hook.ready(function() {
       // 初始化并第一次加完成数据后调用，没有参数。
     })

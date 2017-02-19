@@ -1,4 +1,4 @@
-import initComponet from './component'
+import { init as initComponet, update as updateComponent } from './component'
 import { init as initSearch } from './search'
 
 const CONFIG = {
@@ -21,11 +21,14 @@ const install = function (hook, vm) {
 
   const isAuto = CONFIG.paths === 'auto'
 
-  hook.ready(_ => {
+  hook.mounted(_ => {
     initComponet(CONFIG)
     isAuto && initSearch(CONFIG, vm)
   })
-  !isAuto && hook.doneEach(_ => initSearch(CONFIG, vm))
+  hook.doneEach(_ => {
+    updateComponent(CONFIG, vm)
+    !isAuto && initSearch(CONFIG, vm)
+  })
 }
 
 window.$docsify.plugins = [].concat(install, window.$docsify.plugins)
