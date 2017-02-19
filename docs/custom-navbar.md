@@ -33,7 +33,7 @@ Alternatively, you can create a custom markdown-based navigation file by setting
 
 
 ```markdown
-# _navbar.md
+<!-- _navbar.md -->
 
 - [En](/)
 - [chinese](/zh-cn/)
@@ -48,7 +48,7 @@ Alternatively, you can create a custom markdown-based navigation file by setting
 You can create sub-lists by indenting items that are under a certain parent.
 
 ```markdown
-# _navbar.md
+<!-- _navbar.md -->
 
 - Getting started
  - [Quick start](/quickstart)
