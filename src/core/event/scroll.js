@@ -45,8 +45,8 @@ export function scrollActiveSidebar () {
     const li = nav[last.getAttribute('data-id')]
 
     if (!li || li === active) return
-    if (active) active.classList.remove('active')
 
+    active && active.classList.remove('active')
     li.classList.add('active')
     active = li
 
@@ -79,7 +79,7 @@ export function scrollActiveSidebar () {
 
 export function scrollIntoView (id) {
   const section = dom.find('#' + id)
-  section && setTimeout(() => section.scrollIntoView(), 0)
+  section && section.scrollIntoView()
 }
 
 const scrollEl = dom.$.scrollingElement || dom.$.documentElement

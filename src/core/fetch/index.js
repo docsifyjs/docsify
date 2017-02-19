@@ -57,15 +57,16 @@ export function fetchMixin (proto) {
       .then(text => this._renderCover(text))
   }
 
-  proto.$fetch = function () {
+  proto.$fetch = function (cb = noop) {
     this._fetchCover()
     this._fetch(result => {
       this.$resetEvents()
       callHook(this, 'doneEach')
+      cb()
     })
   }
 }
 
 export function initFetch (vm) {
-  vm.$fetch()
+  vm.$fetch(_ => callHook(vm, 'ready'))
 }

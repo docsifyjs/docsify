@@ -1,5 +1,4 @@
 // From https://github.com/egoist/vue-ga/blob/master/src/index.js
-
 function appendScript () {
   const script = document.createElement('script')
   script.async = true
@@ -24,19 +23,13 @@ function collect () {
   window.ga('send', 'pageview')
 }
 
-const install = function () {
-  if (install.installed) return
-  install.installed = true
-
+const install = function (hook) {
   if (!window.$docsify.ga) {
     console.error('[Docsify] ga is required.')
     return
   }
 
-  window.$docsify.plugins = [].concat(function (hook) {
-    hook.init(collect)
-    hook.beforeEach(collect)
-  }, window.$docsify.plugins)
+  hook.beforeEach(collect)
 }
 
-export default install()
+window.$docsify.plugins = [].concat(install, window.$docsify.plugins)

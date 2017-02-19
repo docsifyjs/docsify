@@ -18,7 +18,6 @@ export function initMixin (proto) {
     initEvent(vm) // Bind events
     initRoute(vm) // Add hashchange eventListener
     initFetch(vm) // Fetch data
-    callHook(vm, 'ready')
   }
 }
 

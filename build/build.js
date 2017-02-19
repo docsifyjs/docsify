@@ -32,26 +32,26 @@ build({
   plugins: [commonjs(), nodeResolve()]
 })
 
-// build({
-//   entry: 'plugins/search.js',
-//   output: 'plugins/search.js',
-//   moduleName: 'D.Search'
-// })
+build({
+  entry: 'plugins/search/index.js',
+  output: 'plugins/search.js',
+  moduleName: 'D.Search'
+})
 
-// build({
-//   entry: 'plugins/ga.js',
-//   output: 'plugins/ga.js',
-//   moduleName: 'D.GA'
-// })
+build({
+  entry: 'plugins/ga.js',
+  output: 'plugins/ga.js',
+  moduleName: 'D.GA'
+})
 
 if (isProd) {
   build({
-    entry: 'index.js',
+    entry: 'core/index.js',
     output: 'docsify.min.js',
     plugins: [commonjs(), nodeResolve(), uglify()]
   })
   build({
-    entry: 'plugins/search.js',
+    entry: 'plugins/search/index.js',
     output: 'plugins/search.min.js',
     moduleName: 'D.Search',
     plugins: [uglify()]

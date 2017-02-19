@@ -5,7 +5,7 @@ import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
 import { markdown, sidebar, subSidebar, cover } from './compiler'
 import { callHook } from '../init/lifecycle'
-import { getBasePath, getPath, isResolvePath } from '../route/util'
+import { getBasePath, getPath, isAbsolutePath } from '../route/util'
 
 function executeScript () {
   const script = dom.findAll('.markdown-section>script')
@@ -101,7 +101,7 @@ export function renderMixin (proto) {
         let path = m[1]
 
         dom.toggleClass(el, 'add', 'has-mask')
-        if (isResolvePath(m[1])) {
+        if (isAbsolutePath(m[1])) {
           path = getPath(getBasePath(this.config.basePath), m[1])
         }
         el.style.backgroundImage = `url(${path})`
@@ -157,4 +157,5 @@ export function initRender (vm) {
     // Polyfll
     cssVars(config.themeColor)
   }
+  dom.toggleClass(dom.body, 'ready')
 }
