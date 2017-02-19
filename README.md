@@ -19,7 +19,8 @@
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
 ## Features
-- Not build static html files
+
+- No statically built html files
 - Simple and lightweight (~14kB gzipped)
 - Smart full-text search plugin
 - Multiple themes
@@ -29,9 +30,9 @@
 ## Quick start
 Create a `index.html`.
 
-index.html
-
 ```html
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,10 +48,10 @@ index.html
 
 ## Browser Support
 
-Modern browsers and Internet Explorer 9+.
+Modern browsers and Internet Explorer 10+.
 
 ## Showcase
-These open-source projects are using docsify to generate their sites. Pull requests welcome : )
+These open-source projects are using docsify to generate their sites. Pull requests welcome :blush:
 
 - [Snipaste](https://docs.snipaste.com/) - A new way to boost your productivity.
 - [puck](https://puck.zz173.com/) - A small & magical php framework.
@@ -69,7 +70,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 - Create your feature branch: `git checkout -b my-new-feature`
 - Commit your changes: `git commit -am 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
-- Submit a pull request :D
+- Submit a pull request
 
 
 ## Development
