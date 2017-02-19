@@ -31,10 +31,12 @@ function renderMain (html) {
   // execute script
   this.config.executeScript && executeScript()
 
-  if (!this.config.executeScript &&
+  if (this.config.executeScript !== false &&
       typeof window.Vue !== 'undefined' &&
       !executeScript()) {
     setTimeout(_ => {
+      const vueVM = window.__EXECUTE_RESULT__
+      vueVM && vueVM.$destroy && vueVM.$destroy()
       window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
     }, 0)
   }

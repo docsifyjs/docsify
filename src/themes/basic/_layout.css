@@ -17,7 +17,7 @@ div#app {
   text-align: center;
   font-size: 30px;
   font-weight: lighter;
-  margin: 40vw auto;
+  margin: 40vh auto;
 
   &:empty::before {
     content: "Loading...";
