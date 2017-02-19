@@ -59,3 +59,26 @@ docsify serve docs
 ```bash
 cd docs && python -m SimpleHTTPServer 3000
 ```
+
+## Loading 提示
+
+初始化时会显示 `Loading...` 内容，你可以自定义提示信息。
+
+*index.html*
+```html
+  <div id="app">加载中</div>
+```
+
+如果更改了 `el` 的配置，需要将该元素加上 `data-app` 属性。
+
+*index.html*
+```html
+  <div data-app id="main">加载中</div>
+
+  <script>
+    window.$docsify = {
+      el: '#main'
+    }
+  </script>
+```
+

@@ -65,7 +65,7 @@ The hook supports handling asynchronous tasks.
 ```js
 window.$docsify = {
  plugins: [
-  function (hook) {
+  function (hook, vm) {
     hook.init(function() {
       // Called when the script starts running, only trigger once, no arguments,
     })
