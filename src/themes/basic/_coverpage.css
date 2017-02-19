@@ -70,7 +70,7 @@ section.cover {
     line-height: 1.8;
   }
 
-  .cover-main p:last-child a {
+  .cover-main > p:last-child a {
     border-radius: 2em;
     border-width: 1px;
     border-style: solid;
@@ -98,6 +98,15 @@ section.cover {
 
     &:hover {
       color: inherit;
+    }
+  }
+
+  blockquote > p > a {
+    border-bottom: 2px solid var(--theme-color, $color-primary);
+    transition: color .3s;
+
+    &:hover {
+      color: var(--theme-color, $color-primary);
     }
   }
 }
