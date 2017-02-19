@@ -23,7 +23,13 @@ By default, the hyperlink on the current page is recognized and the content is s
     search: {
       maxAge: 86400000, // Expiration time, the default one day
       paths: [], // or 'auto'
-      placeholder: 'Type to search'
+      placeholder: 'Type to search',
+
+      // Localization
+      placeholder: {
+        '/zh-cn/': '搜索',
+        '/': 'Type to search'
+      }
     }
   }
 </script>
@@ -101,7 +107,7 @@ window.$docsify = {
 }
 ```
 
-!> You can get internal methods through `window.Docsify.utils`.
+!> You can get internal methods through `window.Docsify`. Get the current instance through the second argument.
 
 #### Example
 
