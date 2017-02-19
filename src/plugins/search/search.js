@@ -52,7 +52,7 @@ export function genIndex (path, content = '') {
         INDEXS[slug] = { slug, title: '', body: '' }
       } else {
         if (INDEXS[slug].body) {
-          INDEXS[slug].body += ('\n' + token.text)
+          INDEXS[slug].body += '\n' + (token.text || '')
         } else {
           INDEXS[slug].body = token.text
         }
