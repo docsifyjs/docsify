@@ -82,14 +82,14 @@ export function search (keywords) {
     const postContent = post.body && post.body.trim()
     const postUrl = post.slug || ''
 
-    if (postTitle !== '' && postContent !== '') {
+    if (postTitle && postContent) {
       keywords.forEach((keyword, i) => {
         const regEx = new RegExp(keyword, 'gi')
         let indexTitle = -1
         let indexContent = -1
 
-        indexTitle = postTitle.search(regEx)
-        indexContent = postContent.search(regEx)
+        indexTitle = postTitle && postTitle.search(regEx)
+        indexContent = postContent && postContent.search(regEx)
 
         if (indexTitle < 0 && indexContent < 0) {
           isMatch = false

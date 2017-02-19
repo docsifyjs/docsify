@@ -81,13 +81,7 @@ function bindEvents () {
   const $search = dom.find('div.search')
   const $input = dom.find($search, 'input')
   const $panel = dom.find($search, '.results-panel')
-
-  // Prevent to Fold sidebar
-  dom.on($search, 'click',
-    e => e.target.tagName !== 'A' && e.stopPropagation())
-
-  dom.on($input, 'input', e => {
-    const value = e.target.value.trim()
+  const doSearch = function (value) {
     if (!value) {
       $panel.classList.remove('show')
       $panel.innerHTML = ''
@@ -96,7 +90,6 @@ function bindEvents () {
     const matchs = search(value)
 
     let html = ''
-
     matchs.forEach(post => {
       html += `<div class="matching-post">
   <h2><a href="${post.url}">${post.title}</a></h2>
@@ -106,6 +99,15 @@ function bindEvents () {
 
     $panel.classList.add('show')
     $panel.innerHTML = html || '<p class="empty">No Results!</p>'
+  }
+
+  let timeId
+  // Prevent to Fold sidebar
+  dom.on($search, 'click',
+    e => e.target.tagName !== 'A' && e.stopPropagation())
+  dom.on($input, 'input', e => {
+    clearTimeout(timeId)
+    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 200)
   })
 }
 
