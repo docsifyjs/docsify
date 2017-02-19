@@ -62,7 +62,7 @@ export function on (el, type, handler) {
     : el.addEventListener(type, handler)
 }
 
-export const off = function on (el, type, handler) {
+export function off (el, type, handler) {
   isFn(type)
     ? window.removeEventListener(el, type)
     : el.removeEventListener(type, handler)
