@@ -20,7 +20,7 @@ export function routeMixin (proto) {
     const { config } = this
     const base = getBasePath(config.basePath)
 
-    path = getAlias(path, config.alias)
+    path = config.alias ? getAlias(path, config.alias) : path
     path = getFileName(path)
     path = path === '/README.md' ? (config.homepage || path) : path
     path = isAbsolutePath(path) ? path : getPath(base, path)
