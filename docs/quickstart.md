@@ -1,14 +1,14 @@
 # Quick start
 
-Recommended install `docsify-cli` globally, which can help us to initialize and preview the website locally.
+It is recommended to install `docsify-cli` globally, which helps initializing and previewing the website locally.
 
 ```bash
 npm i docsify-cli -g
 ```
 
-## initialize
+## Initialize
 
-If you want to write the documentation in `./docs` directory, you can use the `init` command.
+If you want to write the documentation in the `./docs` directory, you can use the `init` command.
 
 ```bash
 docsify init ./docs
@@ -21,28 +21,28 @@ After the init is complete, you can see the file list in the docs directory.
 
 - `index.html` as the entry file
 - `README.md` as the home page
-- `.nojekyll` can prevent GitHub Pages from ignoring files that begin with an underscore
+- `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
 
 You can easily update the documentation in `docs/README.md`, of course you can add [more pages](more-pages).
 
 ## Preview your site
 
-Run the local server via `docsify serve`. You can preview your site in browser via http://localhost:3000.
+Run the local server with `docsify serve`. You can preview your site in your browser on `http://localhost:3000`.
 
 
 ```bash
 docsify serve docs
 ```
 
-?> More usages of reference [docsify-cli documentation](https://github.com/QingWei-Li/docsify-cli).
+?> For more use cases of `docsify-cli`, head over to the [docsify-cli documentation](https://github.com/QingWei-Li/docsify-cli).
 
-## Manually
+## Manual initialization
 
-If you don't like npm or feel the trouble to install the tool. What we need is an `index.html`.
-
-*index.html*
+If you don't like npm or have trouble installing the tool, you can manually create `index.html`:
 
 ```html
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,25 +56,27 @@ If you don't like npm or feel the trouble to install the tool. What we need is a
 </html>
 ```
 
-If your system has Python, you can easily to run a static server to preview your site.
+If you installed python on your system, you can easily use it to run a static server to preview your site.
 
 ```bash
 cd docs && python -m SimpleHTTPServer 3000
 ```
 
-## Loading tip
+## Loading dialog
 
-Show `Loading...` Before starting rendering. You can customize the content.
+If you want, you can show a loading dialog before docsify starts to render your documentation:
 
-*index.html*
 ```html
+  <!-- index.html -->
+
   <div id="app">Please wait...</div>
 ```
 
-You should set the `data-app` attribute if you changed `el`.
+You should set the `data-app` attribute if you changed `el`:
 
-*index.html*
 ```html
+  <!-- index.html -->
+  
   <div data-app id="main">Please wait...</div>
 
   <script>
