@@ -1,7 +1,14 @@
 import { noop } from '../util/core'
 
 export function initLifecycle (vm) {
-  const hooks = ['init', 'beforeEach', 'afterEach', 'doneEach', 'ready']
+  const hooks = [
+    'init',
+    'mounted',
+    'beforeEach',
+    'afterEach',
+    'doneEach',
+    'ready'
+  ]
 
   vm._hooks = {}
   vm._lifecycle = {}

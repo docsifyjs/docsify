@@ -89,6 +89,10 @@ window.$docsify = {
       // ...
     })
 
+    hook.mounted(function() {
+      // Called after initial completion. Only trigger once, no arguments.
+    })
+
     hook.ready(function() {
       // Called after initial completion, no arguments.
     })

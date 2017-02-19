@@ -67,7 +67,7 @@ function style () {
 
 function tpl (opts) {
   const html =
-    `<input type="search" placeholder="${opts.placeholder}" />` +
+    `<input type="search" />` +
       '<div class="results-panel"></div>' +
     '</div>'
   const el = dom.create('div', html)
@@ -108,9 +108,25 @@ function bindEvents () {
   })
 }
 
-export default function (opts) {
+function updatePlaceholder (text, path) {
+  const $input = dom.getNode('.search input[type="search"]')
+
+  if (typeof text === 'string') {
+    $input.placeholder = text
+  } else {
+    const match = Object.keys(text).find(key => path.indexOf(key) > -1)
+    $input.placeholder = text[match]
+  }
+}
+
+export function init (opts) {
   dom = Docsify.dom
   style()
   tpl(opts)
   bindEvents()
 }
+
+export function update (opts, vm) {
+  updatePlaceholder(opts.placeholder, vm.route.path)
+}
+
