@@ -61,7 +61,7 @@ docsify 提供了一套插件机制，其中提供的钩子（hook）支持处�
 ```js
 window.$docsify = {
  plugins: [
-  function (hook) {
+  function (hook, vm) {
     hook.init(function() {
       // 初始化时调用，只调用一次，没有参数。
     })

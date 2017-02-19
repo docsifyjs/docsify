@@ -7,6 +7,23 @@
   -webkit-font-smoothing: antialiased;
 }
 
+body:not(.ready) {
+  [data-cloak] {
+    display: none;
+  }
+}
+
+div#app {
+  text-align: center;
+  font-size: 30px;
+  font-weight: lighter;
+  margin: 40vw auto;
+
+  &:empty::before {
+    content: "Loading...";
+  }
+}
+
 .emoji {
   height: 1.2em;
   vertical-align: middle;

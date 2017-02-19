@@ -61,3 +61,25 @@ If your system has Python, you can easily to run a static server to preview your
 ```bash
 cd docs && python -m SimpleHTTPServer 3000
 ```
+
+## Loading tip
+
+Show `Loading...` Before starting rendering. You can customize the content.
+
+*index.html*
+```html
+  <div id="app">Please wait...</div>
+```
+
+You should set the `data-app` attribute if you changed `el`.
+
+*index.html*
+```html
+  <div data-app id="main">Please wait...</div>
+
+  <script>
+    window.$docsify = {
+      el: '#main'
+    }
+  </script>
+```
