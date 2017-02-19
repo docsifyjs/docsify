@@ -53,11 +53,11 @@ export function renderMixin (proto) {
   }
 
   proto._renderSidebar = function (text) {
-    const { maxLevel, subMaxLevel, autoHeader } = this.config
+    const { maxLevel, subMaxLevel, autoHeader, loadSidebar } = this.config
 
     this._renderTo('.sidebar-nav', sidebar(text, maxLevel))
     const active = getAndActive('.sidebar-nav', true, true)
-    subSidebar(active, subMaxLevel)
+    loadSidebar && subSidebar(active, subMaxLevel)
     // bind event
     this.activeLink = active
     scrollActiveSidebar()
