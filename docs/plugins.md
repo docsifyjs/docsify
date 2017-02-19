@@ -90,7 +90,7 @@ window.$docsify = {
     })
 
     hook.ready(function() {
-      // Called after initialization is complete. Only trigger once, no arguments.
+      // Called after initial completion, no arguments.
     })
   }
  ]

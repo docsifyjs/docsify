@@ -25,7 +25,7 @@ export function stringifyQuery (obj) {
   const qs = []
 
   for (const key in obj) {
-    qs.push(`${encode(key)}=${encode(obj[key])}`)
+    qs.push(`${encode(key)}=${encode(obj[key])}`.toLowerCase())
   }
 
   return qs.length ? `?${qs.join('&')}` : ''
@@ -41,8 +41,8 @@ export function getPath (...args) {
   return cleanPath(args.join('/'))
 }
 
-export const isResolvePath = cached(path => {
-  return /:|(\/{2})/.test(path)
+export const isAbsolutePath = cached(path => {
+  return /(:|(\/{2}))/.test(path)
 })
 
 export const getRoot = cached(path => {

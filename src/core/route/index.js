@@ -1,10 +1,9 @@
 import { normalize, parse } from './hash'
-import { getBasePath, getPath } from './util'
+import { getBasePath, getPath, isAbsolutePath } from './util'
 import { on } from '../util/dom'
 
 function getAlias (path, alias) {
-  if (alias[path]) return getAlias(alias[path], alias)
-  return path
+  return alias[path] ? getAlias(alias[path], alias) : path
 }
 
 function getFileName (path) {
@@ -24,7 +23,7 @@ export function routeMixin (proto) {
     path = getAlias(path, config.alias)
     path = getFileName(path)
     path = path === '/README.md' ? (config.homepage || path) : path
-    path = getPath(base, path)
+    path = isAbsolutePath(path) ? path : getPath(base, path)
 
     return path
   }

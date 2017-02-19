@@ -39,4 +39,6 @@ if (script) {
   if (config.name === true) config.name = ''
 }
 
+window.$docsify = config
+
 export default config
