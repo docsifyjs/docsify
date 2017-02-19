@@ -9,7 +9,7 @@ const CONFIG = {
 
 const install = function (hook, vm) {
   const util = Docsify.util
-  const opts = vm.config.search
+  const opts = vm.config.search || CONFIG
 
   if (Array.isArray(opts)) {
     CONFIG.paths = opts
@@ -23,11 +23,11 @@ const install = function (hook, vm) {
 
   hook.mounted(_ => {
     initComponet(CONFIG)
-    isAuto && initSearch(CONFIG, vm)
+    !isAuto && initSearch(CONFIG, vm)
   })
   hook.doneEach(_ => {
     updateComponent(CONFIG, vm)
-    !isAuto && initSearch(CONFIG, vm)
+    isAuto && initSearch(CONFIG, vm)
   })
 }
 

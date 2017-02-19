@@ -91,6 +91,7 @@ function bindEvents () {
     if (!value) {
       $panel.classList.remove('show')
       $panel.innerHTML = ''
+      return
     }
     const matchs = search(value)
 
