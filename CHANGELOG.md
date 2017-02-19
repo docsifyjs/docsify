@@ -1,4 +1,10 @@
 
+3.0.3 / 2017-02-19
+==================
+
+  * fixed look of links in blockquote
+  * fix(scroll) highlight bug
+
 3.0.2 / 2017-02-19
 ==================
 
