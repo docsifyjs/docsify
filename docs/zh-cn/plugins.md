@@ -23,7 +23,13 @@
     search: {
       maxAge: 86400000, // 过期时间，单位毫秒，默认一天
       paths: [], // or 'auto'
-      placeholder: 'Type to search'
+      placeholder: 'Type to search',
+
+      // 支持本地化
+      placeholder: {
+        '/zh-cn/': '搜索',
+        '/': 'Type to search'
+      }
     }
   }
 </script>
@@ -96,7 +102,7 @@ window.$docsify = {
 }
 ```
 
-!> 如果需要用 docsify 的内部方法，可以通过 `window.Docsify.utils` 获取。
+!> 如果需要用 docsify 的内部方法，可以通过 `window.Docsify` 获取，通过 `vm` 获取当前实例。
 
 #### 例子
 
