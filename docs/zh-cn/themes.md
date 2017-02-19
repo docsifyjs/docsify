@@ -8,10 +8,6 @@
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/dark.css">
 ```
 
-<a id="demo-theme-vue">vue.css</a>
-<a id="demo-theme-buble">buble.css</a>
-<a id="demo-theme-dark">dark.css</a>
-
 !> CSS 的压缩文件位于 `/lib/themes/`
 
 如果你有其他想法或者想开发别的主题，欢迎提 [PR](https://github.com/QingWei-Li/docsify/pulls)。

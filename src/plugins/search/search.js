@@ -23,7 +23,8 @@ function getAllPaths () {
       const originHref = node.getAttribute('href')
       const path = helper.route.parse(href).path
 
-      if (paths.indexOf(path) === -1 &&
+      if (path &&
+        paths.indexOf(path) === -1 &&
         !helper.route.isAbsolutePath(originHref)) {
         paths.push(path)
       }
