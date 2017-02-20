@@ -28,9 +28,8 @@ function renderMain (html) {
   this._renderTo('.markdown-section', html)
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar()
-  // execute script
-  this.config.executeScript && executeScript()
 
+  // execute script
   if (this.config.executeScript !== false &&
       typeof window.Vue !== 'undefined' &&
       !executeScript()) {
@@ -39,6 +38,8 @@ function renderMain (html) {
       vueVM && vueVM.$destroy && vueVM.$destroy()
       window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
     }, 0)
+  } else {
+    this.config.executeScript && executeScript()
   }
 
   if (this.config.auto2top) {

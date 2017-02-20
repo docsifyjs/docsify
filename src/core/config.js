@@ -15,7 +15,7 @@ const config = merge({
   themeColor: '',
   nameLink: window.location.pathname,
   autoHeader: false,
-  executeScript: false,
+  executeScript: null,
   ga: ''
 }, window.$docsify)
 
