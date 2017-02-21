@@ -2,7 +2,6 @@ import progressbar from '../render/progressbar'
 import { noop } from '../util/core'
 
 const cache = {}
-const RUN_VERSION = Date.now()
 
 /**
  * Simple ajax get
@@ -15,8 +14,6 @@ export function get (url, hasBar = false) {
   const on = function () {
     xhr.addEventListener.apply(xhr, arguments)
   }
-
-  url += (/\?(\w+)=/g.test(url) ? '&' : '?') + `v=${RUN_VERSION}`
 
   if (cache[url]) {
     return { then: cb => cb(cache[url]), abort: noop }
