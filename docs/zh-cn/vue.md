@@ -75,7 +75,7 @@
   </template>
 
   <script>
-    export default {
+    module.exports = {
       data: function () {
         return { name: 'Vue' }
       }

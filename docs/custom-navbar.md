@@ -18,7 +18,7 @@ If you need custom navigation, you can create a HTML-based navigation bar (but n
 
 ## Markdown
 
-Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`. Detaile are available in the [load-navbar configuration paragraph](configuration#load-navbar).
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`. Details are available in the [load-navbar configuration paragraph](configuration#load-navbar).
 
 ```html
 <!-- index.html -->

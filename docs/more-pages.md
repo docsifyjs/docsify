@@ -25,7 +25,7 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 ## Custom sidebar
 
-By default, the table of contents in the sidebar is automatically generated based on your markdown files. If you need a custom sidebar, then you can create your own `sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
+By default, the table of contents in the sidebar is automatically generated based on your markdown files. If you need a custom sidebar, then you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
 
 First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration#load-sidebar).
 
