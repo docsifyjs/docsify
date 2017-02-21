@@ -3,7 +3,7 @@
 [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)(PWA) are experiences that combine the best of the web and the best of apps. we can enhance our website with service workers to work **offline** or on low-quality networks.
 It is also very easy to use it.
 
-## Create serverWorker
+## Create serviceWorker
 Create a sw.js file in your documents root directory and copy this code.
 
 *sw.js*

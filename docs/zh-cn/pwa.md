@@ -3,7 +3,7 @@
 [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)(PWA) 是一项融合 Web 和 Native 应用各项优点的解决方案。我们可以利用其支持离线功能的特点，让我们的网站可以在信号差或者离线状态下正常运行。
 要使用它也非常容易。
 
-## 创建 serverWorker
+## 创建 serviceWorker
 这里已经整理好了一份代码，你只需要在网站根目录下创建一个 `sw.js` 文件，并张贴下面的代码。
 
 *sw.js*
