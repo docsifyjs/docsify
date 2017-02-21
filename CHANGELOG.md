@@ -1,4 +1,12 @@
 
+3.0.5 / 2017-02-21
+==================
+
+  * feat(pwa): add sw.js
+  * fix(layout.css): loading style
+  * fix(event): highlight sidebar when clicked, fixed #86
+  * fix(gen-tree): cache toc list, fixed #88
+
 3.0.4 / 2017-02-20
 ==================
 
