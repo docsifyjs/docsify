@@ -16,5 +16,6 @@
  - [Helpers](/helpers)
  - [Vue compatibility](/vue)
  - [CDN](/cdn)
+ - [Offline Mode(PWA)<sup style="color: #F44336;">new</sup>](/pwa)
 
 - [Changelog](/changelog)
