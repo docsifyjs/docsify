@@ -12,14 +12,12 @@ export function btn (el) {
   el = dom.getNode(el)
   dom.on(el, 'click', toggle)
 
-  if (isMobile) {
-    const sidebar = dom.getNode('.sidebar')
+  const sidebar = dom.getNode('.sidebar')
 
-    dom.on(sidebar, 'click', () => {
-      toggle()
-      setTimeout(() => getAndActive(sidebar, true, true), 0)
-    })
-  }
+  dom.on(sidebar, 'click', () => {
+    isMobile && toggle()
+    setTimeout(() => getAndActive(sidebar, true, true), 0)
+  })
 }
 
 export function sticky () {
