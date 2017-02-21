@@ -8,6 +8,8 @@
 }
 
 body:not(.ready) {
+  overflow: hidden;
+
   [data-cloak] {
     display: none;
   }
