@@ -1,9 +1,8 @@
 # More pages
 
-If you need more pages multi-level routing site. It is easy to achieve in docsify. A simple example: If you create a `guide.md`, then get the route is `/#/guide`.
+If you need more pages, you can simply create more markdown files in your docsify directory. If you create a file named `guide.md`, then it is accessible via `/#/guide`.
 
 For example, the directory structure is as follows:
-
 
 ```text
 -| docs/
@@ -26,11 +25,13 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 ## Custom sidebar
 
-By default, the TOC in sidebar is automatically generated based on Markdown file. You can create a Table of Contents page to list down pages in your site.
+By default, the table of contents in the sidebar is automatically generated based on your markdown files. If you need a custom sidebar, then you can create your own `sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
 
-First, you need to set `loadSidebar` to **true**. The detail in [Configuration#load-sidebar](configuration#load-sidebar).
+First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration#load-sidebar).
 
 ```html
+<!-- index.html -->
+
 <script>
   window.$docsify = {
     loadSidebar: true
@@ -39,22 +40,26 @@ First, you need to set `loadSidebar` to **true**. The detail in [Configuration#l
 <script src="//unpkg.com/docsify"></script>
 ```
 
-Create the `_sidebar.md`
+Create the `_sidebar.md`:
 
 ```markdown
+<!-- docs/_sidebar.md -->
+
 - [Home](/)
 - [Guide](/guide)
 ```
 
-!> Need create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
+!> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
-`_sidebar.md` is loaded from each level directory. If this directory doesn't have `_sidebar.md`, it will fallback to parent directory. For example, the current path is `/guide/quick-start`,  the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
+`_sidebar.md` is loaded from each level directory. If the current directory doesn't have `_sidebar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`,  the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
 
 ## Table of Contents
 
-Custom sidebar can also be automatically generate TOC by setting `subMaxLevel`. The detail in [Configuration#sub-max-level](configuration#sub-max-level).
+A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`. Details are available in the [max-level configuration paragraph](configuration#sub-max-level).
 
 ```html
+<!-- index.html -->
+
 <script>
   window.$docsify = {
     loadSidebar: true,
@@ -63,4 +68,3 @@ Custom sidebar can also be automatically generate TOC by setting `subMaxLevel`. 
 </script>
 <script src="//unpkg.com/docsify"></script>
 ```
-

@@ -1,10 +1,12 @@
 # Custom navbar
 
-You can create navbar in HTML file. But note that the link begins with `#/`.
+## HTML
 
-*index.html*
+If you need custom navigation, you can create a HTML-based navigation bar (but note that documentation links begin with `#/`).
 
 ```html
+<!-- index.html -->
+
 <body>
   <nav>
     <a href="#/">EN</a>
@@ -14,14 +16,13 @@ You can create navbar in HTML file. But note that the link begins with `#/`.
 </body>
 ```
 
-## Writing by Markdown
+## Markdown
 
-You can custom navbar by Markdown file. Set the `loadNavbar` to **true** and create a `_navbar.md`. The detail in [Configuration#load-navbar](configuration#load-navbar).
-
-*index.html*
-
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`. Detaile are available in the [load-navbar configuration paragraph](configuration#load-navbar).
 
 ```html
+<!-- index.html -->
+
 <script>
   window.$docsify = {
     loadNavbar: true
@@ -30,21 +31,25 @@ You can custom navbar by Markdown file. Set the `loadNavbar` to **true** and cre
 <script src="//unpkg.com/docsify"></script>
 ```
 
-*_navbar.md*
-
 
 ```markdown
+<!-- _navbar.md -->
+
 - [En](/)
 - [chinese](/zh-cn/)
 ```
 
-`_navbar.md` is loaded from each level directory. If this directory doesn't have `_navbar.md`, it will fallback to parent directory. For example, the current path is `/guide/quick-start`,  the `_navbar.md` will be loaded from `/guide/_navbar.md`.
+!> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
+
+`_navbar.md` is loaded from each level directory. If the current directory doesn't have `_navbar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`,  the `_navbar.md` will be loaded from `/guide/_navbar.md`.
 
 ## Nesting
 
 You can create sub-lists by indenting items that are under a certain parent.
 
 ```markdown
+<!-- _navbar.md -->
+
 - Getting started
  - [Quick start](/quickstart)
  - [Writing more pages](/more-pages)
@@ -59,7 +64,7 @@ You can create sub-lists by indenting items that are under a certain parent.
   - [Lanuage highlight](/language-highlight)
 ```
 
-Example.
+renders as
 
 ![Nesting navbar](_images/nested-navbar.png "Nesting navbar")
 
