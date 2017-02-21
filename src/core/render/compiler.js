@@ -12,7 +12,7 @@ let markdownCompiler = marked
 let contentBase = ''
 let currentPath = ''
 let renderer = new marked.Renderer()
-const TOC = {}
+const cacheTree = {}
 let toc = []
 
 /**
@@ -120,11 +120,9 @@ export function sidebar (text, level) {
 export function subSidebar (el, level) {
   if (el) {
     toc[0] && toc[0].level === 1 && toc.shift()
-    const tree = genTree(TOC[currentPath] || toc, level)
+    const tree = cacheTree[currentPath] || genTree(toc, level)
     el.parentNode.innerHTML += treeTpl(tree, '<ul class="app-sub-sidebar">')
-  }
-  if (toc.length) {
-    TOC[currentPath] = toc.slice()
+    cacheTree[currentPath] = tree
   }
   toc = []
 }
