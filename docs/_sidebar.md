@@ -7,7 +7,8 @@
 - Customization
   - [Configuration](/configuration)
   - [Themes](/themes)
-  - [Using plugins](/plugins)
+  - [List of Plugins](/plugins)
+  - [Write a Plugin](/write-a-plugin)
   - [Markdown configuration](/markdown)
   - [Lanuage highlighting](/language-highlight)
 
