@@ -107,7 +107,7 @@ function bindEvents () {
     e => e.target.tagName !== 'A' && e.stopPropagation())
   dom.on($input, 'input', e => {
     clearTimeout(timeId)
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 200)
+    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100)
   })
 }
 

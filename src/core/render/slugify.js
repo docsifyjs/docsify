@@ -22,6 +22,6 @@ export function slugify (str) {
   return slug
 }
 
-export function clearSlugCache () {
+slugify.clear = function () {
   cache = {}
 }
