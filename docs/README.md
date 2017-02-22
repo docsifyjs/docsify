@@ -15,6 +15,7 @@ See the [Quick start](/quickstart) for more details.
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
+- Emoji support
 - Compatible with IE10+
 
 ## Examples
@@ -24,4 +25,3 @@ Check out the [Showcase](https://github.com/QingWei-Li/docsify/#showcase) to doc
 ## Donate
 
 Please consider donating if you think docsify is helpful to you or that my work is valuable. I am happy if you can help me [buy a cup of coffee](https://github.com/QingWei-Li/donate). :heart:
-

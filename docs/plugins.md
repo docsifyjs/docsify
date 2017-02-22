@@ -1,8 +1,6 @@
-# Using plugins
+# List of Plugins
 
-## List of Plugins
-
-### Full text search
+## Full text search
 
 By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
 
@@ -38,7 +36,7 @@ By default, the hyperlink on the current page is recognized and the content is s
 ```
 
 
-### Google Analytics
+## Google Analytics
 
 Install the plugin and configure the track id.
 
@@ -60,75 +58,12 @@ Configure by `data-ga`.
 <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
 ```
 
+## emoji
 
-## Write a plugin
+The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
 
-A plugin is simply a function that takes `hook` as arguments.
-The hook supports handling asynchronous tasks.
 
-#### Full configuration
-
-```js
-window.$docsify = {
- plugins: [
-  function (hook, vm) {
-    hook.init(function() {
-      // Called when the script starts running, only trigger once, no arguments,
-    })
-
-    hook.beforeEach(function(content) {
-      // Invoked each time before parsing the Markdown file.
-      // ...
-      return content
-    })
-
-    hook.afterEach(function(html, next) {
-      // Invoked each time after the Markdown file is parsed.
-      // beforeEach and afterEach support asynchronous。
-      // ...
-      // call `next(html)` when task is done.
-      next(html)
-    })
-
-    hook.doneEach(function() {
-      // Invoked each time after the data is fully loaded, no arguments,
-      // ...
-    })
-
-    hook.mounted(function() {
-      // Called after initial completion. Only trigger once, no arguments.
-    })
-
-    hook.ready(function() {
-      // Called after initial completion, no arguments.
-    })
-  }
- ]
-}
+```html
+<script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script>
 ```
 
-!> You can get internal methods through `window.Docsify`. Get the current instance through the second argument.
-
-#### Example
-
-Add footer component in each pages.
-
-```js
-window.$docsify = {
-  plugins: [
-    function (hook) {
-      var footer = [
-        '<hr/>',
-        '<footer>',
-        '<span><a href="https://github.com/QingWei-Li">cinwell</a> &copy;2017.</span>',
-        '<span>Proudly published with <a href="https://github.com/QingWei-Li/docsify" target="_blank">docsify</a>.</span>',
-        '</footer>'
-      ].join('')
-
-      hook.afterEach(function (html) {
-        return html + footer
-      })
-    }
-  ]
-}
-```

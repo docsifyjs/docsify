@@ -7,7 +7,8 @@
 - 定制化
   - [配置项](zh-cn/configuration)
   - [主题](zh-cn/themes)
-  - [使用插件](zh-cn/plugins)
+  - [插件列表](zh-cn/plugins)
+  - [开发插件](zh-cn/write-a-plugin)
   - [Markdown 配置](zh-cn/markdown)
   - [代码高亮](zh-cn/language-highlight)
 

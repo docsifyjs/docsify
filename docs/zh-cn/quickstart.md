@@ -81,8 +81,3 @@ cd docs && python -m SimpleHTTPServer 3000
     }
   </script>
 ```
-
-## Emoji 支持
-
-自动转义 [github 支持的 emoji](https://github.com/scotch-io/All-Github-Emoji-Icons):smile:
-
