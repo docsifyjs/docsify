@@ -85,3 +85,7 @@ You should set the `data-app` attribute if you changed `el`:
     }
   </script>
 ```
+
+## Emoji support
+
+Support [github emoji](https://github.com/scotch-io/All-Github-Emoji-Icons) :smile:
