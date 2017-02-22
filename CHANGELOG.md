@@ -1,4 +1,10 @@
 
+3.1.0 / 2017-02-22
+==================
+
+  * fix(search): incorrect anchor link, fixed #90
+  * feat(emoji): add emoji plugin
+
 3.0.5 / 2017-02-21
 ==================
 
