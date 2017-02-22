@@ -2,7 +2,7 @@ import marked from 'marked'
 import Prism from 'prismjs'
 import { helper as helperTpl, tree as treeTpl } from './tpl'
 import { genTree } from './gen-tree'
-import { slugify, clearSlugCache } from './slugify'
+import { slugify } from './slugify'
 import { emojify } from './emojify'
 import { toURL, parse } from '../route/hash'
 import { getBasePath, isAbsolutePath, getPath } from '../route/util'
@@ -25,7 +25,7 @@ export const markdown = cached(text => {
 
   html = markdownCompiler(text)
   html = emojify(html)
-  clearSlugCache()
+  slugify.clear()
 
   return html
 })
