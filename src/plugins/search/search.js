@@ -17,7 +17,7 @@ function escapeHtml (string) {
 function getAllPaths () {
   const paths = []
 
-  helper.dom.findAll('a')
+  helper.dom.findAll('a:not(data-nosearch)')
     .map(node => {
       const href = node.href
       const originHref = node.getAttribute('href')

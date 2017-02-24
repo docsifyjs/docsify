@@ -31,7 +31,7 @@ export function main (config) {
     '</button>' +
     '<aside class="sidebar">' +
       (config.name
-        ? `<h1><a href="${config.nameLink}">${config.name}</a></h1>`
+        ? `<h1><a data-nosearch href="${config.nameLink}">${config.name}</a></h1>`
         : '') +
       '<div class="sidebar-nav"></div>' +
     '</aside>')
