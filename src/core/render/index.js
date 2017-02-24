@@ -104,10 +104,12 @@ export function renderMixin (proto) {
         let path = m[1]
 
         dom.toggleClass(el, 'add', 'has-mask')
-        if (isAbsolutePath(m[1])) {
+        if (!isAbsolutePath(m[1])) {
           path = getPath(getBasePath(this.config.basePath), m[1])
         }
         el.style.backgroundImage = `url(${path})`
+        el.style.backgroundSize = 'cover'
+        el.style.backgroundPosition = 'center center'
       }
       html = html.replace(m[0], '')
     }
