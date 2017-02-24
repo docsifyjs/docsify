@@ -1,4 +1,11 @@
 
+3.1.1 / 2017-02-24
+==================
+
+  * fix(search): dont search nameLink, fixed #102
+  * fix(render): custom cover background image
+  * fix(tpl): extra character, fixed #101
+
 3.1.0 / 2017-02-22
 ==================
 
