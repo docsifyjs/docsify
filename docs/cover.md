@@ -27,7 +27,7 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
 
 > A magical documentation site generator.
 
-- Simple and lightweight (~14kB gzipped)
+- Simple and lightweight (~16kB gzipped)
 - No statically built html files
 - Multiple themes
 

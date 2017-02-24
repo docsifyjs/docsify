@@ -11,7 +11,7 @@ See the [Quick start](/quickstart) for more details.
 ## Features
 
 - No statically built html files
-- Simple and lightweight (~14kB gzipped)
+- Simple and lightweight (~16kB gzipped)
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
