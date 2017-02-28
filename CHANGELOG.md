@@ -1,4 +1,12 @@
 
+3.2.0 / 2017-02-28
+==================
+
+  * fix(render): Toc rendering error, fixed #106
+  * feat(search): Localization for no data tip, close #103
+  * fix(fetch): load sidebar and navbar for parent path, fixed #100
+  * feat(render) nameLink for each route, fixed #99
+
 3.1.2 / 2017-02-27
 ==================
 
