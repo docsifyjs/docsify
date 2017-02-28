@@ -2,27 +2,27 @@
 3.2.0 / 2017-02-28
 ==================
 
-  * fix(render): Toc rendering error, fixed #106
-  * feat(search): Localization for no data tip, close #103
-  * fix(fetch): load sidebar and navbar for parent path, fixed #100
-  * feat(render) nameLink for each route, fixed #99
+  * fix(render): Toc rendering error, fixed [#106](https://github.com/QingWei-Li/docsify/issues/106)
+  * feat(search): Localization for no data tip, close [#103](https://github.com/QingWei-Li/docsify/issues/103)
+  * fix(fetch): load sidebar and navbar for parent path, fixed [#100](https://github.com/QingWei-Li/docsify/issues/100)
+  * feat(render) nameLink for each route, fixed [#99](https://github.com/QingWei-Li/docsify/issues/99)
 
 3.1.2 / 2017-02-27
 ==================
 
-  * fix(search): dont search nameLink, fixed #102
+  * fix(search): dont search nameLink, fixed [#102](https://github.com/QingWei-Li/docsify/issues/102)
 
 3.1.1 / 2017-02-24
 ==================
 
-  * fix(search): dont search nameLink, fixed #102
+  * fix(search): dont search nameLink, fixed [#102](https://github.com/QingWei-Li/docsify/issues/102)
   * fix(render): custom cover background image
-  * fix(tpl): extra character, fixed #101
+  * fix(tpl): extra character, fixed [#101](https://github.com/QingWei-Li/docsify/issues/101)
 
 3.1.0 / 2017-02-22
 ==================
 
-  * fix(search): incorrect anchor link, fixed #90
+  * fix(search): incorrect anchor link, fixed [#90](https://github.com/QingWei-Li/docsify/issues/90)
   * feat(emoji): add emoji plugin
 
 3.0.5 / 2017-02-21
@@ -30,8 +30,8 @@
 
   * feat(pwa): add sw.js
   * fix(layout.css): loading style
-  * fix(event): highlight sidebar when clicked, fixed #86
-  * fix(gen-tree): cache toc list, fixed #88
+  * fix(event): highlight sidebar when clicked, fixed [#86](https://github.com/QingWei-Li/docsify/issues/86)
+  * fix(gen-tree): cache toc list, fixed [#88](https://github.com/QingWei-Li/docsify/issues/88)
 
 3.0.4 / 2017-02-20
 ==================
