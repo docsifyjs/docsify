@@ -34,6 +34,7 @@ let lastRoute = {}
 export function initRoute (vm) {
   normalize()
   lastRoute = vm.route = parse()
+  vm._updateRender()
 
   on('hashchange', _ => {
     normalize()
