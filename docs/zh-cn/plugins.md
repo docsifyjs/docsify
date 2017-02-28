@@ -27,6 +27,14 @@
       placeholder: {
         '/zh-cn/': '搜索',
         '/': 'Type to search'
+      },
+
+      noData: 'No Results!',
+
+      // 支持本地化
+      noData: {
+        '/zh-cn/': '找不到结果',
+        '/': 'No Results'
       }
     }
   }

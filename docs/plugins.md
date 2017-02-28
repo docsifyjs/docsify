@@ -27,6 +27,14 @@ By default, the hyperlink on the current page is recognized and the content is s
       placeholder: {
         '/zh-cn/': '搜索',
         '/': 'Type to search'
+      },
+
+      noData: 'No Results!',
+
+      // Localization
+      noData: {
+        '/zh-cn/': '找不到结果',
+        '/': 'No Results'
       }
     }
   }
