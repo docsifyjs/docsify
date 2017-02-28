@@ -1,6 +1,7 @@
 import { search } from './search'
 
 let dom
+let NO_DATA_TEXT = ''
 
 function style () {
   const code = `
@@ -98,7 +99,7 @@ function bindEvents () {
     })
 
     $panel.classList.add('show')
-    $panel.innerHTML = html || '<p class="empty">No Results!</p>'
+    $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`
   }
 
   let timeId
@@ -122,6 +123,15 @@ function updatePlaceholder (text, path) {
   }
 }
 
+function updateNoData (text, path) {
+  if (typeof text === 'string') {
+    NO_DATA_TEXT = text
+  } else {
+    const match = Object.keys(text).find(key => path.indexOf(key) > -1)
+    NO_DATA_TEXT = text[match]
+  }
+}
+
 export function init (opts) {
   dom = Docsify.dom
   style()
@@ -131,5 +141,6 @@ export function init (opts) {
 
 export function update (opts, vm) {
   updatePlaceholder(opts.placeholder, vm.route.path)
+  updateNoData(opts.noData, vm.route.path)
 }
 

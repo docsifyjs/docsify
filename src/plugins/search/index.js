@@ -3,6 +3,7 @@ import { init as initSearch } from './search'
 
 const CONFIG = {
   placeholder: 'Type to search',
+  noData: 'No Results!',
   paths: 'auto',
   maxAge: 86400000 // 1 day
 }
@@ -17,6 +18,7 @@ const install = function (hook, vm) {
     CONFIG.paths = Array.isArray(opts.paths) ? opts.paths : 'auto'
     CONFIG.maxAge = util.isPrimitive(opts.maxAge) ? opts.maxAge : CONFIG.maxAge
     CONFIG.placeholder = opts.placeholder || CONFIG.placeholder
+    CONFIG.noData = opts.noData || CONFIG.noData
   }
 
   const isAuto = CONFIG.paths === 'auto'
