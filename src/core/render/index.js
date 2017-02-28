@@ -6,6 +6,7 @@ import * as tpl from './tpl'
 import { markdown, sidebar, subSidebar, cover } from './compiler'
 import { callHook } from '../init/lifecycle'
 import { getBasePath, getPath, isAbsolutePath } from '../route/util'
+import { isPrimitive } from '../util/core'
 
 function executeScript () {
   const script = dom.findAll('.markdown-section>script')
@@ -44,6 +45,22 @@ function renderMain (html) {
 
   if (this.config.auto2top) {
     scroll2Top(this.config.auto2top)
+  }
+}
+
+function renderNameLink (vm) {
+  const el = dom.getNode('.app-name-link')
+  const nameLink = vm.config.nameLink
+  const path = vm.route.path
+
+  if (!el) return
+
+  if (isPrimitive(vm.config.nameLink)) {
+    el.setAttribute('href', nameLink)
+  } else if (typeof nameLink === 'object') {
+    const match = Object.keys(nameLink).find(key => path.indexOf(key) > -1)
+
+    el.setAttribute('href', nameLink[match])
   }
 }
 
@@ -120,6 +137,8 @@ export function renderMixin (proto) {
 
   proto._updateRender = function () {
     markdown.update()
+    // render name link
+    renderNameLink(this)
   }
 }
 

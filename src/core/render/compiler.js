@@ -34,7 +34,6 @@ markdown.renderer = renderer
 
 markdown.init = function (config = {}, base = window.location.pathname) {
   contentBase = getBasePath(base)
-  currentPath = parse().path
 
   if (isFn(config)) {
     markdownCompiler = config(marked, renderer)
