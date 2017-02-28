@@ -17,6 +17,6 @@
  - [文档助手](zh-cn/helpers)
  - [兼容 Vue](zh-cn/vue)
  - [CDN](zh-cn/cdn)
- - [离线模式(PWA)<sup style="color: #F44336;">new</sup>](zh-cn/pwa)
+ - [离线模式(PWA)](zh-cn/pwa)
 
 - [Changelog](zh-cn/changelog)
