@@ -206,7 +206,13 @@ The name of the link.
 
 ```js
 window.$docsify = {
-  nameLink: '/'
+  nameLink: '/',
+
+  // For each route
+  nameLink: {
+    '/zh-cn/': '/zh-cn/',
+    '/': '/'
+  }
 }
 ```
 

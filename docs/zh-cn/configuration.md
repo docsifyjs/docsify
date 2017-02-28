@@ -206,7 +206,13 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  nameLink: '/'
+  nameLink: '/',
+
+  // 按照路由切换
+  nameLink: {
+    '/zh-cn/': '/zh-cn/',
+    '/': '/'
+  }
 }
 ```
 
