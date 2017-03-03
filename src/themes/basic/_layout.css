@@ -10,7 +10,7 @@
 body:not(.ready) {
   overflow: hidden;
 
-  [data-cloak] {
+  [data-cloak], nav {
     display: none;
   }
 }
