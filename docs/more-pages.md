@@ -5,12 +5,13 @@ If you need more pages, you can simply create more markdown files in your docsif
 For example, the directory structure is as follows:
 
 ```text
--| docs/
-  -| README.md
-  -| guide.md
-  -| zh-cn/
-    -| README.md
-    -| guide.md
+.
+├── docs
+|   └── README.md
+|   └── guide.md
+|   └── zh-cn
+|       └──README.md
+|       └──guide.md
 ```
 
 Matching routes
