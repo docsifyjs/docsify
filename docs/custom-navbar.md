@@ -61,7 +61,7 @@ You can create sub-lists by indenting items that are under a certain parent.
   - [Themes](/themes)
   - [Using plugins](/plugins)
   - [Markdown configuration](/markdown)
-  - [Lanuage highlight](/language-highlight)
+  - [Language highlight](/language-highlight)
 ```
 
 renders as
