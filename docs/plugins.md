@@ -75,3 +75,10 @@ The default is to support parsing emoji. For example `:100:` will be parsed to :
 <script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script>
 ```
 
+## External Script
+
+If the script on the page is an external one (imports a js file via `src` attribute), you'll need this plugin to make it work.
+
+```html
+<script src="//unpkg.com/docsify/lib/plugins/external-script.js"></script>
+```

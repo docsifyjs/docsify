@@ -71,3 +71,11 @@
 ```html
 <script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script>
 ```
+
+## 外链脚本 - External Script
+
+如果文档里的 script 是内联脚本，可以直接执行；而如果是外链脚本（即 js 文件内容由 `src` 属性引入），则需要使用此插件。
+
+```html
+<script src="//unpkg.com/docsify/lib/plugins/external-script.js"></script>
+```
