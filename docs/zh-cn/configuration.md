@@ -304,3 +304,4 @@ window.$docsify = {
 
 ```
 
+注意如果执行的是一个外链脚本，比如 jsfiddle 的内嵌 demo，请确保引入 [external-script](zh-cn/plugins?id=外链脚本-external-script) 插件。

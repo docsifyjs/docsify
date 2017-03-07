@@ -1,24 +1,21 @@
-const scriptReg = /<script[^>]*src=["|'](.*)["|']>[^\w]*<\/script>/
-const asyncReg = /<script[^>]*\s+async/
-const deferReg = /<script[^>]*\s+defer/
+function handleExternalScript () {
+  const container = Docsify.dom.getNode('#main')
+  const script = Docsify.dom.find(container, 'script')
 
-function handleExternalScript (html) {
-  const scriptMatch = html.match(scriptReg)
+  if (script && script.src) {
+    const newScript = document.createElement('script')
 
-  if (scriptMatch && scriptMatch.length > 1) {
-    const script = document.createElement('script')
-    script.src = scriptMatch[1]
+    ;['src', 'async', 'defer'].forEach(attribute => {
+      newScript[attribute] = script[attribute]
+    })
 
-    if (asyncReg.test(scriptMatch[0])) script.setAttribute('async', '')
-    if (deferReg.test(scriptMatch[0])) script.setAttribute('defer', '')
-
-    const target = document.querySelector('#main')
-    target.appendChild(script)
+    script.parentNode.removeChild(script)
+    container.appendChild(newScript)
   }
 }
 
 const install = function (hook) {
-  hook.afterEach(handleExternalScript)
+  hook.doneEach(handleExternalScript)
 }
 
 window.$docsify.plugins = [].concat(install, window.$docsify.plugins)

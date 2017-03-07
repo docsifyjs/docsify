@@ -10,7 +10,7 @@ const cacheNode = {}
  */
 export function getNode (el, noCache = false) {
   if (typeof el === 'string') {
-    el = noCache ? find(el) : (cacheNode[el] || find(el))
+    el = noCache ? find(el) : (cacheNode[el] || (cacheNode[el] = find(el)))
   }
 
   return el

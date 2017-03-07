@@ -306,3 +306,4 @@ window.$docsify = {
 
 ```
 
+Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins?id=external-script) plugin.
