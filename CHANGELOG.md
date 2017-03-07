@@ -1,4 +1,13 @@
 
+3.3.0 / 2017-03-07
+==================
+
+  * add front-matter plugin
+  * add external-script plugin
+  * Fix nav showing while loading (#112)
+  * Fix a typo (#111)
+  * Update changelog
+
 3.2.0 / 2017-02-28
 ==================
 
