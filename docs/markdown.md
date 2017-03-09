@@ -1,6 +1,6 @@
 # Markdown configuration
 
-The Markdown parser is [marked](https://github.com/chjj/marked). You can customize how docsify renders your Markdown content to HTML. Support customize `renderer`.
+**docsify** uses [marked](https://github.com/chjj/marked) as its Markdown parser. You can customize how it renders your Markdown content to HTML by customizing `renderer`:
 
 ```js
 window.$docsify = {

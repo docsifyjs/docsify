@@ -2,7 +2,9 @@
 
 ## HTML
 
-If you need custom navigation, you can create a HTML-based navigation bar (but note that documentation links begin with `#/`).
+If you need custom navigation, you can create a HTML-based navigation bar.
+
+!> Note that documentation links begin with `#/`.
 
 ```html
 <!-- index.html -->
@@ -18,7 +20,7 @@ If you need custom navigation, you can create a HTML-based navigation bar (but n
 
 ## Markdown
 
-Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`. Details are available in the [load-navbar configuration paragraph](configuration#load-navbar).
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [load-navbar configuration](configuration#load-navbar).
 
 ```html
 <!-- index.html -->
@@ -28,9 +30,8 @@ Alternatively, you can create a custom markdown-based navigation file by setting
     loadNavbar: true
   }
 </script>
-<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
-
 
 ```markdown
 <!-- _navbar.md -->
@@ -51,10 +52,10 @@ You can create sub-lists by indenting items that are under a certain parent.
 <!-- _navbar.md -->
 
 - Getting started
- - [Quick start](/quickstart)
- - [Writing more pages](/more-pages)
- - [Custom navbar](/custom-navbar)
- - [Cover page](/cover)
+  - [Quick start](/quickstart)
+  - [Writing more pages](/more-pages)
+  - [Custom navbar](/custom-navbar)
+  - [Cover page](/cover)
 
 - Configuration
   - [Configuration](/configuration)
@@ -68,4 +69,27 @@ renders as
 
 ![Nesting navbar](_images/nested-navbar.png "Nesting navbar")
 
+## Combining custom navbars with the emoji plugin
 
+If you use the [emoji plugin](plugins#emoji):
+
+```html
+<!-- index.html -->
+
+<script>
+  window.$docsify = {
+    // ...
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+```
+
+you could, for example, use flag emojis in your custom navbar Markdown file:
+
+```markdown
+<!-- _navbar.md -->
+
+- [:us:, :uk:](/)
+- [:cn:](/zh-cn/)
+```

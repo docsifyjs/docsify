@@ -1,16 +1,16 @@
 # Deploy
 
-As as GitBook, you can deploy files to GitHub Pages or VPS.
+Similar to [GitBook](https://www.gitbook.com), you can deploy files to GitHub Pages or VPS.
 
 ## GitHub Pages
 
-There're three places to populate your docs
+There're three places to populate your docs for your Github repository:
 
-- `docs/` folder
-- master branch
-- gh-pages branch
+* `docs/` folder
+* master branch
+* gh-pages branch
 
-You can save your files in `./docs` and setting `master branch /docs folder`.
+It is recommended that you save your files to the `./docs` subfolder of the `master` branch of your repository. Then select `master branch /docs folder` as your Github Pages source in your repositories' settings page.
 
 ![github pages](_images/deploy-github-pages.png)
 

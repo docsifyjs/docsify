@@ -9,6 +9,7 @@
 const RUNTIME = 'docsify'
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
+  'raw.githubusercontent.com',
   'fonts.gstatic.com',
   'fonts.googleapis.com',
   'unpkg.com'

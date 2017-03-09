@@ -1,7 +1,6 @@
 # Write a plugin
 
-A plugin is simply a function that takes `hook` as arguments.
-The hook supports handling asynchronous tasks.
+A plugin is simply a function that takes `hook` as an argument. The hook supports handling of asynchronous tasks.
 
 ## Full configuration
 
