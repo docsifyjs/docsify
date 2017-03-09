@@ -10,7 +10,12 @@ var build = function (opts) {
   rollup
     .rollup({
       entry: 'src/' + opts.entry,
-      plugins: (opts.plugins || []).concat([buble(), commonjs(), nodeResolve()])
+      plugins: (opts.plugins || []).concat([
+        string({ include: '**/*.css' }),
+        buble(),
+        commonjs(),
+        nodeResolve()
+      ])
     })
     .then(function (bundle) {
       var dest = 'lib/' + (opts.output || opts.entry)
@@ -45,12 +50,7 @@ plugins.forEach(item => {
   build({
     entry: 'plugins/' + item.entry,
     output: 'plugins/' + item.name + '.js',
-    moduleName: 'D.' + item.moduleName,
-    plugins: [
-      string({
-        include: '**/*.css'
-      })
-    ]
+    moduleName: 'D.' + item.moduleName
   })
 })
 
