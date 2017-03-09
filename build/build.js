@@ -2,6 +2,7 @@ var rollup = require('rollup')
 var buble = require('rollup-plugin-buble')
 var commonjs = require('rollup-plugin-commonjs')
 var nodeResolve = require('rollup-plugin-node-resolve')
+var string = require('rollup-plugin-string')
 var uglify = require('rollup-plugin-uglify')
 var isProd = process.argv[process.argv.length - 1] !== '--dev'
 
@@ -9,7 +10,7 @@ var build = function (opts) {
   rollup
     .rollup({
       entry: 'src/' + opts.entry,
-      plugins: [buble(), commonjs(), nodeResolve()].concat(opts.plugins || [])
+      plugins: (opts.plugins || []).concat([buble(), commonjs(), nodeResolve()])
     })
     .then(function (bundle) {
       var dest = 'lib/' + (opts.output || opts.entry)
@@ -36,14 +37,20 @@ var plugins = [
   { name: 'ga', entry: 'ga.js', moduleName: 'GA' },
   { name: 'emoji', entry: 'emoji.js', moduleName: 'Emoji' },
   { name: 'external-script', entry: 'external-script.js', moduleName: 'ExternalScript' },
-  { name: 'front-matter', entry: 'front-matter/index.js', moduleName: 'FrontMatter' }
+  { name: 'front-matter', entry: 'front-matter/index.js', moduleName: 'FrontMatter' },
+  { name: 'zoom-image', entry: 'zoom-image.js', moduleName: 'ZoomImage' }
 ]
 
 plugins.forEach(item => {
   build({
     entry: 'plugins/' + item.entry,
     output: 'plugins/' + item.name + '.js',
-    moduleName: 'D.' + item.moduleName
+    moduleName: 'D.' + item.moduleName,
+    plugins: [
+      string({
+        include: '**/*.css'
+      })
+    ]
   })
 })
 

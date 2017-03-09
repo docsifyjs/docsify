@@ -79,3 +79,11 @@
 ```html
 <script src="//unpkg.com/docsify/lib/plugins/external-script.js"></script>
 ```
+
+## 图片缩放 - Zoom image
+
+Medium's 风格的图片缩放插件. 基于 [zoom-image](https://github.com/egoist/zoom-image)。
+
+```html
+<script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
+```

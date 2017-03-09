@@ -82,3 +82,11 @@ If the script on the page is an external one (imports a js file via `src` attrib
 ```html
 <script src="//unpkg.com/docsify/lib/plugins/external-script.js"></script>
 ```
+
+## Zoom image
+
+Medium's Image Zoom. Based on [zoom-image](https://github.com/egoist/zoom-image).
+
+```html
+<script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
+```
