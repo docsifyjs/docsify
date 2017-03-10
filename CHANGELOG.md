@@ -1,5 +1,5 @@
 
-# 3.3.1 / 2017-03-10
+# 3.4.1 / 2017-03-10
 
 * fix(dom): Disable the dom cache when vue is present, fixed [#119](https://github.com/QingWei-Li/docsify/issues/119)
 * update english docs, [@jrappen](https://github.com/jrappen)
