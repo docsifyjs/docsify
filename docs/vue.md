@@ -1,19 +1,21 @@
 # Compatible with Vue
 
-You can write Vue components directly in the Markdown file, and it will be parsed.
-You can use this feature to write vue demo and documentation together.
+You can write Vue components directly in the Markdown file, and it will be parsed. You can use this feature to write vue demo and documentation together.
 
 ## Basic usage
 
-Load the Vue in `index.html`.
+Load the Vue in `./index.html`.
 
 ```html
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/docsify"></script>
+
+<!-- or use the compressed files -->
+<script src="//unpkg.com/vue/dist/vue.min.js"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
 
-Then you can immediately write Vue code at Markdown file.
-`new Vue({ el: '#main' })` script is executed by default to create instance.
+Then you can immediately write Vue code at Markdown file. `new Vue({ el: '#main' })` script is executed by default to create instance.
 
 *README.md*
 
@@ -62,6 +64,11 @@ You can manually initialize a Vue instance.
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/vuep"></script>
 <script src="//unpkg.com/docsify"></script>
+
+<!-- or use the compressed files -->
+<script src="//unpkg.com/vue/dist/vue.min.js"></script>
+<script src="//unpkg.com/vuep/dist/vuep.min.js"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
 
 *README.md*
@@ -85,5 +92,4 @@ You can manually initialize a Vue instance.
 </script>
 ```
 
-?> Example Refer to the vuep [documentation](https://qingwei-li.github.io/vuep/).
-
+?> Example Refer to the [vuep documentation](https://qingwei-li.github.io/vuep/).

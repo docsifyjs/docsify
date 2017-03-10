@@ -15,6 +15,7 @@
 </p>
 
 ## Links
+
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
 
@@ -28,7 +29,8 @@
 - Compatible with IE10+
 
 ## Quick start
-Create a `index.html`.
+
+Create an `index.html`.
 
 ```html
 <!-- index.html -->
@@ -51,18 +53,24 @@ Create a `index.html`.
 Modern browsers and Internet Explorer 10+.
 
 ## Showcase
+
 These open-source projects are using docsify to generate their sites. Pull requests welcome :blush:
 
-- [Snipaste](https://docs.snipaste.com/) - Snip & Paste
-- [puck](https://puck.zz173.com/) - A small & magical php framework.
-- [Samaritan](http://samaritan.stockdb.org) - An Algorithmic Trading Framework for Digital Currency.
-- [Vudash](http://vudash.github.io/vudash/) - Powerful, Flexible, Open Source dashboards for anything
-- [Trilogy](http://trilogy.js.org) - No-hassle SQLite with a Promise-based, document store style API.
-- [Mybatis-Plus](http://mp.baomidou.com/) - An enhanced toolkit of Mybatis to simplify development
+| Project | Description |
+|---|---|
+| [Snipaste](https://docs.snipaste.com/) | Snip & Paste |
+| [puck](https://puck.zz173.com/) | A small & magical php framework. |
+| [Samaritan](http://samaritan.stockdb.org) | An Algorithmic Trading Framework for Digital Currency. |
+| [Vudash](http://vudash.github.io/vudash/) | Powerful, Flexible, Open Source dashboards for anything |
+| [Trilogy](http://trilogy.js.org) | No-hassle SQLite with a Promise-based, document store style API. |
+| [Mybatis-Plus](http://mp.baomidou.com/) | An enhanced toolkit of Mybatis to simplify development |
 
 ## Similar projects
-- [docute](https://github.com/egoist/docute) - 📜 Effortlessly documentation done right
-- [docpress](https://github.com/docpress/docpress) - Documentation website generator
+
+| Project | Description |
+|---|---|
+| [docute](https://github.com/egoist/docute) | 📜 Effortlessly documentation done right |
+| [docpress](https://github.com/docpress/docpress) | Documentation website generator |
 
 ## Contributing
 
@@ -81,4 +89,5 @@ open http://localhost:3000
 ```
 
 ## License
+
 MIT

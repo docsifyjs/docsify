@@ -1,8 +1,8 @@
 - 入门
- - [快速开始](zh-cn/quickstart)
- - [多页文档](zh-cn/more-pages)
- - [定制导航栏](zh-cn/custom-navbar)
- - [封面](zh-cn/cover)
+  - [快速开始](zh-cn/quickstart)
+  - [多页文档](zh-cn/more-pages)
+  - [定制导航栏](zh-cn/custom-navbar)
+  - [封面](zh-cn/cover)
 
 - 定制化
   - [配置项](zh-cn/configuration)

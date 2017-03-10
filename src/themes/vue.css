@@ -14,8 +14,8 @@ body {
 
 /* sidebar */
 .sidebar {
-  color: #364149;
   background-color: $color-bg;
+  color: #364149;
 
   li {
     margin: 6px 0 6px 15px;
@@ -23,12 +23,12 @@ body {
 
   ul li a {
     color: #505d6b;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    text-decoration: none;
     font-size: 14px;
     font-weight: normal;
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &:hover {
       text-decoration: underline;
@@ -40,9 +40,9 @@ body {
   }
 
   ul li.active>a {
+    border-right: 2px solid;
     color: var(--theme-color, $color-primary);
     font-weight: 600;
-    border-right: 2px solid;
   }
 }
 
@@ -61,8 +61,8 @@ body {
 .markdown-section h3,
 .markdown-section h4,
 .markdown-section strong {
-  font-weight: 600;
   color: #2c3e50;
+  font-weight: 600;
 }
 
 .markdown-section a {
@@ -71,8 +71,8 @@ body {
 }
 
 .markdown-section h1 {
-  margin: 0 0 1em;
   font-size: 2em;
+  margin: 0 0 1em;
 }
 
 .markdown-section h2 {
@@ -81,8 +81,8 @@ body {
 }
 
 .markdown-section h3 {
-  margin: 40px 0 .6em;
   font-size: 1.5em;
+  margin: 40px 0 .6em;
 }
 
 .markdown-section h4 {
@@ -94,8 +94,8 @@ body {
 }
 
 .markdown-section h6 {
-  font-size: 1em;
   color: #777;
+  font-size: 1em;
 }
 
 .markdown-section figure,
@@ -118,8 +118,8 @@ body {
 }
 
 .markdown-section blockquote {
-  color: #858585;
   border-left: 4px solid var(--theme-color, $color-primary);
+  color: #858585;
   margin: 2em 0;
   padding-left: 20px;
 }
@@ -138,14 +138,14 @@ body {
 }
 
 .markdown-section code {
+  background-color: #f8f8f8;
   border-radius: 2px;
   color: #e96900;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  font-size: 0.8em;
   margin: 0 2px;
   padding: 3px 5px;
   white-space: nowrap;
-  font-size: 0.8em;
-  font-family: 'Roboto Mono', Monaco, courier, monospace;
-  background-color: #f8f8f8;
 }
 
 .markdown-section pre {
@@ -155,9 +155,9 @@ body {
   font-family: 'Roboto Mono', Monaco, courier, monospace;
   line-height: 1.5em;
   margin: 1.2em 0;
+  overflow: auto;
   padding: 0 1.4em;
   position: relative;
-  overflow: auto;
   word-wrap: normal;
 }
 
@@ -268,10 +268,10 @@ body {
   font-size: 0.8em;
   line-height: inherit;
   margin: 0 2px;
+  max-width: inherit;
   overflow: inherit;
   padding: 2.2em 5px;
   white-space: inherit;
-  max-width: inherit;
 }
 
 .markdown-section code::after, .markdown-section code::before {
@@ -279,9 +279,9 @@ body {
 }
 
 code .token {
-  min-height: 1.5em;
-  -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
+  -webkit-font-smoothing: initial;
+  min-height: 1.5em;
 }
 
 pre::after {

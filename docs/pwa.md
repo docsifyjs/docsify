@@ -1,10 +1,12 @@
 # Offline Mode
 
-[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)(PWA) are experiences that combine the best of the web and the best of apps. we can enhance our website with service workers to work **offline** or on low-quality networks.
+[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) (PWA) are experiences that combine the best of the web with the best of apps. We can enhance our website with service workers to work **offline** or on low-quality networks.
+
 It is also very easy to use it.
 
 ## Create serviceWorker
-Create a sw.js file in your documents root directory and copy this code.
+
+Create a `sw.js` file in your documents root directory and copy the following code:
 
 *sw.js*
 
@@ -96,7 +98,7 @@ self.addEventListener('fetch', event => {
 
 ## Register
 
-Now, register it in your `index.html`. It only works on some modern browsers, so we need to judge.
+Now, register it in your `index.html`. It only works on some modern browsers, so we need to judge:
 
 *index.html*
 

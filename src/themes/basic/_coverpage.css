@@ -11,16 +11,16 @@ section.cover {
   }
 
   &.has-mask .mask {
-    position: absolute;
-    size: 100%;
     background-color: $color-bg;
     opacity: .8;
+    position: absolute;
+    size: 100%;
   }
 
   .cover-main {
     flex: 1;
-    text-align: center;
     margin: -20px 16px 0;
+    text-align: center;
     z-index: 1;
   }
 
@@ -34,65 +34,65 @@ section.cover {
   }
 
   p {
-    margin: 1em 0;
     line-height: 1.5rem;
+    margin: 1em 0;
   }
 
   h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    position: relative;
-    margin: .625rem 0 2.5rem;
-    font-weight: 300;
     color: inherit;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin: .625rem 0 2.5rem;
+    position: relative;
+    text-align: center;
 
     a {
       display: block;
     }
 
     small {
-      position: absolute;
       bottom: -.4375rem;
       font-size: 1rem;
+      position: absolute;
     }
   }
 
   blockquote {
-    text-align: center;
     font-size: 1.5rem;
+    text-align: center;
   }
 
   ul {
-    max-width: 500px;
+    line-height: 1.8;
     list-style-type: none;
     margin: 1em auto;
+    max-width: 500px;
     padding: 0;
-    line-height: 1.8;
   }
 
   .cover-main > p:last-child a {
-    border-radius: 2em;
-    border-width: 1px;
-    border-style: solid;
     border-color: var(--theme-color, $color-primary);
+    border-radius: 2em;
+    border-style: solid;
+    border-width: 1px;
     box-sizing: border-box;
     color: var(--theme-color, $color-primary);
+    display: inline-block;
     font-size: 1.05em;
     letter-spacing: 0.1em;
+    margin-right: 1em;
     padding: 0.75em 2em;
     text-decoration: none;
     transition: all 0.15s ease;
-    margin-right: 1em;
-    display: inline-block;
 
     &:last-child {
-      margin-right: 0;
       background-color: var(--theme-color, $color-primary);
       color: #fff;
+      margin-right: 0;
 
       &:hover {
-        opacity: .8;
         color: inherit;
+        opacity: .8;
       }
     }
 

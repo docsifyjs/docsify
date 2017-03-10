@@ -1,6 +1,6 @@
 # Configuration
 
-docsify supports two ways to configure. You can configure the `window.$docsify` or write configuration on the script tag via `data-*` attributes.
+**docsify** supports two different ways of configuration. You can configure the `window.$docsify` or write configuration on the script tag via `data-*` attributes.
 
 ```html
 <!-- by $docsify -->
@@ -53,7 +53,6 @@ window.$docsify = {
 }
 ```
 
-
 ## max-level
 
 - Type: `Number`
@@ -72,7 +71,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-Load navbar from Markdown file. If **true** it will be loaded from `_navbar.md`.
+Loads navbar from the Markdown file `_navbar.md` if **true**, or else from the path specified.
 
 ```js
 window.$docsify = {
@@ -89,8 +88,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-
-Load sidebar from Markdown file. If **true** it will be loaded from `_sidebar.md`.
+Loads sidebar from the Markdown file `_sidebar.md` if **true**, or else from the path specified.
 
 ```js
 window.$docsify = {
@@ -107,7 +105,7 @@ window.$docsify = {
 - Type: `Number`
 - Default: `0`
 
-Add TOC in custom sidebar.
+Add table of contents (TOC) in custom sidebar.
 
 ```js
 window.$docsify = {
@@ -115,12 +113,10 @@ window.$docsify = {
 }
 ```
 
-
 ## auto2top
 
 - Type: `Boolean`
 - Default: `false`
-
 
 Scrolls to the top of the screen when the route is changed.
 
@@ -130,12 +126,10 @@ window.$docsify = {
 }
 ```
 
-
 ## homepage
 
 - Type: `String`
 - Default: `README.md`
-
 
 `README.md` in your docs folder will be treated as homepage for your website, but sometimes you may need to serve another file as your homepage.
 
@@ -167,7 +161,6 @@ window.$docsify = {
 }
 ```
 
-
 ## coverpage
 
 - Type: `Boolean|String`
@@ -188,8 +181,7 @@ window.$docsify = {
 
 - Type: `String`
 
-
-Website name appears in the sidebar.
+Website name as it appears in the sidebar.
 
 ```js
 window.$docsify = {
@@ -222,7 +214,6 @@ window.$docsify = {
 
 See [Markdown configuration](/markdown).
 
-
 ```js
 window.$docsify = {
   // object
@@ -247,8 +238,7 @@ window.$docsify = {
 
 - Type: `String`
 
-Customize the theme color.
-Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in old browser.
+Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in old browser.
 
 ```js
 window.$docsify = {
@@ -259,7 +249,6 @@ window.$docsify = {
 ## alias
 
 - Type: `Object`
-
 
 Set the route alias. You can freely manage routing rules.
 
@@ -276,7 +265,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in _sidebar.md, prepend a header to the page before converting it to html. [#78](https://github.com/QingWei-Li/docsify/issues/78)
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to html. Compare [#78](https://github.com/QingWei-Li/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -303,7 +292,6 @@ window.$docsify = {
 <script>
   console.log(2333)
 </script>
-
 ```
 
 Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins?id=external-script) plugin.

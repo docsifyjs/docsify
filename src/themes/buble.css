@@ -20,8 +20,8 @@ $sidebar-width: 16em;
 
   li {
     list-style: none;
-    padding: 0.2em 0 0.2em 1em;
     margin: 0;
+    padding: 0.2em 0 0.2em 1em;
   }
 
   ul li ul {
@@ -29,11 +29,11 @@ $sidebar-width: 16em;
   }
 
   li.active {
-    background-color: #eee;
-
     a {
       color: #333;
     }
+
+    background-color: #eee;
   }
 }
 
@@ -42,8 +42,8 @@ $sidebar-width: 16em;
 .markdown-section h3,
 .markdown-section h4,
 .markdown-section strong {
-  font-weight: 400;
   color: #333;
+  font-weight: 400;
 }
 
 .markdown-section a {
@@ -54,29 +54,28 @@ $sidebar-width: 16em;
 .markdown-section p,
 .markdown-section ul,
 .markdown-section ol {
-  word-spacing: 0.05em;
   line-height: 1.6em;
   margin: 0 0 1em 0;
+  word-spacing: 0.05em;
 }
 
 .markdown-section h1 {
-  margin: 0 0 1em;
   font-size: 2em;
   font-weight: 500;
+  margin: 0 0 1em;
 }
 
 .markdown-section h2 {
-  padding: 1rem 0 0 0;
-  margin: 0 0 1rem 0;
   font-size: 1.8em;
   font-weight: 400;
+  margin: 0 0 1rem 0;
+  padding: 1rem 0 0 0;
 }
 
 .markdown-section h3 {
-  margin: 52px 0 1.2em;
   font-size: 1.5em;
+  margin: 52px 0 1.2em;
 }
-
 
 .markdown-section h4 {
   font-size: 1.25em;
@@ -87,8 +86,8 @@ $sidebar-width: 16em;
 }
 
 .markdown-section h6 {
-  font-size: 1em;
   color: #777;
+  font-size: 1em;
 }
 
 .markdown-section figure,
@@ -104,13 +103,13 @@ $sidebar-width: 16em;
 }
 
 .markdown-section li {
-  margin: 0;
   line-height: 1.5;
+  margin: 0;
 }
 
 .markdown-section blockquote {
-  color: #858585;
   border-left: 4px solid var(--theme-color, $color-primary);
+  color: #858585;
   margin: 2em 0;
   padding-left: 20px;
 }
@@ -130,29 +129,29 @@ $sidebar-width: 16em;
 
 .markdown-section code {
   background-color: #f9f9f9;
-  padding: 0.2em 0.4em;
   border-radius: 3px;
-  white-space: pre;
   font-family: Inconsolata;
+  padding: 0.2em 0.4em;
+  white-space: pre;
 }
 
 .markdown-section pre {
   background-color: #f9f9f9;
   border-left: 2px solid #eee;
-  padding: 8px;
-  margin: 0 0 1em 0;
   font-family: Inconsolata;
-  padding: 0 10px 12px 0;
   font-size: 16px;
+  margin: 0 0 1em 0;
+  padding: 8px;
+  padding: 0 10px 12px 0;
   overflow: auto;
   word-wrap: normal;
 }
 
 /* code highlight */
+.token.cdata,
 .token.comment,
-.token.prolog,
 .token.doctype,
-.token.cdata {
+.token.prolog {
   color: #93a1a1; /* base1 */
 }
 
@@ -218,15 +217,15 @@ $sidebar-width: 16em;
 }
 
 .markdown-section pre>code {
+  background-color: #f8f8f8;
+  border-radius: 2px;
   display: block;
   font-family: Inconsolata;
-  overflow: inherit;
-  max-width: inherit;
-  position: relative;
-  background-color: #f8f8f8;
-  padding: 20px 0.8em 20px;
   line-height: 1.1em;
-  border-radius: 2px;
+  max-width: inherit;
+  overflow: inherit;
+  padding: 20px 0.8em 20px;
+  position: relative;
 }
 
 .markdown-section code::after, .markdown-section code::before {
@@ -234,7 +233,7 @@ $sidebar-width: 16em;
 }
 
 code .token {
-  min-height: 1.5em;
   -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
+  min-height: 1.5em;
 }

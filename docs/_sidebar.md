@@ -1,8 +1,8 @@
 - Getting started
- - [Quick start](/quickstart)
- - [Writing more pages](/more-pages)
- - [Custom navbar](/custom-navbar)
- - [Cover page](/cover)
+  - [Quick start](/quickstart)
+  - [Writing more pages](/more-pages)
+  - [Custom navbar](/custom-navbar)
+  - [Cover page](/cover)
 
 - Customization
   - [Configuration](/configuration)
@@ -13,10 +13,10 @@
   - [Language highlighting](/language-highlight)
 
 - Guide
- - [Deploy](/deploy)
- - [Helpers](/helpers)
- - [Vue compatibility](/vue)
- - [CDN](/cdn)
- - [Offline Mode(PWA)](/pwa)
+  - [Deploy](/deploy)
+  - [Helpers](/helpers)
+  - [Vue compatibility](/vue)
+  - [CDN](/cdn)
+  - [Offline Mode(PWA)](/pwa)
 
 - [Changelog](/changelog)

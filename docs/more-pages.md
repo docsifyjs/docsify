@@ -16,7 +16,6 @@ For example, the directory structure is as follows:
 
 Matching routes
 
-
 ```text
 docs/README.md        => http://domain.com
 docs/guide.md         => http://domain.com/guide
@@ -38,7 +37,7 @@ First, you need to set `loadSidebar` to **true**. Details are available in the [
     loadSidebar: true
   }
 </script>
-<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
 
 Create the `_sidebar.md`:
@@ -56,7 +55,7 @@ Create the `_sidebar.md`:
 
 ## Table of Contents
 
-A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`. Details are available in the [max-level configuration paragraph](configuration#sub-max-level).
+A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [sub-max-level configuration](configuration#sub-max-level).
 
 ```html
 <!-- index.html -->
@@ -67,5 +66,5 @@ A custom sidebar can also automatically generate a table of contents by setting 
     subMaxLevel: 2
   }
 </script>
-<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
