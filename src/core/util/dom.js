@@ -10,6 +10,9 @@ const cacheNode = {}
  */
 export function getNode (el, noCache = false) {
   if (typeof el === 'string') {
+    if (typeof window.Vue !== 'undefined') {
+      return find(el)
+    }
     el = noCache ? find(el) : (cacheNode[el] || (cacheNode[el] = find(el)))
   }
 
