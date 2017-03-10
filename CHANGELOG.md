@@ -1,3 +1,9 @@
+
+# 3.3.1 / 2017-03-10
+
+* fix(dom): Disable the dom cache when vue is present, fixed [#119](https://github.com/QingWei-Li/docsify/issues/119)
+* update english docs, [@jrappen](https://github.com/jrappen)
+
 # 3.4.0 / 2017-03-09
 
 * feat(zoom-image): add plugin
@@ -5,10 +11,8 @@
 # 3.3.0 / 2017-03-07
 
 * add front-matter plugin
-* add external-script plugin
+* add external-script plugin, [@Leopoldthecoder](https://github.com/Leopoldthecoder)
 * Fix nav showing while loading ([#112](https://github.com/QingWei-Li/docsify/issues/112))
-* Fix a typo ([#111](https://github.com/QingWei-Li/docsify/issues/111))
-* Update changelog
 
 # 3.2.0 / 2017-02-28
 
