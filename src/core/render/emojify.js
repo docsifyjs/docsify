@@ -3,7 +3,7 @@ function replace (m, $1) {
 }
 
 export function emojify (text) {
-  return text
+  return $docsify.noEmoji ? text : text
     .replace(/<(pre|template|code)[^>]*?>[\s\S]+?<\/(pre|template|code)>/g, m => m.replace(/:/g, '__colon__'))
     .replace(/:(\w+?):/ig, window.emojify || replace)
     .replace(/__colon__/g, ':')

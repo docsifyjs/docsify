@@ -16,6 +16,7 @@ const config = merge({
   nameLink: window.location.pathname,
   autoHeader: false,
   executeScript: null,
+  noEmoji: false,
   ga: ''
 }, window.$docsify)
 
