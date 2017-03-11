@@ -1,4 +1,8 @@
 
+# 3.4.2 / 2017-03-11
+
+* feat(emojify): add no-emoji option
+
 # 3.4.1 / 2017-03-10
 
 * fix(dom): Disable the dom cache when vue is present, fixed [#119](https://github.com/QingWei-Li/docsify/issues/119)
