@@ -69,7 +69,7 @@
 
 <vuep template="#example"></vuep>
 
-<script type="text/x-template" id="example">
+<script v-pre type="text/x-template" id="example">
   <template>
     <div>Hello, {{ name }}!</div>
   </template>
