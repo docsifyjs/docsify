@@ -58,9 +58,18 @@
 *index.html*
 
 ```html
+<!-- inject css file -->
+<link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
+
+<!-- inject javascript file -->
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/vuep"></script>
 <script src="//unpkg.com/docsify"></script>
+
+<!-- or use the compressed files -->
+<script src="//unpkg.com/vue/dist/vue.min.js"></script>
+<script src="//unpkg.com/vuep/dist/vuep.min.js"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
 
 *README.md*
@@ -83,5 +92,21 @@
   </script>
 </script>
 ```
+
+<vuep template="#example"></vuep>
+
+<script v-pre type="text/x-template" id="example">
+  <template>
+    <div>Hello, {{ name }}!</div>
+  </template>
+
+  <script>
+    module.exports = {
+      data: function () {
+        return { name: 'Vue' }
+      }
+    }
+  </script>
+</script>
 
 ?> 具体效果参考 [Vuep 文档](https://qingwei-li.github.io/vuep/)。

@@ -61,6 +61,10 @@ You can manually initialize a Vue instance.
 *index.html*
 
 ```html
+<!-- inject css file -->
+<link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
+
+<!-- inject javascript file -->
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/vuep"></script>
 <script src="//unpkg.com/docsify"></script>
