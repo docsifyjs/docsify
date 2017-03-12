@@ -6,19 +6,21 @@
   <link rel="icon" href="_media/favicon.ico">
   <meta name="keywords" content="doc,docs,documentation,gitbook,creator,generator,github,jekyll,github-pages">
   <meta name="description" content="A magical documentation generator.">
-  <meta name="google-site-verification" content="6t0LoIeFksrjF4c9sqUEsVXiQNxLp2hgoqo0KryT-sE" />
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" title="vue">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css" title="buble" disabled>
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css" title="pure" disabled>
+  <style>
+    nav.app-nav li ul {
+      min-width: 100px;
+    }
+    nav.app-nav a.active {
+      border-bottom: none;
+    }
+  </style>
 </head>
 <body>
-  <nav data-cloak>
-    <a href="#/de-de/">De</a>
-    <a href="#/">En</a>
-    <a href="#/zh-cn/">中文</a>
-  </nav>
   <div id="app">Loading ...</div>
 </body>
 <script>
@@ -32,6 +34,7 @@
     coverpage: true,
     executeScript: true,
     loadSidebar: true,
+    loadNavbar: true,
     maxLevel: 4,
     name: 'docsify',
     repo: 'QingWei-Li/docsify',
@@ -49,10 +52,6 @@
       }
     },
     subMaxLevel: 2
-  }
-
-  if (typeof navigator.serviceWorker !== 'undefined') {
-    navigator.serviceWorker.register('sw.js')
   }
 </script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>

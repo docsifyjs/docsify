@@ -75,7 +75,7 @@ renderer.link = function (href, title, text) {
   if (title) {
     title = ` title="${title}"`
   }
-  return `<a href="${href}"${title}${blank}>${text}</a>`
+  return `<a href="${href}"${title || ''}${blank}>${text}</a>`
 }
 renderer.paragraph = function (text) {
   if (/^!&gt;/.test(text)) {

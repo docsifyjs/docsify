@@ -1,22 +1,22 @@
 - Loslegen
-  - [Schnellstart](/quickstart)
-  - [Schreiben weiterer Seiten](/more-pages)
-  - [Navigationsleiste anpassen](/custom-navbar)
-  - [Titelseite](/cover)
+  - [Schnellstart](/de-de/quickstart)
+  - [Schreiben weiterer Seiten](/de-de/more-pages)
+  - [Navigationsleiste anpassen](/de-de/custom-navbar)
+  - [Titelseite](/de-de/cover)
 
 - Anpassen
-  - [Einstellungen](/configuration)
-  - [Themen](/themes)
-  - [Liste der Erweiterungen](/plugins)
-  - [Schreiben eigener Erweiterungen](/write-a-plugin)
-  - [Markdown-Einstellungen](/markdown)
-  - [Hervorheben von Sprachen](/language-highlight)
+  - [Einstellungen](/de-de/configuration)
+  - [Themen](/de-de/themes)
+  - [Liste der Erweiterungen](/de-de/plugins)
+  - [Schreiben eigener Erweiterungen](/de-de/write-a-plugin)
+  - [Markdown-Einstellungen](/de-de/markdown)
+  - [Hervorheben von Sprachen](/de-de/language-highlight)
 
 - Guide
-  - [Inbetriebnahme](/deploy)
-  - [Helfer](/helpers)
-  - [Vue Kompatibilität](/vue)
-  - [CDN](/cdn)
-  - [Offline Modus (PWA)](/pwa)
+  - [Inbetriebnahme](/de-de/deploy)
+  - [Helfer](/de-de/helpers)
+  - [Vue Kompatibilität](/de-de/vue)
+  - [CDN](/de-de/cdn)
+  - [Offline Modus (PWA)](/de-de/pwa)
 
-- [Changelog](/changelog)
+- [Changelog](/de-de/changelog)
