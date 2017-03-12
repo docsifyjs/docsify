@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="/themes/vue.css" title="vue">
   <link rel="stylesheet" href="/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="/themes/buble.css" title="buble" disabled>
+  <style>
+    nav.app-nav li ul {
+      min-width: 100px;
+    }
+  </style>
 </head>
 <body>
-  <nav data-cloak>
-    <a href="#/">EN</a>
-    <a href="#/zh-cn/">中文</a>
-  </nav>
   <div id="app"></div>
 </body>
 <script>
@@ -21,6 +22,7 @@
       '/zh-cn/changelog': '/changelog',
       '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
     },
+    loadNavbar: true,
     executeScript: true
   }
 </script>
