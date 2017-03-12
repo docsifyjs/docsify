@@ -11,27 +11,44 @@
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" title="vue">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css" title="buble" disabled>
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css" title="pure" disabled>
 </head>
 <body>
   <nav data-cloak>
+    <a href="#/de-de/">De</a>
     <a href="#/">En</a>
     <a href="#/zh-cn/">中文</a>
   </nav>
-  <div id="app"></div>
+  <div id="app">Loading ...</div>
 </body>
 <script>
   window.$docsify = {
-    name: 'docsify',
-    maxLevel: 4,
-    subMaxLevel: 2,
-    auto2top: true,
-    coverpage: true,
-    loadSidebar: true,
-    executeScript: true,
     alias: {
+      '/de-de/changelog': '/changelog',
       '/zh-cn/changelog': '/changelog',
       '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
-    }
+    },
+    auto2top: true,
+    coverpage: true,
+    executeScript: true,
+    loadSidebar: true,
+    maxLevel: 4,
+    name: 'docsify',
+    repo: 'QingWei-Li/docsify',
+    search: {
+      noData: {
+        '/de-de/': 'Keine Ergebnisse!',
+        '/zh-cn/': '没有结果!',
+        '/': 'No results!'
+      },
+      paths: 'auto',
+      placeholder: {
+        '/de-de/': 'Suche',
+        '/zh-cn/': '搜索',
+        '/': 'Search'
+      }
+    },
+    subMaxLevel: 2
   }
 
   if (typeof navigator.serviceWorker !== 'undefined') {

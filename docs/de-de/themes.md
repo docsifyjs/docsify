@@ -1,6 +1,6 @@
 # Themes
 
-There are currently three themes available. Copy [Vue](//vuejs.org) and [buble](//buble.surge.sh) website custom theme and [@liril-net](https://github.com/liril-net) contribution to the theme of the black style.
+Es gibt im Moment vier Themes zur Auswahl, ähnlich wie die Webseiten von [Vue](//vuejs.org) oder [buble](//buble.surge.sh), sowie eine weitere, dunkle von [@liril-net](https://github.com/liril-net).
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
@@ -9,10 +9,10 @@ There are currently three themes available. Copy [Vue](//vuejs.org) and [buble](
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/pure.css">
 ```
 
-!> Compressed files are available in `/lib/themes/`.
+!> Komprimierte Dateien sind über `/lib/themes/` verfügbar.
 
 ```html
-<!-- compressed -->
+<!-- komprimierte Versionen -->
 
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css">
@@ -20,9 +20,9 @@ There are currently three themes available. Copy [Vue](//vuejs.org) and [buble](
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css">
 ```
 
-If you have any ideas or would like to develop a new theme, you are welcome to submit a [pull request](https://github.com/QingWei-Li/docsify/pulls).
+Solltest du weitere Themes erstellen, kannst du sie gerne der Allgemeinheit mit einem [pull request](https://github.com/QingWei-Li/docsify/pulls) zur Verfügung stellen.
 
-#### Click to preview
+#### Klicke hier für eine Vorschau
 
 <div class="demo-theme-preview">
   <a data-theme="vue">vue.css</a>
