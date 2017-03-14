@@ -52,16 +52,16 @@ markdown.update = function () {
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
-  let nextToc = { level, title: text }
+  const nextToc = { level, title: text }
 
   if (/{docsify-ignore}/g.test(text)) {
-    text = text.replace('{docsify-ignore}','')
+    text = text.replace('{docsify-ignore}', '')
     nextToc.title = text
     nextToc.ignoreSubHeading = true
   }
 
   if (/{docsify-ignore-all}/g.test(text)) {
-    text = text.replace('{docsify-ignore-all}','')
+    text = text.replace('{docsify-ignore-all}', '')
     nextToc.title = text
     nextToc.ignoreAllSubs = true
   }
