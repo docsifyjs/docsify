@@ -52,10 +52,24 @@ markdown.update = function () {
  * @link https://github.com/chjj/marked#overriding-renderer-methods
  */
 renderer.heading = function (text, level) {
+  const nextToc = { level, title: text }
+
+  if (/{docsify-ignore}/g.test(text)) {
+    text = text.replace('{docsify-ignore}', '')
+    nextToc.title = text
+    nextToc.ignoreSubHeading = true
+  }
+
+  if (/{docsify-ignore-all}/g.test(text)) {
+    text = text.replace('{docsify-ignore-all}', '')
+    nextToc.title = text
+    nextToc.ignoreAllSubs = true
+  }
+
   const slug = slugify(text)
   const url = toURL(currentPath, { id: slug })
-
-  toc.push({ level, slug: url, title: text })
+  nextToc.slug = url
+  toc.push(nextToc)
 
   return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
 }
@@ -119,7 +133,11 @@ export function sidebar (text, level) {
  */
 export function subSidebar (el, level) {
   if (el) {
+    toc[0] && toc[0].ignoreAllSubs && (toc = [])
     toc[0] && toc[0].level === 1 && toc.shift()
+    toc.forEach((node, i) => {
+      node.ignoreSubHeading && toc.splice(i, 1)
+    })
     const tree = cacheTree[currentPath] || genTree(toc, level)
     el.parentNode.innerHTML += treeTpl(tree, '<ul class="app-sub-sidebar">')
     cacheTree[currentPath] = tree
