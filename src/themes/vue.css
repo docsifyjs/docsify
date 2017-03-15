@@ -71,31 +71,31 @@ body {
 }
 
 .markdown-section h1 {
-  font-size: 2em;
-  margin: 0 0 1em;
+  font-size: 2rem;
+  margin: 0 0 1rem;
 }
 
 .markdown-section h2 {
-  font-size: 1.75em;
-  margin: 45px 0 0.8em;
+  font-size: 1.75rem;
+  margin: 45px 0 0.8rem;
 }
 
 .markdown-section h3 {
-  font-size: 1.5em;
-  margin: 40px 0 .6em;
+  font-size: 1.5rem;
+  margin: 40px 0 .6rem;
 }
 
 .markdown-section h4 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 .markdown-section h5 {
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .markdown-section h6 {
   color: #777;
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .markdown-section figure,
@@ -108,13 +108,13 @@ body {
 .markdown-section p,
 .markdown-section ul,
 .markdown-section ol {
-  line-height: 1.6em;
-  word-spacing: 0.05em;
+  line-height: 1.6rem;
+  word-spacing: 0.05rem;
 }
 
 .markdown-section ul,
 .markdown-section ol {
-  padding-left: 1.5em;
+  padding-left: 1.5rem;
 }
 
 .markdown-section blockquote {
@@ -142,7 +142,7 @@ body {
   border-radius: 2px;
   color: #e96900;
   font-family: 'Roboto Mono', Monaco, courier, monospace;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   margin: 0 2px;
   padding: 3px 5px;
   white-space: nowrap;
@@ -153,10 +153,10 @@ body {
   -webkit-font-smoothing: initial;
   background-color: #f8f8f8;
   font-family: 'Roboto Mono', Monaco, courier, monospace;
-  line-height: 1.5em;
+  line-height: 1.5rem;
   margin: 1.2em 0;
   overflow: auto;
-  padding: 0 1.4em;
+  padding: 0 1.4rem;
   position: relative;
   word-wrap: normal;
 }
@@ -265,7 +265,7 @@ body {
   color: #525252;
   display: block;
   font-family: 'Roboto Mono', Monaco, courier, monospace;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   line-height: inherit;
   margin: 0 2px;
   max-width: inherit;
@@ -275,19 +275,19 @@ body {
 }
 
 .markdown-section code::after, .markdown-section code::before {
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05rem;
 }
 
 code .token {
   -moz-osx-font-smoothing: initial;
   -webkit-font-smoothing: initial;
-  min-height: 1.5em;
+  min-height: 1.5rem;
 }
 
 pre::after {
   color: #ccc;
   content: attr(data-lang);
-  font-size: 0.6em;
+  font-size: 0.6rem;
   font-weight: 600;
   height: 15px;
   line-height: 15px;

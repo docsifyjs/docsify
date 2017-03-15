@@ -27,7 +27,7 @@ div#app {
 }
 
 .emoji {
-  height: 1.2em;
+  height: 1.2rem;
   vertical-align: middle;
 }
 
@@ -100,7 +100,7 @@ nav.app-nav {
   }
 
   >a {
-    margin: 0 1em;
+    margin: 0 1rem;
     padding: 5px 0;
   }
 
@@ -129,7 +129,7 @@ nav.app-nav {
   /* navbar dropdown */
   li {
     display: inline-block;
-    margin: 0 1em;
+    margin: 0 1rem;
     padding: 5px 0;
     position: relative;
 
@@ -152,7 +152,7 @@ nav.app-nav {
       li {
         display: block;
         font-size: 14px;
-        line-height: 1em;
+        line-height: 1rem;
         margin: 0;
         margin: 8px 14px;
         white-space: nowrap;
@@ -229,8 +229,8 @@ main {
   z-index: 20;
 
   > h1 {
-    margin: 0 auto 1em;
-    font-size: 1.5em;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
     font-weight: 300;
     text-align: center;
 
@@ -348,7 +348,7 @@ body.sticky {
   border-collapse: collapse;
   border-spacing: 0;
   display: block;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
   overflow: auto;
   width: 100%;
 }
@@ -408,7 +408,7 @@ body.sticky {
 .markdown-section p.warn {
   background: rgba($color-primary, 0.1);
   border-radius: 2px;
-  padding: 1em;
+  padding: 1rem;
 }
 
 body.close {
