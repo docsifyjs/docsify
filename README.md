@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square"></a>
+  <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/QingWei-Li/docsify/master.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
   <a href="https://github.com/QingWei-Li/donate"><img alt="donate" src="https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square"></a>
 </p>
@@ -39,12 +39,12 @@ Create an `index.html`.
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
 </head>
 <body>
   <div id="app"></div>
 </body>
-<script src="//unpkg.com/docsify"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 </html>
 ```
 
