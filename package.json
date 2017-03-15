@@ -2,11 +2,21 @@
   "name": "docsify",
   "version": "3.4.2",
   "description": "A magical documentation generator.",
+  "author": {
+    "name": "qingwei-li",
+    "email": "cinwell.li@gmail.com",
+    "url": "https://github.com/QingWei-Li"
+  },
+  "homepage": "https://docsify.js.org",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QingWei-Li/docsify.git"
+  },
   "main": "lib/docsify.js",
   "files": [
     "lib",
-    "src",
-    "themes"
+    "src"
   ],
   "scripts": {
     "build": "rm -rf lib themes && node build/build.js && mkdir lib/themes && mkdir themes && node build/build-css.js",
@@ -14,9 +24,26 @@
     "dev": "node app.js & nodemon -w src -e js,css --exec 'npm run dev:build'",
     "test": "eslint src"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/QingWei-Li/docsify.git"
+  "dependencies": {
+    "marked": "^0.3.6",
+    "prismjs": "^1.6.0",
+    "zoom-image": "^0.1.4"
+  },
+  "devDependencies": {
+    "cssnano": "^3.10.0",
+    "eslint": "^3.17.1",
+    "eslint-config-vue": "^2.0.2",
+    "eslint-plugin-vue": "^2.0.1",
+    "nodemon": "^1.11.0",
+    "postcss": "^5.2.16",
+    "postcss-salad": "^1.0.8",
+    "rollup": "^0.41.5",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-string": "^2.0.2",
+    "rollup-plugin-uglify": "^1.0.1",
+    "serve-static": "^1.12.1"
   },
   "keywords": [
     "doc",
@@ -24,29 +51,5 @@
     "documentation",
     "creator",
     "generator"
-  ],
-  "author": "qingwei-li <cinwell.li@gmail.com> (https://github.com/QingWei-Li)",
-  "homepage": "https://docsify.js.org",
-  "license": "MIT",
-  "devDependencies": {
-    "cssnano": "^3.8.1",
-    "eslint": "^3.10.2",
-    "eslint-config-vue": "^2.0.1",
-    "eslint-plugin-vue": "^1.0.0",
-    "nodemon": "^1.11.0",
-    "postcss": "^5.2.6",
-    "postcss-salad": "^1.0.5",
-    "rollup": "^0.41.1",
-    "rollup-plugin-buble": "^0.15.0",
-    "rollup-plugin-commonjs": "^7.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-string": "^2.0.2",
-    "rollup-plugin-uglify": "^1.0.1",
-    "serve-static": "^1.11.1"
-  },
-  "dependencies": {
-    "marked": "^0.3.6",
-    "prismjs": "^1.5.1",
-    "zoom-image": "^0.1.4"
-  }
+  ]
 }

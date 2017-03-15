@@ -3,7 +3,7 @@
 $color-primary: #0074D9;
 $color-bg: #fff;
 $color-text: #34495e;
-$sidebar-width: 16em;
+$sidebar-width: 16rem;
 
 @import "basic/layout";
 @import "basic/coverpage";
@@ -21,7 +21,7 @@ $sidebar-width: 16em;
   li {
     list-style: none;
     margin: 0;
-    padding: 0.2em 0 0.2em 1em;
+    padding: 0.2em 0 0.2em 1rem;
   }
 
   ul li ul {
@@ -54,40 +54,40 @@ $sidebar-width: 16em;
 .markdown-section p,
 .markdown-section ul,
 .markdown-section ol {
-  line-height: 1.6em;
+  line-height: 1.6rem;
   margin: 0 0 1em 0;
-  word-spacing: 0.05em;
+  word-spacing: 0.05rem;
 }
 
 .markdown-section h1 {
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 500;
-  margin: 0 0 1em;
+  margin: 0 0 1rem;
 }
 
 .markdown-section h2 {
-  font-size: 1.8em;
+  font-size: 1.8rem;
   font-weight: 400;
   margin: 0 0 1rem 0;
   padding: 1rem 0 0 0;
 }
 
 .markdown-section h3 {
-  font-size: 1.5em;
-  margin: 52px 0 1.2em;
+  font-size: 1.5rem;
+  margin: 52px 0 1.2rem;
 }
 
 .markdown-section h4 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 .markdown-section h5 {
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .markdown-section h6 {
   color: #777;
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .markdown-section figure,
@@ -99,7 +99,7 @@ $sidebar-width: 16em;
 
 .markdown-section ul,
 .markdown-section ol {
-  padding-left: 1.5em;
+  padding-left: 1.5rem;
 }
 
 .markdown-section li {
@@ -131,7 +131,7 @@ $sidebar-width: 16em;
   background-color: #f9f9f9;
   border-radius: 3px;
   font-family: Inconsolata;
-  padding: 0.2em 0.4em;
+  padding: 0.2em 0.4rem;
   white-space: pre;
 }
 
@@ -221,7 +221,7 @@ $sidebar-width: 16em;
   border-radius: 2px;
   display: block;
   font-family: Inconsolata;
-  line-height: 1.1em;
+  line-height: 1.1rem;
   max-width: inherit;
   overflow: inherit;
   padding: 20px 0.8em 20px;
@@ -229,11 +229,11 @@ $sidebar-width: 16em;
 }
 
 .markdown-section code::after, .markdown-section code::before {
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05rem;
 }
 
 code .token {
   -webkit-font-smoothing: initial;
   -moz-osx-font-smoothing: initial;
-  min-height: 1.5em;
+  min-height: 1.5rem;
 }
