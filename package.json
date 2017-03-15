@@ -16,7 +16,8 @@
   "main": "lib/docsify.js",
   "files": [
     "lib",
-    "src"
+    "src",
+    "themes"
   ],
   "scripts": {
     "build": "rm -rf lib themes && node build/build.js && mkdir lib/themes && mkdir themes && node build/build-css.js",
