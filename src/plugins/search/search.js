@@ -73,7 +73,7 @@ export function search (keywords) {
     data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]))
   })
 
-  keywords = keywords.trim().split(/[\s\-\，\\/]+/)
+  keywords = [].concat(keywords, keywords.trim().split(/[\s\-\，\\/]+/))
 
   for (let i = 0; i < data.length; i++) {
     const post = data[i]
