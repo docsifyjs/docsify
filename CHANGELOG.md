@@ -1,4 +1,11 @@
 
+# 3.4.3 / 2017-03-16
+==================
+
+  * Add ability to ignore headers when generating toc ([#127](https://github.com/QingWei-Li/docsify/issues/127) [@christopherwk210](https://github.com/christopherwk210))
+  * fix external-script not inserting script at right place [@Leopoldthecoder](https://github.com/Leopoldthecoder)
+  * add German docs [@jrappen](https://github.com/jrappen)
+
 # 3.4.2 / 2017-03-11
 
 * feat(emojify): add no-emoji option
