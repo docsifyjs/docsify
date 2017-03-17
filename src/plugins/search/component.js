@@ -30,6 +30,9 @@ function style () {
   padding: 7px;
   line-height: 22px;
   font-size: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .search h2 {
