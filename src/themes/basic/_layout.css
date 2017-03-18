@@ -425,7 +425,7 @@ body.close {
   }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .github-corner, .sidebar-toggle, .sidebar {
     position: fixed;
   }
