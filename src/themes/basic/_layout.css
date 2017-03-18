@@ -425,6 +425,16 @@ body.close {
   }
 }
 
+@media print {
+  .github-corner, .sidebar-toggle, .sidebar {
+    display: none;
+  }
+
+  nav {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .github-corner, .sidebar-toggle, .sidebar {
     position: fixed;
