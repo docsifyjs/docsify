@@ -1,5 +1,7 @@
 {
-  "extends": ["vue"],
+  "extends": [
+    "vue"
+  ],
   "env": {
     "browser": true
   },
