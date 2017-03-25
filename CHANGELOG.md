@@ -1,3 +1,6 @@
+# 3.5.1 / 2017-03-25
+
+  * fix: .md file extension regex
 
 # 3.5.0 / 2017-03-25
 
