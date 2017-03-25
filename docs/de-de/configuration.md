@@ -166,7 +166,7 @@ window.$docsify = {
 - Typ: `Boolean|String`
 - Standard: `false`
 
-Aktiviere das [Titelseitenfeature](/de-de/cover). Falls `true`, wird sie von `_coverpage.md` geladen.
+Aktiviere das [Titelseitenfeature](de-de/cover.md). Falls `true`, wird sie von `_coverpage.md` geladen.
 
 ```js
 window.$docsify = {
@@ -212,7 +212,7 @@ window.$docsify = {
 
 - Typ: `Function`
 
-Siehe [Markdown Konfiguration](/de-de/markdown).
+Siehe [Markdown Konfiguration](de-de/markdown.md).
 
 ```js
 window.$docsify = {
@@ -278,7 +278,7 @@ window.$docsify = {
 
 - Typ: `Boolean`
 
-Führe das Skript auf der Seite aus. Analysiere nur das erste script tag ([demo](/de-de/themes)).  Sollte Vue verwendet sein, wird es in der Standardeinstellung ausgeführt.
+Führe das Skript auf der Seite aus. Analysiere nur das erste script tag ([demo](de-de/themes.md)).  Sollte Vue verwendet sein, wird es in der Standardeinstellung ausgeführt.
 
 ```js
 window.$docsify = {
@@ -294,7 +294,7 @@ window.$docsify = {
 </script>
 ```
 
-?> Nehme zur Kenntnis, dass, solltest du ein externes Skript ausführen, z.B. ein eingebettete jsfiddle demo, du sicher gehen solltest, das [external-script](plugins?id=external-script) plugin zu verwenden.
+?> Nehme zur Kenntnis, dass, solltest du ein externes Skript ausführen, z.B. ein eingebettete jsfiddle demo, du sicher gehen solltest, das [external-script](de-de/plugins.md?id=external-script) plugin zu verwenden.
 
 ## no-emoji
 

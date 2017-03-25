@@ -4,9 +4,9 @@
 
 ## Was ist das
 
-**docsify** generiert deine Dokumentationswebseite zeitgleich (mit der Darstellung). Im Gegensatz zu GitBook, werden keine statischen HTML Seiten generiert. Stattdessen, werden im Hintergrund Markdown Dateien geladen und umgewandelt, und als Webseite dargestellt. Alles, was du brauchst, ist eine Datei namens `index.html`, um sie über [GitHub Pages zu veröffentlichen](/de-de/deploy).
+**docsify** generiert deine Dokumentationswebseite zeitgleich (mit der Darstellung). Im Gegensatz zu GitBook, werden keine statischen HTML Seiten generiert. Stattdessen, werden im Hintergrund Markdown Dateien geladen und umgewandelt, und als Webseite dargestellt. Alles, was du brauchst, ist eine Datei namens `index.html`, um sie über [GitHub Pages zu veröffentlichen](de-de/deploy.md).
 
-Siehe [Schnellstart](/de-de/quickstart) für weitere Informationen.
+Siehe [Schnellstart](de-de/quickstart.md) für weitere Informationen.
 
 ## Features
 

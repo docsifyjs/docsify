@@ -20,7 +20,7 @@ If you need custom navigation, you can create a HTML-based navigation bar.
 
 ## Markdown
 
-Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [load-navbar configuration](configuration#load-navbar).
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [load-navbar configuration](configuration.md#load-navbar).
 
 ```html
 <!-- index.html -->
@@ -52,17 +52,17 @@ You can create sub-lists by indenting items that are under a certain parent.
 <!-- _navbar.md -->
 
 - Getting started
-  - [Quick start](/quickstart)
-  - [Writing more pages](/more-pages)
-  - [Custom navbar](/custom-navbar)
-  - [Cover page](/cover)
+  - [Quick start](quickstart.md)
+  - [Writing more pages](more-pages.md)
+  - [Custom navbar](custom-navbar.md)
+  - [Cover page](cover.md)
 
 - Configuration
-  - [Configuration](/configuration)
-  - [Themes](/themes)
-  - [Using plugins](/plugins)
-  - [Markdown configuration](/markdown)
-  - [Language highlight](/language-highlight)
+  - [Configuration](configuration.md)
+  - [Themes](themes.md)
+  - [Using plugins](plugins.md)
+  - [Markdown configuration](markdown.md)
+  - [Language highlight](language-highlight.md)
 ```
 
 renders as

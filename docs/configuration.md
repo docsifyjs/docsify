@@ -166,7 +166,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-Activate the [cover feature](/cover). If true, it will load from `_coverpage.md`.
+Activate the [cover feature](cover.md). If true, it will load from `_coverpage.md`.
 
 ```js
 window.$docsify = {
@@ -212,7 +212,7 @@ window.$docsify = {
 
 - Type: `Function`
 
-See [Markdown configuration](/markdown).
+See [Markdown configuration](markdown.md).
 
 ```js
 window.$docsify = {
@@ -294,7 +294,7 @@ window.$docsify = {
 </script>
 ```
 
-Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins?id=external-script) plugin.
+Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin.
 
 ## no-emoji
 

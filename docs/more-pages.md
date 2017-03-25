@@ -27,7 +27,7 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 By default, the table of contents in the sidebar is automatically generated based on your markdown files. If you need a custom sidebar, then you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
 
-First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration#load-sidebar).
+First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#load-sidebar).
 
 ```html
 <!-- index.html -->
@@ -46,7 +46,7 @@ Create the `_sidebar.md`:
 <!-- docs/_sidebar.md -->
 
 - [Home](/)
-- [Guide](/guide)
+- [Guide](guide.md)
 ```
 
 !> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
@@ -55,7 +55,7 @@ Create the `_sidebar.md`:
 
 ## Table of Contents
 
-A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [sub-max-level configuration](configuration#sub-max-level).
+A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [sub-max-level configuration](configuration.md#sub-max-level).
 
 ```html
 <!-- index.html -->

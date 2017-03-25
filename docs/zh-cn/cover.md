@@ -1,6 +1,6 @@
 # 封面
 
-通过设置 `coverpage` 参数，可以开启渲染封面的功能。具体用法见[配置项#coverpage](zh-cn/configuration#coverpage)。
+通过设置 `coverpage` 参数，可以开启渲染封面的功能。具体用法见[配置项#coverpage](configuration.md#coverpage)。
 
 ## 基本用法
 

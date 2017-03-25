@@ -70,6 +70,7 @@ export function toURL (path, params) {
 
   route.query = merge({}, route.query, params)
   path = route.path + stringifyQuery(route.query)
+  path = path.replace(/\.md/g, '')
 
   return cleanPath('#/' + path)
 }

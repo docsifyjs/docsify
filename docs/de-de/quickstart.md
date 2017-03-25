@@ -22,7 +22,7 @@ Nachdem der Befehl `init` vollständig ausgeführt wurde, kannst du folgende Dat
 * `README.md` als die Startseite für die Dokumentation
 * `.nojekyll` verhindert, dass Github Pages Dateien ignoriert, die mit einem Unterstrich beginnen.
 
-Du kannst die Dokumentation über die Datei `./docs/README.md` nach Belieben ändern, und natürlich [weitere Seiten](/de-de/more-pages) hinzufügen.
+Du kannst die Dokumentation über die Datei `./docs/README.md` nach Belieben ändern, und natürlich [weitere Seiten](de-de/more-pages.md) hinzufügen.
 
 ## Vorschau der eigenen Seiten
 
@@ -84,4 +84,4 @@ Du solltest das `data-app` Attribut anpassen, wenn du `el` geändert hast:
   </script>
 ```
 
-Vergleiche [el Einstellungen](/de-de/configuration#el).
+Vergleiche [el Einstellungen](configuration.md#el).

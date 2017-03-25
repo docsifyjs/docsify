@@ -27,7 +27,7 @@ docs/de-de/guide.md   => http://domain.com/de-de/guide
 
 Als Standardeinstellung wird das Inhaltsverzeichnis in der Seitenleiste automatisch basierend auf vorhandenen Markdown Dateien generiert. Wenn du das seitliche Inhaltsverzeichnis anpassen willst, kannst du eine Datei namens `_sidebar.md` erstellen (vergleiche [das seitliche Inhaltsverzeichnis für diese Dokumentation](https://github.com/QingWei-Li/docsify/blob/master/docs/de-de/_sidebar.md) als Beispiel):
 
-Als Erstes musst du `loadSidebar` auf **true** setzen, vergleiche [Einstellungen für das seitliche Inhaltsverzeichnis](/de-de/configuration#load-sidebar).
+Als Erstes musst du `loadSidebar` auf **true** setzen, vergleiche [Einstellungen für das seitliche Inhaltsverzeichnis](configuration.md#load-sidebar).
 
 ```html
 <!-- index.html -->
@@ -46,7 +46,7 @@ Als Zweites erstellst du eine Datei namens `_sidebar.md`:
 <!-- docs/_sidebar.md -->
 
 - [Home](/)
-- [Guide](/guide)
+- [Guide](de-de/guide.md)
 ```
 
 !> Solltest du Github Pages verwenden, musst du zusätzlich eine Datei namens `.nojekyll` in `./docs` erstellen, um zu verhindern, dass Github Dateien ignoriert, die mit einem Unterstrich anfangen.
@@ -55,7 +55,7 @@ Als Zweites erstellst du eine Datei namens `_sidebar.md`:
 
 ## Inhaltsverzeichnis
 
-Eine angepasste Seitenleist kann auch automatisch ein Inhaltsverzeichnis generieren, indem ein `subMaxLevel` gesetzt wird, vergleiche [sub-max-level Einstellungen](/de-de/configuration#sub-max-level).
+Eine angepasste Seitenleist kann auch automatisch ein Inhaltsverzeichnis generieren, indem ein `subMaxLevel` gesetzt wird, vergleiche [sub-max-level Einstellungen](configuration.md#sub-max-level).
 
 ```html
 <!-- index.html -->

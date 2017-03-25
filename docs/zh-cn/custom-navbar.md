@@ -17,7 +17,7 @@
 
 ## 配置文件
 
-那我们可以通过 Markdown 文件来配置导航。首先配置 `loadNavbar`，默认加载的文件为 `_navbar.md`。具体配置规则见[配置项#load-navbar](zh-cn/configuration#load-navbar)。
+那我们可以通过 Markdown 文件来配置导航。首先配置 `loadNavbar`，默认加载的文件为 `_navbar.md`。具体配置规则见[配置项#load-navbar](configuration.md#load-navbar)。
 
 *index.html*
 
@@ -49,17 +49,17 @@
 
 ```markdown
 - 基础
- - [快速开始](zh-cn/quickstart)
- - [多页文档](zh-cn/more-pages)
- - [定制导航栏](zh-cn/custom-navbar)
- - [封面](zh-cn/cover)
+ - [快速开始](zh-cn/quickstart.md)
+ - [多页文档](zh-cn/more-pages.md)
+ - [定制导航栏](zh-cn/custom-navbar.md)
+ - [封面](zh-cn/cover.md)
 
 - 配置
-  - [配置项](zh-cn/configuration)
-  - [主题](zh-cn/themes)
-  - [使用插件](zh-cn/plugins)
-  - [Markdown 配置](zh-cn/markdown)
-  - [代码高亮](zh-cn/language-highlight)
+  - [配置项](zh-cn/configuration.md)
+  - [主题](zh-cn/themes.md)
+  - [使用插件](zh-cn/plugins.md)
+  - [Markdown 配置](zh-cn/markdown.md)
+  - [代码高亮](zh-cn/language-highlight.md)
 ```
 
 效果图

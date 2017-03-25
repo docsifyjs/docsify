@@ -1,22 +1,22 @@
 - Loslegen
-  - [Schnellstart](/de-de/quickstart)
-  - [Schreiben weiterer Seiten](/de-de/more-pages)
-  - [Navigationsleiste anpassen](/de-de/custom-navbar)
-  - [Titelseite](/de-de/cover)
+  - [Schnellstart](de-de/quickstart.md)
+  - [Schreiben weiterer Seiten](de-de/more-pages.md)
+  - [Navigationsleiste anpassen](de-de/custom-navbar.md)
+  - [Titelseite](de-de/cover.md)
 
 - Anpassen
-  - [Einstellungen](/de-de/configuration)
-  - [Themen](/de-de/themes)
-  - [Liste der Erweiterungen](/de-de/plugins)
-  - [Schreiben eigener Erweiterungen](/de-de/write-a-plugin)
-  - [Markdown-Einstellungen](/de-de/markdown)
-  - [Hervorheben von Sprachen](/de-de/language-highlight)
+  - [Einstellungen](de-de/configuration.md)
+  - [Themen](de-de/themes.md)
+  - [Liste der Erweiterungen](de-de/plugins.md)
+  - [Schreiben eigener Erweiterungen](de-de/write-a-plugin.md)
+  - [Markdown-Einstellungen](de-de/markdown.md)
+  - [Hervorheben von Sprachen](de-de/language-highlight.md)
 
 - Guide
-  - [Inbetriebnahme](/de-de/deploy)
-  - [Helfer](/de-de/helpers)
-  - [Vue Kompatibilität](/de-de/vue)
-  - [CDN](/de-de/cdn)
-  - [Offline Modus (PWA)](/de-de/pwa)
+  - [Inbetriebnahme](de-de/deploy.md)
+  - [Helfer](de-de/helpers.md)
+  - [Vue Kompatibilität](de-de/vue.md)
+  - [CDN](de-de/cdn.md)
+  - [Offline Modus (PWA)](de-de/pwa.md)
 
-- [Changelog](/de-de/changelog)
+- [Changelog](de-de/changelog.md)

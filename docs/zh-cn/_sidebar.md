@@ -1,22 +1,22 @@
 - 入门
-  - [快速开始](zh-cn/quickstart)
-  - [多页文档](zh-cn/more-pages)
-  - [定制导航栏](zh-cn/custom-navbar)
-  - [封面](zh-cn/cover)
+  - [快速开始](zh-cn/quickstart.md)
+  - [多页文档](zh-cn/more-pages.md)
+  - [定制导航栏](zh-cn/custom-navbar.md)
+  - [封面](zh-cn/cover.md)
 
 - 定制化
-  - [配置项](zh-cn/configuration)
-  - [主题](zh-cn/themes)
-  - [插件列表](zh-cn/plugins)
-  - [开发插件](zh-cn/write-a-plugin)
-  - [Markdown 配置](zh-cn/markdown)
-  - [代码高亮](zh-cn/language-highlight)
+  - [配置项](zh-cn/configuration.md)
+  - [主题](zh-cn/themes.md)
+  - [插件列表](zh-cn/plugins.md)
+  - [开发插件](zh-cn/write-a-plugin.md)
+  - [Markdown 配置](zh-cn/markdown.md)
+  - [代码高亮](zh-cn/language-highlight.md)
 
 - 指南
- - [部署](zh-cn/deploy)
- - [文档助手](zh-cn/helpers)
- - [兼容 Vue](zh-cn/vue)
- - [CDN](zh-cn/cdn)
- - [离线模式(PWA)](zh-cn/pwa)
+ - [部署](zh-cn/deploy.md)
+ - [文档助手](zh-cn/helpers.md)
+ - [兼容 Vue](zh-cn/vue.md)
+ - [CDN](zh-cn/cdn.md)
+ - [离线模式(PWA)](zh-cn/pwa.md)
 
-- [Changelog](zh-cn/changelog)
+- [Changelog](zh-cn/changelog.md)

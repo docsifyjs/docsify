@@ -26,7 +26,7 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 默认情况下，侧边栏会根据当前文档的标题生成目录。也可以设置文档链接，通过 Markdown 文件生成，效果如当前的文档的侧边栏。
 
-首先配置 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](zh-cn/configuration#load-sidebar)。
+首先配置 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](configuration.md#load-sidebar)。
 
 ```html
 <script>

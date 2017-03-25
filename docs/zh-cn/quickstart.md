@@ -22,7 +22,7 @@ docsify init ./docs
 - `README.md` 会做为主页内容渲染
 - `.nojekyll` 用于阻止 GitHub Pages 会忽略掉下划线开头的文件
 
-直接编辑 `docs/README.md` 就能更新网站内容，当然也可以[写多个页面](zh-cn/more-pages)。
+直接编辑 `docs/README.md` 就能更新网站内容，当然也可以[写多个页面](zh-cn/more-pages.md)。
 
 ## 本地预览网站
 

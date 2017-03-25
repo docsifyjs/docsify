@@ -74,7 +74,7 @@ window.$docsify = {
 - 类型：`Boolean|String`
 - 默认值: `false`
 
-加载自定义导航栏，参考[定制导航栏](zh-cn/custom-navbar) 了解用法。设置为 `true` 后会加载 `_navbar.md` 文件，也可以自定义加载的文件名。
+加载自定义导航栏，参考[定制导航栏](zh-cn/custom-navbar.md) 了解用法。设置为 `true` 后会加载 `_navbar.md` 文件，也可以自定义加载的文件名。
 
 ```js
 window.$docsify = {
@@ -91,7 +91,7 @@ window.$docsify = {
 - 类型：`Boolean|String`
 - 默认值: `false`
 
-加载自定义侧边栏，参考[多页文档](zh-cn/more-pages)。设置为 `true` 后会加载 `_sidebar.md` 文件，也可以自定义加载的文件名。
+加载自定义侧边栏，参考[多页文档](zh-cn/more-pages.md)。设置为 `true` 后会加载 `_sidebar.md` 文件，也可以自定义加载的文件名。
 
 ```js
 window.$docsify = {
@@ -173,7 +173,7 @@ window.$docsify = {
 - 类型：`Boolean|String`
 - 默认值: `false`
 
-启用[封面页](/zh-cn/cover)。开启后是加载 `_coverpage.md` 文件，也可以自定义文件名。
+启用[封面页](zh-cn/cover.md)。开启后是加载 `_coverpage.md` 文件，也可以自定义文件名。
 
 ```js
 window.$docsify = {
@@ -220,7 +220,7 @@ window.$docsify = {
 
 - 类型: `Object|Function`
 
-参考 [Markdown 配置](/zh-cn/markdown)。
+参考 [Markdown 配置](zh-cn/markdown.md)。
 
 ```js
 window.$docsify = {
@@ -287,7 +287,7 @@ window.$docsify = {
 
 - 类型：`Boolean`
 
-执行文档里的 script 标签里的脚本，只执行第一个 script ([demo](zh-cn/themes))。 如果 Vue 存在，则自动开启。
+执行文档里的 script 标签里的脚本，只执行第一个 script ([demo](zh-cn/themes.md))。 如果 Vue 存在，则自动开启。
 
 ```js
 window.$docsify = {
@@ -304,7 +304,7 @@ window.$docsify = {
 
 ```
 
-注意如果执行的是一个外链脚本，比如 jsfiddle 的内嵌 demo，请确保引入 [external-script](zh-cn/plugins?id=外链脚本-external-script) 插件。
+注意如果执行的是一个外链脚本，比如 jsfiddle 的内嵌 demo，请确保引入 [external-script](plugins.md?id=外链脚本-external-script) 插件。
 
 ## no-emoji
 

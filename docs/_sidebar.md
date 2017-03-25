@@ -1,22 +1,22 @@
 - Getting started
-  - [Quick start](/quickstart)
-  - [Writing more pages](/more-pages)
-  - [Custom navbar](/custom-navbar)
-  - [Cover page](/cover)
+  - [Quick start](quickstart.md)
+  - [Writing more pages](more-pages.md)
+  - [Custom navbar](custom-navbar.md)
+  - [Cover page](cover.md)
 
 - Customization
-  - [Configuration](/configuration)
-  - [Themes](/themes)
-  - [List of Plugins](/plugins)
-  - [Write a Plugin](/write-a-plugin)
-  - [Markdown configuration](/markdown)
-  - [Language highlighting](/language-highlight)
+  - [Configuration](configuration.md)
+  - [Themes](themes.md)
+  - [List of Plugins](plugins.md)
+  - [Write a Plugin](write-a-plugin.md)
+  - [Markdown configuration](markdown.md)
+  - [Language highlighting](language-highlight.md)
 
 - Guide
-  - [Deploy](/deploy)
-  - [Helpers](/helpers)
-  - [Vue compatibility](/vue)
-  - [CDN](/cdn)
-  - [Offline Mode(PWA)](/pwa)
+  - [Deploy](deploy.md)
+  - [Helpers](helpers.md)
+  - [Vue compatibility](vue.md)
+  - [CDN](cdn.md)
+  - [Offline Mode(PWA)](pwa.md)
 
-- [Changelog](/changelog)
+- [Changelog](changelog.md)

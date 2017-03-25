@@ -20,7 +20,7 @@ Solltest du eine Navigationsleiste benötigen, so kannst du eine HTML-basierte e
 
 ## Markdown
 
-Oder du kannst deine Navigationsleiste mit einer Datei basierend auf Markdown erstellen, indem du `loadNavbar` auf **true** setzt und eine Datei namens `_navbar.md` erstellst, vergleiche [load-navbar Einstellungen](/de-de/configuration#load-navbar).
+Oder du kannst deine Navigationsleiste mit einer Datei basierend auf Markdown erstellen, indem du `loadNavbar` auf **true** setzt und eine Datei namens `_navbar.md` erstellst, vergleiche [load-navbar Einstellungen](configuration.md#load-navbar).
 
 ```html
 <!-- index.html -->
@@ -52,17 +52,17 @@ Du kannst untergeordnete Listen erstellen, indem du untergeordnete Punkte einem 
 <!-- _navbar.md -->
 
 - Getting started
-  - [Quick start](/quickstart)
-  - [Writing more pages](/more-pages)
-  - [Custom navbar](/custom-navbar)
-  - [Cover page](/cover)
+  - [Quick start](de-de/quickstart.md)
+  - [Writing more pages](de-de/more-pages.md)
+  - [Custom navbar](de-de/custom-navbar.md)
+  - [Cover page](de-de/cover.md)
 
 - Configuration
-  - [Configuration](/configuration)
-  - [Themes](/themes)
-  - [Using plugins](/plugins)
-  - [Markdown configuration](/markdown)
-  - [Language highlight](/language-highlight)
+  - [Configuration](de-de/configuration.md)
+  - [Themes](de-de/themes.md)
+  - [Using plugins](de-de/plugins.md)
+  - [Markdown configuration](de-de/markdown.md)
+  - [Language highlight](de-de/language-highlight.md)
 ```
 
 wird also wie folgt aussehen
@@ -71,7 +71,7 @@ wird also wie folgt aussehen
 
 ## Angepasste Navigationsleisten in Verbindung mit dem emoji Erweiterung
 
-Solltest du die [emoji Erweiterung](/de-de/plugins#emoji) verwenden:
+Solltest du die [emoji Erweiterung](plugins.md#emoji) verwenden:
 
 ```html
 <!-- index.html -->

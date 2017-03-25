@@ -1,6 +1,6 @@
 # Titelseite
 
-Aktiviere die Unterstützung für Titelseiten, indem du `coverpage` auf **true** einstellst, vergleiche [coverpage Einstellungen](/de-de/configuration#coverpage).
+Aktiviere die Unterstützung für Titelseiten, indem du `coverpage` auf **true** einstellst, vergleiche [coverpage Einstellungen](configuration.md#coverpage).
 
 ## Einfache Verwendung
 
