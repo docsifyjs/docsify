@@ -1,4 +1,10 @@
 
+# 3.5.0 / 2017-03-25
+
+  * feat(route): auto remove .md extension
+  * fix: adjust display on small screens [@jrappen](https://github.com/jrappen)
+  * fix: navbar labels for German [@jrappen](https://github.com/jrappen)
+
 # 3.4.4 / 2017-03-17
 
   * fix(search): fix input style
