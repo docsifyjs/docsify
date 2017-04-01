@@ -64,13 +64,17 @@ export function parse (path = window.location.href) {
  * to URL
  * @param  {string} path
  * @param  {object} qs   query params
+ * @param  {string} currentRoute optional current route
  */
-export function toURL (path, params) {
+export function toURL (path, params, currentRoute) {
+  const local = currentRoute && path[0] === '#'
   const route = parse(replaceSlug(path))
 
   route.query = merge({}, route.query, params)
   path = route.path + stringifyQuery(route.query)
   path = path.replace(/\.md(\?)|\.md$/, '$1')
+
+  if (local) path = currentRoute + path
 
   return cleanPath('#/' + path)
 }

@@ -82,7 +82,7 @@ renderer.code = function (code, lang = '') {
 renderer.link = function (href, title, text) {
   let blank = ''
   if (!/:|(\/{2})/.test(href)) {
-    href = toURL(href)
+    href = toURL(href, null, currentPath)
   } else {
     blank = ' target="_blank"'
   }
