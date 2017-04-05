@@ -1,3 +1,9 @@
+# 3.5.2/ 2017-04-05
+
+  * add optional current route param to toURL and use it to properly compose local anchor links
+  * fix code style by removing semicolons
+  * in toURL test for anchor links and if so prepend the currentPath to the generated path. fixes ([#142](https://github.com/QingWei-Li/docsify/issues/142))
+
 # 3.5.1 / 2017-03-25
 
   * fix: .md file extension regex
