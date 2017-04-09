@@ -1,3 +1,8 @@
+
+# 3.6.0 / 2017-04-09
+
+  * feat(render): add mergeNavbar option, close ([#125](https://github.com/QingWei-Li/docsify/issues/125)
+
 # 3.5.2/ 2017-04-05
 
   * add optional current route param to toURL and use it to properly compose local anchor links
