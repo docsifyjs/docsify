@@ -7,17 +7,22 @@ const title = dom.$.title
  * Toggle button
  */
 export function btn (el) {
-  const toggle = () => dom.body.classList.toggle('close')
+  const toggle = _ => dom.body.classList.toggle('close')
 
   el = dom.getNode(el)
-  dom.on(el, 'click', toggle)
+  dom.on(el, 'click', e => {
+    e.stopPropagation()
+    toggle()
+  })
 
   const sidebar = dom.getNode('.sidebar')
 
-  dom.on(sidebar, 'click', () => {
-    isMobile && toggle()
-    setTimeout(() => getAndActive(sidebar, true, true), 0)
-  })
+  isMobile && dom.on(dom.body, 'click', _ =>
+    dom.body.classList.contains('close') && toggle()
+  )
+  dom.on(sidebar, 'click', _ =>
+    setTimeout((_ => getAndActive(sidebar, true, true), 0))
+  )
 }
 
 export function sticky () {
