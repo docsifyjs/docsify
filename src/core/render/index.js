@@ -7,6 +7,7 @@ import { markdown, sidebar, subSidebar, cover } from './compiler'
 import { callHook } from '../init/lifecycle'
 import { getBasePath, getPath, isAbsolutePath } from '../route/util'
 import { isPrimitive } from '../util/core'
+import { isMobile } from '../util/env'
 
 function executeScript () {
   const script = dom.findAll('.markdown-section>script')
@@ -153,12 +154,8 @@ export function initRender (vm) {
 
   let el = dom.find(id)
   let html = ''
+  let navAppendToTarget = dom.body
 
-  navEl.classList.add('app-nav')
-
-  if (!config.repo) {
-    navEl.classList.add('no-badge')
-  }
   if (!el) {
     el = dom.create(id)
     dom.appendTo(dom.body, el)
@@ -173,8 +170,19 @@ export function initRender (vm) {
   html += tpl.main(config)
   // Render main app
   vm._renderTo(el, html, true)
+
+  if (config.mergeNavbar && isMobile) {
+    navAppendToTarget = dom.find('.sidebar')
+  } else {
+    navEl.classList.add('app-nav')
+
+    if (!config.repo) {
+      navEl.classList.add('no-badge')
+    }
+  }
+
   // Add nav
-  dom.before(dom.body, navEl)
+  dom.before(navAppendToTarget, navEl)
 
   if (config.themeColor) {
     dom.$.head.innerHTML += tpl.theme(config.themeColor)
