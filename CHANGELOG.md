@@ -1,4 +1,8 @@
 
+# 3.6.1 / 2017-04-09
+
+  * feat(event): Collapse the sidebar when click outside element in the small screen
+
 # 3.6.0 / 2017-04-09
 
   * feat(render): add mergeNavbar option, close ([#125](https://github.com/QingWei-Li/docsify/issues/125)
