@@ -17,7 +17,8 @@ const config = merge({
   autoHeader: false,
   executeScript: null,
   noEmoji: false,
-  ga: ''
+  ga: '',
+  mergeNavbar: false
 }, window.$docsify)
 
 const script = document.currentScript ||

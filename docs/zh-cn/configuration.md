@@ -315,3 +315,14 @@ window.$docsify = {
   noEmoji: true
 }
 ```
+
+## merge-navbar
+
+小屏设备下合并导航栏到侧边栏。
+
+```js
+window.$docsify = {
+  mergeNavbar: true
+}
+```
+

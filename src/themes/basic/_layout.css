@@ -10,7 +10,7 @@
 body:not(.ready) {
   overflow: hidden;
 
-  [data-cloak], nav {
+  [data-cloak], .app-nav {
     display: none;
   }
 }
@@ -83,7 +83,7 @@ kbd {
 }
 
 /* navbar */
-nav.app-nav {
+.app-nav {
   left: 0;
   margin: 25px 60px 0 0;
   position: absolute;
@@ -238,6 +238,11 @@ main {
       color: inherit;
       text-decoration: none;
     }
+
+    .app-nav {
+      display: block;
+      position: static;
+    }
   }
 
   ul {
@@ -325,7 +330,7 @@ body.sticky {
 .markdown-section {
   margin: 0 auto;
   max-width: 800px;
-  padding: 20px 15px 40px 15px;
+  padding: 30px 15px 40px 15px;
   position: relative;
 
   > * {
@@ -430,7 +435,7 @@ body.close {
     display: none;
   }
 
-  nav {
+  .app-nav {
     display: none;
   }
 }
@@ -440,11 +445,11 @@ body.close {
     position: fixed;
   }
 
-  nav {
+  .app-nav {
     margin-top: 16px;
   }
 
-  nav li ul {
+  .app-nav li ul {
     top: 30px;
   }
 
@@ -465,7 +470,7 @@ body.close {
     transition: transform 250ms ease;
   }
 
-  nav, .github-corner {
+  .app-nav, .github-corner {
     transition: transform 250ms ease-out;
   }
 
@@ -489,7 +494,7 @@ body.close {
       transform: translateX($sidebar-width);
     }
 
-    nav, .github-corner {
+    .app-nav, .github-corner {
       display: none;
     }
   }

@@ -305,3 +305,13 @@ window.$docsify = {
   noEmoji: true
 }
 ```
+
+## merge-navbar
+
+Navbar will be merged with the sidebar on smaller screens.
+
+```js
+window.$docsify = {
+  mergeNavbar: true
+}
+```
