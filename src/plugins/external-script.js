@@ -1,16 +1,20 @@
 function handleExternalScript () {
   const container = Docsify.dom.getNode('#main')
-  const script = Docsify.dom.find(container, 'script')
+  const scripts = Docsify.dom.findAll(container, 'script')
 
-  if (script && script.src) {
-    const newScript = document.createElement('script')
+  for (let i = scripts.length; i--;) {
+    const script = scripts[i]
 
-    ;['src', 'async', 'defer'].forEach(attribute => {
-      newScript[attribute] = script[attribute]
-    })
+    if (script && script.src) {
+      const newScript = document.createElement('script')
 
-    script.parentNode.insertBefore(newScript, script)
-    script.parentNode.removeChild(script)
+      ;['src', 'async', 'defer'].forEach(attribute => {
+        newScript[attribute] = script[attribute]
+      })
+
+      script.parentNode.insertBefore(newScript, script)
+      script.parentNode.removeChild(script)
+    }
   }
 }
 
