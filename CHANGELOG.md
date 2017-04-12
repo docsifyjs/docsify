@@ -1,3 +1,7 @@
+# 3.6.2/ 2017-04-12
+
+  * feat(external-script): detect more than one script dom, fixed #146
+  * GA: Send hash instead of complete href (#147)
 
 # 3.6.1 / 2017-04-09
 
