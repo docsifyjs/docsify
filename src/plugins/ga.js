@@ -19,7 +19,7 @@ function init (id) {
 
 function collect () {
   init(window.$docsify.ga)
-  window.ga('set', 'page', location.href)
+  window.ga('set', 'page', location.hash)
   window.ga('send', 'pageview')
 }
 
