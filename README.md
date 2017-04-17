@@ -64,6 +64,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 | [Vudash](http://vudash.github.io/vudash/) | Powerful, Flexible, Open Source dashboards for anything |
 | [Trilogy](http://trilogy.js.org) | No-hassle SQLite with a Promise-based, document store style API. |
 | [Mybatis-Plus](http://mp.baomidou.com/) | An enhanced toolkit of Mybatis to simplify development |
+| [JS MythBusters](https://mythbusters.js.org) | An optimization handbook from a high level point of view. |
 
 ## Similar projects
 
