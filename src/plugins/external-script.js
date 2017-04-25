@@ -8,8 +8,8 @@ function handleExternalScript () {
     if (script && script.src) {
       const newScript = document.createElement('script')
 
-      ;['src', 'async', 'defer'].forEach(attribute => {
-        newScript[attribute] = script[attribute]
+      Array.prototype.slice.call(script.attributes).forEach(attribute => {
+        newScript[attribute.name] = attribute.value
       })
 
       script.parentNode.insertBefore(newScript, script)
