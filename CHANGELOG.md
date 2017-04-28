@@ -1,7 +1,10 @@
 # Changelog
 
-## 3.6.4 / 2017-04-28
+## 3.6.5 / 2017-04-28
 
+  * fix(util): fix crash, fixed ([#154](https://github.com/QingWei-Li/docsify/issues/154)
+
+## 3.6.4 / 2017-04-28
 
   * fix(util): correctly clean up duplicate slashes, fixed ([#153](https://github.com/QingWei-Li/docsify/issues/153)
 
