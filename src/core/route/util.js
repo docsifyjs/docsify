@@ -54,5 +54,7 @@ export const getParentPath = cached(path => {
 })
 
 export const cleanPath = cached(path => {
-  return path.replace(/([^:])\/{2,}/g, '$1/')
+  return path
+    .replace(/^\/+/, '/')
+    .replace(/([^:])\/{2,}/g, '$1/')
 })
