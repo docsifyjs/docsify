@@ -1,12 +1,17 @@
 # Changelog
 
+## 3.6.4 / 2017-04-28
+
+
+  * fix(util): correctly clean up duplicate slashes, fixed ([#153](https://github.com/QingWei-Li/docsify/issues/153)
+
 ## 3.6.3 / 2017-04-25
 
   * fix(external-script): script attrs
 
 ## 3.6.2/ 2017-04-12
 
-  * feat(external-script): detect more than one script dom, fixed #146
+  * feat(external-script): detect more than one script dom, fixed ([#146](https://github.com/QingWei-Li/docsify/issues/146)
   * GA: Send hash instead of complete href (#147)
 
 ## 3.6.1 / 2017-04-09
