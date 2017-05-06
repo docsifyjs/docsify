@@ -9,7 +9,7 @@ const CONFIG = {
 }
 
 const install = function (hook, vm) {
-  const util = Docsify.util
+  const { util } = Docsify
   const opts = vm.config.search || CONFIG
 
   if (Array.isArray(opts)) {

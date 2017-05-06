@@ -12,7 +12,7 @@ function replaceHash (path) {
 const replaceSlug = cached(path => {
   return path
     .replace('#', '?id=')
-    .replace(/\?(\w+)=/g, (_, slug) => slug === 'id' ? '?id=' : `&${slug}=`)
+    // .replace(/\?(\w+)=/g, (_, slug) => slug === 'id' ? '?id=' : `&${slug}=`)
 })
 /**
  * Normalize the current url
