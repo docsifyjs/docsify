@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.6 / 2017-05-06
+
+  * feat: support query string for the search, likes `https://docsify.js.org/#/?s=navbar`, fixed ([#156](https://github.com/QingWei-Li/docsify/issues/156)
+
 ## 3.6.5 / 2017-04-28
 
   * fix(util): fix crash, fixed ([#154](https://github.com/QingWei-Li/docsify/issues/154)
