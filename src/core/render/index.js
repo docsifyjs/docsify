@@ -8,6 +8,7 @@ import { callHook } from '../init/lifecycle'
 import { getBasePath, getPath, isAbsolutePath } from '../route/util'
 import { isPrimitive } from '../util/core'
 import { isMobile } from '../util/env'
+import tinydate from 'tinydate'
 
 function executeScript () {
   const script = dom.findAll('.markdown-section>script')
@@ -19,6 +20,16 @@ function executeScript () {
   setTimeout(_ => {
     window.__EXECUTE_RESULT__ = new Function(code)()
   }, 0)
+}
+
+function formatUpdated (html, updated, fn) {
+  updated = typeof fn === 'function'
+    ? fn(updated)
+    : typeof fn === 'string'
+      ? tinydate(fn)(new Date(updated))
+      : updated
+
+  return html.replace(/{docsify-updated}/g, updated)
 }
 
 function renderMain (html) {
@@ -97,9 +108,11 @@ export function renderMixin (proto) {
     getAndActive('nav')
   }
 
-  proto._renderMain = function (text) {
+  proto._renderMain = function (text, opt) {
     callHook(this, 'beforeEach', text, result => {
-      const html = this.isHTML ? result : markdown(result)
+      let html = this.isHTML ? result : markdown(result)
+      html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
+
       callHook(this, 'afterEach', html, text => renderMain.call(this, text))
     })
   }

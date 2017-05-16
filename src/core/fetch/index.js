@@ -28,8 +28,8 @@ export function fetchMixin (proto) {
     this.isHTML = /\.html$/g.test(path)
 
     // Load main content
-    last.then(text => {
-      this._renderMain(text)
+    last.then((text, opt) => {
+      this._renderMain(text, opt)
       if (!loadSidebar) return cb()
 
       const fn = result => { this._renderSidebar(result); cb() }

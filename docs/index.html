@@ -34,6 +34,7 @@
     loadNavbar: true,
     mergeNavbar: true,
     maxLevel: 4,
+    subMaxLevel: 2,
     name: 'docsify',
     search: {
       noData: {
@@ -48,7 +49,14 @@
         '/': 'Search'
       }
     },
-    subMaxLevel: 2
+    formatUpdated: '{MM}/{DD} {HH}:{mm}',
+    plugins: [
+      function(hook) {
+        hook.beforeEach(function (html) {
+          return html += '> Last modified {docsify-updated}'
+        })
+      }
+    ]
   }
 </script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>

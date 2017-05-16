@@ -14,9 +14,10 @@ export function get (url, hasBar = false) {
   const on = function () {
     xhr.addEventListener.apply(xhr, arguments)
   }
+  const cached = cache[url]
 
-  if (cache[url]) {
-    return { then: cb => cb(cache[url]), abort: noop }
+  if (cached) {
+    return { then: cb => cb(cached.content, cached.opt), abort: noop }
   }
 
   xhr.open('GET', url)
@@ -41,8 +42,14 @@ export function get (url, hasBar = false) {
         if (target.status >= 400) {
           error(target)
         } else {
-          cache[url] = target.response
-          success(target.response)
+          const result = cache[url] = {
+            content: target.response,
+            opt: {
+              updatedAt: xhr.getResponseHeader('last-modified')
+            }
+          }
+
+          success(result.content, result.opt)
         }
       })
     },

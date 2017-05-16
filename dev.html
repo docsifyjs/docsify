@@ -30,7 +30,15 @@
     loadSidebar: true,
     name: 'docsify',
     subMaxLevel: 2,
-    mergeNavbar: true
+    mergeNavbar: true,
+    formatUpdated: '{MM}/{DD} {HH}:{mm}',
+    plugins: [
+      function(hook) {
+        hook.beforeEach(function (html) {
+          return html += '> Last modified {docsify-updated}'
+        })
+      }
+    ]
   }
 </script>
 <script src="/lib/docsify.js"></script>
