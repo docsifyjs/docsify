@@ -1,4 +1,10 @@
+
 # Changelog
+
+## 3.7.0 / 2017-05-16
+
+  * feat: add externalLinkTarget, close #149
+  * feat: add **{docsify-updated<span>}</span>**, close #158
 
 ## 3.6.6 / 2017-05-06
 
