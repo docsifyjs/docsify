@@ -19,7 +19,8 @@ const config = merge({
   noEmoji: false,
   ga: '',
   mergeNavbar: false,
-  formatUpdated: ''
+  formatUpdated: '',
+  externalLinkTarget: '_blank'
 }, window.$docsify)
 
 const script = document.currentScript ||

@@ -160,7 +160,7 @@ export function initRender (vm) {
   const config = vm.config
 
   // Init markdown compiler
-  markdown.init(config.markdown, config.basePath)
+  markdown.init(config.markdown, config)
 
   const id = config.el || '#app'
   const navEl = dom.find('nav') || dom.create('nav')

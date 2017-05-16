@@ -330,3 +330,13 @@ window.$docsify = {
   }
 }
 ```
+
+## external-link-target
+
+Currently it defaults to _blank, would be nice if configurable:
+
+```js
+window.$docsify = {
+  externalLinkTarget: '_self' // default: '_blank'
+}
+```

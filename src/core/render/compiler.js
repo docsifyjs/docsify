@@ -11,6 +11,7 @@ import { isFn, merge, cached } from '../util/core'
 let markdownCompiler = marked
 let contentBase = ''
 let currentPath = ''
+let linkTarget = '_blank'
 let renderer = new marked.Renderer()
 const cacheTree = {}
 let toc = []
@@ -32,8 +33,12 @@ export const markdown = cached(text => {
 
 markdown.renderer = renderer
 
-markdown.init = function (config = {}, base = window.location.pathname) {
+markdown.init = function (config = {}, {
+  base = window.location.pathname,
+  externalLinkTarget
+}) {
   contentBase = getBasePath(base)
+  linkTarget = externalLinkTarget || linkTarget
 
   if (isFn(config)) {
     markdownCompiler = config(marked, renderer)
@@ -84,7 +89,7 @@ renderer.link = function (href, title, text) {
   if (!/:|(\/{2})/.test(href)) {
     href = toURL(href, null, currentPath)
   } else {
-    blank = ' target="_blank"'
+    blank = ` target="${linkTarget}"`
   }
   if (title) {
     title = ` title="${title}"`
