@@ -1,10 +1,14 @@
-
 # Changelog
+
+
+## 3.7.1 / 2017-05-19
+
+  * fix: docsify-updated is undefined
 
 ## 3.7.0 / 2017-05-16
 
-  * feat: add externalLinkTarget, close #149
-  * feat: add **{docsify-updated<span>}</span>**, close #158
+  * feat: add externalLinkTarget, close ([#149](https://github.com/QingWei-Li/docsify/issues/149)
+  * feat: add **{docsify-updated<span>}</span>**, close ([#158](https://github.com/QingWei-Li/docsify/issues/158)
 
 ## 3.6.6 / 2017-05-06
 
@@ -25,7 +29,7 @@
 ## 3.6.2/ 2017-04-12
 
   * feat(external-script): detect more than one script dom, fixed ([#146](https://github.com/QingWei-Li/docsify/issues/146)
-  * GA: Send hash instead of complete href (#147)
+  * GA: Send hash instead of complete href ([#147](https://github.com/QingWei-Li/docsify/issues/147)
 
 ## 3.6.1 / 2017-04-09
 
