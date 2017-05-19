@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 3.7.2 / 2017-05-19
+
+  * tweaks
+
+
 ## 3.7.1 / 2017-05-19
 
   * fix: docsify-updated is undefined
