@@ -108,10 +108,12 @@ export function renderMixin (proto) {
     getAndActive('nav')
   }
 
-  proto._renderMain = function (text, opt) {
+  proto._renderMain = function (text, opt = {}) {
     callHook(this, 'beforeEach', text, result => {
       let html = this.isHTML ? result : markdown(result)
-      html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
+      if (opt.updatedAt) {
+        html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
+      }
 
       callHook(this, 'afterEach', html, text => renderMain.call(this, text))
     })
