@@ -45,8 +45,7 @@ export function get (url, hasBar = false) {
           const result = cache[url] = {
             content: target.response,
             opt: {
-              updatedAt: xhr.getResponseHeader('last-modified') ||
-                xhr.getResponseHeader('expires')
+              updatedAt: xhr.getResponseHeader('last-modified')
             }
           }
 
