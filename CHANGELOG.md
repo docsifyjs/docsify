@@ -1,10 +1,13 @@
 # Changelog
 
+## 3.7.3 / 2017-05-22
+
+  * fix(render): find => filter, Compatible with old browser
+  * Pretty dir tree
 
 ## 3.7.2 / 2017-05-19
 
   * tweaks
-
 
 ## 3.7.1 / 2017-05-19
 
