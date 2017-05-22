@@ -124,7 +124,7 @@ function updatePlaceholder (text, path) {
   if (typeof text === 'string') {
     $input.placeholder = text
   } else {
-    const match = Object.keys(text).find(key => path.indexOf(key) > -1)
+    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0]
     $input.placeholder = text[match]
   }
 }
@@ -133,7 +133,7 @@ function updateNoData (text, path) {
   if (typeof text === 'string') {
     NO_DATA_TEXT = text
   } else {
-    const match = Object.keys(text).find(key => path.indexOf(key) > -1)
+    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0]
     NO_DATA_TEXT = text[match]
   }
 }

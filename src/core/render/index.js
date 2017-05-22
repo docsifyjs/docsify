@@ -70,7 +70,7 @@ function renderNameLink (vm) {
   if (isPrimitive(vm.config.nameLink)) {
     el.setAttribute('href', nameLink)
   } else if (typeof nameLink === 'object') {
-    const match = Object.keys(nameLink).find(key => path.indexOf(key) > -1)
+    const match = Object.keys(nameLink).filter(key => path.indexOf(key) > -1)[0]
 
     el.setAttribute('href', nameLink[match])
   }
