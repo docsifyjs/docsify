@@ -66,6 +66,7 @@ These open-source projects are using docsify to generate their sites. Pull reque
 | [Mybatis-Plus](http://mp.baomidou.com/) | An enhanced toolkit of Mybatis to simplify development |
 | [JS MythBusters](https://mythbusters.js.org) | An optimization handbook from a high level point of view. |
 | [hire-me](https://fvcproductions.github.io/hire-me) | A path to getting an awesome tech gig. |
+| [vue-amap](https://elemefe.github.io/vue-amap/) | A Map Component Library Base on Vue 2.x and Gaode Map. |
 
 ## Similar projects
 
