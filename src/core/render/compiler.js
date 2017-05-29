@@ -14,7 +14,7 @@ export class Compiler {
     this.cacheTree = {}
     this.toc = []
     this.linkTarget = config.externalLinkTarget || '_blank'
-    this.contentBase = getBasePath(config.base)
+    this.contentBase = getBasePath(config.basePath)
 
     const renderer = this._initRenderer()
     let compile
@@ -44,7 +44,7 @@ export class Compiler {
 
   _initRenderer () {
     const renderer = new marked.Renderer()
-    const { linkTarget, router, toc } = this
+    const { linkTarget, router, toc, contentBase } = this
     /**
      * render anchor tag
      * @link https://github.com/chjj/marked#overriding-renderer-methods
@@ -102,7 +102,7 @@ export class Compiler {
       const titleHTML = title ? ` title="${title}"` : ''
 
       if (!isAbsolutePath(href)) {
-        url = getPath(this.contentBase, href)
+        url = getPath(contentBase, href)
       }
 
       return `<img src="${url}" data-origin="${href}" alt="${text}"${titleHTML}>`
@@ -120,7 +120,7 @@ export class Compiler {
 
     if (text) {
       html = this.compile(text)
-      html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
+      html = html && html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
     } else {
       const tree = this.cacheTree[currentPath] || genTree(this.toc, level)
       html = treeTpl(tree, '<ul>')
