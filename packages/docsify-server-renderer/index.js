@@ -1,8 +1,10 @@
-import { Compiler } from '../../src/core/render/compiler'
-import { AbstractHistory } from '../../src/core/router/history/abstract'
-import { resolve, basename } from 'path'
-import { readFileSync } from 'fs'
 import * as tpl from '../../src/core/render/tpl'
+import fetch from 'node-fetch'
+import { AbstractHistory } from '../../src/core/router/history/abstract'
+import { Compiler } from '../../src/core/render/compiler'
+import { isAbsolutePath } from '../../src/core/router/util'
+import { readFileSync } from 'fs'
+import { resolve, basename } from 'path'
 
 function cwd (...args) {
   return resolve(process.cwd(), ...args)
@@ -31,8 +33,8 @@ export default class Renderer {
     cache
   }) {
     this.html = template
-    this.path = cwd(path)
-    this.config = Object.assign(config, {
+    this.path = cwd(path || './')
+    this.config = config = Object.assign({}, config, {
       routerMode: 'history'
     })
     this.cache = cache
@@ -47,24 +49,31 @@ export default class Renderer {
     this.template = this.html
   }
 
-  renderToString (url) {
+  _getPath(url) {
+    const file = this.router.getFile(url)
+
+    return isAbsolutePath(file)
+      ? file
+      : cwd(this.path, `./${file}`)
+  }
+
+  async renderToString (url) {
     this.url = url = this.router.parse(url).path
-    // TODO render cover page
     const { loadSidebar, loadNavbar } = this.config
 
-    const mainFile = cwd(this.path, `./${this.router.getFile(url)}`)
-    this._renderHtml('main', this._render(mainFile))
+    const mainFile = this._getPath(url)
+    this._renderHtml('main', await this._render(mainFile))
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar
-      const sidebarFile = cwd(mainFile, '..', name)
-      this._renderHtml('sidebar', this._render(sidebarFile, 'sidebar'))
+      const sidebarFile = this._getPath(resolve(url, `../${name}`))
+      this._renderHtml('sidebar', await this._render(sidebarFile, 'sidebar'))
     }
 
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar
-      const navbarFile = cwd(mainFile, '..', name)
-      this._renderHtml('navbar', this._render(navbarFile, 'navbar'))
+      const navbarFile = this._getPath(resolve(url, `../${name}`))
+      this._renderHtml('navbar', await this._render(navbarFile, 'navbar'))
     }
 
     const html = this.html
@@ -79,8 +88,8 @@ export default class Renderer {
     return this.html
   }
 
-  _render (path, type) {
-    let html = this._loadFile(path)
+  async _render (path, type) {
+    let html = await this._loadFile(path)
     const { subMaxLevel, maxLevel } = this.config
 
     switch (type) {
@@ -103,9 +112,14 @@ export default class Renderer {
     return html
   }
 
-  _loadFile (filePath) {
+  async _loadFile (filePath) {
     try {
-      return readFileSync(filePath, 'utf8')
+      if (isAbsolutePath(filePath)) {
+        const res = await fetch(filePath)
+        return await res.text()
+      } else {
+        return readFileSync(filePath, 'utf8')
+      }
     } catch (e) {
       const fileName = basename(filePath)
       const parentPath = cwd(filePath, '../..')
@@ -114,7 +128,7 @@ export default class Renderer {
         throw Error(`Not found file ${fileName}`)
       }
 
-      this._loadFile(cwd(filePath, '../..', fileName))
+      await this._loadFile(cwd(filePath, '../..', fileName))
     }
   }
 }
