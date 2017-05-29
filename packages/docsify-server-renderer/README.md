@@ -41,8 +41,8 @@ renderer.renderToString({ url })
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css" title="buble" disabled>
 </head>
 <body>
-  <div id="app"></div>
-  <!--inject-docsify-config-->
+  <!--inject-app-->
+  <!--inject-config-->
   <script src="//unpkg.com/docsify/lib/docsify.js"></script>
 </body>
 </html>

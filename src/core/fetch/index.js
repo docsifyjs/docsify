@@ -70,5 +70,12 @@ export function fetchMixin (proto) {
 }
 
 export function initFetch (vm) {
-  vm.$fetch(_ => callHook(vm, 'ready'))
+  if (vm.rendered) {
+    vm._fetchCover()
+    vm.$resetEvents()
+    callHook(vm, 'doneEach')
+    callHook(vm, 'ready')
+  } else {
+    vm.$fetch(_ => callHook(vm, 'ready'))
+  }
 }

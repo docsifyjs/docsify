@@ -33,12 +33,12 @@ export function main (config) {
       (config.name
         ? `<h1><a class="app-name-link" data-nosearch>${config.name}</a></h1>`
         : '') +
-      '<div class="sidebar-nav"></div>' +
+      '<div class="sidebar-nav"><!--sidebar--></div>' +
     '</aside>')
 
   return (isMobile ? `${aside}<main>` : `<main>${aside}`) +
       '<section class="content">' +
-        '<article class="markdown-section" id="main"></article>' +
+        '<article class="markdown-section" id="main"><!--main--></article>' +
       '</section>' +
     '</main>'
 }
