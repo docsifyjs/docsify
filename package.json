@@ -25,8 +25,8 @@
     "dev": "node app & nodemon -w src -e js,css --exec 'npm run dev:build'",
     "build:ssr": "node build/build-ssr",
     "test": "eslint {src,packages} --fix",
-    "pub:next": "RELEASE_TAG=next sh build/release",
-    "pub": "sh build/release"
+    "pub:next": "RELEASE_TAG=next sh build/release.sh",
+    "pub": "sh build/release.sh"
   },
   "dependencies": {
     "marked": "^0.3.6",
