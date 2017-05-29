@@ -30,7 +30,7 @@ export default class Renderer {
     config,
     cache
   }) {
-    this.html = this.template = template
+    this.html = template
     this.path = cwd(path)
     this.config = Object.assign(config, {
       routerMode: 'history'
@@ -43,10 +43,12 @@ export default class Renderer {
     this.router.getCurrentPath = () => this.url
     this._renderHtml('inject-config', `<script>window.$docsify = ${JSON.stringify(config)}</script>`)
     this._renderHtml('inject-app', mainTpl(config))
+
+    this.template = this.html
   }
 
   renderToString (url) {
-    this.url = url
+    this.url = url = this.router.parse(url).path
     // TODO render cover page
     const { loadSidebar, loadNavbar } = this.config
 
@@ -65,19 +67,26 @@ export default class Renderer {
       this._renderHtml('navbar', this._render(navbarFile, 'navbar'))
     }
 
-    return this.html
+    const html = this.html
+    this.html = this.template
+
+    return html
   }
 
   _renderHtml (match, content) {
-    this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content)
+    return this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content)
   }
 
   _render (path, type) {
     let html = this._loadFile(path)
+    const { subMaxLevel, maxLevel } = this.config
 
     switch (type) {
       case 'sidebar':
-        html = this.compiler.sidebar(html)
+        html = this.compiler.sidebar(html, maxLevel)
+          + `<script>window.__SUB_SIDEBAR__ = ${JSON.stringify(
+            this.compiler.subSidebar(html, subMaxLevel)
+          )}</script>`
         break
       case 'cover':
         html = this.compiler.cover(html)

@@ -2,6 +2,7 @@ import { get } from './ajax'
 import { callHook } from '../init/lifecycle'
 import { getParentPath } from '../router/util'
 import { noop } from '../util/core'
+import { getAndActive } from '../event/sidebar'
 
 function loadNested (path, file, next, vm, first) {
   path = first ? path : path.replace(/\/$/, '')
@@ -70,7 +71,15 @@ export function fetchMixin (proto) {
 }
 
 export function initFetch (vm) {
+  const { loadSidebar } = vm.config
+
+  // server-client renderer
   if (vm.rendered) {
+    const activeEl = getAndActive(vm.router, '.sidebar-nav', true, true)
+    if (loadSidebar && activeEl) {
+      activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__
+    }
+    vm._bindEventOnRendered(activeEl)
     vm._fetchCover()
     vm.$resetEvents()
     callHook(vm, 'doneEach')
