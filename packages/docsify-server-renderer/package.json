@@ -13,5 +13,8 @@
   "main": "build.js",
   "scripts": {
     "test": "echo 'hello'"
+  },
+  "dependencies": {
+    "node-fetch": "^1.7.0"
   }
 }
