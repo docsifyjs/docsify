@@ -1,6 +1,6 @@
 import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
-import { parse } from '../route/hash'
+import { parse } from '../router/hash'
 
 const nav = {}
 let hoverOver = false

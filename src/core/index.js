@@ -1,5 +1,5 @@
 import { initMixin } from './init'
-import { routeMixin } from './route'
+import { routerMixin } from './router'
 import { renderMixin } from './render'
 import { fetchMixin } from './fetch'
 import { eventMixin } from './event'
@@ -12,7 +12,7 @@ function Docsify () {
 const proto = Docsify.prototype
 
 initMixin(proto)
-routeMixin(proto)
+routerMixin(proto)
 renderMixin(proto)
 fetchMixin(proto)
 eventMixin(proto)

@@ -23,7 +23,7 @@
     "build": "rm -rf lib themes && node build/build.js && mkdir lib/themes && mkdir themes && node build/build-css.js",
     "dev:build": "rm -rf lib themes && mkdir themes && node build/build.js --dev && node build/build-css.js --dev",
     "dev": "node app.js & nodemon -w src -e js,css --exec 'npm run dev:build'",
-    "test": "eslint src"
+    "test": "eslint src --fix"
   },
   "dependencies": {
     "marked": "^0.3.6",

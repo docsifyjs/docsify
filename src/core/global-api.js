@@ -1,7 +1,7 @@
 import * as util from './util'
 import * as dom from './util/dom'
 import * as render from './render/compiler'
-import * as route from './route/hash'
+import * as route from './router/hash'
 import { slugify } from './render/slugify'
 import { get } from './fetch/ajax'
 import marked from 'marked'

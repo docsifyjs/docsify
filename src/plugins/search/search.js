@@ -153,7 +153,7 @@ export function init (config, vm) {
     if (INDEXS[path]) return count++
 
     helper
-      .get(vm.$getFile(path))
+      .get(vm.router.getFile(path))
       .then(result => {
         INDEXS[path] = genIndex(path, result)
         len === ++count && saveData(config.maxAge)
