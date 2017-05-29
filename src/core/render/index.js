@@ -54,10 +54,6 @@ function renderMain (html) {
   } else {
     this.config.executeScript && executeScript()
   }
-
-  if (this.config.auto2top) {
-    scroll2Top(this.config.auto2top)
-  }
 }
 
 function renderNameLink (vm) {
@@ -91,7 +87,12 @@ export function renderMixin (proto) {
       activeEl.parentNode.innerHTML += this.compiler.subSidebar(subMaxLevel)
     }
     // bind event
-    this.activeLink = activeEl
+    this._bindEventOnRendered()
+  }
+
+  proto._bindEventOnRendered = function (activeEl) {
+    const { autoHeader, auto2top } = this.config
+
     scrollActiveSidebar(this.router)
 
     if (autoHeader && activeEl) {
@@ -103,6 +104,8 @@ export function renderMixin (proto) {
         dom.before(main, h1)
       }
     }
+
+    auto2top && scroll2Top(auto2top)
   }
 
   proto._renderNav = function (text) {

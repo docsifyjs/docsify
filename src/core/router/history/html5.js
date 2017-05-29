@@ -10,7 +10,7 @@ export class HTML5History extends History {
   }
 
   getCurrentPath () {
-    const base = this.config.base
+    const base = this.config.basePath
     let path = window.location.pathname
 
     if (base && path.indexOf(base) === 0) {
