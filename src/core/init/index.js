@@ -1,7 +1,7 @@
 import config from '../config'
 import { initLifecycle, callHook } from './lifecycle'
 import { initRender } from '../render'
-import { initRoute } from '../route'
+import { initRouter } from '../router'
 import { initEvent } from '../event'
 import { initFetch } from '../fetch'
 import { isFn } from '../util/core'
@@ -14,9 +14,9 @@ export function initMixin (proto) {
     initLifecycle(vm) // Init hooks
     initPlugin(vm) // Install plugins
     callHook(vm, 'init')
+    initRouter(vm) // Add router
     initRender(vm) // Render base DOM
     initEvent(vm) // Bind events
-    initRoute(vm) // Add hashchange eventListener
     initFetch(vm) // Fetch data
     callHook(vm, 'mounted')
   }

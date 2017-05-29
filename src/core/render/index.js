@@ -3,9 +3,9 @@ import { getAndActive, sticky } from '../event/sidebar'
 import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
 import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
-import { markdown, sidebar, subSidebar, cover } from './compiler'
+import { Compiler } from './compiler'
 import { callHook } from '../init/lifecycle'
-import { getBasePath, getPath, isAbsolutePath } from '../route/util'
+import { getBasePath, getPath, isAbsolutePath } from '../router/util'
 import { isPrimitive } from '../util/core'
 import { isMobile } from '../util/env'
 import tinydate from 'tinydate'
@@ -85,32 +85,34 @@ export function renderMixin (proto) {
   proto._renderSidebar = function (text) {
     const { maxLevel, subMaxLevel, autoHeader, loadSidebar } = this.config
 
-    this._renderTo('.sidebar-nav', sidebar(text, maxLevel))
-    const active = getAndActive('.sidebar-nav', true, true)
-    subSidebar(loadSidebar ? active : '', subMaxLevel)
+    this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
+    const activeEl = getAndActive('.sidebar-nav', true, true)
+    if (loadSidebar && activeEl) {
+      activeEl.parentNode.innerHTML += this.compiler.subSidebar(subMaxLevel)
+    }
     // bind event
-    this.activeLink = active
+    this.activeLink = activeEl
     scrollActiveSidebar()
 
-    if (autoHeader && active) {
+    if (autoHeader && activeEl) {
       const main = dom.getNode('#main')
       const firstNode = main.children[0]
       if (firstNode && firstNode.tagName !== 'H1') {
         const h1 = dom.create('h1')
-        h1.innerText = active.innerText
+        h1.innerText = activeEl.innerText
         dom.before(main, h1)
       }
     }
   }
 
   proto._renderNav = function (text) {
-    text && this._renderTo('nav', markdown(text))
+    text && this._renderTo('nav', this.compiler.runner(text))
     getAndActive('nav')
   }
 
   proto._renderMain = function (text, opt = {}) {
     callHook(this, 'beforeEach', text, result => {
-      let html = this.isHTML ? result : markdown(result)
+      let html = this.isHTML ? result : this.compiler.runner(result)
       if (opt.updatedAt) {
         html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
       }
@@ -127,7 +129,7 @@ export function renderMixin (proto) {
     }
     dom.toggleClass(el, 'add', 'show')
 
-    let html = this.coverIsHTML ? text : cover(text)
+    let html = this.coverIsHTML ? text : this.compiler.cover(text)
     const m = html.trim().match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
 
     if (m) {
@@ -152,7 +154,6 @@ export function renderMixin (proto) {
   }
 
   proto._updateRender = function () {
-    markdown.update()
     // render name link
     renderNameLink(this)
   }
@@ -162,7 +163,7 @@ export function initRender (vm) {
   const config = vm.config
 
   // Init markdown compiler
-  markdown.init(config.markdown, config)
+  vm.compiler = new Compiler(config, vm.router)
 
   const id = config.el || '#app'
   const navEl = dom.find('nav') || dom.create('nav')

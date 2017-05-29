@@ -1,6 +1,6 @@
 import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
-import { getHash } from '../route/hash'
+import { getHash } from '../router/hash'
 
 const title = dom.$.title
 /**

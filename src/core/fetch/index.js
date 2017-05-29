@@ -1,6 +1,6 @@
 import { get } from './ajax'
 import { callHook } from '../init/lifecycle'
-import { getParentPath } from '../route/util'
+import { getParentPath } from '../router/util'
 import { noop } from '../util/core'
 
 function loadNested (path, file, next, vm, first) {
@@ -9,7 +9,7 @@ function loadNested (path, file, next, vm, first) {
 
   if (!path) return
 
-  get(vm.$getFile(path + file))
+  get(vm.router.getFile(path + file))
     .then(next, _ => loadNested(path, file, next, vm))
 }
 
@@ -22,7 +22,7 @@ export function fetchMixin (proto) {
     // Abort last request
     last && last.abort && last.abort()
 
-    last = get(this.$getFile(path), true)
+    last = get(this.router.getFile(path), true)
 
     // Current page is html
     this.isHTML = /\.html$/g.test(path)
@@ -47,7 +47,7 @@ export function fetchMixin (proto) {
   proto._fetchCover = function () {
     const { coverpage } = this.config
     const root = getParentPath(this.route.path)
-    const path = this.$getFile(root + coverpage)
+    const path = this.router.getFile(root + coverpage)
 
     if (this.route.path !== '/' || !coverpage) {
       this._renderCover()

@@ -7,24 +7,28 @@ function appendScript () {
 }
 
 function init (id) {
-  if (!window.ga) {
+  let ga = window.ga
+
+  if (!ga) {
     appendScript()
-    window.ga = window.ga || function () {
-      (window.ga.q = window.ga.q || []).push(arguments)
+    ga = ga || function () {
+      (ga.q = ga.q || []).push(arguments)
     }
-    window.ga.l = Number(new Date())
-    window.ga('create', id, 'auto')
+    ga.l = Number(new Date())
+    ga('create', id, 'auto')
   }
+  return ga
 }
 
 function collect () {
-  init(window.$docsify.ga)
-  window.ga('set', 'page', location.hash)
-  window.ga('send', 'pageview')
+  const ga = init($docsify.ga)
+
+  ga('set', 'page', location.hash)
+  ga('send', 'pageview')
 }
 
 const install = function (hook) {
-  if (!window.$docsify.ga) {
+  if (!$docsify.ga) {
     console.error('[Docsify] ga is required.')
     return
   }
@@ -32,4 +36,4 @@ const install = function (hook) {
   hook.beforeEach(collect)
 }
 
-window.$docsify.plugins = [].concat(install, window.$docsify.plugins)
+$docsify.plugins = [].concat(install, $docsify.plugins)
