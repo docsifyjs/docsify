@@ -28,12 +28,12 @@ function mainTpl (config) {
 export default class Renderer {
   constructor ({
     template,
-    path,
+    context,
     config,
     cache
   }) {
     this.html = template
-    this.path = cwd(path || './')
+    this.context = cwd(context || './')
     this.config = config = Object.assign({}, config, {
       routerMode: 'history'
     })
@@ -54,7 +54,7 @@ export default class Renderer {
 
     return isAbsolutePath(file)
       ? file
-      : cwd(this.path, `./${file}`)
+      : cwd(this.context, `./${file}`)
   }
 
   async renderToString (url) {
@@ -114,6 +114,12 @@ export default class Renderer {
 
   async _loadFile (filePath) {
     try {
+      this.lock = this.lock || 0
+      if (++this.lock > 10) {
+        this.lock = 0
+        return
+      }
+
       if (isAbsolutePath(filePath)) {
         const res = await fetch(filePath)
         return await res.text()
@@ -124,7 +130,7 @@ export default class Renderer {
       const fileName = basename(filePath)
       const parentPath = cwd(filePath, '../..')
 
-      if (this.path.length < parentPath.length) {
+      if (this.context.length < parentPath.length) {
         throw Error(`Not found file ${fileName}`)
       }
 

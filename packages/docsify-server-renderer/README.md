@@ -11,17 +11,15 @@ yarn add docsify-server-render
 ```js
 var Renderer = require('docsify-server-renderer')
 var readFileSync = require('fs').readFileSync
-var resolve = require('path').resolve
 
 // init
 var renderer = new Renderer({
-  template: readFileSync('./index.template.html', 'utf-8').,
-  path: resolve(_dirname, './docs'),
+  template: readFileSync('./docs/index.template.html', 'utf-8').,
+  context: './docs',
   config: {
     name: 'docsify',
     repo: 'qingwei-li/docsify'
   }
-  //,cache: () => {}
 })
 
 renderer.renderToString({ url })
