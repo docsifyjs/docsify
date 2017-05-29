@@ -172,20 +172,20 @@ export function initRender (vm) {
   let html = ''
   let navAppendToTarget = dom.body
 
-  if (!el) {
-    el = dom.create(id)
-    dom.appendTo(dom.body, el)
-  }
-  if (config.repo) {
-    html += tpl.corner(config.repo)
-  }
-  if (config.coverpage) {
-    html += tpl.cover()
-  }
+  if (el) {
+    if (config.repo) {
+      html += tpl.corner(config.repo)
+    }
+    if (config.coverpage) {
+      html += tpl.cover()
+    }
 
-  html += tpl.main(config)
-  // Render main app
-  vm._renderTo(el, html, true)
+    html += tpl.main(config)
+    // Render main app
+    vm._renderTo(el, html, true)
+  } else {
+    vm.rendered = true
+  }
 
   if (config.mergeNavbar && isMobile) {
     navAppendToTarget = dom.find('.sidebar')

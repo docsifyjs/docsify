@@ -35,7 +35,7 @@ export class Compiler {
       if (!text) return text
 
       html = compile(text)
-      html = emojify(html)
+      html = config.noEmoji ? html : emojify(html)
       slugify.clear()
 
       return html

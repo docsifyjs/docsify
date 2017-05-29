@@ -1,13 +1,11 @@
-export const UA = window.navigator.userAgent.toLowerCase()
+export const inBrowser = typeof window !== 'undefined'
 
-export const isIE = UA && /msie|trident/.test(UA)
-
-export const isMobile = document.body.clientWidth <= 600
+export const isMobile = inBrowser && document.body.clientWidth <= 600
 
 /**
  * @see https://github.com/MoOx/pjax/blob/master/lib/is-supported.js
  */
-export const supportsPushState = (function () {
+export const supportsPushState = inBrowser && (function () {
   // Borrowed wholesale from https://github.com/defunkt/jquery-pjax
   return window.history &&
     window.history.pushState &&
