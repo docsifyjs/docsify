@@ -20,15 +20,13 @@
     "themes"
   ],
   "scripts": {
-    "build": "rm -rf lib themes && node build/build && mkdir lib/themes && mkdir themes && node build/build-css",
+    "build": "rm -rf lib themes && node build/build && mkdir lib/themes && mkdir themes && node build/build-css && npm run build:ssr",
     "dev:build": "rm -rf lib themes && mkdir themes && node build/build --dev && node build/build-css --dev",
     "dev": "node app & nodemon -w src -e js,css --exec 'npm run dev:build'",
     "build:ssr": "node build/build-ssr",
-    "test": "eslint {src,packages} --fix"
-  },
-  "docsify": {
-    "path": "./",
-    "template": "./ssr.html"
+    "test": "eslint {src,packages} --fix",
+    "pub:next": "RELEASE_TAG=next sh build/release",
+    "pub": "sh build/release"
   },
   "dependencies": {
     "marked": "^0.3.6",
