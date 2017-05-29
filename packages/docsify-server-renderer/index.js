@@ -49,7 +49,7 @@ export default class Renderer {
     this.template = this.html
   }
 
-  _getPath(url) {
+  _getPath (url) {
     const file = this.router.getFile(url)
 
     return isAbsolutePath(file)

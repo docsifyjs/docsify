@@ -22,11 +22,16 @@ var renderer = new Renderer({
   config: {
     name: 'docsify',
     repo: 'qingwei-li/docsify',
-    basePath: '/docs/',
+    basePath: 'https://docsify.js.org/',
     loadNavbar: true,
     loadSidebar: true,
     subMaxLevel: 3,
-    auto2top: true
+    auto2top: true,
+    alias: {
+      '/de-de/changelog': '/changelog',
+      '/zh-cn/changelog': '/changelog',
+      '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+    }
   },
   path: './'
 })
@@ -34,8 +39,8 @@ var renderer = new Renderer({
 http.createServer(function (req, res) {
   serveStatic('.')(req, res, function () {
     // TEST SSR
-    // const html = renderer.renderToString(req.url)
-    // res.end(html)
+    // renderer.renderToString(req.url)
+      // .then(html => res.end(html))
 
     res.writeHead(404, { 'Content-Type': 'text/html' })
     res.end(fs.readFileSync('dev.html'))
