@@ -1,6 +1,5 @@
 import { search } from './search'
 
-let dom
 let NO_DATA_TEXT = ''
 
 function style () {
@@ -65,8 +64,8 @@ function style () {
 .search p.empty {
   text-align: center;
 }`
-  const style = dom.create('style', code)
-  dom.appendTo(dom.head, style)
+  const style = Docsify.dom.create('style', code)
+  Docsify.dom.appendTo(Docsify.dom.head, style)
 }
 
 function tpl (opts, defaultValue = '') {
@@ -74,16 +73,16 @@ function tpl (opts, defaultValue = '') {
     `<input type="search" value="${defaultValue}" />` +
       '<div class="results-panel"></div>' +
     '</div>'
-  const el = dom.create('div', html)
-  const aside = dom.find('aside')
+  const el = Docsify.dom.create('div', html)
+  const aside = Docsify.dom.find('aside')
 
-  dom.toggleClass(el, 'search')
-  dom.before(aside, el)
+  Docsify.dom.toggleClass(el, 'search')
+  Docsify.dom.before(aside, el)
 }
 
 function doSearch (value) {
-  const $search = dom.find('div.search')
-  const $panel = dom.find($search, '.results-panel')
+  const $search = Docsify.dom.find('div.search')
+  const $panel = Docsify.dom.find($search, '.results-panel')
 
   if (!value) {
     $panel.classList.remove('show')
@@ -105,22 +104,23 @@ function doSearch (value) {
 }
 
 function bindEvents () {
-  const $search = dom.find('div.search')
-  const $input = dom.find($search, 'input')
+  const $search = Docsify.dom.find('div.search')
+  const $input = Docsify.dom.find($search, 'input')
 
   let timeId
   // Prevent to Fold sidebar
-  dom.on($search, 'click',
+  Docsify.dom.on($search, 'click',
     e => e.target.tagName !== 'A' && e.stopPropagation())
-  dom.on($input, 'input', e => {
+  Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId)
     timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100)
   })
 }
 
 function updatePlaceholder (text, path) {
-  const $input = dom.getNode('.search input[type="search"]')
+  const $input = Docsify.dom.getNode('.search input[type="search"]')
 
+  if (!$input) return
   if (typeof text === 'string') {
     $input.placeholder = text
   } else {
@@ -139,7 +139,6 @@ function updateNoData (text, path) {
 }
 
 export function init (opts, vm) {
-  dom = Docsify.dom
   const keywords = vm.router.parse().query.s
 
   style()

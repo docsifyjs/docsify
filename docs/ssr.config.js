@@ -13,6 +13,7 @@ module.exports = {
     mergeNavbar: true,
     maxLevel: 4,
     subMaxLevel: 2,
+    basePath: '/docs/',
     name: 'docsify',
     search: {
       noData: {
@@ -28,6 +29,5 @@ module.exports = {
       }
     }
   },
-  context: './docs',
-  template: './ssr.html'
+  template: './docs/ssr.html'
 }

@@ -5,7 +5,7 @@ import tinydate from 'tinydate'
 import { callHook } from '../init/lifecycle'
 import { Compiler } from './compiler'
 import { getAndActive, sticky } from '../event/sidebar'
-import { getBasePath, getPath, isAbsolutePath } from '../router/util'
+import { getPath, isAbsolutePath } from '../router/util'
 import { isMobile } from '../util/env'
 import { isPrimitive } from '../util/core'
 import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
@@ -143,7 +143,7 @@ export function renderMixin (proto) {
 
         dom.toggleClass(el, 'add', 'has-mask')
         if (!isAbsolutePath(m[1])) {
-          path = getPath(getBasePath(this.config.basePath), m[1])
+          path = getPath(vm.router.getBasePath(), m[1])
         }
         el.style.backgroundImage = `url(${path})`
         el.style.backgroundSize = 'cover'

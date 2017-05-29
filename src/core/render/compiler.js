@@ -4,7 +4,7 @@ import { helper as helperTpl, tree as treeTpl } from './tpl'
 import { genTree } from './gen-tree'
 import { slugify } from './slugify'
 import { emojify } from './emojify'
-import { getBasePath, isAbsolutePath, getPath } from '../router/util'
+import { isAbsolutePath, getPath } from '../router/util'
 import { isFn, merge, cached } from '../util/core'
 
 export class Compiler {
@@ -14,7 +14,7 @@ export class Compiler {
     this.cacheTree = {}
     this.toc = []
     this.linkTarget = config.externalLinkTarget || '_blank'
-    this.contentBase = getBasePath(config.basePath)
+    this.contentBase = router.getBasePath()
 
     const renderer = this._initRenderer()
     let compile

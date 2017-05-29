@@ -41,13 +41,12 @@ function saveData (maxAge) {
 export function genIndex (path, content = '', router) {
   const tokens = window.marked.lexer(content)
   const slugify = window.Docsify.slugify
-  const toURL = router.toURL
   const index = {}
   let slug
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= 2) {
-      slug = toURL(path, { id: slugify(token.text) })
+      slug = router.toURL(path, { id: slugify(token.text) })
       index[slug] = { slug, title: token.text, body: '' }
     } else {
       if (!slug) return

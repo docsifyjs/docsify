@@ -1,4 +1,4 @@
-import { getBasePath, getPath, isAbsolutePath } from '../util'
+import { getPath, isAbsolutePath } from '../util'
 import { noop } from '../../util/core'
 
 function getAlias (path, alias) {
@@ -18,9 +18,13 @@ export class History {
     this.config = config
   }
 
+  getBasePath() {
+    return this.config.basePath
+  }
+
   getFile (path) {
     const { config } = this
-    const base = getBasePath(config.basePath)
+    const base = this.getBasePath()
 
     path = config.alias ? getAlias(path, config.alias) : path
     path = getFileName(path)

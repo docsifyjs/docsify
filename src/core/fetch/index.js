@@ -50,6 +50,7 @@ export function fetchMixin (proto) {
     const root = getParentPath(this.route.path)
     const path = this.router.getFile(root + coverpage)
 
+    console.log(this.route.path, root, path)
     if (this.route.path !== '/' || !coverpage) {
       this._renderCover()
       return

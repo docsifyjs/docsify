@@ -11,7 +11,7 @@ function cwd (...args) {
 }
 
 function mainTpl (config) {
-  let html = `<nav class="app-nav${config.repo ? '' : 'no-badge'}"><!--navbar--></nav>`
+  let html = `<nav class="app-nav${config.repo ? '' : ' no-badge'}"><!--navbar--></nav>`
 
   if (config.repo) {
     html += tpl.corner(config.repo)
@@ -28,12 +28,10 @@ function mainTpl (config) {
 export default class Renderer {
   constructor ({
     template,
-    context,
     config,
     cache
   }) {
     this.html = template
-    this.context = cwd(context || './')
     this.config = config = Object.assign({}, config, {
       routerMode: 'history'
     })
@@ -54,7 +52,7 @@ export default class Renderer {
 
     return isAbsolutePath(file)
       ? file
-      : cwd(this.context, `./${file}`)
+      : cwd(`./${file}`)
   }
 
   async renderToString (url) {
@@ -113,26 +111,26 @@ export default class Renderer {
   }
 
   async _loadFile (filePath) {
+    let content
     try {
+      if (isAbsolutePath(filePath)) {
+        const res = await fetch(filePath)
+        content = await res.text()
+        this.lock = 0
+      } else {
+        content = await readFileSync(filePath, 'utf8')
+        this.lock = 0
+      }
+      return content
+    } catch (e) {
       this.lock = this.lock || 0
       if (++this.lock > 10) {
         this.lock = 0
         return
       }
 
-      if (isAbsolutePath(filePath)) {
-        const res = await fetch(filePath)
-        return await res.text()
-      } else {
-        return readFileSync(filePath, 'utf8')
-      }
-    } catch (e) {
       const fileName = basename(filePath)
       const parentPath = cwd(filePath, '../..')
-
-      if (this.context.length < parentPath.length) {
-        throw Error(`Not found file ${fileName}`)
-      }
 
       await this._loadFile(cwd(filePath, '../..', fileName))
     }

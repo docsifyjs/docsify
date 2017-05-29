@@ -1,5 +1,4 @@
 import { cached } from '../util/core'
-import { inBrowser } from '../util/env'
 
 const decode = decodeURIComponent
 const encode = encodeURIComponent
@@ -31,15 +30,6 @@ export function stringifyQuery (obj) {
 
   return qs.length ? `?${qs.join('&')}` : ''
 }
-
-export const getBasePath = cached((base = '') => {
-  // TODO
-  const path = inBrowser ? window.location.pathname : ''
-
-  return /^(\/|https?:)/g.test(base)
-    ? base
-    : cleanPath(path + '/' + base)
-})
 
 export function getPath (...args) {
   return cleanPath(args.join('/'))

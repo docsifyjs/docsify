@@ -20,6 +20,15 @@ export class HashHistory extends History {
     this.mode = 'hash'
   }
 
+  getBasePath() {
+    const path = window.location.pathname || ''
+    const base = this.config.basePath
+
+    return /^(\/|https?:)/g.test(base)
+      ? base
+      : cleanPath(path + '/' + base)
+  }
+
   getCurrentPath () {
     // We can't use location.hash here because it's not
     // consistent across browsers - Firefox will pre-decode it!
