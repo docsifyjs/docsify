@@ -1,12 +1,11 @@
 import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
-import { getHash } from '../router/hash'
 
 const title = dom.$.title
 /**
  * Toggle button
  */
-export function btn (el) {
+export function btn (el, router) {
   const toggle = _ => dom.body.classList.toggle('close')
 
   el = dom.getNode(el)
@@ -21,7 +20,7 @@ export function btn (el) {
     dom.body.classList.contains('close') && toggle()
   )
   dom.on(sidebar, 'click', _ =>
-    setTimeout((_ => getAndActive(sidebar, true, true), 0))
+    setTimeout((_ => getAndActive(router, sidebar, true, true), 0))
   )
 }
 
@@ -39,16 +38,17 @@ export function sticky () {
 
 /**
  * Get and active link
+ * @param  {object} router
  * @param  {string|element}  el
  * @param  {Boolean} isParent   acitve parent
  * @param  {Boolean} autoTitle  auto set title
  * @return {element}
  */
-export function getAndActive (el, isParent, autoTitle) {
+export function getAndActive (router, el, isParent, autoTitle) {
   el = dom.getNode(el)
 
   const links = dom.findAll(el, 'a')
-  const hash = '#' + getHash()
+  const hash = router.toURL(router.getCurrentPath())
   let target
 
   links

@@ -1,6 +1,5 @@
 import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
-import { parse } from '../router/hash'
 
 const nav = {}
 let hoverOver = false
@@ -53,7 +52,7 @@ function highlight () {
   }
 }
 
-export function scrollActiveSidebar () {
+export function scrollActiveSidebar (router) {
   if (isMobile) return
 
   const sidebar = dom.getNode('.sidebar')
@@ -66,7 +65,7 @@ export function scrollActiveSidebar () {
     let href = a.getAttribute('href')
 
     if (href !== '/') {
-      href = parse(href).query.id
+      href = router.parse(href).query.id
     }
 
     nav[decodeURIComponent(href)] = li

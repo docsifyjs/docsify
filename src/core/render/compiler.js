@@ -17,24 +17,24 @@ export class Compiler {
     this.contentBase = getBasePath(config.base)
 
     const renderer = this._initRenderer()
-    let runner
+    let compile
     const mdConf = config.markdown || {}
 
     if (isFn(mdConf)) {
-      runner = mdConf(marked, renderer)
+      compile = mdConf(marked, renderer)
     } else {
       marked.setOptions(merge(mdConf, {
         renderer: merge(renderer, mdConf.renderer)
       }))
-      runner = marked
+      compile = marked
     }
 
-    this.runner = cached(text => {
+    this.compile = cached(text => {
       let html = ''
 
       if (!text) return text
 
-      html = runner(text)
+      html = compile(text)
       html = emojify(html)
       slugify.clear()
 
@@ -119,7 +119,7 @@ export class Compiler {
     let html = ''
 
     if (text) {
-      html = this.runner(text)
+      html = this.compile(text)
       html = html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
     } else {
       const tree = this.cacheTree[currentPath] || genTree(this.toc, level)
@@ -151,7 +151,7 @@ export class Compiler {
   }
 
   article (text) {
-    return this.runner(text)
+    return this.compile(text)
   }
 
   /**
@@ -159,7 +159,7 @@ export class Compiler {
    */
   cover (text) {
     const cacheToc = this.toc.slice()
-    const html = this.runner(text)
+    const html = this.compile(text)
 
     this.toc = cacheToc.slice()
 

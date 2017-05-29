@@ -6,13 +6,13 @@ import { scrollIntoView } from './scroll'
 export function eventMixin (proto) {
   proto.$resetEvents = function () {
     scrollIntoView(this.route.query.id)
-    sidebar.getAndActive('nav')
+    sidebar.getAndActive(this.router, 'nav')
   }
 }
 
 export function initEvent (vm) {
   // Bind toggle button
-  sidebar.btn('button.sidebar-toggle')
+  sidebar.btn('button.sidebar-toggle', vm.router)
   // Bind sticky effect
   if (vm.config.coverpage) {
     !isMobile && on('scroll', sidebar.sticky)

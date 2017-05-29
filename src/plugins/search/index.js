@@ -24,7 +24,7 @@ const install = function (hook, vm) {
   const isAuto = CONFIG.paths === 'auto'
 
   hook.mounted(_ => {
-    initComponet(CONFIG)
+    initComponet(CONFIG, vm)
     !isAuto && initSearch(CONFIG, vm)
   })
   hook.doneEach(_ => {
@@ -33,4 +33,4 @@ const install = function (hook, vm) {
   })
 }
 
-window.$docsify.plugins = [].concat(install, window.$docsify.plugins)
+$docsify.plugins = [].concat(install, $docsify.plugins)
