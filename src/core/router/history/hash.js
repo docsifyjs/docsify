@@ -1,7 +1,7 @@
 import { History } from './base'
 import { merge, cached, noop } from '../../util/core'
-import { parseQuery, stringifyQuery, cleanPath } from '../util'
 import { on } from '../../util/dom'
+import { parseQuery, stringifyQuery, cleanPath } from '../util'
 
 function replaceHash (path) {
   const i = location.href.indexOf('#')

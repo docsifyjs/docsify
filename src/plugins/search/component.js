@@ -138,9 +138,9 @@ function updateNoData (text, path) {
   }
 }
 
-export function init (opts) {
+export function init (opts, vm) {
   dom = Docsify.dom
-  const keywords = Docsify.route.parse().query.s
+  const keywords = vm.router.parse().query.s
 
   style()
   tpl(opts, keywords)

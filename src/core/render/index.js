@@ -1,14 +1,14 @@
 import * as dom from '../util/dom'
-import { getAndActive, sticky } from '../event/sidebar'
-import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
-import cssVars from '../util/polyfill/css-vars'
 import * as tpl from './tpl'
-import { Compiler } from './compiler'
-import { callHook } from '../init/lifecycle'
-import { getBasePath, getPath, isAbsolutePath } from '../router/util'
-import { isPrimitive } from '../util/core'
-import { isMobile } from '../util/env'
+import cssVars from '../util/polyfill/css-vars'
 import tinydate from 'tinydate'
+import { callHook } from '../init/lifecycle'
+import { Compiler } from './compiler'
+import { getAndActive, sticky } from '../event/sidebar'
+import { getBasePath, getPath, isAbsolutePath } from '../router/util'
+import { isMobile } from '../util/env'
+import { isPrimitive } from '../util/core'
+import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
 
 function executeScript () {
   const script = dom.findAll('.markdown-section>script')
@@ -86,13 +86,13 @@ export function renderMixin (proto) {
     const { maxLevel, subMaxLevel, autoHeader, loadSidebar } = this.config
 
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
-    const activeEl = getAndActive('.sidebar-nav', true, true)
+    const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
     if (loadSidebar && activeEl) {
       activeEl.parentNode.innerHTML += this.compiler.subSidebar(subMaxLevel)
     }
     // bind event
     this.activeLink = activeEl
-    scrollActiveSidebar()
+    scrollActiveSidebar(this.router)
 
     if (autoHeader && activeEl) {
       const main = dom.getNode('#main')
@@ -106,13 +106,13 @@ export function renderMixin (proto) {
   }
 
   proto._renderNav = function (text) {
-    text && this._renderTo('nav', this.compiler.runner(text))
-    getAndActive('nav')
+    text && this._renderTo('nav', this.compiler.compile(text))
+    getAndActive(this.router, 'nav')
   }
 
   proto._renderMain = function (text, opt = {}) {
     callHook(this, 'beforeEach', text, result => {
-      let html = this.isHTML ? result : this.compiler.runner(result)
+      let html = this.isHTML ? result : this.compiler.compile(result)
       if (opt.updatedAt) {
         html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
       }
