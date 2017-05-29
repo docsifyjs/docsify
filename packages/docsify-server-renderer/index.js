@@ -74,7 +74,9 @@ export default class Renderer {
   }
 
   _renderHtml (match, content) {
-    return this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content)
+    this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content)
+
+    return this.html
   }
 
   _render (path, type) {
@@ -83,8 +85,8 @@ export default class Renderer {
 
     switch (type) {
       case 'sidebar':
-        html = this.compiler.sidebar(html, maxLevel)
-          + `<script>window.__SUB_SIDEBAR__ = ${JSON.stringify(
+        html = this.compiler.sidebar(html, maxLevel) +
+          `<script>window.__SUB_SIDEBAR__ = ${JSON.stringify(
             this.compiler.subSidebar(html, subMaxLevel)
           )}</script>`
         break
