@@ -143,7 +143,7 @@ export function renderMixin (proto) {
 
         dom.toggleClass(el, 'add', 'has-mask')
         if (!isAbsolutePath(m[1])) {
-          path = getPath(vm.router.getBasePath(), m[1])
+          path = getPath(this.router.getBasePath(), m[1])
         }
         el.style.backgroundImage = `url(${path})`
         el.style.backgroundSize = 'cover'

@@ -20,7 +20,7 @@ export class HashHistory extends History {
     this.mode = 'hash'
   }
 
-  getBasePath() {
+  getBasePath () {
     const path = window.location.pathname || ''
     const base = this.config.basePath
 

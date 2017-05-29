@@ -130,7 +130,6 @@ export default class Renderer {
       }
 
       const fileName = basename(filePath)
-      const parentPath = cwd(filePath, '../..')
 
       await this._loadFile(cwd(filePath, '../..', fileName))
     }

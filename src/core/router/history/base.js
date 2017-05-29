@@ -18,7 +18,7 @@ export class History {
     this.config = config
   }
 
-  getBasePath() {
+  getBasePath () {
     return this.config.basePath
   }
 
