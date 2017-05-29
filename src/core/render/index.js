@@ -79,7 +79,7 @@ export function renderMixin (proto) {
   }
 
   proto._renderSidebar = function (text) {
-    const { maxLevel, subMaxLevel, autoHeader, loadSidebar } = this.config
+    const { maxLevel, subMaxLevel, loadSidebar } = this.config
 
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
@@ -171,7 +171,7 @@ export function initRender (vm) {
   const id = config.el || '#app'
   const navEl = dom.find('nav') || dom.create('nav')
 
-  let el = dom.find(id)
+  const el = dom.find(id)
   let html = ''
   let navAppendToTarget = dom.body
 
