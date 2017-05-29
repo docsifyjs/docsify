@@ -26,6 +26,10 @@
     "build:ssr": "node build/build-ssr",
     "test": "eslint {src,packages} --fix"
   },
+  "docsify": {
+    "path": "./",
+    "template": "./ssr.html"
+  },
   "dependencies": {
     "marked": "^0.3.6",
     "prismjs": "^1.6.0",
