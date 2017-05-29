@@ -1,0 +1,17 @@
+{
+  "name": "docsify-server-renderer",
+  "version": "4.0.0",
+  "description": "docsify server renderer",
+  "author": {
+    "name": "qingwei-li",
+    "email": "cinwell.li@gmail.com",
+    "url": "https://github.com/QingWei-Li"
+  },
+  "homepage": "https://docsify.js.org",
+  "license": "MIT",
+  "repository": "QingWei-Li/docsify",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo 'hello'"
+  }
+}
