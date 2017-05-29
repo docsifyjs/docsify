@@ -18,10 +18,6 @@ export class History {
     this.config = config
   }
 
-  onchange (cb = noop) {
-    cb()
-  }
-
   getFile (path) {
     const { config } = this
     const base = getBasePath(config.basePath)
@@ -32,6 +28,10 @@ export class History {
     path = isAbsolutePath(path) ? path : getPath(base, path)
 
     return path
+  }
+
+  onchange (cb = noop) {
+    cb()
   }
 
   getCurrentPath () {}
