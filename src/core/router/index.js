@@ -1,7 +1,6 @@
-import { AbstractHistory } from './history/abstract'
 import { HashHistory } from './history/hash'
 import { HTML5History } from './history/html5'
-import { supportsPushState, inBrowser } from '../util/env'
+import { supportsPushState } from '../util/env'
 
 export function routerMixin (proto) {
   proto.route = {}
@@ -16,8 +15,6 @@ export function initRouter (vm) {
 
   if (mode === 'history' && supportsPushState) {
     router = new HTML5History(config)
-  } else if (!inBrowser || mode === 'abstract') {
-    router = new AbstractHistory(config)
   } else {
     router = new HashHistory(config)
   }
