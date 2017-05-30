@@ -35,6 +35,7 @@
     "zoom-image": "^0.1.4"
   },
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "cssnano": "^3.10.0",
     "eslint": "^3.18.0",

@@ -7,6 +7,7 @@ rollup
     entry: 'packages/docsify-server-renderer/index.js',
     plugins: [
       babel({
+        plugins: ['transform-async-to-generator'],
         presets: [
           [
             'es2015',
