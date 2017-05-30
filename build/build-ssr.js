@@ -1,12 +1,21 @@
 var rollup = require('rollup')
-var async = require('rollup-plugin-async')
+var babel = require('rollup-plugin-babel')
 var isProd = process.argv[process.argv.length - 1] !== '--dev'
 
 rollup
   .rollup({
     entry: 'packages/docsify-server-renderer/index.js',
     plugins: [
-      async()
+      babel({
+        presets: [
+          [
+            'es2015',
+            {
+              modules: false
+            }
+          ]
+        ]
+      })
     ],
     onwarn: function() {}
   })
