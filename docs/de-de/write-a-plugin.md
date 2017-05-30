@@ -47,6 +47,8 @@ window.$docsify = {
 
 ## Beispiel
 
+### footer
+
 Füge jeder Seite eine footer Komponente hinzu:
 
 ```js
@@ -63,6 +65,28 @@ window.$docsify = {
 
       hook.afterEach(function (html) {
         return html + footer
+      })
+    }
+  ]
+}
+```
+
+
+### Edit Button
+
+```js
+window.$docsify = {
+  plugins: [
+    function(hook, vm) {
+      hook.beforeEach(function (html) {
+        var url = 'https://github.com/QingWei-Li/docsify/blob/master' + vm.router.getFile()
+        var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
+
+        return editHtml
+          + html
+          + '\n----\n'
+          + 'Last modified {docsify-updated} '
+          + editHtml
       })
     }
   ]

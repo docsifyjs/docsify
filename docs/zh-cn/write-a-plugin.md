@@ -46,6 +46,9 @@ window.$docsify = {
 
 ## 例子
 
+
+### footer
+
 给每个页面的末尾加上 `footer`
 
 ```js
@@ -62,6 +65,28 @@ window.$docsify = {
 
       hook.afterEach(function (html) {
         return html + footer
+      })
+    }
+  ]
+}
+```
+
+
+### Edit Button
+
+```js
+window.$docsify = {
+  plugins: [
+    function(hook, vm) {
+      hook.beforeEach(function (html) {
+        var url = 'https://github.com/QingWei-Li/docsify/blob/master' + vm.router.getFile()
+        var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
+
+        return editHtml
+          + html
+          + '\n----\n'
+          + 'Last modified {docsify-updated} '
+          + editHtml
       })
     }
   ]
