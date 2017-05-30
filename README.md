@@ -27,7 +27,7 @@
 - Multiple themes
 - Useful plugin API
 - Compatible with IE10+
-- Support SSR
+- Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
 
 ## Quick start
 
