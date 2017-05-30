@@ -8,20 +8,20 @@ See https://docsify.now.sh
 
 ## Quick start
 
-Install `now` and `docsify-cli` in your project.
+1. Install `now` and `docsify-cli` in your project.
 
 ```bash
 npm i now -g
 npm i docsify-cli -D
 ```
 
-Edit `package.json`. If the documentation in `./docs` subdirectory.
+2. Edit `package.json`. If the documentation in `./docs` subdirectory.
 
 ```json
 {
   "name": "my-project",
   "scripts": {
-    "start": "docsify start docs"
+    "start": "docsify start ."
   },
   "files": [
     "docs"
@@ -38,9 +38,12 @@ Edit `package.json`. If the documentation in `./docs` subdirectory.
 }
 ```
 
+3. Remove `index.html`
+
+
 !> The `basePath` just like webpack `publicPath`. You should config it if your docs is in the subdirectory.
 
-We can preview in the local to see if it works.
+4. We can preview in the local to see if it works.
 
 ```bash
 npm start
@@ -48,7 +51,7 @@ npm start
 # open http://localhost:4000
 ```
 
-Publish it!
+5. Publish it!
 
 ```bash
 now -p
