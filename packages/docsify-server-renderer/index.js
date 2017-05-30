@@ -6,6 +6,7 @@ import { isAbsolutePath } from '../../src/core/router/util'
 import { readFileSync } from 'fs'
 import { resolve, basename } from 'path'
 import resolvePathname from 'resolve-pathname'
+import debug from 'debug'
 
 function cwd (...args) {
   return resolve(process.cwd(), ...args)
@@ -112,10 +113,12 @@ export default class Renderer {
   }
 
   async _loadFile (filePath) {
+    debug('docsify')(`load > ${filePath}`)
     let content
     try {
       if (isAbsolutePath(filePath)) {
         const res = await fetch(filePath)
+        if (!res.ok) throw Error()
         content = await res.text()
         this.lock = 0
       } else {

@@ -15,6 +15,7 @@
     "test": "echo 'hello'"
   },
   "dependencies": {
+    "debug": "^2.6.8",
     "node-fetch": "^1.7.0",
     "resolve-pathname": "^2.1.0"
   }
