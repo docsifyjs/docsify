@@ -96,7 +96,7 @@ export default class Renderer {
       case 'sidebar':
         html = this.compiler.sidebar(html, maxLevel) +
           `<script>window.__SUB_SIDEBAR__ = ${JSON.stringify(
-            this.compiler.subSidebar(html, subMaxLevel)
+            this.compiler.subSidebar(subMaxLevel)
           )}</script>`
         break
       case 'cover':
