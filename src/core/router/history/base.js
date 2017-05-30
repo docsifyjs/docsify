@@ -23,6 +23,8 @@ export class History {
   }
 
   getFile (path) {
+    path = path || this.getCurrentPath()
+
     const { config } = this
     const base = this.getBasePath()
 

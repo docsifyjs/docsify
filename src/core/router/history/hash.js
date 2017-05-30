@@ -69,7 +69,11 @@ export class HashHistory extends History {
       path = path.slice(hashIndex + 1)
     }
 
-    return { path, query: parseQuery(query) }
+    return {
+      path,
+      file: this.getFile(path),
+      query: parseQuery(query)
+    }
   }
 
   toURL (path, params, currentRoute) {

@@ -1,7 +1,7 @@
 import { History } from './base'
 import { merge, noop } from '../../util/core'
 import { on } from '../../util/dom'
-import { parseQuery, stringifyQuery, cleanPath } from '../util'
+import { parseQuery, stringifyQuery, getPath, cleanPath } from '../util'
 
 export class HTML5History extends History {
   constructor (config) {
@@ -10,7 +10,7 @@ export class HTML5History extends History {
   }
 
   getCurrentPath () {
-    const base = this.config.basePath
+    const base = this.getBasePath()
     let path = window.location.pathname
 
     if (base && path.indexOf(base) === 0) {
@@ -37,15 +37,6 @@ export class HTML5History extends History {
     on('popstate', cb)
   }
 
-  normalize () {
-    let path = this.getCurrentPath()
-
-    path = path.replace('#', '?id=')
-    window.history.pushState({ key: path }, '', path)
-
-    return path
-  }
-
   /**
    * Parse the url
    * @param {string} [path=location.href]
@@ -60,12 +51,18 @@ export class HTML5History extends History {
       path = path.slice(0, queryIndex)
     }
 
-    const baseIndex = path.indexOf(location.origin)
+    const base = getPath(location.origin, this.getBasePath())
+    const baseIndex = path.indexOf(base)
+
     if (baseIndex > -1) {
-      path = path.slice(baseIndex + location.origin.length)
+      path = path.slice(baseIndex + base.length - 1)
     }
 
-    return { path, query: parseQuery(query) }
+    return {
+      path,
+      file: this.getFile(path),
+      query: parseQuery(query)
+    }
   }
 
   toURL (path, params, currentRoute) {

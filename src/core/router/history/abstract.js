@@ -17,7 +17,11 @@ export class AbstractHistory extends History {
       path = path.slice(0, queryIndex)
     }
 
-    return { path, query: parseQuery(query) }
+    return {
+      path,
+      file: this.getFile(path),
+      query: parseQuery(query)
+    }
   }
 
   toURL (path, params, currentRoute) {

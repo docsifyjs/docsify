@@ -20,7 +20,8 @@ const config = merge({
   ga: '',
   mergeNavbar: false,
   formatUpdated: '',
-  externalLinkTarget: '_blank'
+  externalLinkTarget: '_blank',
+  routerModel: 'hash'
 }, window.$docsify)
 
 const script = document.currentScript ||
