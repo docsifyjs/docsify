@@ -51,9 +51,16 @@
     },
     formatUpdated: '{MM}/{DD} {HH}:{mm}',
     plugins: [
-      function(hook) {
+      function(hook, vm) {
         hook.beforeEach(function (html) {
-          return html += '\n> Last modified {docsify-updated}'
+          var url = 'https://github.com/QingWei-Li/docsify/blob/master' + vm.router.getFile()
+          var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
+
+          return editHtml
+            + html
+            + '\n----\n'
+            + 'Last modified {docsify-updated} '
+            + editHtml
         })
       }
     ]
