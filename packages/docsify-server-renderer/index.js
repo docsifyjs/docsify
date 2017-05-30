@@ -5,6 +5,7 @@ import { Compiler } from '../../src/core/render/compiler'
 import { isAbsolutePath } from '../../src/core/router/util'
 import { readFileSync } from 'fs'
 import { resolve, basename } from 'path'
+import resolvePathname from 'resolve-pathname'
 
 function cwd (...args) {
   return resolve(process.cwd(), ...args)
@@ -131,7 +132,7 @@ export default class Renderer {
 
       const fileName = basename(filePath)
 
-      return await this._loadFile(cwd(filePath, '../..', fileName))
+      return await this._loadFile(resolvePathname(`../${fileName}`, filePath))
     }
   }
 }

@@ -36,7 +36,7 @@ export function getPath (...args) {
 }
 
 export const isAbsolutePath = cached(path => {
-  return /(:|(\/{2}))/.test(path)
+  return /(:|(\/{2}))/g.test(path)
 })
 
 export const getParentPath = cached(path => {
