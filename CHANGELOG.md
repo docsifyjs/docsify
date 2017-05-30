@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.1.0 / 2017-05-30
+
+
+  * feat: Support server client renderer [See detail](//docsify.js.org/#/ssr)
+  * feat: Support HTML5 history API. `$docsify.routerMode = 'history'`
+  * Breaking change: Clean global API
+
 ## 3.7.3 / 2017-05-22
 
   * fix(render): find => filter, Compatible with old browser

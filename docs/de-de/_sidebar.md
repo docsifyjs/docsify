@@ -18,5 +18,6 @@
   - [Vue Kompatibilität](de-de/vue.md)
   - [CDN](de-de/cdn.md)
   - [Offline Modus (PWA)](de-de/pwa.md)
+  - [Server-client renderer (SSR)](de-de/ssr.md)
 
 - [Changelog](de-de/changelog.md)

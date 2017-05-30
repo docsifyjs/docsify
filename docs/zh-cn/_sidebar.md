@@ -18,5 +18,6 @@
  - [兼容 Vue](zh-cn/vue.md)
  - [CDN](zh-cn/cdn.md)
  - [离线模式(PWA)](zh-cn/pwa.md)
+  - [服务端渲染 (SSR)](zh-cn/ssr.md)
 
 - [Changelog](zh-cn/changelog.md)
