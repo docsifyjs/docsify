@@ -78,7 +78,7 @@ window.$docsify = {
   plugins: [
     function(hook, vm) {
       hook.beforeEach(function (html) {
-        var url = 'https://github.com/QingWei-Li/docsify/blob/master' + vm.router.getFile()
+        var url = 'https://github.com/QingWei-Li/docsify/blob/master/docs' + vm.router.getFile()
         var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
 
         return editHtml
