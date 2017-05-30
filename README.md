@@ -27,6 +27,7 @@
 - Multiple themes
 - Useful plugin API
 - Compatible with IE10+
+- Support SSR
 
 ## Quick start
 
