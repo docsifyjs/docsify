@@ -51,11 +51,11 @@ export class HTML5History extends History {
       path = path.slice(0, queryIndex)
     }
 
-    const base = getPath(location.origin, this.getBasePath())
+    const base = getPath(location.origin)
     const baseIndex = path.indexOf(base)
 
     if (baseIndex > -1) {
-      path = path.slice(baseIndex + base.length - 1)
+      path = path.slice(baseIndex + base.length)
     }
 
     return {

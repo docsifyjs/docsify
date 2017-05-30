@@ -21,7 +21,7 @@ var renderer = new Renderer({
   }
 })
 
-renderer.renderToString({ url })
+renderer.renderToString(url)
   .then(html => {})
   .catch(err => {})
 ```

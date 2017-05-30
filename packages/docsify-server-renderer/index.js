@@ -64,13 +64,13 @@ export default class Renderer {
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar
-      const sidebarFile = this._getPath(resolve(url, `../${name}`))
+      const sidebarFile = this._getPath(resolve(url, `./${name}`))
       this._renderHtml('sidebar', await this._render(sidebarFile, 'sidebar'))
     }
 
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar
-      const navbarFile = this._getPath(resolve(url, `../${name}`))
+      const navbarFile = this._getPath(resolve(url, `./${name}`))
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'))
     }
 
@@ -131,7 +131,7 @@ export default class Renderer {
 
       const fileName = basename(filePath)
 
-      await this._loadFile(cwd(filePath, '../..', fileName))
+      return await this._loadFile(cwd(filePath, '../..', fileName))
     }
   }
 }
