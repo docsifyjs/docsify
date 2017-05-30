@@ -94,7 +94,7 @@ You can configure it in a special config file, or `package.json`.
 
 ```js
 module.exports = {
-  tempate: './ssr.html',
+  template: './ssr.html',
   config: {
    // docsify config
   }
