@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.1.0 / 2017-05-30 🎂 for me
+## 4.1.0 / 2017-05-30 🎂 to me
 
 
   * feat: Support server client renderer [See detail](//docsify.js.org/#/ssr)
