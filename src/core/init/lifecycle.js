@@ -19,23 +19,22 @@ export function initLifecycle (vm) {
 }
 
 export function callHook (vm, hook, data, next = noop) {
-  let newData = data
   const queue = vm._hooks[hook]
 
   const step = function (index) {
     const hook = queue[index]
     if (index >= queue.length) {
-      next(newData)
+      next(data)
     } else {
       if (typeof hook === 'function') {
         if (hook.length === 2) {
           hook(data, result => {
-            newData = result
+            data = result
             step(index + 1)
           })
         } else {
           const result = hook(data)
-          newData = result !== undefined ? result : newData
+          data = result !== undefined ? result : data
           step(index + 1)
         }
       } else {

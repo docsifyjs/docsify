@@ -10,4 +10,4 @@ const install = function (hook, vm) {
   })
 }
 
-window.$docsify.plugins = [].concat(install, window.$docsify.plugins)
+$docsify.plugins = [].concat(install, $docsify.plugins)
