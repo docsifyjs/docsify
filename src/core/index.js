@@ -23,6 +23,11 @@ eventMixin(proto)
 initGlobalAPI()
 
 /**
+ * Version
+ */
+ Docsify.version = '__VERSION__'
+
+/**
  * Run Docsify
  */
 setTimeout(_ => new Docsify(), 0)

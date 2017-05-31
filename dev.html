@@ -28,6 +28,7 @@
     executeScript: true,
     loadNavbar: true,
     loadSidebar: true,
+    coverpage: true,
     name: 'docsify',
     subMaxLevel: 2,
     mergeNavbar: true,
@@ -37,7 +38,7 @@
       function(hook, vm) {
         hook.beforeEach(function (html) {
           var url = 'https://github.com/QingWei-Li/docsify/blob/master' + vm.router.getFile()
-          var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
+          var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
           return editHtml
             + html

@@ -4,7 +4,9 @@ var commonjs = require('rollup-plugin-commonjs')
 var nodeResolve = require('rollup-plugin-node-resolve')
 var string = require('rollup-plugin-string')
 var uglify = require('rollup-plugin-uglify')
+var replace = require('rollup-plugin-replace')
 var isProd = process.argv[process.argv.length - 1] !== '--dev'
+var version = process.env.VERSION || require('../package.json').version
 
 var build = function (opts) {
   rollup
@@ -14,7 +16,10 @@ var build = function (opts) {
         string({ include: '**/*.css' }),
         buble(),
         commonjs(),
-        nodeResolve()
+        nodeResolve(),
+        replace({
+          __VERSION__: version
+        })
       ])
     })
     .then(function (bundle) {

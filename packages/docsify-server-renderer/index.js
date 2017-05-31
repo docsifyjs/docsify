@@ -139,3 +139,5 @@ export default class Renderer {
     }
   }
 }
+
+Renderer.version = '__VERSION__'

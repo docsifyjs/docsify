@@ -1,13 +1,16 @@
 var rollup = require('rollup')
 var buble = require('rollup-plugin-buble')
 var async = require('rollup-plugin-async')
-var isProd = process.argv[process.argv.length - 1] !== '--dev'
+var replace = require('rollup-plugin-replace')
 
 rollup
   .rollup({
     entry: 'packages/docsify-server-renderer/index.js',
     plugins: [
       async(),
+      replace({
+        __VERSION__: process.env.VERSION || require('../package.json').version
+      }),
       buble({
         transforms: {
           generator: false
