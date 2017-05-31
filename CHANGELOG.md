@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.8(since 4.1.1) / 2017-05-31
+
+  * fix(pure-css):add coverpage style, fixed #165
+  * feat: add edit button demo, close #162
+  * fix some ssr bugs
+
 ## 4.1.0 / 2017-05-30 🎂 to me
 
 
