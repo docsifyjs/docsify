@@ -44,7 +44,8 @@ export class Compiler {
 
   _initRenderer () {
     const renderer = new marked.Renderer()
-    const { linkTarget, router, toc, contentBase } = this
+    const { linkTarget, router, contentBase } = this
+    const _self = this
     /**
      * render anchor tag
      * @link https://github.com/chjj/marked#overriding-renderer-methods
@@ -67,7 +68,7 @@ export class Compiler {
       const slug = slugify(text)
       const url = router.toURL(router.getCurrentPath(), { id: slug })
       nextToc.slug = url
-      toc.push(nextToc)
+      _self.toc.push(nextToc)
 
       return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
     }
