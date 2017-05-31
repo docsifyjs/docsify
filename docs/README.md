@@ -17,6 +17,7 @@ See the [Quick start](quickstart.md) for more details.
 * Useful plugin API
 * Emoji support
 * Compatible with IE10+
+- Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
 
 ## Examples
 

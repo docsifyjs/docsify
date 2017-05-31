@@ -17,6 +17,7 @@ Siehe [Schnellstart](de-de/quickstart.md) für weitere Informationen.
 * praktische API für Erweiterungen
 * Unterstützung für Emoji
 * Kompatibel mit IE10+
+- Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
 
 ## Beispiele
 
