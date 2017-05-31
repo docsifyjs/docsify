@@ -1,5 +1,11 @@
 # Changelog
 
+4.1.9 / 2017-05-31
+
+  * fix(lifecycle): continue to handle data
+  * fix: can't render toc on first load, fixed #171
+  * fix(render): broken name link, fixed #167
+
 ## 4.1.8(since 4.1.1) / 2017-05-31
 
   * fix(pure-css):add coverpage style, fixed #165
