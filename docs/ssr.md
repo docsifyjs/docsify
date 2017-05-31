@@ -2,6 +2,8 @@
 
 See https://docsify.now.sh
 
+Repo in https://github.com/QingWei-Li/docsify-ssr-demo
+
 ## Why SSR?
 - Better SEO
 - Feeling cool
@@ -11,8 +13,7 @@ See https://docsify.now.sh
 Install `now` and `docsify-cli` in your project.
 
 ```bash
-npm i now -g
-npm i docsify-cli -D
+npm i now docsify-cli -D
 ```
 
 Edit `package.json`. If the documentation in `./docs` subdirectory.
@@ -21,14 +22,15 @@ Edit `package.json`. If the documentation in `./docs` subdirectory.
 {
   "name": "my-project",
   "scripts": {
-    "start": "docsify start ."
+    "start": "docsify start . -c ssr.config.js",
+    "deploy": "now -p"
   },
   "files": [
     "docs"
   ],
   "docsify": {
     "config": {
-      "basePath": "/docs/",
+      "basePath": 'https://docsify.js.org/',
       "loadSidebar": true,
       "loadNavbar": true,
       "coverpage": true,
@@ -38,9 +40,7 @@ Edit `package.json`. If the documentation in `./docs` subdirectory.
 }
 ```
 
-Remove `index.html`
-
-!> The `basePath` just like webpack `publicPath`. You should config it if your docs is in the subdirectory.
+!> The `basePath` just like webpack `publicPath`. We can use local or remote files.
 
 We can preview in the local to see if it works.
 
