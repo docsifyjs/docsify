@@ -208,5 +208,6 @@ export function initRender (vm) {
     // Polyfll
     cssVars(config.themeColor)
   }
+  vm._updateRender()
   dom.toggleClass(dom.body, 'ready')
 }

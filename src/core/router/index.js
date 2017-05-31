@@ -23,7 +23,6 @@ export function initRouter (vm) {
 
   router.normalize()
   lastRoute = vm.route = router.parse()
-  vm._updateRender()
 
   router.onchange(_ => {
     router.normalize()
