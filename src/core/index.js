@@ -25,7 +25,7 @@ initGlobalAPI()
 /**
  * Version
  */
- Docsify.version = '__VERSION__'
+Docsify.version = '__VERSION__'
 
 /**
  * Run Docsify
