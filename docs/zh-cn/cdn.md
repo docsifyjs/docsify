@@ -44,6 +44,6 @@ JS 的压缩文件是原有文件路径的基础上加 `.min`后缀
 
 ## 其他 CDN
 
-- http://www.bootcdn.cn/docsify
-- http://www.jsdelivr.com/projects/docsify
+- http://www.bootcdn.cn/docsify (支持国内)
+- https://cdn.jsdelivr.net/npm/docsify/ (国内外都支持)
 - https://cdnjs.com/libraries/docsify

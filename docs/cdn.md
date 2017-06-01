@@ -45,6 +45,6 @@ Alternatively, use [compressed files](#compressed-files).
 ## Other CDN
 
 - http://www.bootcdn.cn/docsify
-- http://www.jsdelivr.com/projects/docsify
+- https://cdn.jsdelivr.net/npm/docsify/
 - https://cdnjs.com/libraries/docsify
 

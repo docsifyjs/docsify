@@ -45,5 +45,5 @@ Alternativ kannst du auch die [komprimierten Dateien](#komprimierte-dateien) ver
 ## Andere CDN
 
 - http://www.bootcdn.cn/docsify
-- http://www.jsdelivr.com/projects/docsify
+- https://cdn.jsdelivr.net/npm/docsify/
 - https://cdnjs.com/libraries/docsify
