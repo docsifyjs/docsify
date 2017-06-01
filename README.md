@@ -41,12 +41,12 @@ Create an `index.html`.
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
 </head>
 <body>
   <div id="app"></div>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 </body>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 </html>
 ```
 
