@@ -1,5 +1,10 @@
 # Changelog
 
+4.1.11 / 2017-06-02
+
+  * fix(render): autoHeader does not work
+  * fix(compiler): force reset toc when rendering sidebar fixed [#181](https://github.com/QingWei-Li/docsify/issues/181)
+
 4.1.10 / 2017-06-02
 
   * fix(hash): hash routing crashes when url has querystring
@@ -7,13 +12,13 @@
 4.1.9 / 2017-05-31
 
   * fix(lifecycle): continue to handle data
-  * fix: can't render toc on first load, fixed #171
-  * fix(render): broken name link, fixed #167
+  * fix: can't render toc on first load, fixed [#171](https://github.com/QingWei-Li/docsify/issues/171)
+  * fix(render): broken name link, fixed [#167](https://github.com/QingWei-Li/docsify/issues/167)
 
 ## 4.1.8(since 4.1.1) / 2017-05-31
 
-  * fix(pure-css):add coverpage style, fixed #165
-  * feat: add edit button demo, close #162
+  * fix(pure-css):add coverpage style, fixed [#165](https://github.com/QingWei-Li/docsify/issues/165)
+  * feat: add edit button demo, close [#162](https://github.com/QingWei-Li/docsify/issues/162)
   * fix some ssr bugs
 
 ## 4.1.0 / 2017-05-30 🎂 to me
