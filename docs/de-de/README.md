@@ -11,7 +11,7 @@ Siehe [Schnellstart](de-de/quickstart.md) für weitere Informationen.
 ## Features
 
 * keine generierten, statischen HTML Dateien
-* einfach und klein (~16kB gzipped)
+* einfach und klein (~18kB gzipped)
 * smarte Erweiterung mit Volltextsuche
 * mehrere Themes
 * praktische API für Erweiterungen
