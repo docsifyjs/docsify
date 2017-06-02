@@ -85,6 +85,9 @@ export function renderMixin (proto) {
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
     if (loadSidebar && activeEl) {
       activeEl.parentNode.innerHTML += this.compiler.subSidebar(subMaxLevel)
+    } else {
+      // reset toc
+      this.compiler.subSidebar()
     }
     // bind event
     this._bindEventOnRendered()

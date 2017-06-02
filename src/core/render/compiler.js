@@ -135,6 +135,10 @@ export class Compiler {
    * Compile sub sidebar
    */
   subSidebar (level) {
+    if (!level) {
+      this.toc = []
+      return
+    }
     const currentPath = this.router.getCurrentPath()
     const { cacheTree, toc } = this
 
