@@ -56,7 +56,7 @@ Modern browsers and Internet Explorer 10+.
 
 ## Showcase
 
-These open-source projects are using docsify to generate their sites. Pull requests welcome :blush:
+These projects are using docsify to generate their sites. Pull requests welcome :blush:
 
 | Project | Description |
 |---|---|
