@@ -1,5 +1,9 @@
 # Changelog
 
+4.1.10 / 2017-06-02
+
+  * fix(hash): hash routing crashes when url has querystring
+
 4.1.9 / 2017-05-31
 
   * fix(lifecycle): continue to handle data
