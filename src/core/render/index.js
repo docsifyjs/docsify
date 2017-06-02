@@ -90,7 +90,7 @@ export function renderMixin (proto) {
       this.compiler.subSidebar()
     }
     // bind event
-    this._bindEventOnRendered()
+    this._bindEventOnRendered(activeEl)
   }
 
   proto._bindEventOnRendered = function (activeEl) {
