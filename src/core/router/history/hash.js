@@ -58,15 +58,15 @@ export class HashHistory extends History {
   parse (path = location.href) {
     let query = ''
 
+    const hashIndex = path.indexOf('#')
+    if (hashIndex) {
+      path = path.slice(hashIndex + 1)
+    }
+
     const queryIndex = path.indexOf('?')
     if (queryIndex >= 0) {
       query = path.slice(queryIndex + 1)
       path = path.slice(0, queryIndex)
-    }
-
-    const hashIndex = path.indexOf('#')
-    if (hashIndex) {
-      path = path.slice(hashIndex + 1)
     }
 
     return {
