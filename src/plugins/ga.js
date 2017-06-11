@@ -7,24 +7,21 @@ function appendScript () {
 }
 
 function init (id) {
-  let ga = window.ga
-
-  if (!ga) {
-    appendScript()
-    ga = ga || function () {
-      (ga.q = ga.q || []).push(arguments)
-    }
-    ga.l = Number(new Date())
-    ga('create', id, 'auto')
+  appendScript()
+  window.ga = window.ga || function () {
+    (window.ga.q = window.ga.q || []).push(arguments)
   }
-  return ga
+  window.ga.l = Number(new Date())
+  window.ga('create', id, 'auto')
 }
 
 function collect () {
-  const ga = init($docsify.ga)
+  if (!window.ga) {
+    init($docsify.ga)
+  }
 
-  ga('set', 'page', location.hash)
-  ga('send', 'pageview')
+  window.ga('set', 'page', location.hash)
+  window.ga('send', 'pageview')
 }
 
 const install = function (hook) {
