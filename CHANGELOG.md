@@ -1,5 +1,9 @@
 # Changelog
 
+4.1.13 / 2017-06-11
+
+  * fix ga
+
 4.1.12 / 2017-06-03
 
   * fix(render): ubtitle in side bar shows undefined, fixed [#182](https://github.com/QingWei-Li/docsify/issues/182)
