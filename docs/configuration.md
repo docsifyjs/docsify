@@ -333,7 +333,7 @@ window.$docsify = {
 
 ## external-link-target
 
-Currently it defaults to _blank, would be nice if configurable:
+Target to open external links. Default `'_blank'` (new window/tab)
 
 ```js
 window.$docsify = {
