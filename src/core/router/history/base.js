@@ -22,7 +22,7 @@ export class History {
     return this.config.basePath
   }
 
-  getFile (path) {
+  getFile (path, isRelative) {
     path = path || this.getCurrentPath()
 
     const { config } = this
@@ -32,6 +32,10 @@ export class History {
     path = getFileName(path)
     path = path === '/README.md' ? (config.homepage || path) : path
     path = isAbsolutePath(path) ? path : getPath(base, path)
+
+    if (isRelative) {
+      path = path.replace(new RegExp(`^${base}`), '')
+    }
 
     return path
   }

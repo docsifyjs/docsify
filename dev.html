@@ -33,11 +33,10 @@
     subMaxLevel: 0,
     mergeNavbar: true,
     formatUpdated: '{MM}/{DD} {HH}:{mm}',
-    routerMode: 'history',
     plugins: [
       function(hook, vm) {
         hook.beforeEach(function (html) {
-          var url = 'https://github.com/QingWei-Li/docsify/blob/master' + vm.router.getFile()
+          var url = 'https://github.com/QingWei-Li/docsify/blob/master/' + vm.route.file
           var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
           return editHtml

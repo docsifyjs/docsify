@@ -71,7 +71,7 @@ export class HashHistory extends History {
 
     return {
       path,
-      file: this.getFile(path),
+      file: this.getFile(path, true),
       query: parseQuery(query)
     }
   }
