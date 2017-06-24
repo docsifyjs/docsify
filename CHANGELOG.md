@@ -1,5 +1,13 @@
 # Changelog
 
+4.1.14 / 2017-06-24
+
+  * feat: add context attribute, fixed #191
+  * fix: get file path
+  * Merge pull request #195 from crawt/master
+  * Filter picture
+  * Update doc for external link target (#194)
+
 4.1.13 / 2017-06-11
 
   * fix ga
