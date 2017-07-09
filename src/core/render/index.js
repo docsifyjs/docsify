@@ -117,6 +117,10 @@ export function renderMixin (proto) {
   }
 
   proto._renderMain = function (text, opt = {}) {
+    if (!text) {
+      return renderMain.call(this, text)
+    }
+
     callHook(this, 'beforeEach', text, result => {
       let html = this.isHTML ? result : this.compiler.compile(result)
       if (opt.updatedAt) {

@@ -28,17 +28,24 @@ export function fetchMixin (proto) {
     // Current page is html
     this.isHTML = /\.html$/g.test(path)
 
-    // Load main content
-    last.then((text, opt) => {
-      this._renderMain(text, opt)
+    const loadSideAndNav = () => {
       if (!loadSidebar) return cb()
 
       const fn = result => { this._renderSidebar(result); cb() }
 
       // Load sidebar
       loadNested(path, loadSidebar, fn, this, true)
+    }
+
+    // Load main content
+    last.then((text, opt) => {
+      this._renderMain(text, opt)
+      loadSideAndNav()
     },
-    _ => this._renderMain(null))
+    _ => {
+      this._renderMain(null)
+      loadSideAndNav()
+    })
 
     // Load nav
     loadNavbar &&
