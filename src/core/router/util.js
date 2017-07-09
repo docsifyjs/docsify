@@ -16,8 +16,9 @@ export function parseQuery (query) {
   query.split('&').forEach(function (param) {
     const parts = param.replace(/\+/g, ' ').split('=')
 
-    res[parts[0]] = decode(parts[1])
+    res[parts[0]] = parts[1] && decode(parts[1])
   })
+
   return res
 }
 
@@ -25,7 +26,9 @@ export function stringifyQuery (obj) {
   const qs = []
 
   for (const key in obj) {
-    qs.push(`${encode(key)}=${encode(obj[key])}`.toLowerCase())
+    qs.push(obj[key]
+      ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
+      : encode(key))
   }
 
   return qs.length ? `?${qs.join('&')}` : ''

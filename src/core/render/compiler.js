@@ -80,10 +80,12 @@ export class Compiler {
     }
     renderer.link = function (href, title, text) {
       let blank = ''
-      if (!/:|(\/{2})/.test(href)) {
+
+      if (!/:|(\/{2})/.test(href) && !/(\s?:ignore)(\s\S+)?$/.test(title)) {
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         blank = ` target="${linkTarget}"`
+        title = title && title.replace(/:ignore/g, '').trim()
       }
       if (title) {
         title = ` title="${title}"`
