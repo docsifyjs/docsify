@@ -1,5 +1,10 @@
 # Changelog
 
+4.2.0 / 2017-07-10
+
+  * feat: ignore to compiled link, fixed #203 (#204)
+  * feat: alias option supports regexp, resolve #183
+
 4.1.14 / 2017-06-24
 
   * feat: add context attribute, fixed #191
