@@ -1,8 +1,15 @@
 import { getPath, isAbsolutePath } from '../util'
 import { noop } from '../../util/core'
 
-function getAlias (path, alias) {
-  return alias[path] ? getAlias(alias[path], alias) : path
+const cached = {}
+
+function getAlias (path, alias, last) {
+  const match = Object.keys(alias).filter((key) => {
+    const re = cached[key] || (cached[key] = new RegExp(`^${key}$`))
+    return re.test(path) && path !== last
+  })[0]
+
+  return match ? getAlias(path.replace(cached[match], alias[match]), alias, path) : path
 }
 
 function getFileName (path) {
