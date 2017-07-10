@@ -250,11 +250,12 @@ window.$docsify = {
 
 - Typ: `Object`
 
-Verwende alternative Routen. Du kannst sie ungehindert anpassen.
+Verwende alternative Routen. Du kannst sie ungehindert anpassen. Supports RegExp.
 
 ```js
 window.$docsify = {
   alias: {
+    '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
   }

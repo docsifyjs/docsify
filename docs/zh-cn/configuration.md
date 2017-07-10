@@ -258,12 +258,13 @@ window.$docsify = {
 
 - 类型：`Object`
 
-定义路由别名，可以更自由的定义路由规则。
+定义路由别名，可以更自由的定义路由规则。 支持正则。
 
 
 ```js
 window.$docsify = {
   alias: {
+    '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
   }
@@ -327,6 +328,7 @@ window.$docsify = {
 ```
 
 ## format-updated
+
 我们可以显示文档更新日期通过 **{docsify-updated<span>}</span>** 变量. 并且格式化日期通过 `formatUpdated`.
 参考 https://github.com/lukeed/tinydate#patterns
 ```js
