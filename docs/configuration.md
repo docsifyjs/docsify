@@ -362,3 +362,21 @@ window.$docsify = {
   routerMode: 'history' // default: 'hash'
 }
 ```
+
+## noCompileLinks
+
+- type: `Array`
+
+
+Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
+
+
+```js
+window.$docsify = {
+  noCompileLinks: [
+    '/foo',
+    '/bar/.*'
+  ]
+}
+```
+
