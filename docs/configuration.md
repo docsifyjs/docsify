@@ -250,11 +250,12 @@ window.$docsify = {
 
 - Type: `Object`
 
-Set the route alias. You can freely manage routing rules.
+Set the route alias. You can freely manage routing rules. Supports RegExp.
 
 ```js
 window.$docsify = {
   alias: {
+    '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
   }
@@ -298,6 +299,8 @@ Note that if you are running an external script, e.g. an embedded jsfiddle demo,
 
 ## no-emoji
 
+- type: `Boolean`
+
 Disabled emoji parse.
 
 ```js
@@ -308,6 +311,8 @@ window.$docsify = {
 
 ## merge-navbar
 
+- type: `Boolean`
+
 Navbar will be merged with the sidebar on smaller screens.
 
 ```js
@@ -317,6 +322,9 @@ window.$docsify = {
 ```
 
 ## format-updated
+
+- type: `String|Function`
+
 We can display the file update date through **{docsify-updated<span>}</span>** variable. And format it by `formatUpdated`.
 See https://github.com/lukeed/tinydate#patterns
 ```js
@@ -333,6 +341,9 @@ window.$docsify = {
 
 ## external-link-target
 
+- type: `String`
+- default: `_self`
+
 Target to open external links. Default `'_blank'` (new window/tab)
 
 ```js
@@ -342,6 +353,10 @@ window.$docsify = {
 ```
 
 ## router-mode
+
+- type: `String`
+- default: `history`
+
 ```js
 window.$docsify = {
   routerMode: 'history' // default: 'hash'
