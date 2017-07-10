@@ -26,3 +26,8 @@ Check out the [Showcase](https://github.com/QingWei-Li/docsify/#showcase) to doc
 ## Donate
 
 Please consider donating if you think docsify is helpful to you or that my work is valuable. I am happy if you can help me [buy a cup of coffee](https://github.com/QingWei-Li/donate). :heart:
+
+[foo](/bar)
+[foo2](/haha/ddd)
+[foo3](/haha/eee)
+[foo4](/ddd)

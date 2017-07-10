@@ -7,6 +7,8 @@ import { emojify } from './emojify'
 import { isAbsolutePath, getPath } from '../router/util'
 import { isFn, merge, cached } from '../util/core'
 
+const cachedLinks = {}
+
 export class Compiler {
   constructor (config, router) {
     this.config = config
@@ -40,6 +42,19 @@ export class Compiler {
 
       return html
     })
+  }
+
+  matchNotCompileLink(link) {
+    const links = this.config.noCompileLinks
+
+    for (var i = 0; i < links.length; i++) {
+      const n = links[i]
+      const re = cachedLinks[n] || (cachedLinks[n] = new RegExp(`^${n}$`))
+
+      if (re.test(link)) {
+        return link
+      }
+    }
   }
 
   _initRenderer () {
@@ -81,12 +96,15 @@ export class Compiler {
     renderer.link = function (href, title, text) {
       let blank = ''
 
-      if (!/:|(\/{2})/.test(href) && !/(\s?:ignore)(\s\S+)?$/.test(title)) {
+      if (!/:|(\/{2})/.test(href)
+        && !_self.matchNotCompileLink(href)
+        && !/(\s?:ignore)(\s\S+)?$/.test(title)) {
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         blank = ` target="${linkTarget}"`
         title = title && title.replace(/:ignore/g, '').trim()
       }
+
       if (title) {
         title = ` title="${title}"`
       }

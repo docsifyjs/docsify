@@ -21,7 +21,8 @@ const config = merge({
   mergeNavbar: false,
   formatUpdated: '',
   externalLinkTarget: '_blank',
-  routerModel: 'hash'
+  routerModel: 'hash',
+  noCompileLinks: []
 }, window.$docsify)
 
 const script = document.currentScript ||
