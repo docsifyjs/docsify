@@ -44,7 +44,7 @@ export class Compiler {
     })
   }
 
-  matchNotCompileLink(link) {
+  matchNotCompileLink (link) {
     const links = this.config.noCompileLinks
 
     for (var i = 0; i < links.length; i++) {
@@ -96,9 +96,9 @@ export class Compiler {
     renderer.link = function (href, title, text) {
       let blank = ''
 
-      if (!/:|(\/{2})/.test(href)
-        && !_self.matchNotCompileLink(href)
-        && !/(\s?:ignore)(\s\S+)?$/.test(title)) {
+      if (!/:|(\/{2})/.test(href) &&
+        !_self.matchNotCompileLink(href) &&
+        !/(\s?:ignore)(\s\S+)?$/.test(title)) {
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         blank = ` target="${linkTarget}"`
