@@ -71,6 +71,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [hire-me](https://fvcproductions.github.io/hire-me) | A path to getting an awesome tech gig. |
 | [vue-amap](https://elemefe.github.io/vue-amap/) | A Map Component Library Base on Vue 2.x and Gaode Map. |
 | [samlify](https://samlify.js.org) | Node.js SAML2 library |
+| [palettify](https://dobromir-hristov.github.io/palettify/) | A color palette effects assistant |
 
 ## Similar projects
 
