@@ -72,7 +72,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [vue-amap](https://elemefe.github.io/vue-amap/) | A Map Component Library Base on Vue 2.x and Gaode Map. |
 | [samlify](https://samlify.js.org) | Node.js SAML2 library |
 | [palettify](https://dobromir-hristov.github.io/palettify/) | A color palette effects assistant |
-| [commitlint](https://http://marionebl.github.io/commitlint/) | Lint commit messages |
+| [commitlint](https://marionebl.github.io/commitlint/) | Lint commit messages |
 
 ## Similar projects
 
