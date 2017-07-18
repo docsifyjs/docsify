@@ -28,7 +28,6 @@ var build = function (opts) {
       console.log(dest)
       bundle.write({
         format: 'iife',
-        moduleName: opts.moduleName || 'D',
         dest: dest
       })
     })
@@ -43,19 +42,18 @@ build({
 })
 
 var plugins = [
-  { name: 'search', entry: 'search/index.js', moduleName: 'Search' },
-  { name: 'ga', entry: 'ga.js', moduleName: 'GA' },
-  { name: 'emoji', entry: 'emoji.js', moduleName: 'Emoji' },
-  { name: 'external-script', entry: 'external-script.js', moduleName: 'ExternalScript' },
-  { name: 'front-matter', entry: 'front-matter/index.js', moduleName: 'FrontMatter' },
-  { name: 'zoom-image', entry: 'zoom-image.js', moduleName: 'ZoomImage' }
+  { name: 'search', entry: 'search/index.js' },
+  { name: 'ga', entry: 'ga.js' },
+  { name: 'emoji', entry: 'emoji.js' },
+  { name: 'external-script', entry: 'external-script.js' },
+  { name: 'front-matter', entry: 'front-matter/index.js' },
+  { name: 'zoom-image', entry: 'zoom-image.js' }
 ]
 
 plugins.forEach(item => {
   build({
     entry: 'plugins/' + item.entry,
-    output: 'plugins/' + item.name + '.js',
-    moduleName: 'D.' + item.moduleName
+    output: 'plugins/' + item.name + '.js'
   })
 })
 
@@ -69,7 +67,6 @@ if (isProd) {
     build({
       entry: 'plugins/' + item.entry,
       output: 'plugins/' + item.name + '.min.js',
-      moduleName: 'D.' + item.moduleName,
       plugins: [uglify()]
     })
   })
