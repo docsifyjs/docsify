@@ -32,6 +32,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   git commit -m "[build] $VERSION $RELEASE_TAG"
   npm version $VERSION --message "[release] $VERSION $RELEASE_TAG"
 
+  # changelog
+  node_modules/.bin/standard-changelog --first-release
+
+  git add .
+  git commit -m "chore: add changelog $VERSION"
+
   # publish
   git push origin refs/tags/v$VERSION
   git push

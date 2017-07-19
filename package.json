@@ -52,7 +52,8 @@
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
-    "serve-static": "^1.12.1"
+    "serve-static": "^1.12.1",
+    "standard-changelog": "^1.0.2"
   },
   "keywords": [
     "doc",
