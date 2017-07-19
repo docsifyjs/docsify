@@ -93,7 +93,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 ## Development
 
 ```bash
-npm i && npm run dev
+npm run bootstrap && npm run dev
 open http://localhost:3000
 ```
 
