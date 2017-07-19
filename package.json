@@ -36,6 +36,7 @@
     "zoom-image": "^0.1.4"
   },
   "devDependencies": {
+    "conventional-changelog-cli": "^1.3.2",
     "cssnano": "^3.10.0",
     "eslint": "^3.18.0",
     "eslint-config-vue": "^2.0.2",
