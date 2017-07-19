@@ -33,7 +33,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   npm version $VERSION --message "[release] $VERSION $RELEASE_TAG"
 
   # changelog
-  node_modules/.bin/standard-changelog --first-release
+  node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s
 
   git add .
   git commit -m "chore: add changelog $VERSION"
