@@ -211,7 +211,9 @@ export function initRender (vm) {
   dom.before(navAppendToTarget, navEl)
 
   if (config.themeColor) {
-    dom.$.head.innerHTML += tpl.theme(config.themeColor)
+    dom.$.head.appendChild(
+      dom.create('div', tpl.theme(config.themeColor)).getRootNode()
+    )
     // Polyfll
     cssVars(config.themeColor)
   }
