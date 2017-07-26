@@ -20,6 +20,7 @@
 
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/QingWei-Li/docsify-cli)
+- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/)
 
 ## Features
 
