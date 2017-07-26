@@ -6,13 +6,6 @@
 
 * **render:** Remove getRootNode to be compatible with the lower version of Chrome, fixed [#225](https://github.com/QingWei-Li/docsify/issues/225) ([b8dd346](https://github.com/QingWei-Li/docsify/commit/b8dd346))
 
-
-### Features
-
-* **search:** Supports the max depth of the search headline, fixed [#223](https://github.com/QingWei-Li/docsify/issues/223), resolve [#129](https://github.com/QingWei-Li/docsify/issues/129) ([b7b589b](https://github.com/QingWei-Li/docsify/commit/b7b589b))
-
-
-
 <a name="4.2.3"></a>
 ## [4.2.3](https://github.com/QingWei-Li/docsify/compare/v4.2.2...v4.2.3) (2017-07-26)
 
