@@ -1,3 +1,13 @@
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/QingWei-Li/docsify/compare/v4.2.1...v4.2.2) (2017-07-24)
+
+
+### Bug Fixes
+
+* style rerender due to setting themeColor ([17ff3d1](https://github.com/QingWei-Li/docsify/commit/17ff3d1))
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/QingWei-Li/docsify/compare/v4.2.0...v4.2.1) (2017-07-19)
 
