@@ -212,7 +212,7 @@ export function initRender (vm) {
 
   if (config.themeColor) {
     dom.$.head.appendChild(
-      dom.create('div', tpl.theme(config.themeColor)).getRootNode()
+      dom.create('div', tpl.theme(config.themeColor)).firstElementChild
     )
     // Polyfll
     cssVars(config.themeColor)
