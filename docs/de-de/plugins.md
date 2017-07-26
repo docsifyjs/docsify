@@ -35,7 +35,10 @@ Als Standardeinstellung werden Hyperlinks auf der aktuellen Seite erkannt und de
       noData: {
         '/de-de/': 'Keine Ergebnisse',
         '/': 'No Results'
-      }
+      },
+
+      // Headline depth, 1 - 6
+      depth: 2
     }
   }
 </script>

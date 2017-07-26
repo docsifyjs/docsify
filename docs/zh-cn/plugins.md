@@ -35,7 +35,10 @@
       noData: {
         '/zh-cn/': '找不到结果',
         '/': 'No Results'
-      }
+      },
+
+      // 搜索标题的最大程级, 1 - 6
+      depth: 2
     }
   }
 </script>

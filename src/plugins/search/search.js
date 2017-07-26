@@ -38,14 +38,14 @@ function saveData (maxAge) {
   localStorage.setItem('docsify.search.index', JSON.stringify(INDEXS))
 }
 
-export function genIndex (path, content = '', router) {
+export function genIndex (path, content = '', router, depth) {
   const tokens = window.marked.lexer(content)
   const slugify = window.Docsify.slugify
   const index = {}
   let slug
 
   tokens.forEach(token => {
-    if (token.type === 'heading' && token.depth <= 2) {
+    if (token.type === 'heading' && token.depth <= depth) {
       slug = router.toURL(path, { id: slugify(token.text) })
       index[slug] = { slug, title: token.text, body: '' }
     } else {
@@ -154,7 +154,7 @@ export function init (config, vm) {
     helper
       .get(vm.router.getFile(path))
       .then(result => {
-        INDEXS[path] = genIndex(path, result, vm.router)
+        INDEXS[path] = genIndex(path, result, vm.router, config.depth)
         len === ++count && saveData(config.maxAge)
       })
   })

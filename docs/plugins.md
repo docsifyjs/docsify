@@ -35,7 +35,10 @@ By default, the hyperlink on the current page is recognized and the content is s
       noData: {
         '/zh-cn/': '找不到结果',
         '/': 'No Results'
-      }
+      },
+
+      // Headline depth, 1 - 6
+      depth: 2
     }
   }
 </script>

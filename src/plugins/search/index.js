@@ -5,6 +5,7 @@ const CONFIG = {
   placeholder: 'Type to search',
   noData: 'No Results!',
   paths: 'auto',
+  depth: 2,
   maxAge: 86400000 // 1 day
 }
 
@@ -19,6 +20,7 @@ const install = function (hook, vm) {
     CONFIG.maxAge = util.isPrimitive(opts.maxAge) ? opts.maxAge : CONFIG.maxAge
     CONFIG.placeholder = opts.placeholder || CONFIG.placeholder
     CONFIG.noData = opts.noData || CONFIG.noData
+    CONFIG.depth = opts.depth || CONFIG.depth
   }
 
   const isAuto = CONFIG.paths === 'auto'
