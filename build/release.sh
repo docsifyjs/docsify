@@ -30,10 +30,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   # commit
   git add -A
   git commit -m "[build] $VERSION $RELEASE_TAG"
-  npm version $VERSION --message "[release] $VERSION $RELEASE_TAG"
+  npm --no-git-tag-version version $VERSION --message "[release] $VERSION $RELEASE_TAG"
 
   # changelog
-  node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s -r 1
+  node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s
 
   git add .
   git commit -m "chore: add changelog $VERSION"
