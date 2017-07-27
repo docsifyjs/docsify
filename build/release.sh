@@ -39,6 +39,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   git commit -m "chore: add changelog $VERSION"
 
   # publish
+  git tag v$VERSION
   git push origin refs/tags/v$VERSION
   git push
   if [[ -z $RELEASE_TAG ]]; then
