@@ -4,7 +4,6 @@
 
 ### Bug Fixes
 
-* **css:** hide the nav when the content has not yet been loaded ([1fa1619](https://github.com/QingWei-Li/docsify/commit/1fa1619))
 * **release:** release shell ([628e211](https://github.com/QingWei-Li/docsify/commit/628e211))
 * **style:** nowrap => pre-wrap, fixed [#228](https://github.com/QingWei-Li/docsify/issues/228) ([a88252c](https://github.com/QingWei-Li/docsify/commit/a88252c))
 
