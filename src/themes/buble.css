@@ -132,7 +132,7 @@ $sidebar-width: 16rem;
   border-radius: 3px;
   font-family: Inconsolata;
   padding: 0.2em 0.4rem;
-  white-space: pre;
+  white-space: nowrap;
 }
 
 .markdown-section pre {
