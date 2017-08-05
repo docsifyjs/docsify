@@ -1,3 +1,15 @@
+<a name="4.2.7"></a>
+## [4.2.7](https://github.com/QingWei-Li/docsify/compare/v4.2.4...v4.2.7) (2017-08-05)
+
+
+### Bug Fixes
+
+* **css:** hide the nav when the content has not yet been loaded ([1fa1619](https://github.com/QingWei-Li/docsify/commit/1fa1619))
+* **release:** release shell ([628e211](https://github.com/QingWei-Li/docsify/commit/628e211))
+* **style:** nowrap => pre-wrap, fixed [#228](https://github.com/QingWei-Li/docsify/issues/228) ([a88252c](https://github.com/QingWei-Li/docsify/commit/a88252c))
+
+
+
 <a name="4.2.6"></a>
 ## [4.2.6](https://github.com/QingWei-Li/docsify/compare/v4.2.4...v4.2.6) (2017-07-27)
 
