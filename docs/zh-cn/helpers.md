@@ -49,3 +49,10 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 <a href="/demo/" title="title">link</a>
 ```
 
+
+## Set target attribute for link
+
+```md
+[link](/demo ":target=_blank")
+[link](/demo2 ":target=_self")
+```

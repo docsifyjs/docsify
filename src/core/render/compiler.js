@@ -105,6 +105,13 @@ export class Compiler {
         title = title && title.replace(/:ignore/g, '').trim()
       }
 
+      let target = title && title.match(/:target=\w+/)
+      if (target) {
+        target = target[0]
+        title = title.replace(target, '')
+        blank = ' ' + target.slice(1)
+      }
+
       if (title) {
         title = ` title="${title}"`
       }
