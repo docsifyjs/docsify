@@ -2,6 +2,9 @@
 ## [4.2.9](https://github.com/QingWei-Li/docsify/compare/v4.2.8...v4.2.9) (2017-08-15)
 
 
+### Bug Fixes
+
+* ensure document ready before init Docsify [#233](https://github.com/QingWei-Li/docsify/issues/233)
 
 <a name="4.2.8"></a>
 ## [4.2.8](https://github.com/QingWei-Li/docsify/compare/v4.2.7...v4.2.8) (2017-08-10)
