@@ -30,6 +30,7 @@
     "pub": "sh build/release.sh"
   },
   "dependencies": {
+    "document-ready": "^2.0.1",
     "marked": "^0.3.6",
     "prismjs": "^1.6.0",
     "tinydate": "^1.0.0",

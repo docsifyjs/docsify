@@ -1,3 +1,4 @@
+import ready from 'document-ready'
 import { initMixin } from './init'
 import { routerMixin } from './router'
 import { renderMixin } from './render'
@@ -30,4 +31,4 @@ Docsify.version = '__VERSION__'
 /**
  * Run Docsify
  */
-setTimeout(_ => new Docsify(), 0)
+ready(_ => new Docsify())
