@@ -36,6 +36,8 @@ window.$docsify = {
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 //  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
+mermaid.initialize({ startOnLoad: false });
+
 window.$docsify = {
   markdown: {
     renderer: {
