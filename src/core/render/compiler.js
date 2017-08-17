@@ -61,11 +61,13 @@ export class Compiler {
     const renderer = new marked.Renderer()
     const { linkTarget, router, contentBase } = this
     const _self = this
+    const origin = {}
+
     /**
      * render anchor tag
      * @link https://github.com/chjj/marked#overriding-renderer-methods
      */
-    renderer.heading = function (text, level) {
+    origin.heading = renderer.heading = function (text, level) {
       const nextToc = { level, title: text }
 
       if (/{docsify-ignore}/g.test(text)) {
@@ -88,12 +90,12 @@ export class Compiler {
       return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
     }
     // highlight code
-    renderer.code = function (code, lang = '') {
+    origin.code = renderer.code = function (code, lang = '') {
       const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
 
       return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
     }
-    renderer.link = function (href, title, text) {
+    origin.link = renderer.link = function (href, title, text) {
       let blank = ''
 
       if (!/:|(\/{2})/.test(href) &&
@@ -117,7 +119,7 @@ export class Compiler {
       }
       return `<a href="${href}"${title || ''}${blank}>${text}</a>`
     }
-    renderer.paragraph = function (text) {
+    origin.paragraph = renderer.paragraph = function (text) {
       if (/^!&gt;/.test(text)) {
         return helperTpl('tip', text)
       } else if (/^\?&gt;/.test(text)) {
@@ -125,7 +127,7 @@ export class Compiler {
       }
       return `<p>${text}</p>`
     }
-    renderer.image = function (href, title, text) {
+    origin.image = renderer.image = function (href, title, text) {
       let url = href
       const titleHTML = title ? ` title="${title}"` : ''
 
@@ -135,6 +137,8 @@ export class Compiler {
 
       return `<img src="${url}" data-origin="${href}" alt="${text}"${titleHTML}>`
     }
+
+    renderer.origin = origin
 
     return renderer
   }
