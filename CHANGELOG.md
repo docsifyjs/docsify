@@ -1,3 +1,13 @@
+<a name="4.3.0"></a>
+# [4.3.0](https://github.com/QingWei-Li/docsify/compare/v4.2.9...v4.3.0) (2017-08-17)
+
+
+### Features
+
+* **markdown:** supports mermaid [#137](https://github.com/QingWei-Li/docsify/issues/137) ([f4800e0](https://github.com/QingWei-Li/docsify/commit/f4800e0))
+
+
+
 <a name="4.2.9"></a>
 ## [4.2.9](https://github.com/QingWei-Li/docsify/compare/v4.2.8...v4.2.9) (2017-08-15)
 
