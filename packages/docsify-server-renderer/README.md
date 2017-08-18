@@ -3,7 +3,7 @@
 ## Install
 
 ```bash
-yarn add docsify-server-render
+yarn add docsify-server-renderer
 ```
 
 ## Usage
