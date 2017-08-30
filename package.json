@@ -33,6 +33,7 @@
     "marked": "^0.3.6",
     "prismjs": "^1.6.0",
     "tinydate": "^1.0.0",
+    "tweezer.js": "^1.4.0",
     "zoom-image": "^0.1.4"
   },
   "devDependencies": {
