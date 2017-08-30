@@ -34,7 +34,7 @@ export function fetchMixin (proto) {
       const fn = result => { this._renderSidebar(result); cb() }
 
       // Load sidebar
-      loadNested('/', loadSidebar, fn, this, true)
+      loadNested(path, loadSidebar, fn, this, true)
     }
 
     // Load main content
