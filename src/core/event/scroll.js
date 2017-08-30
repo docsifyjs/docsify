@@ -1,15 +1,33 @@
 import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
+import Tweezer from 'tweezer.js'
 
 const nav = {}
 let hoverOver = false
+let scroller = null
+let enableScrollEvent = true
+
+function scrollTo (el) {
+  if (scroller) scroller.stop();
+  enableScrollEvent = false;
+  scroller = new Tweezer({
+    start: window.scrollY,
+    end: el.getBoundingClientRect().top + window.scrollY,
+    duration: 500
+  })
+  .on('tick', v => window.scrollTo(0, v))
+  .on('done', () => { enableScrollEvent = true; scroller = null; })
+  .begin()
+}
 
 function highlight () {
+  if (!enableScrollEvent) return
   const sidebar = dom.getNode('.sidebar')
   const anchors = dom.findAll('.anchor')
   const wrap = dom.find(sidebar, '.sidebar-nav')
   let active = dom.find(sidebar, 'li.active')
-  const top = dom.body.scrollTop
+  let doc = document.documentElement
+  const top = doc && doc.scrollTop || document.body.scrollTop
   let last
 
   for (let i = 0, len = anchors.length; i < len; i += 1) {
@@ -79,7 +97,13 @@ export function scrollActiveSidebar (router) {
 
 export function scrollIntoView (id) {
   const section = dom.find('#' + id)
-  section && section.scrollIntoView()
+  section && scrollTo(section)
+
+  let li = nav[id]
+  const sidebar = dom.getNode('.sidebar')
+  let active = dom.find(sidebar, 'li.active')
+  active && active.classList.remove('active')
+  li && li.classList.add('active')
 }
 
 const scrollEl = dom.$.scrollingElement || dom.$.documentElement
