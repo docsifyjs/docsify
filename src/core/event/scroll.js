@@ -8,15 +8,15 @@ let scroller = null
 let enableScrollEvent = true
 
 function scrollTo (el) {
-  if (scroller) scroller.stop();
-  enableScrollEvent = false;
+  if (scroller) scroller.stop()
+  enableScrollEvent = false
   scroller = new Tweezer({
     start: window.scrollY,
     end: el.getBoundingClientRect().top + window.scrollY,
     duration: 500
   })
   .on('tick', v => window.scrollTo(0, v))
-  .on('done', () => { enableScrollEvent = true; scroller = null; })
+  .on('done', () => { enableScrollEvent = true; scroller = null })
   .begin()
 }
 
@@ -26,7 +26,7 @@ function highlight () {
   const anchors = dom.findAll('.anchor')
   const wrap = dom.find(sidebar, '.sidebar-nav')
   let active = dom.find(sidebar, 'li.active')
-  let doc = document.documentElement
+  const doc = document.documentElement
   const top = doc && doc.scrollTop || document.body.scrollTop
   let last
 
@@ -99,9 +99,9 @@ export function scrollIntoView (id) {
   const section = dom.find('#' + id)
   section && scrollTo(section)
 
-  let li = nav[id]
+  const li = nav[id]
   const sidebar = dom.getNode('.sidebar')
-  let active = dom.find(sidebar, 'li.active')
+  const active = dom.find(sidebar, 'li.active')
   active && active.classList.remove('active')
   li && li.classList.add('active')
 }
