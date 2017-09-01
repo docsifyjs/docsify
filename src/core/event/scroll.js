@@ -86,7 +86,7 @@ export function scrollActiveSidebar (router) {
       href = router.parse(href).query.id
     }
 
-    nav[decodeURIComponent(href)] = li
+    if (href) nav[decodeURIComponent(href)] = li
   }
 
   dom.off('scroll', highlight)
@@ -96,6 +96,8 @@ export function scrollActiveSidebar (router) {
 }
 
 export function scrollIntoView (id) {
+  if (!id) return
+
   const section = dom.find('#' + id)
   section && scrollTo(section)
 
