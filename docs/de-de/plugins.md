@@ -96,3 +96,7 @@ Medium's Bilderzoom. Basierend auf [zoom-image](https://github.com/egoist/zoom-i
 ```html
 <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
 ```
+
+## Edit on github
+
+Add `Edit on github` button on every pages. provided by 3rd party, check [document](https://github.com/njleonzhang/docsify-edit-on-github)
