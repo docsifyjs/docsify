@@ -1,3 +1,18 @@
+<a name="4.3.2"></a>
+## [4.3.2](https://github.com/QingWei-Li/docsify/compare/v4.3.1...v4.3.2) (2017-09-01)
+
+
+### Bug Fixes
+
+* sidebar highlight ([f82f419](https://github.com/QingWei-Li/docsify/commit/f82f419))
+
+
+### Features
+
+* add Edit on github plugin (thanks [@njleonzhang](https://github.com/njleonzhang)) ([a0e1ea8](https://github.com/QingWei-Li/docsify/commit/a0e1ea8))
+
+
+
 <a name="4.3.1"></a>
 ## [4.3.1](https://github.com/QingWei-Li/docsify/compare/v4.2.9...v4.3.1) (2017-08-30)
 
