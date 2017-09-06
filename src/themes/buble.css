@@ -226,6 +226,7 @@ $sidebar-width: 16rem;
   overflow: inherit;
   padding: 20px 0.8em 20px;
   position: relative;
+  white-space: inherit;
 }
 
 .markdown-section code::after, .markdown-section code::before {
