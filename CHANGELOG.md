@@ -1,3 +1,18 @@
+<a name="4.3.3"></a>
+## [4.3.3](https://github.com/QingWei-Li/docsify/compare/v4.3.2...v4.3.3) (2017-09-06)
+
+
+### Bug Fixes
+
+* **buble.css:** tweaks code block style, fixed [#249](https://github.com/QingWei-Li/docsify/issues/249) ([9d43051](https://github.com/QingWei-Li/docsify/commit/9d43051))
+
+
+### Features
+
+* add doc for react and vue demo box plugin ([#247](https://github.com/QingWei-Li/docsify/issues/247)) ([f0aca19](https://github.com/QingWei-Li/docsify/commit/f0aca19))
+
+
+
 <a name="4.3.2"></a>
 ## [4.3.2](https://github.com/QingWei-Li/docsify/compare/v4.3.1...v4.3.2) (2017-09-01)
 
