@@ -1,3 +1,13 @@
+<a name="4.3.4"></a>
+## [4.3.4](https://github.com/QingWei-Li/docsify/compare/v4.3.3...v4.3.4) (2017-09-07)
+
+
+### Bug Fixes
+
+* scroll position issue, fixed [#234](https://github.com/QingWei-Li/docsify/issues/234) ([388ed3d](https://github.com/QingWei-Li/docsify/commit/388ed3d))
+
+
+
 <a name="4.3.3"></a>
 ## [4.3.3](https://github.com/QingWei-Li/docsify/compare/v4.3.2...v4.3.3) (2017-09-06)
 
