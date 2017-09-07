@@ -75,7 +75,6 @@ export function scrollActiveSidebar (router) {
   const cover = dom.find('.cover.show')
   coverHeight = cover ? cover.offsetHeight : 0
 
-
   const sidebar = dom.getNode('.sidebar')
   const lis = dom.findAll(sidebar, 'li')
 
