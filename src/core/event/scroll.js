@@ -6,6 +6,7 @@ const nav = {}
 let hoverOver = false
 let scroller = null
 let enableScrollEvent = true
+let coverHeight = 0
 
 function scrollTo (el) {
   if (scroller) scroller.stop()
@@ -27,7 +28,7 @@ function highlight () {
   const wrap = dom.find(sidebar, '.sidebar-nav')
   let active = dom.find(sidebar, 'li.active')
   const doc = document.documentElement
-  const top = doc && doc.scrollTop || document.body.scrollTop
+  const top = (doc && doc.scrollTop || document.body.scrollTop) - coverHeight
   let last
 
   for (let i = 0, len = anchors.length; i < len; i += 1) {
@@ -71,7 +72,9 @@ function highlight () {
 }
 
 export function scrollActiveSidebar (router) {
-  if (isMobile) return
+  const cover = dom.find('.cover.show')
+  coverHeight = cover ? cover.offsetHeight : 0
+
 
   const sidebar = dom.getNode('.sidebar')
   const lis = dom.findAll(sidebar, 'li')
@@ -88,6 +91,8 @@ export function scrollActiveSidebar (router) {
 
     if (href) nav[decodeURIComponent(href)] = li
   }
+
+  if (isMobile) return
 
   dom.off('scroll', highlight)
   dom.on('scroll', highlight)
