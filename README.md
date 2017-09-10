@@ -105,3 +105,6 @@ open http://localhost:3000
 MIT
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FQingWei-Li%2Fdocsify.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FQingWei-Li%2Fdocsify?ref=badge_large)
+
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/YdWAqnN2kHQmLtFQhEddaaPT/QingWei-Li/docsify'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/YdWAqnN2kHQmLtFQhEddaaPT/QingWei-Li/docsify.svg' /></a>
