@@ -76,6 +76,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [commitlint](https://marionebl.github.io/commitlint/) | Lint commit messages |
 | [vue-data-tables](https://github.com/njleonzhang/vue-data-tables/) | A simple and customizable data table，based on vue2 and element-ui. |
 | [Noty](http://ned.im/noty/) | A Dependency-free notification library |
+| [xTeko](https://docs.xteko.com/) | Addins framework for Pin 3.0 |
 
 ## Similar projects
 
