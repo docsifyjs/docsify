@@ -80,6 +80,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [vue-data-tables](https://github.com/njleonzhang/vue-data-tables/) | A simple and customizable data table，based on vue2 and element-ui. |
 | [Noty](http://ned.im/noty/) | A Dependency-free notification library |
 | [xTeko](https://docs.xteko.com/) | Addins framework for Pin 3.0 |
+| [vue2-datatable-component](https://github.com/OneWayTech/vue2-datatable) | The best Datatable for Vue.js 2.x which never sucks |
 
 ## Similar projects
 
