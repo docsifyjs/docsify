@@ -28,7 +28,7 @@ Then you can immediately write Vue code at Markdown file. `new Vue({ el: '#main'
 <ul>
   <li v-for="i in 10">{{ i }}</li>
 </ul>
-``
+```
 
 <ul>
   <li v-for="i in 10">{{ i }}</li>
