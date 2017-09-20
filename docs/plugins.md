@@ -108,3 +108,18 @@ When readers expand the demo box, the source code and description are shown ther
 `jsfiddle.net` will be open with the code of this sample, which allow readers to revise the code and try on their own.
 
 [Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
+
+## CodeSponsor
+
+See https://codesponsor.io
+
+
+```html
+<script>
+  window.$docsify = {
+    codesponsor: 'id'
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/plugins/codesponsor.min.js"></script>
+```
+

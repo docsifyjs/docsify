@@ -95,3 +95,19 @@ Medium's 风格的图片缩放插件. 基于 [zoom-image](https://github.com/ego
 ## Edit on github
 
 Add `Edit on github` button on every pages. provided by 3rd party, check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+
+
+## CodeSponsor
+
+See https://codesponsor.io
+
+
+```html
+<script>
+  window.$docsify = {
+    codesponsor: 'id'
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/plugins/codesponsor.min.js"></script>
+```
+
