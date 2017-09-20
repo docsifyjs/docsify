@@ -47,7 +47,8 @@ var plugins = [
   { name: 'emoji', entry: 'emoji.js' },
   { name: 'external-script', entry: 'external-script.js' },
   { name: 'front-matter', entry: 'front-matter/index.js' },
-  { name: 'zoom-image', entry: 'zoom-image.js' }
+  { name: 'zoom-image', entry: 'zoom-image.js' },
+  { name: 'codesponsor', entry: 'codesponsor.js' }
 ]
 
 plugins.forEach(item => {
