@@ -6,7 +6,7 @@ const DEFAULT_OPTIONS = {
 function tpl (id, options) {
   const qs = []
 
-  for (let key in options) {
+  for (const key in options) {
     qs.push(`${key}=${options[key]}`)
   }
 
