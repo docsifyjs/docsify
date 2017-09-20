@@ -81,3 +81,8 @@ export function off (el, type, handler) {
 export function toggleClass (el, type, val) {
   el && el.classList[val ? type : 'toggle'](val || type)
 }
+
+export function style (content) {
+  appendTo(head, create('style', content))
+}
+

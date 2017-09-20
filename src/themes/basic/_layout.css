@@ -325,7 +325,7 @@ body.sticky {
 
 /* main content */
 .content {
-  padding-top: 20px;
+  padding-top: 60px;
   position: absolute 0 0 0 $sidebar-width;
   transition: left 250ms ease;
 }
@@ -471,6 +471,7 @@ body.close {
     left: 0;
     max-width: 100vw;
     position: static;
+    padding-top: 20px;
     transition: transform 250ms ease;
   }
 

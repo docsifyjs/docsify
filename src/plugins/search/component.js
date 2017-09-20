@@ -64,8 +64,8 @@ function style () {
 .search p.empty {
   text-align: center;
 }`
-  const style = Docsify.dom.create('style', code)
-  Docsify.dom.appendTo(Docsify.dom.head, style)
+
+  Docsify.dom.style(code)
 }
 
 function tpl (opts, defaultValue = '') {
