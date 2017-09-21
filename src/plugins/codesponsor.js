@@ -18,7 +18,7 @@ function tpl (id, options) {
       frameborder=0
       width=250
       height=250
-      id="code-sponsor-embed-iframe" 
+      id="code-sponsor-embed-iframe"
       src="https://app.codesponsor.io/widgets/${id}?${qs.join('&')}">
     </iframe>`
 
@@ -40,7 +40,7 @@ function appendStyle () {
       top: 10px;
     }
 
-    @media screen and (min-width: 1300px) {
+    @media screen and (min-width: 1600px) {
       body.sticky .codesponsor {
         position: fixed;
       }
