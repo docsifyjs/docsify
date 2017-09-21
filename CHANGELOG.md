@@ -1,3 +1,13 @@
+<a name="4.3.6"></a>
+## [4.3.6](https://github.com/QingWei-Li/docsify/compare/v4.3.5...v4.3.6) (2017-09-21)
+
+
+### Bug Fixes
+
+* style for codesponsor plugin ([08afec7](https://github.com/QingWei-Li/docsify/commit/08afec7))
+
+
+
 <a name="4.3.5"></a>
 ## [4.3.5](https://github.com/QingWei-Li/docsify/compare/v4.3.4...v4.3.5) (2017-09-20)
 
