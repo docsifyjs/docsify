@@ -71,7 +71,7 @@ function style () {
 function tpl (opts, defaultValue = '') {
   const html =
     `<input type="search" value="${defaultValue}" />` +
-      '<div class="results-panel"></div>' +
+    '<div class="results-panel"></div>' +
     '</div>'
   const el = Docsify.dom.create('div', html)
   const aside = Docsify.dom.find('aside')
@@ -109,8 +109,11 @@ function bindEvents () {
 
   let timeId
   // Prevent to Fold sidebar
-  Docsify.dom.on($search, 'click',
-    e => e.target.tagName !== 'A' && e.stopPropagation())
+  Docsify.dom.on(
+    $search,
+    'click',
+    e => e.target.tagName !== 'A' && e.stopPropagation()
+  )
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId)
     timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100)
@@ -151,4 +154,3 @@ export function update (opts, vm) {
   updatePlaceholder(opts.placeholder, vm.route.path)
   updateNoData(opts.noData, vm.route.path)
 }
-

@@ -4,20 +4,20 @@ import { noop } from '../../util/core'
 const cached = {}
 
 function getAlias (path, alias, last) {
-  const match = Object.keys(alias).filter((key) => {
+  const match = Object.keys(alias).filter(key => {
     const re = cached[key] || (cached[key] = new RegExp(`^${key}$`))
     return re.test(path) && path !== last
   })[0]
 
-  return match ? getAlias(path.replace(cached[match], alias[match]), alias, path) : path
+  return match
+    ? getAlias(path.replace(cached[match], alias[match]), alias, path)
+    : path
 }
 
 function getFileName (path) {
   return /\.(md|html)$/g.test(path)
     ? path
-    : /\/$/g.test(path)
-      ? `${path}README.md`
-      : `${path}.md`
+    : /\/$/g.test(path) ? `${path}README.md` : `${path}.md`
 }
 
 export class History {
@@ -37,7 +37,7 @@ export class History {
 
     path = config.alias ? getAlias(path, config.alias) : path
     path = getFileName(path)
-    path = path === '/README.md' ? (config.homepage || path) : path
+    path = path === '/README.md' ? config.homepage || path : path
     path = isAbsolutePath(path) ? path : getPath(base, path)
 
     if (isRelative) {

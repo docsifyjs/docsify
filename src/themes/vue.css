@@ -5,8 +5,8 @@ $color-bg: #fff;
 $color-text: #34495e;
 $sidebar-width: 300px;
 
-@import "basic/layout";
-@import "basic/coverpage";
+@import 'basic/layout';
+@import 'basic/coverpage';
 
 body {
   background-color: $color-bg;
@@ -39,7 +39,7 @@ body {
     padding: 0;
   }
 
-  ul li.active>a {
+  ul li.active > a {
     border-right: 2px solid;
     color: var(--theme-color, $color-primary);
     font-weight: 600;
@@ -82,7 +82,7 @@ body {
 
 .markdown-section h3 {
   font-size: 1.5rem;
-  margin: 40px 0 .6rem;
+  margin: 40px 0 0.6rem;
 }
 
 .markdown-section h4 {
@@ -170,7 +170,7 @@ body {
 }
 
 .token.namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .token.boolean,
@@ -257,7 +257,7 @@ body {
   cursor: help;
 }
 
-.markdown-section pre>code {
+.markdown-section pre > code {
   -moz-osx-font-smoothing: initial;
   -webkit-font-smoothing: initial;
   background-color: #f8f8f8;
@@ -274,7 +274,8 @@ body {
   white-space: inherit;
 }
 
-.markdown-section code::after, .markdown-section code::before {
+.markdown-section code::after,
+.markdown-section code::before {
   letter-spacing: 0.05rem;
 }
 

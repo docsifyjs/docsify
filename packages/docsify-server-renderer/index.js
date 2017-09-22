@@ -13,7 +13,9 @@ function cwd (...args) {
 }
 
 function mainTpl (config) {
-  let html = `<nav class="app-nav${config.repo ? '' : ' no-badge'}"><!--navbar--></nav>`
+  let html = `<nav class="app-nav${config.repo
+    ? ''
+    : ' no-badge'}"><!--navbar--></nav>`
 
   if (config.repo) {
     html += tpl.corner(config.repo)
@@ -28,11 +30,7 @@ function mainTpl (config) {
 }
 
 export default class Renderer {
-  constructor ({
-    template,
-    config,
-    cache
-  }) {
+  constructor ({ template, config, cache }) {
     this.html = template
     this.config = config = Object.assign({}, config, {
       routerMode: 'history'
@@ -43,7 +41,10 @@ export default class Renderer {
     this.compiler = new Compiler(config, this.router)
 
     this.router.getCurrentPath = () => this.url
-    this._renderHtml('inject-config', `<script>window.$docsify = ${JSON.stringify(config)}</script>`)
+    this._renderHtml(
+      'inject-config',
+      `<script>window.$docsify = ${JSON.stringify(config)}</script>`
+    )
     this._renderHtml('inject-app', mainTpl(config))
 
     this.template = this.html
@@ -52,9 +53,7 @@ export default class Renderer {
   _getPath (url) {
     const file = this.router.getFile(url)
 
-    return isAbsolutePath(file)
-      ? file
-      : cwd(`./${file}`)
+    return isAbsolutePath(file) ? file : cwd(`./${file}`)
   }
 
   async renderToString (url) {
@@ -94,7 +93,8 @@ export default class Renderer {
 
     switch (type) {
       case 'sidebar':
-        html = this.compiler.sidebar(html, maxLevel) +
+        html =
+          this.compiler.sidebar(html, maxLevel) +
           `<script>window.__SUB_SIDEBAR__ = ${JSON.stringify(
             this.compiler.subSidebar(subMaxLevel)
           )}</script>`

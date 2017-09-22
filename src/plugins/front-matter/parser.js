@@ -5,7 +5,8 @@
 import parser from './yaml'
 
 var optionalByteOrderMark = '\\ufeff?'
-var pattern = '^(' +
+var pattern =
+  '^(' +
   optionalByteOrderMark +
   '(= yaml =|---)' +
   '$([\\s\\S]*?)' +
@@ -17,7 +18,7 @@ var pattern = '^(' +
 // need to be moved down into the functions that use it.
 var regex = new RegExp(pattern, 'm')
 
-function extractor (string) {
+function extractor(string) {
   string = string || ''
 
   var lines = string.split(/(\r?\n)/)
@@ -28,7 +29,7 @@ function extractor (string) {
   }
 }
 
-function parse (string) {
+function parse(string) {
   var match = regex.exec(string)
 
   if (!match) {
@@ -45,7 +46,7 @@ function parse (string) {
   return { attributes: attributes, body: body, frontmatter: yaml }
 }
 
-function test (string) {
+function test(string) {
   string = string || ''
 
   return regex.test(string)

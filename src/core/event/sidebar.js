@@ -16,9 +16,12 @@ export function btn (el, router) {
 
   const sidebar = dom.getNode('.sidebar')
 
-  isMobile && dom.on(dom.body, 'click', _ =>
-    dom.body.classList.contains('close') && toggle()
-  )
+  isMobile &&
+    dom.on(
+      dom.body,
+      'click',
+      _ => dom.body.classList.contains('close') && toggle()
+    )
   dom.on(sidebar, 'click', _ =>
     setTimeout((_ => getAndActive(router, sidebar, true, true), 0))
   )
@@ -51,19 +54,17 @@ export function getAndActive (router, el, isParent, autoTitle) {
   const hash = router.toURL(router.getCurrentPath())
   let target
 
-  links
-    .sort((a, b) => b.href.length - a.href.length)
-    .forEach(a => {
-      const href = a.getAttribute('href')
-      const node = isParent ? a.parentNode : a
+  links.sort((a, b) => b.href.length - a.href.length).forEach(a => {
+    const href = a.getAttribute('href')
+    const node = isParent ? a.parentNode : a
 
-      if (hash.indexOf(href) === 0 && !target) {
-        target = a
-        dom.toggleClass(node, 'add', 'active')
-      } else {
-        dom.toggleClass(node, 'remove', 'active')
-      }
-    })
+    if (hash.indexOf(href) === 0 && !target) {
+      target = a
+      dom.toggleClass(node, 'add', 'active')
+    } else {
+      dom.toggleClass(node, 'remove', 'active')
+    }
+  })
 
   if (autoTitle) {
     dom.$.title = target ? `${target.innerText} - ${title}` : title

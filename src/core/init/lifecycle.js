@@ -13,7 +13,7 @@ export function initLifecycle (vm) {
   vm._hooks = {}
   vm._lifecycle = {}
   hooks.forEach(hook => {
-    const arr = vm._hooks[hook] = []
+    const arr = (vm._hooks[hook] = [])
     vm._lifecycle[hook] = fn => arr.push(fn)
   })
 }

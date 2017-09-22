@@ -1,32 +1,37 @@
 import { merge, hyphenate, isPrimitive } from './util/core'
 
-const config = merge({
-  el: '#app',
-  repo: '',
-  maxLevel: 6,
-  subMaxLevel: 0,
-  loadSidebar: null,
-  loadNavbar: null,
-  homepage: 'README.md',
-  coverpage: '',
-  basePath: '',
-  auto2top: false,
-  name: '',
-  themeColor: '',
-  nameLink: window.location.pathname,
-  autoHeader: false,
-  executeScript: null,
-  noEmoji: false,
-  ga: '',
-  mergeNavbar: false,
-  formatUpdated: '',
-  externalLinkTarget: '_blank',
-  routerMode: 'hash',
-  noCompileLinks: []
-}, window.$docsify)
+const config = merge(
+  {
+    el: '#app',
+    repo: '',
+    maxLevel: 6,
+    subMaxLevel: 0,
+    loadSidebar: null,
+    loadNavbar: null,
+    homepage: 'README.md',
+    coverpage: '',
+    basePath: '',
+    auto2top: false,
+    name: '',
+    themeColor: '',
+    nameLink: window.location.pathname,
+    autoHeader: false,
+    executeScript: null,
+    noEmoji: false,
+    ga: '',
+    mergeNavbar: false,
+    formatUpdated: '',
+    externalLinkTarget: '_blank',
+    routerMode: 'hash',
+    noCompileLinks: []
+  },
+  window.$docsify
+)
 
-const script = document.currentScript ||
-  [].slice.call(document.getElementsByTagName('script'))
+const script =
+  document.currentScript ||
+  [].slice
+    .call(document.getElementsByTagName('script'))
     .filter(n => /docsify\./.test(n.src))[0]
 
 if (script) {

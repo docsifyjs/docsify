@@ -22,9 +22,7 @@ export class HTML5History extends History {
 
   onchange (cb = noop) {
     on('click', e => {
-      const el = e.target.tagName === 'A'
-        ? e.target
-        : e.target.parentNode
+      const el = e.target.tagName === 'A' ? e.target : e.target.parentNode
 
       if (el.tagName === 'A' && !/_blank/.test(el.target)) {
         e.preventDefault()

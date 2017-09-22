@@ -19,21 +19,23 @@ export const hyphenate = cached(str => {
 /**
  * Simple Object.assign polyfill
  */
-export const merge = Object.assign || function (to) {
-  const hasOwn = Object.prototype.hasOwnProperty
+export const merge =
+  Object.assign ||
+  function (to) {
+    const hasOwn = Object.prototype.hasOwnProperty
 
-  for (let i = 1; i < arguments.length; i++) {
-    const from = Object(arguments[i])
+    for (let i = 1; i < arguments.length; i++) {
+      const from = Object(arguments[i])
 
-    for (const key in from) {
-      if (hasOwn.call(from, key)) {
-        to[key] = from[key]
+      for (const key in from) {
+        if (hasOwn.call(from, key)) {
+          to[key] = from[key]
+        }
       }
     }
-  }
 
-  return to
-}
+    return to
+  }
 
 /**
  * Check if value is primitive

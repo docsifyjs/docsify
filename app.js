@@ -30,22 +30,24 @@ var renderer = new Renderer({
     alias: {
       '/de-de/changelog': '/changelog',
       '/zh-cn/changelog': '/changelog',
-      '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+      '/changelog':
+        'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
     }
   },
   path: './'
 })
 
-http.createServer(function (req, res) {
-  serveStatic('.')(req, res, function () {
-    // TEST SSR
-    // renderer.renderToString(req.url)
+http
+  .createServer(function (req, res) {
+    serveStatic('.')(req, res, function () {
+      // TEST SSR
+      // renderer.renderToString(req.url)
       // .then(html => res.end(html))
 
-    res.writeHead(404, { 'Content-Type': 'text/html' })
-    res.end(fs.readFileSync('dev.html'))
+      res.writeHead(404, { 'Content-Type': 'text/html' })
+      res.end(fs.readFileSync('dev.html'))
+    })
   })
-}).listen(3000, '0.0.0.0')
+  .listen(3000, '0.0.0.0')
 
 console.log(`\nListening at http://0.0.0.0:3000\n`)
-

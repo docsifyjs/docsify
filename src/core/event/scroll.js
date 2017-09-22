@@ -16,9 +16,12 @@ function scrollTo (el) {
     end: el.getBoundingClientRect().top + window.scrollY,
     duration: 500
   })
-  .on('tick', v => window.scrollTo(0, v))
-  .on('done', () => { enableScrollEvent = true; scroller = null })
-  .begin()
+    .on('tick', v => window.scrollTo(0, v))
+    .on('done', () => {
+      enableScrollEvent = true
+      scroller = null
+    })
+    .begin()
 }
 
 function highlight () {
@@ -28,7 +31,7 @@ function highlight () {
   const wrap = dom.find(sidebar, '.sidebar-nav')
   let active = dom.find(sidebar, 'li.active')
   const doc = document.documentElement
-  const top = (doc && doc.scrollTop || document.body.scrollTop) - coverHeight
+  const top = ((doc && doc.scrollTop) || document.body.scrollTop) - coverHeight
   let last
 
   for (let i = 0, len = anchors.length; i < len; i += 1) {
@@ -56,16 +59,10 @@ function highlight () {
     const height = sidebar.clientHeight
     const curOffset = 0
     const cur = active.offsetTop + active.clientHeight + 40
-    const isInView = (
-      active.offsetTop >= wrap.scrollTop &&
-      cur <= wrap.scrollTop + height
-    )
+    const isInView =
+      active.offsetTop >= wrap.scrollTop && cur <= wrap.scrollTop + height
     const notThan = cur - curOffset < height
-    const top = isInView
-      ? wrap.scrollTop
-      : notThan
-        ? curOffset
-        : cur - height
+    const top = isInView ? wrap.scrollTop : notThan ? curOffset : cur - height
 
     sidebar.scrollTop = top
   }
@@ -95,8 +92,12 @@ export function scrollActiveSidebar (router) {
 
   dom.off('scroll', highlight)
   dom.on('scroll', highlight)
-  dom.on(sidebar, 'mouseover', () => { hoverOver = true })
-  dom.on(sidebar, 'mouseleave', () => { hoverOver = false })
+  dom.on(sidebar, 'mouseover', () => {
+    hoverOver = true
+  })
+  dom.on(sidebar, 'mouseleave', () => {
+    hoverOver = false
+  })
 }
 
 export function scrollIntoView (id) {

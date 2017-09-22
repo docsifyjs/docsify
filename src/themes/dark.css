@@ -5,8 +5,8 @@ $color-bg: #3f3f3f;
 $color-text: #c8c8c8;
 $sidebar-width: 300px;
 
-@import "basic/layout";
-@import "basic/coverpage";
+@import 'basic/layout';
+@import 'basic/coverpage';
 
 body {
   background-color: $color-bg;
@@ -38,7 +38,7 @@ body {
     padding: 0;
   }
 
-  ul li.active>a {
+  ul li.active > a {
     color: var(--theme-color, $color-primary);
     font-weight: 600;
   }
@@ -71,7 +71,7 @@ body {
 
 .markdown-section h3 {
   font-size: 1.5rem;
-  margin: 40px 0 .6rem;
+  margin: 40px 0 0.6rem;
 }
 
 .markdown-section h4 {
@@ -159,7 +159,7 @@ body {
 }
 
 .token.namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .token.boolean,
@@ -246,7 +246,7 @@ body {
   cursor: help;
 }
 
-.markdown-section pre>code {
+.markdown-section pre > code {
   -moz-osx-font-smoothing: initial;
   -webkit-font-smoothing: initial;
   background-color: #282828;
@@ -263,7 +263,8 @@ body {
   white-space: inherit;
 }
 
-.markdown-section code::after, .markdown-section code::before {
+.markdown-section code::after,
+.markdown-section code::before {
   letter-spacing: 0.05rem;
 }
 
@@ -292,7 +293,7 @@ pre::after {
   color: #657b83;
 }
 
-input[type="search"] {
+input[type='search'] {
   background: #4f4f4f;
   border-color: #4f4f4f;
   color: #c8c8c8;

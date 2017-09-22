@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
 
-$color-primary: #0074D9;
+$color-primary: #0074d9;
 $color-bg: #fff;
 $color-text: #34495e;
 $sidebar-width: 16rem;
 
-@import "basic/layout";
-@import "basic/coverpage";
+@import 'basic/layout';
+@import 'basic/coverpage';
 
 /* sidebar */
 .sidebar {
@@ -160,7 +160,7 @@ $sidebar-width: 16rem;
 }
 
 .namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .token.property,
@@ -216,7 +216,7 @@ $sidebar-width: 16rem;
   cursor: help;
 }
 
-.markdown-section pre>code {
+.markdown-section pre > code {
   background-color: #f8f8f8;
   border-radius: 2px;
   display: block;
@@ -229,7 +229,8 @@ $sidebar-width: 16rem;
   white-space: inherit;
 }
 
-.markdown-section code::after, .markdown-section code::before {
+.markdown-section code::after,
+.markdown-section code::before {
   letter-spacing: 0.05rem;
 }
 

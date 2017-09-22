@@ -12,7 +12,7 @@ section.cover {
 
   &.has-mask .mask {
     background-color: $color-bg;
-    opacity: .8;
+    opacity: 0.8;
     position: absolute;
     size: 100%;
   }
@@ -42,7 +42,7 @@ section.cover {
     color: inherit;
     font-size: 2.5rem;
     font-weight: 300;
-    margin: .625rem 0 2.5rem;
+    margin: 0.625rem 0 2.5rem;
     position: relative;
     text-align: center;
 
@@ -92,7 +92,7 @@ section.cover {
 
       &:hover {
         color: inherit;
-        opacity: .8;
+        opacity: 0.8;
       }
     }
 
@@ -103,7 +103,7 @@ section.cover {
 
   blockquote > p > a {
     border-bottom: 2px solid var(--theme-color, $color-primary);
-    transition: color .3s;
+    transition: color 0.3s;
 
     &:hover {
       color: var(--theme-color, $color-primary);

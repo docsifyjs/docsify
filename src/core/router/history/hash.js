@@ -5,9 +5,7 @@ import { parseQuery, stringifyQuery, cleanPath } from '../util'
 
 function replaceHash (path) {
   const i = location.href.indexOf('#')
-  location.replace(
-    location.href.slice(0, i >= 0 ? i : 0) + '#' + path
-  )
+  location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path)
 }
 
 const replaceSlug = cached(path => {
@@ -24,9 +22,7 @@ export class HashHistory extends History {
     const path = window.location.pathname || ''
     const base = this.config.basePath
 
-    return /^(\/|https?:)/g.test(base)
-      ? base
-      : cleanPath(path + '/' + base)
+    return /^(\/|https?:)/g.test(base) ? base : cleanPath(path + '/' + base)
   }
 
   getCurrentPath () {

@@ -26,9 +26,11 @@ export function stringifyQuery (obj) {
   const qs = []
 
   for (const key in obj) {
-    qs.push(obj[key]
-      ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
-      : encode(key))
+    qs.push(
+      obj[key]
+        ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
+        : encode(key)
+    )
   }
 
   return qs.length ? `?${qs.join('&')}` : ''
@@ -45,13 +47,9 @@ export const isAbsolutePath = cached(path => {
 export const getParentPath = cached(path => {
   return /\/$/g.test(path)
     ? path
-    : (path = path.match(/(\S*\/)[^\/]+$/))
-      ? path[1]
-      : ''
+    : (path = path.match(/(\S*\/)[^\/]+$/)) ? path[1] : ''
 })
 
 export const cleanPath = cached(path => {
-  return path
-    .replace(/^\/+/, '/')
-    .replace(/([^:])\/{2,}/g, '$1/')
+  return path.replace(/^\/+/, '/').replace(/([^:])\/{2,}/g, '$1/')
 })

@@ -26,9 +26,13 @@ export function get (url, hasBar = false) {
   return {
     then: function (success, error = noop) {
       if (hasBar) {
-        const id = setInterval(_ => progressbar({
-          step: Math.floor(Math.random() * 5 + 1)
-        }), 500)
+        const id = setInterval(
+          _ =>
+            progressbar({
+              step: Math.floor(Math.random() * 5 + 1)
+            }),
+          500
+        )
 
         on('progress', progressbar)
         on('loadend', evt => {
@@ -42,12 +46,12 @@ export function get (url, hasBar = false) {
         if (target.status >= 400) {
           error(target)
         } else {
-          const result = cache[url] = {
+          const result = (cache[url] = {
             content: target.response,
             opt: {
               updatedAt: xhr.getResponseHeader('last-modified')
             }
-          }
+          })
 
           success(result.content, result.opt)
         }

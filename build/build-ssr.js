@@ -17,7 +17,7 @@ rollup
         }
       })
     ],
-    onwarn: function() {}
+    onwarn: function () {}
   })
   .then(function (bundle) {
     var dest = 'packages/docsify-server-renderer/build.js'
