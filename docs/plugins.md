@@ -113,7 +113,6 @@ When readers expand the demo box, the source code and description are shown ther
 
 See https://codesponsor.io
 
-
 ```html
 <script>
   window.$docsify = {
@@ -123,3 +122,21 @@ See https://codesponsor.io
 <script src="//unpkg.com/docsify/lib/plugins/codesponsor.min.js"></script>
 ```
 
+## Copy to Clipboard
+
+Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs.
+
+```html
+<link rel="stylesheet" href="//unpkg.com/docsify-copy-code/styles.css">
+<script src="//unpkg.com/docsify-copy-code/index.js"></script>
+```
+
+```javascript
+window.$docsify = {
+  plugins: [
+    window.DocsifyCopyCodePlugin.init()
+  ]
+}
+```
+
+See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
