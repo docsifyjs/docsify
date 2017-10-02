@@ -4,8 +4,9 @@ const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@\[\]^`{|}~]/g
 export function slugify (str) {
   if (typeof str !== 'string') return ''
 
+  str = /^[\w\s]+$/g.test(str) ? str.toLowerCase() : str
+
   let slug = str
-    .toLowerCase()
     .trim()
     .replace(/<[^>\d]+>/g, '')
     .replace(re, '')
