@@ -1,13 +1,16 @@
 let cache = {}
 const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@\[\]^`{|}~]/g
 
+function lower (string) {
+  return string.toLowerCase()
+}
+
 export function slugify (str) {
   if (typeof str !== 'string') return ''
 
-  str = /^[\w\s]+$/g.test(str) ? str.toLowerCase() : str
-
   let slug = str
     .trim()
+    .replace(/[A-Z]+/g, lower)
     .replace(/<[^>\d]+>/g, '')
     .replace(re, '')
     .replace(/\s/g, '-')
