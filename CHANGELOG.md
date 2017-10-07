@@ -1,3 +1,13 @@
+<a name="4.3.8"></a>
+## [4.3.8](https://github.com/QingWei-Li/docsify/compare/v4.3.7...v4.3.8) (2017-10-07)
+
+
+### Bug Fixes
+
+* **slugify:** GitHub compatible heading links, fixed [#272](https://github.com/QingWei-Li/docsify/issues/272) ([9b4e666](https://github.com/QingWei-Li/docsify/commit/9b4e666))
+
+
+
 <a name="4.3.7"></a>
 ## [4.3.7](https://github.com/QingWei-Li/docsify/compare/v4.3.6...v4.3.7) (2017-10-02)
 
