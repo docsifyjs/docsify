@@ -19,6 +19,7 @@ It is recommended that you save your files to the `./docs` subfolder of the `mas
 ## GitLab Pages
 
 If you are deploying your master branch, include `.gitlab-ci.yml` with the following script:
+
 ?> The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
 
 ``` YAML
