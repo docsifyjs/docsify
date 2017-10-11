@@ -12,8 +12,8 @@ function scrollTo (el) {
   if (scroller) scroller.stop()
   enableScrollEvent = false
   scroller = new Tweezer({
-    start: window.scrollY,
-    end: el.getBoundingClientRect().top + window.scrollY,
+    start: window.pageYOffset,
+    end: el.getBoundingClientRect().top + window.pageYOffset,
     duration: 500
   })
     .on('tick', v => window.scrollTo(0, v))
