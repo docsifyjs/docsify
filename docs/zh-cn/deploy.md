@@ -15,6 +15,30 @@ GitHub Pages 支持从三个地方读取文件
 
 !> 可以将文档放在根目录下，然后选择 **master 分支** 作为文档目录。
 
+
+## GitLab Pages
+
+If you are deploying your master branch, include `.gitlab-ci.yml` with the following script:
+
+?> The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
+
+``` YAML
+pages:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+```
+
+!> You can replace script with `- cp -r docs/. public`, if `./docs` is your Docsify subfolder.
+
+
 ## VPS
 
 和部署所有静态网站一样，只需将服务器的访问根目录设定为 `index.html` 文件。
