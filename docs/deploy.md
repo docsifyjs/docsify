@@ -1,6 +1,6 @@
 # Deploy
 
-Similar to [GitBook](https://www.gitbook.com), you can deploy files to GitHub Pages or VPS.
+Similar to [GitBook](https://www.gitbook.com), you can deploy files to GitHub Pages, GitLab Pages or VPS.
 
 ## GitHub Pages
 
@@ -15,6 +15,27 @@ It is recommended that you save your files to the `./docs` subfolder of the `mas
 ![github pages](_images/deploy-github-pages.png)
 
 !> You can also save files in the root directory and select `master branch`.
+
+## GitLab Pages
+
+If you are deploying your master branch, include `.gitlab-ci.yml` with the following script:
+?> The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
+
+``` YAML
+pages:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+```
+
+!> You can replace script with `- cp -r docs/. public`, if `./docs` is your Docsify subfolder.
 
 ## VPS
 
