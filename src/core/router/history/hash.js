@@ -80,7 +80,9 @@ export class HashHistory extends History {
     path = route.path + stringifyQuery(route.query)
     path = path.replace(/\.md(\?)|\.md$/, '$1')
 
-    if (local) path = currentRoute + path
+    if (local) {
+      path = currentRoute.substr(0, currentRoute.indexOf('?')) + path
+    }
 
     return cleanPath('#/' + path)
   }
