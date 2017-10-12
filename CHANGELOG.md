@@ -1,3 +1,13 @@
+<a name="4.3.10"></a>
+## [4.3.10](https://github.com/QingWei-Li/docsify/compare/v4.3.9...v4.3.10) (2017-10-12)
+
+
+### Bug Fixes
+
+* link render issue after page refreshing ([#276](https://github.com/QingWei-Li/docsify/issues/276)) ([abd885e](https://github.com/QingWei-Li/docsify/commit/abd885e))
+
+
+
 <a name="4.3.9"></a>
 ## [4.3.9](https://github.com/QingWei-Li/docsify/compare/v4.3.8...v4.3.9) (2017-10-11)
 
