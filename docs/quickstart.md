@@ -44,6 +44,7 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
 </head>

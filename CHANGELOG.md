@@ -1,3 +1,13 @@
+<a name="4.3.9"></a>
+## [4.3.9](https://github.com/QingWei-Li/docsify/compare/v4.3.8...v4.3.9) (2017-10-11)
+
+
+### Bug Fixes
+
+* scroll issue in IE ([#275](https://github.com/QingWei-Li/docsify/issues/275)) ([3e94cb6](https://github.com/QingWei-Li/docsify/commit/3e94cb6))
+
+
+
 <a name="4.3.8"></a>
 ## [4.3.8](https://github.com/QingWei-Li/docsify/compare/v4.3.7...v4.3.8) (2017-10-07)
 
