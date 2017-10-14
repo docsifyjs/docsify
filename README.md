@@ -66,6 +66,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 
 | Project | Description |
 |---|---|
+| [Solidarity](https://infinitered.github.io/solidarity/) | Environment enforcer for your projects across machines. |
 | [Snipaste](https://docs.snipaste.com/) | Snip & Paste |
 | [puck](https://puck.zz173.com/) | A small & magical php framework. |
 | [Samaritan](http://samaritan.stockdb.org) | An Algorithmic Trading Framework for Digital Currency. |
