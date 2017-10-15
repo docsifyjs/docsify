@@ -81,7 +81,9 @@ export class HashHistory extends History {
     path = path.replace(/\.md(\?)|\.md$/, '$1')
 
     if (local) {
-      path = currentRoute.substr(0, currentRoute.indexOf('?')) + path
+      const idIndex = currentRoute.indexOf('?')
+      path =
+        (idIndex > 0 ? currentRoute.substr(0, idIndex) : currentRoute) + path
     }
 
     return cleanPath('#/' + path)
