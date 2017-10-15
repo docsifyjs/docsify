@@ -68,6 +68,10 @@ function highlight () {
   }
 }
 
+function getNavKey (path, id) {
+  return `${path}?id=${id}`
+}
+
 export function scrollActiveSidebar (router) {
   const cover = dom.find('.cover.show')
   coverHeight = cover ? cover.offsetHeight : 0
@@ -82,7 +86,8 @@ export function scrollActiveSidebar (router) {
     let href = a.getAttribute('href')
 
     if (href !== '/') {
-      href = router.parse(href).query.id
+      const { query: { id }, path } = router.parse(href)
+      if (id) href = getNavKey(path, id)
     }
 
     if (href) nav[decodeURIComponent(href)] = li
@@ -100,13 +105,13 @@ export function scrollActiveSidebar (router) {
   })
 }
 
-export function scrollIntoView (id) {
+export function scrollIntoView (path, id) {
   if (!id) return
 
   const section = dom.find('#' + id)
   section && scrollTo(section)
 
-  const li = nav[id]
+  const li = nav[getNavKey(path, id)]
   const sidebar = dom.getNode('.sidebar')
   const active = dom.find(sidebar, 'li.active')
   active && active.classList.remove('active')

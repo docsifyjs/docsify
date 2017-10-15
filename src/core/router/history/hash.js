@@ -55,7 +55,7 @@ export class HashHistory extends History {
     let query = ''
 
     const hashIndex = path.indexOf('#')
-    if (hashIndex) {
+    if (hashIndex >= 0) {
       path = path.slice(hashIndex + 1)
     }
 
