@@ -1,3 +1,13 @@
+<a name="4.3.12"></a>
+## [4.3.12](https://github.com/QingWei-Li/docsify/compare/v4.3.11...v4.3.12) (2017-10-15)
+
+
+### Bug Fixes
+
+* incorrect active link ([#281](https://github.com/QingWei-Li/docsify/issues/281)) ([a3ab379](https://github.com/QingWei-Li/docsify/commit/a3ab379))
+
+
+
 <a name="4.3.11"></a>
 ## [4.3.11](https://github.com/QingWei-Li/docsify/compare/v4.3.10...v4.3.11) (2017-10-15)
 
