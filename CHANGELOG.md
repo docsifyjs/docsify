@@ -1,3 +1,13 @@
+<a name="4.3.11"></a>
+## [4.3.11](https://github.com/QingWei-Li/docsify/compare/v4.3.10...v4.3.11) (2017-10-15)
+
+
+### Bug Fixes
+
+* broken links to same page heading, fix [#278](https://github.com/QingWei-Li/docsify/issues/278), fix [#279](https://github.com/QingWei-Li/docsify/issues/279) ([91d6337](https://github.com/QingWei-Li/docsify/commit/91d6337))
+
+
+
 <a name="4.3.10"></a>
 ## [4.3.10](https://github.com/QingWei-Li/docsify/compare/v4.3.9...v4.3.10) (2017-10-12)
 
