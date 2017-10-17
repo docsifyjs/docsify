@@ -94,8 +94,10 @@ function doSearch (value) {
   let html = ''
   matchs.forEach(post => {
     html += `<div class="matching-post">
-<h2><a href="${post.url}">${post.title}</a></h2>
+<a href="${post.url}">    
+<h2>${post.title}</h2>
 <p>${post.content}</p>
+</a>
 </div>`
   })
 
