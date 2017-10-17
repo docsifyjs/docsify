@@ -52,6 +52,7 @@ div#app {
 .search .search-keyword {
   color: var(--theme-color, $color-primary);
   font-style: normal;
+  font-weight: bold;
 }
 
 html,
