@@ -1,3 +1,18 @@
+<a name="4.3.13"></a>
+## [4.3.13](https://github.com/QingWei-Li/docsify/compare/v4.3.12...v4.3.13) (2017-10-17)
+
+
+### Bug Fixes
+
+* duplicate results in search fixed [#257](https://github.com/QingWei-Li/docsify/issues/257)  ([#284](https://github.com/QingWei-Li/docsify/issues/284)) ([3476f6f](https://github.com/QingWei-Li/docsify/commit/3476f6f))
+
+
+### Features
+
+* make whole search result clickable ([#285](https://github.com/QingWei-Li/docsify/issues/285)) ([1b91227](https://github.com/QingWei-Li/docsify/commit/1b91227))
+
+
+
 <a name="4.3.12"></a>
 ## [4.3.12](https://github.com/QingWei-Li/docsify/compare/v4.3.11...v4.3.12) (2017-10-15)
 
