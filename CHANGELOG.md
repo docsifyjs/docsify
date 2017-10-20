@@ -1,3 +1,13 @@
+<a name="4.3.14"></a>
+## [4.3.14](https://github.com/QingWei-Li/docsify/compare/v4.3.13...v4.3.14) (2017-10-20)
+
+
+### Bug Fixes
+
+* codesponsor style ([ab68268](https://github.com/QingWei-Li/docsify/commit/ab68268))
+
+
+
 <a name="4.3.13"></a>
 ## [4.3.13](https://github.com/QingWei-Li/docsify/compare/v4.3.12...v4.3.13) (2017-10-17)
 
