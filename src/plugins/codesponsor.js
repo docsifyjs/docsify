@@ -17,7 +17,8 @@ function tpl (id, options) {
       scrolling=0
       frameborder=0
       width=250
-      height=250
+      height=auto
+      style="max-height: 250px;"
       id="code-sponsor-embed-iframe"
       src="https://app.codesponsor.io/widgets/${id}?${qs.join('&')}">
     </iframe>`
