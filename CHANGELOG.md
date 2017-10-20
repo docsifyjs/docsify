@@ -1,3 +1,13 @@
+<a name="4.3.15"></a>
+## [4.3.15](https://github.com/QingWei-Li/docsify/compare/v4.3.14...v4.3.15) (2017-10-20)
+
+
+### Bug Fixes
+
+* scroll active sidebar ([a2b8eae](https://github.com/QingWei-Li/docsify/commit/a2b8eae))
+
+
+
 <a name="4.3.14"></a>
 ## [4.3.14](https://github.com/QingWei-Li/docsify/compare/v4.3.13...v4.3.14) (2017-10-20)
 
