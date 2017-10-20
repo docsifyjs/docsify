@@ -19,7 +19,7 @@ Then you can immediately write Vue code at Markdown file. `new Vue({ el: '#main'
 
 *README.md*
 
-```markdown
+````markdown
 # Vue guide
 
 `v-for` usage.
@@ -33,7 +33,7 @@ Then you can immediately write Vue code at Markdown file. `new Vue({ el: '#main'
 <ul>
   <li v-for="i in 10">{{ i }}</li>
 </ul>
-```
+````
 
 You can manually initialize a Vue instance.
 
