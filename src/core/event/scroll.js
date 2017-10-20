@@ -24,7 +24,7 @@ function scrollTo (el) {
     .begin()
 }
 
-function highlight () {
+function highlight (path) {
   if (!enableScrollEvent) return
   const sidebar = dom.getNode('.sidebar')
   const anchors = dom.findAll('.anchor')
@@ -45,7 +45,7 @@ function highlight () {
     }
   }
   if (!last) return
-  const li = nav[last.getAttribute('data-id')]
+  const li = nav[getNavKey(path, last.getAttribute('data-id'))]
 
   if (!li || li === active) return
 
@@ -94,9 +94,9 @@ export function scrollActiveSidebar (router) {
   }
 
   if (isMobile) return
-
-  dom.off('scroll', highlight)
-  dom.on('scroll', highlight)
+  const path = router.getCurrentPath()
+  dom.off('scroll', () => highlight(path))
+  dom.on('scroll', () => highlight(path))
   dom.on(sidebar, 'mouseover', () => {
     hoverOver = true
   })
