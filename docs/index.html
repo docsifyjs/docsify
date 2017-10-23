@@ -20,59 +20,59 @@
 </head>
 <body>
   <div id="app">Loading ...</div>
-</body>
-<script>
-  window.$docsify = {
-    alias: {
-      '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
-      '/.*/_navbar.md': '/_navbar.md'
-    },
-    auto2top: true,
-    coverpage: true,
-    executeScript: true,
-    loadSidebar: true,
-    loadNavbar: true,
-    mergeNavbar: true,
-    maxLevel: 4,
-    subMaxLevel: 2,
-    codesponsor: '7c9Ms7xRs-j_y_8abU03DA',
-    ga: 'UA-106147152-1',
-    name: 'docsify',
-    search: {
-      noData: {
-        '/de-de/': 'Keine Ergebnisse!',
-        '/zh-cn/': '没有结果!',
-        '/': 'No results!'
+  <script>
+    window.$docsify = {
+      alias: {
+        '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+        '/.*/_navbar.md': '/_navbar.md'
       },
-      paths: 'auto',
-      placeholder: {
-        '/de-de/': 'Suche',
-        '/zh-cn/': '搜索',
-        '/': 'Search'
-      }
-    },
-    formatUpdated: '{MM}/{DD} {HH}:{mm}',
-    plugins: [
-      function(hook, vm) {
-        hook.beforeEach(function (html) {
-          var url = 'https://github.com/QingWei-Li/docsify/blob/master/docs/' + vm.route.file
-          var editHtml = '[:memo: Edit Document](' + url + ')\n'
-
-          return editHtml
-            + html
-            + '\n----\n'
-            + 'Last modified {docsify-updated} '
-            + editHtml
-        })
-      }
-    ]
-  }
-</script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/codesponsor.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
-<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
-<script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
-<script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
+      auto2top: true,
+      coverpage: true,
+      executeScript: true,
+      loadSidebar: true,
+      loadNavbar: true,
+      mergeNavbar: true,
+      maxLevel: 4,
+      subMaxLevel: 2,
+      codesponsor: '7c9Ms7xRs-j_y_8abU03DA',
+      ga: 'UA-106147152-1',
+      name: 'docsify',
+      search: {
+        noData: {
+          '/de-de/': 'Keine Ergebnisse!',
+          '/zh-cn/': '没有结果!',
+          '/': 'No results!'
+        },
+        paths: 'auto',
+        placeholder: {
+          '/de-de/': 'Suche',
+          '/zh-cn/': '搜索',
+          '/': 'Search'
+        }
+      },
+      formatUpdated: '{MM}/{DD} {HH}:{mm}',
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function (html) {
+            var url = 'https://github.com/QingWei-Li/docsify/blob/master/docs/' + vm.route.file
+            var editHtml = '[:memo: Edit Document](' + url + ')\n'
+  
+            return editHtml
+              + html
+              + '\n----\n'
+              + 'Last modified {docsify-updated} '
+              + editHtml
+          })
+        }
+      ]
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/codesponsor.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
+</body>
 </html>
