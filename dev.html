@@ -16,38 +16,38 @@
 </head>
 <body>
   <div id="app"></div>
+  <script>
+    window.$docsify = {
+      alias: {
+        '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+        '/.*/_navbar.md': '/_navbar.md'
+      },
+      auto2top: true,
+      basePath: '/docs/',
+      executeScript: true,
+      loadNavbar: true,
+      loadSidebar: true,
+      coverpage: true,
+      name: 'docsify',
+      subMaxLevel: 2,
+      mergeNavbar: true,
+      formatUpdated: '{MM}/{DD} {HH}:{mm}',
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function (html) {
+            var url = 'https://github.com/QingWei-Li/docsify/blob/master/' + vm.route.file
+            var editHtml = '[:memo: Edit Document](' + url + ')\n'
+  
+            return editHtml
+              + html
+              + '\n----\n'
+              + 'Last modified {docsify-updated} '
+              + editHtml
+          })
+        }
+      ]
+    }
+  </script>
+  <script src="/lib/docsify.js"></script>
 </body>
-<script>
-  window.$docsify = {
-    alias: {
-      '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
-      '/.*/_navbar.md': '/_navbar.md'
-    },
-    auto2top: true,
-    basePath: '/docs/',
-    executeScript: true,
-    loadNavbar: true,
-    loadSidebar: true,
-    coverpage: true,
-    name: 'docsify',
-    subMaxLevel: 2,
-    mergeNavbar: true,
-    formatUpdated: '{MM}/{DD} {HH}:{mm}',
-    plugins: [
-      function(hook, vm) {
-        hook.beforeEach(function (html) {
-          var url = 'https://github.com/QingWei-Li/docsify/blob/master/' + vm.route.file
-          var editHtml = '[:memo: Edit Document](' + url + ')\n'
-
-          return editHtml
-            + html
-            + '\n----\n'
-            + 'Last modified {docsify-updated} '
-            + editHtml
-        })
-      }
-    ]
-  }
-</script>
-<script src="/lib/docsify.js"></script>
 </html>
