@@ -57,3 +57,8 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 [link](/demo2 ":target=_self")
 ```
 
+## Disable link
+
+```md
+[link](/demo ":disabled")
+```

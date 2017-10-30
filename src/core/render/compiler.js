@@ -25,9 +25,11 @@ export class Compiler {
     if (isFn(mdConf)) {
       compile = mdConf(marked, renderer)
     } else {
-      marked.setOptions(merge(mdConf, {
-        renderer: merge(renderer, mdConf.renderer)
-      }))
+      marked.setOptions(
+        merge(mdConf, {
+          renderer: merge(renderer, mdConf.renderer)
+        })
+      )
       compile = marked
     }
 
@@ -91,33 +93,49 @@ export class Compiler {
     }
     // highlight code
     origin.code = renderer.code = function (code, lang = '') {
-      const hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup)
+      const hl = Prism.highlight(
+        code,
+        Prism.languages[lang] || Prism.languages.markup
+      )
 
       return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
     }
-    origin.link = renderer.link = function (href, title, text) {
-      let blank = ''
+    origin.link = renderer.link = function (href, title = '', text) {
+      let attrs = ''
+      const config = {}
 
-      if (!/:|(\/{2})/.test(href) &&
-        !_self.matchNotCompileLink(href) &&
-        !/(\s?:ignore)(\s\S+)?$/.test(title)) {
-        href = router.toURL(href, null, router.getCurrentPath())
-      } else {
-        blank = ` target="${linkTarget}"`
-        title = title && title.replace(/:ignore/g, '').trim()
+      if (title) {
+        title = title
+          .replace(/:(\w+)=?(\w+)?/g, (m, key, value) => {
+            config[key] = value || true
+            return ''
+          })
+          .trim()
       }
 
-      let target = title && title.match(/:target=\w+/)
-      if (target) {
-        target = target[0]
-        title = title.replace(target, '')
-        blank = ' ' + target.slice(1)
+      if (
+        !/:|(\/{2})/.test(href) &&
+        !_self.matchNotCompileLink(href) &&
+        !config.ignore
+      ) {
+        href = router.toURL(href, null, router.getCurrentPath())
+      } else {
+        attrs += ` target="${linkTarget}"`
+      }
+
+      if (config.target) {
+        attrs += ' target=' + config.target
+      }
+
+      if (config.disabled) {
+        attrs += ' disabled'
+        href = 'javascript:void(0)'
       }
 
       if (title) {
         title = ` title="${title}"`
       }
-      return `<a href="${href}"${title || ''}${blank}>${text}</a>`
+      return `<a href="${href}"${title || ''}${attrs}>${text}</a>`
     }
     origin.paragraph = renderer.paragraph = function (text) {
       if (/^!&gt;/.test(text)) {
