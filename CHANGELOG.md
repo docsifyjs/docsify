@@ -1,3 +1,18 @@
+<a name="4.4.0"></a>
+# [4.4.0](https://github.com/QingWei-Li/docsify/compare/v4.3.15...v4.4.0) (2017-10-30)
+
+
+### Bug Fixes
+
+* sidebar style issue on firefox, fixed [#184](https://github.com/QingWei-Li/docsify/issues/184) ([#297](https://github.com/QingWei-Li/docsify/issues/297)) ([36bfc9d](https://github.com/QingWei-Li/docsify/commit/36bfc9d))
+
+
+### Features
+
+* add helper for disabled link, fixed [#295](https://github.com/QingWei-Li/docsify/issues/295) ([#296](https://github.com/QingWei-Li/docsify/issues/296)) ([4ad96f3](https://github.com/QingWei-Li/docsify/commit/4ad96f3))
+
+
+
 <a name="4.3.15"></a>
 ## [4.3.15](https://github.com/QingWei-Li/docsify/compare/v4.3.14...v4.3.15) (2017-10-20)
 
