@@ -47,10 +47,11 @@ body {
 }
 
 .app-sub-sidebar {
-  .section-link {
+  li {
     &::before {
       content: '-';
       padding-right: 4px;
+      float: left;
     }
   }
 }
