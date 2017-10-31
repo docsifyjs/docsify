@@ -1,22 +1,14 @@
-import zoom from 'zoom-image'
-import style from 'zoom-image/css/zoom-image.css'
+import mediumZoom from 'medium-zoom'
 
 function install (hook) {
-  const dom = Docsify.dom
-  let destroys
-
-  // add style
-  dom.appendTo(dom.head, dom.create('style', style))
+  let zoom
 
   hook.doneEach(_ => {
-    const images = dom.findAll('img:not(.emoji)')
-
-    if (Array.isArray(destroys) && destroys.length) {
-      destroys.forEach(o => o())
-      destroys = []
+    if (zoom) {
+      zoom.detach()
     }
 
-    destroys = images.map(zoom)
+    zoom = mediumZoom('img:not(.emoji):not([data-no-zoom])')
   })
 }
 
