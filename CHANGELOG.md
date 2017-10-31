@@ -1,3 +1,14 @@
+<a name="4.4.1"></a>
+## [4.4.1](https://github.com/QingWei-Li/docsify/compare/v4.4.0...v4.4.1) (2017-10-31)
+
+
+### Bug Fixes
+
+* {docsify-ignore-all} and {docsify-ignore} bug ([#299](https://github.com/QingWei-Li/docsify/issues/299)) ([cc98f56](https://github.com/QingWei-Li/docsify/commit/cc98f56))
+* zoom image plugin issue, fixed [#187](https://github.com/QingWei-Li/docsify/issues/187) ([#300](https://github.com/QingWei-Li/docsify/issues/300)) ([fa772cf](https://github.com/QingWei-Li/docsify/commit/fa772cf))
+
+
+
 <a name="4.4.0"></a>
 # [4.4.0](https://github.com/QingWei-Li/docsify/compare/v4.3.15...v4.4.0) (2017-10-30)
 
