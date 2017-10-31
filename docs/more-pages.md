@@ -83,9 +83,9 @@ This header won't appear in the sidebar table of contents.
 To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on the first header of the page.
 
 ```markdown
-# Getting Started
+# Getting Started {docsify-ignore-all}
 
-## Header {docsify-ignore-all}
+## Header
 This header won't appear in the sidebar table of contents.
 ```
 

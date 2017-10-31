@@ -191,7 +191,7 @@ export class Compiler {
     const currentPath = this.router.getCurrentPath()
     const { cacheTree, toc } = this
 
-    toc[0] && toc[0].ignoreAllSubs && (this.toc = [])
+    toc[0] && toc[0].ignoreAllSubs && toc.splice(0, toc.length)
     toc[0] && toc[0].level === 1 && toc.shift()
     toc.forEach((node, i) => {
       node.ignoreSubHeading && toc.splice(i, 1)
