@@ -8,6 +8,20 @@ import { isAbsolutePath, getPath } from '../router/util'
 import { isFn, merge, cached } from '../util/core'
 
 const cachedLinks = {}
+function getAndRemoveConfig (str = '') {
+  const config = {}
+
+  if (str) {
+    str = str
+      .replace(/:([\w-]+)=?([\w-]+)?/g, (m, key, value) => {
+        config[key] = value || true
+        return ''
+      })
+      .trim()
+  }
+
+  return { str, config }
+}
 
 export class Compiler {
   constructor (config, router) {
@@ -102,16 +116,9 @@ export class Compiler {
     }
     origin.link = renderer.link = function (href, title = '', text) {
       let attrs = ''
-      const config = {}
 
-      if (title) {
-        title = title
-          .replace(/:(\w+)=?(\w+)?/g, (m, key, value) => {
-            config[key] = value || true
-            return ''
-          })
-          .trim()
-      }
+      const { str, config } = getAndRemoveConfig(title)
+      title = str
 
       if (
         !/:|(\/{2})/.test(href) &&
@@ -133,9 +140,10 @@ export class Compiler {
       }
 
       if (title) {
-        title = ` title="${title}"`
+        attrs += ` title="${title}"`
       }
-      return `<a href="${href}"${title || ''}${attrs}>${text}</a>`
+
+      return `<a href="${href}"${attrs}>${text}</a>`
     }
     origin.paragraph = renderer.paragraph = function (text) {
       if (/^!&gt;/.test(text)) {
@@ -147,13 +155,24 @@ export class Compiler {
     }
     origin.image = renderer.image = function (href, title, text) {
       let url = href
-      const titleHTML = title ? ` title="${title}"` : ''
+      let attrs = ''
+
+      const { str, config } = getAndRemoveConfig(title)
+      title = str
+
+      if (config['no-zoom']) {
+        attrs += ' data-no-zoom'
+      }
+
+      if (title) {
+        attrs += ` title="${title}"`
+      }
 
       if (!isAbsolutePath(href)) {
         url = getPath(contentBase, href)
       }
 
-      return `<img src="${url}" data-origin="${href}" alt="${text}"${titleHTML}>`
+      return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
     }
 
     renderer.origin = origin

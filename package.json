@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "marked": "^0.3.6",
+    "medium-zoom": "^0.2.0",
     "prismjs": "^1.6.0",
     "tinydate": "^1.0.0",
-    "tweezer.js": "^1.4.0",
-    "zoom-image": "^0.1.4"
+    "tweezer.js": "^1.4.0"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^1.3.2",
