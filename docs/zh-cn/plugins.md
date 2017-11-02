@@ -85,11 +85,19 @@
 
 ## 图片缩放 - Zoom image
 
-Medium's 风格的图片缩放插件. 基于 [zoom-image](https://github.com/egoist/zoom-image)。
+Medium's 风格的图片缩放插件. 基于 [medium-zoom](https://github.com/francoischalifour/medium-zoom)。
 
 ```html
 <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
 ```
+
+
+忽略某张图片
+
+```markdown
+![](image.png ':no-zoom')
+```
+
 
 
 ## Edit on github

@@ -91,10 +91,16 @@ Wenn das Skript auf der Seite ein externes ist (eine Javascript Datei über das 
 
 ## Bilder zoomen
 
-Medium's Bilderzoom. Basierend auf [zoom-image](https://github.com/egoist/zoom-image).
+Medium's Bilderzoom. Basierend auf [medium-zoom](https://github.com/francoischalifour/medium-zoom).
 
 ```html
 <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
+```
+
+Exclude the special image
+
+```markdown
+![](image.png ':no-zoom')
 ```
 
 ## Edit on github
