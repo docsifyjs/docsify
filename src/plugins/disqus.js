@@ -23,7 +23,8 @@ function install (hook, vm) {
     div.style = `width: ${main.clientWidth}px; margin: 0 auto 20px;`
     dom.appendTo(dom.find('.content'), div)
 
-    window.disqus_config = function () {
+    // eslint-disable-next-line
+    window.disqus_config = function() {
       this.page.url = location.origin + '/-' + vm.route.path
       this.page.identifier = vm.route.path
       this.page.title = document.title
@@ -32,7 +33,7 @@ function install (hook, vm) {
 
   hook.doneEach(_ => {
     if (typeof window.DISQUS !== 'undefined') {
-      DISQUS.reset({
+      window.DISQUS.reset({
         reload: true,
         config: function () {
           this.page.url = location.origin + '/-' + vm.route.path
