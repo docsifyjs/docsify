@@ -147,3 +147,17 @@ window.$docsify = {
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
+
+
+## Disqus
+
+Disqus comments. https://disqus.com/
+
+```html
+<script>
+  window.$docsify = {
+    disqus: 'shortname'
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/plugins/disqus.min.js"></script>
+```
