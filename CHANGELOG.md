@@ -1,3 +1,13 @@
+<a name="4.5.0"></a>
+# [4.5.0](https://github.com/QingWei-Li/docsify/compare/v4.4.1...v4.5.0) (2017-11-04)
+
+
+### Features
+
+* add disqus plugin, closed [#123](https://github.com/QingWei-Li/docsify/issues/123) ([fd7d4e0](https://github.com/QingWei-Li/docsify/commit/fd7d4e0))
+
+
+
 <a name="4.4.1"></a>
 ## [4.4.1](https://github.com/QingWei-Li/docsify/compare/v4.4.0...v4.4.1) (2017-10-31)
 
