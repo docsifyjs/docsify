@@ -86,6 +86,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [Solidarity](https://infinitered.github.io/solidarity/) | Environment enforcer for your projects across machines. |
 | [rnback](https://rnback.com/) | Backend service for react-native applications. |
 | [IT-films](https://greybax.github.com/IT-films/) | A curated list of awesome movies, documentaries and TV series about hackers, geeks and IT in common, sorted by IMDB rating. |
+| [zooming](http://desmonding.me/zooming/docs) | Image zoom that makes sense. |
 
 ## Similar projects
 
