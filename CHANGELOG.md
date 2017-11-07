@@ -1,3 +1,13 @@
+<a name="4.5.1"></a>
+## [4.5.1](https://github.com/QingWei-Li/docsify/compare/v4.5.0...v4.5.1) (2017-11-07)
+
+
+### Features
+
+* fetch files with the query params, fixed [#303](https://github.com/QingWei-Li/docsify/issues/303) ([2a2ed96](https://github.com/QingWei-Li/docsify/commit/2a2ed96))
+
+
+
 <a name="4.5.0"></a>
 # [4.5.0](https://github.com/QingWei-Li/docsify/compare/v4.4.1...v4.5.0) (2017-11-04)
 
