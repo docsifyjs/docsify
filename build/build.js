@@ -49,7 +49,8 @@ var plugins = [
   { name: 'front-matter', entry: 'front-matter/index.js' },
   { name: 'zoom-image', entry: 'zoom-image.js' },
   { name: 'codesponsor', entry: 'codesponsor.js' },
-  { name: 'disqus', entry: 'disqus.js' }
+  { name: 'disqus', entry: 'disqus.js' },
+  { name: 'gitalk', entry: 'gitalk.js' }
 ]
 
 plugins.forEach(item => {
