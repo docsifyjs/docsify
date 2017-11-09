@@ -62,3 +62,23 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ```md
 [link](/demo ":disabled")
 ```
+
+## Github Task Lists
+
+```md
+
+* [ ] foo
+ * bar
+ * [x] baz
+ * [] bam
+   * [ ] bim
+   * [ ] lim
+```
+
+* [ ] foo
+ * bar
+ * [x] baz
+ * [] bam
+   * [ ] bim
+   * [ ] lim
+

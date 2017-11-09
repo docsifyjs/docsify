@@ -91,6 +91,11 @@ kbd {
   vertical-align: middle;
 }
 
+li input[type=checkbox] {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
 /* navbar */
 .app-nav {
   left: 0;

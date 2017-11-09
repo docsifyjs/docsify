@@ -175,6 +175,15 @@ export class Compiler {
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
     }
 
+    const CHECKED_RE = /^\[([ x])\] +/
+    origin.listitem = renderer.listitem = function (text) {
+      const checked = CHECKED_RE.exec(text)
+      if (checked) {
+        text = text.replace(CHECKED_RE, `<input type="checkbox" ${checked[1] === 'x' ? 'checked' : ''} />`)
+      }
+      return `<li>${text}</li>\n`
+    }
+
     renderer.origin = origin
 
     return renderer
