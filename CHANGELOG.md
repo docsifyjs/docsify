@@ -1,3 +1,13 @@
+<a name="4.5.2"></a>
+## [4.5.2](https://github.com/QingWei-Li/docsify/compare/v4.5.1...v4.5.2) (2017-11-09)
+
+
+### Features
+
+* github task lists, close [#215](https://github.com/QingWei-Li/docsify/issues/215) ([#305](https://github.com/QingWei-Li/docsify/issues/305)) ([d486eef](https://github.com/QingWei-Li/docsify/commit/d486eef))
+
+
+
 <a name="4.5.1"></a>
 ## [4.5.1](https://github.com/QingWei-Li/docsify/compare/v4.5.0...v4.5.1) (2017-11-07)
 
