@@ -63,25 +63,25 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 <script src="//unpkg.com/docsify"></script>
 ```
 
-## Ignoring Subheaders
+## 忽略副标题
 
-When `subMaxLevel` is set, each header is automatically added to the table of contents by default. If you want to ignore a specific header, add `{docsify-ignore}` to it.
+当设置了 `subMaxLevel` 时，默认情况下每个标题都会自动添加到目录中。如果你想忽略特定的标题，可以给它添加 `{docsify-ignore}` 。
 
 ```markdown
 # Getting Started
 
 ## Header {docsify-ignore}
-This header won't appear in the sidebar table of contents.
+该标题不会出现在侧边栏的目录中。
 ```
 
-To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on the first header of the page.
+要忽略特定页面上的所有标题，你可以在页面的第一个标题上使用 `{docsify-ignore-all}` 。
 
 ```markdown
 # Getting Started {docsify-ignore-all}
 
 ## Header
-This header won't appear in the sidebar table of contents.
+该标题不会出现在侧边栏的目录中。
 ```
 
-Both `{docsify-ignore}` and `{docsify-ignore-all}` will not be rendered on the page when used.
+在使用时， `{docsify-ignore}` 和 `{docsify-ignore-all}` 都不会在页面上呈现。
 
