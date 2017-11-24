@@ -15,6 +15,7 @@ It is recommended that you save your files to the `./docs` subfolder of the `mas
 ![github pages](_images/deploy-github-pages.png)
 
 !> You can also save files in the root directory and select `master branch`.
+!> You'll need to place a `.nojekyll` file in the deploy location (such as `/docs` or the gh-pages branch
 
 ## GitLab Pages
 
