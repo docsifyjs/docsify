@@ -329,7 +329,7 @@ window.$docsify = {
 
 ## format-updated
 
-我们可以显示文档更新日期通过 **{docsify-updated<span>}</span>** 变量. 并且格式化日期通过 `formatUpdated`.
+我们可以显示文档更新日期通过 **{docsify-updated<span>}</span>** 变量. 并且格式化日期通过 `formatUpdated`。
 参考 https://github.com/lukeed/tinydate#patterns
 ```js
 window.$docsify = {
@@ -345,7 +345,7 @@ window.$docsify = {
 
 ## external-link-target
 
-当前默认为 _blank, 配置一下就可以:
+当前默认为 _blank, 配置一下就可以：
 
 ```js
 window.$docsify = {
