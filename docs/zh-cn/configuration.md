@@ -329,7 +329,7 @@ window.$docsify = {
 
 ## format-updated
 
-我们可以显示文档更新日期通过 **{docsify-updated<span>}</span>** 变量. 并且格式化日期通过 `formatUpdated`.
+我们可以显示文档更新日期通过 **{docsify-updated<span>}</span>** 变量. 并且格式化日期通过 `formatUpdated`。
 参考 https://github.com/lukeed/tinydate#patterns
 ```js
 window.$docsify = {
@@ -345,7 +345,7 @@ window.$docsify = {
 
 ## external-link-target
 
-Currently it defaults to _blank, would be nice if configurable:
+当前默认为 _blank, 配置一下就可以：
 
 ```js
 window.$docsify = {
@@ -356,10 +356,10 @@ window.$docsify = {
 
 ## noCompileLinks
 
-- type: `Array`
+- 类型: `Array`
 
 
-Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
+有时我们不希望 docsify 处理我们的链接。 参考 [#203](https://github.com/QingWei-Li/docsify/issues/203)
 
 
 ```js

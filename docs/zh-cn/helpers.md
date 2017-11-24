@@ -25,23 +25,23 @@ docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 ?> *TODO* 完善示例
 
 
-## Ignore to compile link
+## 忽略编译链接
 
-Some time we will put some other relative path to the link, you have to need to tell docsify you don't need to compile this link. For example
+有时候我们会把其他一些相对路径放到链接上，你必须告诉 docsify 你不需要编译这个链接。 例如：
 
 ```md
 [link](/demo/)
 ```
 
 
-It will be compiled to `<a href="/#/demo/">link</a>` and will be loaded `/demo/README.md`. Maybe you want to jump to `/demo/index.html`.
+它将被编译为 `<a href="/#/demo/">link</a>` 并将加载 `/demo/README.md`. 可能你想跳转到 `/demo/index.html`。
 
-Now you can do that
+现在你可以做到这一点
 
 ```md
 [link](/demo/ ":ignore")
 ```
-You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set title for link.
+即将会得到 `<a href="/demo/">link</a>` html 代码。不要担心，你仍然可以为链接设置标题。
 
 ```md
 [link](/demo/ ":ignore title")
@@ -50,7 +50,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ```
 
 
-## Set target attribute for link
+## 设置链接的 target 属性
 
 ```md
 [link](/demo ":target=_blank")
@@ -58,7 +58,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ```
 
 
-## Github Task Lists
+## Github 任务列表
 
 ```md
 
