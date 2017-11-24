@@ -30,7 +30,7 @@ window.$docsify = {
 ```
 
 
-## Supports mermaid
+## 支持 mermaid
 
 ```js
 // Import mermaid

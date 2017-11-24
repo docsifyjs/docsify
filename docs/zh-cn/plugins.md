@@ -100,14 +100,14 @@ Medium's 风格的图片缩放插件. 基于 [medium-zoom](https://github.com/fr
 
 
 
-## Edit on github
+## 在 Github 上编辑
 
-Add `Edit on github` button on every pages. provided by 3rd party, check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+在每一页上添加 `Edit on github` 按钮. 由第三方库提供, 查看 [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 
 ## CodeSponsor
 
-See https://codesponsor.io
+参考 https://codesponsor.io
 
 
 ```html
