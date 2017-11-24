@@ -87,6 +87,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [rnback](https://rnback.com/) | Backend service for react-native applications. |
 | [IT-films](https://greybax.github.com/IT-films/) | A curated list of awesome movies, documentaries and TV series about hackers, geeks and IT in common, sorted by IMDB rating. |
 | [zooming](http://desmonding.me/zooming/docs) | Image zoom that makes sense. |
+| [vue-sticker](https://kamilocean.github.io/vue-sticker/#/) | Vue component, that helps to make sticky effects |
 
 ## Similar projects
 
