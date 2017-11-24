@@ -18,9 +18,9 @@ GitHub Pages 支持从三个地方读取文件
 
 ## GitLab Pages
 
-如果你正在部署你的主分支, 在 `.gitlab-ci.yml` 中包含以下脚本:
+如果你正在部署你的主分支, 在 `.gitlab-ci.yml` 中包含以下脚本：
 
-?> `.public` 的解决方法是这样的，`cp` 不会无限循环的将 `public/` 复制到自身.
+?> `.public` 的解决方法是这样的，`cp` 不会无限循环的将 `public/` 复制到自身。
 
 ``` YAML
 pages:
@@ -36,7 +36,7 @@ pages:
   - master
 ```
 
-!> 你可以用 `- cp -r docs/. public` 替换脚本, 如果 `./docs` 是你的 Docsify 子文件夹.
+!> 你可以用 `- cp -r docs/. public` 替换脚本, 如果 `./docs` 是你的 docsify 子文件夹。
 
 
 ## VPS
