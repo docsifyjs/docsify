@@ -27,21 +27,21 @@ docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 
 ## 忽略编译链接
 
-有时候我们会把其他一些相对路径放到链接上，你必须告诉 docsify 你不需要编译这个链接。 例如:
+有时候我们会把其他一些相对路径放到链接上，你必须告诉 docsify 你不需要编译这个链接。 例如：
 
 ```md
 [link](/demo/)
 ```
 
 
-它将被编译为 `<a href="/#/demo/">link</a>` 并将加载 `/demo/README.md`. 可能你想跳转到 `/demo/index.html`.
+它将被编译为 `<a href="/#/demo/">link</a>` 并将加载 `/demo/README.md`. 可能你想跳转到 `/demo/index.html`。
 
 现在你可以做到这一点
 
 ```md
 [link](/demo/ ":ignore")
 ```
-即将会得到 `<a href="/demo/">link</a>` html 代码. 不要担心, 你仍然可以为链接设置标题.
+即将会得到 `<a href="/demo/">link</a>` html 代码。不要担心，你仍然可以为链接设置标题。
 
 ```md
 [link](/demo/ ":ignore title")
