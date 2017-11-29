@@ -1,3 +1,18 @@
+<a name="4.5.4"></a>
+## [4.5.4](https://github.com/QingWei-Li/docsify/compare/v4.5.2...v4.5.4) (2017-11-29)
+
+
+### Bug Fixes
+
+* **compiler:** task lists style, fixed [#215](https://github.com/QingWei-Li/docsify/issues/215) ([e43ded4](https://github.com/QingWei-Li/docsify/commit/e43ded4))
+
+
+### Features
+
+* add gitalk plugin ([#306](https://github.com/QingWei-Li/docsify/issues/306)) ([9208e64](https://github.com/QingWei-Li/docsify/commit/9208e64))
+
+
+
 <a name="4.5.3"></a>
 ## [4.5.3](https://github.com/QingWei-Li/docsify/compare/v4.5.2...v4.5.3) (2017-11-11)
 
