@@ -1,6 +1,6 @@
 const fixedPath = location.href.replace('/-/', '/#/')
 if (fixedPath != location.href) {
-  location.href = location.href.replace('/-/', '/#/')
+  location.href = fixedPath
 }
 
 function install (hook, vm) {
