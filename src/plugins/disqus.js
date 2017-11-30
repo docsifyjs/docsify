@@ -1,4 +1,7 @@
-location.href = location.href.replace('/-/', '/#/')
+const fixedPath = location.href.replace('/-/', '/#/')
+if (fixedPath != location.href) {
+  location.href = fixedPath
+}
 
 function install (hook, vm) {
   const dom = Docsify.dom
