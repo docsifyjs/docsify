@@ -88,6 +88,8 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [IT-films](https://greybax.github.com/IT-films/) | A curated list of awesome movies, documentaries and TV series about hackers, geeks and IT in common, sorted by IMDB rating. |
 | [zooming](http://desmonding.me/zooming/docs) | Image zoom that makes sense. |
 | [vue-sticker](https://kamilocean.github.io/vue-sticker/#/) | Vue component, that helps to make sticky effects |
+| [Ts.ED](https://romakita.github/ts-express-decorators/#/) | A TypeScript Framework on top of Express |
+| [Ts.LogDebug](https://romakita.github/ts-log-debug/#/) | A multi channel logger written in TypeScript |
 
 ## Similar projects
 
