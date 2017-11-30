@@ -1,5 +1,5 @@
 const fixedPath = location.href.replace('/-/', '/#/')
-if (fixedPath != location.href) {
+if (fixedPath !== location.href) {
   location.href = fixedPath
 }
 
