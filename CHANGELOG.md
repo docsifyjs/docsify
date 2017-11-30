@@ -1,3 +1,13 @@
+<a name="4.5.5"></a>
+## [4.5.5](https://github.com/QingWei-Li/docsify/compare/v4.5.4...v4.5.5) (2017-11-30)
+
+
+### Bug Fixes
+
+* disqus plugin issue ([#318](https://github.com/QingWei-Li/docsify/issues/318)) ([041b33e](https://github.com/QingWei-Li/docsify/commit/041b33e)), closes [#317](https://github.com/QingWei-Li/docsify/issues/317)
+
+
+
 <a name="4.5.4"></a>
 ## [4.5.4](https://github.com/QingWei-Li/docsify/compare/v4.5.2...v4.5.4) (2017-11-29)
 
