@@ -15,9 +15,6 @@
 </p>
 
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/YdWAqnN2kHQmLtFQhEddaaPT/QingWei-Li/docsify'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/YdWAqnN2kHQmLtFQhEddaaPT/QingWei-Li/docsify.svg' /></a>
-
-
 ## Links
 
 - [Documentation](https://docsify.js.org)

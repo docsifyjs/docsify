@@ -116,18 +116,6 @@ When readers expand the demo box, the source code and description are shown ther
 
 [Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
 
-## CodeSponsor
-
-See https://codesponsor.io
-
-```html
-<script>
-  window.$docsify = {
-    codesponsor: 'id'
-  }
-</script>
-<script src="//unpkg.com/docsify/lib/plugins/codesponsor.min.js"></script>
-```
 
 ## Copy to Clipboard
 

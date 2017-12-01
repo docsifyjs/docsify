@@ -48,7 +48,6 @@ var plugins = [
   { name: 'external-script', entry: 'external-script.js' },
   { name: 'front-matter', entry: 'front-matter/index.js' },
   { name: 'zoom-image', entry: 'zoom-image.js' },
-  { name: 'codesponsor', entry: 'codesponsor.js' },
   { name: 'disqus', entry: 'disqus.js' },
   { name: 'gitalk', entry: 'gitalk.js' }
 ]
