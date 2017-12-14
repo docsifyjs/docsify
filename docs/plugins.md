@@ -106,7 +106,7 @@ Exclude the special image
 
 ## Edit on github
 
-Add `Edit on github` button on every pages. provided by 3rd party, check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 ## Demo code with instant preview and jsfiddle integration
 
@@ -119,7 +119,7 @@ When readers expand the demo box, the source code and description are shown ther
 
 ## Copy to Clipboard
 
-Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs.
+Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify-copy-code/styles.css">
@@ -152,7 +152,7 @@ Disqus comments. https://disqus.com/
 
 ## Gitalk
 
-Gitalk is a modern comment component based on Github Issue and Preact. https://github.com/gitalk/gitalk
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact. 
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
@@ -171,3 +171,13 @@ Gitalk is a modern comment component based on Github Issue and Preact. https://g
   })
 </script>
 ```
+
+## Navigation
+
+Pagination for docsify. By [@imyelo](https://github.com/imyelo)
+
+```html
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+```
+
