@@ -86,6 +86,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [vue-sticker](https://kamilocean.github.io/vue-sticker/#/) | Vue component, that helps to make sticky effects |
 | [Ts.ED](https://romakita.github.io/ts-express-decorators/#/) | A TypeScript Framework on top of Express |
 | [Ts.LogDebug](https://romakita.github.io/ts-log-debug/#/) | A multi channel logger written in TypeScript |
+| [vue-orgchart](https://spiritree.github.io/vue-orgchart) | Vue.js wrapper for OrgChart.js |
 
 ## Similar projects
 
