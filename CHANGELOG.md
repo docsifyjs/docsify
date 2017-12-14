@@ -1,3 +1,16 @@
+<a name="4.5.6"></a>
+## [4.5.6](https://github.com/QingWei-Li/docsify/compare/v4.5.3...v4.5.6) (2017-12-14)
+
+
+### Bug Fixes
+
+* **compiler:** task lists style, fixed [#215](https://github.com/QingWei-Li/docsify/issues/215) ([e43ded4](https://github.com/QingWei-Li/docsify/commit/e43ded4))
+* disqus plugin issue ([#318](https://github.com/QingWei-Li/docsify/issues/318)) ([041b33e](https://github.com/QingWei-Li/docsify/commit/041b33e)), closes [#317](https://github.com/QingWei-Li/docsify/issues/317)
+* remove codesponsor ([66c8fd5](https://github.com/QingWei-Li/docsify/commit/66c8fd5))
+* **style:** increase the tap targets of menu button, fixed [#325](https://github.com/QingWei-Li/docsify/issues/325) ([888f217](https://github.com/QingWei-Li/docsify/commit/888f217))
+
+
+
 <a name="4.5.5"></a>
 ## [4.5.5](https://github.com/QingWei-Li/docsify/compare/v4.5.4...v4.5.5) (2017-11-30)
 
