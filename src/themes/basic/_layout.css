@@ -507,6 +507,7 @@ body.close {
   .sidebar-toggle {
     background-color: transparent;
     width: auto;
+    padding: 30px 30px 10px 10px;
   }
 
   body.close {
@@ -518,6 +519,7 @@ body.close {
       background-color: rgba($color-bg, 0.8);
       transition: 1s background-color;
       width: calc($sidebar-width - 16px);
+      padding: 10px;
     }
 
     .content {
