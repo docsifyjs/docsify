@@ -266,7 +266,8 @@ window.$docsify = {
   alias: {
     '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
-    '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+    '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+    '/.*/_sidebar.md': '/_sidebar.md' // See #301
   }
 }
 ```
