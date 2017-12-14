@@ -103,6 +103,15 @@ Exclude the special image
 ![](image.png ':no-zoom')
 ```
 
+## Demo code with instant preview and jsfiddle integration
+
+With this plugin, sample code can be rendered on the page instantly, so that the readers can see the preview immediately.
+When readers expand the demo box, the source code and description are shown there. if they click the button `Try in Jsfiddle`,
+`jsfiddle.net` will be open with the code of this sample, which allow readers to revise the code and try on their own.
+
+[Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
+
+
 ## Edit on github
 
 Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)

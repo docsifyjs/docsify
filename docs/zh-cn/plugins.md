@@ -83,6 +83,15 @@
 <script src="//unpkg.com/docsify/lib/plugins/external-script.js"></script>
 ```
 
+## Demo code with instant preview and jsfiddle integration
+
+With this plugin, sample code can be rendered on the page instantly, so that the readers can see the preview immediately.
+When readers expand the demo box, the source code and description are shown there. if they click the button `Try in Jsfiddle`,
+`jsfiddle.net` will be open with the code of this sample, which allow readers to revise the code and try on their own.
+
+[Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
+
+
 ## 图片缩放 - Zoom image
 
 Medium's 风格的图片缩放插件. 基于 [medium-zoom](https://github.com/francoischalifour/medium-zoom)。
