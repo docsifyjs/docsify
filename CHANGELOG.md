@@ -4,9 +4,6 @@
 
 ### Bug Fixes
 
-* **compiler:** task lists style, fixed [#215](https://github.com/QingWei-Li/docsify/issues/215) ([e43ded4](https://github.com/QingWei-Li/docsify/commit/e43ded4))
-* disqus plugin issue ([#318](https://github.com/QingWei-Li/docsify/issues/318)) ([041b33e](https://github.com/QingWei-Li/docsify/commit/041b33e)), closes [#317](https://github.com/QingWei-Li/docsify/issues/317)
-* remove codesponsor ([66c8fd5](https://github.com/QingWei-Li/docsify/commit/66c8fd5))
 * **style:** increase the tap targets of menu button, fixed [#325](https://github.com/QingWei-Li/docsify/issues/325) ([888f217](https://github.com/QingWei-Li/docsify/commit/888f217))
 
 
