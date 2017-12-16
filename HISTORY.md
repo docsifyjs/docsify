@@ -205,7 +205,7 @@
 ### Bug Fixes
 
 * **render:** custom cover background image ([8f9bf29](https://github.com/QingWei-Li/docsify/commit/8f9bf29))
-* **search:** dont search nameLink, fixed [#102](https://github.com/QingWei-Li/docsify/issues/102) ([507d9e8](https://github.com/QingWei-Li/docsify/commit/507d9e8))
+* **search:** don't search nameLink, fixed [#102](https://github.com/QingWei-Li/docsify/issues/102) ([507d9e8](https://github.com/QingWei-Li/docsify/commit/507d9e8))
 * **tpl:** extra character, fixed [#101](https://github.com/QingWei-Li/docsify/issues/101) ([d67d25f](https://github.com/QingWei-Li/docsify/commit/d67d25f))
 
 

@@ -75,7 +75,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [samlify](https://samlify.js.org) | Node.js SAML2 library |
 | [palettify](https://dobromir-hristov.github.io/palettify/) | A color palette effects assistant |
 | [commitlint](https://marionebl.github.io/commitlint/) | Lint commit messages |
-| [vue-data-tables](https://github.com/njleonzhang/vue-data-tables/) | A simple and customizable data table，based on vue2 and element-ui. |
+| [vue-data-tables](https://github.com/njleonzhang/vue-data-tables/) | A simple and customizable data table, based on vue2 and element-ui. |
 | [Noty](http://ned.im/noty/) | A Dependency-free notification library |
 | [xTeko](https://docs.xteko.com/) | Addins framework for Pin 3.0 |
 | [vue2-datatable-component](https://github.com/OneWayTech/vue2-datatable) | The best Datatable for Vue.js 2.x which never sucks |

@@ -60,7 +60,7 @@ Now, You have a support for SSR the docs site.
 
 ## Custom template
 
-You can provide a templte for entire page's HTML. such as
+You can provide a template for entire page's HTML. such as
 
 ```html
 <!DOCTYPE html>
