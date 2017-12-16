@@ -395,7 +395,7 @@
 
 ### Bug Fixes
 
-* **render:** ubtitle in side bar shows undefined, fixed [#182](https://github.com/QingWei-Li/docsify/issues/182) ([d087d57](https://github.com/QingWei-Li/docsify/commit/d087d57))
+* **render:** subtitle in side bar shows undefined, fixed [#182](https://github.com/QingWei-Li/docsify/issues/182) ([d087d57](https://github.com/QingWei-Li/docsify/commit/d087d57))
 
 
 
