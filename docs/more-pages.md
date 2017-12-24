@@ -23,9 +23,9 @@ docs/zh-cn/README.md  => http://domain.com/zh-cn/
 docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 ```
 
-## Custom sidebar
+## Sidebar
 
-By default, the table of contents in the sidebar is automatically generated based on your markdown files. If you need a custom sidebar, then you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
+In order to have sidebar, then you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
 
 First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#load-sidebar).
 
@@ -49,11 +49,14 @@ Create the `_sidebar.md`:
 - [Guide](guide.md)
 ```
 
-!> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
+You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
 `_sidebar.md` is loaded from each level directory. If the current directory doesn't have `_sidebar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`,  the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
 
+
 ## Table of Contents
+
+Once you've created `_sidebar.md`, the sidebar content is automatically generated based on the headers in the markdown files. 
 
 A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [sub-max-level configuration](configuration.md#sub-max-level).
 
