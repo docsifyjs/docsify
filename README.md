@@ -87,6 +87,7 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [Ts.ED](https://romakita.github.io/ts-express-decorators/#/) | A TypeScript Framework on top of Express |
 | [Ts.LogDebug](https://romakita.github.io/ts-log-debug/#/) | A multi channel logger written in TypeScript |
 | [vue-orgchart](https://spiritree.github.io/vue-orgchart) | Vue.js wrapper for OrgChart.js |
+| [Vue Content Loading](https://lucasleandro1204.github.io/vue-content-loading) | Easily build (or use presets) SVG loading cards Facebook like |
 
 ## Similar projects
 
