@@ -94,6 +94,7 @@ You can configure it in a special config file, or `package.json`.
 ```js
 module.exports = {
   template: './ssr.html',
+  maxAge: 60 * 60 * 1000, // lru-cache config
   config: {
    // docsify config
   }

@@ -61,7 +61,7 @@ export class Compiler {
   }
 
   matchNotCompileLink (link) {
-    const links = this.config.noCompileLinks
+    const links = this.config.noCompileLinks || []
 
     for (var i = 0; i < links.length; i++) {
       const n = links[i]
