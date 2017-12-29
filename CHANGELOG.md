@@ -1,3 +1,13 @@
+<a name="4.5.7"></a>
+## [4.5.7](https://github.com/QingWei-Li/docsify/compare/v4.5.6...v4.5.7) (2017-12-29)
+
+
+### Features
+
+* add navigation plugin, closed [#180](https://github.com/QingWei-Li/docsify/issues/180) ([f78be4c](https://github.com/QingWei-Li/docsify/commit/f78be4c))
+
+
+
 <a name="4.5.6"></a>
 ## [4.5.6](https://github.com/QingWei-Li/docsify/compare/v4.5.3...v4.5.6) (2017-12-14)
 
