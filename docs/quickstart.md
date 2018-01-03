@@ -51,8 +51,13 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
 </head>
 <body>
   <div id="app"></div>
+  <script>
+    window.$docsify = {
+      //...
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 </body>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 </html>
 ```
 

@@ -33,25 +33,7 @@
 
 ## Quick start
 
-Create an `index.html`.
-
-```html
-<!-- index.html -->
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-</body>
-</html>
-```
+Look at [this tutorial](https://docsify.js.org/#/quickstart) or [online demo](https://jsfiddle.net/7ztb8qsr/1/).
 
 ## Browser Support
 

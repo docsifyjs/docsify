@@ -51,8 +51,13 @@ docsify serve docs
 </head>
 <body>
   <div id="app"></div>
+  <script>
+    window.$docsify = {
+      //...
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 </body>
-<script src="//unpkg.com/docsify"></script>
 </html>
 ```
 
