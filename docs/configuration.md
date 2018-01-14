@@ -343,7 +343,7 @@ window.$docsify = {
 ## external-link-target
 
 - type: `String`
-- default: `_self`
+- default: `_blank`
 
 Target to open external links. Default `'_blank'` (new window/tab)
 
