@@ -72,6 +72,8 @@ These projects are using docsify to generate their sites. Pull requests welcome 
 | [Vue Content Loading](https://lucasleandro1204.github.io/vue-content-loading) | Easily build (or use presets) SVG loading cards Facebook like |
 | [preact-analysis](https://sinkmind.github.io/preact-analysis/) | Preact 源码解析 |
 | [Tracy Debugger for ProcessWire](https://adrianbj.github.io/TracyDebugger) | The ultimate debugging and development tool for the ProcessWire CMF/CMS |
+| [CBoard](https://yzhang921.github.io/cboard_doc) | An easy to use, self-service open BI reporting and BI dashboard platform. |
+
 
 ## Similar projects
 
