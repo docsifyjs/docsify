@@ -13,6 +13,7 @@ export function eventMixin (proto) {
 export function initEvent (vm) {
   // Bind toggle button
   sidebar.btn('button.sidebar-toggle', vm.router)
+  sidebar.collapse('.sidebar', vm.router)
   // Bind sticky effect
   if (vm.config.coverpage) {
     !isMobile && on('scroll', sidebar.sticky)
