@@ -14,17 +14,26 @@ export function btn (el, router) {
     toggle()
   })
 
-  const sidebar = dom.getNode('.sidebar')
-
   isMobile &&
     dom.on(
       dom.body,
       'click',
       _ => dom.body.classList.contains('close') && toggle()
     )
-  dom.on(sidebar, 'click', _ =>
-    setTimeout((_ => getAndActive(router, sidebar, true, true), 0))
-  )
+}
+
+export function collapse (el, router) {
+  el = dom.getNode(el)
+
+  dom.on(el, 'click', ({ target }) => {
+    if (
+      target.nodeName === 'A' &&
+      target.nextSibling &&
+      target.nextSibling.classList.contains('app-sub-sidebar')
+    ) {
+      dom.toggleClass(target.parentNode, 'collapse')
+    }
+  })
 }
 
 export function sticky () {

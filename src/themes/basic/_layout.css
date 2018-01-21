@@ -270,6 +270,12 @@ main {
     padding-bottom: 40px;
   }
 
+  li.collapse {
+    .app-sub-sidebar {
+      display: none;
+    }
+  }
+
   ul {
     margin: 0;
     padding: 0;
