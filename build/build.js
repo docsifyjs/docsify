@@ -11,7 +11,7 @@ var version = process.env.VERSION || require('../package.json').version
 var build = function (opts) {
   rollup
     .rollup({
-      entry: 'src/' + opts.entry,
+      input: 'src/' + opts.entry,
       plugins: (opts.plugins || []).concat([
         string({ include: '**/*.css' }),
         buble(),
@@ -28,7 +28,8 @@ var build = function (opts) {
       console.log(dest)
       bundle.write({
         format: 'iife',
-        dest: dest
+        file: dest,
+        strict: false
       })
     })
     .catch(function (err) {
