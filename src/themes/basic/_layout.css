@@ -102,7 +102,6 @@ li input[type=checkbox] {
 
 /* navbar */
 .app-nav {
-  left: 0;
   margin: 25px 60px 0 0;
   position: absolute;
   right: 0;
