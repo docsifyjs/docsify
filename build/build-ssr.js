@@ -5,7 +5,7 @@ var replace = require('rollup-plugin-replace')
 
 rollup
   .rollup({
-    entry: 'packages/docsify-server-renderer/index.js',
+    input: 'packages/docsify-server-renderer/index.js',
     plugins: [
       async(),
       replace({
@@ -25,7 +25,7 @@ rollup
     console.log(dest)
     bundle.write({
       format: 'cjs',
-      dest: dest
+      file: dest
     })
   })
   .catch(function (err) {
