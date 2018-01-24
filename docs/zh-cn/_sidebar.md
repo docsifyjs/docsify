@@ -20,4 +20,5 @@
  - [离线模式(PWA)](zh-cn/pwa.md)
   - [服务端渲染 (SSR)](zh-cn/ssr.md)
 
+- [Awesome docsify](zh-cn/awesome.md)
 - [Changelog](zh-cn/changelog.md)
