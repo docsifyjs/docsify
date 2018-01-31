@@ -53,6 +53,19 @@ Als Zweites erstellst du eine Datei namens `_sidebar.md`:
 
 `_sidebar.md` wird in jedem Verzeichnislevel geladen. Sollte das aktuelle Verzeichnis keine Datei namens `_sidebar.md` haben, so sucht **docsify** in den übergeordneten Ordnern. Wenn du z.B. im Moment im Verzeichnis `/guide/quick-start` bist,  so wird `_sidebar.md` von der Datei `/guide/_sidebar.md` geladen.
 
+You can specify `alias` to avoid unnecessary fallback.
+
+```html
+<script>
+  window.$docsify = {
+    loadSidebar: true,
+    alias: {
+      '/.*/_sidebar.md': '/_sidebar.md'
+    }
+  }
+</script>
+```
+
 ## Inhaltsverzeichnis
 
 Eine angepasste Seitenleist kann auch automatisch ein Inhaltsverzeichnis generieren, indem ein `subMaxLevel` gesetzt wird, vergleiche [sub-max-level Einstellungen](configuration.md#sub-max-level).
