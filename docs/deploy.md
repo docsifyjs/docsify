@@ -45,11 +45,11 @@ pages:
 
 Using Terminal determine and navigate to the directory for your Firebase Project - this could be `~/Projects/Docs` etc. From there, run `firebase init`, choosing `Hosting` from the menu (use **space** to select, **arrow keys** to change options and **enter** to confirm). Follow the setup instructions.
 
-You should have your `firebase.json` file looking similar to this (depending on your deployment directory):
+You should have your `firebase.json` file looking similar to this (I changed the deployment directory from `public` to `site`):
 ```json
 {
   "hosting": {
-    "public": "public",
+    "public": "site",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -59,7 +59,7 @@ You should have your `firebase.json` file looking similar to this (depending on 
 }
 ```
 
-Once finished, build the starting template by running `docsify init ./public` (replacing public with the site folder you determined when running `firebase init` - public by default). Add/edit the documentation, then run `firebase deploy` from the base project directory.
+Once finished, build the starting template by running `docsify init ./site` (replacing site with the deployment directory you determined when running `firebase init` - public by default). Add/edit the documentation, then run `firebase deploy` from the base project directory.
 
 ## VPS
 
