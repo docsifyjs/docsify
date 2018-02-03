@@ -39,6 +39,28 @@ pages:
 
 !> You can replace script with `- cp -r docs/. public`, if `./docs` is your Docsify subfolder.
 
+## Firebase Hosting
+
+!> You'll need to install the Firebase CLI using `npm i -g firebase-tools` after signing into the [Firebase Console](https://console.firebase.google.com) using a Google Account.  
+
+Using Terminal determine and navigate to the directory for your Firebase Project - this could be `~/Projects/Docs` etc. From there, run `firebase init`, choosing `Hosting` from the menu (use **space** to select, **arrow keys** to change options and **enter** to confirm). Follow the setup instructions.
+
+You should have your `firebase.json` file looking similar to this (depending on your deployment directory):
+```json
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+```
+
+Once finished, build the starting template by running `docsify init ./public` (replacing public with the site folder you determined when running `firebase init` - public by default). Add/edit the documentation, then run `firebase deploy` from the base project directory.
+
 ## VPS
 
 Try following nginx config.
