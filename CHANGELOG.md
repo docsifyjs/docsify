@@ -1,3 +1,19 @@
+<a name="4.5.8"></a>
+## [4.5.8](https://github.com/QingWei-Li/docsify/compare/v4.5.6...v4.5.8) (2018-02-07)
+
+
+### Bug Fixes
+
+* cover style, fixed [#381](https://github.com/QingWei-Li/docsify/issues/381) ([368754e](https://github.com/QingWei-Li/docsify/commit/368754e))
+* updated deps ([#337](https://github.com/QingWei-Li/docsify/issues/337)) ([a12d393](https://github.com/QingWei-Li/docsify/commit/a12d393))
+
+
+### Features
+
+* add navigation plugin, closed [#180](https://github.com/QingWei-Li/docsify/issues/180) ([f78be4c](https://github.com/QingWei-Li/docsify/commit/f78be4c))
+
+
+
 <a name="4.5.7"></a>
 ## [4.5.7](https://github.com/QingWei-Li/docsify/compare/v4.5.6...v4.5.7) (2017-12-29)
 
