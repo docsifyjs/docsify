@@ -1,3 +1,13 @@
+<a name="4.5.9"></a>
+## [4.5.9](https://github.com/QingWei-Li/docsify/compare/v4.5.8...v4.5.9) (2018-02-07)
+
+
+### Bug Fixes
+
+* upgrade marked ([4157173](https://github.com/QingWei-Li/docsify/commit/4157173))
+
+
+
 <a name="4.5.8"></a>
 ## [4.5.8](https://github.com/QingWei-Li/docsify/compare/v4.5.6...v4.5.8) (2018-02-07)
 
