@@ -52,7 +52,7 @@ section.cover {
     }
 
     small {
-      bottom: -.4375rem;
+      bottom: -0.4375rem;
       font-size: 1rem;
       position: absolute;
     }
@@ -81,7 +81,7 @@ section.cover {
     display: inline-block;
     font-size: 1.05rem;
     letter-spacing: 0.1rem;
-    margin-right: 1rem;
+    margin: 0.5rem 1rem;
     padding: 0.75em 2rem;
     text-decoration: none;
     transition: all 0.15s ease;
@@ -89,7 +89,6 @@ section.cover {
     &:last-child {
       background-color: var(--theme-color, $color-primary);
       color: #fff;
-      margin-right: 0;
 
       &:hover {
         color: inherit;
