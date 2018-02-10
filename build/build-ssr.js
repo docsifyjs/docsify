@@ -9,7 +9,8 @@ rollup
     plugins: [
       async(),
       replace({
-        __VERSION__: process.env.VERSION || require('../package.json').version
+        __VERSION__: process.env.VERSION || require('../package.json').version,
+        'process.env.SSR': true
       }),
       buble({
         transforms: {

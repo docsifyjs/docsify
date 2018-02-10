@@ -18,7 +18,8 @@ var build = function (opts) {
         commonjs(),
         nodeResolve(),
         replace({
-          __VERSION__: version
+          __VERSION__: version,
+          'process.env.SSR': false
         })
       ])
     })
