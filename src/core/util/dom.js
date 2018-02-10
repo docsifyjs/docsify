@@ -1,4 +1,5 @@
 import { isFn } from '../util/core'
+import { inBrowser } from './env'
 
 const cacheNode = {}
 
@@ -13,17 +14,17 @@ export function getNode (el, noCache = false) {
     if (typeof window.Vue !== 'undefined') {
       return find(el)
     }
-    el = noCache ? find(el) : (cacheNode[el] || (cacheNode[el] = find(el)))
+    el = noCache ? find(el) : cacheNode[el] || (cacheNode[el] = find(el))
   }
 
   return el
 }
 
-export const $ = document
+export const $ = inBrowser && document
 
-export const body = $.body
+export const body = inBrowser && $.body
 
-export const head = $.head
+export const head = inBrowser && $.head
 
 /**
  * Find element
@@ -42,7 +43,9 @@ export function find (el, node) {
  * findAll(nav, 'a') => [].slice.call(nav.querySelectorAll('a'))
  */
 export function findAll (el, node) {
-  return [].slice.call(node ? el.querySelectorAll(node) : $.querySelectorAll(el))
+  return [].slice.call(
+    node ? el.querySelectorAll(node) : $.querySelectorAll(el)
+  )
 }
 
 export function create (node, tpl) {
@@ -85,4 +88,3 @@ export function toggleClass (el, type, val) {
 export function style (content) {
   appendTo(head, create('style', content))
 }
-

@@ -6,7 +6,7 @@ import { callHook } from '../init/lifecycle'
 import { Compiler } from './compiler'
 import { getAndActive, sticky } from '../event/sidebar'
 import { getPath, isAbsolutePath } from '../router/util'
-import { isMobile } from '../util/env'
+import { isMobile, inBrowser } from '../util/env'
 import { isPrimitive } from '../util/core'
 import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
 
@@ -38,7 +38,6 @@ function renderMain (html) {
     html = 'not found'
   }
 
-  dom.toggleClass(dom.getNode('main'), 'add', 'ready')
   this._renderTo('.markdown-section', html)
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar()
@@ -180,6 +179,9 @@ export function initRender (vm) {
 
   // Init markdown compiler
   vm.compiler = new Compiler(config, vm.router)
+  if (inBrowser) {
+    window['__current_docsify_compiler__'] = vm.compiler
+  }
 
   const id = config.el || '#app'
   const navEl = dom.find('nav') || dom.create('nav')

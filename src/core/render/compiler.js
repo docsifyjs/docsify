@@ -9,6 +9,8 @@ import { isFn, merge, cached } from '../util/core'
 import { get } from '../fetch/ajax'
 
 const cachedLinks = {}
+let uid = 0
+
 function getAndRemoveConfig (str = '') {
   const config = {}
 
@@ -25,14 +27,23 @@ function getAndRemoveConfig (str = '') {
 }
 const compileMedia = {
   markdown (url, config) {
-    const request = get(url, false)
-    const id = `docsify-get-${request.uid}`
+    const id = `docsify-get-${uid++}`
 
-    request.then(text => {
-      document.getElementById(id).innerHTML = this.compile(text)
-    })
+    if (!process.env.SSR) {
+      get(url, false).then(text => {
+        document.getElementById(id).innerHTML = this.compile(text)
+      })
 
-    return `<div data-origin="${url}" id=${id}></div>`
+      return `<div data-origin="${url}" id=${id}></div>`
+    } else {
+      return `<div data-origin="${url}" id=${uid}></div>
+      <script>
+      var compile = window.__current_docsify_compiler__
+      Docsify.get('${url}', false).then(function(text) {
+        document.getElementById('${uid}').innerHTML = compile(text)
+      })
+      </script>`
+    }
   },
   html (url, config) {
     return `<iframe src="${url}" ${config || 'width=100% height=400'}></iframe>`
@@ -44,19 +55,33 @@ const compileMedia = {
     return `<audio src="${url}" ${config || 'controls'}>Not Support</audio>`
   },
   code (url, config) {
-    const request = get(url, false)
-    const id = `docsify-get-${request.uid}`
+    const id = `docsify-get-${uid++}`
     let ext = url.match(/\.(\w+)$/)
 
-    ext = config.ext || (ext && ext[0])
+    ext = config.ext || (ext && ext[1])
+    if (ext === 'md') ext = 'markdown'
 
-    request.then(text => {
-      document.getElementById(id).innerHTML = this.compile(
-        '```' + ext + '\n ' + text + '\n```\n'
-      )
-    })
+    if (!process.env.SSR) {
+      get(url, false).then(text => {
+        document.getElementById(id).innerHTML = this.compile(
+          '```' + ext + '\n' + text.replace(/`/g, '@qm@') + '\n```\n'
+        ).replace(/@qm@/g, '`')
+      })
 
-    return `<div data-origin="${url}" id=${id}></div>`
+      return `<div data-origin="${url}" id=${id}></div>`
+    } else {
+      return `<div data-origin="${url}" id=${id}></div>
+      <script>
+        setTimeout(() => {
+          var compiler = window.__current_docsify_compiler__
+          Docsify.get('${url}', false).then(function(text) {
+            document.getElementById('${id}').innerHTML = compiler
+              .compile('\`\`\`${ext}\\n' + text.replace(/\`/g, '@qm@') + '\\n\`\`\`\\n')
+              .replace(/@qm@/g, '\`')
+          })
+        })
+      </script>`
+    }
   }
 }
 

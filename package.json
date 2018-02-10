@@ -14,15 +14,13 @@
     "url": "git+https://github.com/QingWei-Li/docsify.git"
   },
   "main": "lib/docsify.js",
-  "files": [
-    "lib",
-    "src",
-    "themes"
-  ],
+  "files": ["lib", "src", "themes"],
   "scripts": {
     "bootstrap": "npm i && lerna bootstrap && npm run build:ssr",
-    "build": "rm -rf lib themes && node build/build && mkdir lib/themes && mkdir themes && node build/build-css && npm run build:ssr && node build/build-cover",
-    "dev:build": "rm -rf lib themes && mkdir themes && node build/build --dev && node build/build-css --dev",
+    "build":
+      "rm -rf lib themes && node build/build && mkdir lib/themes && mkdir themes && node build/build-css && npm run build:ssr && node build/build-cover",
+    "dev:build":
+      "rm -rf lib themes && mkdir themes && node build/build --dev && node build/build-css --dev",
     "dev": "node app & nodemon -w src -e js,css --exec 'npm run dev:build'",
     "build:ssr": "node build/build-ssr",
     "test": "eslint {src,packages} --fix",
