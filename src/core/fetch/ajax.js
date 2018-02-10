@@ -2,6 +2,7 @@ import progressbar from '../render/progressbar'
 import { noop } from '../util/core'
 
 const cache = {}
+let uid = 0
 
 /**
  * Simple ajax get
@@ -24,6 +25,7 @@ export function get (url, hasBar = false) {
   xhr.send()
 
   return {
+    uid: uid++,
     then: function (success, error = noop) {
       if (hasBar) {
         const id = setInterval(

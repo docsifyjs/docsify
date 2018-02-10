@@ -11,8 +11,9 @@ import { isPrimitive } from '../util/core'
 import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
 
 function executeScript () {
-  const script = dom.findAll('.markdown-section>script')
-      .filter(s => !/template/.test(s.type))[0]
+  const script = dom
+    .findAll('.markdown-section>script')
+    .filter(s => !/template/.test(s.type))[0]
   if (!script) return false
   const code = script.innerText.trim()
   if (!code) return false
@@ -23,11 +24,10 @@ function executeScript () {
 }
 
 function formatUpdated (html, updated, fn) {
-  updated = typeof fn === 'function'
-    ? fn(updated)
-    : typeof fn === 'string'
-      ? tinydate(fn)(new Date(updated))
-      : updated
+  updated =
+    typeof fn === 'function'
+      ? fn(updated)
+      : typeof fn === 'string' ? tinydate(fn)(new Date(updated)) : updated
 
   return html.replace(/{docsify-updated}/g, updated)
 }
@@ -43,9 +43,11 @@ function renderMain (html) {
   !this.config.loadSidebar && this._renderSidebar()
 
   // execute script
-  if (this.config.executeScript !== false &&
-      typeof window.Vue !== 'undefined' &&
-      !executeScript()) {
+  if (
+    this.config.executeScript !== false &&
+    typeof window.Vue !== 'undefined' &&
+    !executeScript()
+  ) {
     setTimeout(_ => {
       const vueVM = window.__EXECUTE_RESULT__
       vueVM && vueVM.$destroy && vueVM.$destroy()
@@ -84,7 +86,8 @@ export function renderMixin (proto) {
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
     if (loadSidebar && activeEl) {
-      activeEl.parentNode.innerHTML += (this.compiler.subSidebar(subMaxLevel) || '')
+      activeEl.parentNode.innerHTML +=
+        this.compiler.subSidebar(subMaxLevel) || ''
     } else {
       // reset toc
       this.compiler.subSidebar()
@@ -140,7 +143,9 @@ export function renderMixin (proto) {
     dom.toggleClass(el, 'add', 'show')
 
     let html = this.coverIsHTML ? text : this.compiler.cover(text)
-    const m = html.trim().match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
+    const m = html
+      .trim()
+      .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
 
     if (m) {
       if (m[2] === 'color') {

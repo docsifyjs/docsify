@@ -95,7 +95,7 @@ kbd {
   list-style-type: none;
 }
 
-li input[type=checkbox] {
+li input[type='checkbox'] {
   margin: 0 0.2em 0.25em -1.6em;
   vertical-align: middle;
 }
@@ -379,6 +379,10 @@ body.sticky {
   border: none;
   border-bottom: 1px solid #eee;
   margin: 2em 0;
+}
+
+.markdown-section iframe {
+  border: 1px solid #eee;
 }
 
 .markdown-section table {

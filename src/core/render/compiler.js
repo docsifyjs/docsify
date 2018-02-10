@@ -6,6 +6,7 @@ import { slugify } from './slugify'
 import { emojify } from './emojify'
 import { isAbsolutePath, getPath } from '../router/util'
 import { isFn, merge, cached } from '../util/core'
+import { get } from '../fetch/ajax'
 
 const cachedLinks = {}
 function getAndRemoveConfig (str = '') {
@@ -21,6 +22,27 @@ function getAndRemoveConfig (str = '') {
   }
 
   return { str, config }
+}
+const compileMedia = {
+  markdown (url, config) {
+    const request = get(url, false)
+    const id = `docsify-get-${request.uid}`
+
+    request.then(text => {
+      document.getElementById(id).innerHTML = this.compile(text)
+    })
+
+    return `<div data-origin="${url}" id=${id}></div>`
+  },
+  html (url, config) {
+    return `<iframe src="${url}" ${config || 'width=100% height=400'}></iframe>`
+  },
+  video (url, config) {
+    return `<video src="${url}" ${config || 'controls'}>Not Support</video>`
+  },
+  audio (url, config) {
+    return `<audio src="${url}" ${config || 'controls'}>Not Support</audio>`
+  }
 }
 
 export class Compiler {
@@ -172,6 +194,25 @@ export class Compiler {
         url = getPath(contentBase, href)
       }
 
+      let media
+      if (config.type && (media = compileMedia[config.type])) {
+        return media.call(_self, url, title)
+      }
+
+      let type = null
+      if (/\.(md|markdown)/.test(url)) {
+        type = 'markdown'
+      } else if (/\.html?/.test(url)) {
+        type = 'html'
+      } else if (/\.(mp4|ogg)/.test(url)) {
+        type = 'video'
+      } else if (/\.mp3/.test(url)) {
+        type = 'audio'
+      }
+      if (type) {
+        return compileMedia[type].call(_self, url, title)
+      }
+
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
     }
 
@@ -179,7 +220,10 @@ export class Compiler {
     origin.listitem = renderer.listitem = function (text) {
       const checked = CHECKED_RE.exec(text)
       if (checked) {
-        text = text.replace(CHECKED_RE, `<input type="checkbox" ${checked[1] === 'x' ? 'checked' : ''} />`)
+        text = text.replace(
+          CHECKED_RE,
+          `<input type="checkbox" ${checked[1] === 'x' ? 'checked' : ''} />`
+        )
       }
       return `<li${checked ? ` class="task-list-item"` : ''}>${text}</li>\n`
     }
