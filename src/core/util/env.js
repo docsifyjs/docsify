@@ -1,4 +1,4 @@
-export const inBrowser = typeof window !== 'undefined'
+export const inBrowser = !process.env.SSR
 
 export const isMobile = inBrowser && document.body.clientWidth <= 600
 
