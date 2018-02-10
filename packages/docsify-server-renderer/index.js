@@ -13,9 +13,9 @@ function cwd (...args) {
 }
 
 function mainTpl (config) {
-  let html = `<nav class="app-nav${config.repo
-    ? ''
-    : ' no-badge'}"><!--navbar--></nav>`
+  let html = `<nav class="app-nav${
+    config.repo ? '' : ' no-badge'
+  }"><!--navbar--></nav>`
 
   if (config.repo) {
     html += tpl.corner(config.repo)
@@ -58,7 +58,7 @@ export default class Renderer {
 
   async renderToString (url) {
     this.url = url = this.router.parse(url).path
-    const { loadSidebar, loadNavbar } = this.config
+    const { loadSidebar, loadNavbar, coverpage } = this.config
 
     const mainFile = this._getPath(url)
     this._renderHtml('main', await this._render(mainFile))
@@ -73,6 +73,24 @@ export default class Renderer {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar
       const navbarFile = this._getPath(resolve(url, `./${name}`))
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'))
+    }
+
+    if (coverpage) {
+      let path = null
+      if (typeof coverpage === 'string') {
+        if (url === '/') {
+          path = coverpage
+        }
+      } else if (Array.isArray(coverpage)) {
+        path = coverpage.indexOf(url) > -1 && '_coverpage.md'
+      } else {
+        const cover = coverpage[url]
+        path = cover === true ? '_coverpage.md' : cover
+      }
+
+      const coverFile = this._getPath(resolve(url, `./${path}`))
+
+      this._renderHtml('cover', await this._render(coverFile), 'cover')
     }
 
     const html = this.html
