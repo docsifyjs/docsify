@@ -38,6 +38,7 @@ function renderMain (html) {
     html = 'not found'
   }
 
+  dom.toggleClass(dom.getNode('main'), 'add', 'ready')
   this._renderTo('.markdown-section', html)
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar()
