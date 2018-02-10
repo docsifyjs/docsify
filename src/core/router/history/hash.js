@@ -1,16 +1,12 @@
 import { History } from './base'
-import { merge, cached, noop } from '../../util/core'
+import { noop } from '../../util/core'
 import { on } from '../../util/dom'
-import { parseQuery, stringifyQuery, cleanPath } from '../util'
+import { parseQuery, cleanPath, replaceSlug } from '../util'
 
 function replaceHash (path) {
   const i = location.href.indexOf('#')
   location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path)
 }
-
-const replaceSlug = cached(path => {
-  return path.replace('#', '?id=')
-})
 
 export class HashHistory extends History {
   constructor (config) {
@@ -73,19 +69,6 @@ export class HashHistory extends History {
   }
 
   toURL (path, params, currentRoute) {
-    const local = currentRoute && path[0] === '#'
-    const route = this.parse(replaceSlug(path))
-
-    route.query = merge({}, route.query, params)
-    path = route.path + stringifyQuery(route.query)
-    path = path.replace(/\.md(\?)|\.md$/, '$1')
-
-    if (local) {
-      const idIndex = currentRoute.indexOf('?')
-      path =
-        (idIndex > 0 ? currentRoute.substr(0, idIndex) : currentRoute) + path
-    }
-
-    return cleanPath('#/' + path)
+    return '#' + super.toURL(path, params, currentRoute)
   }
 }

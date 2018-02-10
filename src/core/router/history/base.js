@@ -1,5 +1,11 @@
-import { getPath, isAbsolutePath } from '../util'
-import { noop } from '../../util/core'
+import {
+  getPath,
+  isAbsolutePath,
+  stringifyQuery,
+  cleanPath,
+  replaceSlug
+} from '../util'
+import { noop, merge } from '../../util/core'
 
 const cached = {}
 
@@ -14,10 +20,10 @@ function getAlias (path, alias, last) {
     : path
 }
 
-function getFileName (path) {
-  return /\.(md|html)$/g.test(path)
+function getFileName (path, ext) {
+  return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
     ? path
-    : /\/$/g.test(path) ? `${path}README.md` : `${path}.md`
+    : /\/$/g.test(path) ? `${path}README${ext}` : `${path}${ext}`
 }
 
 export class History {
@@ -34,10 +40,11 @@ export class History {
 
     const { config } = this
     const base = this.getBasePath()
+    const ext = typeof config.ext !== 'string' ? '.md' : config.ext
 
     path = config.alias ? getAlias(path, config.alias) : path
-    path = getFileName(path)
-    path = path === '/README.md' ? config.homepage || path : path
+    path = getFileName(path, ext)
+    path = path === `/README${ext}` ? config.homepage || path : path
     path = isAbsolutePath(path) ? path : getPath(base, path)
 
     if (isRelative) {
@@ -57,5 +64,20 @@ export class History {
 
   parse () {}
 
-  toURL () {}
+  toURL (path, params, currentRoute) {
+    const local = currentRoute && path[0] === '#'
+    const route = this.parse(replaceSlug(path))
+
+    route.query = merge({}, route.query, params)
+    path = route.path + stringifyQuery(route.query)
+    path = path.replace(/\.md(\?)|\.md$/, '$1')
+
+    if (local) {
+      const idIndex = currentRoute.indexOf('?')
+      path =
+        (idIndex > 0 ? currentRoute.substr(0, idIndex) : currentRoute) + path
+    }
+
+    return cleanPath('/' + path)
+  }
 }
