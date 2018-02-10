@@ -17,7 +17,8 @@ function getAndRemoveConfig (str = '') {
   if (str) {
     str = str
       .replace(/:([\w-]+)=?([\w-]+)?/g, (m, key, value) => {
-        config[key] = value || true
+        console.log(key, value)
+        config[key] = (value && value.replace(/&quot;/g, '')) || true
         return ''
       })
       .trim()
@@ -26,7 +27,7 @@ function getAndRemoveConfig (str = '') {
   return { str, config }
 }
 const compileMedia = {
-  markdown (url, config) {
+  markdown (url) {
     const id = `docsify-get-${uid++}`
 
     if (!process.env.SSR) {
@@ -45,20 +46,21 @@ const compileMedia = {
       </script>`
     }
   },
-  html (url, config) {
-    return `<iframe src="${url}" ${config || 'width=100% height=400'}></iframe>`
+  iframe (url, title) {
+    console.log(title)
+    return `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
   },
-  video (url, config) {
-    return `<video src="${url}" ${config || 'controls'}>Not Support</video>`
+  video (url, title) {
+    return `<video src="${url}" ${title || 'controls'}>Not Support</video>`
   },
-  audio (url, config) {
-    return `<audio src="${url}" ${config || 'controls'}>Not Support</audio>`
+  audio (url, title) {
+    return `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`
   },
-  code (url, config) {
+  code (url, title) {
     const id = `docsify-get-${uid++}`
     let ext = url.match(/\.(\w+)$/)
 
-    ext = config.lang || (ext && ext[1])
+    ext = title || (ext && ext[1])
     if (ext === 'md') ext = 'markdown'
 
     if (!process.env.SSR) {
@@ -192,20 +194,18 @@ export class Compiler {
           return media.call(_self, href, title)
         }
 
-        let type = null
+        let type = 'code'
         if (/\.(md|markdown)/.test(href)) {
           type = 'markdown'
         } else if (/\.html?/.test(href)) {
-          type = 'html'
+          type = 'iframe'
         } else if (/\.(mp4|ogg)/.test(href)) {
           type = 'video'
         } else if (/\.mp3/.test(href)) {
           type = 'audio'
         }
-        console.log(href)
-        if (type) {
-          return compileMedia[type].call(_self, href, title)
-        }
+
+        return compileMedia[type].call(_self, href, title)
       }
 
       if (
