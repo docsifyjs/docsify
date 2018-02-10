@@ -9,7 +9,7 @@ const cache = {}
  * @param {boolean} [hasBar=false] has progress bar
  * @return { then(resolve, reject), abort }
  */
-export function get (url, hasBar = false) {
+export function get (url, hasBar = false, headers = {}) {
   const xhr = new XMLHttpRequest()
   const on = function () {
     xhr.addEventListener.apply(xhr, arguments)
@@ -21,6 +21,9 @@ export function get (url, hasBar = false) {
   }
 
   xhr.open('GET', url)
+  for (const i in headers) {
+    xhr.setRequestHeader(i, headers[i])
+  }
   xhr.send()
 
   return {
