@@ -217,10 +217,14 @@ li input[type='checkbox'] {
 
 /* main */
 main {
-  display: block;
+  display: none;
   position: relative;
   size: 100vw 100%;
   z-index: 0;
+}
+
+main.ready {
+  display: block;
 }
 
 .anchor {
