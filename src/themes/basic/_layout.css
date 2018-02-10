@@ -159,7 +159,7 @@ li input[type='checkbox'] {
       box-sizing: border-box;
       display: none;
       max-height: calc(100vh - 61px);
-      overflow-y: scroll;
+      overflow-y: auto;
       padding: 10px 0;
       position: absolute;
       right: -15px;
