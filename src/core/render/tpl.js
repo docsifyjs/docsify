@@ -57,7 +57,7 @@ export function cover () {
     `hsl(${Math.floor(Math.random() * 255) + SL}) 100%)`
 
   return (
-    `<section class="cover" style="background: ${bgc}">` +
+    `<section class="cover show" style="background: ${bgc}">` +
     '<div class="cover-main"></div>' +
     '<div class="mask"></div>' +
     '</section>'
@@ -74,7 +74,9 @@ export function tree (toc, tpl = '') {
   if (!toc || !toc.length) return ''
 
   toc.forEach(node => {
-    tpl += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`
+    tpl += `<li><a class="section-link" href="${node.slug}">${
+      node.title
+    }</a></li>`
     if (node.children) {
       tpl += `<li><ul class="children">${tree(node.children)}</li></ul>`
     }

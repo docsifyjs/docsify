@@ -70,17 +70,31 @@ export function fetchMixin (proto) {
     const { coverpage } = this.config
     const query = this.route.query
     const root = getParentPath(this.route.path)
-    const path = this.router.getFile(root + coverpage)
 
-    if (this.route.path !== '/' || !coverpage) {
-      this._renderCover()
-      return
+    if (coverpage) {
+      let path = null
+      const routePath = this.route.path
+      if (typeof coverpage === 'string') {
+        if (routePath === '/') {
+          path = coverpage
+        }
+      } else if (Array.isArray(coverpage)) {
+        path = coverpage.indexOf(routePath) > -1 && '_coverpage.md'
+      } else {
+        const cover = coverpage[routePath]
+        path = cover === true ? '_coverpage.md' : cover
+      }
+
+      if (path) {
+        path = this.router.getFile(root + path)
+        this.coverIsHTML = /\.html$/g.test(path)
+        get(path + stringifyQuery(query, ['id'])).then(text =>
+          this._renderCover(text)
+        )
+      } else {
+        this._renderCover()
+      }
     }
-
-    this.coverIsHTML = /\.html$/g.test(path)
-    get(path + stringifyQuery(query, ['id'])).then(text =>
-      this._renderCover(text)
-    )
   }
 
   proto.$fetch = function (cb = noop) {
