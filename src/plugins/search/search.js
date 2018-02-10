@@ -7,7 +7,7 @@ function escapeHtml (string) {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    '\'': '&#39;',
+    "'": '&#39;',
     '/': '&#x2F;'
   }
 
@@ -17,18 +17,19 @@ function escapeHtml (string) {
 function getAllPaths (router) {
   const paths = []
 
-  helper.dom.findAll('a:not([data-nosearch])')
-    .map(node => {
-      const href = node.href
-      const originHref = node.getAttribute('href')
-      const path = router.parse(href).path
+  helper.dom.findAll('a:not([data-nosearch])').map(node => {
+    const href = node.href
+    const originHref = node.getAttribute('href')
+    const path = router.parse(href).path
 
-      if (path &&
-        paths.indexOf(path) === -1 &&
-        !Docsify.util.isAbsolutePath(originHref)) {
-        paths.push(path)
-      }
-    })
+    if (
+      path &&
+      paths.indexOf(path) === -1 &&
+      !Docsify.util.isAbsolutePath(originHref)
+    ) {
+      paths.push(path)
+    }
+  })
 
   return paths
 }
@@ -92,7 +93,11 @@ export function search (query) {
 
     if (postTitle && postContent) {
       keywords.forEach((keyword, i) => {
-        const regEx = new RegExp(keyword, 'gi')
+        // From https://github.com/sindresorhus/escape-string-regexp
+        const regEx = new RegExp(
+          keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
+          'gi'
+        )
         let indexTitle = -1
         let indexContent = -1
 
@@ -113,11 +118,12 @@ export function search (query) {
 
           if (end > postContent.length) end = postContent.length
 
-          const matchContent = '...' +
+          const matchContent =
+            '...' +
             escapeHtml(postContent)
               .substring(start, end)
               .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
-              '...'
+            '...'
 
           resultStr += matchContent
         }
@@ -159,12 +165,9 @@ export function init (config, vm) {
   paths.forEach(path => {
     if (INDEXS[path]) return count++
 
-    helper
-      .get(vm.router.getFile(path))
-      .then(result => {
-        INDEXS[path] = genIndex(path, result, vm.router, config.depth)
-        len === ++count && saveData(config.maxAge)
-      })
+    helper.get(vm.router.getFile(path)).then(result => {
+      INDEXS[path] = genIndex(path, result, vm.router, config.depth)
+      len === ++count && saveData(config.maxAge)
+    })
   })
 }
-
