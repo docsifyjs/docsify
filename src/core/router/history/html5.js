@@ -1,7 +1,7 @@
 import { History } from './base'
-import { merge, noop } from '../../util/core'
+import { noop } from '../../util/core'
 import { on } from '../../util/dom'
-import { parseQuery, stringifyQuery, getPath, cleanPath } from '../util'
+import { parseQuery, getPath } from '../util'
 
 export class HTML5History extends History {
   constructor (config) {
@@ -61,18 +61,5 @@ export class HTML5History extends History {
       file: this.getFile(path),
       query: parseQuery(query)
     }
-  }
-
-  toURL (path, params, currentRoute) {
-    const local = currentRoute && path[0] === '#'
-    const route = this.parse(path)
-
-    route.query = merge({}, route.query, params)
-    path = route.path + stringifyQuery(route.query)
-    path = path.replace(/\.md(\?)|\.md$/, '$1')
-
-    if (local) path = currentRoute + path
-
-    return cleanPath('/' + path)
   }
 }

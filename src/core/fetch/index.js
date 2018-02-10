@@ -81,10 +81,10 @@ export function fetchMixin (proto) {
           path = coverpage
         }
       } else if (Array.isArray(coverpage)) {
-        path = coverpage.indexOf(routePath) > -1 && '_coverpage.md'
+        path = coverpage.indexOf(routePath) > -1 && '_coverpage'
       } else {
         const cover = coverpage[routePath]
-        path = cover === true ? '_coverpage.md' : cover
+        path = cover === true ? '_coverpage' : cover
       }
 
       this.coverEnable = !!path

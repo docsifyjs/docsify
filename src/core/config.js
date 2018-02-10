@@ -19,6 +19,7 @@ const config = merge(
     executeScript: null,
     noEmoji: false,
     ga: '',
+    ext: '.md',
     mergeNavbar: false,
     formatUpdated: '',
     externalLinkTarget: '_blank',
@@ -43,9 +44,9 @@ if (script) {
     }
   }
 
-  if (config.loadSidebar === true) config.loadSidebar = '_sidebar.md'
-  if (config.loadNavbar === true) config.loadNavbar = '_navbar.md'
-  if (config.coverpage === true) config.coverpage = '_coverpage.md'
+  if (config.loadSidebar === true) config.loadSidebar = '_sidebar' + config.ext
+  if (config.loadNavbar === true) config.loadNavbar = '_navbar' + config.ext
+  if (config.coverpage === true) config.coverpage = '_coverpage' + config.ext
   if (config.repo === true) config.repo = ''
   if (config.name === true) config.name = ''
 }
