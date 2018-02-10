@@ -165,9 +165,11 @@ export function init (config, vm) {
   paths.forEach(path => {
     if (INDEXS[path]) return count++
 
-    helper.get(vm.router.getFile(path)).then(result => {
-      INDEXS[path] = genIndex(path, result, vm.router, config.depth)
-      len === ++count && saveData(config.maxAge)
-    })
+    helper
+      .get(vm.router.getFile(path), false, vm.config.requestHeaders)
+      .then(result => {
+        INDEXS[path] = genIndex(path, result, vm.router, config.depth)
+        len === ++count && saveData(config.maxAge)
+      })
   })
 }

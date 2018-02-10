@@ -10,9 +10,11 @@ function loadNested (path, qs, file, next, vm, first) {
 
   if (!path) return
 
-  get(vm.router.getFile(path + file) + qs).then(next, _ =>
-    loadNested(path, qs, file, next, vm)
-  )
+  get(
+    vm.router.getFile(path + file) + qs,
+    false,
+    vm.config.requestHeaders
+  ).then(next, _ => loadNested(path, qs, file, next, vm))
 }
 
 export function fetchMixin (proto) {
@@ -20,12 +22,12 @@ export function fetchMixin (proto) {
   proto._fetch = function (cb = noop) {
     const { path, query } = this.route
     const qs = stringifyQuery(query, ['id'])
-    const { loadNavbar, loadSidebar } = this.config
+    const { loadNavbar, loadSidebar, requestHeaders } = this.config
 
     // Abort last request
     last && last.abort && last.abort()
 
-    last = get(this.router.getFile(path) + qs, true)
+    last = get(this.router.getFile(path) + qs, true, requestHeaders)
 
     // Current page is html
     this.isHTML = /\.html$/g.test(path)
@@ -67,7 +69,7 @@ export function fetchMixin (proto) {
   }
 
   proto._fetchCover = function () {
-    const { coverpage } = this.config
+    const { coverpage, requestHeaders } = this.config
     const query = this.route.query
     const root = getParentPath(this.route.path)
 
@@ -89,8 +91,8 @@ export function fetchMixin (proto) {
       if (path) {
         path = this.router.getFile(root + path)
         this.coverIsHTML = /\.html$/g.test(path)
-        get(path + stringifyQuery(query, ['id'])).then(text =>
-          this._renderCover(text)
+        get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
+          text => this._renderCover(text)
         )
       } else {
         this._renderCover()
