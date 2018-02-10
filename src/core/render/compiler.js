@@ -187,6 +187,7 @@ export class Compiler {
         !_self.matchNotCompileLink(href) &&
         !config.ignore
       ) {
+        if (href === _self.config.homepage) href = '/'
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         attrs += ` target="${linkTarget}"`
