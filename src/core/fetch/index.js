@@ -127,7 +127,6 @@ export function initFetch (vm) {
       activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__
     }
     vm._bindEventOnRendered(activeEl)
-    vm._fetchCover()
     vm.$resetEvents()
     callHook(vm, 'doneEach')
     callHook(vm, 'ready')

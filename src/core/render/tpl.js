@@ -58,7 +58,7 @@ export function cover () {
 
   return (
     `<section class="cover show" style="background: ${bgc}">` +
-    '<div class="cover-main"></div>' +
+    '<div class="cover-main"><!--cover--></div>' +
     '<div class="mask"></div>' +
     '</section>'
   )
