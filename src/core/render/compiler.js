@@ -42,6 +42,21 @@ const compileMedia = {
   },
   audio (url, config) {
     return `<audio src="${url}" ${config || 'controls'}>Not Support</audio>`
+  },
+  code (url, config) {
+    const request = get(url, false)
+    const id = `docsify-get-${request.uid}`
+    let ext = url.match(/\.(\w+)$/)
+
+    ext = config.ext || (ext && ext[0])
+
+    request.then(text => {
+      document.getElementById(id).innerHTML = this.compile(
+        '```' + ext + '\n ' + text + '\n```\n'
+      )
+    })
+
+    return `<div data-origin="${url}" id=${id}></div>`
   }
 }
 
