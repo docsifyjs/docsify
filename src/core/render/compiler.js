@@ -58,7 +58,7 @@ const compileMedia = {
     const id = `docsify-get-${uid++}`
     let ext = url.match(/\.(\w+)$/)
 
-    ext = config.ext || (ext && ext[1])
+    ext = config.lang || (ext && ext[1])
     if (ext === 'md') ext = 'markdown'
 
     if (!process.env.SSR) {
@@ -182,6 +182,32 @@ export class Compiler {
       const { str, config } = getAndRemoveConfig(title)
       title = str
 
+      if (config.include) {
+        if (!isAbsolutePath(href)) {
+          href = getPath(contentBase, href)
+        }
+
+        let media
+        if (config.type && (media = compileMedia[config.type])) {
+          return media.call(_self, href, title)
+        }
+
+        let type = null
+        if (/\.(md|markdown)/.test(href)) {
+          type = 'markdown'
+        } else if (/\.html?/.test(href)) {
+          type = 'html'
+        } else if (/\.(mp4|ogg)/.test(href)) {
+          type = 'video'
+        } else if (/\.mp3/.test(href)) {
+          type = 'audio'
+        }
+        console.log(href)
+        if (type) {
+          return compileMedia[type].call(_self, href, title)
+        }
+      }
+
       if (
         !/:|(\/{2})/.test(href) &&
         !_self.matchNotCompileLink(href) &&
@@ -233,25 +259,6 @@ export class Compiler {
 
       if (!isAbsolutePath(href)) {
         url = getPath(contentBase, href)
-      }
-
-      let media
-      if (config.type && (media = compileMedia[config.type])) {
-        return media.call(_self, url, title)
-      }
-
-      let type = null
-      if (/\.(md|markdown)/.test(url)) {
-        type = 'markdown'
-      } else if (/\.html?/.test(url)) {
-        type = 'html'
-      } else if (/\.(mp4|ogg)/.test(url)) {
-        type = 'video'
-      } else if (/\.mp3/.test(url)) {
-        type = 'audio'
-      }
-      if (type) {
-        return compileMedia[type].call(_self, url, title)
       }
 
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
