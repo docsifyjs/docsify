@@ -19,12 +19,12 @@ wird wie folgt gerendert:
 Generelle Tipps wie:
 
 ```markdown
-?> *TODO* unit test
+?> _TODO_ unit test
 ```
 
 wird wie folgt gerendert:
 
-?> *TODO* unit test
+?> _TODO_ unit test
 
 ## Ignore to compile link
 
@@ -34,18 +34,18 @@ Some time we will put some other relative path to the link, you have to need to 
 [link](/demo/)
 ```
 
-
 It will be compiled to `<a href="/#/demo/">link</a>` and will be loaded `/demo/README.md`. Maybe you want to jump to `/demo/index.html`.
 
 Now you can do that
 
 ```md
-[link](/demo/ ":ignore")
+[link](/demo/ ':ignore')
 ```
+
 You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set title for link.
 
 ```md
-[link](/demo/ ":ignore title")
+[link](/demo/ ':ignore title')
 
 <a href="/demo/" title="title">link</a>
 ```
@@ -53,26 +53,24 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ## Set target attribute for link
 
 ```md
-[link](/demo ":target=_blank")
-[link](/demo2 ":target=_self")
+[link](/demo ':target=_blank')
+[link](/demo2 ':target=_self')
 ```
-
 
 ## Github Task Lists
 
 ```md
-
 * [ ] foo
- * bar
- * [x] baz
- * [] bam
-   * [ ] bim
-   * [ ] lim
+* bar
+* [x] baz
+* [] bam <~ not working
+  * [ ] bim
+  * [ ] lim
 ```
 
 * [ ] foo
- * bar
- * [x] baz
- * [] bam
-   * [ ] bim
-   * [ ] lim
+* bar
+* [x] baz
+* [] bam <~ not working
+  * [ ] bim
+  * [ ] lim

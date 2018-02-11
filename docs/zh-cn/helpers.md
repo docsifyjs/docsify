@@ -2,7 +2,6 @@
 
 docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 
-
 ## 强调内容
 
 适合显示重要的提示信息，语法为 `!> 内容`。
@@ -13,17 +12,15 @@ docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 
 !> 一段重要的内容，可以和其他 **Markdown** 语法混用。
 
-
 ## 普通提示
 
 普通的提示信息，比如写 TODO 或者参考内容等。
 
 ```markdown
-?> *TODO* 完善示例
+?> _TODO_ 完善示例
 ```
 
-?> *TODO* 完善示例
-
+?> _TODO_ 完善示例
 
 ## 忽略编译链接
 
@@ -33,46 +30,43 @@ docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 [link](/demo/)
 ```
 
-
 它将被编译为 `<a href="/#/demo/">link</a>` 并将加载 `/demo/README.md`. 可能你想跳转到 `/demo/index.html`。
 
 现在你可以做到这一点
 
 ```md
-[link](/demo/ ":ignore")
+[link](/demo/ ':ignore')
 ```
+
 即将会得到 `<a href="/demo/">link</a>` html 代码。不要担心，你仍然可以为链接设置标题。
 
 ```md
-[link](/demo/ ":ignore title")
+[link](/demo/ ':ignore title')
 
 <a href="/demo/" title="title">link</a>
 ```
 
-
 ## 设置链接的 target 属性
 
 ```md
-[link](/demo ":target=_blank")
-[link](/demo2 ":target=_self")
+[link](/demo ':target=_blank')
+[link](/demo2 ':target=_self')
 ```
-
 
 ## Github 任务列表
 
 ```md
-
 * [ ] foo
- * bar
- * [x] baz
- * [] bam
-   * [ ] bim
-   * [ ] lim
+* bar
+* [x] baz
+* [] bam <~ not working
+  * [ ] bim
+  * [ ] lim
 ```
 
 * [ ] foo
- * bar
- * [x] baz
- * [] bam
-   * [ ] bim
-   * [ ] lim
+* bar
+* [x] baz
+* [] bam <~ not working
+  * [ ] bim
+  * [ ] lim
