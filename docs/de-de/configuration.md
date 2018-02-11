@@ -162,7 +162,16 @@ window.$docsify = {
   coverpage: true,
 
   // Anderer Dateiname
-  coverpage: 'cover.md'
+  coverpage: 'cover.md',
+
+  // mutiple covers
+  coverpage: ['/', '/zh-cn/'],
+
+  // mutiple covers and custom file name
+  coverpage: {
+    '/': 'cover.md',
+    '/zh-cn/': 'cover.md'
+  }
 };
 ```
 

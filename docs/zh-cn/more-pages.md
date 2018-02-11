@@ -26,7 +26,7 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 默认情况下，侧边栏会根据当前文档的标题生成目录。也可以设置文档链接，通过 Markdown 文件生成，效果如当前的文档的侧边栏。
 
-首先配置 `loadSidebar` 选项，具体配置规则见[配置项#load-sidebar](configuration.md#load-sidebar)。
+首先配置 `loadSidebar` 选项，具体配置规则见[配置项#loadSidebar](configuration.md#loadsidebar)。
 
 ```html
 <script>
@@ -40,12 +40,11 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 接着创建 `_sidebar.md` 文件，内容如下
 
 ```markdown
-- [首页](zh-cn/)
-- [指南](zh-cn/guide)
+* [首页](zh-cn/)
+* [指南](zh-cn/guide)
 ```
 
 !> 需要在文档根目录创建 `.nojekyll` 命名的空文件，阻止 GitHub Pages 忽略命名是下划线开头的文件。
-
 
 `_sidebar.md` 的加载逻辑是从每层目录下获取文件，如果当前目录不存在该文件则回退到上一级目录。例如当前路径为 `/zh-cn/more-pages` 则从 `/zh-cn/_sidebar.md` 获取文件，如果不存在则从 `/_sidebar.md` 获取。
 
@@ -78,12 +77,13 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 ## 忽略副标题
 
-当设置了 `subMaxLevel` 时，默认情况下每个标题都会自动添加到目录中。如果你想忽略特定的标题，可以给它添加 `{docsify-ignore}` 。
+当设置了 `subMaxLevel` 时，默认情况下每个标题都会自动添加到目录中。如果你想忽略特定的标题，可以给它添加  `{docsify-ignore}` 。
 
 ```markdown
 # Getting Started
 
 ## Header {docsify-ignore}
+
 该标题不会出现在侧边栏的目录中。
 ```
 
@@ -93,8 +93,8 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 # Getting Started {docsify-ignore-all}
 
 ## Header
+
 该标题不会出现在侧边栏的目录中。
 ```
 
 在使用时， `{docsify-ignore}` 和 `{docsify-ignore-all}` 都不会在页面上呈现。
-

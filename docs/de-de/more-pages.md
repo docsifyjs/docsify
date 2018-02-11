@@ -27,7 +27,7 @@ docs/de-de/guide.md   => http://domain.com/de-de/guide
 
 Als Standardeinstellung wird das Inhaltsverzeichnis in der Seitenleiste automatisch basierend auf vorhandenen Markdown Dateien generiert. Wenn du das seitliche Inhaltsverzeichnis anpassen willst, kannst du eine Datei namens `_sidebar.md` erstellen (vergleiche [das seitliche Inhaltsverzeichnis für diese Dokumentation](https://github.com/QingWei-Li/docsify/blob/master/docs/de-de/_sidebar.md) als Beispiel):
 
-Als Erstes musst du `loadSidebar` auf **true** setzen, vergleiche [Einstellungen für das seitliche Inhaltsverzeichnis](configuration.md#load-sidebar).
+Als Erstes musst du `loadSidebar` auf **true** setzen, vergleiche [Einstellungen für das seitliche Inhaltsverzeichnis](configuration.md#loadsidebar).
 
 ```html
 <!-- index.html -->
@@ -45,13 +45,13 @@ Als Zweites erstellst du eine Datei namens `_sidebar.md`:
 ```markdown
 <!-- docs/_sidebar.md -->
 
-- [Home](/)
-- [Guide](de-de/guide.md)
+* [Home](/)
+* [Guide](de-de/guide.md)
 ```
 
 !> Solltest du Github Pages verwenden, musst du zusätzlich eine Datei namens `.nojekyll` in `./docs` erstellen, um zu verhindern, dass Github Dateien ignoriert, die mit einem Unterstrich anfangen.
 
-`_sidebar.md` wird in jedem Verzeichnislevel geladen. Sollte das aktuelle Verzeichnis keine Datei namens `_sidebar.md` haben, so sucht **docsify** in den übergeordneten Ordnern. Wenn du z.B. im Moment im Verzeichnis `/guide/quick-start` bist,  so wird `_sidebar.md` von der Datei `/guide/_sidebar.md` geladen.
+`_sidebar.md` wird in jedem Verzeichnislevel geladen. Sollte das aktuelle Verzeichnis keine Datei namens `_sidebar.md` haben, so sucht **docsify** in den übergeordneten Ordnern. Wenn du z.B. im Moment im Verzeichnis `/guide/quick-start` bist, so wird `_sidebar.md` von der Datei `/guide/_sidebar.md` geladen.
 
 You can specify `alias` to avoid unnecessary fallback.
 
@@ -68,7 +68,7 @@ You can specify `alias` to avoid unnecessary fallback.
 
 ## Inhaltsverzeichnis
 
-Eine angepasste Seitenleist kann auch automatisch ein Inhaltsverzeichnis generieren, indem ein `subMaxLevel` gesetzt wird, vergleiche [sub-max-level Einstellungen](configuration.md#sub-max-level).
+Eine angepasste Seitenleist kann auch automatisch ein Inhaltsverzeichnis generieren, indem ein `subMaxLevel` gesetzt wird, vergleiche [subMaxLevel Einstellungen](configuration.md#submaxlevel).
 
 ```html
 <!-- index.html -->
@@ -90,6 +90,7 @@ When `subMaxLevel` is set, each header is automatically added to the table of co
 # Getting Started
 
 ## Header {docsify-ignore}
+
 This header won't appear in the sidebar table of contents.
 ```
 
@@ -99,6 +100,7 @@ To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on 
 # Getting Started {docsify-ignore-all}
 
 ## Header
+
 This header won't appear in the sidebar table of contents.
 ```
 

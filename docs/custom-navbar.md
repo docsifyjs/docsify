@@ -20,7 +20,7 @@ If you need custom navigation, you can create a HTML-based navigation bar.
 
 ## Markdown
 
-Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [load-navbar configuration](configuration.md#load-navbar).
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [loadNavbar configuration](configuration.md#loadnavbar).
 
 ```html
 <!-- index.html -->
@@ -36,13 +36,13 @@ Alternatively, you can create a custom markdown-based navigation file by setting
 ```markdown
 <!-- _navbar.md -->
 
-- [En](/)
-- [chinese](/zh-cn/)
+* [En](/)
+* [chinese](/zh-cn/)
 ```
 
 !> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
-`_navbar.md` is loaded from each level directory. If the current directory doesn't have `_navbar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`,  the `_navbar.md` will be loaded from `/guide/_navbar.md`.
+`_navbar.md` is loaded from each level directory. If the current directory doesn't have `_navbar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`, the `_navbar.md` will be loaded from `/guide/_navbar.md`.
 
 ## Nesting
 
@@ -51,23 +51,24 @@ You can create sub-lists by indenting items that are under a certain parent.
 ```markdown
 <!-- _navbar.md -->
 
-- Getting started
-  - [Quick start](quickstart.md)
-  - [Writing more pages](more-pages.md)
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+* Getting started
 
-- Configuration
-  - [Configuration](configuration.md)
-  - [Themes](themes.md)
-  - [Using plugins](plugins.md)
-  - [Markdown configuration](markdown.md)
-  - [Language highlight](language-highlight.md)
+  * [Quick start](quickstart.md)
+  * [Writing more pages](more-pages.md)
+  * [Custom navbar](custom-navbar.md)
+  * [Cover page](cover.md)
+
+* Configuration
+  * [Configuration](configuration.md)
+  * [Themes](themes.md)
+  * [Using plugins](plugins.md)
+  * [Markdown configuration](markdown.md)
+  * [Language highlight](language-highlight.md)
 ```
 
 renders as
 
-![Nesting navbar](_images/nested-navbar.png "Nesting navbar")
+![Nesting navbar](_images/nested-navbar.png 'Nesting navbar')
 
 ## Combining custom navbars with the emoji plugin
 
@@ -90,6 +91,6 @@ you could, for example, use flag emojis in your custom navbar Markdown file:
 ```markdown
 <!-- _navbar.md -->
 
-- [:us:, :uk:](/)
-- [:cn:](/zh-cn/)
+* [:us:, :uk:](/)
+* [:cn:](/zh-cn/)
 ```

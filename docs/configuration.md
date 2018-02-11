@@ -152,7 +152,7 @@ window.$docsify = {
 
 ## coverpage
 
-* Type: `Boolean|String`
+* Type: `Boolean|String|String[]|Object`
 * Default: `false`
 
 Activate the [cover feature](cover.md). If true, it will load from `_coverpage.md`.
@@ -162,7 +162,16 @@ window.$docsify = {
   coverpage: true,
 
   // Custom file name
-  coverpage: 'cover.md'
+  coverpage: 'cover.md',
+
+  // mutiple covers
+  coverpage: ['/', '/zh-cn/'],
+
+  // mutiple covers and custom file name
+  coverpage: {
+    '/': 'cover.md',
+    '/zh-cn/': 'cover.md'
+  }
 };
 ```
 
@@ -364,6 +373,18 @@ Sometimes we do not want docsify to handle our links. See [#203](https://github.
 ```js
 window.$docsify = {
   noCompileLinks: ['/foo', '/bar/.*']
+};
+```
+
+## onlyCover
+
+* type: `Boolean`
+
+Only coverpage is loaded when When visiting the home page.
+
+```js
+window.$docsify = {
+  onlyCover: false
 };
 ```
 
