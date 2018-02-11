@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>docsify</title>
@@ -19,6 +20,7 @@
     }
   </style>
 </head>
+
 <body>
   <div id="app">Loading ...</div>
   <script>
@@ -53,7 +55,7 @@
       },
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
-        function(hook, vm) {
+        function (hook, vm) {
           hook.beforeEach(function (html) {
             var url = 'https://github.com/QingWei-Li/docsify/blob/master/docs/' + vm.route.file
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
@@ -61,8 +63,7 @@
             return editHtml
               + html
               + '\n----\n'
-              + 'Last modified {docsify-updated} '
-              + editHtml
+              + '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
           })
         }
       ]
@@ -75,4 +76,5 @@
   <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
 </body>
+
 </html>
