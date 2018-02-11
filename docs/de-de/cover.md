@@ -26,7 +26,7 @@ Setze `coverpage` auf **true**, und erstelle `_coverpage.md`:
 
 > Ein magischer Generator für Dokumentationsseiten.
 
-* Einfach und wenig Speicherbedarf (~18kB gzipped)
+* Einfach und wenig Speicherbedarf (~19kB gzipped)
 * Keine statischen HTML Dateien
 * Mehrere Themes
 

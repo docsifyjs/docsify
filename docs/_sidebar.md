@@ -22,7 +22,7 @@
   * [CDN](cdn.md)
   * [Offline Mode(PWA)](pwa.md)
   * [Server-client renderer(SSR)](ssr.md)
-  * [Embed Files <sup style="color:red">(new)<sup>](embed-files)
+  * [Embed Files <sup style="color:red">(new)<sup>](embed-files.md)
 
 * [Awesome docsify](awesome.md)
 * [Changelog](changelog.md)

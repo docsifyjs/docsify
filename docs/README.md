@@ -11,12 +11,13 @@ See the [Quick start](quickstart.md) for more details.
 ## Features
 
 * No statically built html files
-* Simple and lightweight (~18kB gzipped)
+* Simple and lightweight (~19kB gzipped)
 * Smart full-text search plugin
 * Multiple themes
 * Useful plugin API
 * Emoji support
 * Compatible with IE10+
+
 - Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
 
 ## Examples
