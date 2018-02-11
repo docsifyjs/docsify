@@ -35,9 +35,7 @@ export class History {
     return this.config.basePath
   }
 
-  getFile (path, isRelative) {
-    path = path || this.getCurrentPath()
-
+  getFile (path = this.getCurrentPath(), isRelative) {
     const { config } = this
     const base = this.getBasePath()
     const ext = typeof config.ext !== 'string' ? '.md' : config.ext
