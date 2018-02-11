@@ -9,17 +9,19 @@
 </p>
 
 <p align="center">
+  <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/docsify/backers/badge.svg?style=flat-square"></a>
+  <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
   <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/QingWei-Li/docsify/master.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
-  <a href="https://discord.gg/Yu2vxQ5"><img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg?style=flat-square" alt="Chat"></a>
   <a href="https://github.com/QingWei-Li/donate"><img alt="donate" src="https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square"></a>
 </p>
 
 <p align="center">Glod Sponsor via <a href="https://opencollective.com/docsify">Open Collective</a></p>
+
 <p align="center">
-<a href="https://opencollective.com/docsify/tiers/gold-sponsor/website">
-<img src="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=36">
-</a>
+  <a href="https://opencollective.com/docsify/tiers/gold-sponsor/website">
+    <img src="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=36">
+  </a>
 </p>
 
 ## Links
@@ -91,6 +93,12 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/docsify/silver-sponsors/7/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/7/avatar.svg"></a>
 <a href="https://opencollective.com/docsify/silver-sponsors/8/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/8/avatar.svg"></a>
 <a href="https://opencollective.com/docsify/silver-sponsors/9/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/9/avatar.svg"></a>
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
+
 
 ## License
 

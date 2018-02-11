@@ -27,11 +27,13 @@
     "build:ssr": "node build/build-ssr",
     "test": "eslint {src,packages} --fix",
     "pub:next": "RELEASE_TAG=next sh build/release.sh",
-    "pub": "sh build/release.sh"
+    "pub": "sh build/release.sh",
+    "postinstall": "opencollective postinstall"
   },
   "dependencies": {
     "marked": "^0.3.12",
     "medium-zoom": "^0.2.0",
+    "opencollective": "^1.0.3",
     "prismjs": "^1.6.0",
     "tinydate": "^1.0.0",
     "tweezer.js": "^1.4.0"
@@ -62,5 +64,10 @@
     "documentation",
     "creator",
     "generator"
-  ]
+  ],
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/docsify",
+    "logo": "https://docsify.js.org/_media/icon.svg"
+  }
 }
