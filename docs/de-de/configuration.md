@@ -375,3 +375,29 @@ window.$docsify = {
   noCompileLinks: ['/foo', '/bar/.*']
 };
 ```
+
+## requestHeaders
+
+* type: `Object`
+
+Set the request resource headers.
+
+```js
+window.$docsify = {
+  requestHeaders: {
+    'x-token': 'xxx'
+  }
+};
+```
+
+## ext
+
+* type: `String`
+
+Request file extension.
+
+```js
+window.$docsify = {
+  ext: '.md'
+};
+```
