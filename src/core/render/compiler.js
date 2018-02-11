@@ -17,7 +17,6 @@ function getAndRemoveConfig (str = '') {
   if (str) {
     str = str
       .replace(/:([\w-]+)=?([\w-]+)?/g, (m, key, value) => {
-        console.log(key, value)
         config[key] = (value && value.replace(/&quot;/g, '')) || true
         return ''
       })
@@ -47,7 +46,6 @@ const compileMedia = {
     }
   },
   iframe (url, title) {
-    console.log(title)
     return `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
   },
   video (url, title) {
