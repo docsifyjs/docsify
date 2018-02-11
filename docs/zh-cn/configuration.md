@@ -387,3 +387,29 @@ window.$docsify = {
   noCompileLinks: ['/foo', '/bar/.*']
 };
 ```
+
+## requestHeaders
+
+* type: `Object`
+
+设置请求资源的请求头。
+
+```js
+window.$docsify = {
+  requestHeaders: {
+    'x-token': 'xxx'
+  }
+};
+```
+
+## ext
+
+* type: `String`
+
+资源的文件扩展名。
+
+```js
+window.$docsify = {
+  ext: '.md'
+};
+```
