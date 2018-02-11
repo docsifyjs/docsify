@@ -56,16 +56,6 @@ Did you see it? You only need to write directly. You can check [MDN](https://dev
 Embedding any type of source code file, you can specify the highlighted language or automatically identify.
 
 ```markdown
-[](_media/example.html ':include :type=code')
-```
-
-⬇️
-
-[](_media/example.html ':include :type=code')
-
-Or Specify the language
-
-```markdown
 [](_media/example.html ':include :type=code text')
 ```
 
