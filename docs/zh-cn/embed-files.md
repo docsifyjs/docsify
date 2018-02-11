@@ -20,7 +20,7 @@ docsify 4.6 开始支持嵌入任何类型的文件到文档里。你可以将�
 
 当前，嵌入的类型是通过文件后缀自动识别的，这是目前支持的类型：
 
-* **iframe** `.html`, `.html`
+* **iframe** `.html`, `.htm`
 * **markdown** `.markdown`, `.md`
 * **audio** `.mp3`
 * **video** `.mp4`, `.ogg`

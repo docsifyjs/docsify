@@ -23,7 +23,7 @@ Currently, file extension are automatically recognized and embedded in different
 
 This is a supported embedding type:
 
-* **iframe** `.html`, `.html`
+* **iframe** `.html`, `.htm`
 * **markdown** `.markdown`, `.md`
 * **audio** `.mp3`
 * **video** `.mp4`, `.ogg`

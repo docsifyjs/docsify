@@ -34,7 +34,7 @@
 ## Features
 
 * No statically built html files
-* Simple and lightweight (~18kB gzipped)
+* Simple and lightweight (~19kB gzipped)
 * Smart full-text search plugin
 * Multiple themes
 * Useful plugin API
@@ -98,7 +98,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
-
 
 ## License
 
