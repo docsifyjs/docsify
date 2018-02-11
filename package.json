@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.5.7",
+  "version": "4.5.9",
   "description": "A magical documentation generator.",
   "author": {
     "name": "qingwei-li",
@@ -31,7 +31,7 @@
     "postinstall": "opencollective postinstall"
   },
   "dependencies": {
-    "marked": "^0.3.9",
+    "marked": "^0.3.12",
     "medium-zoom": "^0.2.0",
     "opencollective": "^1.0.3",
     "prismjs": "^1.6.0",

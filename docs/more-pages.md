@@ -53,10 +53,22 @@ You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignori
 
 `_sidebar.md` is loaded from each level directory. If the current directory doesn't have `_sidebar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`,  the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
 
+You can specify `alias` to avoid unnecessary fallback.
+
+```html
+<script>
+  window.$docsify = {
+    loadSidebar: true,
+    alias: {
+      '/.*/_sidebar.md': '/_sidebar.md'
+    }
+  }
+</script>
+```
 
 ## Table of Contents
 
-Once you've created `_sidebar.md`, the sidebar content is automatically generated based on the headers in the markdown files. 
+Once you've created `_sidebar.md`, the sidebar content is automatically generated based on the headers in the markdown files.
 
 A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [sub-max-level configuration](configuration.md#sub-max-level).
 

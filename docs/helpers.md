@@ -78,7 +78,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 * [ ] foo
  * bar
  * [x] baz
- * [] bam
+ * [ ] bam
    * [ ] bim
    * [ ] lim
 

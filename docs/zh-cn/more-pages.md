@@ -49,6 +49,19 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 `_sidebar.md` 的加载逻辑是从每层目录下获取文件，如果当前目录不存在该文件则回退到上一级目录。例如当前路径为 `/zh-cn/more-pages` 则从 `/zh-cn/_sidebar.md` 获取文件，如果不存在则从 `/_sidebar.md` 获取。
 
+当然你也可以配置 `alias` 避免不必要的回退过程。
+
+```html
+<script>
+  window.$docsify = {
+    loadSidebar: true,
+    alias: {
+      '/.*/_sidebar.md': '/_sidebar.md'
+    }
+  }
+</script>
+```
+
 ## 显示目录
 
 自定义侧边栏同时也可以开启目录功能。设置 `subMaxLevel` 配置项，具体介绍见 [配置项#sub-max-level](zh-cn/configuration#sub-max-level)。

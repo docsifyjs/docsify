@@ -14,6 +14,7 @@ section.cover {
     background-color: $color-bg;
     opacity: 0.8;
     position: absolute;
+    top: 0;
     size: 100%;
   }
 

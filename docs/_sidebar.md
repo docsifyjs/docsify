@@ -20,4 +20,5 @@
   - [Offline Mode(PWA)](pwa.md)
   - [Server-client renderer(SSR)](ssr.md)
 
+- [Awesome docsify](awesome.md)
 - [Changelog](changelog.md)
