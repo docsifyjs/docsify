@@ -87,16 +87,17 @@ export function fetchMixin (proto) {
         path = cover === true ? '_coverpage' : cover
       }
 
-      this.coverEnable = !!path
+      const coverOnly = !!path && this.config.onlyCover
       if (path) {
         path = this.router.getFile(root + path)
         this.coverIsHTML = /\.html$/g.test(path)
         get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-          text => this._renderCover(text)
+          text => this._renderCover(text, coverOnly)
         )
       } else {
-        this._renderCover()
+        this._renderCover(null, coverOnly)
       }
+      return coverOnly
     }
   }
 
@@ -106,9 +107,9 @@ export function fetchMixin (proto) {
       cb()
     }
 
-    this._fetchCover()
+    const onlyCover = this._fetchCover()
 
-    if (this.coverEnable && this.config.onlyCover) {
+    if (onlyCover) {
       done()
     } else {
       this._fetch(result => {

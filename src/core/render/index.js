@@ -134,8 +134,10 @@ export function renderMixin (proto) {
     })
   }
 
-  proto._renderCover = function (text) {
+  proto._renderCover = function (text, coverOnly) {
     const el = dom.getNode('.cover')
+
+    dom.toggleClass(dom.getNode('main'), coverOnly ? 'add' : 'remove', 'hidden')
     if (!text) {
       dom.toggleClass(el, 'remove', 'show')
       return

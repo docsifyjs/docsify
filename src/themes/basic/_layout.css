@@ -223,6 +223,10 @@ main {
   z-index: 0;
 }
 
+main.hidden {
+  display: none;
+}
+
 .anchor {
   display: inline-block;
   text-decoration: none;
