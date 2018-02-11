@@ -27,7 +27,7 @@ docs/zh-cn/guide.md   => http://domain.com/zh-cn/guide
 
 In order to have sidebar, then you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/QingWei-Li/docsify/blob/master/docs/_sidebar.md) for an example):
 
-First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#load-sidebar).
+First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#loadsidebar).
 
 ```html
 <!-- index.html -->
@@ -45,13 +45,13 @@ Create the `_sidebar.md`:
 ```markdown
 <!-- docs/_sidebar.md -->
 
-- [Home](/)
-- [Guide](guide.md)
+* [Home](/)
+* [Guide](guide.md)
 ```
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
-`_sidebar.md` is loaded from each level directory. If the current directory doesn't have `_sidebar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`,  the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
+`_sidebar.md` is loaded from each level directory. If the current directory doesn't have `_sidebar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`, the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
 
 You can specify `alias` to avoid unnecessary fallback.
 
@@ -70,7 +70,7 @@ You can specify `alias` to avoid unnecessary fallback.
 
 Once you've created `_sidebar.md`, the sidebar content is automatically generated based on the headers in the markdown files.
 
-A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [sub-max-level configuration](configuration.md#sub-max-level).
+A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [subMaxLevel configuration](configuration.md#submaxlevel).
 
 ```html
 <!-- index.html -->
@@ -92,6 +92,7 @@ When `subMaxLevel` is set, each header is automatically added to the table of co
 # Getting Started
 
 ## Header {docsify-ignore}
+
 This header won't appear in the sidebar table of contents.
 ```
 
@@ -101,6 +102,7 @@ To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on 
 # Getting Started {docsify-ignore-all}
 
 ## Header
+
 This header won't appear in the sidebar table of contents.
 ```
 
