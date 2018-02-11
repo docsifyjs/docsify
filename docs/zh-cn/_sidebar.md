@@ -22,7 +22,7 @@
   * [CDN](zh-cn/cdn.md)
   * [离线模式(PWA)](zh-cn/pwa.md)
   * [服务端渲染 (SSR)](zh-cn/ssr.md)
-  * [文件嵌入<sup style="color:red">(new)<sup>](zh-cn/embed-files)
+  * [文件嵌入<sup style="color:red">(new)<sup>](zh-cn/embed-files.md)
 
 * [Awesome docsify](zh-cn/awesome.md)
 * [Changelog](zh-cn/changelog.md)
