@@ -1,9 +1,8 @@
 # Einstellungen
 
-**docsify** unterstützt zwei verschiedene Arten, um die Einstellungen anzupassen. Du kannst das `window.$docsify` anpassen, oder die Einstellungen über das script tag im `data-*` Attribut vornehmen.
+You can configure the `window.$docsify`.
 
 ```html
-<!-- über $docsify -->
 <script>
   window.$docsify = {
     repo: 'QingWei-Li/docsify',
@@ -11,37 +10,25 @@
     coverpage: true
   }
 </script>
-
-<!-- oder data-* -->
-<script
-  src="//unpkg.com/docsify"
-  data-repo="QingWei-Li/docsify"
-  data-max-level="3"
-  data-coverpage>
-</script>
 ```
-
-Beide Arten sind miteinander kompatibel, wobei die erste jedoch empfohlen wird. Sie ist deutlicher und kann in einer separaten Datei geführt werden.
-
-!> Innerhalb des `window.$docsfiy` sollten die Optionen mit camelCase geschrieben werden.
 
 ## el
 
-- Typ: `String`
-- Standard: `#app`
+* Typ: `String`
+* Standard: `#app`
 
 Das DOM Element kann bei der Initialisierung gesetzt werden. Es kann ein CSS selector string oder ein richtiges HTMLElement sein.
 
 ```js
 window.$docsify = {
   el: '#app'
-}
+};
 ```
 
 ## repo
 
-- Typ: `String`
-- Standard: `null`
+* Typ: `String`
+* Standard: `null`
 
 Verwende die repository URL oder eine Zeichenfolge aus `Benutzername/repo`, um das [GitHub Corner](http://tholman.com/github-corners/) widget in die obere rechte Ecke der Seite zu implementieren.
 
@@ -50,26 +37,26 @@ window.$docsify = {
   repo: 'QingWei-Li/docsify',
   // oder
   repo: 'https://github.com/QingWei-Li/docsify/'
-}
+};
 ```
 
-## max-level
+## maxLevel
 
-- Typ: `Number`
-- Standard: `6`
+* Typ: `Number`
+* Standard: `6`
 
 Maximale Anzahl der Inhaltsübersichtebenen.
 
 ```js
 window.$docsify = {
   maxLevel: 4
-}
+};
 ```
 
-## load-navbar
+## loadNavbar
 
-- Typ: `Boolean|String`
-- Standard: `false`
+* Typ: `Boolean|String`
+* Standard: `false`
 
 Lädt die Navigationsleiste von der Markdown Datei `_navbar.md` falls **true**, oder vom gewählten Pfad.
 
@@ -80,13 +67,13 @@ window.$docsify = {
 
   // lade von nav.md
   loadNavbar: 'nav.md'
-}
+};
 ```
 
-## load-sidebar
+## loadSidebar
 
-- Typ: `Boolean|String`
-- Standard: `false`
+* Typ: `Boolean|String`
+* Standard: `false`
 
 Lädt das seitliche Inhaltsverzeichnis von der Markdown Datei `_sidebar.md` falls **true**, oder vom gewählten Pfad.
 
@@ -97,39 +84,39 @@ window.$docsify = {
 
   // lade von summary.md
   loadSidebar: 'summary.md'
-}
+};
 ```
 
-## sub-max-level
+## subMaxLevel
 
-- Typ: `Number`
-- Standard: `0`
+* Typ: `Number`
+* Standard: `0`
 
 Wähle die maximale Anzahl der Unterpunkte pro Datei in der Inhaltsübersicht.
 
 ```js
 window.$docsify = {
   subMaxLevel: 2
-}
+};
 ```
 
 ## auto2top
 
-- Typ: `Boolean`
-- Standard: `false`
+* Typ: `Boolean`
+* Standard: `false`
 
 Scrolle zum Anfang der Seite, wenn die Route gewechselt wird.
 
 ```js
 window.$docsify = {
   auto2top: true
-}
+};
 ```
 
 ## homepage
 
-- Typ: `String`
-- Standard: `README.md`
+* Typ: `String`
+* Standard: `README.md`
 
 `README.md` in deinem Ordner für die Dokumentation wird als Startseite für deine Webseite gesetzt, aber manchmal musst du das vielleicht ändern.
 
@@ -139,13 +126,14 @@ window.$docsify = {
   homepage: 'home.md',
 
   // Oder verwende das README in deinem repo
-  homepage: 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md'
-}
+  homepage:
+    'https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md'
+};
 ```
 
-## base-path
+## basePath
 
-- Typ: `String`
+* Typ: `String`
 
 Der Basispfad der Webseite. Du kannst einen anderen Ordner wählen, oder eine andere Domain.
 
@@ -157,14 +145,15 @@ window.$docsify = {
   basePath: 'https://docsify.js.org/',
 
   // Oder lade Dateien von einem anderen repo
-  basePath: 'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/'
-}
+  basePath:
+    'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/'
+};
 ```
 
 ## coverpage
 
-- Typ: `Boolean|String`
-- Standard: `false`
+* Typ: `Boolean|String`
+* Standard: `false`
 
 Aktiviere das [Titelseitenfeature](de-de/cover.md). Falls `true`, wird sie von `_coverpage.md` geladen.
 
@@ -174,25 +163,25 @@ window.$docsify = {
 
   // Anderer Dateiname
   coverpage: 'cover.md'
-}
+};
 ```
 
 ## name
 
-- Typ: `String`
+* Typ: `String`
 
 Webseitenname, wie er in der Inhaltsübersicht in der Seitenleiste angezeigt wird.
 
 ```js
 window.$docsify = {
   name: 'docsify'
-}
+};
 ```
 
-## name-link
+## nameLink
 
-- Typ: `String`
-- Standard: `window.location.pathname`
+* Typ: `String`
+* Standard: `window.location.pathname`
 
 Der Name der Links.
 
@@ -205,12 +194,12 @@ window.$docsify = {
     '/zh-cn/': '/zh-cn/',
     '/': '/'
   }
-}
+};
 ```
 
 ## markdown
 
-- Typ: `Function`
+* Typ: `Function`
 
 Siehe [Markdown Konfiguration](de-de/markdown.md).
 
@@ -227,28 +216,28 @@ window.$docsify = {
   },
 
   // Funktion
-  markdown: function (marked, renderer) {
+  markdown: function(marked, renderer) {
     // ...
-    return marked
+    return marked;
   }
-}
+};
 ```
 
-## theme-color
+## themeColor
 
-- Typ: `String`
+* Typ: `String`
 
 Passe die Farbe der Themen an. Verwende [CSS3 Variablen](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) und polyfill in älteren Browsern.
 
 ```js
 window.$docsify = {
   themeColor: '#3F51B5'
-}
+};
 ```
 
 ## alias
 
-- Typ: `Object`
+* Typ: `Object`
 
 Verwende alternative Routen. Du kannst sie ungehindert anpassen. Supports RegExp.
 
@@ -257,15 +246,16 @@ window.$docsify = {
   alias: {
     '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
-    '/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+    '/changelog':
+      'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
     '/.*/_sidebar.md': '/_sidebar.md' // See #301
   }
-}
+};
 ```
 
-## auto-header
+## autoHeader
 
-- Typ: `Boolean`
+* Typ: `Boolean`
 
 Sollten `loadSidebar` und `autoHeader` beide aktiviert sein, setze einen Header vor die Seite in jedem Link in `_sidebar.md`, bevor sie in HTML umgewandelt wird. Vergleiche [#78](https://github.com/QingWei-Li/docsify/issues/78).
 
@@ -273,19 +263,19 @@ Sollten `loadSidebar` und `autoHeader` beide aktiviert sein, setze einen Header 
 window.$docsify = {
   loadSidebar: true,
   autoHeader: true
-}
+};
 ```
 
-## execute-script
+## executeScript
 
-- Typ: `Boolean`
+* Typ: `Boolean`
 
-Führe das Skript auf der Seite aus. Analysiere nur das erste script tag ([demo](de-de/themes.md)).  Sollte Vue verwendet sein, wird es in der Standardeinstellung ausgeführt.
+Führe das Skript auf der Seite aus. Analysiere nur das erste script tag ([demo](de-de/themes.md)). Sollte Vue verwendet sein, wird es in der Standardeinstellung ausgeführt.
 
 ```js
 window.$docsify = {
   executeScript: true
-}
+};
 ```
 
 ```markdown
@@ -298,65 +288,81 @@ window.$docsify = {
 
 ?> Nehme zur Kenntnis, dass, solltest du ein externes Skript ausführen, z.B. ein eingebettete jsfiddle demo, du sicher gehen solltest, das [external-script](de-de/plugins.md?id=external-script) plugin zu verwenden.
 
-## no-emoji
+## noEmoji
+
+* type: `Boolean`
 
 Verhindere die Umwandlung in Emojis:
 
 ```js
 window.$docsify = {
   noEmoji: true
-}
+};
 ```
 
-## merge-navbar
+## mergeNavbar
+
+* type: `Boolean`
 
 Navbar will be merged with the sidebar on smaller screens.
 
 ```js
 window.$docsify = {
   mergeNavbar: true
-}
+};
 ```
 
-## format-updated
+## formatUpdated
+
+* type: `String|Function`
+
 We can display the file update date through **{docsify-updated<span>}</span>** variable. And format it by `formatUpdated`.
 See https://github.com/lukeed/tinydate#patterns
+
 ```js
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function (time) {
+  formatUpdated: function(time) {
     // ...
 
-    return time
+    return time;
   }
-}
+};
 ```
 
-## external-link-target
+## externalLinkTarget
 
-Currently it defaults to _blank, would be nice if configurable:
+* type: `String`
+* default: `_blank`
+
+Currently it defaults to \_blank, would be nice if configurable:
 
 ```js
 window.$docsify = {
   externalLinkTarget: '_self' // default: '_blank'
-}
+};
 ```
 
+## routerMode
 
-## noCompileLinks
-
-- type: `Array`
-
-
-Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
-
+* type: `String`
+* default: `history`
 
 ```js
 window.$docsify = {
-  noCompileLinks: [
-    '/foo',
-    '/bar/.*'
-  ]
-}
+  routerMode: 'history' // default: 'hash'
+};
+```
+
+## noCompileLinks
+
+* type: `Array`
+
+Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
+
+```js
+window.$docsify = {
+  noCompileLinks: ['/foo', '/bar/.*']
+};
 ```
