@@ -50,17 +50,7 @@ docsify 4.6 开始支持嵌入任何类型的文件到文档里。你可以将�
 
 ## 代码块高亮
 
-如果是嵌入一个代码块，你可以设置高亮的语言，或者让它自动识别。
-
-```markdown
-[](_media/example.html ':include :type=code')
-```
-
-⬇️
-
-[](_media/example.html ':include :type=code')
-
-这里是手动设置高亮语言
+如果是嵌入一个代码块，你可以设置高亮的语言，或者让它自动识别。这里是手动设置高亮语言
 
 ```markdown
 [](_media/example.html ':include :type=code text')
