@@ -1,3 +1,33 @@
+<a name="4.6.0"></a>
+# [4.6.0](https://github.com/QingWei-Li/docsify/compare/v4.5.9...v4.6.0) (2018-02-11)
+
+
+### Bug Fixes
+
+* **search:** custom clear button, fixed [#271](https://github.com/QingWei-Li/docsify/issues/271) ([864aa18](https://github.com/QingWei-Li/docsify/commit/864aa18))
+* **search:** escape special characters for search, fixed [#369](https://github.com/QingWei-Li/docsify/issues/369) ([9755439](https://github.com/QingWei-Li/docsify/commit/9755439))
+* build config ([342438f](https://github.com/QingWei-Li/docsify/commit/342438f))
+* button style for coverpage, fixed [#362](https://github.com/QingWei-Li/docsify/issues/362) ([85428ef](https://github.com/QingWei-Li/docsify/commit/85428ef))
+* dropdown scroll style, fixed [#346](https://github.com/QingWei-Li/docsify/issues/346) ([c4d83f2](https://github.com/QingWei-Li/docsify/commit/c4d83f2))
+* highlight homepage link, fixed [#304](https://github.com/QingWei-Li/docsify/issues/304) ([f960c19](https://github.com/QingWei-Li/docsify/commit/f960c19))
+* homepage link ([e097f88](https://github.com/QingWei-Li/docsify/commit/e097f88))
+* onlyCover ([033be4f](https://github.com/QingWei-Li/docsify/commit/033be4f))
+* ssr compatible embedd ([ebc10c4](https://github.com/QingWei-Li/docsify/commit/ebc10c4))
+* ssr coverpage, fixed [#273](https://github.com/QingWei-Li/docsify/issues/273) ([9e824a4](https://github.com/QingWei-Li/docsify/commit/9e824a4))
+
+
+### Features
+
+* click sidebar menu add collapse and expand, close [#294](https://github.com/QingWei-Li/docsify/issues/294) ([5e161a1](https://github.com/QingWei-Li/docsify/commit/5e161a1))
+* **compiler:** support embedded file as code block, close [#134](https://github.com/QingWei-Li/docsify/issues/134) ([761ccc2](https://github.com/QingWei-Li/docsify/commit/761ccc2))
+* **compiler:** support embedded markdown, html, video, etc files, close [#383](https://github.com/QingWei-Li/docsify/issues/383), close [#333](https://github.com/QingWei-Li/docsify/issues/333) ([524f52f](https://github.com/QingWei-Li/docsify/commit/524f52f))
+* **cover:** add onlyCover option, close [#382](https://github.com/QingWei-Li/docsify/issues/382) ([b265fdd](https://github.com/QingWei-Li/docsify/commit/b265fdd))
+* **fetch:** add requestHeaders option, fixed [#336](https://github.com/QingWei-Li/docsify/issues/336) ([54ab4c9](https://github.com/QingWei-Li/docsify/commit/54ab4c9))
+* **render:** add ext option for custom file extenstion, close [#340](https://github.com/QingWei-Li/docsify/issues/340) ([248aa72](https://github.com/QingWei-Li/docsify/commit/248aa72))
+* **render:** mutilple coverpage, close [#315](https://github.com/QingWei-Li/docsify/issues/315) ([f68ddf5](https://github.com/QingWei-Li/docsify/commit/f68ddf5))
+
+
+
 <a name="4.5.9"></a>
 ## [4.5.9](https://github.com/QingWei-Li/docsify/compare/v4.5.8...v4.5.9) (2018-02-07)
 
