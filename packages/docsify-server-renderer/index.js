@@ -7,6 +7,7 @@ import { readFileSync } from 'fs'
 import { resolve, basename } from 'path'
 import resolvePathname from 'resolve-pathname'
 import debug from 'debug'
+import { prerenderEmbed } from '../../src/core/render/embed'
 
 function cwd (...args) {
   return resolve(process.cwd(), ...args)
@@ -61,7 +62,7 @@ export default class Renderer {
     const { loadSidebar, loadNavbar, coverpage } = this.config
 
     const mainFile = this._getPath(url)
-    this._renderHtml('main', await this._render(mainFile))
+    this._renderHtml('main', await this._render(mainFile, 'main'))
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar
@@ -119,6 +120,19 @@ export default class Renderer {
         break
       case 'cover':
         html = this.compiler.cover(html)
+        break
+      case 'main':
+        const tokens = await new Promise(r => {
+          prerenderEmbed(
+            {
+              fetch: url => this._loadFile(this._getPath(url)),
+              compiler: this.compiler,
+              raw: html
+            },
+            r
+          )
+        })
+        html = this.compiler.compile(tokens)
         break
       case 'navbar':
       case 'article':
