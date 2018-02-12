@@ -1,3 +1,13 @@
+<a name="4.6.1"></a>
+## [4.6.1](https://github.com/QingWei-Li/docsify/compare/v4.6.0...v4.6.1) (2018-02-12)
+
+
+### Bug Fixes
+
+* **embed:** compatible ssr ([dc0c3ce](https://github.com/QingWei-Li/docsify/commit/dc0c3ce))
+
+
+
 <a name="4.6.0"></a>
 # [4.6.0](https://github.com/QingWei-Li/docsify/compare/v4.5.9...v4.6.0) (2018-02-11)
 
