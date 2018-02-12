@@ -36,7 +36,7 @@ function walkFetchEmbed ({ step = 0, embedTokens, compile, fetch }, cb) {
   }
 }
 
-export function prerenderEmbed ({ compiler, raw, fetch }, done) {
+export function prerenderEmbed ({ compiler, raw = '', fetch }, done) {
   let hit
   if ((hit = cached[raw])) {
     return done(hit)
