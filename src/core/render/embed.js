@@ -30,7 +30,6 @@ function walkFetchEmbed ({ step = 0, embedTokens, compile, fetch }, cb) {
   }
 
   if (process.env.SSR) {
-    console.log(token.embed.url)
     fetch(token.embed.url).then(next)
   } else {
     get(token.embed.url).then(next)
