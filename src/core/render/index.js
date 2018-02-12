@@ -9,6 +9,7 @@ import { getPath, isAbsolutePath } from '../router/util'
 import { isMobile, inBrowser } from '../util/env'
 import { isPrimitive } from '../util/core'
 import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
+import { prerenderEmbed } from './embed'
 
 function executeScript () {
   const script = dom
@@ -119,18 +120,37 @@ export function renderMixin (proto) {
     getAndActive(this.router, 'nav')
   }
 
-  proto._renderMain = function (text, opt = {}) {
+  proto._renderMain = function (text, opt = {}, next) {
     if (!text) {
       return renderMain.call(this, text)
     }
 
     callHook(this, 'beforeEach', text, result => {
-      let html = this.isHTML ? result : this.compiler.compile(result)
-      if (opt.updatedAt) {
-        html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
-      }
+      let html
+      const callback = () => {
+        if (opt.updatedAt) {
+          html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
+        }
 
-      callHook(this, 'afterEach', html, text => renderMain.call(this, text))
+        callHook(this, 'afterEach', html, text => renderMain.call(this, text))
+      }
+      if (this.isHTML) {
+        html = this.result
+        callback()
+        next()
+      } else {
+        prerenderEmbed(
+          {
+            compiler: this.compiler,
+            raw: text
+          },
+          tokens => {
+            html = this.compiler.compile(tokens)
+            callback()
+            next()
+          }
+        )
+      }
     })
   }
 
