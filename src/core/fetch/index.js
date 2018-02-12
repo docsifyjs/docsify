@@ -47,12 +47,10 @@ export function fetchMixin (proto) {
     // Load main content
     last.then(
       (text, opt) => {
-        this._renderMain(text, opt)
-        loadSideAndNav()
+        this._renderMain(text, opt, loadSideAndNav)
       },
       _ => {
-        this._renderMain(null)
-        loadSideAndNav()
+        this._renderMain(null, {}, loadSideAndNav)
       }
     )
 

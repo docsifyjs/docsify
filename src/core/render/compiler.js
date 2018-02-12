@@ -5,13 +5,12 @@ import { genTree } from './gen-tree'
 import { slugify } from './slugify'
 import { emojify } from './emojify'
 import { isAbsolutePath, getPath } from '../router/util'
-import { isFn, merge, cached } from '../util/core'
+import { isFn, merge, cached, isPrimitive } from '../util/core'
 import { get } from '../fetch/ajax'
 
 const cachedLinks = {}
-let uid = 0
 
-function getAndRemoveConfig (str = '') {
+export function getAndRemoveConfig (str = '') {
   const config = {}
 
   if (str) {
@@ -25,62 +24,37 @@ function getAndRemoveConfig (str = '') {
 
   return { str, config }
 }
+
 const compileMedia = {
   markdown (url) {
-    const id = `docsify-get-${uid++}`
-
-    if (!process.env.SSR) {
-      get(url, false).then(text => {
-        document.getElementById(id).innerHTML = this.compile(text)
-      })
-
-      return `<div data-origin="${url}" id=${id}></div>`
-    } else {
-      return `<div data-origin="${url}" id=${uid}></div>
-      <script>
-      var compile = window.__current_docsify_compiler__
-      Docsify.get('${url}', false).then(function(text) {
-        document.getElementById('${uid}').innerHTML = compile(text)
-      })
-      </script>`
+    return {
+      url
     }
   },
   iframe (url, title) {
-    return `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
+    return {
+      code: `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
+    }
   },
   video (url, title) {
-    return `<video src="${url}" ${title || 'controls'}>Not Support</video>`
+    return {
+      code: `<video src="${url}" ${title || 'controls'}>Not Support</video>`
+    }
   },
   audio (url, title) {
-    return `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`
+    return {
+      code: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`
+    }
   },
   code (url, title) {
-    const id = `docsify-get-${uid++}`
-    let ext = url.match(/\.(\w+)$/)
+    let lang = url.match(/\.(\w+)$/)
 
-    ext = title || (ext && ext[1])
-    if (ext === 'md') ext = 'markdown'
+    lang = title || (lang && lang[1])
+    if (lang === 'md') lang = 'markdown'
 
-    if (!process.env.SSR) {
-      get(url, false).then(text => {
-        document.getElementById(id).innerHTML = this.compile(
-          '```' + ext + '\n' + text.replace(/`/g, '@qm@') + '\n```\n'
-        ).replace(/@qm@/g, '`')
-      })
-
-      return `<div data-origin="${url}" id=${id}></div>`
-    } else {
-      return `<div data-origin="${url}" id=${id}></div>
-      <script>
-        setTimeout(() => {
-          var compiler = window.__current_docsify_compiler__
-          Docsify.get('${url}', false).then(function(text) {
-            document.getElementById('${id}').innerHTML = compiler
-              .compile('\`\`\`${ext}\\n' + text.replace(/\`/g, '@qm@') + '\\n\`\`\`\\n')
-              .replace(/@qm@/g, '\`')
-          })
-        })
-      </script>`
+    return {
+      url,
+      lang
     }
   }
 }
@@ -109,12 +83,18 @@ export class Compiler {
       compile = marked
     }
 
+    this._marked = compile
     this.compile = cached(text => {
       let html = ''
 
       if (!text) return text
 
-      html = compile(text)
+      if (isPrimitive(text)) {
+        html = compile(text)
+      } else {
+        html = compile.parser(text)
+      }
+
       html = config.noEmoji ? html : emojify(html)
       slugify.clear()
 
@@ -122,7 +102,40 @@ export class Compiler {
     })
   }
 
-  matchNotCompileLink (link) {
+  compileEmbed (href, title) {
+    const { str, config } = getAndRemoveConfig(title)
+    let embed
+    title = str
+
+    if (config.include) {
+      if (!isAbsolutePath(href)) {
+        href = getPath(this.contentBase, href)
+      }
+
+      let media
+      if (config.type && (media = compileMedia[config.type])) {
+        embed = media.call(this, href, title)
+        embed.type = config.type
+      } else {
+        let type = 'code'
+        if (/\.(md|markdown)/.test(href)) {
+          type = 'markdown'
+        } else if (/\.html?/.test(href)) {
+          type = 'iframe'
+        } else if (/\.(mp4|ogg)/.test(href)) {
+          type = 'video'
+        } else if (/\.mp3/.test(href)) {
+          type = 'audio'
+        }
+        embed = compileMedia[type].call(this, href, title)
+        embed.type = type
+      }
+
+      return embed
+    }
+  }
+
+  _matchNotCompileLink (link) {
     const links = this.config.noCompileLinks || []
 
     for (var i = 0; i < links.length; i++) {
@@ -182,33 +195,9 @@ export class Compiler {
       const { str, config } = getAndRemoveConfig(title)
       title = str
 
-      if (config.include) {
-        if (!isAbsolutePath(href)) {
-          href = getPath(contentBase, href)
-        }
-
-        let media
-        if (config.type && (media = compileMedia[config.type])) {
-          return media.call(_self, href, title)
-        }
-
-        let type = 'code'
-        if (/\.(md|markdown)/.test(href)) {
-          type = 'markdown'
-        } else if (/\.html?/.test(href)) {
-          type = 'iframe'
-        } else if (/\.(mp4|ogg)/.test(href)) {
-          type = 'video'
-        } else if (/\.mp3/.test(href)) {
-          type = 'audio'
-        }
-
-        return compileMedia[type].call(_self, href, title)
-      }
-
       if (
         !/:|(\/{2})/.test(href) &&
-        !_self.matchNotCompileLink(href) &&
+        !_self._matchNotCompileLink(href) &&
         !config.ignore
       ) {
         if (href === _self.config.homepage) href = 'README'
