@@ -109,7 +109,7 @@ export class Compiler {
 
     if (config.include) {
       if (!isAbsolutePath(href)) {
-        href = getPath(this.contentBase, href)
+        href = getPath(process.env.SSR ? '' : this.contentBase, href)
       }
 
       let media
@@ -182,6 +182,7 @@ export class Compiler {
     }
     // highlight code
     origin.code = renderer.code = function (code, lang = '') {
+      code = code.replace(/@DOCSIFY_QM@/g, '`')
       const hl = Prism.highlight(
         code,
         Prism.languages[lang] || Prism.languages.markup

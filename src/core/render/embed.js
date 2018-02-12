@@ -3,33 +3,41 @@ import { merge } from '../util/core'
 
 const cached = {}
 
-function walkFetchEmbed ({ step = 0, embedTokens, compile }, cb) {
+function walkFetchEmbed ({ step = 0, embedTokens, compile, fetch }, cb) {
   const token = embedTokens[step]
 
   if (!token) {
     return cb({})
   }
 
-  get(token.embed.url).then(text => {
+  const next = text => {
     let embedToken
-
-    if (token.embed.type === 'markdown') {
-      embedToken = compile.lexer(text)
-    } else if (token.embed.type === 'code') {
-      embedToken = compile.lexer(
-        '```' +
-          token.embed.lang +
-          '\n' +
-          text.replace(/`/g, '@DOCSIFY_QM@') +
-          '\n```\n'
-      )
+    if (text) {
+      if (token.embed.type === 'markdown') {
+        embedToken = compile.lexer(text)
+      } else if (token.embed.type === 'code') {
+        embedToken = compile.lexer(
+          '```' +
+            token.embed.lang +
+            '\n' +
+            text.replace(/`/g, '@DOCSIFY_QM@') +
+            '\n```\n'
+        )
+      }
     }
     cb({ token, embedToken })
-    walkFetchEmbed({ step: ++step, compile, embedTokens }, cb)
-  })
+    walkFetchEmbed({ step: ++step, compile, embedTokens, fetch }, cb)
+  }
+
+  if (process.env.SSR) {
+    console.log(token.embed.url)
+    fetch(token.embed.url).then(next)
+  } else {
+    get(token.embed.url).then(next)
+  }
 }
 
-export function prerenderEmbed ({ compiler, raw }, done) {
+export function prerenderEmbed ({ compiler, raw, fetch }, done) {
   let hit
   if ((hit = cached[raw])) {
     return done(hit)
@@ -65,7 +73,7 @@ export function prerenderEmbed ({ compiler, raw }, done) {
   })
 
   let moveIndex = 0
-  walkFetchEmbed({ compile, embedTokens }, ({ embedToken, token }) => {
+  walkFetchEmbed({ compile, embedTokens, fetch }, ({ embedToken, token }) => {
     if (token) {
       const index = token.index + moveIndex
 
