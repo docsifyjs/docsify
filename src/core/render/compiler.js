@@ -6,7 +6,6 @@ import { slugify } from './slugify'
 import { emojify } from './emojify'
 import { isAbsolutePath, getPath } from '../router/util'
 import { isFn, merge, cached, isPrimitive } from '../util/core'
-import { get } from '../fetch/ajax'
 
 const cachedLinks = {}
 
