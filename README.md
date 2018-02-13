@@ -40,6 +40,7 @@
 * Useful plugin API
 * Compatible with IE10+
 * Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
+* Support embedded files
 
 ## Quick start
 
