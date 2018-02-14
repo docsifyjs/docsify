@@ -51,7 +51,7 @@ export function prerenderEmbed ({ compiler, raw = '', fetch }, done) {
   tokens.forEach((token, index) => {
     if (token.type === 'paragraph') {
       token.text = token.text.replace(
-        new RegExp(linkRE, 'g'),
+        new RegExp(linkRE.source, 'g'),
         (src, filename, href, title) => {
           const embed = compiler.compileEmbed(href, title)
 
