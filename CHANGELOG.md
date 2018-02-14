@@ -1,3 +1,14 @@
+<a name="4.6.2"></a>
+## [4.6.2](https://github.com/QingWei-Li/docsify/compare/v4.6.1...v4.6.2) (2018-02-14)
+
+
+### Bug Fixes
+
+* **embed:** broken in IE, fixed [#389](https://github.com/QingWei-Li/docsify/issues/389), fixed [#391](https://github.com/QingWei-Li/docsify/issues/391) ([45a7464](https://github.com/QingWei-Li/docsify/commit/45a7464))
+* **embed:** init value ([890a7bf](https://github.com/QingWei-Li/docsify/commit/890a7bf))
+
+
+
 <a name="4.6.1"></a>
 
 ## [4.6.1](https://github.com/QingWei-Li/docsify/compare/v4.6.0...v4.6.1) (2018-02-12)
