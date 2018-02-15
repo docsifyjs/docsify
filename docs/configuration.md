@@ -380,7 +380,7 @@ window.$docsify = {
 
 * type: `Boolean`
 
-Only coverpage is loaded when When visiting the home page.
+Only coverpage is loaded when visiting the home page.
 
 ```js
 window.$docsify = {
