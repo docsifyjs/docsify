@@ -142,7 +142,7 @@ export function renderMixin (proto) {
         prerenderEmbed(
           {
             compiler: this.compiler,
-            raw: text
+            raw: result
           },
           tokens => {
             html = this.compiler.compile(tokens)
