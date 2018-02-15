@@ -1,3 +1,13 @@
+<a name="4.6.3"></a>
+## [4.6.3](https://github.com/QingWei-Li/docsify/compare/v4.6.2...v4.6.3) (2018-02-15)
+
+
+### Bug Fixes
+
+* **hook:** beforeEach don\'t work, fixed [#393](https://github.com/QingWei-Li/docsify/issues/393) ([6a09059](https://github.com/QingWei-Li/docsify/commit/6a09059))
+
+
+
 <a name="4.6.2"></a>
 ## [4.6.2](https://github.com/QingWei-Li/docsify/compare/v4.6.1...v4.6.2) (2018-02-14)
 
