@@ -21,7 +21,7 @@
   * [Vue Kompatibilität](de-de/vue.md)
   * [CDN](de-de/cdn.md)
   * [Offline Modus (PWA)](de-de/pwa.md)
-  * [Server-client renderer (SSR)](de-de/ssr.md)
+  * [Server-Side Rendering (SSR)](de-de/ssr.md)
   * [Embed Files <sup style="color:red">(new)<sup>](de-de/embed-files.md)
 
 * [Awesome docsify](de-de/awesome.md)

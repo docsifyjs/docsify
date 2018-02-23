@@ -121,7 +121,7 @@ export function fetchMixin (proto) {
 export function initFetch (vm) {
   const { loadSidebar } = vm.config
 
-  // server-client renderer
+  // Server-Side Rendering
   if (vm.rendered) {
     const activeEl = getAndActive(vm.router, '.sidebar-nav', true, true)
     if (loadSidebar && activeEl) {
