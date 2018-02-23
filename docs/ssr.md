@@ -1,4 +1,4 @@
-# Server client renderer
+# Server-Side Rendering
 
 See https://docsify.now.sh
 
