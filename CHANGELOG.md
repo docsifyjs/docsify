@@ -1,3 +1,18 @@
+<a name="4.6.4"></a>
+## [4.6.4](https://github.com/QingWei-Li/docsify/compare/v4.6.3...v4.6.4) (2018-03-01)
+
+
+### Bug Fixes
+
+* **render:** Disable markdown parsing when the file is an HTML ([#403](https://github.com/QingWei-Li/docsify/issues/403)) ([278a75e](https://github.com/QingWei-Li/docsify/commit/278a75e))
+
+
+### Features
+
+* **fetch:** Add fallback languages configuration. ([#402](https://github.com/QingWei-Li/docsify/issues/402)) ([ecc0e04](https://github.com/QingWei-Li/docsify/commit/ecc0e04))
+
+
+
 <a name="4.6.3"></a>
 ## [4.6.3](https://github.com/QingWei-Li/docsify/compare/v4.6.2...v4.6.3) (2018-02-15)
 
