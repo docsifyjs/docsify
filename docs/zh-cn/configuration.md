@@ -413,3 +413,21 @@ window.$docsify = {
   ext: '.md'
 };
 ```
+
+## fallbackLanguages
+
+* type: `Array<string>`
+
+List of languages that will fallback to the default language when a page is request and didn't exists for the given local.
+
+Example:
+
+* try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
+* then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
+* then display 404 page.
+
+```js
+window.$docsify = {
+  fallbackLanguages: ['fr', 'de']
+};
+```
