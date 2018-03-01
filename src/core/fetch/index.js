@@ -22,15 +22,39 @@ export function fetchMixin (proto) {
   proto._fetch = function (cb = noop) {
     const { path, query } = this.route
     const qs = stringifyQuery(query, ['id'])
-    const { loadNavbar, loadSidebar, requestHeaders } = this.config
-
+    const { loadNavbar, loadSidebar, requestHeaders, fallbackLanguages } = this.config
     // Abort last request
     last && last.abort && last.abort()
 
-    last = get(this.router.getFile(path) + qs, true, requestHeaders)
+    const file = this.router.getFile(path)
+    last = get(file + qs, true, requestHeaders)
 
     // Current page is html
-    this.isHTML = /\.html$/g.test(path)
+    this.isHTML = /\.html$/g.test(file)
+
+    const getFallBackPage = (file) => {
+      if (!fallbackLanguages) {
+        return false
+      }
+
+      const local = file.split('/')[1]
+
+      if (fallbackLanguages.indexOf(local) === -1) {
+        return false
+      }
+
+      file = file.replace(new RegExp(`^/${local}`), '')
+
+      return get(file + qs, true, requestHeaders)
+        .then(
+          (text, opt) => {
+            this._renderMain(text, opt, loadSideAndNav)
+          },
+          _ => {
+            return this._renderMain(null, {}, loadSideAndNav)
+          }
+        )
+    }
 
     const loadSideAndNav = () => {
       if (!loadSidebar) return cb()
@@ -45,14 +69,15 @@ export function fetchMixin (proto) {
     }
 
     // Load main content
-    last.then(
-      (text, opt) => {
-        this._renderMain(text, opt, loadSideAndNav)
-      },
-      _ => {
-        this._renderMain(null, {}, loadSideAndNav)
-      }
-    )
+    last
+      .then(
+        (text, opt) => {
+          this._renderMain(text, opt, loadSideAndNav)
+        },
+        _ => {
+          return getFallBackPage(file) || this._renderMain(null, {}, loadSideAndNav)
+        }
+      )
 
     // Load nav
     loadNavbar &&
