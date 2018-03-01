@@ -135,7 +135,7 @@ export function renderMixin (proto) {
         callHook(this, 'afterEach', html, text => renderMain.call(this, text))
       }
       if (this.isHTML) {
-        html = this.result
+        html = this.result = text
         callback()
         next()
       } else {
