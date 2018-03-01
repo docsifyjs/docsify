@@ -27,10 +27,12 @@ export function fetchMixin (proto) {
     // Abort last request
     last && last.abort && last.abort()
 
-    last = get(this.router.getFile(path) + qs, true, requestHeaders)
+    const file = this.router.getFile(path)
+
+    last = get(file + qs, true, requestHeaders)
 
     // Current page is html
-    this.isHTML = /\.html$/g.test(path)
+    this.isHTML = /\.html$/g.test(file)
 
     const loadSideAndNav = () => {
       if (!loadSidebar) return cb()
