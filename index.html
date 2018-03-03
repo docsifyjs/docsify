@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>docsify</title>
@@ -14,6 +15,7 @@
     }
   </style>
 </head>
+
 <body>
   <div id="app"></div>
   <script>
@@ -22,6 +24,7 @@
         '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
         '/.*/_navbar.md': '/_navbar.md'
       },
+      notFoundPage: '_404.html',
       auto2top: true,
       basePath: '/docs/',
       executeScript: true,
@@ -33,11 +36,11 @@
       mergeNavbar: true,
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
-        function(hook, vm) {
+        function (hook, vm) {
           hook.beforeEach(function (html) {
             var url = 'https://github.com/QingWei-Li/docsify/blob/master/' + vm.route.file
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
-  
+
             return editHtml
               + html
               + '\n----\n'
@@ -50,4 +53,5 @@
   </script>
   <script src="/lib/docsify.js"></script>
 </body>
+
 </html>

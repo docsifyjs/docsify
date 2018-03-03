@@ -33,21 +33,29 @@ export function fetchMixin(proto) {
     const {notFoundPage, ext} = config
     const defaultPath = '_404' + (ext || '.md')
     let key
+    let path404
 
     switch (typeof notFoundPage) {
       case 'boolean':
-        return defaultPath
+        path404 = defaultPath
+        break
       case 'string':
-        return notFoundPage
+        path404 = notFoundPage
+        break
+
       case 'object':
         key = Object.keys(notFoundPage)
           .sort((a, b) => b.length - a.length)
           .find(key => path.match(new RegExp('^' + key)))
 
-        return (key && notFoundPage[key]) || defaultPath
+        path404 = (key && notFoundPage[key]) || defaultPath
+        break
+
       default:
         break
     }
+
+    return path404
   }
 
   proto._loadSideAndNav = function (path, qs, loadSidebar, cb) {
@@ -193,9 +201,10 @@ export function fetchMixin(proto) {
     const {loadSidebar, requestHeaders, notFoundPage} = this.config
 
     const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb)
-
     if (notFoundPage) {
-      request(get404Path(path, this.config), true, requestHeaders).then(
+      const path404 = get404Path(path, this.config)
+
+      request(this.router.getFile(path404), true, requestHeaders).then(
         (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
         () => this._renderMain(null, {}, fnLoadSideAndNav)
       )

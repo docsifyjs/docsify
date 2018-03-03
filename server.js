@@ -49,7 +49,6 @@ if (isSSR) {
 const params = {
   port: 3000,
   watch: ['lib', 'docs', 'themes'],
-  file: 'dev.html',
   middleware
 }
 
