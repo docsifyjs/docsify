@@ -117,7 +117,9 @@ export function renderMixin (proto) {
 
   proto._renderNav = function (text) {
     text && this._renderTo('nav', this.compiler.compile(text))
-    getAndActive(this.router, 'nav')
+    if (this.config.loadNavbar) {
+      getAndActive(this.router, 'nav')
+    }
   }
 
   proto._renderMain = function (text, opt = {}, next) {
@@ -238,7 +240,9 @@ export function initRender (vm) {
   }
 
   // Add nav
-  dom.before(navAppendToTarget, navEl)
+  if (config.loadNavbar) {
+    dom.before(navAppendToTarget, navEl)
+  }
 
   if (config.themeColor) {
     dom.$.head.appendChild(
