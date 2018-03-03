@@ -15,7 +15,7 @@ window.$docsify = {
 }
 ```
 
-?> Für mögliche Einstellungen, siehe [marked Dokumentation](https://github.com/chjj/marked#options-1)
+?> Für mögliche Einstellungen, siehe [marked Dokumentation](https://github.com/markedjs/marked#options-1)
 
 Du kannst die Regeln auch beliebig anpassen.
 
