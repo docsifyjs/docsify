@@ -35,8 +35,7 @@ function formatUpdated (html, updated, fn) {
 
 function renderMain (html) {
   if (!html) {
-    // TODO: Custom 404 page
-    html = 'not found'
+    html = '<h1>404 - Not found</h1>'
   }
 
   this._renderTo('.markdown-section', html)

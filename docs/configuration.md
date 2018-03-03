@@ -435,3 +435,34 @@ window.$docsify = {
   ]
 };
 ```
+
+
+## notFoundPage
+
+* type: `Boolean` | `String` | `Object`
+
+Load the `_404.md` file:
+```js
+window.$docsify = {
+  notFoundPage: true
+};
+```
+
+Load the customised path of the 404 page:
+```js
+window.$docsify = {
+  notFoundPage: 'my404.md'
+};
+```
+
+Load the right 404 page according to the localisation:
+```js
+window.$docsify = {
+  notFoundPage: {
+    '/': '_404.md',
+    '/de': 'de/_404.md',
+  }
+};
+```
+> Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+
