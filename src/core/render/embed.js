@@ -1,9 +1,9 @@
-import { get } from '../fetch/ajax'
-import { merge } from '../util/core'
+import {get} from '../fetch/ajax'
+import {merge} from '../util/core'
 
 const cached = {}
 
-function walkFetchEmbed ({ step = 0, embedTokens, compile, fetch }, cb) {
+function walkFetchEmbed({step = 0, embedTokens, compile, fetch}, cb) {
   const token = embedTokens[step]
 
   if (!token) {
@@ -25,8 +25,8 @@ function walkFetchEmbed ({ step = 0, embedTokens, compile, fetch }, cb) {
         )
       }
     }
-    cb({ token, embedToken })
-    walkFetchEmbed({ step: ++step, compile, embedTokens, fetch }, cb)
+    cb({token, embedToken})
+    walkFetchEmbed({step: ++step, compile, embedTokens, fetch}, cb)
   }
 
   if (process.env.SSR) {
@@ -36,7 +36,7 @@ function walkFetchEmbed ({ step = 0, embedTokens, compile, fetch }, cb) {
   }
 }
 
-export function prerenderEmbed ({ compiler, raw = '', fetch }, done) {
+export function prerenderEmbed({compiler, raw = '', fetch}, done) {
   let hit
   if ((hit = cached[raw])) {
     return done(hit)
@@ -72,7 +72,7 @@ export function prerenderEmbed ({ compiler, raw = '', fetch }, done) {
   })
 
   let moveIndex = 0
-  walkFetchEmbed({ compile, embedTokens, fetch }, ({ embedToken, token }) => {
+  walkFetchEmbed({compile, embedTokens, fetch}, ({embedToken, token}) => {
     if (token) {
       const index = token.index + moveIndex
 

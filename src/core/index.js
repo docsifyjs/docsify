@@ -1,14 +1,14 @@
-import { initMixin } from './init'
-import { routerMixin } from './router'
-import { renderMixin } from './render'
-import { fetchMixin } from './fetch'
-import { eventMixin } from './event'
+import {initMixin} from './init'
+import {routerMixin} from './router'
+import {renderMixin} from './render'
+import {fetchMixin} from './fetch'
+import {eventMixin} from './event'
 import initGlobalAPI from './global-api'
 
 /**
  * Fork https://github.com/bendrucker/document-ready/blob/master/index.js
  */
-function ready (callback) {
+function ready(callback) {
   const state = document.readyState
 
   if (state === 'complete' || state === 'interactive') {
@@ -18,7 +18,7 @@ function ready (callback) {
   document.addEventListener('DOMContentLoaded', callback)
 }
 
-function Docsify () {
+function Docsify() {
   this._init()
 }
 

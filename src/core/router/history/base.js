@@ -5,40 +5,40 @@ import {
   cleanPath,
   replaceSlug
 } from '../util'
-import { noop, merge } from '../../util/core'
+import {noop, merge} from '../../util/core'
 
 const cached = {}
 
-function getAlias (path, alias, last) {
+function getAlias(path, alias, last) {
   const match = Object.keys(alias).filter(key => {
     const re = cached[key] || (cached[key] = new RegExp(`^${key}$`))
     return re.test(path) && path !== last
   })[0]
 
-  return match
-    ? getAlias(path.replace(cached[match], alias[match]), alias, path)
-    : path
+  return match ?
+    getAlias(path.replace(cached[match], alias[match]), alias, path) :
+    path
 }
 
-function getFileName (path, ext) {
-  return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-    ? path
-    : /\/$/g.test(path) ? `${path}README${ext}` : `${path}${ext}`
+function getFileName(path, ext) {
+  return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path) ?
+    path :
+    /\/$/g.test(path) ? `${path}README${ext}` : `${path}${ext}`
 }
 
 export class History {
-  constructor (config) {
+  constructor(config) {
     this.config = config
   }
 
-  getBasePath () {
+  getBasePath() {
     return this.config.basePath
   }
 
-  getFile (path = this.getCurrentPath(), isRelative) {
-    const { config } = this
+  getFile(path = this.getCurrentPath(), isRelative) {
+    const {config} = this
     const base = this.getBasePath()
-    const ext = typeof config.ext !== 'string' ? '.md' : config.ext
+    const ext = typeof config.ext === 'string' ? config.ext : '.md'
 
     path = config.alias ? getAlias(path, config.alias) : path
     path = getFileName(path, ext)
@@ -52,17 +52,17 @@ export class History {
     return path
   }
 
-  onchange (cb = noop) {
+  onchange(cb = noop) {
     cb()
   }
 
-  getCurrentPath () {}
+  getCurrentPath() {}
 
-  normalize () {}
+  normalize() {}
 
-  parse () {}
+  parse() {}
 
-  toURL (path, params, currentRoute) {
+  toURL(path, params, currentRoute) {
     const local = currentRoute && path[0] === '#'
     const route = this.parse(replaceSlug(path))
 

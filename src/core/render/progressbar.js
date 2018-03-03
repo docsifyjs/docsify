@@ -6,7 +6,7 @@ let timeId
 /**
  * Init progress component
  */
-function init () {
+function init() {
   const div = dom.create('div')
 
   div.classList.add('progress')
@@ -16,7 +16,7 @@ function init () {
 /**
  * Render progress bar
  */
-export default function ({ loaded, total, step }) {
+export default function ({loaded, total, step}) {
   let num
 
   !barEl && init()

@@ -887,12 +887,12 @@ const AllGithubEmoji = [
   'zzz'
 ]
 
-// emoji from All-Github-Emoji-Icons
+// Emoji from All-Github-Emoji-Icons
 // https://github.com/scotch-io/All-Github-Emoji-Icons
 window.emojify = function (match, $1) {
-  return AllGithubEmoji.indexOf($1) === -1
-    ? match
-    : '<img class="emoji" src="https://assets-cdn.github.com/images/icons/emoji/' +
+  return AllGithubEmoji.indexOf($1) === -1 ?
+    match :
+    '<img class="emoji" src="https://assets-cdn.github.com/images/icons/emoji/' +
       $1 +
       '.png" alt="' +
       $1 +

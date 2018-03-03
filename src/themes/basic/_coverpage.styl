@@ -1,0 +1,95 @@
+section.cover
+  align-items center
+  background-position center center
+  background-repeat no-repeat
+  background-size cover
+  height 100vh
+  display none
+
+  &.show
+    display flex
+
+  &.has-mask .mask
+    background-color $color-bg
+    opacity 0.8
+    position absolute
+    top 0
+    height 100%
+    width 100%
+
+  .cover-main
+    flex 1
+    margin -20px 16px 0
+    text-align center
+    z-index 1
+
+  a
+    color inherit
+    text-decoration none
+
+    &:hover
+      text-decoration none
+
+  p
+    line-height 1.5rem
+    margin 1em 0
+
+  h1
+    color inherit
+    font-size 2.5rem
+    font-weight 300
+    margin 0.625rem 0 2.5rem
+    position relative
+    text-align center
+
+    a
+      display block
+
+    small
+      bottom -0.4375rem
+      font-size 1rem
+      position absolute
+
+  blockquote
+    font-size 1.5rem
+    text-align center
+
+  ul
+    line-height 1.8
+    list-style-type none
+    margin 1em auto
+    max-width 500px
+    padding 0
+
+  .cover-main > p:last-child a
+    border-color var(--theme-color, $color-primary)
+    border-radius 2rem
+    border-style solid
+    border-width 1px
+    box-sizing border-box
+    color var(--theme-color, $color-primary)
+    display inline-block
+    font-size 1.05rem
+    letter-spacing 0.1rem
+    margin 0.5rem 1rem
+    padding 0.75em 2rem
+    text-decoration none
+    transition all 0.15s ease
+
+    &:last-child
+      background-color var(--theme-color, $color-primary)
+      color #fff
+
+      &:hover
+        color inherit
+        opacity 0.8
+
+    &:hover
+      color inherit
+
+  blockquote > p > a
+    border-bottom 2px solid var(--theme-color, $color-primary)
+    transition color 0.3s
+
+    &:hover
+      color var(--theme-color, $color-primary)

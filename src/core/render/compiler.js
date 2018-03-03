@@ -1,15 +1,15 @@
 import marked from 'marked'
 import Prism from 'prismjs'
-import { helper as helperTpl, tree as treeTpl } from './tpl'
-import { genTree } from './gen-tree'
-import { slugify } from './slugify'
-import { emojify } from './emojify'
-import { isAbsolutePath, getPath } from '../router/util'
-import { isFn, merge, cached, isPrimitive } from '../util/core'
+import {helper as helperTpl, tree as treeTpl} from './tpl'
+import {genTree} from './gen-tree'
+import {slugify} from './slugify'
+import {emojify} from './emojify'
+import {isAbsolutePath, getPath} from '../router/util'
+import {isFn, merge, cached, isPrimitive} from '../util/core'
 
 const cachedLinks = {}
 
-export function getAndRemoveConfig (str = '') {
+export function getAndRemoveConfig(str = '') {
   const config = {}
 
   if (str) {
@@ -21,35 +21,37 @@ export function getAndRemoveConfig (str = '') {
       .trim()
   }
 
-  return { str, config }
+  return {str, config}
 }
 
 const compileMedia = {
-  markdown (url) {
+  markdown(url) {
     return {
       url
     }
   },
-  iframe (url, title) {
+  iframe(url, title) {
     return {
       code: `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
     }
   },
-  video (url, title) {
+  video(url, title) {
     return {
       code: `<video src="${url}" ${title || 'controls'}>Not Support</video>`
     }
   },
-  audio (url, title) {
+  audio(url, title) {
     return {
       code: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`
     }
   },
-  code (url, title) {
+  code(url, title) {
     let lang = url.match(/\.(\w+)$/)
 
     lang = title || (lang && lang[1])
-    if (lang === 'md') lang = 'markdown'
+    if (lang === 'md') {
+      lang = 'markdown'
+    }
 
     return {
       url,
@@ -59,7 +61,7 @@ const compileMedia = {
 }
 
 export class Compiler {
-  constructor (config, router) {
+  constructor(config, router) {
     this.config = config
     this.router = router
     this.cacheTree = {}
@@ -86,7 +88,9 @@ export class Compiler {
     this.compile = cached(text => {
       let html = ''
 
-      if (!text) return text
+      if (!text) {
+        return text
+      }
 
       if (isPrimitive(text)) {
         html = compile(text)
@@ -101,8 +105,8 @@ export class Compiler {
     })
   }
 
-  compileEmbed (href, title) {
-    const { str, config } = getAndRemoveConfig(title)
+  compileEmbed(href, title) {
+    const {str, config} = getAndRemoveConfig(title)
     let embed
     title = str
 
@@ -134,7 +138,7 @@ export class Compiler {
     }
   }
 
-  _matchNotCompileLink (link) {
+  _matchNotCompileLink(link) {
     const links = this.config.noCompileLinks || []
 
     for (var i = 0; i < links.length; i++) {
@@ -147,18 +151,18 @@ export class Compiler {
     }
   }
 
-  _initRenderer () {
+  _initRenderer() {
     const renderer = new marked.Renderer()
-    const { linkTarget, router, contentBase } = this
+    const {linkTarget, router, contentBase} = this
     const _self = this
     const origin = {}
 
     /**
-     * render anchor tag
+     * Render anchor tag
      * @link https://github.com/chjj/marked#overriding-renderer-methods
      */
     origin.heading = renderer.heading = function (text, level) {
-      const nextToc = { level, title: text }
+      const nextToc = {level, title: text}
 
       if (/{docsify-ignore}/g.test(text)) {
         text = text.replace('{docsify-ignore}', '')
@@ -173,13 +177,13 @@ export class Compiler {
       }
 
       const slug = slugify(text)
-      const url = router.toURL(router.getCurrentPath(), { id: slug })
+      const url = router.toURL(router.getCurrentPath(), {id: slug})
       nextToc.slug = url
       _self.toc.push(nextToc)
 
       return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
     }
-    // highlight code
+    // Highlight code
     origin.code = renderer.code = function (code, lang = '') {
       code = code.replace(/@DOCSIFY_QM@/g, '`')
       const hl = Prism.highlight(
@@ -192,7 +196,7 @@ export class Compiler {
     origin.link = renderer.link = function (href, title = '', text) {
       let attrs = ''
 
-      const { str, config } = getAndRemoveConfig(title)
+      const {str, config} = getAndRemoveConfig(title)
       title = str
 
       if (
@@ -200,7 +204,9 @@ export class Compiler {
         !_self._matchNotCompileLink(href) &&
         !config.ignore
       ) {
-        if (href === _self.config.homepage) href = 'README'
+        if (href === _self.config.homepage) {
+          href = 'README'
+        }
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         attrs += ` target="${linkTarget}"`
@@ -222,18 +228,21 @@ export class Compiler {
       return `<a href="${href}"${attrs}>${text}</a>`
     }
     origin.paragraph = renderer.paragraph = function (text) {
+      let result
       if (/^!&gt;/.test(text)) {
-        return helperTpl('tip', text)
+        result = helperTpl('tip', text)
       } else if (/^\?&gt;/.test(text)) {
-        return helperTpl('warn', text)
+        result = helperTpl('warn', text)
+      } else {
+        result = `<p>${text}</p>`
       }
-      return `<p>${text}</p>`
+      return result
     }
     origin.image = renderer.image = function (href, title, text) {
       let url = href
       let attrs = ''
 
-      const { str, config } = getAndRemoveConfig(title)
+      const {str, config} = getAndRemoveConfig(title)
       title = str
 
       if (config['no-zoom']) {
@@ -271,7 +280,7 @@ export class Compiler {
   /**
    * Compile sidebar
    */
-  sidebar (text, level) {
+  sidebar(text, level) {
     const currentPath = this.router.getCurrentPath()
     let html = ''
 
@@ -290,13 +299,13 @@ export class Compiler {
   /**
    * Compile sub sidebar
    */
-  subSidebar (level) {
+  subSidebar(level) {
     if (!level) {
       this.toc = []
       return
     }
     const currentPath = this.router.getCurrentPath()
-    const { cacheTree, toc } = this
+    const {cacheTree, toc} = this
 
     toc[0] && toc[0].ignoreAllSubs && toc.splice(0)
     toc[0] && toc[0].level === 1 && toc.shift()
@@ -312,14 +321,14 @@ export class Compiler {
     return treeTpl(tree, '<ul class="app-sub-sidebar">')
   }
 
-  article (text) {
+  article(text) {
     return this.compile(text)
   }
 
   /**
    * Compile cover page
    */
-  cover (text) {
+  cover(text) {
     const cacheToc = this.toc.slice()
     const html = this.compile(text)
 

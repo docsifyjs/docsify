@@ -1,5 +1,5 @@
-import { init as initComponet, update as updateComponent } from './component'
-import { init as initSearch } from './search'
+import {init as initComponet, update as updateComponent} from './component'
+import {init as initSearch} from './search'
 
 const CONFIG = {
   placeholder: 'Type to search',
@@ -10,7 +10,7 @@ const CONFIG = {
 }
 
 const install = function (hook, vm) {
-  const { util } = Docsify
+  const {util} = Docsify
   const opts = vm.config.search || CONFIG
 
   if (Array.isArray(opts)) {

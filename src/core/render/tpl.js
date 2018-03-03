@@ -1,12 +1,16 @@
-import { isMobile } from '../util/env'
+import {isMobile} from '../util/env'
 /**
  * Render github corner
  * @param  {Object} data
  * @return {String}
  */
-export function corner (data) {
-  if (!data) return ''
-  if (!/\/\//.test(data)) data = 'https://github.com/' + data
+export function corner(data) {
+  if (!data) {
+    return ''
+  }
+  if (!/\/\//.test(data)) {
+    data = 'https://github.com/' + data
+  }
   data = data.replace(/^git\+/, '')
 
   return (
@@ -23,7 +27,7 @@ export function corner (data) {
 /**
  * Render main content
  */
-export function main (config) {
+export function main(config) {
   const aside =
     '<button class="sidebar-toggle">' +
     '<div class="sidebar-toggle-button">' +
@@ -31,9 +35,9 @@ export function main (config) {
     '</div>' +
     '</button>' +
     '<aside class="sidebar">' +
-    (config.name
-      ? `<h1><a class="app-name-link" data-nosearch>${config.name}</a></h1>`
-      : '') +
+    (config.name ?
+      `<h1><a class="app-name-link" data-nosearch>${config.name}</a></h1>` :
+      '') +
     '<div class="sidebar-nav"><!--sidebar--></div>' +
     '</aside>'
 
@@ -49,7 +53,7 @@ export function main (config) {
 /**
  * Cover Page
  */
-export function cover () {
+export function cover() {
   const SL = ', 100%, 85%'
   const bgc =
     'linear-gradient(to left bottom, ' +
@@ -70,8 +74,10 @@ export function cover () {
  * @param  {String} tpl
  * @return {String}
  */
-export function tree (toc, tpl = '') {
-  if (!toc || !toc.length) return ''
+export function tree(toc, tpl = '') {
+  if (!toc || !toc.length) {
+    return ''
+  }
 
   toc.forEach(node => {
     tpl += `<li><a class="section-link" href="${node.slug}">${
@@ -85,10 +91,10 @@ export function tree (toc, tpl = '') {
   return tpl
 }
 
-export function helper (className, content) {
+export function helper(className, content) {
   return `<p class="${className}">${content.slice(5).trim()}</p>`
 }
 
-export function theme (color) {
+export function theme(color) {
   return `<style>:root{--theme-color: ${color};}</style>`
 }

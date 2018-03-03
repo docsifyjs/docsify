@@ -1,4 +1,4 @@
-function handleExternalScript () {
+function handleExternalScript() {
   const container = Docsify.dom.getNode('#main')
   const scripts = Docsify.dom.findAll(container, 'script')
 

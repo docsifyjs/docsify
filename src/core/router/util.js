@@ -1,9 +1,9 @@
-import { cached } from '../util/core'
+import {cached} from '../util/core'
 
 const decode = decodeURIComponent
 const encode = encodeURIComponent
 
-export function parseQuery (query) {
+export function parseQuery(query) {
   const res = {}
 
   query = query.trim().replace(/^(\?|#|&)/, '')
@@ -22,23 +22,21 @@ export function parseQuery (query) {
   return res
 }
 
-export function stringifyQuery (obj, ignores = []) {
+export function stringifyQuery(obj, ignores = []) {
   const qs = []
 
   for (const key in obj) {
-    if (ignores.indexOf(key) > -1) continue
+    if (ignores.indexOf(key) > -1) {
+      continue
+    }
     qs.push(
-      obj[key]
-        ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
-        : encode(key)
+      obj[key] ?
+        `${encode(key)}=${encode(obj[key])}`.toLowerCase() :
+        encode(key)
     )
   }
 
   return qs.length ? `?${qs.join('&')}` : ''
-}
-
-export function getPath (...args) {
-  return cleanPath(args.join('/'))
 }
 
 export const isAbsolutePath = cached(path => {
@@ -46,14 +44,18 @@ export const isAbsolutePath = cached(path => {
 })
 
 export const getParentPath = cached(path => {
-  return /\/$/g.test(path)
-    ? path
-    : (path = path.match(/(\S*\/)[^\/]+$/)) ? path[1] : ''
+  return /\/$/g.test(path) ?
+    path :
+    (path = path.match(/(\S*\/)[^/]+$/)) ? path[1] : ''
 })
 
 export const cleanPath = cached(path => {
   return path.replace(/^\/+/, '/').replace(/([^:])\/{2,}/g, '$1/')
 })
+
+export function getPath(...args) {
+  return cleanPath(args.join('/'))
+}
 
 export const replaceSlug = cached(path => {
   return path.replace('#', '?id=')

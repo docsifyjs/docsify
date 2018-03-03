@@ -1,6 +1,6 @@
 import mediumZoom from 'medium-zoom'
 
-function install (hook) {
+function install(hook) {
   let zoom
 
   hook.doneEach(_ => {

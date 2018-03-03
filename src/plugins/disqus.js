@@ -3,7 +3,7 @@ if (fixedPath !== location.href) {
   location.href = fixedPath
 }
 
-function install (hook, vm) {
+function install(hook, vm) {
   const dom = Docsify.dom
   const disqus = vm.config.disqus
   if (!disqus) {
@@ -15,7 +15,7 @@ function install (hook, vm) {
 
     script.async = true
     script.src = `https://${disqus}.disqus.com/embed.js`
-    script.setAttribute('data-timestamp', +new Date())
+    script.setAttribute('data-timestamp', Number(new Date()))
     dom.appendTo(dom.body, script)
   })
 

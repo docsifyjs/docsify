@@ -1,19 +1,19 @@
-var rollup = require('rollup')
-var buble = require('rollup-plugin-buble')
-var commonjs = require('rollup-plugin-commonjs')
-var nodeResolve = require('rollup-plugin-node-resolve')
-var string = require('rollup-plugin-string')
-var uglify = require('rollup-plugin-uglify')
-var replace = require('rollup-plugin-replace')
-var isProd = process.argv[process.argv.length - 1] !== '--dev'
-var version = process.env.VERSION || require('../package.json').version
+const rollup = require('rollup')
+const buble = require('rollup-plugin-buble')
+const commonjs = require('rollup-plugin-commonjs')
+const nodeResolve = require('rollup-plugin-node-resolve')
+const uglify = require('rollup-plugin-uglify')
+const replace = require('rollup-plugin-replace')
+const isProd = process.env.NODE_ENV === 'production'
+const version = process.env.VERSION || require('../package.json').version
+const chokidar = require('chokidar')
+const path = require('path')
 
-var build = function (opts) {
+const build = function(opts) {
   rollup
     .rollup({
-      input: 'src/' + opts.entry,
+      input: opts.input,
       plugins: (opts.plugins || []).concat([
-        string({ include: '**/*.css' }),
         buble(),
         commonjs(),
         nodeResolve(),
@@ -23,8 +23,8 @@ var build = function (opts) {
         })
       ])
     })
-    .then(function (bundle) {
-      var dest = 'lib/' + (opts.output || opts.entry)
+    .then(function(bundle) {
+      var dest = 'lib/' + (opts.output || opts.input)
 
       console.log(dest)
       bundle.write({
@@ -33,45 +33,86 @@ var build = function (opts) {
         strict: false
       })
     })
-    .catch(function (err) {
+    .catch(function(err) {
       console.error(err)
     })
 }
-
-build({
-  entry: 'core/index.js',
-  output: 'docsify.js'
-})
-
-var plugins = [
-  { name: 'search', entry: 'search/index.js' },
-  { name: 'ga', entry: 'ga.js' },
-  { name: 'emoji', entry: 'emoji.js' },
-  { name: 'external-script', entry: 'external-script.js' },
-  { name: 'front-matter', entry: 'front-matter/index.js' },
-  { name: 'zoom-image', entry: 'zoom-image.js' },
-  { name: 'disqus', entry: 'disqus.js' },
-  { name: 'gitalk', entry: 'gitalk.js' }
-]
-
-plugins.forEach(item => {
+const buildCore = function() {
   build({
-    entry: 'plugins/' + item.entry,
-    output: 'plugins/' + item.name + '.js'
+    input: 'src/core/index.js',
+    output: 'docsify.js'
   })
-})
 
-if (isProd) {
-  build({
-    entry: 'core/index.js',
-    output: 'docsify.min.js',
-    plugins: [uglify()]
-  })
-  plugins.forEach(item => {
+  if (isProd) {
     build({
-      entry: 'plugins/' + item.entry,
-      output: 'plugins/' + item.name + '.min.js',
+      input: 'src/core/index.js',
+      output: 'docsify.min.js',
       plugins: [uglify()]
     })
+  }
+}
+const buildAllPlugin = function() {
+  var plugins = [
+    {name: 'search', input: 'search/index.js'},
+    {name: 'ga', input: 'ga.js'},
+    {name: 'emoji', input: 'emoji.js'},
+    {name: 'external-script', input: 'external-script.js'},
+    {name: 'front-matter', input: 'front-matter/index.js'},
+    {name: 'zoom-image', input: 'zoom-image.js'},
+    {name: 'disqus', input: 'disqus.js'},
+    {name: 'gitalk', input: 'gitalk.js'}
+  ]
+
+  plugins.forEach(item => {
+    build({
+      input: 'src/plugins/' + item.input,
+      output: 'plugins/' + item.name + '.js'
+    })
   })
+
+  if (isProd) {
+    plugins.forEach(item => {
+      build({
+        input: 'src/plugins/' + item.input,
+        output: 'plugins/' + item.name + '.min.js',
+        plugins: [uglify()]
+      })
+    })
+  }
+}
+
+if (!isProd) {
+  chokidar
+    .watch(['src/core', 'src/plugins'], {
+      atomic: true,
+      awaitWriteFinish: {
+        stabilityThreshold: 1000,
+        pollInterval: 100
+      }
+    })
+    .on('change', p => {
+      console.log('[watch] ', p)
+      const dirs = p.split(path.sep)
+      if (dirs[1] === 'core') {
+        buildCore()
+      } else if (dirs[2]) {
+        const name = path.basename(dirs[2], '.js')
+        const input = `src/plugins/${name}${
+          /\.js/.test(dirs[2]) ? '' : '/index'
+        }.js`
+
+        build({
+          input,
+          output: 'plugins/' + name + '.js'
+        })
+      }
+    })
+    .on('ready', () => {
+      console.log('[start]')
+      buildCore()
+      buildAllPlugin()
+    })
+} else {
+  buildCore()
+  buildAllPlugin()
 }
