@@ -19,44 +19,35 @@ function loadNested (path, qs, file, next, vm, first) {
 
 export function fetchMixin (proto) {
   let last
-  proto._fetch = function (cb = noop) {
-    const { path, query } = this.route
-    const qs = stringifyQuery(query, ['id'])
-    const { loadNavbar, loadSidebar, requestHeaders, fallbackLanguages } = this.config
-    // Abort last request
-    last && last.abort && last.abort()
 
-    const file = this.router.getFile(path)
-    last = get(file + qs, true, requestHeaders)
+  const abort = () => last && last.abort && last.abort()
+  const request = (url, hasbar, requestHeaders) => {
+    abort()
+    last = get(url, true, requestHeaders)
+    return last
+  }
 
-    // Current page is html
-    this.isHTML = /\.html$/g.test(file)
+  const get404Path = (path, config) => {
+    const { notFoundPage, ext } = config
+    const defaultPath = '_404' + (ext || '.md')
 
-    const getFallBackPage = (file) => {
-      if (!fallbackLanguages) {
-        return false
-      }
+    switch (typeof notFoundPage) {
+      case 'boolean':
+        return defaultPath
+      case 'string':
+        return notFoundPage
+      case 'object':
+        const key = Object
+          .keys(notFoundPage)
+          .sort((a, b) => b.length - a.length)
+          .find((key) => path.match(new RegExp('^' + key)))
 
-      const local = file.split('/')[1]
-
-      if (fallbackLanguages.indexOf(local) === -1) {
-        return false
-      }
-
-      file = file.replace(new RegExp(`^/${local}`), '')
-
-      return get(file + qs, true, requestHeaders)
-        .then(
-          (text, opt) => {
-            this._renderMain(text, opt, loadSideAndNav)
-          },
-          _ => {
-            return this._renderMain(null, {}, loadSideAndNav)
-          }
-        )
+        return key && notFoundPage[key] || defaultPath
     }
+  }
 
-    const loadSideAndNav = () => {
+  proto._loadSideAndNav = function (path, qs, loadSidebar, cb) {
+    return () => {
       if (!loadSidebar) return cb()
 
       const fn = result => {
@@ -67,28 +58,39 @@ export function fetchMixin (proto) {
       // Load sidebar
       loadNested(path, qs, loadSidebar, fn, this, true)
     }
+  }
+
+  proto._fetch = function (cb = noop) {
+    const { path, query } = this.route
+    const qs = stringifyQuery(query, ['id'])
+    const { loadNavbar, requestHeaders, loadSidebar } = this.config
+    // Abort last request
+
+    const file = this.router.getFile(path)
+    const req = request(file + qs, true, requestHeaders)
+
+    // Current page is html
+    this.isHTML = /\.html$/g.test(file)
 
     // Load main content
-    last
+    req
       .then(
-        (text, opt) => {
-          this._renderMain(text, opt, loadSideAndNav)
-        },
+        (text, opt) => this._renderMain(text, opt, this._loadSideAndNav(path, qs, loadSidebar, cb)),
         _ => {
-          return getFallBackPage(file) || this._renderMain(null, {}, loadSideAndNav)
+          this._fetchFallbackPage(file, qs, cb) || this._fetch404(file, qs, cb)
         }
       )
 
     // Load nav
     loadNavbar &&
-      loadNested(
-        path,
-        qs,
-        loadNavbar,
-        text => this._renderNav(text),
-        this,
-        true
-      )
+    loadNested(
+      path,
+      qs,
+      loadNavbar,
+      text => this._renderNav(text),
+      this,
+      true
+    )
   }
 
   proto._fetchCover = function () {
@@ -140,6 +142,54 @@ export function fetchMixin (proto) {
         done()
       })
     }
+  }
+
+  proto._fetchFallbackPage = function (path, qs, cb = noop) {
+    const { requestHeaders, fallbackLanguages, loadSidebar } = this.config
+
+    if (!fallbackLanguages) {
+      return false
+    }
+
+    const local = path.split('/')[1]
+
+    if (fallbackLanguages.indexOf(local) === -1) {
+      return false
+    }
+    const newPath = path.replace(new RegExp(`^/${local}`), '')
+    const req = request(newPath + qs, true, requestHeaders)
+
+    req.then(
+      (text, opt) => this._renderMain(text, opt, this._loadSideAndNav(path, qs, loadSidebar, cb)),
+      () => this._fetch404(path, qs, cb)
+    )
+
+    return true
+  }
+  /**
+   * Load the 404 page
+   * @param path
+   * @param qs
+   * @param cb
+   * @returns {*}
+   * @private
+   */
+  proto._fetch404 = function (path, qs, cb = noop) {
+    const { loadSidebar, requestHeaders, notFoundPage } = this.config
+
+    const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb)
+
+    if (notFoundPage) {
+      request(get404Path(path, this.config), true, requestHeaders)
+        .then(
+          (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
+          () => this._renderMain(null, {}, fnLoadSideAndNav)
+        )
+      return true
+    }
+
+    this._renderMain(null, {}, fnLoadSideAndNav)
+    return false
   }
 }
 
