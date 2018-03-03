@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.6.5",
+  "version": "4.6.6",
   "description": "A magical documentation generator.",
   "author": {
     "name": "qingwei-li",
@@ -14,7 +14,11 @@
     "url": "git+https://github.com/QingWei-Li/docsify.git"
   },
   "main": "lib/docsify.js",
-  "files": ["lib", "src", "themes"],
+  "files": [
+    "lib",
+    "src",
+    "themes"
+  ],
   "scripts": {
     "bootstrap": "npm i && lerna bootstrap && npm run build:ssr",
     "serve": "node server",
@@ -26,14 +30,12 @@
     "css": "stylus src/themes/*.styl -u autoprefixer-stylus",
     "watch:css": "run-p 'css -- -o themes -w'",
     "watch:js": "node build/build.js",
-    "build:css:min":
-      "mkdir lib/themes && run-p 'css -- -o lib/themes' && node build/mincss.js",
+    "build:css:min": "mkdir lib/themes && run-p 'css -- -o lib/themes' && node build/mincss.js",
     "build:css": "mkdir themes && run-p 'css --  -o themes'",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
     "build:ssr": "node build/ssr.js",
     "build:cover": "node build/cover.js",
-    "build":
-      "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
+    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
     "postinstall": "opencollective postinstall"
@@ -67,7 +69,13 @@
     "rollup-plugin-uglify": "^2.0.1",
     "stylus": "^0.54.5"
   },
-  "keywords": ["doc", "docs", "documentation", "creator", "generator"],
+  "keywords": [
+    "doc",
+    "docs",
+    "documentation",
+    "creator",
+    "generator"
+  ],
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/docsify",
