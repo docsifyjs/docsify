@@ -1,13 +1,13 @@
-import { History } from './base'
-import { parseQuery } from '../util'
+import {History} from './base'
+import {parseQuery} from '../util'
 
 export class AbstractHistory extends History {
-  constructor (config) {
+  constructor(config) {
     super(config)
     this.mode = 'abstract'
   }
 
-  parse (path) {
+  parse(path) {
     let query = ''
 
     const queryIndex = path.indexOf('?')

@@ -1,8 +1,8 @@
-import { search } from './search'
+import {search} from './search'
 
 let NO_DATA_TEXT = ''
 
-function style () {
+function style() {
   const code = `
 .sidebar {
   padding-top: 0;
@@ -91,7 +91,7 @@ function style () {
   Docsify.dom.style(code)
 }
 
-function tpl (opts, defaultValue = '') {
+function tpl(opts, defaultValue = '') {
   const html =
     `<div class="input-wrap">
       <input type="search" value="${defaultValue}" />
@@ -112,7 +112,7 @@ function tpl (opts, defaultValue = '') {
   Docsify.dom.before(aside, el)
 }
 
-function doSearch (value) {
+function doSearch(value) {
   const $search = Docsify.dom.find('div.search')
   const $panel = Docsify.dom.find($search, '.results-panel')
   const $clearBtn = Docsify.dom.find($search, '.clear-button')
@@ -140,7 +140,7 @@ function doSearch (value) {
   $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`
 }
 
-function bindEvents () {
+function bindEvents() {
   const $search = Docsify.dom.find('div.search')
   const $input = Docsify.dom.find($search, 'input')
   const $inputWrap = Docsify.dom.find($search, '.input-wrap')
@@ -157,7 +157,7 @@ function bindEvents () {
     timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100)
   })
   Docsify.dom.on($inputWrap, 'click', e => {
-    // click input outside
+    // Click input outside
     if (e.target.tagName !== 'INPUT') {
       $input.value = ''
       doSearch()
@@ -165,10 +165,12 @@ function bindEvents () {
   })
 }
 
-function updatePlaceholder (text, path) {
+function updatePlaceholder(text, path) {
   const $input = Docsify.dom.getNode('.search input[type="search"]')
 
-  if (!$input) return
+  if (!$input) {
+    return
+  }
   if (typeof text === 'string') {
     $input.placeholder = text
   } else {
@@ -177,7 +179,7 @@ function updatePlaceholder (text, path) {
   }
 }
 
-function updateNoData (text, path) {
+function updateNoData(text, path) {
   if (typeof text === 'string') {
     NO_DATA_TEXT = text
   } else {
@@ -186,7 +188,7 @@ function updateNoData (text, path) {
   }
 }
 
-export function init (opts, vm) {
+export function init(opts, vm) {
   const keywords = vm.router.parse().query.s
 
   style()
@@ -195,7 +197,7 @@ export function init (opts, vm) {
   keywords && setTimeout(_ => doSearch(keywords), 500)
 }
 
-export function update (opts, vm) {
+export function update(opts, vm) {
   updatePlaceholder(opts.placeholder, vm.route.path)
   updateNoData(opts.noData, vm.route.path)
 }

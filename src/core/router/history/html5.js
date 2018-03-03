@@ -1,15 +1,15 @@
-import { History } from './base'
-import { noop } from '../../util/core'
-import { on } from '../../util/dom'
-import { parseQuery, getPath } from '../util'
+import {History} from './base'
+import {noop} from '../../util/core'
+import {on} from '../../util/dom'
+import {parseQuery, getPath} from '../util'
 
 export class HTML5History extends History {
-  constructor (config) {
+  constructor(config) {
     super(config)
     this.mode = 'history'
   }
 
-  getCurrentPath () {
+  getCurrentPath() {
     const base = this.getBasePath()
     let path = window.location.pathname
 
@@ -20,14 +20,14 @@ export class HTML5History extends History {
     return (path || '/') + window.location.search + window.location.hash
   }
 
-  onchange (cb = noop) {
+  onchange(cb = noop) {
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode
 
       if (el.tagName === 'A' && !/_blank/.test(el.target)) {
         e.preventDefault()
         const url = el.href
-        window.history.pushState({ key: url }, '', url)
+        window.history.pushState({key: url}, '', url)
         cb()
       }
     })
@@ -40,7 +40,7 @@ export class HTML5History extends History {
    * @param {string} [path=location.href]
    * @return {object} { path, query }
    */
-  parse (path = location.href) {
+  parse(path = location.href) {
     let query = ''
 
     const queryIndex = path.indexOf('?')

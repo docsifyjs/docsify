@@ -1,4 +1,4 @@
-function install (hook, vm) {
+function install(hook) {
   const dom = Docsify.dom
 
   hook.mounted(_ => {

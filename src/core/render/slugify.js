@@ -1,12 +1,16 @@
-let cache = {}
-const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@\[\]^`{|}~]/g
+import {hasOwn} from '../util/core'
 
-function lower (string) {
+let cache = {}
+const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g
+
+function lower(string) {
   return string.toLowerCase()
 }
 
-export function slugify (str) {
-  if (typeof str !== 'string') return ''
+export function slugify(str) {
+  if (typeof str !== 'string') {
+    return ''
+  }
 
   let slug = str
     .trim()
@@ -18,7 +22,7 @@ export function slugify (str) {
     .replace(/^(\d)/, '_$1')
   let count = cache[slug]
 
-  count = cache.hasOwnProperty(slug) ? count + 1 : 0
+  count = hasOwn.call(cache, slug) ? count + 1 : 0
   cache[slug] = count
 
   if (count) {

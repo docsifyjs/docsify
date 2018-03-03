@@ -1,6 +1,6 @@
-import { noop } from '../util/core'
+import {noop} from '../util/core'
 
-export function initLifecycle (vm) {
+export function initLifecycle(vm) {
   const hooks = [
     'init',
     'mounted',
@@ -18,28 +18,26 @@ export function initLifecycle (vm) {
   })
 }
 
-export function callHook (vm, hook, data, next = noop) {
+export function callHook(vm, hook, data, next = noop) {
   const queue = vm._hooks[hook]
 
   const step = function (index) {
     const hook = queue[index]
     if (index >= queue.length) {
       next(data)
-    } else {
-      if (typeof hook === 'function') {
-        if (hook.length === 2) {
-          hook(data, result => {
-            data = result
-            step(index + 1)
-          })
-        } else {
-          const result = hook(data)
-          data = result !== undefined ? result : data
+    } else if (typeof hook === 'function') {
+      if (hook.length === 2) {
+        hook(data, result => {
+          data = result
           step(index + 1)
-        }
+        })
       } else {
+        const result = hook(data)
+        data = result === undefined ? data : result
         step(index + 1)
       }
+    } else {
+      step(index + 1)
     }
   }
 

@@ -1,14 +1,16 @@
-import { get } from './ajax'
-import { callHook } from '../init/lifecycle'
-import { getParentPath, stringifyQuery } from '../router/util'
-import { noop } from '../util/core'
-import { getAndActive } from '../event/sidebar'
+import {get} from './ajax'
+import {callHook} from '../init/lifecycle'
+import {getParentPath, stringifyQuery} from '../router/util'
+import {noop} from '../util/core'
+import {getAndActive} from '../event/sidebar'
 
-function loadNested (path, qs, file, next, vm, first) {
+function loadNested(path, qs, file, next, vm, first) {
   path = first ? path : path.replace(/\/$/, '')
   path = getParentPath(path)
 
-  if (!path) return
+  if (!path) {
+    return
+  }
 
   get(
     vm.router.getFile(path + file) + qs,
@@ -17,7 +19,7 @@ function loadNested (path, qs, file, next, vm, first) {
   ).then(next, _ => loadNested(path, qs, file, next, vm))
 }
 
-export function fetchMixin (proto) {
+export function fetchMixin(proto) {
   let last
 
   const abort = () => last && last.abort && last.abort()
@@ -80,6 +82,19 @@ export function fetchMixin (proto) {
           this._fetchFallbackPage(file, qs, cb) || this._fetch404(file, qs, cb)
         }
       )
+    }
+
+    // Load main content
+    last.then(
+      (text, opt) => {
+        this._renderMain(text, opt, loadSideAndNav)
+      },
+      _ => {
+        return (
+          getFallBackPage(file) || this._renderMain(null, {}, loadSideAndNav)
+        )
+      }
+    )
 
     // Load nav
     loadNavbar &&
@@ -94,7 +109,7 @@ export function fetchMixin (proto) {
   }
 
   proto._fetchCover = function () {
-    const { coverpage, requestHeaders } = this.config
+    const {coverpage, requestHeaders} = this.config
     const query = this.route.query
     const root = getParentPath(this.route.path)
 
@@ -112,7 +127,7 @@ export function fetchMixin (proto) {
         path = cover === true ? '_coverpage' : cover
       }
 
-      const coverOnly = !!path && this.config.onlyCover
+      const coverOnly = Boolean(path) && this.config.onlyCover
       if (path) {
         path = this.router.getFile(root + path)
         this.coverIsHTML = /\.html$/g.test(path)
@@ -137,7 +152,7 @@ export function fetchMixin (proto) {
     if (onlyCover) {
       done()
     } else {
-      this._fetch(result => {
+      this._fetch(() => {
         this.$resetEvents()
         done()
       })
@@ -193,8 +208,8 @@ export function fetchMixin (proto) {
   }
 }
 
-export function initFetch (vm) {
-  const { loadSidebar } = vm.config
+export function initFetch(vm) {
+  const {loadSidebar} = vm.config
 
   // Server-Side Rendering
   if (vm.rendered) {

@@ -71,7 +71,6 @@ Move to [awesome-docsify](https://github.com/QingWei-Li/awesome-docsify)
 
 ```bash
 npm run bootstrap && npm run dev
-open http://localhost:3000
 ```
 
 ## Backers

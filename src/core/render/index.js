@@ -2,38 +2,42 @@ import * as dom from '../util/dom'
 import * as tpl from './tpl'
 import cssVars from '../util/polyfill/css-vars'
 import tinydate from 'tinydate'
-import { callHook } from '../init/lifecycle'
-import { Compiler } from './compiler'
-import { getAndActive, sticky } from '../event/sidebar'
-import { getPath, isAbsolutePath } from '../router/util'
-import { isMobile, inBrowser } from '../util/env'
-import { isPrimitive } from '../util/core'
-import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
-import { prerenderEmbed } from './embed'
+import {callHook} from '../init/lifecycle'
+import {Compiler} from './compiler'
+import {getAndActive, sticky} from '../event/sidebar'
+import {getPath, isAbsolutePath} from '../router/util'
+import {isMobile, inBrowser} from '../util/env'
+import {isPrimitive} from '../util/core'
+import {scrollActiveSidebar, scroll2Top} from '../event/scroll'
+import {prerenderEmbed} from './embed'
 
-function executeScript () {
+function executeScript() {
   const script = dom
     .findAll('.markdown-section>script')
     .filter(s => !/template/.test(s.type))[0]
-  if (!script) return false
+  if (!script) {
+    return false
+  }
   const code = script.innerText.trim()
-  if (!code) return false
+  if (!code) {
+    return false
+  }
 
   setTimeout(_ => {
     window.__EXECUTE_RESULT__ = new Function(code)()
   }, 0)
 }
 
-function formatUpdated (html, updated, fn) {
+function formatUpdated(html, updated, fn) {
   updated =
-    typeof fn === 'function'
-      ? fn(updated)
-      : typeof fn === 'string' ? tinydate(fn)(new Date(updated)) : updated
+    typeof fn === 'function' ?
+      fn(updated) :
+      typeof fn === 'string' ? tinydate(fn)(new Date(updated)) : updated
 
   return html.replace(/{docsify-updated}/g, updated)
 }
 
-function renderMain (html) {
+function renderMain(html) {
   if (!html) {
     html = '<h1>404 - Not found</h1>'
   }
@@ -42,7 +46,7 @@ function renderMain (html) {
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar()
 
-  // execute script
+  // Execute script
   if (
     this.config.executeScript !== false &&
     typeof window.Vue !== 'undefined' &&
@@ -58,12 +62,14 @@ function renderMain (html) {
   }
 }
 
-function renderNameLink (vm) {
+function renderNameLink(vm) {
   const el = dom.getNode('.app-name-link')
   const nameLink = vm.config.nameLink
   const path = vm.route.path
 
-  if (!el) return
+  if (!el) {
+    return
+  }
 
   if (isPrimitive(vm.config.nameLink)) {
     el.setAttribute('href', nameLink)
@@ -74,14 +80,16 @@ function renderNameLink (vm) {
   }
 }
 
-export function renderMixin (proto) {
+export function renderMixin(proto) {
   proto._renderTo = function (el, content, replace) {
     const node = dom.getNode(el)
-    if (node) node[replace ? 'outerHTML' : 'innerHTML'] = content
+    if (node) {
+      node[replace ? 'outerHTML' : 'innerHTML'] = content
+    }
   }
 
   proto._renderSidebar = function (text) {
-    const { maxLevel, subMaxLevel, loadSidebar } = this.config
+    const {maxLevel, subMaxLevel, loadSidebar} = this.config
 
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
@@ -89,15 +97,15 @@ export function renderMixin (proto) {
       activeEl.parentNode.innerHTML +=
         this.compiler.subSidebar(subMaxLevel) || ''
     } else {
-      // reset toc
+      // Reset toc
       this.compiler.subSidebar()
     }
-    // bind event
+    // Bind event
     this._bindEventOnRendered(activeEl)
   }
 
   proto._bindEventOnRendered = function (activeEl) {
-    const { autoHeader, auto2top } = this.config
+    const {autoHeader, auto2top} = this.config
 
     scrollActiveSidebar(this.router)
 
@@ -192,18 +200,18 @@ export function renderMixin (proto) {
   }
 
   proto._updateRender = function () {
-    // render name link
+    // Render name link
     renderNameLink(this)
   }
 }
 
-export function initRender (vm) {
+export function initRender(vm) {
   const config = vm.config
 
   // Init markdown compiler
   vm.compiler = new Compiler(config, vm.router)
   if (inBrowser) {
-    window['__current_docsify_compiler__'] = vm.compiler
+    window.__current_docsify_compiler__ = vm.compiler
   }
 
   const id = config.el || '#app'

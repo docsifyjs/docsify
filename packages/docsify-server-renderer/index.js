@@ -1,19 +1,19 @@
 import * as tpl from '../../src/core/render/tpl'
 import fetch from 'node-fetch'
-import { AbstractHistory } from '../../src/core/router/history/abstract'
-import { Compiler } from '../../src/core/render/compiler'
-import { isAbsolutePath } from '../../src/core/router/util'
-import { readFileSync } from 'fs'
-import { resolve, basename } from 'path'
+import {AbstractHistory} from '../../src/core/router/history/abstract'
+import {Compiler} from '../../src/core/render/compiler'
+import {isAbsolutePath} from '../../src/core/router/util'
+import {readFileSync} from 'fs'
+import {resolve, basename} from 'path'
 import resolvePathname from 'resolve-pathname'
 import debug from 'debug'
-import { prerenderEmbed } from '../../src/core/render/embed'
+import {prerenderEmbed} from '../../src/core/render/embed'
 
-function cwd (...args) {
+function cwd(...args) {
   return resolve(process.cwd(), ...args)
 }
 
-function mainTpl (config) {
+function mainTpl(config) {
   let html = `<nav class="app-nav${
     config.repo ? '' : ' no-badge'
   }"><!--navbar--></nav>`
@@ -31,7 +31,7 @@ function mainTpl (config) {
 }
 
 export default class Renderer {
-  constructor ({ template, config, cache }) {
+  constructor({template, config, cache}) {
     this.html = template
     this.config = config = Object.assign({}, config, {
       routerMode: 'history'
@@ -51,15 +51,15 @@ export default class Renderer {
     this.template = this.html
   }
 
-  _getPath (url) {
+  _getPath(url) {
     const file = this.router.getFile(url)
 
     return isAbsolutePath(file) ? file : cwd(`./${file}`)
   }
 
-  async renderToString (url) {
+  async renderToString(url) {
     this.url = url = this.router.parse(url).path
-    const { loadSidebar, loadNavbar, coverpage } = this.config
+    const {loadSidebar, loadNavbar, coverpage} = this.config
 
     const mainFile = this._getPath(url)
     this._renderHtml('main', await this._render(mainFile, 'main'))
@@ -100,15 +100,16 @@ export default class Renderer {
     return html
   }
 
-  _renderHtml (match, content) {
+  _renderHtml(match, content) {
     this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content)
 
     return this.html
   }
 
-  async _render (path, type) {
+  async _render(path, type) {
     let html = await this._loadFile(path)
-    const { subMaxLevel, maxLevel } = this.config
+    const {subMaxLevel, maxLevel} = this.config
+    let tokens
 
     switch (type) {
       case 'sidebar':
@@ -122,7 +123,7 @@ export default class Renderer {
         html = this.compiler.cover(html)
         break
       case 'main':
-        const tokens = await new Promise(r => {
+        tokens = await new Promise(r => {
           prerenderEmbed(
             {
               fetch: url => this._loadFile(this._getPath(url)),
@@ -144,13 +145,15 @@ export default class Renderer {
     return html
   }
 
-  async _loadFile (filePath) {
+  async _loadFile(filePath) {
     debug('docsify')(`load > ${filePath}`)
     let content
     try {
       if (isAbsolutePath(filePath)) {
         const res = await fetch(filePath)
-        if (!res.ok) throw Error()
+        if (!res.ok) {
+          throw Error()
+        }
         content = await res.text()
         this.lock = 0
       } else {
@@ -166,8 +169,11 @@ export default class Renderer {
       }
 
       const fileName = basename(filePath)
+      const result = await this._loadFile(
+        resolvePathname(`../${fileName}`, filePath)
+      )
 
-      return await this._loadFile(resolvePathname(`../${fileName}`, filePath))
+      return result
     }
   }
 }

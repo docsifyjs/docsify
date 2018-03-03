@@ -1,21 +1,21 @@
-import { HashHistory } from './history/hash'
-import { HTML5History } from './history/html5'
-import { supportsPushState } from '../util/env'
+import {HashHistory} from './history/hash'
+import {HTML5History} from './history/html5'
+import {supportsPushState} from '../util/env'
 import * as dom from '../util/dom'
 
-export function routerMixin (proto) {
+export function routerMixin(proto) {
   proto.route = {}
 }
 
 let lastRoute = {}
 
-function updateRender (vm) {
+function updateRender(vm) {
   vm.router.normalize()
   vm.route = vm.router.parse()
   dom.body.setAttribute('data-page', vm.route.file)
 }
 
-export function initRouter (vm) {
+export function initRouter(vm) {
   const config = vm.config
   const mode = config.routerMode || 'hash'
   let router

@@ -1,23 +1,23 @@
 let INDEXS = {}
 let helper
 
-function escapeHtml (string) {
+function escapeHtml(string) {
   const entityMap = {
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#39;',
+    '\'': '&#39;',
     '/': '&#x2F;'
   }
 
-  return String(string).replace(/[&<>"'\/]/g, s => entityMap[s])
+  return String(string).replace(/[&<>"'/]/g, s => entityMap[s])
 }
 
-function getAllPaths (router) {
+function getAllPaths(router) {
   const paths = []
 
-  helper.dom.findAll('a:not([data-nosearch])').map(node => {
+  helper.dom.findAll('a:not([data-nosearch])').forEach(node => {
     const href = node.href
     const originHref = node.getAttribute('href')
     const path = router.parse(href).path
@@ -34,12 +34,12 @@ function getAllPaths (router) {
   return paths
 }
 
-function saveData (maxAge) {
+function saveData(maxAge) {
   localStorage.setItem('docsify.search.expires', Date.now() + maxAge)
   localStorage.setItem('docsify.search.index', JSON.stringify(INDEXS))
 }
 
-export function genIndex (path, content = '', router, depth) {
+export function genIndex(path, content = '', router, depth) {
   const tokens = window.marked.lexer(content)
   const slugify = window.Docsify.slugify
   const index = {}
@@ -47,18 +47,18 @@ export function genIndex (path, content = '', router, depth) {
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
-      slug = router.toURL(path, { id: slugify(token.text) })
-      index[slug] = { slug, title: token.text, body: '' }
+      slug = router.toURL(path, {id: slugify(token.text)})
+      index[slug] = {slug, title: token.text, body: ''}
     } else {
-      if (!slug) return
+      if (!slug) {
+        return
+      }
       if (!index[slug]) {
-        index[slug] = { slug, title: '', body: '' }
+        index[slug] = {slug, title: '', body: ''}
+      } else if (index[slug].body) {
+        index[slug].body += '\n' + (token.text || '')
       } else {
-        if (index[slug].body) {
-          index[slug].body += '\n' + (token.text || '')
-        } else {
-          index[slug].body = token.text
-        }
+        index[slug].body = token.text
       }
     }
   })
@@ -70,7 +70,7 @@ export function genIndex (path, content = '', router, depth) {
  * @param {String} query
  * @returns {Array}
  */
-export function search (query) {
+export function search(query) {
   const matchingResults = []
   let data = []
   Object.keys(INDEXS).forEach(key => {
@@ -78,7 +78,7 @@ export function search (query) {
   })
 
   query = query.trim()
-  let keywords = query.split(/[\s\-\，\\/]+/)
+  let keywords = query.split(/[\s\-，\\/]+/)
   if (keywords.length !== 1) {
     keywords = [].concat(query, keywords)
   }
@@ -92,7 +92,7 @@ export function search (query) {
     const postUrl = post.slug || ''
 
     if (postTitle && postContent) {
-      keywords.forEach((keyword, i) => {
+      keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
           keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
@@ -108,7 +108,9 @@ export function search (query) {
           isMatch = false
         } else {
           isMatch = true
-          if (indexContent < 0) indexContent = 0
+          if (indexContent < 0) {
+            indexContent = 0
+          }
 
           let start = 0
           let end = 0
@@ -116,7 +118,9 @@ export function search (query) {
           start = indexContent < 11 ? 0 : indexContent - 10
           end = start === 0 ? 70 : indexContent + keyword.length + 60
 
-          if (end > postContent.length) end = postContent.length
+          if (end > postContent.length) {
+            end = postContent.length
+          }
 
           const matchContent =
             '...' +
@@ -144,7 +148,7 @@ export function search (query) {
   return matchingResults
 }
 
-export function init (config, vm) {
+export function init(config, vm) {
   helper = Docsify
 
   const isAuto = config.paths === 'auto'
@@ -163,7 +167,9 @@ export function init (config, vm) {
   let count = 0
 
   paths.forEach(path => {
-    if (INDEXS[path]) return count++
+    if (INDEXS[path]) {
+      return count++
+    }
 
     helper
       .get(vm.router.getFile(path), false, vm.config.requestHeaders)

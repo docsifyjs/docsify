@@ -1,4 +1,4 @@
-import { isMobile } from '../util/env'
+import {isMobile} from '../util/env'
 import * as dom from '../util/dom'
 import Tweezer from 'tweezer.js'
 
@@ -8,8 +8,10 @@ let scroller = null
 let enableScrollEvent = true
 let coverHeight = 0
 
-function scrollTo (el) {
-  if (scroller) scroller.stop()
+function scrollTo(el) {
+  if (scroller) {
+    scroller.stop()
+  }
   enableScrollEvent = false
   scroller = new Tweezer({
     start: window.pageYOffset,
@@ -24,8 +26,10 @@ function scrollTo (el) {
     .begin()
 }
 
-function highlight (path) {
-  if (!enableScrollEvent) return
+function highlight(path) {
+  if (!enableScrollEvent) {
+    return
+  }
   const sidebar = dom.getNode('.sidebar')
   const anchors = dom.findAll('.anchor')
   const wrap = dom.find(sidebar, '.sidebar-nav')
@@ -38,22 +42,28 @@ function highlight (path) {
     const node = anchors[i]
 
     if (node.offsetTop > top) {
-      if (!last) last = node
+      if (!last) {
+        last = node
+      }
       break
     } else {
       last = node
     }
   }
-  if (!last) return
+  if (!last) {
+    return
+  }
   const li = nav[getNavKey(path, last.getAttribute('data-id'))]
 
-  if (!li || li === active) return
+  if (!li || li === active) {
+    return
+  }
 
   active && active.classList.remove('active')
   li.classList.add('active')
   active = li
 
-  // scroll into view
+  // Scroll into view
   // https://github.com/vuejs/vuejs.org/blob/master/themes/vue/source/js/common.js#L282-L297
   if (!hoverOver && dom.body.classList.contains('sticky')) {
     const height = sidebar.clientHeight
@@ -68,11 +78,11 @@ function highlight (path) {
   }
 }
 
-function getNavKey (path, id) {
+function getNavKey(path, id) {
   return `${path}?id=${id}`
 }
 
-export function scrollActiveSidebar (router) {
+export function scrollActiveSidebar(router) {
   const cover = dom.find('.cover.show')
   coverHeight = cover ? cover.offsetHeight : 0
 
@@ -82,18 +92,26 @@ export function scrollActiveSidebar (router) {
   for (let i = 0, len = lis.length; i < len; i += 1) {
     const li = lis[i]
     const a = li.querySelector('a')
-    if (!a) continue
+    if (!a) {
+      continue
+    }
     let href = a.getAttribute('href')
 
     if (href !== '/') {
-      const { query: { id }, path } = router.parse(href)
-      if (id) href = getNavKey(path, id)
+      const {query: {id}, path} = router.parse(href)
+      if (id) {
+        href = getNavKey(path, id)
+      }
     }
 
-    if (href) nav[decodeURIComponent(href)] = li
+    if (href) {
+      nav[decodeURIComponent(href)] = li
+    }
   }
 
-  if (isMobile) return
+  if (isMobile) {
+    return
+  }
   const path = router.getCurrentPath()
   dom.off('scroll', () => highlight(path))
   dom.on('scroll', () => highlight(path))
@@ -105,8 +123,10 @@ export function scrollActiveSidebar (router) {
   })
 }
 
-export function scrollIntoView (path, id) {
-  if (!id) return
+export function scrollIntoView(path, id) {
+  if (!id) {
+    return
+  }
 
   const section = dom.find('#' + id)
   section && scrollTo(section)
@@ -120,6 +140,6 @@ export function scrollIntoView (path, id) {
 
 const scrollEl = dom.$.scrollingElement || dom.$.documentElement
 
-export function scroll2Top (offset = 0) {
+export function scroll2Top(offset = 0) {
   scrollEl.scrollTop = offset === true ? 0 : Number(offset)
 }
