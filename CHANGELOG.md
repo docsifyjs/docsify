@@ -1,3 +1,13 @@
+<a name="4.6.7"></a>
+## [4.6.7](https://github.com/QingWei-Li/docsify/compare/v4.6.6...v4.6.7) (2018-03-03)
+
+
+### Bug Fixes
+
+* layout css, fixed [#409](https://github.com/QingWei-Li/docsify/issues/409) ([aeb692e](https://github.com/QingWei-Li/docsify/commit/aeb692e))
+
+
+
 <a name="4.6.6"></a>
 ## [4.6.6](https://github.com/QingWei-Li/docsify/compare/v4.6.5...v4.6.6) (2018-03-03)
 
