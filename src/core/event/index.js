@@ -6,7 +6,10 @@ import { scrollIntoView } from './scroll'
 export function eventMixin (proto) {
   proto.$resetEvents = function () {
     scrollIntoView(this.route.path, this.route.query.id)
-    sidebar.getAndActive(this.router, 'nav')
+
+    if (this.config.loadNavbar) {
+      sidebar.getAndActive(this.router, 'nav')
+    }
   }
 }
 
