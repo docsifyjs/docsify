@@ -1,3 +1,18 @@
+<a name="4.6.5"></a>
+## [4.6.5](https://github.com/QingWei-Li/docsify/compare/v4.6.4...v4.6.5) (2018-03-03)
+
+
+### Bug Fixes
+
+* **navbar:** Now Navbar isn't append to DOM when loadNavbar is falsy ([#407](https://github.com/QingWei-Li/docsify/issues/407)) ([0933445](https://github.com/QingWei-Li/docsify/commit/0933445))
+
+
+### Features
+
+* **config:** Add 404 page options. ([#406](https://github.com/QingWei-Li/docsify/issues/406)) ([9b3b445](https://github.com/QingWei-Li/docsify/commit/9b3b445))
+
+
+
 <a name="4.6.4"></a>
 ## [4.6.4](https://github.com/QingWei-Li/docsify/compare/v4.6.3...v4.6.4) (2018-03-01)
 
