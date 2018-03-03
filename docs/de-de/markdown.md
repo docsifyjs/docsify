@@ -1,6 +1,6 @@
 # Markdown Einstellungen
 
-**docsify** verwendet [marked](https://github.com/chjj/marked), um Markdown umzuwandeln. Du kannst einstellen, wie es deine Markdown Seiten in HTML umwandelt, indem du `renderer` konfigurierst:
+**docsify** verwendet [marked](https://github.com/markedjs/marked), um Markdown umzuwandeln. Du kannst einstellen, wie es deine Markdown Seiten in HTML umwandelt, indem du `renderer` konfigurierst:
 
 ```js
 window.$docsify = {
@@ -15,7 +15,7 @@ window.$docsify = {
 }
 ```
 
-?> Für mögliche Einstellungen, siehe [marked Dokumentation](https://github.com/chjj/marked#options-1)
+?> Für mögliche Einstellungen, siehe [marked Dokumentation](https://github.com/markedjs/marked#options-1)
 
 Du kannst die Regeln auch beliebig anpassen.
 
