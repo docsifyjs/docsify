@@ -12,7 +12,7 @@ Du kannst folgende drei Orte verwenden, um die Dokumentation für dein Github re
 
 Es wird empfohlen, deine Dateien im `./docs` Unterordner im `master` branch deines repository zu speichern. Wechsle dann zu den Einstellungen deines repository und wähle `master branch /docs folder` als deine Github Pages Quelle.
 
-![github pages](_images/deploy-github-pages.png)
+![github pages](../_images/deploy-github-pages.png)
 
 !> Du kannst die Dateien auch im Hauptverzeichnis speichern und dann `master branch` in den Einstellungen auswählen.
 

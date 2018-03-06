@@ -61,4 +61,4 @@ _\_navbar.md_
 
 效果图
 
-![嵌套导航栏](_images/zh-cn/nested-navbar.png '嵌套导航栏')
+![嵌套导航栏](../_images/zh-cn/nested-navbar.png '嵌套导航栏')

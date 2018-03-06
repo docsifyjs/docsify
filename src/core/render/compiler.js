@@ -4,7 +4,7 @@ import {helper as helperTpl, tree as treeTpl} from './tpl'
 import {genTree} from './gen-tree'
 import {slugify} from './slugify'
 import {emojify} from './emojify'
-import {isAbsolutePath, getPath} from '../router/util'
+import {isAbsolutePath, getPath, getParentPath} from '../router/util'
 import {isFn, merge, cached, isPrimitive} from '../util/core'
 
 const cachedLinks = {}
@@ -112,7 +112,11 @@ export class Compiler {
 
     if (config.include) {
       if (!isAbsolutePath(href)) {
-        href = getPath(process.env.SSR ? '' : this.contentBase, href)
+        href = getPath(
+          process.env.SSR ? '' : this.contentBase,
+          getParentPath(this.router.getCurrentPath()),
+          href
+        )
       }
 
       let media
@@ -254,7 +258,7 @@ export class Compiler {
       }
 
       if (!isAbsolutePath(href)) {
-        url = getPath(contentBase, href)
+        url = getPath(contentBase, getParentPath(router.getCurrentPath()), href)
       }
 
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`

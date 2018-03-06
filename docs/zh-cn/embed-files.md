@@ -5,14 +5,14 @@ docsify 4.6 开始支持嵌入任何类型的文件到文档里。你可以将�
 这是一个嵌入 Markdown 文件的例子。
 
 ```markdown
-[filename](_media/example.md ':include')
+[filename](../_media/example.md ':include')
 ```
 
 `example.md` 文件的内容将会直接显示在这里
 
-[filename](_media/example.md ':include')
+[filename](../_media/example.md ':include')
 
-你可以查看 [example.md](_media/example.md ':ignore') 原始内容对比效果。
+你可以查看 [example.md](../_media/example.md ':ignore') 原始内容对比效果。
 
 通常情况下，这样的语法将会被当作链接处理。但是在 docsify 里，如果你添加一个 `:include` 选项，它就会被当作文件嵌入。
 
@@ -29,12 +29,12 @@ docsify 4.6 开始支持嵌入任何类型的文件到文档里。你可以将�
 当然，你也可以强制设置嵌入类型。例如你想将 Markdown 文件当作一个 `code block` 嵌入。
 
 ```markdown
-[filename](_media/example.md ':include :type=code')
+[filename](../_media/example.md ':include :type=code')
 ```
 
 你将得到
 
-[filename](_media/example.md ':include :type=code')
+[filename](../_media/example.md ':include :type=code')
 
 ## 标签属性
 
@@ -53,11 +53,11 @@ docsify 4.6 开始支持嵌入任何类型的文件到文档里。你可以将�
 如果是嵌入一个代码块，你可以设置高亮的语言，或者让它自动识别。这里是手动设置高亮语言
 
 ```markdown
-[](_media/example.html ':include :type=code text')
+[](../_media/example.html ':include :type=code text')
 ```
 
 ⬇️
 
-[](_media/example.html ':include :type=code text')
+[](../_media/example.html ':include :type=code text')
 
 ?> 如何高亮代码？你可以查看[这份文档](language-highlight.md).

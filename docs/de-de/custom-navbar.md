@@ -68,7 +68,7 @@ Du kannst untergeordnete Listen erstellen, indem du untergeordnete Punkte einem 
 
 wird also wie folgt aussehen
 
-![Nesting navbar](_images/nested-navbar.png 'Nesting navbar')
+![Nesting navbar](../_images/nested-navbar.png 'Nesting navbar')
 
 ## Angepasste Navigationsleisten in Verbindung mit dem emoji Erweiterung
 
