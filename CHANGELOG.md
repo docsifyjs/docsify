@@ -1,3 +1,13 @@
+<a name="4.6.8"></a>
+## [4.6.8](https://github.com/QingWei-Li/docsify/compare/v4.6.7...v4.6.8) (2018-03-06)
+
+
+### Bug Fixes
+
+* resolve path of image and embed files, fixed [#412](https://github.com/QingWei-Li/docsify/issues/412) ([bfd0d18](https://github.com/QingWei-Li/docsify/commit/bfd0d18))
+
+
+
 <a name="4.6.7"></a>
 ## [4.6.7](https://github.com/QingWei-Li/docsify/compare/v4.6.6...v4.6.7) (2018-03-03)
 
