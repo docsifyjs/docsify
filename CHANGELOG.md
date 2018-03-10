@@ -1,3 +1,13 @@
+<a name="4.6.9"></a>
+## [4.6.9](https://github.com/QingWei-Li/docsify/compare/v4.6.8...v4.6.9) (2018-03-10)
+
+
+### Bug Fixes
+
+* upgrade medium-zoom, fixed [#417](https://github.com/QingWei-Li/docsify/issues/417) ([6a3d69a](https://github.com/QingWei-Li/docsify/commit/6a3d69a))
+
+
+
 <a name="4.6.8"></a>
 ## [4.6.8](https://github.com/QingWei-Li/docsify/compare/v4.6.7...v4.6.8) (2018-03-06)
 
