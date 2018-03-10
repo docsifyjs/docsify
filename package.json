@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "marked": "^0.3.12",
-    "medium-zoom": "^0.3.0",
+    "medium-zoom": "^0.4.0",
     "opencollective": "^1.0.3",
     "prismjs": "^1.9.0",
     "tinydate": "^1.0.0",
