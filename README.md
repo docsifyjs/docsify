@@ -97,7 +97,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
+<a href="https://github.com/QingWei-Li/docsify/graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
 
 ## License
 
