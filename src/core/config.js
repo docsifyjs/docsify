@@ -11,7 +11,7 @@ export default function () {
       loadNavbar: null,
       homepage: 'README.md',
       coverpage: '',
-      basePath: '',
+      basePath: '/',
       auto2top: false,
       name: '',
       themeColor: '',
