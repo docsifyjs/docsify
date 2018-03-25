@@ -1,3 +1,13 @@
+<a name="4.6.10"></a>
+## [4.6.10](https://github.com/QingWei-Li/docsify/compare/v4.6.9...v4.6.10) (2018-03-25)
+
+
+### Bug Fixes
+
+* async install config, fixed [#425](https://github.com/QingWei-Li/docsify/issues/425) ([e4e011c](https://github.com/QingWei-Li/docsify/commit/e4e011c))
+
+
+
 <a name="4.6.9"></a>
 ## [4.6.9](https://github.com/QingWei-Li/docsify/compare/v4.6.8...v4.6.9) (2018-03-10)
 
