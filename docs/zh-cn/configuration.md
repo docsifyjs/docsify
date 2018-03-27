@@ -40,25 +40,12 @@ window.$docsify = {
 };
 ```
 
-## max-level
+## maxLevel
 
 * 类型：`Number`
 * 默认值: `6`
 
 默认情况下会抓取文档中所有标题渲染成目录，可配置最大支持渲染的标题层级。
-
-```js
-window.$docsify = {
-  maxLevel: 4
-};
-```
-
-## maxLevel
-
-* Type: `Number`
-* Default: `6`
-
-Maximum Table of content level.
 
 ```js
 window.$docsify = {
