@@ -67,11 +67,6 @@ Configure by `data-ga`.
 <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
 ```
 
-## front matter
-
-```html
-<script src="//unpkg.com/docsify/lib/plugins/front-matter.min.js"></script>
-```
 
 ## emoji
 
