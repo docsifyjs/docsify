@@ -4,7 +4,6 @@
 
 By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
 
-
 ```html
 <script>
   window.$docsify = {
@@ -67,7 +66,6 @@ Configure by `data-ga`.
 <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
 ```
 
-
 ## emoji
 
 The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
@@ -98,7 +96,6 @@ Exclude the special image
 ![](image.png ':no-zoom')
 ```
 
-
 ## Edit on github
 
 Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
@@ -111,26 +108,15 @@ When readers expand the demo box, the source code and description are shown ther
 
 [Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
 
-
 ## Copy to Clipboard
 
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/docsify-copy-code/styles.css">
-<script src="//unpkg.com/docsify-copy-code/index.js"></script>
-```
-
-```javascript
-window.$docsify = {
-  plugins: [
-    window.DocsifyCopyCodePlugin.init()
-  ]
-}
+<script src="//unpkg.com/docsify-copy-code"></script>
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
-
 
 ## Disqus
 
@@ -147,7 +133,7 @@ Disqus comments. https://disqus.com/
 
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact. 
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
@@ -175,4 +161,3 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
-

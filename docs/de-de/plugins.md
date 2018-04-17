@@ -4,7 +4,6 @@
 
 Als Standardeinstellung werden Hyperlinks auf der aktuellen Seite erkannt und der Inhalt in `localStorage` gespeichert. Du kannst den Pfad zu den Dateien auch anpassen:
 
-
 ```html
 <script>
   window.$docsify = {
@@ -67,7 +66,6 @@ Konfiguration über `data-ga`:
 <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
 ```
 
-
 ## emoji
 
 Als Standardeinstellung werden emojis umgewandelt. Als Beispiel wird `:100:` umgewandelt in :100:. Aber das ist nicht genau, das es keine passende Nicht-emoji Zeichenfolge gibt. Solltest du emojis richtig umwandeln wollen, musst du diese Erweiterung verwenden.
@@ -106,7 +104,6 @@ When readers expand the demo box, the source code and description are shown ther
 
 [Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
 
-
 ## Edit on github
 
 Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
@@ -116,21 +113,10 @@ Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://g
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/docsify-copy-code/styles.css">
-<script src="//unpkg.com/docsify-copy-code/index.js"></script>
-```
-
-```javascript
-window.$docsify = {
-  plugins: [
-    window.DocsifyCopyCodePlugin.init()
-  ]
-}
+<script src="//unpkg.com/docsify-copy-code"></script>
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
-
-
 
 ## Disqus
 
@@ -145,10 +131,9 @@ Disqus comments. https://disqus.com/
 <script src="//unpkg.com/docsify/lib/plugins/disqus.min.js"></script>
 ```
 
-
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact. 
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
