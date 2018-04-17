@@ -119,8 +119,8 @@ Medium's 风格的图片缩放插件. 基于 [medium-zoom](https://github.com/fr
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/docsify-copy-code/styles.css">
-<script src="//unpkg.com/docsify-copy-code/index.js"></script>
+<link rel="stylesheet" href="//unpkg.com/docsify-copy-code@1.0.0/styles.css">
+<script src="//unpkg.com/docsify-copy-code@1.0.0/index.js"></script>
 ```
 
 ```javascript
