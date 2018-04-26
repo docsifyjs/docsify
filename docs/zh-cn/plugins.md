@@ -4,7 +4,6 @@
 
 全文搜索插件会根据当前页面上的超链接获取文档内容，在 `localStorage` 内建立文档索引。默认过期时间为一天，当然我们可以自己指定需要缓存的文件列表或者配置过期时间。
 
-
 ```html
 <script>
   window.$docsify = {
@@ -91,7 +90,6 @@ When readers expand the demo box, the source code and description are shown ther
 
 [Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
 
-
 ## 图片缩放 - Zoom image
 
 Medium's 风格的图片缩放插件. 基于 [medium-zoom](https://github.com/francoischalifour/medium-zoom)。
@@ -100,40 +98,25 @@ Medium's 风格的图片缩放插件. 基于 [medium-zoom](https://github.com/fr
 <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
 ```
 
-
 忽略某张图片
 
 ```markdown
 ![](image.png ':no-zoom')
 ```
 
-
-
 ## 在 Github 上编辑
 
 在每一页上添加 `Edit on github` 按钮. 由第三方库提供, 查看 [document](https://github.com/njleonzhang/docsify-edit-on-github)
-
 
 ## Copy to Clipboard
 
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/docsify-copy-code/styles.css">
-<script src="//unpkg.com/docsify-copy-code/index.js"></script>
-```
-
-```javascript
-window.$docsify = {
-  plugins: [
-    window.DocsifyCopyCodePlugin.init()
-  ]
-}
+<script src="//unpkg.com/docsify-copy-code"></script>
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
-
-
 
 ## Disqus
 
@@ -147,7 +130,6 @@ Disqus comments. https://disqus.com/
 </script>
 <script src="//unpkg.com/docsify/lib/plugins/disqus.min.js"></script>
 ```
-
 
 ## Gitalk
 
