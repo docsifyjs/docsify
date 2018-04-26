@@ -151,7 +151,7 @@ Disqus comments. https://disqus.com/
 
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact. 
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
@@ -178,4 +178,20 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 ```html
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+```
+
+
+## Code Fund
+帮你快速接入[Code Fund](https://codesponsor.io/)的[插件](https://github.com/njleonzhang/docsify-plugin-codefund), 由[@njleonzhang](https://github.com/njleonzhang)提供。
+
+> Code Fund 以前叫 codesponsor
+
+```
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+
+window.$docsify = {
+  plugins: [
+    DocsifyCodefund.create('51d43327-eea3-4e27-bd44-e075e67a84fb') // 把这个id改成你的codefund id
+  ]
+}
 ```
