@@ -161,3 +161,19 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
+
+## codefund
+a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codesponsor.io/)
+
+> codefund is formerly known as "codesponsor"
+
+```
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+
+window.$docsify = {
+  plugins: [
+    DocsifyCodefund.create('51d43327-eea3-4e27-bd44-e075e67a84fb') // change to your codefund id
+  ]
+}
+```
+
