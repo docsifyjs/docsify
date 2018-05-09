@@ -12,7 +12,7 @@ Recommended: [unpkg](//unpkg.com), which will reflect the latest version as soon
 <script src="//unpkg.com/docsify/lib/docsify.js"></script>
 ```
 
-Alternatively, use [compressed files](#compressed-files).
+Alternatively, use [compressed files](#compressed-file).
 
 ## Specific version
 
