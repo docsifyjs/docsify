@@ -91,6 +91,6 @@ cd docs && python -m SimpleHTTPServer 3000
   </script>
 ```
 
-Сравните [el конфигурацию](configuration.md#el).
+Подробнее про [el конфигурацию](ru-ru/configuration.md#el).
 
 
