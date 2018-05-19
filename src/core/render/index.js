@@ -251,6 +251,15 @@ export function initRender(vm) {
     dom.before(navAppendToTarget, navEl)
   }
 
+  if (config.skipLink
+      && !dom.find('skip-link')) {
+    const skipLinkDom = dom.create('a')
+    skipLinkDom.id = 'skip-link';
+    skipLinkDom.href = '#/?id=main';
+    skipLinkDom.innerHTML = 'Skip to main content';
+    dom.before(dom.body, skipLinkDom);
+  }
+
   if (config.themeColor) {
     dom.$.head.appendChild(
       dom.create('div', tpl.theme(config.themeColor)).firstElementChild

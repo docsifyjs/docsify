@@ -9,7 +9,7 @@
 body:not(.ready)
   overflow hidden
 
-  [data-cloak], .app-nav, > nav
+  [data-cloak], .app-nav, > nav, #skip-link
     display none
 
 div#app
@@ -177,6 +177,25 @@ li input[type='checkbox']
     fill var(--theme-color, $color-primary)
     height 80px
     width 80px
+
+#skip-link
+  position: absolute
+  top: -40px
+  left: 0px
+  outline: 0
+
+  transition: color .1s ease-in
+  transition: background-color .1s ease-in
+
+  padding: 0.5em 1em
+  color: transparent
+  background-color: transparent
+
+  &:focus
+    top: 0px
+    height: 40px
+    background-color: var(--theme-color, $color-primary)
+    color: $color-text
 
 /* main */
 main
