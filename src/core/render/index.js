@@ -80,6 +80,11 @@ function renderNameLink(vm) {
   }
 }
 
+function updateSkipLink(vm) {
+  const skipLink = dom.getNode('#skip-link')
+  skipLink.href = `/#${vm.route.path}?id=main`
+}
+
 export function renderMixin(proto) {
   proto._renderTo = function (el, content, replace) {
     const node = dom.getNode(el)
@@ -202,6 +207,8 @@ export function renderMixin(proto) {
   proto._updateRender = function () {
     // Render name link
     renderNameLink(this)
+    // Update skip-link link
+    updateSkipLink(this)
   }
 }
 
@@ -249,6 +256,15 @@ export function initRender(vm) {
   // Add nav
   if (config.loadNavbar) {
     dom.before(navAppendToTarget, navEl)
+  }
+
+  if (config.skipLink
+      && !dom.find('skip-link')) {
+    const skipLinkDom = dom.create('a')
+    skipLinkDom.id = 'skip-link'
+    skipLinkDom.href = '#/?id=main'
+    skipLinkDom.innerHTML = 'Skip to main content'
+    dom.before(dom.body, skipLinkDom)
   }
 
   if (config.themeColor) {

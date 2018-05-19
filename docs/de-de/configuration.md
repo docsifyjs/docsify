@@ -448,3 +448,15 @@ window.$docsify = {
 };
 ```
 > Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+
+
+## skipLink
+
+* type: `Boolean`
+
+Add a [skip link](https://webaim.org/techniques/skipnav) to help with screen reader accessibility
+```js
+window.$docsify = {
+  skipLink: true
+};
+```
