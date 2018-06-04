@@ -59,7 +59,7 @@ The background color is generated randomly by default. You can customize the bac
 
 ## Coverpage as homepage
 
-Normal, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [onlyCover option](configuration.md#onlycover).
+Normally, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [onlyCover option](configuration.md#onlycover).
 
 ## Multiple covers
 
