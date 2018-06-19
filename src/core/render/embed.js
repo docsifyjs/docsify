@@ -8,6 +8,10 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
   let step = 0
   let count = 1
 
+  if (!embedTokens.length) {
+    return cb({})
+  }
+
   while ((token = embedTokens[step++])) {
     const next = (function (token) {
       return text => {
