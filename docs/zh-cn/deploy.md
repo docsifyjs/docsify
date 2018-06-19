@@ -59,5 +59,13 @@ server {
 ## Netlify
 
 1.  Login to your [Netlify](https://www.netlify.com/) account.
-2.  In the [dashboard](https://app.netlify.com/) page, click New site from Git.
-3.  Choose a repository where you store your docs, leave the Build Command area blank, fill in the Publish directory area with the directory of your `index.html`, for example it should be docs if you populated it at `docs/index.html`.
+2.  In the [dashboard](https://app.netlify.com/) page, click **New site from Git**.
+3.  Choose a repository where you store your docs, leave the **Build Command** area blank, fill in the Publish directory area with the directory of your `index.html`, for example it should be docs if you populated it at `docs/index.html`.
+
+### HTML5 router
+
+When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`, it's pretty simple when you're using Netlify, populate a `\redirects` file in the docs directory and you're all set:
+
+```sh
+/*    /index.html   200
+```
