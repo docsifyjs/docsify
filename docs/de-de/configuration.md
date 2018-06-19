@@ -14,8 +14,8 @@ You can configure the `window.$docsify`.
 
 ## el
 
-* Typ: `String`
-* Standard: `#app`
+- Typ: `String`
+- Standard: `#app`
 
 Das DOM Element kann bei der Initialisierung gesetzt werden. Es kann ein CSS selector string oder ein richtiges HTMLElement sein.
 
@@ -27,8 +27,8 @@ window.$docsify = {
 
 ## repo
 
-* Typ: `String`
-* Standard: `null`
+- Typ: `String`
+- Standard: `null`
 
 Verwende die repository URL oder eine Zeichenfolge aus `Benutzername/repo`, um das [GitHub Corner](http://tholman.com/github-corners/) widget in die obere rechte Ecke der Seite zu implementieren.
 
@@ -42,8 +42,8 @@ window.$docsify = {
 
 ## maxLevel
 
-* Typ: `Number`
-* Standard: `6`
+- Typ: `Number`
+- Standard: `6`
 
 Maximale Anzahl der Inhaltsübersichtebenen.
 
@@ -55,8 +55,8 @@ window.$docsify = {
 
 ## loadNavbar
 
-* Typ: `Boolean|String`
-* Standard: `false`
+- Typ: `Boolean|String`
+- Standard: `false`
 
 Lädt die Navigationsleiste von der Markdown Datei `_navbar.md` falls **true**, oder vom gewählten Pfad.
 
@@ -72,8 +72,8 @@ window.$docsify = {
 
 ## loadSidebar
 
-* Typ: `Boolean|String`
-* Standard: `false`
+- Typ: `Boolean|String`
+- Standard: `false`
 
 Lädt das seitliche Inhaltsverzeichnis von der Markdown Datei `_sidebar.md` falls **true**, oder vom gewählten Pfad.
 
@@ -89,8 +89,8 @@ window.$docsify = {
 
 ## subMaxLevel
 
-* Typ: `Number`
-* Standard: `0`
+- Typ: `Number`
+- Standard: `0`
 
 Wähle die maximale Anzahl der Unterpunkte pro Datei in der Inhaltsübersicht.
 
@@ -102,8 +102,8 @@ window.$docsify = {
 
 ## auto2top
 
-* Typ: `Boolean`
-* Standard: `false`
+- Typ: `Boolean`
+- Standard: `false`
 
 Scrolle zum Anfang der Seite, wenn die Route gewechselt wird.
 
@@ -115,8 +115,8 @@ window.$docsify = {
 
 ## homepage
 
-* Typ: `String`
-* Standard: `README.md`
+- Typ: `String`
+- Standard: `README.md`
 
 `README.md` in deinem Ordner für die Dokumentation wird als Startseite für deine Webseite gesetzt, aber manchmal musst du das vielleicht ändern.
 
@@ -133,7 +133,7 @@ window.$docsify = {
 
 ## basePath
 
-* Typ: `String`
+- Typ: `String`
 
 Der Basispfad der Webseite. Du kannst einen anderen Ordner wählen, oder eine andere Domain.
 
@@ -152,8 +152,8 @@ window.$docsify = {
 
 ## coverpage
 
-* Typ: `Boolean|String`
-* Standard: `false`
+- Typ: `Boolean|String`
+- Standard: `false`
 
 Aktiviere das [Titelseitenfeature](de-de/cover.md). Falls `true`, wird sie von `_coverpage.md` geladen.
 
@@ -175,9 +175,21 @@ window.$docsify = {
 };
 ```
 
+## logo
+
+- Type: `String`
+
+Website logo as it appears in the sidebar, you can resize by CSS.
+
+```js
+window.$docsify = {
+  logo: '/_media/icon.svg'
+};
+```
+
 ## name
 
-* Typ: `String`
+- Typ: `String`
 
 Webseitenname, wie er in der Inhaltsübersicht in der Seitenleiste angezeigt wird.
 
@@ -189,8 +201,8 @@ window.$docsify = {
 
 ## nameLink
 
-* Typ: `String`
-* Standard: `window.location.pathname`
+- Typ: `String`
+- Standard: `window.location.pathname`
 
 Der Name der Links.
 
@@ -208,7 +220,7 @@ window.$docsify = {
 
 ## markdown
 
-* Typ: `Function`
+- Typ: `Function`
 
 Siehe [Markdown Konfiguration](de-de/markdown.md).
 
@@ -234,7 +246,7 @@ window.$docsify = {
 
 ## themeColor
 
-* Typ: `String`
+- Typ: `String`
 
 Passe die Farbe der Themen an. Verwende [CSS3 Variablen](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) und polyfill in älteren Browsern.
 
@@ -246,7 +258,7 @@ window.$docsify = {
 
 ## alias
 
-* Typ: `Object`
+- Typ: `Object`
 
 Verwende alternative Routen. Du kannst sie ungehindert anpassen. Supports RegExp.
 
@@ -264,7 +276,7 @@ window.$docsify = {
 
 ## autoHeader
 
-* Typ: `Boolean`
+- Typ: `Boolean`
 
 Sollten `loadSidebar` und `autoHeader` beide aktiviert sein, setze einen Header vor die Seite in jedem Link in `_sidebar.md`, bevor sie in HTML umgewandelt wird. Vergleiche [#78](https://github.com/QingWei-Li/docsify/issues/78).
 
@@ -277,7 +289,7 @@ window.$docsify = {
 
 ## executeScript
 
-* Typ: `Boolean`
+- Typ: `Boolean`
 
 Führe das Skript auf der Seite aus. Analysiere nur das erste script tag ([demo](de-de/themes.md)). Sollte Vue verwendet sein, wird es in der Standardeinstellung ausgeführt.
 
@@ -299,7 +311,7 @@ window.$docsify = {
 
 ## noEmoji
 
-* type: `Boolean`
+- type: `Boolean`
 
 Verhindere die Umwandlung in Emojis:
 
@@ -311,7 +323,7 @@ window.$docsify = {
 
 ## mergeNavbar
 
-* type: `Boolean`
+- type: `Boolean`
 
 Navbar will be merged with the sidebar on smaller screens.
 
@@ -323,7 +335,7 @@ window.$docsify = {
 
 ## formatUpdated
 
-* type: `String|Function`
+- type: `String|Function`
 
 We can display the file update date through **{docsify-updated<span>}</span>** variable. And format it by `formatUpdated`.
 See https://github.com/lukeed/tinydate#patterns
@@ -342,8 +354,8 @@ window.$docsify = {
 
 ## externalLinkTarget
 
-* type: `String`
-* default: `_blank`
+- type: `String`
+- default: `_blank`
 
 Currently it defaults to \_blank, would be nice if configurable:
 
@@ -355,8 +367,8 @@ window.$docsify = {
 
 ## routerMode
 
-* type: `String`
-* default: `history`
+- type: `String`
+- default: `history`
 
 ```js
 window.$docsify = {
@@ -366,7 +378,7 @@ window.$docsify = {
 
 ## noCompileLinks
 
-* type: `Array`
+- type: `Array`
 
 Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
 
@@ -378,7 +390,7 @@ window.$docsify = {
 
 ## requestHeaders
 
-* type: `Object`
+- type: `Object`
 
 Set the request resource headers.
 
@@ -392,7 +404,7 @@ window.$docsify = {
 
 ## ext
 
-* type: `String`
+- type: `String`
 
 Request file extension.
 
@@ -404,15 +416,15 @@ window.$docsify = {
 
 ## fallbackLanguages
 
-* type: `Array<string>`
+- type: `Array<string>`
 
 List of languages that will fallback to the default language when a page is request and didn't exists for the given local.
 
 Example:
 
-* try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
-* then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
-* then display 404 page.
+- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
+- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
+- then display 404 page.
 
 ```js
 window.$docsify = {
@@ -422,9 +434,10 @@ window.$docsify = {
 
 ## notFoundPage
 
-* type: `Boolean` | `String` | `Object`
+- type: `Boolean` | `String` | `Object`
 
 Load the `_404.md` file:
+
 ```js
 window.$docsify = {
   notFoundPage: true
@@ -432,6 +445,7 @@ window.$docsify = {
 ```
 
 Load the customised path of the 404 page:
+
 ```js
 window.$docsify = {
   notFoundPage: 'my404.md'
@@ -439,12 +453,14 @@ window.$docsify = {
 ```
 
 Load the right 404 page according to the localisation:
+
 ```js
 window.$docsify = {
   notFoundPage: {
     '/': '_404.md',
-    '/de': 'de/_404.md',
+    '/de': 'de/_404.md'
   }
 };
 ```
+
 > Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.

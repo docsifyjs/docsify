@@ -14,8 +14,8 @@
 
 ## el
 
-* 类型：`String`
-* 默认值：`#app`
+- 类型：`String`
+- 默认值：`#app`
 
 docsify 初始化的挂载元素，可以是一个 CSS 选择器，默认为 `#app` 如果不存在就直接绑定在 `body` 上。
 
@@ -27,8 +27,8 @@ window.$docsify = {
 
 ## repo
 
-* 类型：`String`
-* 默认值: `null`
+- 类型：`String`
+- 默认值: `null`
 
 配置仓库地址或者 `username/repo` 的字符串，会在页面右上角渲染一个 [GitHub Corner](http://tholman.com/github-corners/) 挂件。
 
@@ -42,8 +42,8 @@ window.$docsify = {
 
 ## maxLevel
 
-* 类型：`Number`
-* 默认值: `6`
+- 类型：`Number`
+- 默认值: `6`
 
 默认情况下会抓取文档中所有标题渲染成目录，可配置最大支持渲染的标题层级。
 
@@ -55,8 +55,8 @@ window.$docsify = {
 
 ## loadNavbar
 
-* 类型：`Boolean|String`
-* 默认值: `false`
+- 类型：`Boolean|String`
+- 默认值: `false`
 
 加载自定义导航栏，参考[定制导航栏](zh-cn/custom-navbar.md) 了解用法。设置为 `true` 后会加载 `_navbar.md` 文件，也可以自定义加载的文件名。
 
@@ -72,8 +72,8 @@ window.$docsify = {
 
 ## loadSidebar
 
-* 类型：`Boolean|String`
-* 默认值: `false`
+- 类型：`Boolean|String`
+- 默认值: `false`
 
 加载自定义侧边栏，参考[多页文档](zh-cn/more-pages.md)。设置为 `true` 后会加载 `_sidebar.md` 文件，也可以自定义加载的文件名。
 
@@ -89,8 +89,8 @@ window.$docsify = {
 
 ## subMaxLevel
 
-* 类型：`Number`
-* 默认值: `0`
+- 类型：`Number`
+- 默认值: `0`
 
 自定义侧边栏后默认不会再生成目录，你也可以通过设置生成目录的最大层级开启这个功能。
 
@@ -102,8 +102,8 @@ window.$docsify = {
 
 ## auto2top
 
-* 类型：`Boolean`
-* 默认值: `false`
+- 类型：`Boolean`
+- 默认值: `false`
 
 切换页面后是否自动跳转到页面顶部。
 
@@ -115,8 +115,8 @@ window.$docsify = {
 
 ## homepage
 
-* 类型：`String`
-* 默认值: `README.md`
+- 类型：`String`
+- 默认值: `README.md`
 
 设置首页文件加载路径。适合不想将 `README.md` 作为入口文件渲染，或者是文档存放在其他位置的情况使用。
 
@@ -133,7 +133,7 @@ window.$docsify = {
 
 ## basePath
 
-* 类型：`String`
+- 类型：`String`
 
 文档加载的根路径，可以是二级路径或者是其他域名的路径。
 
@@ -152,8 +152,8 @@ window.$docsify = {
 
 ## coverpage
 
-* 类型：`Boolean|String`
-* 默认值: `false`
+- 类型：`Boolean|String`
+- 默认值: `false`
 
 启用[封面页](zh-cn/cover.md)。开启后是加载 `_coverpage.md` 文件，也可以自定义文件名。
 
@@ -175,9 +175,21 @@ window.$docsify = {
 };
 ```
 
+## logo
+
+- Type: `String`
+
+Website logo as it appears in the sidebar, you can resize by CSS.
+
+```js
+window.$docsify = {
+  logo: '/_media/icon.svg'
+};
+```
+
 ## name
 
-* 类型：`String`
+- 类型：`String`
 
 文档标题，会显示在侧边栏顶部。
 
@@ -189,8 +201,8 @@ window.$docsify = {
 
 ## nameLink
 
-* 类型：`String`
-* 默认值：`window.location.pathname`
+- 类型：`String`
+- 默认值：`window.location.pathname`
 
 点击文档标题后跳转的链接地址。
 
@@ -208,7 +220,7 @@ window.$docsify = {
 
 ## markdown
 
-* 类型: `Object|Function`
+- 类型: `Object|Function`
 
 参考 [Markdown 配置](zh-cn/markdown.md)。
 
@@ -234,7 +246,7 @@ window.$docsify = {
 
 ## themeColor
 
-* 类型：`String`
+- 类型：`String`
 
 替换主题色。利用 [CSS3 支持变量](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)的特性，对于老的浏览器有 polyfill 处理。
 
@@ -246,7 +258,7 @@ window.$docsify = {
 
 ## alias
 
-* 类型：`Object`
+- 类型：`Object`
 
 定义路由别名，可以更自由的定义路由规则。 支持正则。
 
@@ -264,7 +276,7 @@ window.$docsify = {
 
 ## autoHeader
 
-* 类型：`Boolean`
+- 类型：`Boolean`
 
 同时设置 `loadSidebar` 和 `autoHeader` 后，可以根据 `_sidebar.md` 的内容自动为每个页面增加标题。[#78](https://github.com/QingWei-Li/docsify/issues/78)
 
@@ -277,7 +289,7 @@ window.$docsify = {
 
 ## executeScript
 
-* 类型：`Boolean`
+- 类型：`Boolean`
 
 执行文档里的 script 标签里的脚本，只执行第一个 script ([demo](zh-cn/themes.md))。 如果 Vue 存在，则自动开启。
 
@@ -299,7 +311,7 @@ window.$docsify = {
 
 ## noEmoji
 
-* type: `Boolean`
+- type: `Boolean`
 
 禁用 emoji 解析。
 
@@ -311,7 +323,7 @@ window.$docsify = {
 
 ## mergeNavbar
 
-* type: `Boolean`
+- type: `Boolean`
 
 小屏设备下合并导航栏到侧边栏。
 
@@ -323,7 +335,7 @@ window.$docsify = {
 
 ## formatUpdated
 
-* type: `String|Function`
+- type: `String|Function`
 
 我们可以显示文档更新日期通过 **{docsify-updated<span>}</span>** 变量. 并且格式化日期通过 `formatUpdated`。参考 https://github.com/lukeed/tinydate#patterns
 
@@ -341,8 +353,8 @@ window.$docsify = {
 
 ## externalLinkTarget
 
-* type: `String`
-* default: `_blank`
+- type: `String`
+- default: `_blank`
 
 当前默认为 \_blank, 配置一下就可以：
 
@@ -354,8 +366,8 @@ window.$docsify = {
 
 ## routerMode
 
-* type: `String`
-* default: `history`
+- type: `String`
+- default: `history`
 
 ```js
 window.$docsify = {
@@ -365,7 +377,7 @@ window.$docsify = {
 
 ## noCompileLinks
 
-* 类型: `Array`
+- 类型: `Array`
 
 有时我们不希望 docsify 处理我们的链接。 参考 [#203](https://github.com/QingWei-Li/docsify/issues/203)
 
@@ -377,7 +389,7 @@ window.$docsify = {
 
 ## requestHeaders
 
-* type: `Object`
+- type: `Object`
 
 设置请求资源的请求头。
 
@@ -391,7 +403,7 @@ window.$docsify = {
 
 ## ext
 
-* type: `String`
+- type: `String`
 
 资源的文件扩展名。
 
@@ -403,15 +415,15 @@ window.$docsify = {
 
 ## fallbackLanguages
 
-* type: `Array<string>`
+- type: `Array<string>`
 
 List of languages that will fallback to the default language when a page is request and didn't exists for the given local.
 
 Example:
 
-* try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
-* then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
-* then display 404 page.
+- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
+- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
+- then display 404 page.
 
 ```js
 window.$docsify = {
@@ -421,9 +433,10 @@ window.$docsify = {
 
 ## notFoundPage
 
-* type: `Boolean` | `String` | `Object`
+- type: `Boolean` | `String` | `Object`
 
 Load the `_404.md` file:
+
 ```js
 window.$docsify = {
   notFoundPage: true
@@ -431,6 +444,7 @@ window.$docsify = {
 ```
 
 Load the customised path of the 404 page:
+
 ```js
 window.$docsify = {
   notFoundPage: 'my404.md'
@@ -438,14 +452,14 @@ window.$docsify = {
 ```
 
 Load the right 404 page according to the localisation:
+
 ```js
 window.$docsify = {
   notFoundPage: {
     '/': '_404.md',
-    '/de': 'de/_404.md',
+    '/de': 'de/_404.md'
   }
 };
 ```
+
 > Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
-
-
