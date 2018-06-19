@@ -54,3 +54,8 @@
     });
   };
 </script>
+
+
+## Other themes
+
+- [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/) A delightfully simple theme system for docsify.
