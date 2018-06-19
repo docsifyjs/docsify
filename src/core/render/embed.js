@@ -3,36 +3,40 @@ import {merge} from '../util/core'
 
 const cached = {}
 
-function walkFetchEmbed({step = 0, embedTokens, compile, fetch}, cb) {
-  const token = embedTokens[step]
+function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
+  let token
+  let step = 0
+  let count = 1
 
-  if (!token) {
-    return cb({})
-  }
-
-  const next = text => {
-    let embedToken
-    if (text) {
-      if (token.embed.type === 'markdown') {
-        embedToken = compile.lexer(text)
-      } else if (token.embed.type === 'code') {
-        embedToken = compile.lexer(
-          '```' +
-            token.embed.lang +
-            '\n' +
-            text.replace(/`/g, '@DOCSIFY_QM@') +
-            '\n```\n'
-        )
+  while ((token = embedTokens[step++])) {
+    const next = (function (token) {
+      return text => {
+        let embedToken
+        if (text) {
+          if (token.embed.type === 'markdown') {
+            embedToken = compile.lexer(text)
+          } else if (token.embed.type === 'code') {
+            embedToken = compile.lexer(
+              '```' +
+                token.embed.lang +
+                '\n' +
+                text.replace(/`/g, '@DOCSIFY_QM@') +
+                '\n```\n'
+            )
+          }
+        }
+        cb({token, embedToken})
+        if (++count >= step) {
+          cb({})
+        }
       }
-    }
-    cb({token, embedToken})
-    walkFetchEmbed({step: ++step, compile, embedTokens, fetch}, cb)
-  }
+    })(token)
 
-  if (process.env.SSR) {
-    fetch(token.embed.url).then(next)
-  } else {
-    get(token.embed.url).then(next)
+    if (process.env.SSR) {
+      fetch(token.embed.url).then(next)
+    } else {
+      get(token.embed.url).then(next)
+    }
   }
 }
 
