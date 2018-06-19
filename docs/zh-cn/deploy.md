@@ -5,6 +5,7 @@
 ## GitHub Pages
 
 GitHub Pages 支持从三个地方读取文件
+
 - `docs/` 目录
 - master 分支
 - gh-pages 分支
@@ -15,14 +16,13 @@ GitHub Pages 支持从三个地方读取文件
 
 !> 可以将文档放在根目录下，然后选择 **master 分支** 作为文档目录。
 
-
 ## GitLab Pages
 
 如果你正在部署你的主分支, 在 `.gitlab-ci.yml` 中包含以下脚本：
 
 ?> `.public` 的解决方法是这样的，`cp` 不会无限循环的将 `public/` 复制到自身。
 
-``` YAML
+```YAML
 pages:
   stage: deploy
   script:
@@ -37,7 +37,6 @@ pages:
 ```
 
 !> 你可以用 `- cp -r docs/. public` 替换脚本, 如果 `./docs` 是你的 docsify 子文件夹。
-
 
 ## VPS
 
@@ -56,3 +55,9 @@ server {
   }
 }
 ```
+
+## Netlify
+
+1.  Login to your [Netlify](https://www.netlify.com/) account.
+2.  In the [dashboard](https://app.netlify.com/) page, click New site from Git.
+3.  Choose a repository where you store your docs, leave the Build Command area blank, fill in the Publish directory area with the directory of your `index.html`, for example it should be docs if you populated it at `docs/index.html`.

@@ -6,9 +6,9 @@
 
 Du kannst folgende drei Orte verwenden, um die Dokumentation für dein Github repository zu verwalten:
 
-* `docs/` Ordner
-* master branch
-* gh-pages branch
+- `docs/` Ordner
+- master branch
+- gh-pages branch
 
 Es wird empfohlen, deine Dateien im `./docs` Unterordner im `master` branch deines repository zu speichern. Wechsle dann zu den Einstellungen deines repository und wähle `master branch /docs folder` als deine Github Pages Quelle.
 
@@ -16,14 +16,13 @@ Es wird empfohlen, deine Dateien im `./docs` Unterordner im `master` branch dein
 
 !> Du kannst die Dateien auch im Hauptverzeichnis speichern und dann `master branch` in den Einstellungen auswählen.
 
-
 ## GitLab Pages
 
 If you are deploying your master branch, include `.gitlab-ci.yml` with the following script:
 
 ?> The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
 
-``` YAML
+```YAML
 pages:
   stage: deploy
   script:
@@ -38,7 +37,6 @@ pages:
 ```
 
 !> You can replace script with `- cp -r docs/. public`, if `./docs` is your Docsify subfolder.
-
 
 ## VPS
 
@@ -55,3 +53,9 @@ server {
   }
 }
 ```
+
+## Netlify
+
+1.  Login to your [Netlify](https://www.netlify.com/) account.
+2.  In the [dashboard](https://app.netlify.com/) page, click New site from Git.
+3.  Choose a repository where you store your docs, leave the Build Command area blank, fill in the Publish directory area with the directory of your `index.html`, for example it should be docs if you populated it at `docs/index.html`.
