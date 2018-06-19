@@ -204,7 +204,7 @@ export class Compiler {
       title = str
 
       if (
-        !/:|(\/{2})/.test(href) &&
+        !isAbsolutePath(href) &&
         !_self._matchNotCompileLink(href) &&
         !config.ignore
       ) {
