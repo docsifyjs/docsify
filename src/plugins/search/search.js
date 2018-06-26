@@ -34,9 +34,9 @@ function getAllPaths(router) {
   return paths
 }
 
-function saveData(maxAge) {
-  localStorage.setItem('docsify.search.expires', Date.now() + maxAge)
-  localStorage.setItem('docsify.search.index', JSON.stringify(INDEXS))
+function saveData(indexPrefix, maxAge) {
+  localStorage.setItem(indexPrefix + 'docsify.search.expires', Date.now() + maxAge)
+  localStorage.setItem(indexPrefix + 'docsify.search.index', JSON.stringify(INDEXS))
 }
 
 export function genIndex(path, content = '', router, depth) {
@@ -152,9 +152,9 @@ export function init(config, vm) {
   helper = Docsify
 
   const isAuto = config.paths === 'auto'
-  const isExpired = localStorage.getItem('docsify.search.expires') < Date.now()
+  const isExpired = localStorage.getItem(config.indexPrefix + 'docsify.search.expires') < Date.now()
 
-  INDEXS = JSON.parse(localStorage.getItem('docsify.search.index'))
+  INDEXS = JSON.parse(localStorage.getItem(config.indexPrefix + 'docsify.search.index'))
 
   if (isExpired) {
     INDEXS = {}
@@ -175,7 +175,7 @@ export function init(config, vm) {
       .get(vm.router.getFile(path), false, vm.config.requestHeaders)
       .then(result => {
         INDEXS[path] = genIndex(path, result, vm.router, config.depth)
-        len === ++count && saveData(config.maxAge)
+        len === ++count && saveData(config.indexPrefix, config.maxAge)
       })
   })
 }
