@@ -53,7 +53,7 @@ function highlight(path) {
   if (!last) {
     return
   }
-  const li = nav[getNavKey(path, last.getAttribute('data-id'))]
+  const li = nav[getNavKey(decodeURIComponent(path), last.getAttribute('data-id'))]
 
   if (!li || li === active) {
     return
