@@ -78,11 +78,7 @@ export function getAndActive(router, el, isParent, autoTitle) {
   })
 
   if (autoTitle) {
-    if(target && target.title){
-      dom.$.title = target.title
-    }else{
-      dom.$.title = target ? `${target.innerText} - ${title}` : title
-    }
+    dom.$.title = target ? (target.title || `${target.innerText} - ${title}`) : title
   }
 
   return target
