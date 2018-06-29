@@ -14,6 +14,7 @@
   <a href="https://travis-ci.org/QingWei-Li/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/QingWei-Li/docsify/master.svg?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
   <a href="https://github.com/QingWei-Li/donate"><img alt="donate" src="https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square"></a>
+  <a href="https://gitter.im/docsifyjs/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link"><img alt="gitter" src="https://img.shields.io/gitter/room/docsifyjs/docsify.svg?style=flat-square"></a>
 </p>
 
 <p align="center">Glod Sponsor via <a href="https://opencollective.com/docsify">Open Collective</a></p>
@@ -26,21 +27,22 @@
 
 ## Links
 
-* [Documentation](https://docsify.js.org)
-* [CLI](https://github.com/QingWei-Li/docsify-cli)
-* CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
-* [Awesome docsify](https://github.com/QingWei-Li/awesome-docsify)
+- [Documentation](https://docsify.js.org)
+- [CLI](https://github.com/QingWei-Li/docsify-cli)
+- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
+- [Awesome docsify](https://github.com/QingWei-Li/awesome-docsify)
+- [Community chat](https://gitter.im/docsifyjs/Lobby)
 
 ## Features
 
-* No statically built html files
-* Simple and lightweight (~19kB gzipped)
-* Smart full-text search plugin
-* Multiple themes
-* Useful plugin API
-* Compatible with IE10+
-* Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
-* Support embedded files
+- No statically built html files
+- Simple and lightweight (~19kB gzipped)
+- Smart full-text search plugin
+- Multiple themes
+- Useful plugin API
+- Compatible with IE10+
+- Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
+- Support embedded files
 
 ## Quick start
 
@@ -61,11 +63,11 @@ Move to [awesome-docsify](https://github.com/QingWei-Li/awesome-docsify)
 
 ## Contributing
 
-* Fork it!
-* Create your feature branch: `git checkout -b my-new-feature`
-* Commit your changes: `git commit -am 'Add some feature'`
-* Push to the branch: `git push origin my-new-feature`
-* Submit a pull request
+- Fork it!
+- Create your feature branch: `git checkout -b my-new-feature`
+- Commit your changes: `git commit -am 'Add some feature'`
+- Push to the branch: `git push origin my-new-feature`
+- Submit a pull request
 
 ## Development
 
