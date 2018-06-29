@@ -300,7 +300,6 @@ export class Compiler {
 
     if (text) {
       html = this.compile(text)
-      html = html && html.match(/<ul[^>]*>([\s\S]+)<\/ul>/g)[0]
     } else {
       const tree = this.cacheTree[currentPath] || genTree(this.toc, level)
       html = treeTpl(tree, '<ul>')
