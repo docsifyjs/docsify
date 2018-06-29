@@ -66,17 +66,27 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ## Github Task Lists
 
 ```md
-* [ ] foo
-* bar
-* [x] baz
-* [] bam <~ not working
-  * [ ] bim
-  * [ ] lim
+- [ ] foo
+- bar
+- [x] baz
+- [] bam <~ not working
+  - [ ] bim
+  - [ ] lim
 ```
 
-* [ ] foo
-* bar
-* [x] baz
-* [] bam <~ not working
-  * [ ] bim
-  * [ ] lim
+- [ ] foo
+- bar
+- [x] baz
+- [] bam <~ not working
+  - [ ] bim
+  - [ ] lim
+
+## Image resizing
+
+```md
+![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
+![logo](https://docsify.js.org/_media/icon.svg ':size=100')
+```
+
+![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
+![logo](https://docsify.js.org/_media/icon.svg ':size=100')
