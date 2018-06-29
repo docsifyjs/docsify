@@ -153,7 +153,7 @@ Disqus comments. https://disqus.com/
 </script>
 ```
 
-## Navigation
+## Pagination
 
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 

@@ -153,7 +153,7 @@ Disqus comments. https://disqus.com/
 </script>
 ```
 
-## Navigation
+## Pagination
 
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 
@@ -163,6 +163,7 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 ```
 
 ## codefund
+
 a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codesponsor.io/)
 
 > codefund is formerly known as "codesponsor"
@@ -176,4 +177,3 @@ window.$docsify = {
   ]
 }
 ```
-
