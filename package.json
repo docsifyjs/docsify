@@ -14,6 +14,7 @@
     "url": "git+https://github.com/QingWei-Li/docsify.git"
   },
   "main": "lib/docsify.js",
+  "unpkg": "lib/docsify.min.js",
   "files": [
     "lib",
     "src",
