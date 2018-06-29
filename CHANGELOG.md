@@ -1,3 +1,23 @@
+<a name="4.7.0"></a>
+# [4.7.0](https://github.com/QingWei-Li/docsify/compare/v4.6.9...v4.7.0) (2018-06-29)
+
+
+### Bug Fixes
+
+* alldow addition content in sidebar, fix [#518](https://github.com/QingWei-Li/docsify/issues/518), fix 539 ([#543](https://github.com/QingWei-Li/docsify/issues/543)) ([04b36b0](https://github.com/QingWei-Li/docsify/commit/04b36b0))
+* async install config, fixed [#425](https://github.com/QingWei-Li/docsify/issues/425) ([e4e011c](https://github.com/QingWei-Li/docsify/commit/e4e011c))
+* loading embed files synchronously, fixed [#525](https://github.com/QingWei-Li/docsify/issues/525), fixed [#527](https://github.com/QingWei-Li/docsify/issues/527) ([#544](https://github.com/QingWei-Li/docsify/issues/544)) ([feea7f9](https://github.com/QingWei-Li/docsify/commit/feea7f9))
+* path include chinese character cause hilight bug ([#556](https://github.com/QingWei-Li/docsify/issues/556)) ([a5f333a](https://github.com/QingWei-Li/docsify/commit/a5f333a))
+
+
+### Features
+
+* add logo option, [#264](https://github.com/QingWei-Li/docsify/issues/264) ([#541](https://github.com/QingWei-Li/docsify/issues/541)) ([ee72dd0](https://github.com/QingWei-Li/docsify/commit/ee72dd0))
+* add unpkg field, close [#531](https://github.com/QingWei-Li/docsify/issues/531) ([#558](https://github.com/QingWei-Li/docsify/issues/558)) ([5c0de0a](https://github.com/QingWei-Li/docsify/commit/5c0de0a))
+* support image resizing, resolve [#508](https://github.com/QingWei-Li/docsify/issues/508) ([#545](https://github.com/QingWei-Li/docsify/issues/545)) ([3a7ad62](https://github.com/QingWei-Li/docsify/commit/3a7ad62))
+
+
+
 <a name="4.6.10"></a>
 ## [4.6.10](https://github.com/QingWei-Li/docsify/compare/v4.6.9...v4.6.10) (2018-03-25)
 
