@@ -164,7 +164,7 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 
 ## codefund
 
-a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codesponsor.io/)
+a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codefund.io/)
 
 > codefund is formerly known as "codesponsor"
 

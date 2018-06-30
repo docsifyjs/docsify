@@ -21,7 +21,7 @@
   <script>
     window.$docsify = {
       alias: {
-        '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+        '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
         '/.*/_navbar.md': '/_navbar.md'
       },
       notFoundPage: '_404.html',
@@ -38,7 +38,7 @@
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
-            var url = 'https://github.com/QingWei-Li/docsify/blob/master/' + vm.route.file
+            var url = 'https://github.com/docsifyjs/docsify/blob/master/' + vm.route.file
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
             return editHtml

@@ -30,10 +30,10 @@ window.$docsify = {
 ```
 
 
-## Supports mermaid
+## mermaid Unterstützung
 
 ```js
-// Import mermaid
+// Importiere mermaid
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 //  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 

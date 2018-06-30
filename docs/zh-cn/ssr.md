@@ -2,7 +2,7 @@
 
 先看例子 https://docsify.now.sh
 
-项目地址在 https://github.com/QingWei-Li/docsify-ssr-demo
+项目地址在 https://github.com/docsifyjs/docsify-ssr-demo
 
 ![](https://dn-mhke0kuv.qbox.me/2bfef08c592706108055.png)
 
@@ -106,7 +106,7 @@ var renderer = new Renderer({
   template: readFileSync('./docs/index.template.html', 'utf-8').,
   config: {
     name: 'docsify',
-    repo: 'qingwei-li/docsify'
+    repo: 'docsifyjs/docsify'
   }
 })
 

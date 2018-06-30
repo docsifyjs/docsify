@@ -32,7 +32,7 @@ Du kannst einen lokalen Server mit dem Befehl `docsify serve` laufen lassen, und
 docsify serve docs
 ```
 
-?> Für weitere Informationen hinsichtlich der Verwendung von `docsify-cli`, siehe [docsify-cli Dokumentation](https://github.com/QingWei-Li/docsify-cli).
+?> Für weitere Informationen hinsichtlich der Verwendung von `docsify-cli`, siehe [docsify-cli Dokumentation](https://github.com/docsifyjs/docsify-cli).
 
 ## Manuelle Inbetriebnahme
 

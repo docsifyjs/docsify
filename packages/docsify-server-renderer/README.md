@@ -17,7 +17,7 @@ var renderer = new Renderer({
   template: readFileSync('./docs/index.template.html', 'utf-8').,
   config: {
     name: 'docsify',
-    repo: 'qingwei-li/docsify'
+    repo: 'docsifyjs/docsify'
   }
 })
 

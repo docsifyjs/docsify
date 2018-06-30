@@ -59,7 +59,7 @@ window.$docsify = {
         '<hr/>',
         '<footer>',
         '<span><a href="https://github.com/QingWei-Li">cinwell</a> &copy;2017.</span>',
-        '<span>Proudly published with <a href="https://github.com/QingWei-Li/docsify" target="_blank">docsify</a>.</span>',
+        '<span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>',
         '</footer>'
       ].join('')
 
@@ -79,7 +79,7 @@ window.$docsify = {
   plugins: [
     function(hook, vm) {
       hook.beforeEach(function (html) {
-        var url = 'https://github.com/QingWei-Li/docsify/blob/master/docs' + vm.route.file
+        var url = 'https://github.com/docsifyjs/docsify/blob/master/docs' + vm.route.file
         var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
 
         return editHtml

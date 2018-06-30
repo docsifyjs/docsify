@@ -22,7 +22,7 @@ if (isSSR) {
   </html>`,
     config: {
       name: 'docsify',
-      repo: 'qingwei-li/docsify',
+      repo: 'docsifyjs/docsify',
       basePath: 'https://docsify.js.org/',
       loadNavbar: true,
       loadSidebar: true,
@@ -32,7 +32,7 @@ if (isSSR) {
         '/de-de/changelog': '/changelog',
         '/zh-cn/changelog': '/changelog',
         '/changelog':
-          'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG'
+          'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG'
       }
     },
     path: './'

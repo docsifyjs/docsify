@@ -32,7 +32,7 @@ Run the local server with `docsify serve`. You can preview your site in your bro
 docsify serve docs
 ```
 
-?> For more use cases of `docsify-cli`, head over to the [docsify-cli documentation](https://github.com/QingWei-Li/docsify-cli).
+?> For more use cases of `docsify-cli`, head over to the [docsify-cli documentation](https://github.com/docsifyjs/docsify-cli).
 
 ## Manual initialization
 

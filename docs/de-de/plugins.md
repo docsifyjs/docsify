@@ -96,31 +96,31 @@ Exclude the special image
 ![](image.png ':no-zoom')
 ```
 
-## Demo code with instant preview and jsfiddle integration
+## Auf GitHub ändern
 
-With this plugin, sample code can be rendered on the page instantly, so that the readers can see the preview immediately.
-When readers expand the demo box, the source code and description are shown there. if they click the button `Try in Jsfiddle`,
-`jsfiddle.net` will be open with the code of this sample, which allow readers to revise the code and try on their own.
+Fügen deinen Seiten einen `Ändere diese Seite auf GitHub` Button hinzu. Zur Verfügung gestellt von [@njleonzhang](https://github.com/njleonzhang), siehe [njleonzhang/docsify-edit-on-github](https://github.com/njleonzhang/docsify-edit-on-github)
 
-[Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) and [React](https://njleonzhang.github.io/docsify-demo-box-react/) are both supported.
+## Beispielcode mit direkter Vorschau und Integration mit jsfiddle
 
-## Edit on github
+Mit dieser Erweiterung kann Beispielcode auf einer Seite mit einer zugehörigen Vorschau direkt angezeigt werden.
 
-Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Beim Erweitern des Demobereichs werden Quellcode und Beschreibungen mit einem `Try in Jsfiddle` Button dort angezeigt, über den man den Code selbst anpassen und ausprobieren kann.
 
-## Copy to Clipboard
+[Vue](https://njleonzhang.github.io/docsify-demo-box-vue/) und [React](https://njleonzhang.github.io/docsify-demo-box-react/) werden beide unterstützt.
 
-Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
+## Kopiere in Zwischenablage
+
+Füge den Quellcode-Blöcken auf deinen Seiten einen einfachen `Click to copy` Button hinzu. Zur Verfügung gestellt von [@jperasmus](https://github.com/jperasmus)
 
 ```html
 <script src="//unpkg.com/docsify-copy-code"></script>
 ```
 
-See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
+Siehe auch [jperasmus/docsify-copy-code](https://github.com/jperasmus/docsify-copy-code#readme).
 
 ## Disqus
 
-Disqus comments. https://disqus.com/
+[Disqus](https://disqus.com) Kommentare:
 
 ```html
 <script>
@@ -133,7 +133,7 @@ Disqus comments. https://disqus.com/
 
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
+[Gitalk](https://github.com/gitalk/gitalk) basiert auf Github Issue und Preact.
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
@@ -153,11 +153,27 @@ Disqus comments. https://disqus.com/
 </script>
 ```
 
-## Pagination
+## Seitenumbrüche
 
-Pagination for docsify. By [@imyelo](https://github.com/imyelo)
+Seitenumbrüche, zur Verfügung gestellt von [@imyelo](https://github.com/imyelo):
 
 ```html
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+```
+
+## codefund
+
+Eine [Erweiterung](https://github.com/njleonzhang/docsify-plugin-codefund) für [codefund.io](https://codefund.io/).
+
+> codefund war vorher codesponsor
+
+```
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+
+window.$docsify = {
+  plugins: [
+    DocsifyCodefund.create('xxxx-xxx-xxx') // change to your codefund id
+  ]
+}
 ```

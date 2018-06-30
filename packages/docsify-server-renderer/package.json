@@ -9,7 +9,7 @@
   },
   "homepage": "https://docsify.js.org",
   "license": "MIT",
-  "repository": "QingWei-Li/docsify",
+  "repository": "docsifyjs/docsify",
   "main": "build.js",
   "scripts": {
     "test": "echo 'hello'"

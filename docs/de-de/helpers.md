@@ -26,23 +26,24 @@ wird wie folgt gerendert:
 
 ?> _TODO_ unit test
 
-## Ignore to compile link
+## Ignorieren bestimmter Links beim Kompilieren
 
-Some time we will put some other relative path to the link, you have to need to tell docsify you don't need to compile this link. For example
+Manchmal möchten wir einen bestimmten relativen Pfad als Link. Dazu müssen wir **docsify** anweisen, diesen Link nicht zu kompilieren.
+Als Beispiel:
 
 ```md
 [link](/demo/)
 ```
 
-It will be compiled to `<a href="/#/demo/">link</a>` and will be loaded `/demo/README.md`. Maybe you want to jump to `/demo/index.html`.
+Daraus wird `<a href="/#/demo/">link</a>` und **docsify** lädt dann `/demo/README.md`. Vielleicht wolltest du aber zu `/demo/index.html`?
 
-Now you can do that
+Ändere deinen Link also zu:
 
 ```md
 [link](/demo/ ':ignore')
 ```
 
-You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set title for link.
+Nun erhälst du den Link `<a href="/demo/">link</a>`. Einen Titel kannst du wie folgt einstellen:
 
 ```md
 [link](/demo/ ':ignore title')
@@ -50,11 +51,17 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 <a href="/demo/" title="title">link</a>
 ```
 
-## Set target attribute for link
+## Setze ein target attribute für deinen Link
 
 ```md
 [link](/demo ':target=_blank')
 [link](/demo2 ':target=_self')
+```
+
+## Links deaktivieren
+
+```md
+[link](/demo ':disable')
 ```
 
 ## Github Task Lists
@@ -63,7 +70,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 - [ ] foo
 - bar
 - [x] baz
-- [] bam <~ not working
+- [] bam <~ funktioniert nicht
   - [ ] bim
   - [ ] lim
 ```
@@ -71,11 +78,11 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 - [ ] foo
 - bar
 - [x] baz
-- [] bam <~ not working
+- [] bam <~ funktioniert nicht
   - [ ] bim
   - [ ] lim
 
-## Image resizing
+## Größe von Bildern ändern
 
 ```md
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')

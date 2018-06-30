@@ -1,22 +1,22 @@
 # Server-Side Rendering
 
-See https://docsify.now.sh
+* siehe <https://docsify.now.sh>
+* Quellcode siehe <https://github.com/docsifyjs/docsify-ssr-demo>
 
-Repo in https://github.com/QingWei-Li/docsify-ssr-demo
+## Warum SSR?
 
-## Why SSR?
-- Better SEO
-- Feeling cool
+- Bessere SEO
+- Damit du dich cool fühlst!
 
-## Quick start
+## Schnellstart
 
-Install `now` and `docsify-cli` in your project.
+Installiere `now` und `docsify-cli` in deinem Projekt.
 
 ```bash
 npm i now docsify-cli -D
 ```
 
-Edit `package.json`. If the documentation in `./docs` subdirectory.
+Ändere `package.json`. Im folgenden Beispiel ist die Dokumentation im `./docs` Verzeichnis:
 
 ```json
 {
@@ -30,7 +30,7 @@ Edit `package.json`. If the documentation in `./docs` subdirectory.
   ],
   "docsify": {
     "config": {
-      "basePath": 'https://docsify.js.org/',
+      "basePath": "https://docsify.js.org/",
       "loadSidebar": true,
       "loadNavbar": true,
       "coverpage": true,
@@ -40,9 +40,9 @@ Edit `package.json`. If the documentation in `./docs` subdirectory.
 }
 ```
 
-!> The `basePath` just like webpack `publicPath`. We can use local or remote files.
+!> Für `basePath` ist dies der gleiche wie bei webpack `publicPath`. Unterstützt werden lokale oder remote Dateien.
 
-We can preview in the local to see if it works.
+Wir können lokale Dateien verwenden, um zu sehen, ob es funktioniert.
 
 ```bash
 npm start
@@ -50,17 +50,17 @@ npm start
 # open http://localhost:4000
 ```
 
-Publish it!
+Veröffentliche sie!
 
 ```bash
 now -p
 ```
 
-Now, You have a support for SSR the docs site.
+Damit hast du SSR Unterstützung für deine Dokumentation.
 
-## Custom template
+## Eigene Vorlagen
 
-You can provide a templte for entire page's HTML. such as
+Du kannst eine Vorlage für deine gesammte Seite wie folgt erstellen:
 
 ```html
 <!DOCTYPE html>
@@ -83,13 +83,14 @@ You can provide a templte for entire page's HTML. such as
 </html>
 ```
 
-The template should contain these comments for rendered app content.
+Die Vorlage sollte folgende Kommentare für die Anzeige von Inhalten enthalten:
+
  - `<!--inject-app-->`
  - `<!--inject-config-->`
 
-## Configuration
+## Einstellungen
 
-You can configure it in a special config file, or `package.json`.
+Du kannst die Einstellungen in einer speziellen Datei oder in `package.json` vornehmen:
 
 ```js
 module.exports = {
@@ -100,9 +101,9 @@ module.exports = {
 }
 ```
 
-## Deploy for your VPS
+## Deploy für deinen VPS
 
-You can run `docsify start` directly on your Node server, or write your own server app with `docsify-server-renderer`.
+Führe `docsify start` direkt auf deinem Node Server aus, oder schreibe deine eigene Server app mit `docsify-server-renderer`:
 
 ```js
 var Renderer = require('docsify-server-renderer')
@@ -113,7 +114,7 @@ var renderer = new Renderer({
   template: readFileSync('./docs/index.template.html', 'utf-8').,
   config: {
     name: 'docsify',
-    repo: 'qingwei-li/docsify'
+    repo: 'docsifyjs/docsify'
   }
 })
 

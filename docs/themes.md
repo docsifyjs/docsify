@@ -20,7 +20,7 @@ There are currently three themes available. Copy [Vue](//vuejs.org) and [buble](
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css">
 ```
 
-If you have any ideas or would like to develop a new theme, you are welcome to submit a [pull request](https://github.com/QingWei-Li/docsify/pulls).
+If you have any ideas or would like to develop a new theme, you are welcome to submit a [pull request](https://github.com/docsifyjs/docsify/pulls).
 
 #### Click to preview
 

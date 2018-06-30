@@ -2,7 +2,7 @@
 
 See https://docsify.now.sh
 
-Repo in https://github.com/QingWei-Li/docsify-ssr-demo
+Repo in https://github.com/docsifyjs/docsify-ssr-demo
 
 ## Why SSR?
 - Better SEO
@@ -114,7 +114,7 @@ var renderer = new Renderer({
   template: readFileSync('./docs/index.template.html', 'utf-8').,
   config: {
     name: 'docsify',
-    repo: 'qingwei-li/docsify'
+    repo: 'docsifyjs/docsify'
   }
 })
 
