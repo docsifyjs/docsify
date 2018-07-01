@@ -18,11 +18,11 @@ See the [Quick start](quickstart.md) for more details.
 - Emoji support
 - Compatible with IE10+
 
-* Support SSR ([example](https://github.com/QingWei-Li/docsify-ssr-demo))
+* Support SSR ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 
 ## Examples
 
-Check out the [Showcase](https://github.com/QingWei-Li/docsify/#showcase) to docsify in use.
+Check out the [Showcase](https://github.com/docsifyjs/docsify/#showcase) to docsify in use.
 
 ## Donate
 

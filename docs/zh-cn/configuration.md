@@ -5,7 +5,7 @@
 ```html
 <script>
   window.$docsify = {
-    repo: 'QingWei-Li/docsify',
+    repo: 'docsifyjs/docsify',
     maxLevel: 3,
     coverpage: true
   }
@@ -34,9 +34,9 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  repo: 'QingWei-Li/docsify',
+  repo: 'docsifyjs/docsify',
   // or
-  repo: 'https://github.com/QingWei-Li/docsify/'
+  repo: 'https://github.com/docsifyjs/docsify/'
 };
 ```
 
@@ -127,7 +127,7 @@ window.$docsify = {
 
   // 文档和仓库根目录下的 README.md 内容一致
   homepage:
-    'https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md'
+    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md'
 };
 ```
 
@@ -268,7 +268,7 @@ window.$docsify = {
     '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
-      'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+      'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
     '/.*/_sidebar.md': '/_sidebar.md' // See #301
   }
 };
@@ -278,7 +278,7 @@ window.$docsify = {
 
 - 类型：`Boolean`
 
-同时设置 `loadSidebar` 和 `autoHeader` 后，可以根据 `_sidebar.md` 的内容自动为每个页面增加标题。[#78](https://github.com/QingWei-Li/docsify/issues/78)
+同时设置 `loadSidebar` 和 `autoHeader` 后，可以根据 `_sidebar.md` 的内容自动为每个页面增加标题。[#78](https://github.com/docsifyjs/docsify/issues/78)
 
 ```js
 window.$docsify = {
@@ -379,7 +379,7 @@ window.$docsify = {
 
 - 类型: `Array`
 
-有时我们不希望 docsify 处理我们的链接。 参考 [#203](https://github.com/QingWei-Li/docsify/issues/203)
+有时我们不希望 docsify 处理我们的链接。 参考 [#203](https://github.com/docsifyjs/docsify/issues/203)
 
 ```js
 window.$docsify = {

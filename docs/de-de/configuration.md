@@ -1,11 +1,11 @@
 # Einstellungen
 
-You can configure the `window.$docsify`.
+Du kannst Einstellungen für `window.$docsify` wie folgt ändern:
 
 ```html
 <script>
   window.$docsify = {
-    repo: 'QingWei-Li/docsify',
+    repo: 'docsifyjs/docsify',
     maxLevel: 3,
     coverpage: true
   }
@@ -17,7 +17,8 @@ You can configure the `window.$docsify`.
 - Typ: `String`
 - Standard: `#app`
 
-Das DOM Element kann bei der Initialisierung gesetzt werden. Es kann ein CSS selector string oder ein richtiges HTMLElement sein.
+Das DOM Element kann bei der Initialisierung gesetzt werden.
+Es kann ein CSS selector string oder ein richtiges HTML Element sein.
 
 ```js
 window.$docsify = {
@@ -30,13 +31,13 @@ window.$docsify = {
 - Typ: `String`
 - Standard: `null`
 
-Verwende die repository URL oder eine Zeichenfolge aus `Benutzername/repo`, um das [GitHub Corner](http://tholman.com/github-corners/) widget in die obere rechte Ecke der Seite zu implementieren.
+Verwende die repository URL oder eine Zeichenfolge aus `Benutzername/repo`, um das [GitHub Corner](http://tholman.com/github-corners/) widget in der oberen rechten Ecke der Seite zu implementieren.
 
 ```js
 window.$docsify = {
-  repo: 'QingWei-Li/docsify',
+  repo: 'docsifyjs/docsify',
   // oder
-  repo: 'https://github.com/QingWei-Li/docsify/'
+  repo: 'https://github.com/docsifyjs/docsify/'
 };
 ```
 
@@ -127,7 +128,7 @@ window.$docsify = {
 
   // Oder verwende das README in deinem repo
   homepage:
-    'https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md'
+    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md'
 };
 ```
 
@@ -179,7 +180,8 @@ window.$docsify = {
 
 - Type: `String`
 
-Website logo as it appears in the sidebar, you can resize by CSS.
+Das Webseitenlogo, wie es in der Sidebar erscheint.
+Du kannst seine Größe mit CSS ändern.
 
 ```js
 window.$docsify = {
@@ -268,7 +270,7 @@ window.$docsify = {
     '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
-      'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+      'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
     '/.*/_sidebar.md': '/_sidebar.md' // See #301
   }
 };
@@ -278,7 +280,7 @@ window.$docsify = {
 
 - Typ: `Boolean`
 
-Sollten `loadSidebar` und `autoHeader` beide aktiviert sein, setze einen Header vor die Seite in jedem Link in `_sidebar.md`, bevor sie in HTML umgewandelt wird. Vergleiche [#78](https://github.com/QingWei-Li/docsify/issues/78).
+Sollten `loadSidebar` und `autoHeader` beide aktiviert sein, setze einen Header vor die Seite in jedem Link in `_sidebar.md`, bevor sie in HTML umgewandelt wird. Vergleiche [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -313,7 +315,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-Verhindere die Umwandlung in Emojis:
+Verhindere die Umwandlung in Emoji:
 
 ```js
 window.$docsify = {
@@ -337,8 +339,10 @@ window.$docsify = {
 
 - type: `String|Function`
 
-We can display the file update date through **{docsify-updated<span>}</span>** variable. And format it by `formatUpdated`.
-See https://github.com/lukeed/tinydate#patterns
+Du kannst das Datum der letzten Änderung mithilfe der Variable **`{docsify-updated}`** anzeigen.
+Dessen Format kannst du über `formatUpdated` in den Einstellungen ändern wie folgt ändern:
+
+Siehe auch <https://github.com/lukeed/tinydate#patterns>
 
 ```js
 window.$docsify = {
@@ -357,7 +361,7 @@ window.$docsify = {
 - type: `String`
 - default: `_blank`
 
-Currently it defaults to \_blank, would be nice if configurable:
+Das Ziel externer Links. Standard ist `_blank` (neues Fenster / neuer Tab):
 
 ```js
 window.$docsify = {
@@ -380,7 +384,7 @@ window.$docsify = {
 
 - type: `Array`
 
-Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
+Manchmal möchten wir nicht, dass `docsify` die Verwaltung unserer Links übernimmt, vergleiche [#203](https://github.com/docsifyjs/docsify/issues/203).
 
 ```js
 window.$docsify = {
@@ -392,7 +396,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Set the request resource headers.
+Ändere die Header für Anfragen.
 
 ```js
 window.$docsify = {
@@ -406,7 +410,7 @@ window.$docsify = {
 
 - type: `String`
 
-Request file extension.
+Dateiendung für Anfragen.
 
 ```js
 window.$docsify = {
@@ -418,13 +422,13 @@ window.$docsify = {
 
 - type: `Array<string>`
 
-List of languages that will fallback to the default language when a page is request and didn't exists for the given local.
+Liste der Sprachen, für die bei angefragten Seiten, welche nicht gefunden wurden, auf die Seiten der Standardsprache zurückgegriffen wird.
 
-Example:
+Beispiel der Abfolge von Anfragen:
 
-- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
-- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
-- then display 404 page.
+- Versuch einer Anfrage für `/de/overview`. Wenn sie existiert, wird sie angezeigt.
+- Danach Versuch einer Anfrage an `/overview` (abhängig von der Standardsprache). Darstellung dieser, wenn sie existiert.
+- Danach Anzeige der 404 (Fehler-) Seite.
 
 ```js
 window.$docsify = {
@@ -436,7 +440,7 @@ window.$docsify = {
 
 - type: `Boolean` | `String` | `Object`
 
-Load the `_404.md` file:
+Lade die `_404.md` Datei:
 
 ```js
 window.$docsify = {
@@ -444,7 +448,7 @@ window.$docsify = {
 };
 ```
 
-Load the customised path of the 404 page:
+Lade einen eigens definierten Zielpfad für die 404 Seite:
 
 ```js
 window.$docsify = {
@@ -452,7 +456,7 @@ window.$docsify = {
 };
 ```
 
-Load the right 404 page according to the localisation:
+Lade die richtige 404 Seite abhängig von der aktuellen Sprache:
 
 ```js
 window.$docsify = {
@@ -463,4 +467,4 @@ window.$docsify = {
 };
 ```
 
-> Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+> Notiz: Die Einstellungen für `fallbackLanguages` funktionieren aktuell nicht bei gleichzeitiger Verwendung von `notFoundPage`.

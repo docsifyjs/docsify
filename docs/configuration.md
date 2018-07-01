@@ -5,7 +5,7 @@ You can configure the `window.$docsify`.
 ```html
 <script>
   window.$docsify = {
-    repo: 'QingWei-Li/docsify',
+    repo: 'docsifyjs/docsify',
     maxLevel: 3,
     coverpage: true
   }
@@ -34,9 +34,9 @@ Configure the repository url or a string of `username/repo` can add the [GitHub 
 
 ```js
 window.$docsify = {
-  repo: 'QingWei-Li/docsify',
+  repo: 'docsifyjs/docsify',
   // or
-  repo: 'https://github.com/QingWei-Li/docsify/'
+  repo: 'https://github.com/docsifyjs/docsify/'
 };
 ```
 
@@ -127,7 +127,7 @@ window.$docsify = {
 
   // Or use the readme in your repo
   homepage:
-    'https://raw.githubusercontent.com/QingWei-Li/docsify/master/README.md'
+    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md'
 };
 ```
 
@@ -268,7 +268,7 @@ window.$docsify = {
     '/foo/(+*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
-      'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG',
+      'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
     '/.*/_sidebar.md': '/_sidebar.md' // See #301
   }
 };
@@ -278,7 +278,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to html. Compare [#78](https://github.com/QingWei-Li/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to html. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -380,7 +380,7 @@ window.$docsify = {
 
 - type: `Array`
 
-Sometimes we do not want docsify to handle our links. See [#203](https://github.com/QingWei-Li/docsify/issues/203)
+Sometimes we do not want docsify to handle our links. See [#203](https://github.com/docsifyjs/docsify/issues/203)
 
 ```js
 window.$docsify = {

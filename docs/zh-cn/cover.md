@@ -30,7 +30,7 @@ _\_coverpage.md_
 * Multiple themes
 * Not build static html files
 
-[GitHub](https://github.com/QingWei-Li/docsify/)
+[GitHub](https://github.com/docsifyjs/docsify/)
 [Get Started](#quick-start)
 ```
 
@@ -45,7 +45,7 @@ _\_coverpage.md_
 ```markdown
 # docsify
 
-[GitHub](https://github.com/QingWei-Li/docsify/)
+[GitHub](https://github.com/docsifyjs/docsify/)
 [Get Started](#quick-start)
 
 <!-- 背景图片 -->

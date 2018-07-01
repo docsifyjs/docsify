@@ -20,7 +20,7 @@ Es gibt im Moment vier Themes zur Auswahl, ähnlich wie die Webseiten von [Vue](
 <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css">
 ```
 
-Solltest du weitere Themes erstellen, kannst du sie gerne der Allgemeinheit mit einem [pull request](https://github.com/QingWei-Li/docsify/pulls) zur Verfügung stellen.
+Solltest du weitere Themes erstellen, kannst du sie gerne der Allgemeinheit mit einem [pull request](https://github.com/docsifyjs/docsify/pulls) zur Verfügung stellen.
 
 #### Klicke hier für eine Vorschau
 
@@ -57,6 +57,6 @@ Solltest du weitere Themes erstellen, kannst du sie gerne der Allgemeinheit mit 
 
 
 
-## Other themes
+## Andere themes
 
-- [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/) A delightfully simple theme system for docsify.
+- [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/) Ein erfreulicherweise einfaches theme system für docsify.

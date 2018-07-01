@@ -27,8 +27,8 @@
   <script>
     window.$docsify = {
       alias: {
-        '.*?/awesome': 'https://raw.githubusercontent.com/QingWei-Li/awesome-docsify/master/README.md',
-        '.*?/changelog': 'https://raw.githubusercontent.com/QingWei-Li/docsify/master/CHANGELOG.md',
+        '.*?/awesome': 'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
+        '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
         '/.*/_navbar.md': '/_navbar.md'
       },
       auto2top: true,
@@ -58,7 +58,7 @@
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
-            var url = 'https://github.com/QingWei-Li/docsify/blob/master/docs/' + vm.route.file
+            var url = 'https://github.com/docsifyjs/docsify/blob/master/docs/' + vm.route.file
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
             return editHtml

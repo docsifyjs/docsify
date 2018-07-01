@@ -1,6 +1,7 @@
 # Noch mehr Seiten
 
-Wenn du mehr Seiten für deine Dokumentation brauchst, so kannst du weitere Markdown Dateien in deinem **docsify** Ordner erstellen. Eine Datei namens `guide.md` ist dann über `/#/guide` erreichbar.
+Wenn du mehr Seiten für deine Dokumentation brauchst, so kannst du weitere Markdown Dateien in deinem **docsify** Ordner erstellen.
+Eine Datei namens `guide.md` ist dann über `/#/guide` erreichbar.
 
 Nehmen wir als Beispiel folgende Verzeichnisstruktur:
 
@@ -25,7 +26,8 @@ docs/de-de/guide.md   => http://domain.com/de-de/guide
 
 ## Seitenleiste mit Inhaltsverzeichnis anpassen
 
-Als Standardeinstellung wird das Inhaltsverzeichnis in der Seitenleiste automatisch basierend auf vorhandenen Markdown Dateien generiert. Wenn du das seitliche Inhaltsverzeichnis anpassen willst, kannst du eine Datei namens `_sidebar.md` erstellen (vergleiche [das seitliche Inhaltsverzeichnis für diese Dokumentation](https://github.com/QingWei-Li/docsify/blob/master/docs/de-de/_sidebar.md) als Beispiel):
+Als Standardeinstellung wird das Inhaltsverzeichnis in der Seitenleiste automatisch basierend auf vorhandenen Markdown Dateien generiert.
+Wenn du das seitliche Inhaltsverzeichnis anpassen willst, kannst du eine Datei namens `_sidebar.md` erstellen (vergleiche [das seitliche Inhaltsverzeichnis für diese Dokumentation](https://github.com/docsifyjs/docsify/blob/master/docs/de-de/_sidebar.md) als Beispiel):
 
 Als Erstes musst du `loadSidebar` auf **true** setzen, vergleiche [Einstellungen für das seitliche Inhaltsverzeichnis](configuration.md#loadsidebar).
 
@@ -53,7 +55,7 @@ Als Zweites erstellst du eine Datei namens `_sidebar.md`:
 
 `_sidebar.md` wird in jedem Verzeichnislevel geladen. Sollte das aktuelle Verzeichnis keine Datei namens `_sidebar.md` haben, so sucht **docsify** in den übergeordneten Ordnern. Wenn du z.B. im Moment im Verzeichnis `/guide/quick-start` bist, so wird `_sidebar.md` von der Datei `/guide/_sidebar.md` geladen.
 
-You can specify `alias` to avoid unnecessary fallback.
+Du kannst `alias` definieren, um einen überflüssigen fallback zu vermeiden.
 
 ```html
 <script>
@@ -82,9 +84,10 @@ Eine angepasste Seitenleist kann auch automatisch ein Inhaltsverzeichnis generie
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
 
-## Ignoring Subheaders
+## Ignorieren vun untergeordneten Überschriften
 
-When `subMaxLevel` is set, each header is automatically added to the table of contents by default. If you want to ignore a specific header, add `{docsify-ignore}` to it.
+Wenn `subMaxLevel` definiert ist, wird jede Überschrift in der Standardeinstellung zum Inhaltsverzeichnis hinzugefügt.
+Wenn du bestimmte Überschriften ignorieren möchtest, füge ihnen **`{docsify-ignore}`** hinzu.
 
 ```markdown
 # Getting Started
@@ -94,7 +97,7 @@ When `subMaxLevel` is set, each header is automatically added to the table of co
 This header won't appear in the sidebar table of contents.
 ```
 
-To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on the first header of the page.
+Um alle Überschriften auf einer Seite zu ignorieren, füge der ersten Überschrift auf der Seite **`{docsify-ignore-all}`** hinzu.
 
 ```markdown
 # Getting Started {docsify-ignore-all}
@@ -104,4 +107,4 @@ To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on 
 This header won't appear in the sidebar table of contents.
 ```
 
-Both `{docsify-ignore}` and `{docsify-ignore-all}` will not be rendered on the page when used.
+Beide Variablen, sowohl **`{docsify-ignore}`** als auch **`{docsify-ignore-all}`**, werden auf der Seite nicht gerendert (angezeigt).

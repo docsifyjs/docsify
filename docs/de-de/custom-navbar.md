@@ -42,9 +42,11 @@ Oder du kannst deine Navigationsleiste mit einer Datei basierend auf Markdown er
 
 !> Solltest du Github Pages verwenden, musst du zusätzlich eine Datei namens `.nojekyll` in `./docs` erstellen, um zu verhindern, dass Github Dateien ignoriert, die mit einem Unterstrich anfangen.
 
-`_navbar.md` wird in jedem Verzeichnislevel geladen. Sollte das aktuelle Verzeichnis keine Datei namens `_navbar.md` haben, so sucht **docsify** in den übergeordneten Ordnern. Wenn du z.B. im Moment im Verzeichnis `/guide/quick-start` bist, so wird `_navbar.md` von der Datei `/guide/_navbar.md` geladen.
+`_navbar.md` wird in jedem Verzeichnislevel geladen.
+Sollte das aktuelle Verzeichnis keine Datei namens `_navbar.md` haben, so sucht **docsify** in den übergeordneten Ordnern.
+Wenn du z.B. im Moment im Verzeichnis `/guide/quick-start` bist, so wird `_navbar.md` von der Datei `/guide/_navbar.md` geladen.
 
-## Aufbauen von Strukturen
+## Verschachtelung
 
 Du kannst untergeordnete Listen erstellen, indem du untergeordnete Punkte einem übergeordneten Punkt gegenüber einrückst.
 
@@ -68,9 +70,9 @@ Du kannst untergeordnete Listen erstellen, indem du untergeordnete Punkte einem 
 
 wird also wie folgt aussehen
 
-![Nesting navbar](../_images/nested-navbar.png 'Nesting navbar')
+![Verschachtelte navbar](../_images/nested-navbar.png 'Verschachtelte navbar')
 
-## Angepasste Navigationsleisten in Verbindung mit dem emoji Erweiterung
+## Verbindung von eigens angepassten Navigationsleisten mit der emoji Erweiterung
 
 Solltest du die [emoji Erweiterung](plugins.md#emoji) verwenden:
 

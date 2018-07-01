@@ -32,7 +32,7 @@ docsify init ./docs
 docsify serve docs
 ```
 
-?> 更多命令行工具用法，参考 [docsify-cli 文档](https://github.com/QingWei-Li/docsify-cli)。
+?> 更多命令行工具用法，参考 [docsify-cli 文档](https://github.com/docsifyjs/docsify-cli)。
 
 ## 手动初始化
 

@@ -22,7 +22,7 @@ Setze `coverpage` auf **true**, und erstelle `_coverpage.md`:
 
 ![logo](_media/icon.svg)
 
-# docsify <small>3.5</small>
+# docsify <small>4.7.0</small>
 
 > Ein magischer Generator für Dokumentationsseiten.
 
@@ -30,7 +30,7 @@ Setze `coverpage` auf **true**, und erstelle `_coverpage.md`:
 * Keine statischen HTML Dateien
 * Mehrere Themes
 
-[GitHub](https://github.com/QingWei-Li/docsify/)
+[GitHub](https://github.com/docsifyjs/docsify/)
 [Schnellstart](#docsify)
 ```
 
@@ -38,14 +38,15 @@ Setze `coverpage` auf **true**, und erstelle `_coverpage.md`:
 
 ## Eigener Hintergrund
 
-Die Hintergrundfarbe wird in der Standardeinstellung zufällig generiert. Du kannst sie anpassen, oder auch ein Hintergrundbild verwenden:
+Die Hintergrundfarbe wird in der Standardeinstellung zufällig generiert.
+Du kannst sie anpassen, oder auch ein Hintergrundbild verwenden:
 
 ```markdown
 <!-- _coverpage.md -->
 
-# docsify <small>3.5</small>
+# docsify <small>4.7.0</small>
 
-[GitHub](https://github.com/QingWei-Li/docsify/)
+[GitHub](https://github.com/docsifyjs/docsify/)
 [Schnellstart](#quick-start)
 
 <!-- Hintegrundbild -->
@@ -57,15 +58,16 @@ Die Hintergrundfarbe wird in der Standardeinstellung zufällig generiert. Du kan
 ![color](#f0f0f0)
 ```
 
-## Coverpage as homepage
+## Titelseite als Startseite
 
-Normal, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [onlyCover option](de-de/configuration.md#onlycover).
+Für gewöhnlich werden die Titelseite und die Startseite zusammen auf einer Seite angezeigt.
+Diese kann man natürlich auch mit der [`onlyCover` Einstellung](de-de/configuration.md#onlycover) ändern.
 
-## Multiple covers
+## Mehrere Titelseiten
 
-If your docs site is in more than one language, it may be useful to set multiple covers.
+Sollte deine Dokumentation in mehreren Sprachen zur Verfügung stehen, macht es Sinn, auch mehrere Titelseiten zu erstellen.
 
-For example, your docs structure is like this
+Für folgende Struktur:
 
 ```text
 .
@@ -73,27 +75,27 @@ For example, your docs structure is like this
     ├── README.md
     ├── guide.md
     ├── _coverpage.md
-    └── zh-cn
+    └── de-de
         ├── README.md
         └── guide.md
         └── _coverpage.md
 ```
 
-Now, you can set
+definiere wie folgt:
 
 ```js
 window.$docsify = {
-  coverpage: ['/', '/zh-cn/']
+  coverpage: ['/', '/de-de/']
 };
 ```
 
-Or a special file name
+oder bei Verwendung abweichender Dateinamen:
 
 ```js
 window.$docsify = {
   coverpage: {
     '/': 'cover.md',
-    '/zh-cn/': 'cover.md'
+    '/de-de/': 'cover.md'
   }
 };
 ```

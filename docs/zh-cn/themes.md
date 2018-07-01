@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css">
 ```
 
-如果你有其他想法或者想开发别的主题，欢迎提 [PR](https://github.com/QingWei-Li/docsify/pulls)。
+如果你有其他想法或者想开发别的主题，欢迎提 [PR](https://github.com/docsifyjs/docsify/pulls)。
 
 #### 点击切换主题
 

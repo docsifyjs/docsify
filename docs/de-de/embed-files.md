@@ -1,27 +1,27 @@
-# Embed files
+# Einbinden von Dateien
 
-With docsify 4.6 it is now possible to embed any type of file.
-You can embed these files as video, audio, iframes, or code blocks, and even Markdown files can even be embedded directly into the document.
+Mit docsify `4.6` ist es jetzt möglich, jede Art von Datei einzubinden.
+Du kannst Dateien als Video, Audio, iframes oder Code Blöcke einbinden. Markdown Dateien können sogar direkt eingebunden werden.
 
-For example, here embedded a Markdown file. You only need to do this:
+Als Beispiel binden wir hier eine Markdown Datei ein:
 
 ```markdown
-[filename](../_media/example.md ':include')
+[Dateiname](_media/example.md ':include')
 ```
 
-Then the content of `example.md` will be displayed directly here
+Dabei wird der Inhalt der Datei `example.md` direkt eingebunden. Zum Beispiel wie folgt:
 
-[filename](../_media/example.md ':include')
+[Dateiname](_media/example.md ':include')
 
-You can check the original content for [example.md](../_media/example.md ':ignore').
+Vergleiche diesen Link: [example.md](_media/example.md ':ignore').
 
-Normally, this will compiled into a link, but in docsify, if you add `:include` it will be embedded.
+Für gewöhnlich wäre dies ein Link. Bei der Verwendung von `:include` bindet **`docsify`** diese Datei jedoch direkt ein.
 
-## Embedded file type
+## Einbinden bestimmter Dateitypen
 
-Currently, file extension are automatically recognized and embedded in different ways.
+Aktuell werden Dateiendungen automatisch erkannt. **docsify** bindet abhängig davon Dateien unterschiedlich ein.
 
-This is a supported embedding type:
+Unterstützt werden derzeit:
 
 * **iframe** `.html`, `.htm`
 * **markdown** `.markdown`, `.md`
@@ -29,19 +29,19 @@ This is a supported embedding type:
 * **video** `.mp4`, `.ogg`
 * **code** other file extension
 
-Of course, you can force the specified. For example, you want to Markdown file as code block embedded.
+Natürlich kannst du auch einen bestimmten Typ bei der Einbindung einer Datei erzwingen:
 
 ```markdown
-[filename](../_media/example.md ':include :type=code')
+[Dateiname](_media/example.md ':include :type=code')
 ```
 
-You will get it
+Obiges Beispiel hier:
 
-[filename](../_media/example.md ':include :type=code')
+[Dateiname](_media/example.md ':include :type=code')
 
 ## Tag attribute
 
-If you embed the file as `iframe`, `audio` and `video`, then you may need to set the attributes of these tags.
+Wenn du eine Datei als `iframe`, `audio` oder `video` einbindest, kann dies das Definieren bestimmter Attribute erfordern.
 
 ```markdown
 [cinwell website](https://cinwell.com ':include :type=iframe width=100% height=400px')
@@ -49,18 +49,18 @@ If you embed the file as `iframe`, `audio` and `video`, then you may need to set
 
 [cinwell website](https://cinwell.com ':include :type=iframe width=100% height=400px')
 
-Did you see it? You only need to write directly. You can check [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) for these attributes.
+Hast du die Seite gesehen? Du kannst also direkt über einen Markdown-Link Webseiten einfügen. Vergleiche [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) für eine Liste von Attributen.
 
-## The code block highlight
+## Hervorhebung von Code Blöcken
 
-Embedding any type of source code file, you can specify the highlighted language or automatically identify.
+Beim Einbinden von Source Code Dateien jeglichen Typs kannst du die hervorgehobene Sprache automatisch erkennen lassen oder auch selbst definieren.
 
 ```markdown
-[](../_media/example.html ':include :type=code text')
+[](_media/example.html ':include :type=code text')
 ```
 
 ⬇️
 
-[](../_media/example.html ':include :type=code text')
+[](_media/example.html ':include :type=code text')
 
-?> How to set highlight? You can see [here](language-highlight.md).
+?> Wie genau ging das nochmal mit der Hervorhebung? Vergleiche [diese Seite](language-highlight.md).

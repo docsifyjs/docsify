@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/QingWei-Li/docsify.git"
+    "url": "git+https://github.com/docsifyjs/docsify.git"
   },
   "main": "lib/docsify.js",
   "unpkg": "lib/docsify.min.js",
