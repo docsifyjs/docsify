@@ -29,7 +29,9 @@
       alias: {
         '.*?/awesome': 'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
         '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
-        '/.*/_navbar.md': '/_navbar.md'
+        '/.*/_navbar.md': '/_navbar.md',
+        '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
+        '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1'
       },
       auto2top: true,
       coverpage: true,
