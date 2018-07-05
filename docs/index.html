@@ -62,7 +62,13 @@
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
-            var url = 'https://github.com/docsifyjs/docsify/blob/master/docs/' + vm.route.file
+            if (/githubusercontent\.com/.test(vm.route.file)) {
+              url = vm.route.file
+                .replace('raw.githubusercontent.com', 'github.com')
+                .replace(/\/master/, '/blob/master')
+            } else {
+              url = 'https://github.com/docsifyjs/docsify/blob/master/' + vm.route.file
+            }
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
             return editHtml
