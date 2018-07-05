@@ -1,6 +1,7 @@
 *.log
 .DS_Store
-/themes/
+/themes/*
+!.gitkeep
 node_modules
 /lib/
 .idea
