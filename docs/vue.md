@@ -10,7 +10,7 @@ Load the Vue in `./index.html`.
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/docsify"></script>
 
-<!-- or use the compressed files -->
+<!-- Or use the compressed files -->
 <script src="//unpkg.com/vue/dist/vue.min.js"></script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 ```
@@ -61,10 +61,10 @@ You can manually initialize a Vue instance.
 *index.html*
 
 ```html
-<!-- inject css file -->
+<!-- Inject CSS file -->
 <link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
 
-<!-- inject javascript file -->
+<!-- Inject JavaScript file -->
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/vuep"></script>
 <script src="//unpkg.com/docsify"></script>
@@ -96,4 +96,4 @@ You can manually initialize a Vue instance.
 </script>
 ```
 
-?> Example Refer to the [vuep documentation](https://qingwei-li.github.io/vuep/).
+?> Example Refer to the [Vuep documentation](https://qingwei-li.github.io/vuep/).
