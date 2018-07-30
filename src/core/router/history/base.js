@@ -76,6 +76,11 @@ export class History {
         (idIndex > 0 ? currentRoute.substr(0, idIndex) : currentRoute) + path
     }
 
-    return cleanPath('/' + path)
+    if (currentRoute !== undefined) {
+      currentRoute = currentRoute.substr(0, currentRoute.lastIndexOf('/') + 1)
+      console.log(currentRoute, path)
+    }
+
+    return cleanPath(path.startsWith('/') ? path : currentRoute + path)
   }
 }
