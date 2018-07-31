@@ -78,21 +78,18 @@ export function cover() {
  * @param  {String} tpl
  * @return {String}
  */
-export function tree(toc, tpl = '') {
+export function tree(toc, tpl = '<ul class="app-sub-sidebar">{inner}</ul>') {
   if (!toc || !toc.length) {
     return ''
   }
-
+  let innerHTML = ''
   toc.forEach(node => {
-    tpl += `<li><a class="section-link" href="${node.slug}">${
-      node.title
-    }</a></li>`
+    innerHTML += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`
     if (node.children) {
-      tpl += `<li><ul class="children">${tree(node.children)}</li></ul>`
+      innerHTML += tree(node.children, tpl)
     }
   })
-
-  return tpl
+  return tpl.replace('{inner}', innerHTML)
 }
 
 export function helper(className, content) {
