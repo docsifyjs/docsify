@@ -3,7 +3,8 @@ import {
   isAbsolutePath,
   stringifyQuery,
   cleanPath,
-  replaceSlug
+  replaceSlug,
+  resolvePath
 } from '../util'
 import {noop, merge} from '../../util/core'
 
@@ -76,11 +77,13 @@ export class History {
         (idIndex > 0 ? currentRoute.substr(0, idIndex) : currentRoute) + path
     }
 
-    if (currentRoute !== undefined) {
-      currentRoute = currentRoute.substr(0, currentRoute.lastIndexOf('/') + 1)
-      console.log(currentRoute, path)
+    if (path.startsWith('/')) {
+      return cleanPath(path)
     }
 
-    return cleanPath(path.startsWith('/') ? path : currentRoute + path)
+    if (currentRoute !== undefined) {
+      const currentDir = currentRoute.substr(0, currentRoute.lastIndexOf('/') + 1)
+      return cleanPath(resolvePath(currentDir + path))
+    }
   }
 }

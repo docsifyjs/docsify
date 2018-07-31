@@ -60,3 +60,19 @@ export function getPath(...args) {
 export const replaceSlug = cached(path => {
   return path.replace('#', '?id=')
 })
+
+export const resolvePath = cached(path => {
+  const segments = path.replace(/^\//, '').split('/')
+  let resolved = []
+
+  for (let i = 0, len = segments.length; i < len; i++) {
+    const segment = segments[i]
+
+    if (segment === '..') {
+      resolved.pop()
+    } else if (segment !== '.') {
+      resolved.push(segment)
+    }
+  }
+  return '/' + resolved.join('/')
+})
