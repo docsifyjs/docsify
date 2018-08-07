@@ -163,7 +163,7 @@ export class Compiler {
 
     /**
      * Render anchor tag
-     * @link https://github.com/chjj/marked#overriding-renderer-methods
+     * @link https://github.com/markedjs/marked#overriding-renderer-methods
      */
     origin.heading = renderer.heading = function (text, level) {
       const nextToc = {level, title: text}
