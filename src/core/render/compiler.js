@@ -302,7 +302,7 @@ export class Compiler {
       html = this.compile(text)
     } else {
       const tree = this.cacheTree[currentPath] || genTree(this.toc, level)
-      html = treeTpl(tree, '<ul>')
+      html = treeTpl(tree, '<ul>{inner}</ul>')
       this.cacheTree[currentPath] = tree
     }
 
@@ -331,7 +331,7 @@ export class Compiler {
 
     cacheTree[currentPath] = tree
     this.toc = []
-    return treeTpl(tree, '<ul class="app-sub-sidebar">')
+    return treeTpl(tree)
   }
 
   article(text) {
