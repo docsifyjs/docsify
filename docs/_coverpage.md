@@ -9,4 +9,4 @@
 * Multiple themes
 
 [GitHub](https://github.com/docsifyjs/docsify/)
-[Get Started](#docsify)
+[Getting Started](#docsify)
