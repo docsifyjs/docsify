@@ -1,3 +1,8 @@
+<a name="4.7.1"></a>
+## [4.7.1](https://github.com/docsifyjs/docsify/compare/v4.7.0...v4.7.1) (2018-08-30)
+
+
+
 <a name="4.7.0"></a>
 # [4.7.0](https://github.com/QingWei-Li/docsify/compare/v4.6.9...v4.7.0) (2018-06-29)
 
