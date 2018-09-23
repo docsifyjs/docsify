@@ -30,6 +30,11 @@ const compileMedia = {
       url
     }
   },
+  mermaid(url) {
+    return {
+      url
+    }
+  },
   iframe(url, title) {
     return {
       code: `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
@@ -127,6 +132,8 @@ export class Compiler {
         let type = 'code'
         if (/\.(md|markdown)/.test(href)) {
           type = 'markdown'
+        } else if (/\.mmd/.test(href)) {
+          type = 'mermaid'
         } else if (/\.html?/.test(href)) {
           type = 'iframe'
         } else if (/\.(mp4|ogg)/.test(href)) {

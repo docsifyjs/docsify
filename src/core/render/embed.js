@@ -27,6 +27,9 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
                 text.replace(/`/g, '@DOCSIFY_QM@') +
                 '\n```\n'
             )
+          } else if (token.embed.type === 'mermaid') {
+            embedToken = [{type: 'html', text: `<div class="mermaid">\n${text}\n</div>`}]
+            embedToken.links = {}
           }
         }
         cb({token, embedToken})
@@ -64,7 +67,10 @@ export function prerenderEmbed({compiler, raw = '', fetch}, done) {
           const embed = compiler.compileEmbed(href, title)
 
           if (embed) {
-            if (embed.type === 'markdown' || embed.type === 'code') {
+            if (embed.type === 'markdown' ||
+              embed.type === 'code' ||
+              embed.type === 'mermaid'
+            ) {
               embedTokens.push({
                 index,
                 embed
