@@ -8,12 +8,14 @@ const isProd = process.env.NODE_ENV === 'production'
 const version = process.env.VERSION || require('../package.json').version
 const chokidar = require('chokidar')
 const path = require('path')
+const json = require('rollup-plugin-json')
 
 const build = function(opts) {
   rollup
     .rollup({
       input: opts.input,
       plugins: (opts.plugins || []).concat([
+        json(),
         buble(),
         commonjs(),
         nodeResolve(),
