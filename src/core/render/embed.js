@@ -53,10 +53,31 @@ export function prerenderEmbed({compiler, raw = '', fetch}, done) {
   const compile = compiler._marked
   let tokens = compile.lexer(raw)
   const embedTokens = []
+  const embedHtmlTokens = []
   const linkRE = compile.InlineLexer.rules.link
   const links = tokens.links
 
   tokens.forEach((token, index) => {
+    if (token.type === 'html') {
+      token.text = token.text.replace(
+        new RegExp(linkRE.source, 'gm'),
+        (src, filename, href, title) => {
+          const embed = compiler.compileEmbed(href, title)
+          if (embed) {
+            if (embed.type === 'markdown' || embed.type === 'code') {
+              embedHtmlTokens.push({
+                src,
+                embed,
+                index: index
+              })
+            }
+            return src
+          }
+
+          return src
+        }
+      )
+    }
     if (token.type === 'paragraph') {
       token.text = token.text.replace(
         new RegExp(linkRE.source, 'g'),
@@ -76,6 +97,13 @@ export function prerenderEmbed({compiler, raw = '', fetch}, done) {
           return src
         }
       )
+    }
+  })
+
+  walkFetchEmbed({compile, embedTokens: embedHtmlTokens, fetch}, ({embedToken, token}) => {
+    if (token) {
+      const html = compiler.compile(embedToken)
+      tokens[token.index].text = tokens[token.index].text.replace(token.src, html)
     }
   })
 
