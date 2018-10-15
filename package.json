@@ -42,7 +42,7 @@
     "postinstall": "opencollective postinstall"
   },
   "dependencies": {
-    "marked": "^0.3.12",
+    "marked": "^0.5.1",
     "medium-zoom": "^0.4.0",
     "opencollective": "^1.0.3",
     "prismjs": "^1.9.0",
