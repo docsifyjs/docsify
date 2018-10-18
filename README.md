@@ -17,10 +17,10 @@
   <a href="https://gitter.im/docsifyjs/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link"><img alt="gitter" src="https://img.shields.io/gitter/room/docsifyjs/docsify.svg?style=flat-square"></a>
 </p>
 
-<p align="center">Glod Sponsor via <a href="https://opencollective.com/docsify">Open Collective</a></p>
+<p align="center">Gold Sponsor via <a href="https://opencollective.com/docsify">Open Collective</a></p>
 
 <p align="center">
-  <a href="https://opencollective.com/docsify/tiers/gold-sponsor/website">
+  <a href="https://opencollective.com/docsify/order/3254">
     <img src="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=36">
   </a>
 </p>
