@@ -177,3 +177,11 @@ window.$docsify = {
   ]
 }
 ```
+
+## Tabs
+
+A docsify.js plugin for displaying tabbed content from markdown.
+
+* [Documentation & Demos](https://jhildenbiddle.github.io/docsify-tabs)
+
+Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
