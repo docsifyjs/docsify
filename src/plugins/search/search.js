@@ -1,5 +1,4 @@
 let INDEXS = {}
-let helper
 
 function escapeHtml(string) {
   const entityMap = {
@@ -17,7 +16,7 @@ function escapeHtml(string) {
 function getAllPaths(router) {
   const paths = []
 
-  helper.dom.findAll('a:not([data-nosearch])').forEach(node => {
+  document.querySelectorAll('.sidebar-nav a:not(.section-link):not([data-nosearch])').forEach(node => {
     const href = node.href
     const originHref = node.getAttribute('href')
     const path = router.parse(href).path
@@ -149,8 +148,6 @@ export function search(query) {
 }
 
 export function init(config, vm) {
-  helper = Docsify
-
   const isAuto = config.paths === 'auto'
   const isExpired = localStorage.getItem('docsify.search.expires') < Date.now()
 
@@ -171,7 +168,7 @@ export function init(config, vm) {
       return count++
     }
 
-    helper
+    Docsify
       .get(vm.router.getFile(path), false, vm.config.requestHeaders)
       .then(result => {
         INDEXS[path] = genIndex(path, result, vm.router, config.depth)
