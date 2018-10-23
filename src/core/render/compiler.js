@@ -213,7 +213,7 @@ export class Compiler {
         }
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
-        attrs += ` target="${linkTarget}"`
+        attrs += href.startsWith('mailto:') ? '' : ` target="${linkTarget}"`
       }
 
       if (config.target) {
