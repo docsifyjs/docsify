@@ -1,4 +1,5 @@
 import {merge, hyphenate, isPrimitive, hasOwn} from './util/core'
+import {version as pkgVersion} from './../../package.json'
 
 export default function () {
   const config = merge(
@@ -64,6 +65,7 @@ export default function () {
     }
   }
 
+  config.version = pkgVersion
   window.$docsify = config
 
   return config
