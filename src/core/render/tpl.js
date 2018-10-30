@@ -36,7 +36,7 @@ export function main(config) {
     '</button>' +
     '<aside class="sidebar">' +
     (config.name ?
-      `<h1><a class="app-name-link" data-nosearch>${
+      `<h1 class="app-name"><a class="app-name-link" data-nosearch>${
         config.logo ?
           `<img alt=${config.name} src=${config.logo}>` :
           config.name

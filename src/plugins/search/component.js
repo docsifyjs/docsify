@@ -1,6 +1,7 @@
 import {search} from './search'
 
 let NO_DATA_TEXT = ''
+let options
 
 function style() {
   const code = `
@@ -86,12 +87,16 @@ function style() {
 
 .search p.empty {
   text-align: center;
+}
+
+.app-name.hide, .sidebar-nav.hide {
+  display: none;
 }`
 
   Docsify.dom.style(code)
 }
 
-function tpl(opts, defaultValue = '') {
+function tpl(defaultValue = '') {
   const html =
     `<div class="input-wrap">
       <input type="search" value="${defaultValue}" />
@@ -116,11 +121,18 @@ function doSearch(value) {
   const $search = Docsify.dom.find('div.search')
   const $panel = Docsify.dom.find($search, '.results-panel')
   const $clearBtn = Docsify.dom.find($search, '.clear-button')
+  const $sidebarNav = Docsify.dom.find('.sidebar-nav')
+  const $appName = Docsify.dom.find('.app-name')
 
   if (!value) {
     $panel.classList.remove('show')
     $clearBtn.classList.remove('show')
     $panel.innerHTML = ''
+
+    if (options.hideOtherSidebarContent) {
+      $sidebarNav.classList.remove('hide')
+      $appName.classList.remove('hide')
+    }
     return
   }
   const matchs = search(value)
@@ -138,6 +150,10 @@ function doSearch(value) {
   $panel.classList.add('show')
   $clearBtn.classList.add('show')
   $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`
+  if (options.hideOtherSidebarContent) {
+    $sidebarNav.classList.add('hide')
+    $appName.classList.add('hide')
+  }
 }
 
 function bindEvents() {
@@ -188,16 +204,22 @@ function updateNoData(text, path) {
   }
 }
 
+function updateOptions(opts) {
+  options = opts
+}
+
 export function init(opts, vm) {
   const keywords = vm.router.parse().query.s
 
+  updateOptions(opts)
   style()
-  tpl(opts, keywords)
+  tpl(keywords)
   bindEvents()
   keywords && setTimeout(_ => doSearch(keywords), 500)
 }
 
 export function update(opts, vm) {
+  updateOptions(opts)
   updatePlaceholder(opts.placeholder, vm.route.path)
   updateNoData(opts.noData, vm.route.path)
 }
