@@ -1,3 +1,27 @@
+<a name="4.8.0"></a>
+# [4.8.0](https://github.com/docsifyjs/docsify/compare/v4.7.1...v4.8.0) (2018-10-31)
+
+
+### Bug Fixes
+
+* Cache TOC for later usage in the case of cached file html ([#649](https://github.com/docsifyjs/docsify/issues/649)) ([9e86017](https://github.com/docsifyjs/docsify/commit/9e86017))
+* improve external script plugin ([#632](https://github.com/docsifyjs/docsify/issues/632)) ([50c2434](https://github.com/docsifyjs/docsify/commit/50c2434))
+* missing variable declaration ([#660](https://github.com/docsifyjs/docsify/issues/660)) ([1ce37bd](https://github.com/docsifyjs/docsify/commit/1ce37bd))
+* Remove target for mailto links ([#652](https://github.com/docsifyjs/docsify/issues/652)) ([18f0f03](https://github.com/docsifyjs/docsify/commit/18f0f03))
+* Update getAllPath query selector ([#653](https://github.com/docsifyjs/docsify/issues/653)) ([f6f4e32](https://github.com/docsifyjs/docsify/commit/f6f4e32))
+* Update vue.styl ([#634](https://github.com/docsifyjs/docsify/issues/634)) ([bf060be](https://github.com/docsifyjs/docsify/commit/bf060be))
+
+
+### Features
+
+* Add docsify version to $window.docsify object ([#641](https://github.com/docsifyjs/docsify/issues/641)) ([94bc415](https://github.com/docsifyjs/docsify/commit/94bc415)), closes [#521](https://github.com/docsifyjs/docsify/issues/521)
+* **compiler:** support embedded mermaid ([#629](https://github.com/docsifyjs/docsify/issues/629)) ([42ea8af](https://github.com/docsifyjs/docsify/commit/42ea8af))
+* Add hideOtherSidebarContent option ([#661](https://github.com/docsifyjs/docsify/issues/661)) ([4a23c4a](https://github.com/docsifyjs/docsify/commit/4a23c4a))
+* Allow base64, external, and relative logo values ([#642](https://github.com/docsifyjs/docsify/issues/642)) ([0a0802a](https://github.com/docsifyjs/docsify/commit/0a0802a)), closes [#577](https://github.com/docsifyjs/docsify/issues/577)
+* upgrade marked to 0.5.x, fixed [#645](https://github.com/docsifyjs/docsify/issues/645), close [#644](https://github.com/docsifyjs/docsify/issues/644) ([#662](https://github.com/docsifyjs/docsify/issues/662)) ([a39b214](https://github.com/docsifyjs/docsify/commit/a39b214))
+
+
+
 <a name="4.7.1"></a>
 ## [4.7.1](https://github.com/docsifyjs/docsify/compare/v4.7.0...v4.7.1) (2018-08-30)
 
