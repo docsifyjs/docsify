@@ -176,9 +176,10 @@ export function renderMixin(proto) {
     dom.toggleClass(el, 'add', 'show')
 
     let html = this.coverIsHTML ? text : this.compiler.cover(text)
+
     const m = html
       .trim()
-      .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
+      .match('<img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)$')
 
     if (m) {
       if (m[2] === 'color') {
