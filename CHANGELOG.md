@@ -1,3 +1,20 @@
+<a name="4.8.1"></a>
+## [4.8.1](https://github.com/docsifyjs/docsify/compare/v4.8.0...v4.8.1) (2018-10-31)
+
+
+### Bug Fixes
+
+* ssr package dep, fixed [#605](https://github.com/docsifyjs/docsify/issues/605) ([2bc880d](https://github.com/docsifyjs/docsify/commit/2bc880d))
+* **compiler:** extra quotes for codeblock ([4f588e0](https://github.com/docsifyjs/docsify/commit/4f588e0))
+* **compiler:** prevent render of html code in paragraph, fixed [#663](https://github.com/docsifyjs/docsify/issues/663) ([d35059d](https://github.com/docsifyjs/docsify/commit/d35059d))
+
+
+### Features
+
+* upgrade PrismJS, fixed [#534](https://github.com/docsifyjs/docsify/issues/534) ([4805cb5](https://github.com/docsifyjs/docsify/commit/4805cb5))
+
+
+
 <a name="4.8.0"></a>
 # [4.8.0](https://github.com/docsifyjs/docsify/compare/v4.7.1...v4.8.0) (2018-10-31)
 
