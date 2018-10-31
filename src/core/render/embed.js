@@ -33,7 +33,7 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
             ]
             embedToken.links = {}
           } else {
-            embedToken = [{type: 'html', text: text}]
+            embedToken = [{type: 'html', text}]
             embedToken.links = {}
           }
         }
