@@ -94,3 +94,9 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=10%')
+
+## Customise ID for headings
+
+```md
+### 你好，世界！ :id=hello-world
+```
