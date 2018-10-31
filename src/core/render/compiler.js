@@ -14,6 +14,7 @@ export function getAndRemoveConfig(str = '') {
 
   if (str) {
     str = str
+      .replace(/^'|'$/, '')
       .replace(/:([\w-]+)=?([\w-]+)?/g, (m, key, value) => {
         config[key] = (value && value.replace(/&quot;/g, '')) || true
         return ''
@@ -37,17 +38,17 @@ const compileMedia = {
   },
   iframe(url, title) {
     return {
-      code: `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
+      html: `<iframe src="${url}" ${title || 'width=100% height=400'}></iframe>`
     }
   },
   video(url, title) {
     return {
-      code: `<video src="${url}" ${title || 'controls'}>Not Support</video>`
+      html: `<video src="${url}" ${title || 'controls'}>Not Support</video>`
     }
   },
   audio(url, title) {
     return {
-      code: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`
+      html: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`
     }
   },
   code(url, title) {
@@ -294,18 +295,6 @@ export class Compiler {
       }
 
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
-    }
-
-    const CHECKED_RE = /^\[([ x])\] +/
-    origin.listitem = renderer.listitem = function (text) {
-      const checked = CHECKED_RE.exec(text)
-      if (checked) {
-        text = text.replace(
-          CHECKED_RE,
-          `<input type="checkbox" ${checked[1] === 'x' ? 'checked' : ''} />`
-        )
-      }
-      return `<li${checked ? ` class="task-list-item"` : ''}>${text}</li>\n`
     }
 
     renderer.origin = origin
