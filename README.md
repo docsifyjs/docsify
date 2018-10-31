@@ -36,7 +36,7 @@
 ## Features
 
 - No statically built html files
-- Simple and lightweight (~19kB gzipped)
+- Simple and lightweight (~21kB gzipped)
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
