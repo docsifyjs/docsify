@@ -57,9 +57,11 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
 }
 
 export function prerenderEmbed({compiler, raw = '', fetch}, done) {
-  let hit
-  if ((hit = cached[raw])) {
-    return done(hit)
+  let hit = cached[raw]
+  if (hit) {
+    const copy = hit.slice()
+    copy.links = hit.links
+    return done(copy)
   }
 
   const compile = compiler._marked
