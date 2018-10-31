@@ -65,7 +65,6 @@
     "rollup-plugin-async": "^1.2.0",
     "rollup-plugin-buble": "^0.18.0",
     "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^2.0.1",
