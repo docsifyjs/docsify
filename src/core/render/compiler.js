@@ -71,6 +71,7 @@ export class Compiler {
     this.router = router
     this.cacheTree = {}
     this.toc = []
+    this.cacheTOC = {}
     this.linkTarget = config.externalLinkTarget || '_blank'
     this.contentBase = router.getBasePath()
 
