@@ -37,7 +37,9 @@ By default, the hyperlink on the current page is recognized and the content is s
       },
 
       // Headline depth, 1 - 6
-      depth: 2
+      depth: 2,
+
+      hideOtherSidebarContent: false, // whether or not to hide other sidebar content
     }
   }
 </script>
