@@ -28,7 +28,12 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
                 '\n```\n'
             )
           } else if (token.embed.type === 'mermaid') {
-            embedToken = [{type: 'html', text: `<div class="mermaid">\n${text}\n</div>`}]
+            embedToken = [
+              {type: 'html', text: `<div class="mermaid">\n${text}\n</div>`}
+            ]
+            embedToken.links = {}
+          } else {
+            embedToken = [{type: 'html', text: text}]
             embedToken.links = {}
           }
         }
@@ -39,10 +44,14 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
       }
     })(token)
 
-    if (process.env.SSR) {
-      fetch(token.embed.url).then(next)
+    if (token.embed.url) {
+      if (process.env.SSR) {
+        fetch(token.embed.url).then(next)
+      } else {
+        get(token.embed.url).then(next)
+      }
     } else {
-      get(token.embed.url).then(next)
+      next(token.embed.html)
     }
   }
 }
@@ -67,16 +76,10 @@ export function prerenderEmbed({compiler, raw = '', fetch}, done) {
           const embed = compiler.compileEmbed(href, title)
 
           if (embed) {
-            if (embed.type === 'markdown' ||
-              embed.type === 'code' ||
-              embed.type === 'mermaid'
-            ) {
-              embedTokens.push({
-                index,
-                embed
-              })
-            }
-            return embed.code
+            embedTokens.push({
+              index,
+              embed
+            })
           }
 
           return src
