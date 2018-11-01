@@ -1,3 +1,13 @@
+<a name="4.8.4"></a>
+## [4.8.4](https://github.com/docsifyjs/docsify/compare/v4.8.3...v4.8.4) (2018-11-01)
+
+
+### Bug Fixes
+
+* **cover:** Compatible with legacy styles, fixed [#677](https://github.com/docsifyjs/docsify/issues/677) ([#678](https://github.com/docsifyjs/docsify/issues/678)) ([1a945d4](https://github.com/docsifyjs/docsify/commit/1a945d4))
+
+
+
 <a name="4.8.3"></a>
 
 ## [4.8.3](https://github.com/docsifyjs/docsify/compare/v4.8.2...v4.8.3) (2018-11-01)
