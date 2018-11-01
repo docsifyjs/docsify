@@ -46,7 +46,9 @@
 
 ## Quick start
 
-Look at [this tutorial](https://docsify.js.org/#/quickstart) or [online demo](https://jsfiddle.net/7ztb8qsr/1/).
+Look at [this tutorial](https://docsify.js.org/#/quickstart)
+
+[![Edit 307qqv236](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
 
 ## Showcase
 
