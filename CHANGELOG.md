@@ -1,3 +1,8 @@
+<a name="4.8.3"></a>
+## [4.8.3](https://github.com/docsifyjs/docsify/compare/v4.8.2...v4.8.3) (2018-11-01)
+
+
+
 <a name="4.8.2"></a>
 ## [4.8.2](https://github.com/docsifyjs/docsify/compare/v4.8.1...v4.8.2) (2018-11-01)
 
