@@ -95,7 +95,7 @@ Medium's image zoom. Based on [medium-zoom](https://github.com/francoischalifour
 Exclude the special image
 
 ```markdown
-![](image.png ':no-zoom')
+![](image.png ":no-zoom")
 ```
 
 ## Edit on github
@@ -184,6 +184,10 @@ window.$docsify = {
 
 A docsify.js plugin for displaying tabbed content from markdown.
 
-* [Documentation & Demos](https://jhildenbiddle.github.io/docsify-tabs)
+- [Documentation & Demos](https://jhildenbiddle.github.io/docsify-tabs)
 
 Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
+
+## More plugins
+
+See [awesome-docsify](awesome?id=plugins)
