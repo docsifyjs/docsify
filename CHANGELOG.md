@@ -1,3 +1,21 @@
+<a name="4.8.2"></a>
+## [4.8.2](https://github.com/docsifyjs/docsify/compare/v4.8.1...v4.8.2) (2018-11-01)
+
+
+### Bug Fixes
+
+* cover button style, fixed [#670](https://github.com/docsifyjs/docsify/issues/670), fixed [#665](https://github.com/docsifyjs/docsify/issues/665) ([#675](https://github.com/docsifyjs/docsify/issues/675)) ([fcd1087](https://github.com/docsifyjs/docsify/commit/fcd1087))
+* update match regex ([#669](https://github.com/docsifyjs/docsify/issues/669)) ([2edf47e](https://github.com/docsifyjs/docsify/commit/2edf47e))
+* use copy of cached value ([#668](https://github.com/docsifyjs/docsify/issues/668)) ([5fcf210](https://github.com/docsifyjs/docsify/commit/5fcf210))
+* **compiler:** import prism-markup-templating, fixed [#672](https://github.com/docsifyjs/docsify/issues/672) ([#676](https://github.com/docsifyjs/docsify/issues/676)) ([fdd8826](https://github.com/docsifyjs/docsify/commit/fdd8826))
+
+
+### Features
+
+* add heading config id ([#671](https://github.com/docsifyjs/docsify/issues/671)) ([ab19b13](https://github.com/docsifyjs/docsify/commit/ab19b13))
+
+
+
 <a name="4.8.1"></a>
 ## [4.8.1](https://github.com/docsifyjs/docsify/compare/v4.8.0...v4.8.1) (2018-10-31)
 
