@@ -265,8 +265,6 @@ export class Compiler {
         result = helperTpl('tip', text)
       } else if (/^\?&gt;/.test(text)) {
         result = helperTpl('warn', text)
-      } else if (/^</.test(text)) {
-        return text
       } else {
         result = `<p>${text}</p>`
       }
