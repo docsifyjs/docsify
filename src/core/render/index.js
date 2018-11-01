@@ -198,6 +198,17 @@ export function renderMixin(proto) {
       html = html.replace(m[0], '')
     }
 
+    // XXX: A Workaround
+    html = html
+      .split('\n')
+      .map(part => {
+        if (/^<a/.test(part)) {
+          return part.replace('<a', '<a data-button')
+        }
+        return part
+      })
+      .join('\n')
+
     this._renderTo('.cover-main', html)
     sticky()
   }
