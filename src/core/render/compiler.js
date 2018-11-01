@@ -7,6 +7,9 @@ import {emojify} from './emojify'
 import {isAbsolutePath, getPath, getParentPath} from '../router/util'
 import {isFn, merge, cached, isPrimitive} from '../util/core'
 
+// See https://github.com/PrismJS/prism/pull/1367
+import 'prismjs/components/prism-markup-templating'
+
 const cachedLinks = {}
 
 export function getAndRemoveConfig(str = '') {
