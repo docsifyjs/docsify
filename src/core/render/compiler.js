@@ -190,26 +190,27 @@ export class Compiler {
      * @link https://github.com/markedjs/marked#overriding-renderer-methods
      */
     origin.heading = renderer.heading = function (text, level) {
-      const nextToc = {level, title: text}
+      let {str, config} = getAndRemoveConfig(text)
+      const nextToc = {level, title: str}
 
-      if (/{docsify-ignore}/g.test(text)) {
-        text = text.replace('{docsify-ignore}', '')
-        nextToc.title = text
+      if (/{docsify-ignore}/g.test(str)) {
+        str = str.replace('{docsify-ignore}', '')
+        nextToc.title = str
         nextToc.ignoreSubHeading = true
       }
 
-      if (/{docsify-ignore-all}/g.test(text)) {
-        text = text.replace('{docsify-ignore-all}', '')
-        nextToc.title = text
+      if (/{docsify-ignore-all}/g.test(str)) {
+        str = str.replace('{docsify-ignore-all}', '')
+        nextToc.title = str
         nextToc.ignoreAllSubs = true
       }
 
-      const slug = slugify(text)
+      const slug = slugify(config.id || str)
       const url = router.toURL(router.getCurrentPath(), {id: slug})
       nextToc.slug = url
       _self.toc.push(nextToc)
 
-      return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${text}</span></a></h${level}>`
+      return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`
     }
     // Highlight code
     origin.code = renderer.code = function (code, lang = '') {
