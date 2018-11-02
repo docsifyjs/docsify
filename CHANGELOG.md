@@ -1,3 +1,13 @@
+<a name="4.8.5"></a>
+## [4.8.5](https://github.com/docsifyjs/docsify/compare/v4.8.4...v4.8.5) (2018-11-02)
+
+
+### Bug Fixes
+
+* expose version info for Docsify, fixed [#641](https://github.com/docsifyjs/docsify/issues/641) ([aa719e3](https://github.com/docsifyjs/docsify/commit/aa719e3))
+
+
+
 <a name="4.8.4"></a>
 ## [4.8.4](https://github.com/docsifyjs/docsify/compare/v4.8.3...v4.8.4) (2018-11-01)
 
