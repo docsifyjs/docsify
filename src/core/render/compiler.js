@@ -19,7 +19,7 @@ export function getAndRemoveConfig(str = '') {
     str = str
       .replace(/^'/, '')
       .replace(/'$/, '')
-      .replace(/:([\w-]+)=?([\w-]+)?/g, (m, key, value) => {
+      .replace(/:([\w-]+)=?([\w-]+)?/, (m, key, value) => {
         config[key] = (value && value.replace(/&quot;/g, '')) || true
         return ''
       })
