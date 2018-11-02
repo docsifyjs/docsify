@@ -7,7 +7,13 @@ import marked from 'marked'
 import prism from 'prismjs'
 
 export default function () {
-  window.Docsify = {util, dom, get, slugify}
+  window.Docsify = {
+    util,
+    dom,
+    get,
+    slugify,
+    version: '__VERSION__'
+  }
   window.DocsifyCompiler = Compiler
   window.marked = marked
   window.Prism = prism
