@@ -36,6 +36,12 @@ window.$docsify = {
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 //  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
+function makeid(len) {
+  var text = new Array(len);
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  for (var i = 0; i < len; i++) text[i] = possible.charAt(Math.floor(Math.random() * possible.length));
+  return text.join("");
+}
 mermaid.initialize({ startOnLoad: false });
 
 window.$docsify = {
@@ -43,8 +49,9 @@ window.$docsify = {
     renderer: {
       code: function(code, lang) {
         if (lang === "mermaid") {
+          let id = makeid(10);
           return (
-            '<div class="mermaid">' + mermaid.render(lang, code) + "</div>"
+            '<div class="mermaid">' + mermaid.render(id, code) + "</div>"
           );
         }
         return this.origin.code.apply(this, arguments);
