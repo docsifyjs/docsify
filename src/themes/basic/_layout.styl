@@ -347,7 +347,7 @@ body.sticky
   &:nth-child(2n)
     background-color #f8f8f8
 
-.markdown-section p.tip
+.markdown-section div.tip
   background-color #f8f8f8
   border-bottom-right-radius 2px
   border-left 4px solid #f66
@@ -372,16 +372,28 @@ body.sticky
     text-align center
     top 14px
 
+  &>:first-child
+    margin-top: 0;
+
+  &>:last-child
+    margin-bottom: 0;
+
   code
     background-color #efefef
 
   em
     color $color-text
 
-.markdown-section p.warn
+.markdown-section div.warn
   background rgba($color-primary, 0.1)
   border-radius 2px
   padding 1rem
+
+  &>:first-child
+    margin-top: 0;
+
+  &>:last-child
+    margin-bottom: 0;
 
 body.close
   .sidebar

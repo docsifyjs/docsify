@@ -262,9 +262,9 @@ export class Compiler {
     origin.paragraph = renderer.paragraph = function (text) {
       let result
       if (/^!&gt;/.test(text)) {
-        result = helperTpl('tip', text)
+        result = helperTpl('tip', text, /!>/)
       } else if (/^\?&gt;/.test(text)) {
-        result = helperTpl('warn', text)
+        result = helperTpl('warn', text, /\?>/)
       } else {
         result = `<p>${text}</p>`
       }

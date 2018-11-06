@@ -1,4 +1,7 @@
 import {isMobile} from '../util/env'
+import marked from 'marked'
+import he from 'he'
+
 /**
  * Render github corner
  * @param  {Object} data
@@ -92,8 +95,11 @@ export function tree(toc, tpl = '<ul class="app-sub-sidebar">{inner}</ul>') {
   return tpl.replace('{inner}', innerHTML)
 }
 
-export function helper(className, content) {
-  return `<p class="${className}">${content.slice(5).trim()}</p>`
+export function helper(className, content, headingRegexp) {
+  const regexp = new RegExp('(^|\n)' + headingRegexp.source + ' ?', 'g')
+  const raw = he.decode(content).replace(regexp, '$1')
+  const html = marked(raw);
+  return `<div class="${className}">${html}</div>`
 }
 
 export function theme(color) {
