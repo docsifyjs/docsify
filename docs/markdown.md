@@ -36,7 +36,7 @@ window.$docsify = {
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 //  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
-let num = 0;
+var num = 0;
 mermaid.initialize({ startOnLoad: false });
 
 window.$docsify = {
