@@ -36,6 +36,7 @@ window.$docsify = {
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 //  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
+var num = 0;
 mermaid.initialize({ startOnLoad: false });
 
 window.$docsify = {
@@ -44,7 +45,7 @@ window.$docsify = {
       code: function(code, lang) {
         if (lang === "mermaid") {
           return (
-            '<div class="mermaid">' + mermaid.render(lang, code) + "</div>"
+            '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
           );
         }
         return this.origin.code.apply(this, arguments);
