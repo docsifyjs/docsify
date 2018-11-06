@@ -16,7 +16,9 @@ function escapeHtml(string) {
 function getAllPaths(router) {
   const paths = []
 
-  document.querySelectorAll('.sidebar-nav a:not(.section-link):not([data-nosearch])').forEach(node => {
+  const nodes = document.querySelectorAll('.sidebar-nav a:not(.section-link):not([data-nosearch])')
+  for (var i = 0; i < nodes.length; i += 1) {
+    const node = nodes[i]
     const href = node.href
     const originHref = node.getAttribute('href')
     const path = router.parse(href).path
@@ -28,7 +30,7 @@ function getAllPaths(router) {
     ) {
       paths.push(path)
     }
-  })
+  }
 
   return paths
 }

@@ -241,7 +241,7 @@ export class Compiler {
         }
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
-        attrs += href.startsWith('mailto:') ? '' : ` target="${linkTarget}"`
+        attrs += href.indexOf('mailto:') === 0 ? '' : ` target="${linkTarget}"`
       }
 
       if (config.target) {
