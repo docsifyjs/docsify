@@ -16,7 +16,7 @@ function escapeHtml(string) {
 function getAllPaths(router) {
   const paths = []
 
-  document.querySelectorAll('.sidebar-nav a:not(.section-link):not([data-nosearch])').forEach(node => {
+  Docsify.dom.findAll('.sidebar-nav a:not(.section-link):not([data-nosearch])').forEach(node => {
     const href = node.href
     const originHref = node.getAttribute('href')
     const path = router.parse(href).path
