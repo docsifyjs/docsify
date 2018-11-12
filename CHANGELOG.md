@@ -1,3 +1,13 @@
+<a name="4.8.6"></a>
+## [4.8.6](https://github.com/docsifyjs/docsify/compare/v4.8.5...v4.8.6) (2018-11-12)
+
+
+### Bug Fixes
+
+* IE10 compatibility ([#691](https://github.com/docsifyjs/docsify/issues/691)) ([4db8cd6](https://github.com/docsifyjs/docsify/commit/4db8cd6))
+
+
+
 <a name="4.8.5"></a>
 ## [4.8.5](https://github.com/docsifyjs/docsify/compare/v4.8.4...v4.8.5) (2018-11-02)
 
