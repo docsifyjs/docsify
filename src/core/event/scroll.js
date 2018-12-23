@@ -1,5 +1,6 @@
 import {isMobile} from '../util/env'
 import * as dom from '../util/dom'
+import image from '../util/image'
 import Tweezer from 'tweezer.js'
 
 const nav = {}
@@ -123,8 +124,31 @@ export function scrollActiveSidebar(router) {
   })
 }
 
+export let pausedScrollToView
+
+export function proceedScrollToView() {
+  if (pausedScrollToView) {
+    const copy = pausedScrollToView.slice()
+    pausedScrollToView = undefined
+    scrollIntoView(...copy)
+  }
+
+  image.unsubscribe(proceedScrollToView)
+}
+
 export function scrollIntoView(path, id) {
   if (!id) {
+    return
+  }
+
+  if (pausedScrollToView) {
+    pausedScrollToView = [path, id]
+    return
+  }
+
+  if (!image.isAllImagesComplete()) {
+    pausedScrollToView = [path, id]
+    image.subscribe(proceedScrollToView)
     return
   }
 

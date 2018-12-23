@@ -299,7 +299,9 @@ export class Compiler {
         url = getPath(contentBase, getParentPath(router.getCurrentPath()), href)
       }
 
-      return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
+      window.Docsify.util.image.increaseLoadingImageCount()
+
+      return `<img src="${url}" data-origin="${href}" alt="${text}" onload="javascript:Docsify.util.image.onLoad(this)" onerror="javascript:Docsify.util.image.onError(this)"${attrs}>`
     }
 
     renderer.origin = origin
