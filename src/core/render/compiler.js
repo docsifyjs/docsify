@@ -6,6 +6,7 @@ import {slugify} from './slugify'
 import {emojify} from './emojify'
 import {isAbsolutePath, getPath, getParentPath} from '../router/util'
 import {isFn, merge, cached, isPrimitive} from '../util/core'
+import image from '../util/image'
 
 // See https://github.com/PrismJS/prism/pull/1367
 import 'prismjs/components/prism-markup-templating'
@@ -299,7 +300,7 @@ export class Compiler {
         url = getPath(contentBase, getParentPath(router.getCurrentPath()), href)
       }
 
-      window.Docsify.util.image.increaseLoadingImageCount()
+      image.increaseLoadingImageCount()
 
       return `<img src="${url}" data-origin="${href}" alt="${text}" onload="javascript:Docsify.util.image.onLoad(this)" onerror="javascript:Docsify.util.image.onError(this)"${attrs}>`
     }
