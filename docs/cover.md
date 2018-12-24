@@ -54,7 +54,7 @@ The background color is generated randomly by default. You can customize the bac
 
 <!-- background color -->
 
-![color](#f0f0f0)
+<p><img data-origin="linear-gradient(to left bottom, #F0FD37 0%, #ACF260 100%)" alt="color"></p>
 ```
 
 ## Coverpage as homepage
