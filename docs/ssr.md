@@ -111,7 +111,7 @@ var readFileSync = require('fs').readFileSync
 
 // init
 var renderer = new Renderer({
-  template: readFileSync('./docs/index.template.html', 'utf-8').,
+  template: readFileSync('./docs/index.template.html', 'utf-8'),
   config: {
     name: 'docsify',
     repo: 'docsifyjs/docsify'
