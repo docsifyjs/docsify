@@ -60,7 +60,8 @@ const buildAllPlugin = function () {
     {name: 'front-matter', input: 'front-matter/index.js'},
     {name: 'zoom-image', input: 'zoom-image.js'},
     {name: 'disqus', input: 'disqus.js'},
-    {name: 'gitalk', input: 'gitalk.js'}
+    {name: 'gitalk', input: 'gitalk.js'},
+    {name: 'prev-next', input: 'prev-next.js'},
   ]
 
   plugins.forEach(item => {

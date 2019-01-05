@@ -159,6 +159,19 @@ Disqus comments. https://disqus.com/
 </script>
 ```
 
+## Prev-Next
+
+Pagination for docsify. By [@davestewart](https://github.com/davestewart).
+
+Previous and Next page navigation as titles (harvested from the sidebar) and is navigable by keyboard left / right arrows.
+
+```html
+<script src="//unpkg.com/docsify/lib/plugins/prev-next.min.js"></script>
+```
+
+For a live example, see [Vuex Pathify Docs](https://davestewart.github.io/vuex-pathify/#/?id=home).
+
+
 ## Pagination
 
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
@@ -174,7 +187,7 @@ a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it ea
 
 > codefund is formerly known as "codesponsor"
 
-```
+```js
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 
 window.$docsify = {
