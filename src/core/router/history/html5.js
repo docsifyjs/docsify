@@ -28,11 +28,13 @@ export class HTML5History extends History {
         e.preventDefault();
         const url = el.href;
         window.history.pushState({ key: url }, '', url);
-        cb();
+        cb({ event: e, source: 'navigate' });
       }
     });
 
-    on('popstate', cb);
+    on('popstate', e => {
+      cb({ event: e, source: 'history' });
+    });
   }
 
   /**

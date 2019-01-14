@@ -30,7 +30,25 @@ export class HashHistory extends History {
   }
 
   onchange(cb = noop) {
-    on('hashchange', cb);
+    // The hashchange event does not tell us if it originated from
+    // a clicked link or by moving back/forward in the history;
+    // therefore we set a `navigating` flag when a link is clicked
+    // to be able to tell these two scenarios apart
+    let navigating = false;
+
+    on('click', e => {
+      const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
+
+      if (el.tagName === 'A' && !/_blank/.test(el.target)) {
+        navigating = true;
+      }
+    });
+
+    on('hashchange', e => {
+      const source = navigating ? 'navigate' : 'history';
+      navigating = false;
+      cb({ event: e, source });
+    });
   }
 
   normalize() {
