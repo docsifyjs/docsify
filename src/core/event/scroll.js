@@ -123,7 +123,7 @@ export function scrollActiveSidebar(router) {
   })
 }
 
-function scrollIntoView(path, id) {
+export function scrollIntoView(path, id) {
   var sidebar = getNode('.sidebar');
   var active = find(sidebar, 'li.active');
   active && active.classList.remove('active');
