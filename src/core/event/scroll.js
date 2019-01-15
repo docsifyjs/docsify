@@ -124,14 +124,14 @@ export function scrollActiveSidebar(router) {
 }
 
 export function scrollIntoView(path, id) {
-  var sidebar = getNode('.sidebar');
-  var active = find(sidebar, 'li.active');
+  var sidebar = dom.getNode('.sidebar');
+  var active = dom.find(sidebar, 'li.active');
   active && active.classList.remove('active');
 
   if (!id) {
     scrollTo(null);
   } else {
-    var section = find('#' + id);
+    var section = dom.find('#' + id);
     section && scrollTo(section);
 
     var li = nav[getNavKey(path, id)];
