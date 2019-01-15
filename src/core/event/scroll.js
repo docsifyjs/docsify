@@ -15,7 +15,7 @@ function scrollTo(el) {
   enableScrollEvent = false
   scroller = new Tweezer({
     start: window.pageYOffset,
-    end: el.getBoundingClientRect().top + window.pageYOffset,
+    end: el ? el.getBoundingClientRect().top + window.pageYOffset : 0,
     duration: 500
   })
     .on('tick', v => window.scrollTo(0, v))
@@ -123,19 +123,20 @@ export function scrollActiveSidebar(router) {
   })
 }
 
-export function scrollIntoView(path, id) {
+function scrollIntoView(path, id) {
+  var sidebar = getNode('.sidebar');
+  var active = find(sidebar, 'li.active');
+  active && active.classList.remove('active');
+
   if (!id) {
-    return
+    scrollTo(null);
+  } else {
+    var section = find('#' + id);
+    section && scrollTo(section);
+
+    var li = nav[getNavKey(path, id)];
+    li && li.classList.add('active');
   }
-
-  const section = dom.find('#' + id)
-  section && scrollTo(section)
-
-  const li = nav[getNavKey(path, id)]
-  const sidebar = dom.getNode('.sidebar')
-  const active = dom.find(sidebar, 'li.active')
-  active && active.classList.remove('active')
-  li && li.classList.add('active')
 }
 
 const scrollEl = dom.$.scrollingElement || dom.$.documentElement
