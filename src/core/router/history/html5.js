@@ -1,6 +1,6 @@
 import {History} from './base'
 import {noop} from '../../util/core'
-import {on} from '../../util/dom'
+import {on, closest} from '../../util/dom'
 import {parseQuery, getPath} from '../util'
 
 export class HTML5History extends History {
@@ -22,9 +22,9 @@ export class HTML5History extends History {
 
   onchange(cb = noop) {
     on('click', e => {
-      const el = e.target.tagName === 'A' ? e.target : e.target.parentNode
+      const el = closest(e.target, 'a', true)
 
-      if (el.tagName === 'A' && !/_blank/.test(el.target)) {
+      if (el && !/_blank/.test(el.target)) {
         e.preventDefault()
         const url = el.href
         window.history.pushState({key: url}, '', url)

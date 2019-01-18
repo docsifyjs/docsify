@@ -42,6 +42,7 @@
     "postinstall": "opencollective postinstall"
   },
   "dependencies": {
+    "closest": "0.0.1",
     "marked": "^0.5.1",
     "medium-zoom": "^0.4.0",
     "opencollective": "^1.0.3",

@@ -1,3 +1,4 @@
+export {default as closest} from 'closest'
 import {isFn} from '../util/core'
 import {inBrowser} from './env'
 
