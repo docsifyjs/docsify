@@ -164,6 +164,7 @@ export class Compiler {
         embed = compileMedia[type].call(this, href, title)
         embed.type = type
       }
+      embed.fragment = config.fragment
 
       return embed
     }

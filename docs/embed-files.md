@@ -39,6 +39,21 @@ You will get it
 
 [filename](_media/example.md ':include :type=code')
 
+## Embedded code fragments
+Sometimes you don't want to embed a whole file. Maybe because you need just a few lines but you want to compile and test the file in CI.
+
+```markdown
+[filename](_media/example.js ':include :type=code :fragment=demo')
+```
+
+In your code file you need to surround the fragment between `/// [demo]` lines (before and after the fragment).  
+Alternatively you can use `### [demo]`.
+
+Example:
+
+[filename](_media/example.js ':include :type=code :fragment=demo')
+
+
 ## Tag attribute
 
 If you embed the file as `iframe`, `audio` and `video`, then you may need to set the attributes of these tags.
