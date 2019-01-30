@@ -9,6 +9,9 @@ export function btn(el) {
   const toggle = _ => dom.body.classList.toggle('close')
 
   el = dom.getNode(el)
+  if (el == null) {
+    return
+  }
   dom.on(el, 'click', e => {
     e.stopPropagation()
     toggle()
@@ -24,7 +27,9 @@ export function btn(el) {
 
 export function collapse(el) {
   el = dom.getNode(el)
-
+  if (el == null) {
+    return
+  }
   dom.on(el, 'click', ({target}) => {
     if (
       target.nodeName === 'A' &&
@@ -60,8 +65,10 @@ export function sticky() {
  */
 export function getAndActive(router, el, isParent, autoTitle) {
   el = dom.getNode(el)
-
-  const links = dom.findAll(el, 'a')
+  let links = []
+  if (el != null) {
+    links = dom.findAll(el, 'a')
+  }
   const hash = decodeURI(router.toURL(router.getCurrentPath()))
   let target
 
