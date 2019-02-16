@@ -337,7 +337,15 @@ export class Compiler {
       html = this.compile(text)
     } else {
       for (let i = 0; i < toc.length; i++) {
-        toc[i].ignoreSubHeading && toc.splice(i, 1) && i--
+        if (toc[i].ignoreSubHeading) {
+          const deletedHeaderLevel = toc[i].level
+          toc.splice(i, 1)
+          // Remove headers who are under current header
+          for (let j = i; deletedHeaderLevel < toc[j].level && j < toc.length; j++) {
+            toc.splice(j, 1) && j-- && i++
+          }
+          i--
+        }
       }
       const tree = this.cacheTree[currentPath] || genTree(toc, level)
       html = treeTpl(tree, '<ul>{inner}</ul>')
