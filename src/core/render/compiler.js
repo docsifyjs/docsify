@@ -329,13 +329,17 @@ export class Compiler {
    * Compile sidebar
    */
   sidebar(text, level) {
+    const {toc} = this
     const currentPath = this.router.getCurrentPath()
     let html = ''
 
     if (text) {
       html = this.compile(text)
     } else {
-      const tree = this.cacheTree[currentPath] || genTree(this.toc, level)
+      for (let i = 0; i < toc.length; i++) {
+        toc[i].ignoreSubHeading && toc.splice(i, 1) && i--
+      }
+      const tree = this.cacheTree[currentPath] || genTree(toc, level)
       html = treeTpl(tree, '<ul>{inner}</ul>')
       this.cacheTree[currentPath] = tree
     }
@@ -360,7 +364,6 @@ export class Compiler {
     for (let i = 0; i < toc.length; i++) {
       toc[i].ignoreSubHeading && toc.splice(i, 1) && i--
     }
-
     const tree = cacheTree[currentPath] || genTree(toc, level)
 
     cacheTree[currentPath] = tree
