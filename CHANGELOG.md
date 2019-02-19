@@ -1,3 +1,21 @@
+<a name="4.9.0"></a>
+# [4.9.0](https://github.com/docsifyjs/docsify/compare/v4.8.6...v4.9.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* task list rendering (Fix [#749](https://github.com/docsifyjs/docsify/issues/749)) ([#757](https://github.com/docsifyjs/docsify/issues/757)) ([69ef489](https://github.com/docsifyjs/docsify/commit/69ef489))
+* upgrade npm-run-all ([049726e](https://github.com/docsifyjs/docsify/commit/049726e))
+
+
+### Features
+
+* **search-plugin:** add namespace option ([#706](https://github.com/docsifyjs/docsify/issues/706)) ([28beff8](https://github.com/docsifyjs/docsify/commit/28beff8))
+* Add new theme "dolphin" ([#735](https://github.com/docsifyjs/docsify/issues/735)) ([c3345ba](https://github.com/docsifyjs/docsify/commit/c3345ba))
+* Provide code fragments feature ([#748](https://github.com/docsifyjs/docsify/issues/748)) ([1447c8a](https://github.com/docsifyjs/docsify/commit/1447c8a))
+
+
+
 <a name="4.8.6"></a>
 ## [4.8.6](https://github.com/docsifyjs/docsify/compare/v4.8.5...v4.8.6) (2018-11-12)
 
