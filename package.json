@@ -36,7 +36,8 @@
     "build:js": "cross-env NODE_ENV=production node build/build.js",
     "build:ssr": "node build/ssr.js",
     "build:cover": "node build/cover.js",
-    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
+    "build:emoji-aliases": "wget https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json -O - | node build/emoji-aliases.js",
+    "build": "rimraf lib themes && run-s build:emoji-aliases build:js build:css build:css:min build:ssr build:cover",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
     "postinstall": "opencollective postinstall"
