@@ -2,7 +2,7 @@ const path = require('path')
 
 const {expect} = require('chai')
 
-const {init, expectSameDom} = require('./_helper')
+const {init, expectSameDom} = require('../_helper')
 
 describe('render', function() {
 	it('important content (tips)', async function() {

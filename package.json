@@ -27,7 +27,7 @@
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint {src,packages} --fix",
-    "test": "mocha",
+    "test": "mocha test/*/**",
     "css": "stylus src/themes/*.styl -u autoprefixer-stylus",
     "watch:css": "run-p 'css -- -o themes -w'",
     "watch:js": "node build/build.js",
