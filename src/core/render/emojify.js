@@ -1,7 +1,7 @@
 import {inBrowser} from '../util/env'
 
 function replace(m, $1) {
-  return '<img class="emoji" src="https://assets-cdn.github.com/images/icons/emoji/' + $1 + '.png" alt="' + $1 + '" />'
+  return '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/' + $1 + '.png" alt="' + $1 + '" />'
 }
 
 export function emojify(text) {
