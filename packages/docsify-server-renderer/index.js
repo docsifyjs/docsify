@@ -31,12 +31,13 @@ function mainTpl(config) {
 }
 
 export default class Renderer {
-  constructor({template, config, cache}) {
+  constructor({template, config, cache, path}) {
     this.html = template
     this.config = config = Object.assign({}, config, {
       routerMode: 'history'
     })
     this.cache = cache
+    this.path = path
 
     this.router = new AbstractHistory(config)
     this.compiler = new Compiler(config, this.router)
@@ -54,7 +55,7 @@ export default class Renderer {
   _getPath(url) {
     const file = this.router.getFile(url)
 
-    return isAbsolutePath(file) ? file : cwd(`./${file}`)
+    return isAbsolutePath(file) ? file : cwd(this.path, `./${file}`)
   }
 
   async render(url) {
@@ -76,13 +77,13 @@ export default class Renderer {
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar
-      const sidebarFile = this._getPath(resolve(url, `./${name}`))
+      const sidebarFile = this._getPath(resolve(this.path, url, `./${name}`))
       this._renderHtml('sidebar', await this._render(sidebarFile, 'sidebar'))
     }
 
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar
-      const navbarFile = this._getPath(resolve(url, `./${name}`))
+      const navbarFile = this._getPath(resolve(this.path, url, `./${name}`))
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'))
     }
 
