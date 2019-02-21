@@ -1,3 +1,13 @@
+<a name="4.9.1"></a>
+## [4.9.1](https://github.com/docsifyjs/docsify/compare/v4.9.0...v4.9.1) (2019-02-21)
+
+
+### Bug Fixes
+
+* github assets url ([#774](https://github.com/docsifyjs/docsify/issues/774)) ([140bf10](https://github.com/docsifyjs/docsify/commit/140bf10))
+
+
+
 <a name="4.9.0"></a>
 # [4.9.0](https://github.com/docsifyjs/docsify/compare/v4.8.6...v4.9.0) (2019-02-19)
 
