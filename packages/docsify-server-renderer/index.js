@@ -57,6 +57,16 @@ export default class Renderer {
     return isAbsolutePath(file) ? file : cwd(`./${file}`)
   }
 
+  async render(url) {
+    const content = await this.renderToString(url)
+
+    return {
+      content,
+      url: this.router.parse(url).path,
+      path: this._getPath(url)
+    }
+  }
+
   async renderToString(url) {
     this.url = url = this.router.parse(url).path
     const {loadSidebar, loadNavbar, coverpage} = this.config
