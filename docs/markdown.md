@@ -23,10 +23,45 @@ Even you can completely customize the parsing rules.
 window.$docsify = {
   markdown: function(marked, renderer) {
     // ...
-
+    marked.setOptions({ renderer })
     return marked
   }
 }
+```
+
+## Supports front matter
+
+```html
+<script src="//unpkg.com/js-yaml@3/dist/js-yaml.js"></script>
+<script src="//unpkg.com/yaml-front-matter@4/dist/yamlFront.js"></script>
+<script>
+window.$docsify = {
+  markdown: function(marked, renderer) {
+    let lexer = marked.lexer
+    marked.lexer = function (text, options) {
+      let parsed = yamlFront.loadFront(text)
+      let cKey = '__content'
+      let table = [
+        [],
+        [],
+        []
+      ]
+      for (let k in parsed) {
+        if (k === cKey) {
+          continue
+        }
+        table[0].push(k)
+        table[1].push('---')
+        table[2].push(parsed[k])
+      }
+      let tableMd = table.map(row => row.join('|')).join('\n')
+      return lexer(tableMd + '\n' + parsed[cKey], options)
+    }
+    marked.setOptions({ renderer })
+    return marked
+  }
+}
+</script>
 ```
 
 ## Supports mermaid
