@@ -106,16 +106,16 @@ window.$docsify = {
   plugins: [
     function (hook, vm) {
       hook.beforeEach(content => {
-        let parsed = vm.frontmatter
-        // let parsed = parser(content) // or use other parser
+        let frontmatter = vm.frontmatter
+        // let frontmatter = parser(content) // or use other parser
         let table = [[], [], []]
-        for (let k in parsed) {
+        for (let k in frontmatter) {
           table[0].push(k)
           table[1].push('---')
-          table[2].push(parsed[k])
+          table[2].push(frontmatter[k])
         }
         let frontMatterTableMd = table.map(row => row.join('|')).join('\n')
-        return frontMatterTableMd + '\n' + parsed[cKey]
+        return frontMatterTableMd + '\n' + content
       })
     }
   ]
