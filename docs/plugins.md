@@ -192,6 +192,25 @@ A docsify.js plugin for displaying tabbed content from markdown.
 
 Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
 
+## Front matter
+
+A plugin for parsing front matter (yaml).
+
+```html
+<script src="//unpkg.com/docsify/lib/plugins/front-matter.min.js"></script>
+<script>
+window.$docsify = {
+  plugins: [
+    function (hook, vm) {
+      hook.beforeEach(content => {
+        console.log(vm.frontmatter)
+      })
+    }
+  ]
+}
+</script>
+```
+
 ## More plugins
 
 See [awesome-docsify](awesome?id=plugins)
