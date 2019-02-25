@@ -99,17 +99,17 @@ window.$docsify = {
 ### Show front matter as a table
 
 ```js
+// Import the parser first
+// <script src="//unpkg.com/docsify/lib/plugins/front-matter.min.js"></script>
+
 window.$docsify = {
   plugins: [
     function (hook, vm) {
       hook.beforeEach(content => {
-        let parsed = yamlFront.loadFront(content) // or other parser you prefer
-        let contentKey = '__content'
+        let parsed = vm.frontmatter
+        // let parsed = parser(content) // or use other parser
         let table = [[], [], []]
         for (let k in parsed) {
-          if (k === contentKey) {
-            continue
-          }
           table[0].push(k)
           table[1].push('---')
           table[2].push(parsed[k])
