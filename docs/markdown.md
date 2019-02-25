@@ -29,7 +29,7 @@ window.$docsify = {
 }
 ```
 
-## Supports front matter
+## Show front matter as a table
 
 ```html
 <script src="//unpkg.com/js-yaml@3/dist/js-yaml.js"></script>
