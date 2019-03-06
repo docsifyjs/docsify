@@ -8,6 +8,7 @@ describe('full docsify initialization', function() {
 	it('TODO: check generated markup', async function() {
 		const {docsify, dom} = await init('simple', {loadSidebar: true})
   		console.log(dom.window.document.body.innerHTML)
+  		// TODO: add some expectations
 	})
 
 })

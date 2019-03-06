@@ -8,6 +8,7 @@ describe('router', function() {
 	it('TODO: trigger to load another page', async function() {
 		const {docsify} = await init()
   		window.location = '/?foo=bar'
+  		// TODO: add some expectations
 	})
 
 })

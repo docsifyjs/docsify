@@ -63,7 +63,7 @@ module.exports.init = function(fixture = 'default', config = {}, markup) {
 	return new Promise((resolve, reject) => {
 		ready(() => {
 			const docsify = new Docsify()
-			// TODO: use callback instead of polling, but usually it works after 10ms
+			// NOTE: I was not able to get it working with a callback, but polling works usually at the first time
 			const id = setInterval(() => {
 				if (dom.window.document.body.innerHTML.indexOf(NOT_INIT_PATTERN) == -1) {
 					clearInterval(id)
