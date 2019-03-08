@@ -2,18 +2,18 @@ const path = require('path')
 
 const {expect} = require('chai')
 
-const {init, expectSameDom} = require('./_helper')
+const {init, expectSameDom} = require('../_helper')
 
 describe('render', function() {
 	it('important content (tips)', async function() {
-		docsify = await init()
+		const {docsify, dom} = await init()
   		const output = docsify.compiler.compile('!> **Time** is money, my friend!')
   		expect(output).equal('<p class="tip"><strong>Time</strong> is money, my friend!</p>')
 	})
 
 	describe('lists', function() {
 		it('as unordered task list', async function() {
-			docsify = await init()
+			const {docsify, dom} = await init()
 			const output = docsify.compiler.compile(`
 - [x] Task 1
 - [ ] Task 2
@@ -26,7 +26,7 @@ describe('render', function() {
 		})
 
 		it('as ordered task list', async function() {
-			docsify = await init()
+			const {docsify, dom} = await init()
 			const output = docsify.compiler.compile(`
 1. [ ] Task 1
 2. [x] Task 2`)
@@ -37,7 +37,7 @@ describe('render', function() {
 		})
 
 		it('normal unordered', async function() {
-			docsify = await init()
+			const {docsify, dom} = await init()
 			const output = docsify.compiler.compile(`
 - [linktext](link)
 - just text`)
@@ -48,7 +48,7 @@ describe('render', function() {
 		})
 
 		it('unordered with custom start', async function() {
-			docsify = await init()
+			const {docsify, dom} = await init()
 			const output = docsify.compiler.compile(`
 1. first
 2. second
@@ -67,7 +67,7 @@ text
 		})
 
 		it('nested', async function() {
-			docsify = await init()
+			const {docsify, dom} = await init()
 			const output = docsify.compiler.compile(`
 - 1
 - 2
