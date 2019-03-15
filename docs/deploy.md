@@ -87,3 +87,45 @@ When using the HTML5 router, you need to set up redirect rules that redirect all
 ```sh
 /*    /index.html   200
 ```
+
+## AWS Amplify
+
+1. Set the routerMode in the Docsify project `index.html` to *history* mode.
+
+```html
+<script>
+    window.$docsify = {
+      loadSidebar: true,
+      routerMode: 'history'
+    }
+</script>
+```
+
+2. Login to your [AWS Console](https://aws.amazon.com).
+3. Go to the [AWS Amplify Dashboard](https://aws.amazon.com/amplify).
+4. Choose the **Deploy** route to setup your project.
+5. When prompted, keep the build settings empty if you're serving your docs within the root directory. If you're serving your docs from a different directory, customise your amplify.yml
+
+```yml
+version: 0.1
+frontend:
+  phases:
+    build:
+      commands: 
+        - echo "Nothing to build"
+  artifacts:
+    baseDirectory: /docs
+    files:
+      - '**/*'
+  cache:
+    paths: []
+
+```
+
+6. Add the following Redirect rules in their displayed order.
+
+| Source address | Target address | Type          |
+|----------------|----------------|---------------|
+| /<*>.md        | /<*>.md        | 200 (Rewrite) |
+| /<*>           | /index.html    | 200 (Rewrite) |        
+
