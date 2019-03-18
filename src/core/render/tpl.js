@@ -44,13 +44,22 @@ export function main(config) {
       '') +
     '<div class="sidebar-nav"><!--sidebar--></div>' +
     '</aside>'
-
   return (
+
     (isMobile ? `${aside}<main>` : `<main>${aside}`) +
-    '<section class="content">' +
-    '<article class="markdown-section" id="main"><!--main--></article>' +
-    '</section>' +
-    '</main>'
+    `
+    <section class="content">
+      <article class="markdown-section" style="display: flex;">
+        <div class="markdown-content" id="main" style="flex: none; width: 80%;">
+          <!--main-->
+        </div>
+        <div class="toc-bar" style="flex: none; width: 20%;">
+          <!--toc-bar-->
+        </div>
+      </article>
+    </section>
+    </main>
+    `
   )
 }
 

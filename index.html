@@ -36,7 +36,7 @@
       loadSidebar: true,
       coverpage: true,
       name: 'docsify',
-      subMaxLevel: 2,
+      subMaxLevel: 3,
       mergeNavbar: true,
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
@@ -58,6 +58,39 @@
               + 'Last modified {docsify-updated} '
               + editHtml
           })
+          hook.doneEach(function() {
+            Array.prototype.slice.call(document.querySelectorAll(".sidebar-nav li")).forEach(function(li) {
+              li.childNodes.forEach(function(node) {
+                // wrap node text of li into its own paragraph
+                if (node.nodeName == '#text') {
+                  li.innerHTML = li.innerHTML.replace(node.nodeValue, '<p>' + node.nodeValue + '</p>')
+                  console.log('replaced', li)
+                }
+              })
+              // prepend an additional element for the chevron otherwise parent li clickarea is to big
+              li.childNodes[0].outerHTML = '<i class="icon"></i>' + li.childNodes[0].outerHTML
+            })
+            Array.prototype.slice.call(document.querySelectorAll(".sidebar li > ul ")).forEach(function(ul) {
+              const li = ul.parentElement
+              li.classList.add("nested-list-entry")
+              li.classList.add("expanded")
+              li.addEventListener("click", function(event) {
+                // ignore events catched by children
+                if (event.target === li || event.target.parentElement === li) {
+                  console.log('clicked', li)
+                  if (li.classList.contains("expanded")) {
+                    li.classList.add("collapsed")
+                    li.classList.remove("expanded")
+                    ul.classList.add('hidden')
+                  } else if (li.classList.contains("collapsed")) {
+                    li.classList.add("expanded")
+                    li.classList.remove("collapsed")
+                    ul.classList.remove('hidden')
+                  }
+                }
+              })
+            })
+          });
         }
       ]
     }

@@ -5,6 +5,11 @@
   - [Custom navbar](custom-navbar.md)
   - [Cover page](cover.md)
 
+- Test
+  - [Navbar](custom-navbar.md)
+    - [Themes](themes.md)
+    - [List of Plugins](plugins.md)
+
 - Customization
 
   - [Configuration](configuration.md)

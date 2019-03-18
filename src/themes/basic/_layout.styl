@@ -468,3 +468,20 @@ body.close
 
   40%, 80%
     transform rotate(10deg)
+
+.nested-list-entry
+  cursor: pointer
+
+  &.expanded > .icon::before
+    content: '▼'
+  
+  &.collapsed > .icon::before
+    content: '▶'
+    
+  > .icon::before
+    font-size: 0.8em
+    padding-right: 4px
+    float: left
+
+.hidden
+  display: none

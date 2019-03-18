@@ -13,7 +13,7 @@ import {prerenderEmbed} from './embed'
 
 function executeScript() {
   const script = dom
-    .findAll('.markdown-section>script')
+    .findAll('.markdown-content>script')
     .filter(s => !/template/.test(s.type))[0]
   if (!script) {
     return false
@@ -44,7 +44,7 @@ function renderMain(html) {
     html = '<h1>404 - Not found</h1>'
   }
 
-  this._renderTo('.markdown-section', html)
+  this._renderTo('.markdown-content', html)
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar()
 
@@ -96,8 +96,8 @@ export function renderMixin(proto) {
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
     if (loadSidebar && activeEl) {
-      activeEl.parentNode.innerHTML +=
-        this.compiler.subSidebar(subMaxLevel) || ''
+      //activeEl.parentNode.innerHTML +=
+      this._renderTo('.toc-bar', this.compiler.subSidebar(subMaxLevel) || '')
     } else {
       // Reset toc
       this.compiler.subSidebar()
