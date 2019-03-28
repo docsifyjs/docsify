@@ -96,29 +96,27 @@ export function search(query) {
 
   for (let i = 0; i < data.length; i++) {
     const post = data[i]
-    let isMatch = false
+    let matchesScore = 0
     let resultStr = ''
     const postTitle = post.title && post.title.trim()
     const postContent = post.body && post.body.trim()
     const postUrl = post.slug || ''
 
-    if (postTitle && postContent) {
-      keywords.forEach(keyword => {
+    if (postTitle) {
+      keywords.forEach( keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
           keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
           'gi'
-        )
+        );
         let indexTitle = -1
         let indexContent = -1
 
-        indexTitle = postTitle && postTitle.search(regEx)
-        indexContent = postContent && postContent.search(regEx)
+        indexTitle = postTitle ? postTitle.search(regEx) : -1
+        indexContent = postContent ? postContent.search(regEx) : -1
 
-        if (indexTitle < 0 && indexContent < 0) {
-          isMatch = false
-        } else {
-          isMatch = true
+        if (indexTitle >= 0 || indexContent >= 0) {
+          matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
           if (indexContent < 0) {
             indexContent = 0
           }
@@ -144,11 +142,12 @@ export function search(query) {
         }
       })
 
-      if (isMatch) {
+      if (matchesScore > 0) {
         const matchingPost = {
           title: escapeHtml(postTitle),
-          content: resultStr,
-          url: postUrl
+          content: postContent ? resultStr : '',
+          url: postUrl,
+          score: matchesScore
         }
 
         matchingResults.push(matchingPost)
@@ -156,7 +155,7 @@ export function search(query) {
     }
   }
 
-  return matchingResults
+  return matchingResults.sort((r1, r2) => r2.score - r1.score);
 }
 
 export function init(config, vm) {
