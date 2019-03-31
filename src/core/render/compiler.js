@@ -1,6 +1,6 @@
 import marked from 'marked'
 import Prism from 'prismjs'
-import {helper as helperTpl, tree as treeTpl} from './tpl'
+import {helper as helperTpl, tree as treeTpl, cover as coverTpl} from './tpl'
 import {genTree} from './gen-tree'
 import {slugify} from './slugify'
 import {emojify} from './emojify'
@@ -303,19 +303,25 @@ export class Compiler {
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
     }
     origin.list = renderer.list = function (body, ordered, start) {
-      const isTaskList = /<li class="task-list-item">/.test(body.split('class="task-list"')[0])
+      const isTaskList = /<li class="task-list-item">/.test(
+        body.split('class="task-list"')[0]
+      )
       const isStartReq = start && start > 1
       const tag = ordered ? 'ol' : 'ul'
       const tagAttrs = [
-        (isTaskList ? 'class="task-list"' : ''),
-        (isStartReq ? `start="${start}"` : '')
-      ].join(' ').trim()
+        isTaskList ? 'class="task-list"' : '',
+        isStartReq ? `start="${start}"` : ''
+      ]
+        .join(' ')
+        .trim()
 
       return `<${tag} ${tagAttrs}>${body}</${tag}>`
     }
     origin.listitem = renderer.listitem = function (text) {
       const isTaskItem = /^(<input.*type="checkbox"[^>]*>)/.test(text)
-      const html = isTaskItem ? `<li class="task-list-item"><label>${text}</label></li>` : `<li>${text}</li>`
+      const html = isTaskItem ?
+        `<li class="task-list-item"><label>${text}</label></li>` :
+        `<li>${text}</li>`
 
       return html
     }
@@ -375,12 +381,37 @@ export class Compiler {
   /**
    * Compile cover page
    */
-  cover(text) {
-    const cacheToc = this.toc.slice()
-    const html = this.compile(text)
+  cover(text, isHTML = false) {
+    let html = text
+    if (!isHTML) {
+      const cacheToc = this.toc.slice()
+      html = this.compile(text) || ''
+      this.toc = cacheToc.slice()
+    }
 
-    this.toc = cacheToc.slice()
+    const m = html
+      .trim()
+      .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
+    let style = ''
+    let hasMask = false
+    if (m) {
+      if (m[2] === 'color') {
+        style = `background: ${m[1] + (m[3] || '')}`
+      } else {
+        let path = m[1]
+        hasMask = true
+        if (!isAbsolutePath(m[1])) {
+          path = getPath(this.router.getBasePath(), m[1])
+        }
+        style = `background-image: url(${path}); background-size: cover; background-position: center center;`
+      }
+      html = html.replace(m[0], '')
+    }
 
-    return html
+    return coverTpl({
+      style,
+      hasMask,
+      text: html
+    })
   }
 }
