@@ -1,6 +1,6 @@
 # Generate static html
 
-_Experimental feature_
+> _Experimental feature_
 
 Generating static html files is good for SEO and speeds up the first rendering.
 

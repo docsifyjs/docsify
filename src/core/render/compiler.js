@@ -1,6 +1,12 @@
 import marked from 'marked'
 import Prism from 'prismjs'
-import {helper as helperTpl, tree as treeTpl, cover as coverTpl} from './tpl'
+import {
+  helper as helperTpl,
+  newHelper as newHelperTpl,
+  tree as treeTpl,
+  cover as coverTpl,
+  details as detailsTpl
+} from './tpl'
 import {genTree} from './gen-tree'
 import {slugify} from './slugify'
 import {emojify} from './emojify'
@@ -191,7 +197,7 @@ export class Compiler {
 
     /**
      * Render anchor tag
-     * @link https://github.com/markedjs/marked#overriding-renderer-methods
+     * @link https://marked.js.org/#/USING_PRO.md#renderer
      */
     origin.heading = renderer.heading = function (text, level) {
       let {str, config} = getAndRemoveConfig(text)
@@ -324,6 +330,46 @@ export class Compiler {
         `<li>${text}</li>`
 
       return html
+    }
+    origin.blockquote = renderer.blockquote = function (quote) {
+      const m = quote.match(/^\<p\>(\[\S+\])/)
+
+      if (m) {
+        const text = quote.replace(m[1], '')
+        switch (m[1]) {
+          case '[!]':
+            result = newHelperTpl('docsify-tip', text)
+            break
+          case '[?]':
+            result = newHelperTpl('docsify-warn', text)
+            break
+          case '[x]':
+            result = newHelperTpl('docsify-error', text)
+            break
+          case '[v]':
+            result = newHelperTpl('docsify-success', text)
+            break
+          case '[details]':
+          case '[details:open]':
+            let summary = false
+            const html = text.replace(
+              /^\<p\>([^<]+)<\/p>([\s\S]+)/,
+              (m, m1, m2) => {
+                summary = m1
+                return m2
+              }
+            )
+            const open = Boolean(/:open/.test(m[1]))
+
+            result = detailsTpl({open, summary, html})
+            break
+          default:
+            return quote
+        }
+        return result
+      }
+
+      return quote
     }
 
     renderer.origin = origin

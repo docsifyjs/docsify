@@ -101,6 +101,17 @@ export function helper(className, content) {
   return `<p class="${className}">${content.slice(5).trim()}</p>`
 }
 
+export function newHelper(className, content) {
+  return `<div class="${className}">${content}</div>`
+}
+
 export function theme(color) {
   return `<style>:root{--theme-color: ${color};}</style>`
+}
+
+export function details({open, summary, html}) {
+  return `<details ${open ? 'open=open' : ''}>${
+    summary ? `<summary>${summary}</summary>` : ''
+  }
+  ${html}</details>`
 }
