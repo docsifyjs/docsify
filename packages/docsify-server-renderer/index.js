@@ -87,10 +87,13 @@ export default class Renderer {
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'))
     }
 
+    if (coverpage === true) {
+      coverpage = '_coverpage.md'
+    }
     if (coverpage) {
       let path = null
       if (typeof coverpage === 'string') {
-        if (url === '/') {
+        if (url === 'README.md') {
           path = coverpage
         }
       } else if (Array.isArray(coverpage)) {
@@ -100,9 +103,11 @@ export default class Renderer {
         path = cover === true ? '_coverpage.md' : cover
       }
 
-      const coverFile = this._getPath(resolve(url, `./${path}`))
+      if (path) {
+        const coverFile = this._getPath(resolve(url, `./${path}`))
 
-      this._renderHtml('cover', await this._render(coverFile), 'cover')
+        this._renderHtml('cover', await this._render(coverFile), 'cover')
+      }
     }
 
     const html = this.html
@@ -174,7 +179,7 @@ export default class Renderer {
       return content
     } catch (e) {
       this.lock = this.lock || 0
-      if (++this.lock > 10) {
+      if (++this.lock > 4) {
         this.lock = 0
         return
       }
