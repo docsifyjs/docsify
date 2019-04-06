@@ -115,9 +115,9 @@ export function renderMixin(proto) {
       const main = dom.getNode('#main')
       const firstNode = main.children[0]
       if (firstNode && firstNode.tagName !== 'H1') {
-        const h1 = dom.create('h1')
-        h1.innerText = activeEl.innerText
-        dom.before(main, h1)
+        const h1 = this.compiler.header(activeEl.innerText, 1)
+        const wrapper = dom.create('div', h1)
+        dom.before(main, wrapper.children[0])
       }
     }
 
