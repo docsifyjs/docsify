@@ -25,7 +25,8 @@ export default function () {
       formatUpdated: '',
       externalLinkTarget: '_blank',
       routerMode: 'hash',
-      noCompileLinks: []
+      noCompileLinks: [],
+      relativePath: false
     },
     window.$docsify
   )

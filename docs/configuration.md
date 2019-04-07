@@ -150,6 +150,46 @@ window.$docsify = {
 };
 ```
 
+## relativePath
+
+- Type: `Boolean`
+- Default: `false`
+
+If **true** links are relative to the current context.
+
+For example, the directory structure is as follows:
+
+```text
+.
+└── docs
+    ├── README.md
+    ├── guide.md
+    └── zh-cn
+        ├── README.md
+        ├── guide.md
+        └── config
+            └── example.md
+```
+
+With relative path **enabled** and current URL `http://domain.com/zh-cn/README`, given links will resolve to:
+
+```text
+guide.md              => http://domain.com/zh-cn/guide
+config/example.md     => http://domain.com/zh-cn/config/example
+../README.md          => http://domain.com/README
+/README.md            => http://domain.com/README
+```
+
+```js
+window.$docsify = {
+  // Relative path enabled
+  relativePath: true,
+
+  // Relative path disabled (default value)
+  relativePath: false
+};
+```
+
 ## coverpage
 
 - Type: `Boolean|String|String[]|Object`
