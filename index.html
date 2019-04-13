@@ -21,48 +21,64 @@
   <script>
     window.$docsify = {
       alias: {
-        '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+        '.*?/awesome': 'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
+        '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
         '/.*/_navbar.md': '/_navbar.md',
         '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
         '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
         '/ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
         '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
       },
-      notFoundPage: '_404.html',
       auto2top: true,
       basePath: '/docs/',
-      executeScript: true,
-      loadNavbar: true,
-      loadSidebar: true,
       coverpage: true,
-      name: 'docsify',
-      subMaxLevel: 2,
+      executeScript: true,
+      loadSidebar: true,
+      loadNavbar: true,
       mergeNavbar: true,
+      maxLevel: 4,
+      subMaxLevel: 2,
+      name: 'docsify',
+      search: {
+        noData: {
+          '/de-de/': 'Keine Ergebnisse!',
+          '/zh-cn/': '没有结果!',
+          '/': 'No results!'
+        },
+        paths: 'auto',
+        placeholder: {
+          '/de-de/': 'Suche',
+          '/zh-cn/': '搜索',
+          '/': 'Search'
+        }
+      },
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
-            var url
             if (/githubusercontent\.com/.test(vm.route.file)) {
               url = vm.route.file
                 .replace('raw.githubusercontent.com', 'github.com')
                 .replace(/\/master/, '/blob/master')
             } else {
-              url = 'https://github.com/docsifyjs/docsify/blob/master/' + vm.route.file
+              url = 'https://github.com/docsifyjs/docsify/blob/master/docs/' + vm.route.file
             }
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
             return editHtml
               + html
               + '\n\n----\n\n'
-              + 'Last modified {docsify-updated} '
-              + editHtml
+              + '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
           })
-        }
+        },
       ]
     }
   </script>
   <script src="/lib/docsify.js"></script>
+  <script src="/lib/plugins/search.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
 </body>
 
 </html>
