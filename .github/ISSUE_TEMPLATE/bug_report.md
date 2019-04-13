@@ -28,6 +28,8 @@ about: Create a report to help us improve
 Environment:
 
 ```
+npm version:
+nodejs version:
 docsify version: 
 docsify plugins: 
 browser: 
