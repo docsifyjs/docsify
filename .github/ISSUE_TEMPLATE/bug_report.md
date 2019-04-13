@@ -28,6 +28,7 @@ about: Create a report to help us improve
 Environment:
 
 ```
+operating system:
 npm version:
 nodejs version:
 docsify version: 
