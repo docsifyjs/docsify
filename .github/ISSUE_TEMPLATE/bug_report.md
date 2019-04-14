@@ -20,21 +20,19 @@ about: Create a report to help us improve
 
 #### What is the expected behaviour
 
----
 
+
+#### Other relevant information
+
+<!-- (Update "[ ]" to "[x]" to check a box) -->
 - [ ] Bug does still occur when all/other plugins are disabled?
 
-<!-- Please type in your environment -->
-Environment:
-
-```
-operating system:
-npm version:
-nodejs version:
-docsify version: 
-docsify plugins: 
-browser: 
-```
+- Your OS: 
+- Node.js version: 
+- npm/yarn version: 
+- Browser version: 
+- Docsify version: 
+- Docsify plugins: 
 
 <!-- Love docsify? Please consider supporting our collective:
 👉  https://opencollective.com/docsify/donate -->
