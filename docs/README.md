@@ -16,7 +16,7 @@ See the [Quick start](quickstart.md) guide for more details.
 - Multiple themes
 - Useful plugin API
 - Emoji support
-- Compatible with IE10+
+- Compatible with IE11
 - Support server-side rendering ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 
 ## Examples

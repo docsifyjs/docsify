@@ -40,7 +40,7 @@
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE10+
+- Compatible with IE11
 - Support SSR ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 - Support embedded files
 
