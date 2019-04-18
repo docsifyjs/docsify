@@ -68,6 +68,14 @@ export function genIndex(path, content = '', router, depth) {
         index[slug] = {slug, title: '', body: ''}
       } else if (index[slug].body) {
         index[slug].body += '\n' + (token.text || '')
+      } else if (token.type === 'table'){
+        var tableString = '|';
+        token.cells.forEach(function (rows) {
+          rows.forEach(function(cell) {
+             tableString += ' ' + cell + ' |';
+          });
+        });
+        index[slug].body = tableString;
       } else {
         index[slug].body = token.text
       }
