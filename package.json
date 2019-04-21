@@ -32,11 +32,11 @@
     "watch:css": "run-p 'css -- -o themes -w'",
     "watch:js": "node build/build.js",
     "build:css:min": "mkdir lib/themes && run-p 'css -- -o lib/themes' && node build/mincss.js",
-    "build:css": "mkdir themes && run-p 'css --  -o themes'",
+    "build:css": "mkdir -p  themes && run-p 'css --  -o themes'",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
     "build:ssr": "node build/ssr.js",
     "build:cover": "node build/cover.js",
-    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
+    "build": "rimraf lib themes/* && run-s build:js build:css build:css:min build:ssr build:cover",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
     "postinstall": "opencollective postinstall"
