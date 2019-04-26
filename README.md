@@ -55,7 +55,7 @@ Look at [this tutorial](https://docsify.js.org/#/quickstart)
 
 These projects are using docsify to generate their sites. Pull requests welcome :blush:
 
-Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify)
+Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 ## Similar projects
 

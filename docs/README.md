@@ -21,7 +21,7 @@ See the [Quick start](quickstart.md) guide for more details.
 
 ## Examples
 
-Check out the [Showcase](https://github.com/docsifyjs/docsify/#showcase) to see docsify in use.
+Check out the [Showcase](https://github.com/docsifyjs/awesome-docsify#showcase) to see docsify in use.
 
 ## Donate
 
