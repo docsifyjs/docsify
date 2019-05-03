@@ -22,7 +22,8 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
           } else if (token.embed.type === 'code') {
             if (token.embed.fragment) {
               const fragment = token.embed.fragment
-              const pattern = new RegExp(`(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`)
+              const marker = `(?:(?:(?:###|\\/\\/\\/)\\s*\\[${fragment}\\])|(?:<!--\\s*\\[${fragment}\\]\\s*-->))`
+              const pattern = new RegExp(`${marker}([\\s\\S]*)${marker}`)
               text = ((text.match(pattern) || [])[1] || '').trim()
             }
             embedToken = compile.lexer(
