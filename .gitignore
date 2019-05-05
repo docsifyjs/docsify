@@ -1,7 +1,9 @@
 *.log
 .DS_Store
-/themes/*
-!.gitkeep
-node_modules
-/lib/
 .idea
+node_modules
+themes/
+lib/
+
+# exceptions
+!.gitkeep
