@@ -1,3 +1,8 @@
+<a name="4.9.4"></a>
+## [4.9.4](https://github.com/docsifyjs/docsify/compare/v4.9.2...v4.9.4) (2019-05-05)
+
+
+
 <a name="4.9.2"></a>
 ## [4.9.2](https://github.com/docsifyjs/docsify/compare/v4.9.1...v4.9.2) (2019-04-21)
 
