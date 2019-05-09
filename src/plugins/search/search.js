@@ -88,75 +88,70 @@ export function search(query) {
     data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]))
   })
 
-  query = query.trim()
-  let keywords = query.split(/[\s\-，\\/]+/)
-  if (keywords.length !== 1) {
-    keywords = [].concat(query, keywords)
-  }
+  var options = {
+    shouldSort: true,
+    includeMatches: true,
+    threshold: 0.45,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [{
+      name: 'title',
+      weight: 0.75
+    }, {
+      name: 'body',
+      weight: 0.25
+    }]
+  };
+  var fuse = new Fuse(data, options);
+  var result = fuse.search(query);
 
-  for (let i = 0; i < data.length; i++) {
-    const post = data[i]
-    let isMatch = false
-    let resultStr = ''
-    const postTitle = post.title && post.title.trim()
-    const postContent = post.body && post.body.trim()
-    const postUrl = post.slug || ''
-
-    if (postTitle && postContent) {
-      keywords.forEach(keyword => {
-        // From https://github.com/sindresorhus/escape-string-regexp
-        const regEx = new RegExp(
-          keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
-          'gi'
-        )
-        let indexTitle = -1
-        let indexContent = -1
-
-        indexTitle = postTitle && postTitle.search(regEx)
-        indexContent = postContent && postContent.search(regEx)
-
-        if (indexTitle < 0 && indexContent < 0) {
-          isMatch = false
-        } else {
-          isMatch = true
-          if (indexContent < 0) {
-            indexContent = 0
-          }
-
-          let start = 0
-          let end = 0
-
-          start = indexContent < 11 ? 0 : indexContent - 10
-          end = start === 0 ? 70 : indexContent + keyword.length + 60
-
-          if (end > postContent.length) {
-            end = postContent.length
-          }
-
-          const matchContent =
-            '...' +
-            escapeHtml(postContent)
-              .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
-            '...'
-
-          resultStr += matchContent
+  var highlighter = function(resultItem){
+    resultItem.matches.forEach((matchItem) => {
+      var text = resultItem.item[matchItem.key];
+      var result = []
+      var matches = [].concat(matchItem.indices);
+      var pair = matches.shift()
+      
+      for (var i = 0; i < text.length; i++) {
+        var char = text.charAt(i)
+        if (pair && i == pair[0]) {
+          result.push('<em class="search-keyword">')
         }
-      })
-
-      if (isMatch) {
-        const matchingPost = {
-          title: escapeHtml(postTitle),
-          content: resultStr,
-          url: postUrl
+        result.push(char)
+        if (pair && i == pair[1]) {
+          result.push('</em>')
+          pair = matches.shift()
         }
-
-        matchingResults.push(matchingPost)
       }
-    }
-  }
+      resultItem.highlight = result.join('');
 
-  return matchingResults
+      if(resultItem.children && resultItem.children.length > 0){
+        resultItem.children.forEach((child) => {
+          highlighter(child);
+        });
+      }
+    });
+  };
+
+  result.forEach((resultItem) => {
+    highlighter(resultItem);
+  });
+
+  var resultFormatted = result.map(function(obj) {
+    var postTitle = escapeHtml(obj.item.title);
+    var postContent = obj.highlight;
+    var postUrl = obj.item.slug || '';
+
+    return {
+      title: postTitle,
+      content: postContent,
+      url: postUrl
+    };
+    });
+
+  return resultFormatted;
 }
 
 export function init(config, vm) {
