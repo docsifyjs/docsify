@@ -226,7 +226,7 @@ export function initRender(vm) {
 
   if (el) {
     if (config.repo) {
-      html += tpl.corner(config.repo)
+      html += tpl.corner(config.repo, config.externalLinkTarget)
     }
     if (config.coverpage) {
       html += tpl.cover()
