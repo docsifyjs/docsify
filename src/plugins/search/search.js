@@ -98,9 +98,12 @@ export function search(query) {
     const post = data[i]
     let matchesScore = 0
     let resultStr = ''
+    // remove {docsify-ignore} from titles so they don't show in results
+    post.title = post.title.replace(' {docsify-ignore}','')
     const postTitle = post.title && post.title.trim()
     const postContent = post.body && post.body.trim()
-    const postUrl = post.slug || ''
+    // remove '-docsify-ignore' from slug so links in results work
+    const postUrl = post.slug.replace('-docsify-ignore','') || ''
 
     if (postTitle) {
       keywords.forEach( keyword => {
@@ -115,7 +118,8 @@ export function search(query) {
         indexTitle = postTitle ? postTitle.search(regEx) : -1
         indexContent = postContent ? postContent.search(regEx) : -1
 
-        if (indexTitle >= 0 || indexContent >= 0) {
+        // postContent is sometimes undefined. Don't allow to go through if it is
+        if (indexTitle >= 0 || indexContent >= 0 && postContent != undefined) {
           matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
           if (indexContent < 0) {
             indexContent = 0
