@@ -10,6 +10,7 @@ export default function () {
       loadSidebar: null,
       loadNavbar: null,
       scrollGap: 0,
+      scrollDuration: 500,
       homepage: 'README.md',
       coverpage: '',
       basePath: '',
