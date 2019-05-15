@@ -296,6 +296,21 @@ window.$docsify = {
 };
 ```
 
+## scrollGap
+
+- Type: `Number|Function`
+- Default: `0`
+
+Useful when having a fixed navbar. This option allows you to add a gap between the top-edge of the browser and
+the section where to auto-scroll to when clicking on a local link. You can provide either a `Number` or a `Function`
+returning a `Number`.
+
+```js
+window.$docsify = {
+  scrollGap: 60 // will add 60px extra between the top-edge of the browser and any scrolling element
+}
+```
+
 ## alias
 
 - Type: `Object`

@@ -12,10 +12,11 @@ function scrollTo(el) {
   if (scroller) {
     scroller.stop()
   }
+  const {scrollGap} = window.$docsify
   enableScrollEvent = false
   scroller = new Tweezer({
     start: window.pageYOffset,
-    end: el.getBoundingClientRect().top + window.pageYOffset,
+    end: el.getBoundingClientRect().top + window.pageYOffset - (typeof scrollGap === 'function' ? scrollGap() : scrollGap),
     duration: 500
   })
     .on('tick', v => window.scrollTo(0, v))

@@ -9,6 +9,7 @@ export default function () {
       subMaxLevel: 0,
       loadSidebar: null,
       loadNavbar: null,
+      scrollGap: 0,
       homepage: 'README.md',
       coverpage: '',
       basePath: '',
