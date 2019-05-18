@@ -29,7 +29,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # commit
   git add -A
-  git add -f lib/ -A
   git commit -m "[build] $VERSION $RELEASE_TAG"
   npm --no-git-tag-version version $VERSION --message "[release] $VERSION $RELEASE_TAG"
 

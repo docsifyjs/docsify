@@ -236,13 +236,25 @@ export class Compiler {
    * Compile sidebar
    */
   sidebar(text, level) {
+    const {toc} = this
     const currentPath = this.router.getCurrentPath()
     let html = ''
 
     if (text) {
       html = this.compile(text)
     } else {
-      const tree = this.cacheTree[currentPath] || genTree(this.toc, level)
+      for (let i = 0; i < toc.length; i++) {
+        if (toc[i].ignoreSubHeading) {
+          const deletedHeaderLevel = toc[i].level
+          toc.splice(i, 1)
+          // Remove headers who are under current header
+          for (let j = i; deletedHeaderLevel < toc[j].level && j < toc.length; j++) {
+            toc.splice(j, 1) && j-- && i++
+          }
+          i--
+        }
+      }
+      const tree = this.cacheTree[currentPath] || genTree(toc, level)
       html = treeTpl(tree, '<ul>{inner}</ul>')
       this.cacheTree[currentPath] = tree
     }
@@ -267,7 +279,6 @@ export class Compiler {
     for (let i = 0; i < toc.length; i++) {
       toc[i].ignoreSubHeading && toc.splice(i, 1) && i--
     }
-
     const tree = cacheTree[currentPath] || genTree(toc, level)
 
     cacheTree[currentPath] = tree
