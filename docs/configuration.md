@@ -454,6 +454,18 @@ window.$docsify = {
 };
 ```
 
+Such as setting the cache
+
+```js
+window.$docsify = {
+  requestHeaders: {
+    'cache-control': 'max-age=600'
+  }
+};
+```
+
+
+
 ## ext
 
 - type: `String`
