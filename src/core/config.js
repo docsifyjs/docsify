@@ -53,26 +53,22 @@ export default function () {
         }
       }
     }
+  }
 
-    if (config.loadSidebar === true) {
-      config.loadSidebar = '_sidebar' + config.ext
-    }
-
-    if (config.loadNavbar === true) {
-      config.loadNavbar = '_navbar' + config.ext
-    }
-
-    if (config.coverpage === true) {
-      config.coverpage = '_coverpage' + config.ext
-    }
-
-    if (config.repo === true) {
-      config.repo = ''
-    }
-
-    if (config.name === true) {
-      config.name = ''
-    }
+  if (config.loadSidebar === true) {
+    config.loadSidebar = '_sidebar' + config.ext
+  }
+  if (config.loadNavbar === true) {
+    config.loadNavbar = '_navbar' + config.ext
+  }
+  if (config.coverpage === true) {
+    config.coverpage = '_coverpage' + config.ext
+  }
+  if (config.repo === true) {
+    config.repo = ''
+  }
+  if (config.name === true) {
+    config.name = ''
   }
 
   window.$docsify = config
