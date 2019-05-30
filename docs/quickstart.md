@@ -22,7 +22,7 @@ After the `init` is complete, you can see the file list in the `./docs` subdirec
 * `README.md` as the home page
 * `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
 
-You can easily update the documentation in `./docs/README.md`, of course you can add [more pages](more-pages.md).
+You can easily update the documentation in `./docs/README.md`. And of course you can add [more pages](more-pages.md).
 
 ## Preview your site
 
@@ -69,7 +69,7 @@ cd docs && python -m SimpleHTTPServer 3000
 
 ## Loading dialog
 
-If you want, you can show a loading dialog before docsify starts to render your documentation:
+If you prefer, you can show a "loading" dialog before docsify starts to render your documentation:
 
 ```html
   <!-- index.html -->
