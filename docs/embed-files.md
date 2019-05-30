@@ -71,11 +71,19 @@ Did you see it? You only need to write directly. You can check [MDN](https://dev
 Embedding any type of source code file, you can specify the highlighted language or automatically identify.
 
 ```markdown
-[](_media/example.html ':include :type=code text')
+[](_media/example.html ':include :type=code :lang=text')
 ```
 
 ⬇️
 
-[](_media/example.html ':include :type=code text')
+[](_media/example.html ':include :type=code :lang=text')
 
 ?> How to set highlight? You can see [here](language-highlight.md).
+
+## Additional Classes
+
+You can also add additional classes to the objects which hold your embeded files.
+
+```markdown
+[](_media/example.html ':include :type=code :lang=text :class="class1 class2"')
+```

@@ -19,8 +19,8 @@ export function getAndRemoveConfig(str = '') {
     str = str
       .replace(/^'/, '')
       .replace(/'$/, '')
-      .replace(/(?:^|\s):([\w-]+)=?([\w-]+)?/g, (m, key, value) => {
-        config[key] = (value && value.replace(/&quot;/g, '')) || true
+      .replace(/(?:^|\s):([\w-]+)=?([\w-]+|".*?")?/g, (m, key, value) => {
+        config[key] = (value && value.replace(/&quot;/g, '') && value.replace(/"/g, '')) || true
         return ''
       })
       .trim()
@@ -133,7 +133,7 @@ export class Compiler {
   compileEmbed(href, title) {
     const {str, config} = getAndRemoveConfig(title)
     let embed
-    title = str
+    title = config.lang || str
 
     if (config.include) {
       if (!isAbsolutePath(href)) {
@@ -165,6 +165,7 @@ export class Compiler {
         embed.type = type
       }
       embed.fragment = config.fragment
+      embed.additional_classes = config.class
 
       return embed
     }
@@ -217,14 +218,18 @@ export class Compiler {
       return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`
     }
     // Highlight code
-    origin.code = renderer.code = function (code, lang = '') {
+    origin.code = renderer.code = function (code, lang = '', additional_classes = '') {
       code = code.replace(/@DOCSIFY_QM@/g, '`')
       const hl = Prism.highlight(
         code,
         Prism.languages[lang] || Prism.languages.markup
       )
 
-      return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
+      if (additional_classes != '') {
+        additional_classes = ' ' + additional_classes
+      }
+
+      return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}${additional_classes}">${hl}</code></pre>`
     }
     origin.link = renderer.link = function (href, title = '', text) {
       let attrs = ''
