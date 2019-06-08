@@ -1,6 +1,6 @@
+import stripIndent from 'strip-indent';
 import { get } from '../fetch/ajax';
 import { merge } from '../util/core';
-import stripIndent from 'strip-indent';
 
 const cached = {};
 
@@ -19,6 +19,23 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
         let embedToken;
         if (text) {
           if (token.embed.type === 'markdown') {
+            let path = token.embed.url.split('/');
+            path.pop();
+            path = path.join('/');
+            // Resolves relative links to absolute
+            text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, x => {
+              const linkBeginIndex = x.indexOf('(');
+              if (x.substring(linkBeginIndex).startsWith('(.')) {
+                return (
+                  x.substring(0, linkBeginIndex) +
+                  `(${window.location.protocol}//${window.location.host}${path}/` +
+                  x.substring(linkBeginIndex + 1, x.length - 1) +
+                  ')'
+                );
+              }
+              return x;
+            });
+
             embedToken = compile.lexer(text);
           } else if (token.embed.type === 'code') {
             if (token.embed.fragment) {
