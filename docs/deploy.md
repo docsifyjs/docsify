@@ -127,5 +127,5 @@ frontend:
 | Source address | Target address | Type          |
 |----------------|----------------|---------------|
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
-| /<*>           | /index.html    | 200 (Rewrite) |        
+| /<*>.html      | /index.html    | 200 (Rewrite) |        
 
