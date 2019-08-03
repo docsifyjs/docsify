@@ -1,6 +1,6 @@
 # Themes
 
-There are currently three themes available. Copy [Vue](//vuejs.org) and [buble](//buble.surge.sh) website custom theme and [@liril-net](https://github.com/liril-net) contribution to the theme of the black style.
+There are currently four themes available. Copy [Vue](//vuejs.org) and [buble](//buble.surge.sh) website custom theme and [@liril-net](https://github.com/liril-net) contribution to the theme of the black style.
 
 ```html
 <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
