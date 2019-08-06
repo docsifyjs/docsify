@@ -1,6 +1,7 @@
 import {isMobile} from '../util/env'
 import * as dom from '../util/dom'
 import Tweezer from 'tweezer.js'
+import cssEscape from 'css.escape'
 
 const nav = {}
 let hoverOver = false
@@ -131,7 +132,7 @@ export function scrollIntoView(path, id) {
     return
   }
 
-  const section = dom.find('#' + id)
+  const section = dom.find('#' + cssEscape(id))
   section && scrollTo(section)
 
   const li = nav[getNavKey(path, id)]
