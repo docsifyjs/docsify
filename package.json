@@ -55,6 +55,7 @@
     "chokidar": "^3.2.1",
     "conventional-changelog-cli": "^2.0.25",
     "cross-env": "^6.0.3",
+    "css.escape": "^1.5.1",
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
     "eslint-config-xo-space": "^0.21.0",
