@@ -11,17 +11,28 @@ import {isPrimitive} from '../util/core'
 import {scrollActiveSidebar, scroll2Top} from '../event/scroll'
 import {prerenderEmbed} from './embed'
 
-function executeScript() {
+function getScript() {
   const script = dom
     .findAll('.markdown-section>script')
     .filter(s => !/template/.test(s.type))[0]
+
   if (!script) {
-    return false
+    return null
   }
+
   const code = script.innerText.trim()
+
   if (!code) {
-    return false
+    return null
   }
+
+  return code
+}
+
+function executeScript() {
+  const code = getScript()
+
+  if (!code) return
 
   setTimeout(_ => {
     window.__EXECUTE_RESULT__ = new Function(code)()
@@ -52,13 +63,15 @@ function renderMain(html) {
   if (
     this.config.executeScript !== false &&
     typeof window.Vue !== 'undefined' &&
-    !executeScript()
+    // !executeScript()
+    !getScript()
   ) {
-    setTimeout(_ => {
+    // setTimeout(_ => {
+      debugger
       const vueVM = window.__EXECUTE_RESULT__
       vueVM && vueVM.$destroy && vueVM.$destroy()
       window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
-    }, 0)
+    // }, 0)
   } else {
     this.config.executeScript && executeScript()
   }
