@@ -78,6 +78,7 @@ export class Compiler {
     this.toc = []
     this.cacheTOC = {}
     this.linkTarget = config.externalLinkTarget || '_blank'
+    this.linkRel = this.linkTarget === '_blank' ? (config.externalLinkRel || 'noopener') : ''
     this.contentBase = router.getBasePath()
 
     const renderer = this._initRenderer()
@@ -185,7 +186,7 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer()
-    const {linkTarget, router, contentBase} = this
+    const {linkTarget, linkRel, router, contentBase} = this
     const _self = this
     const origin = {}
 
@@ -243,6 +244,7 @@ export class Compiler {
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         attrs += href.indexOf('mailto:') === 0 ? '' : ` target="${linkTarget}"`
+        attrs += href.indexOf('mailto:') === 0 ? '' : (linkRel !== '' ? ` rel="${linkRel}"` : '')
       }
 
       if (config.target) {

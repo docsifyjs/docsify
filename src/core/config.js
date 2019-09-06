@@ -24,6 +24,7 @@ export default function () {
       mergeNavbar: false,
       formatUpdated: '',
       externalLinkTarget: '_blank',
+      externalLinkRel: 'noopener',
       routerMode: 'hash',
       noCompileLinks: [],
       relativePath: false
