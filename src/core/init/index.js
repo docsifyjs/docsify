@@ -9,7 +9,7 @@ import {isFn} from '../util/core'
 export function initMixin(proto) {
   proto._init = function () {
     const vm = this
-    vm.config = config()
+    vm.config = config(vm)
 
     initLifecycle(vm) // Init hooks
     initPlugin(vm) // Install plugins

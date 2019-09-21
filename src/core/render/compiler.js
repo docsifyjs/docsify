@@ -232,15 +232,22 @@ export class Compiler {
       const {str, config} = getAndRemoveConfig(title)
       title = str
 
+      debugger
       if (
         !isAbsolutePath(href) &&
         !_self._matchNotCompileLink(href) &&
         !config.ignore
       ) {
-        if (href === _self.config.homepage) {
-          href = 'README'
+        // skip hrefs like `#/page?id=section`, which are already in the format
+        // Docsify compiles hrefs to
+        // TODO move this to router.toURL
+        // TODO make a note of why we need this
+        if (!href.trim().startsWith('#/')) {
+          if (href === _self.config.homepage) {
+            href = 'README'
+          }
+          href = router.toURL(href, null, router.getCurrentPath())
         }
-        href = router.toURL(href, null, router.getCurrentPath())
       } else {
         attrs += href.indexOf('mailto:') === 0 ? '' : ` target="${linkTarget}"`
       }
@@ -258,7 +265,7 @@ export class Compiler {
         attrs += ` title="${title}"`
       }
 
-      return `<a href="${href}"${attrs}>${text}</a>`
+      return `<a docsify-link href="${href}"${attrs}>${text}</a>`
     }
     origin.paragraph = renderer.paragraph = function (text) {
       let result
@@ -334,8 +341,10 @@ export class Compiler {
     let html = ''
 
     if (text) {
+        debugger
       html = this.compile(text)
     } else {
+        debugger
       for (let i = 0; i < toc.length; i++) {
         if (toc[i].ignoreSubHeading) {
           const deletedHeaderLevel = toc[i].level

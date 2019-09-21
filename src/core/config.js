@@ -1,6 +1,6 @@
 import {merge, hyphenate, isPrimitive, hasOwn} from './util/core'
 
-export default function () {
+export default function (vm) {
   const config = merge(
     {
       el: '#app',
@@ -28,7 +28,7 @@ export default function () {
       noCompileLinks: [],
       relativePath: false
     },
-    window.$docsify
+    typeof window.$docsify === 'function' ? window.$docsify(vm) : window.$docsify
   )
 
   const script =
