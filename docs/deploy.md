@@ -129,3 +129,8 @@ frontend:
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
 | /<*>           | /index.html    | 200 (Rewrite) |        
 
+## ZEIT Now
+
+1. Install [Now CLI](https://zeit.co/download), `npm i -g now`
+2. Change directory to your docsify website, for example `cd docs`
+3. Deploy with a single command, `now` 
