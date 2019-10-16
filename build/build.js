@@ -2,7 +2,7 @@ const rollup = require('rollup')
 const buble = require('rollup-plugin-buble')
 const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
-const uglify = require('rollup-plugin-uglify')
+const { uglify } = require('rollup-plugin-uglify')
 const replace = require('rollup-plugin-replace')
 const isProd = process.env.NODE_ENV === 'production'
 const version = process.env.VERSION || require('../package.json').version
