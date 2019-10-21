@@ -134,7 +134,7 @@ export function scrollIntoView(path, id) {
   const section = dom.find('#' + id)
   section && scrollTo(section)
 
-  const li = nav[getNavKey(path, id)]
+  const li = nav[getNavKey(decodeURI(path), id)]
   const sidebar = dom.getNode('.sidebar')
   const active = dom.find(sidebar, 'li.active')
   active && active.classList.remove('active')
