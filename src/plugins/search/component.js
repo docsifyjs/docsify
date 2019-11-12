@@ -99,7 +99,7 @@ function style() {
 function tpl(defaultValue = '') {
   const html =
     `<div class="input-wrap">
-      <input type="search" value="${defaultValue}" />
+      <input type="search" value="${defaultValue}" aria-label="Search text" />
       <div class="clear-button">
         <svg width="26" height="24">
           <circle cx="12" cy="12" r="11" fill="#ccc" />
