@@ -20,11 +20,55 @@ function style() {
   align-items: center;
 }
 
-.search .results-panel {
+
+
+.search-results-panel {
   display: none;
+  position: fixed;
+  left: var(--sidebar-width);
+  top: 84px;
+  max-height: calc(100% - 100px);
+  overflow-y: auto;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999999;
 }
 
-.search .results-panel.show {
+.search-results-panel h2, .search-results-panel p {
+  color: #000;
+}
+
+.search-results-panel h2 {
+  margin: 0;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-results-panel .empty {
+  padding: 8px 25px;
+  color: var(--notice-important-border-color, var(--notice-border-color));
+}
+
+.search-results-panel p {
+  margin: 0;
+  padding: 5px;
+}
+
+.search-results-panel .matching-post {
+  padding: 1px 15px;
+  margin: 0;
+}
+
+.search-results-panel .matching-post:hover {
+  background: #e6f7ff;
+}
+
+.search-results-panel em {
+  color: var(--theme-color, #4a97ec);
+  font-weight: bold;
+}
+
+.search-results-panel.show {
   display: block;
 }
 
@@ -108,18 +152,24 @@ function tpl(defaultValue = '') {
         </svg>
       </div>
     </div>
-    <div class="results-panel"></div>
     </div>`
   const el = Docsify.dom.create('div', html)
   const aside = Docsify.dom.find('aside')
 
   Docsify.dom.toggleClass(el, 'search')
   Docsify.dom.before(aside, el)
+
+  const seachEl = Docsify.dom.create('div', html)
+  const main = Docsify.dom.find('main')
+
+  Docsify.dom.toggleClass(seachEl, 'search-results-panel')
+  Docsify.dom.before(main, seachEl)
 }
 
 function doSearch(value) {
   const $search = Docsify.dom.find('div.search')
-  const $panel = Docsify.dom.find($search, '.results-panel')
+  const $main = Docsify.dom.find('main')
+  const $panel = Docsify.dom.find($main, '.search-results-panel')
   const $clearBtn = Docsify.dom.find($search, '.clear-button')
   const $sidebarNav = Docsify.dom.find('.sidebar-nav')
   const $appName = Docsify.dom.find('.app-name')
@@ -133,8 +183,10 @@ function doSearch(value) {
       $sidebarNav.classList.remove('hide')
       $appName.classList.remove('hide')
     }
+
     return
   }
+
   const matchs = search(value)
 
   let html = ''
@@ -160,6 +212,8 @@ function bindEvents() {
   const $search = Docsify.dom.find('div.search')
   const $input = Docsify.dom.find($search, 'input')
   const $inputWrap = Docsify.dom.find($search, '.input-wrap')
+  const $main = Docsify.dom.find('main')
+  const $panel = Docsify.dom.find($main, '.search-results-panel')
 
   let timeId
   // Prevent to Fold sidebar
@@ -179,6 +233,31 @@ function bindEvents() {
       doSearch()
     }
   })
+
+  var $body = Docsify.dom.find('body')
+  Docsify.dom.on($body, 'click', function (e) {
+    // Click input outside result panel
+    if (!isChildOf(e.target, $panel) && $input.value !== '') {
+      $input.value = ''
+      doSearch()
+    }
+  })
+}
+
+function isChildOf(child, parent) {
+  var parentNode
+  if (child && parent) {
+    parentNode = child.parentNode
+    while (parentNode) {
+      if (parent === parentNode) {
+        return true
+      }
+
+      parentNode = parentNode.parentNode
+    }
+  }
+
+  return false
 }
 
 function updatePlaceholder(text, path) {
@@ -187,6 +266,7 @@ function updatePlaceholder(text, path) {
   if (!$input) {
     return
   }
+
   if (typeof text === 'string') {
     $input.placeholder = text
   } else {
