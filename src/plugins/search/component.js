@@ -20,14 +20,6 @@ function style() {
   align-items: center;
 }
 
-@media (max-width: 47.99em) {
-  .search-results-panel {
-    left: 0;
-    top: 128px;
-    max-width: 100%;
-  }
-}
-
 .search-results-panel {
   display: none;
   position: fixed;
@@ -74,6 +66,14 @@ function style() {
 
 .search-results-panel.show {
   display: block;
+}
+
+@media (max-width: 47.99em) {
+  .search-results-panel {
+    left: 0;
+    top: 128px;
+    max-width: 100%;
+  }
 }
 
 .search input {
