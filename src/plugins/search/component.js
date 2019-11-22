@@ -41,7 +41,6 @@ function style() {
 .search-results-panel h2 {
   margin: 0;
   padding: 5px;
-  border-bottom: 1px solid #ccc;
 }
 
 .search-results-panel .empty {
@@ -51,11 +50,10 @@ function style() {
 
 .search-results-panel p {
   margin: 0;
-  padding: 5px;
 }
 
 .search-results-panel .matching-post {
-  padding: 1px 15px;
+  padding: 10px 15px;
   margin: 0;
 }
 
@@ -212,8 +210,6 @@ function bindEvents() {
   const $search = Docsify.dom.find('div.search')
   const $input = Docsify.dom.find($search, 'input')
   const $inputWrap = Docsify.dom.find($search, '.input-wrap')
-  const $main = Docsify.dom.find('main')
-  const $panel = Docsify.dom.find($main, '.search-results-panel')
 
   let timeId
   // Prevent to Fold sidebar
@@ -235,29 +231,13 @@ function bindEvents() {
   })
 
   var $body = Docsify.dom.find('body')
-  Docsify.dom.on($body, 'click', function (e) {
+  Docsify.dom.on($body, 'click', function () {
     // Click input outside result panel
-    if (!isChildOf(e.target, $panel) && $input.value !== '') {
+    if ($input.value !== '') {
       $input.value = ''
       doSearch()
     }
   })
-}
-
-function isChildOf(child, parent) {
-  var parentNode
-  if (child && parent) {
-    parentNode = child.parentNode
-    while (parentNode) {
-      if (parent === parentNode) {
-        return true
-      }
-
-      parentNode = parentNode.parentNode
-    }
-  }
-
-  return false
 }
 
 function updatePlaceholder(text, path) {
