@@ -20,7 +20,13 @@ function style() {
   align-items: center;
 }
 
-
+@media (max-width: 47.99em) {
+  .search-results-panel {
+    left: 0;
+    top: 128px;
+    max-width: 100%;
+  }
+}
 
 .search-results-panel {
   display: none;
@@ -31,7 +37,7 @@ function style() {
   overflow-y: auto;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 999999;
+  z-index: 9999999;
 }
 
 .search-results-panel h2, .search-results-panel p {
