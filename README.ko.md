@@ -28,11 +28,11 @@
 ## 링크
 
 - [`develop` branch preview](https://docsifyjs.netlify.com/)
-- [Documentation](https://docsify.js.org)
-- [CLI](https://github.com/docsifyjs/docsify-cli)
-- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
-- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
-- [Community chat](https://gitter.im/docsifyjs/Lobby)
+- [문서화](https://docsify.js.org)
+- [명령행 인터페이스](https://github.com/docsifyjs/docsify-cli)
+- 콘텐츠 전송 네트워크: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
+- [멋진 문서화](https://github.com/docsifyjs/awesome-docsify)
+- [커뮤니티 채팅](https://gitter.im/docsifyjs/Lobby)
 
 ## 특징
 
@@ -59,7 +59,7 @@
 
 ## 유사한 프로젝트
 
-| Project                                          | Description                              |
+| 프로젝트                                         | 서술                                     |
 | ------------------------------------------------ | ---------------------------------------- |
 | [docute](https://github.com/egoist/docute)       | 📜 Effortlessly documentation done right |
 | [docpress](https://github.com/docpress/docpress) | Documentation website generator          |
