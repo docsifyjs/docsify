@@ -35,6 +35,12 @@ function style() {
   padding: 0 7px;
   line-height: 36px;
   font-size: 14px;
+  border: 1px solid transparent;
+}
+
+.search input:focus {
+  box-shadow: 0 0 5px var(--theme-color, #42b983);
+  border: 1px solid var(--theme-color, #42b983);
 }
 
 .search input::-webkit-search-decoration,
