@@ -227,7 +227,7 @@ export class Compiler {
       return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
     }
     origin.link = renderer.link = function (href, title = '', text) {
-      let attrs = ''
+      const attrs = {}
 
       const {str, config} = getAndRemoveConfig(title)
       title = str
@@ -241,24 +241,32 @@ export class Compiler {
           href = 'README'
         }
         href = router.toURL(href, null, router.getCurrentPath())
-      } else {
-        attrs += href.indexOf('mailto:') === 0 ? '' : ` target="${linkTarget}"`
+      } else if (href.indexOf('mailto:') < 0) {
+        attrs.target = `"${linkTarget}"`
       }
 
       if (config.target) {
-        attrs += ' target=' + config.target
+        attrs.target = `"${config.target}"`
       }
 
       if (config.disabled) {
-        attrs += ' disabled'
+        attrs.disabled = true
         href = 'javascript:void(0)'
       }
 
       if (title) {
-        attrs += ` title="${title}"`
+        attrs.title = `"${title}"`
       }
 
-      return `<a href="${href}"${attrs}>${text}</a>`
+      const attrsEntries = Object.entries(attrs)
+      let attrsStr = ''
+
+      for (let i = 0; i < attrsEntries.length; ++i) {
+        const [key, value] = attrsEntries[i]
+        attrsStr += ` ${key}=${value}`
+      }
+
+      return `<a href="${href}"${attrsStr}>${text}</a>`
     }
     origin.paragraph = renderer.paragraph = function (text) {
       let result
