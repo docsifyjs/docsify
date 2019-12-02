@@ -27,6 +27,7 @@ export default function () {
       externalLinkTarget: '_blank',
       // this config for the corner 
       cornerExternalLinkTarget: '_blank',
+      externalLinkRel: 'noopener',
       routerMode: 'hash',
       noCompileLinks: [],
       relativePath: false
