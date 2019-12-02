@@ -29,7 +29,7 @@ export function corner(data) {
  */
 export function main(config) {
   const aside =
-    '<button class="sidebar-toggle">' +
+    '<button class="sidebar-toggle" aria-label="Menu">' +
     '<div class="sidebar-toggle-button">' +
     '<span></span><span></span><span></span>' +
     '</div>' +
