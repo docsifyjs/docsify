@@ -23,7 +23,10 @@ export default function () {
       ext: '.md',
       mergeNavbar: false,
       formatUpdated: '',
+      // this config for the links inside markdown
       externalLinkTarget: '_blank',
+      // this config for the corner 
+      cornerExternalLinkTarget: '_blank',
       routerMode: 'hash',
       noCompileLinks: [],
       relativePath: false
