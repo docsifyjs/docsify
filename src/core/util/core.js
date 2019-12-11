@@ -56,3 +56,19 @@ export function noop() {}
 export function isFn(obj) {
   return typeof obj === 'function'
 }
+
+/**
+ * escape String
+ */
+export function escapeString(string) {
+  const entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&#39;',
+    '/': '&#x2F;'
+  }
+
+  return String(string).replace(/[&<>"'/]/g, s => entityMap[s])
+}
