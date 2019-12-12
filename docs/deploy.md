@@ -82,7 +82,7 @@ server {
 
 ### HTML5 router
 
-When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`, it's pretty simple when you're using Netlify, populate a `\redirects` file in the docs directory and you're all set:
+When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`, it's pretty simple when you're using Netlify, create a file named `_redirects` in the docs directory, add this snippet to the file and you're all set:
 
 ```sh
 /*    /index.html   200
@@ -134,4 +134,3 @@ frontend:
 |----------------|----------------|---------------|
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
 | /<*>           | /index.html    | 200 (Rewrite) |        
-
