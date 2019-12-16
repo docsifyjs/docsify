@@ -35,6 +35,12 @@ function style() {
   padding: 0 7px;
   line-height: 36px;
   font-size: 14px;
+  border: 1px solid transparent;
+}
+
+.search input:focus {
+  box-shadow: 0 0 5px var(--theme-color, #42b983);
+  border: 1px solid var(--theme-color, #42b983);
 }
 
 .search input::-webkit-search-decoration,
@@ -99,7 +105,7 @@ function style() {
 function tpl(defaultValue = '') {
   const html =
     `<div class="input-wrap">
-      <input type="search" value="${defaultValue}" />
+      <input type="search" value="${defaultValue}" aria-label="Search text" />
       <div class="clear-button">
         <svg width="26" height="24">
           <circle cx="12" cy="12" r="11" fill="#ccc" />
