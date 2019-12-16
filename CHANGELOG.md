@@ -1,3 +1,15 @@
+# [4.10.0](https://github.com/docsifyjs/docsify/compare/v4.9.4...v4.10.0) (2019-12-16)
+
+
+### Bug Fixes
+
+* fixed security alert for chokidar(update dep) ([a62b037](https://github.com/docsifyjs/docsify/commit/a62b037becb36941c11c8eab6e4d83df8db85af3))
+* npm audit issues ([#934](https://github.com/docsifyjs/docsify/issues/934)) ([615205c](https://github.com/docsifyjs/docsify/commit/615205cfdb7aea8f37a1ec5dd928105eeef56357))
+* package security alerts ([f5f1561](https://github.com/docsifyjs/docsify/commit/f5f15619f1a239d6ce12a2f83ad8817352a3352b))
+* security alerts of cssnano ([d7d5c8f](https://github.com/docsifyjs/docsify/commit/d7d5c8f302d7c18dbb32e982202a07b73badf6f6))
+
+
+
 <a name="4.9.4"></a>
 ## [4.9.4](https://github.com/docsifyjs/docsify/compare/v4.9.2...v4.9.4) (2019-05-05)
 
