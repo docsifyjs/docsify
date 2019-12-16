@@ -39,11 +39,12 @@
     "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective-postinstall"
   },
   "dependencies": {
     "marked": "^0.7.0",
     "medium-zoom": "^1.0.4",
+    "opencollective-postinstall": "^2.0.2",
     "prismjs": "^1.15.0",
     "tinydate": "^1.0.0",
     "tweezer.js": "^1.4.0"
@@ -64,7 +65,6 @@
     "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.5",
-    "opencollective": "^1.0.3",
     "rimraf": "^3.0.0",
     "rollup": "^1.23.1",
     "rollup-plugin-async": "^1.2.0",
@@ -83,8 +83,6 @@
     "generator"
   ],
   "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/docsify",
-    "logo": "https://docsify.js.org/_media/icon.svg"
+    "url": "https://opencollective.com/docsify"
   }
 }
