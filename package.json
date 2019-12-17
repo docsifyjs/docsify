@@ -47,7 +47,7 @@
     }
   },
   "lint-staged": {
-    "{src,packages}.js": "npm run lint"
+    "*.js": "npm run lint"
   },
   "dependencies": {
     "marked": "^0.7.0",
