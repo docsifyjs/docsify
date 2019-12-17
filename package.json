@@ -62,6 +62,7 @@
     "husky": "^3.1.0",
     "jsdom": "^15.1.1",
     "lerna": "^3.17.0",
+    "lint-staged": "^9.5.0",
     "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
