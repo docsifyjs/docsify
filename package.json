@@ -41,6 +41,14 @@
     "pub": "sh build/release.sh",
     "postinstall": "opencollective-postinstall"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "npm run lint"
+  },
   "dependencies": {
     "marked": "^0.7.0",
     "medium-zoom": "^1.0.4",
@@ -59,8 +67,10 @@
     "eslint": "^5.16.0",
     "eslint-config-xo-space": "^0.21.0",
     "esm": "^3.1.4",
+    "husky": "^3.1.0",
     "jsdom": "^15.1.1",
     "lerna": "^3.17.0",
+    "lint-staged": "^9.5.0",
     "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
