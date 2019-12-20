@@ -47,7 +47,10 @@
     }
   },
   "lint-staged": {
-    "*.js": "npm run lint"
+    "*.js": [
+    "npm run lint",
+    "git add"
+    ]
   },
   "dependencies": {
     "marked": "^0.7.0",
