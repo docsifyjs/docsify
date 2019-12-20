@@ -128,9 +128,10 @@ frontend:
 
 ```
 
-6. Add the following Redirect rules in their displayed order.
+6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using. 
 
 | Source address | Target address | Type          |
 |----------------|----------------|---------------|
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
+| /<*>.png       | /<*>.png       | 200 (Rewrite) |
 | /<*>           | /index.html    | 200 (Rewrite) |        
