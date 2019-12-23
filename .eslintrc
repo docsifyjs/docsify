@@ -11,7 +11,11 @@
     "no-script-url": "off",
     "camelcase": "off",
     "object-curly-spacing": "off",
-    "no-warning-comments": "off"
+    "no-warning-comments": "off",
+    "no-negated-condition": "off",
+    "eqeqeq": "warn",
+    "no-eq-null": "warn",
+    "max-statements-per-line":"warn"
   },
   "globals": {
     "Docsify": true,
