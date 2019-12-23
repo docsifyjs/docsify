@@ -10,11 +10,17 @@
     "max-params": "off",
     "no-script-url": "off",
     "camelcase": "off",
+    "object-curly-spacing": "off",
     "no-warning-comments": "off"
   },
   "globals": {
     "Docsify": true,
     "$docsify": true,
     "process": true
+  },
+  "env": {
+    "browser": true,
+    "amd": true,
+    "node": true
   }
 }

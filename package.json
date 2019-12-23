@@ -27,7 +27,9 @@
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint {src,packages} --fix",
-    "test": "mocha test/*/**",
+    "test": "jest test/*/**",
+    "test:e2e": "jest e2e",
+    "posttest:e2e": "rimraf e2e/fixtures/docs",
     "css": "node build/css",
     "watch:css": "npm run css -- -o themes -w",
     "watch:js": "node build/build.js",
@@ -48,8 +50,8 @@
   },
   "lint-staged": {
     "*.js": [
-    "npm run lint",
-    "git add"
+      "npm run lint",
+      "git add"
     ]
   },
   "dependencies": {
@@ -61,23 +63,30 @@
     "tweezer.js": "^1.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/register": "^7.7.7",
     "autoprefixer-stylus": "^1.0.0",
+    "babel-jest": "^24.9.0",
     "chai": "^4.2.0",
     "chokidar": "^3.2.1",
     "conventional-changelog-cli": "^2.0.25",
+    "copy-dir": "^1.2.0",
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
     "eslint-config-xo-space": "^0.21.0",
     "esm": "^3.1.4",
     "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "jest-environment-node": "^24.9.0",
     "jsdom": "^15.1.1",
     "lerna": "^3.17.0",
     "lint-staged": "^9.5.0",
     "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
-    "mocha": "^5.2.0",
     "npm-run-all": "^4.1.5",
+    "puppeteer": "^2.0.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.23.1",
     "rollup-plugin-async": "^1.2.0",

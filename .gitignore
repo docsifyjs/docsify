@@ -4,6 +4,6 @@
 node_modules
 themes/
 lib/
-
+e2e/fixtures/docs
 # exceptions
 !.gitkeep
