@@ -163,7 +163,7 @@ export function fetchMixin(proto) {
   }
 
   proto._fetchFallbackPage = function (path, qs, cb = noop) {
-    const {requestHeaders, fallbackLanguages, loadSidebar} = this.config
+    const {requestHeaders, defaultFallbackLanguage, fallbackLanguages, loadSidebar} = this.config
 
     if (!fallbackLanguages) {
       return false
@@ -174,7 +174,14 @@ export function fetchMixin(proto) {
     if (fallbackLanguages.indexOf(local) === -1) {
       return false
     }
-    const newPath = path.replace(new RegExp(`^/${local}`), '')
+
+    var defaultLanguage = '';
+    if (defaultFallbackLanguage)
+    {
+      defaultLanguage = defaultFallbackLanguage;
+    }
+
+    const newPath = path.replace(new RegExp(`^/${local}`), defaultLanguage)
     const req = request(newPath + qs, true, requestHeaders)
 
     req.then(
