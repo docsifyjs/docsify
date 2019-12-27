@@ -1,13 +1,14 @@
 import progressbar from '../render/progressbar'
-import {noop, hasOwn} from '../util/core'
+import { noop, hasOwn } from '../util/core'
 
 const cache = {}
 
 /**
- * Simple ajax get
- * @param {string} url
- * @param {boolean} [hasBar=false] has progress bar
- * @return { then(resolve, reject), abort }
+ * Ajax GET implmentation
+ * @param {string} url Resource URL
+ * @param {boolean} [hasBar=false] Has progress bar
+ * @param {String[]} headers Array of headers
+ * @return {Promise} Promise response
  */
 export function get(url, hasBar = false, headers = {}) {
   const xhr = new XMLHttpRequest()
@@ -18,7 +19,7 @@ export function get(url, hasBar = false, headers = {}) {
   const cached = cache[url]
 
   if (cached) {
-    return {then: cb => cb(cached.content, cached.opt), abort: noop}
+    return { then: cb => cb(cached.content, cached.opt), abort: noop }
   }
 
   xhr.open('GET', url)
@@ -49,7 +50,7 @@ export function get(url, hasBar = false, headers = {}) {
       }
 
       on('error', error)
-      on('load', ({target}) => {
+      on('load', ({ target }) => {
         if (target.status >= 400) {
           error(target)
         } else {

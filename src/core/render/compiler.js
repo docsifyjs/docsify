@@ -1,11 +1,11 @@
 import marked from 'marked'
 import Prism from 'prismjs'
-import {helper as helperTpl, tree as treeTpl} from './tpl'
-import {genTree} from './gen-tree'
-import {slugify} from './slugify'
-import {emojify} from './emojify'
-import {isAbsolutePath, getPath, getParentPath} from '../router/util'
-import {isFn, merge, cached, isPrimitive} from '../util/core'
+import { helper as helperTpl, tree as treeTpl } from './tpl'
+import { genTree } from './gen-tree'
+import { slugify } from './slugify'
+import { emojify } from './emojify'
+import { isAbsolutePath, getPath, getParentPath } from '../router/util'
+import { isFn, merge, cached, isPrimitive } from '../util/core'
 
 // See https://github.com/PrismJS/prism/pull/1367
 import 'prismjs/components/prism-markup-templating'
@@ -26,7 +26,7 @@ export function getAndRemoveConfig(str = '') {
       .trim()
   }
 
-  return {str, config}
+  return { str, config }
 }
 
 const compileMedia = {
@@ -132,7 +132,7 @@ export class Compiler {
   }
 
   compileEmbed(href, title) {
-    const {str, config} = getAndRemoveConfig(title)
+    const { str, config } = getAndRemoveConfig(title)
     let embed
     title = str
 
@@ -188,17 +188,20 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer()
-    const {linkTarget, linkRel, router, contentBase} = this
+    const { linkTarget, linkRel, router, contentBase } = this
     const _self = this
     const origin = {}
 
     /**
      * Render anchor tag
      * @link https://github.com/markedjs/marked#overriding-renderer-methods
+     * @param {String} text Text content
+     * @param {Number} level Type of heading (h<level> tag)
+     * @returns {String} Heading element
      */
     origin.heading = renderer.heading = function (text, level) {
-      let {str, config} = getAndRemoveConfig(text)
-      const nextToc = {level, title: str}
+      let { str, config } = getAndRemoveConfig(text)
+      const nextToc = { level, title: str }
 
       if (/{docsify-ignore}/g.test(str)) {
         str = str.replace('{docsify-ignore}', '')
@@ -213,7 +216,7 @@ export class Compiler {
       }
 
       const slug = slugify(config.id || str)
-      const url = router.toURL(router.getCurrentPath(), {id: slug})
+      const url = router.toURL(router.getCurrentPath(), { id: slug })
       nextToc.slug = url
       _self.toc.push(nextToc)
 
@@ -234,7 +237,7 @@ export class Compiler {
     origin.link = renderer.link = function (href, title = '', text) {
       let attrs = ''
 
-      const {str, config} = getAndRemoveConfig(title)
+      const { str, config } = getAndRemoveConfig(title)
       title = str
 
       if (
@@ -285,7 +288,7 @@ export class Compiler {
       let url = href
       let attrs = ''
 
-      const {str, config} = getAndRemoveConfig(title)
+      const { str, config } = getAndRemoveConfig(title)
       title = str
 
       if (config['no-zoom']) {
@@ -339,9 +342,12 @@ export class Compiler {
 
   /**
    * Compile sidebar
+   * @param {String} text Text content
+   * @param {Number} level Type of heading (h<level> tag)
+   * @returns {String} Sidebar element
    */
   sidebar(text, level) {
-    const {toc} = this
+    const { toc } = this
     const currentPath = this.router.getCurrentPath()
     let html = ''
 
@@ -371,6 +377,8 @@ export class Compiler {
 
   /**
    * Compile sub sidebar
+   * @param {Number} level Type of heading (h<level> tag)
+   * @returns {String} Sub-sidebar element
    */
   subSidebar(level) {
     if (!level) {
@@ -379,7 +387,7 @@ export class Compiler {
     }
 
     const currentPath = this.router.getCurrentPath()
-    const {cacheTree, toc} = this
+    const { cacheTree, toc } = this
 
     toc[0] && toc[0].ignoreAllSubs && toc.splice(0)
     toc[0] && toc[0].level === 1 && toc.shift()
@@ -401,6 +409,8 @@ export class Compiler {
 
   /**
    * Compile cover page
+   * @param {Text} text Text content
+   * @returns {String} Cover page
    */
   cover(text) {
     const cacheToc = this.toc.slice()
