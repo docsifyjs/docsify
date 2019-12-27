@@ -26,7 +26,7 @@
     "serve:ssr": "cross-env SSR=1 node server",
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
-    "lint": "eslint {src,packages} --fix",
+    "lint": "eslint . --fix",
     "test": "mocha test/*/**",
     "css": "node build/css",
     "watch:css": "npm run css -- -o themes -w",
@@ -48,8 +48,8 @@
   },
   "lint-staged": {
     "*.js": [
-    "npm run lint",
-    "git add"
+      "npm run lint",
+      "git add"
     ]
   },
   "dependencies": {
