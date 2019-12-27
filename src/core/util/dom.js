@@ -89,7 +89,7 @@ export function off(el, type, handler) {
  * @param {String|Element} el The element that needs the class to be toggled
  * @param {Element} type The type of action to be performed on the classList (toggle by default)
  * @param {String} val Name of the class to be toggled
- * @returns {void}
+ * @void
  * @example
  * toggleClass(el, 'active') => el.classList.toggle('active')
  * toggleClass(el, 'add', 'active') => el.classList.add('active')
