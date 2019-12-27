@@ -1,4 +1,4 @@
-import {cached} from '../util/core'
+import { cached } from '../util/core'
 
 const decode = decodeURIComponent
 const encode = encodeURIComponent
@@ -29,6 +29,7 @@ export function stringifyQuery(obj, ignores = []) {
     if (ignores.indexOf(key) > -1) {
       continue
     }
+
     qs.push(
       obj[key] ?
         `${encode(key)}=${encode(obj[key])}`.toLowerCase() :
@@ -44,9 +45,17 @@ export const isAbsolutePath = cached(path => {
 })
 
 export const getParentPath = cached(path => {
-  return /\/$/g.test(path) ?
-    path :
-    (path = path.match(/(\S*\/)[^/]+$/)) ? path[1] : ''
+  if (/\/$/g.test(path)) {
+    return path
+  }
+
+  const matchingParts = path.match(/(\S*\/)[^/]+$/)
+  return matchingParts ? matchingParts[1] : ''
+
+  // TODO: delete after tests are passing Todo-giulio
+  // Return /\/$/g.test(path) ?
+  //   path :
+  //   (path = path.match(/(\S*\/)[^/]+$/)) ? path[1] : ''
 })
 
 export const cleanPath = cached(path => {
@@ -64,6 +73,7 @@ export const resolvePath = cached(path => {
       resolved.push(segment)
     }
   }
+
   return '/' + resolved.join('/')
 })
 

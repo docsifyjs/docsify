@@ -14,6 +14,7 @@ export function get(url, hasBar = false, headers = {}) {
   const on = function () {
     xhr.addEventListener.apply(xhr, arguments)
   }
+
   const cached = cache[url]
 
   if (cached) {
@@ -26,6 +27,7 @@ export function get(url, hasBar = false, headers = {}) {
       xhr.setRequestHeader(i, headers[i])
     }
   }
+
   xhr.send()
 
   return {

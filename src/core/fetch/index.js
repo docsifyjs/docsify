@@ -140,6 +140,7 @@ export function fetchMixin(proto) {
       } else {
         this._renderCover(null, coverOnly)
       }
+
       return coverOnly
     }
   }
@@ -174,6 +175,7 @@ export function fetchMixin(proto) {
     if (fallbackLanguages.indexOf(local) === -1) {
       return false
     }
+
     const newPath = path.replace(new RegExp(`^/${local}`), '')
     const req = request(newPath + qs, true, requestHeaders)
 
@@ -189,6 +191,7 @@ export function fetchMixin(proto) {
 
     return true
   }
+
   /**
    * Load the 404 page
    * @param path
@@ -225,6 +228,7 @@ export function initFetch(vm) {
     if (loadSidebar && activeEl) {
       activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__
     }
+
     vm._bindEventOnRendered(activeEl)
     vm.$resetEvents()
     callHook(vm, 'doneEach')

@@ -13,6 +13,7 @@ function init() {
   dom.appendTo(dom.body, div)
   barEl = div
 }
+
 /**
  * Render progress bar
  */

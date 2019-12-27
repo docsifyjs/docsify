@@ -9,10 +9,10 @@ function init(options) {
   window._paq = window._paq || []
   window._paq.push(['trackPageView'])
   window._paq.push(['enableLinkTracking'])
-  setTimeout(function() {
+  setTimeout(function () {
     appendScript(options)
     window._paq.push(['setTrackerUrl', options.host + '/matomo.php'])
-    window._paq.push(['setSiteId', options.id + ''])
+    window._paq.push(['setSiteId', String(options.id)])
   }, 0)
 }
 
@@ -20,7 +20,8 @@ function collect() {
   if (!window._paq) {
     init($docsify.matomo)
   }
-  window._paq.push(['setCustomUrl',  window.location.hash.substr(1)])
+
+  window._paq.push(['setCustomUrl', window.location.hash.substr(1)])
   window._paq.push(['setDocumentTitle', document.title])
   window._paq.push(['trackPageView'])
 }

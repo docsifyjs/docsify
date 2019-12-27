@@ -162,9 +162,11 @@ export class Compiler {
         } else if (/\.mp3/.test(href)) {
           type = 'audio'
         }
+
         embed = compileMedia[type].call(this, href, title)
         embed.type = type
       }
+
       embed.fragment = config.fragment
 
       return embed
@@ -217,6 +219,7 @@ export class Compiler {
 
       return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`
     }
+
     // Highlight code
     origin.code = renderer.code = function (code, lang = '') {
       code = code.replace(/@DOCSIFY_QM@/g, '`')
@@ -227,6 +230,7 @@ export class Compiler {
 
       return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
     }
+
     origin.link = renderer.link = function (href, title = '', text) {
       let attrs = ''
 
@@ -241,6 +245,7 @@ export class Compiler {
         if (href === _self.config.homepage) {
           href = 'README'
         }
+
         href = router.toURL(href, null, router.getCurrentPath())
       } else {
         attrs += href.indexOf('mailto:') === 0 ? '' : ` target="${linkTarget}"`
@@ -262,6 +267,7 @@ export class Compiler {
 
       return `<a href="${href}"${attrs}>${text}</a>`
     }
+
     origin.paragraph = renderer.paragraph = function (text) {
       let result
       if (/^!&gt;/.test(text)) {
@@ -271,8 +277,10 @@ export class Compiler {
       } else {
         result = `<p>${text}</p>`
       }
+
       return result
     }
+
     origin.image = renderer.image = function (href, title, text) {
       let url = href
       let attrs = ''
@@ -304,6 +312,7 @@ export class Compiler {
 
       return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
     }
+
     origin.list = renderer.list = function (body, ordered, start) {
       const isTaskList = /<li class="task-list-item">/.test(body.split('class="task-list"')[0])
       const isStartReq = start && start > 1
@@ -315,6 +324,7 @@ export class Compiler {
 
       return `<${tag} ${tagAttrs}>${body}</${tag}>`
     }
+
     origin.listitem = renderer.listitem = function (text) {
       const isTaskItem = /^(<input.*type="checkbox"[^>]*>)/.test(text)
       const html = isTaskItem ? `<li class="task-list-item"><label>${text}</label></li>` : `<li>${text}</li>`
@@ -346,9 +356,11 @@ export class Compiler {
           for (let j = i; deletedHeaderLevel < toc[j].level && j < toc.length; j++) {
             toc.splice(j, 1) && j-- && i++
           }
+
           i--
         }
       }
+
       const tree = this.cacheTree[currentPath] || genTree(toc, level)
       html = treeTpl(tree, '<ul>{inner}</ul>')
       this.cacheTree[currentPath] = tree
@@ -365,6 +377,7 @@ export class Compiler {
       this.toc = []
       return
     }
+
     const currentPath = this.router.getCurrentPath()
     const {cacheTree, toc} = this
 
@@ -374,6 +387,7 @@ export class Compiler {
     for (let i = 0; i < toc.length; i++) {
       toc[i].ignoreSubHeading && toc.splice(i, 1) && i--
     }
+
     const tree = cacheTree[currentPath] || genTree(toc, level)
 
     cacheTree[currentPath] = tree

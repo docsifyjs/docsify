@@ -1,9 +1,9 @@
-import {get} from '../fetch/ajax'
-import {merge} from '../util/core'
+import { get } from '../fetch/ajax'
+import { merge } from '../util/core'
 
 const cached = {}
 
-function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
+function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   let token
   let step = 0
   let count = 1
@@ -23,26 +23,28 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
             if (token.embed.fragment) {
               const fragment = token.embed.fragment
               const pattern = new RegExp(`(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`)
-              text = ((text.match(pattern) || [])[1] || '').trim()
+              text = ((text.match(pattern) || [])[1] || '').trim()
             }
+
             embedToken = compile.lexer(
               '```' +
-                token.embed.lang +
-                '\n' +
-                text.replace(/`/g, '@DOCSIFY_QM@') +
-                '\n```\n'
+              token.embed.lang +
+              '\n' +
+              text.replace(/`/g, '@DOCSIFY_QM@') +
+              '\n```\n'
             )
           } else if (token.embed.type === 'mermaid') {
             embedToken = [
-              {type: 'html', text: `<div class="mermaid">\n${text}\n</div>`}
+              { type: 'html', text: `<div class="mermaid">\n${text}\n</div>` }
             ]
             embedToken.links = {}
           } else {
-            embedToken = [{type: 'html', text}]
+            embedToken = [{ type: 'html', text }]
             embedToken.links = {}
           }
         }
-        cb({token, embedToken})
+
+        cb({ token, embedToken })
         if (++count >= step) {
           cb({})
         }
@@ -61,7 +63,7 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
   }
 }
 
-export function prerenderEmbed({compiler, raw = '', fetch}, done) {
+export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   let hit = cached[raw]
   if (hit) {
     const copy = hit.slice()
@@ -96,7 +98,7 @@ export function prerenderEmbed({compiler, raw = '', fetch}, done) {
   })
 
   let moveIndex = 0
-  walkFetchEmbed({compile, embedTokens, fetch}, ({embedToken, token}) => {
+  walkFetchEmbed({ compile, embedTokens, fetch }, ({ embedToken, token }) => {
     if (token) {
       const index = token.index + moveIndex
 
