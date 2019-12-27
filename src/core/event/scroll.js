@@ -1,4 +1,4 @@
-import {isMobile} from '../util/env'
+import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
 import Tweezer from 'tweezer.js'
 
@@ -93,7 +93,7 @@ export function scrollActiveSidebar(router) {
 
   const sidebar = dom.getNode('.sidebar')
   let lis = []
-  if (sidebar != null) {
+  if (sidebar !== null && sidebar !== undefined) {
     lis = dom.findAll(sidebar, 'li')
   }
 
@@ -107,7 +107,7 @@ export function scrollActiveSidebar(router) {
     let href = a.getAttribute('href')
 
     if (href !== '/') {
-      const {query: {id}, path} = router.parse(href)
+      const { query: { id }, path } = router.parse(href)
       if (id) {
         href = getNavKey(path, id)
       }
