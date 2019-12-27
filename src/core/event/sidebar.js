@@ -1,4 +1,4 @@
-import {isMobile} from '../util/env'
+import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
 
 const title = dom.$.title
@@ -9,7 +9,7 @@ export function btn(el) {
   const toggle = _ => dom.body.classList.toggle('close')
 
   el = dom.getNode(el)
-  if (el == null) {
+  if (el === null || el === undefined) {
     return
   }
 
@@ -28,11 +28,11 @@ export function btn(el) {
 
 export function collapse(el) {
   el = dom.getNode(el)
-  if (el == null) {
+  if (el === null || el === undefined) {
     return
   }
 
-  dom.on(el, 'click', ({target}) => {
+  dom.on(el, 'click', ({ target }) => {
     if (
       target.nodeName === 'A' &&
       target.nextSibling &&

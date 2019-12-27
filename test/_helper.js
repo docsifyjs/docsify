@@ -16,8 +16,8 @@ function ready(callback) {
   document.addEventListener('DOMContentLoaded', callback)
 }
 
-module.exports.init = function (fixture = 'default', config = {}, markup) {
-  if (markup == null) {
+module.exports.init = function (fixture = 'default', config = {}, markup = null) {
+  if (markup === null || markup === undefined) {
     markup = `<!DOCTYPE html>
 		<html>
 		  <head></head>
