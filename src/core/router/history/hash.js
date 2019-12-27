@@ -1,7 +1,7 @@
-import {History} from './base'
-import {noop} from '../../util/core'
-import {on} from '../../util/dom'
-import {parseQuery, cleanPath, replaceSlug} from '../util'
+import { History } from './base'
+import { noop } from '../../util/core'
+import { on } from '../../util/dom'
+import { parseQuery, cleanPath, replaceSlug } from '../util'
 
 function replaceHash(path) {
   const i = location.href.indexOf('#')
@@ -47,7 +47,7 @@ export class HashHistory extends History {
 
   /**
    * Parse the url
-   * @param {string} [path=location.herf]
+   * @param {string} [path=location.herf] URL to be parsed
    * @return {object} { path, query }
    */
   parse(path = location.href) {
