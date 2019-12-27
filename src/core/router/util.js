@@ -51,11 +51,6 @@ export const getParentPath = cached(path => {
 
   const matchingParts = path.match(/(\S*\/)[^/]+$/)
   return matchingParts ? matchingParts[1] : ''
-
-  // TODO: delete after tests are passing Todo-giulio
-  // Return /\/$/g.test(path) ?
-  //   path :
-  //   (path = path.match(/(\S*\/)[^/]+$/)) ? path[1] : ''
 })
 
 export const cleanPath = cached(path => {
