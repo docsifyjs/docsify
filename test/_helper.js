@@ -67,7 +67,7 @@ module.exports.init = function (fixture = 'default', config = {}, markup = null)
       const docsify = new Docsify()
       // NOTE: I was not able to get it working with a callback, but polling works usually at the first time
       const id = setInterval(() => {
-        if (dom.window.document.body.innerHTML.indexOf(NOT_INIT_PATTERN) == -1) {
+        if (dom.window.document.body.innerHTML.indexOf(NOT_INIT_PATTERN) === -1) {
           clearInterval(id)
           return resolve({
             docsify: docsify,
