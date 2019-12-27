@@ -29,6 +29,6 @@
     "browser": true,
     "amd": true,
     "node": true,
-    "mocha": true
+    "jest": true
   }
 }
