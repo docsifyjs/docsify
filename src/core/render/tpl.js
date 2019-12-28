@@ -1,5 +1,4 @@
 import { isMobile } from '../util/env'
-import { escapeString } from '../util/core'
 /**
  * Render github corner
  * @param  {Object} data URL for the View Source on Github link
@@ -36,7 +35,7 @@ export function corner(data, cornerExternalLinkTarge) {
  * @returns {String} HTML of the main content
  */
 export function main(config) {
-  const name = config.name ? escapeString(config.name) : ''
+  const name = config.name ? config.name : ''
 
   const aside =
     '<button class="sidebar-toggle" aria-label="Menu">' +
@@ -47,9 +46,7 @@ export function main(config) {
     '<aside class="sidebar">' +
     (config.name ?
       `<h1 class="app-name"><a class="app-name-link" data-nosearch>${
-        config.logo ?
-          `<img alt="${name}" src=${config.logo}>` :
-          name
+        config.logo ? `<img alt="${name}" src=${config.logo}>` : name
       }</a></h1>` :
       '') +
     '<div class="sidebar-nav"><!--sidebar--></div>' +
