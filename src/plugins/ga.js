@@ -13,6 +13,7 @@ function init(id) {
     function () {
       (window.ga.q = window.ga.q || []).push(arguments)
     }
+
   window.ga.l = Number(new Date())
   window.ga('create', id, 'auto')
 }

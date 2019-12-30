@@ -1,4 +1,4 @@
-import {isMobile} from '../util/env'
+import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
 import Tweezer from 'tweezer.js'
 
@@ -12,6 +12,7 @@ function scrollTo(el) {
   if (scroller) {
     scroller.stop()
   }
+
   enableScrollEvent = false
   scroller = new Tweezer({
     start: window.pageYOffset,
@@ -30,6 +31,7 @@ function highlight(path) {
   if (!enableScrollEvent) {
     return
   }
+
   const sidebar = dom.getNode('.sidebar')
   const anchors = dom.findAll('.anchor')
   const wrap = dom.find(sidebar, '.sidebar-nav')
@@ -45,14 +47,17 @@ function highlight(path) {
       if (!last) {
         last = node
       }
+
       break
     } else {
       last = node
     }
   }
+
   if (!last) {
     return
   }
+
   const li = nav[getNavKey(decodeURIComponent(path), last.getAttribute('data-id'))]
 
   if (!li || li === active) {
@@ -88,7 +93,7 @@ export function scrollActiveSidebar(router) {
 
   const sidebar = dom.getNode('.sidebar')
   let lis = []
-  if (sidebar != null) {
+  if (sidebar !== null && sidebar !== undefined) {
     lis = dom.findAll(sidebar, 'li')
   }
 
@@ -98,10 +103,11 @@ export function scrollActiveSidebar(router) {
     if (!a) {
       continue
     }
+
     let href = a.getAttribute('href')
 
     if (href !== '/') {
-      const {query: {id}, path} = router.parse(href)
+      const { query: { id }, path } = router.parse(href)
       if (id) {
         href = getNavKey(path, id)
       }
@@ -115,6 +121,7 @@ export function scrollActiveSidebar(router) {
   if (isMobile) {
     return
   }
+
   const path = router.getCurrentPath()
   dom.off('scroll', () => highlight(path))
   dom.on('scroll', () => highlight(path))

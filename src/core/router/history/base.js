@@ -81,6 +81,7 @@ export class History {
       const currentDir = currentRoute.substring(0, currentRoute.lastIndexOf('/') + 1)
       return cleanPath(resolvePath(currentDir + path))
     }
+
     return cleanPath('/' + path)
   }
 }

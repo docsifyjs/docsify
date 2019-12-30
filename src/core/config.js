@@ -23,9 +23,9 @@ export default function () {
       ext: '.md',
       mergeNavbar: false,
       formatUpdated: '',
-      // this config for the links inside markdown
+      // This config for the links inside markdown
       externalLinkTarget: '_blank',
-      // this config for the corner 
+      // This config for the corner
       cornerExternalLinkTarget: '_blank',
       externalLinkRel: 'noopener',
       routerMode: 'hash',
@@ -55,15 +55,19 @@ export default function () {
     if (config.loadSidebar === true) {
       config.loadSidebar = '_sidebar' + config.ext
     }
+
     if (config.loadNavbar === true) {
       config.loadNavbar = '_navbar' + config.ext
     }
+
     if (config.coverpage === true) {
       config.coverpage = '_coverpage' + config.ext
     }
+
     if (config.repo === true) {
       config.repo = ''
     }
+
     if (config.name === true) {
       config.name = ''
     }
