@@ -26,7 +26,7 @@
     "serve:ssr": "cross-env SSR=1 node server",
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
-    "lint": "eslint . --fix",
+    "lint": "eslint src --fix",
     "test": "jest test/*/**",
     "test:e2e": "jest e2e",
     "posttest:e2e": "rimraf e2e/fixtures/docs",
