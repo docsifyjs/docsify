@@ -1,3 +1,20 @@
 sudo: false
 language: node_js
-node_js: stable
+node_js:
+  - '10'
+  - '8'
+  - '12'
+branches:
+  only:
+    - master
+    - develop
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm update
+install:
+  - npm install
+script:
+  - npm run build
+  - npm run test:e2e
