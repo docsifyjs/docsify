@@ -58,7 +58,7 @@ export function isFn(obj) {
 }
 
 /**
- * escape String
+ * Escape String
  */
 export function escapeString(string) {
   const entityMap = {

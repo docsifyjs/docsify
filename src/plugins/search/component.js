@@ -139,8 +139,10 @@ function doSearch(value) {
       $sidebarNav.classList.remove('hide')
       $appName.classList.remove('hide')
     }
+
     return
   }
+
   const matchs = search(value)
 
   let html = ''
@@ -193,6 +195,7 @@ function updatePlaceholder(text, path) {
   if (!$input) {
     return
   }
+
   if (typeof text === 'string') {
     $input.placeholder = text
   } else {

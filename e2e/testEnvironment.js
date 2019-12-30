@@ -2,7 +2,7 @@ import NodeEnvironment from 'jest-environment-node'
 import copyDir from 'copy-dir'
 import path from 'path'
 import fs from 'fs'
-import liveServer from 'live-server'
+import { spawn } from 'child_process'
 
 export default class CustomEnvironment extends NodeEnvironment {
   constructor(config, context) {
@@ -60,15 +60,23 @@ export default class CustomEnvironment extends NodeEnvironment {
     // 3
     const fixturePath = path.join(__dirname, './fixtures/docs')
 
-    const params = {
-      port: this.PORT,
-      root: fixturePath,
-      open: false
-      // NoBrowser: true
-    }
-    console.log(params)
-    liveServer.start(params)
-    global.__LIVESERVER__ = liveServer
+    const child = spawn('node', [
+      path.join(__dirname, './live.server.js'),
+      this.PORT,
+      fixturePath
+    ])
+    child.on('exit', code => {
+      console.log(`Child process exited with code ${code}`)
+    })
+    child.stdout.on('data', data => {
+      console.log(`stdout: ${data}`)
+    })
+    child.stderr.on('data', data => {
+      console.log(`stderr: ${data}`)
+    })
+
+    // LiveServer.start(params)
+    global.__LIVESERVER__ = child
   }
 
   async teardown() {
@@ -76,7 +84,7 @@ export default class CustomEnvironment extends NodeEnvironment {
       '[e2e test docs] Shutting down the server',
       this.global.__LIVESERVER__
     )
-    global.__LIVESERVER__.shutdown()
+    global.__LIVESERVER__.kill()
     await super.teardown()
   }
 

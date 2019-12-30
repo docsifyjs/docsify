@@ -29,6 +29,7 @@ export function stringifyQuery(obj, ignores = []) {
     if (ignores.indexOf(key) > -1) {
       continue
     }
+
     qs.push(
       obj[key] ?
         `${encode(key)}=${encode(obj[key])}`.toLowerCase() :
@@ -64,6 +65,7 @@ export const resolvePath = cached(path => {
       resolved.push(segment)
     }
   }
+
   return '/' + resolved.join('/')
 })
 

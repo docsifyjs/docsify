@@ -21,6 +21,7 @@ function mainTpl(config) {
   if (config.repo) {
     html += tpl.corner(config.repo)
   }
+
   if (config.coverpage) {
     html += tpl.cover()
   }
@@ -154,12 +155,14 @@ export default class Renderer {
         if (!res.ok) {
           throw Error()
         }
+
         content = await res.text()
         this.lock = 0
       } else {
         content = await readFileSync(filePath, 'utf8')
         this.lock = 0
       }
+
       return content
     } catch (e) {
       this.lock = this.lock || 0

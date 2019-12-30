@@ -16,11 +16,13 @@ export function genTree(toc, maxLevel) {
     if (level > maxLevel) {
       return
     }
+
     if (last[len]) {
       last[len].children = (last[len].children || []).concat(headline)
     } else {
       headlines.push(headline)
     }
+
     last[level] = headline
   })
 

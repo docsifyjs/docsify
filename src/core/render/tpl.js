@@ -9,11 +9,13 @@ export function corner(data, cornerExternalLinkTarge) {
   if (!data) {
     return ''
   }
+
   if (!/\/\//.test(data)) {
     data = 'https://github.com/' + data
   }
+
   data = data.replace(/^git\+/, '')
-  // double check
+  // Double check
   cornerExternalLinkTarge = cornerExternalLinkTarge || '_blank'
 
   return (
@@ -31,8 +33,7 @@ export function corner(data, cornerExternalLinkTarge) {
  * Render main content
  */
 export function main(config) {
-
-  const name = config.name? escapeString(config.name):''
+  const name = config.name ? escapeString(config.name) : ''
 
   const aside =
     '<button class="sidebar-toggle" aria-label="Menu">' +
@@ -43,8 +44,8 @@ export function main(config) {
     '<aside class="sidebar">' +
     (config.name ?
       `<h1 class="app-name"><a class="app-name-link" data-nosearch>${
-        config.logo ? 
-           `<img alt="${name}" src=${config.logo}>` :
+        config.logo ?
+          `<img alt="${name}" src=${config.logo}>` :
           name
       }</a></h1>` :
       '') +
@@ -88,6 +89,7 @@ export function tree(toc, tpl = '<ul class="app-sub-sidebar">{inner}</ul>') {
   if (!toc || !toc.length) {
     return ''
   }
+
   let innerHTML = ''
   toc.forEach(node => {
     innerHTML += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`

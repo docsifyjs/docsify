@@ -25,6 +25,7 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
               const pattern = new RegExp(`(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`)
               text = ((text.match(pattern) || [])[1] || '').trim()
             }
+
             embedToken = compile.lexer(
               '```' +
                 token.embed.lang +
@@ -42,6 +43,7 @@ function walkFetchEmbed({embedTokens, compile, fetch}, cb) {
             embedToken.links = {}
           }
         }
+
         cb({token, embedToken})
         if (++count >= step) {
           cb({})

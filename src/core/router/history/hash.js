@@ -41,6 +41,7 @@ export class HashHistory extends History {
     if (path.charAt(0) === '/') {
       return replaceHash(path)
     }
+
     replaceHash('/' + path)
   }
 

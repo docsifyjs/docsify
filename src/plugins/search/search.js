@@ -8,6 +8,7 @@ const LOCAL_STORAGE = {
 function resolveExpireKey(namespace) {
   return namespace ? `${LOCAL_STORAGE.EXPIRE_KEY}/${namespace}` : LOCAL_STORAGE.EXPIRE_KEY
 }
+
 function resolveIndexKey(namespace) {
   return namespace ? `${LOCAL_STORAGE.INDEX_KEY}/${namespace}` : LOCAL_STORAGE.INDEX_KEY
 }
@@ -64,6 +65,7 @@ export function genIndex(path, content = '', router, depth) {
       if (!slug) {
         return
       }
+
       if (!index[slug]) {
         index[slug] = {slug, title: '', body: ''}
       } else if (index[slug].body) {
@@ -103,12 +105,12 @@ export function search(query) {
     const postUrl = post.slug || ''
 
     if (postTitle) {
-      keywords.forEach( keyword => {
+      keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
           keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
           'gi'
-        );
+        )
         let indexTitle = -1
         let indexContent = -1
 
@@ -116,7 +118,7 @@ export function search(query) {
         indexContent = postContent ? postContent.search(regEx) : -1
 
         if (indexTitle >= 0 || indexContent >= 0) {
-          matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
+          matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0
           if (indexContent < 0) {
             indexContent = 0
           }
@@ -155,7 +157,7 @@ export function search(query) {
     }
   }
 
-  return matchingResults.sort((r1, r2) => r2.score - r1.score);
+  return matchingResults.sort((r1, r2) => r2.score - r1.score)
 }
 
 export function init(config, vm) {

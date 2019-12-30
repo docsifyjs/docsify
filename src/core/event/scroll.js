@@ -12,6 +12,7 @@ function scrollTo(el) {
   if (scroller) {
     scroller.stop()
   }
+
   enableScrollEvent = false
   scroller = new Tweezer({
     start: window.pageYOffset,
@@ -30,6 +31,7 @@ function highlight(path) {
   if (!enableScrollEvent) {
     return
   }
+
   const sidebar = dom.getNode('.sidebar')
   const anchors = dom.findAll('.anchor')
   const wrap = dom.find(sidebar, '.sidebar-nav')
@@ -45,14 +47,17 @@ function highlight(path) {
       if (!last) {
         last = node
       }
+
       break
     } else {
       last = node
     }
   }
+
   if (!last) {
     return
   }
+
   const li = nav[getNavKey(decodeURIComponent(path), last.getAttribute('data-id'))]
 
   if (!li || li === active) {
@@ -98,6 +103,7 @@ export function scrollActiveSidebar(router) {
     if (!a) {
       continue
     }
+
     let href = a.getAttribute('href')
 
     if (href !== '/') {
@@ -115,6 +121,7 @@ export function scrollActiveSidebar(router) {
   if (isMobile) {
     return
   }
+
   const path = router.getCurrentPath()
   dom.off('scroll', () => highlight(path))
   dom.on('scroll', () => highlight(path))

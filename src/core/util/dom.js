@@ -14,6 +14,7 @@ export function getNode(el, noCache = false) {
     if (typeof window.Vue !== 'undefined') {
       return find(el)
     }
+
     el = noCache ? find(el) : cacheNode[el] || (cacheNode[el] = find(el))
   }
 
@@ -53,6 +54,7 @@ export function create(node, tpl) {
   if (tpl) {
     node.innerHTML = tpl
   }
+
   return node
 }
 
