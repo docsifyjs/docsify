@@ -3,7 +3,7 @@ import { toMatchImageSnapshot } from 'jest-image-snapshot'
 var browser
 var page
 
-jest.setTimeout(300000)
+jest.setTimeout(3000)
 expect.extend({ toMatchImageSnapshot })
 
 const expectThres = ss => {
