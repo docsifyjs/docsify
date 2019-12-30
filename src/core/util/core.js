@@ -1,6 +1,9 @@
 /**
  * Create a cached version of a pure function.
+ * @param {*} fn The function call to be cached
+ * @void
  */
+
 export function cached(fn) {
   const cache = Object.create(null)
   return function (str) {
@@ -21,6 +24,8 @@ export const hasOwn = Object.prototype.hasOwnProperty
 
 /**
  * Simple Object.assign polyfill
+ * @param {Object} to The object to be merged with
+ * @returns {Object} The merged object
  */
 export const merge =
   Object.assign ||
@@ -40,35 +45,24 @@ export const merge =
 
 /**
  * Check if value is primitive
+ * @param {*} value Checks if a value is primitive
+ * @returns {Boolean} Result of the check
  */
 export function isPrimitive(value) {
   return typeof value === 'string' || typeof value === 'number'
 }
 
 /**
- * Perform no operation.
+ * Performs no operation.
+ * @void
  */
 export function noop() {}
 
 /**
  * Check if value is function
+ * @param {*} obj Any javascript object
+ * @returns {Boolean} True if the passed-in value is a function
  */
 export function isFn(obj) {
   return typeof obj === 'function'
-}
-
-/**
- * Escape String
- */
-export function escapeString(string) {
-  const entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    '\'': '&#39;',
-    '/': '&#x2F;'
-  }
-
-  return String(string).replace(/[&<>"'/]/g, s => entityMap[s])
 }

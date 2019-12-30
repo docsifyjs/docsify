@@ -1,8 +1,8 @@
-import {get} from './ajax'
-import {callHook} from '../init/lifecycle'
-import {getParentPath, stringifyQuery} from '../router/util'
-import {noop} from '../util/core'
-import {getAndActive} from '../event/sidebar'
+import { get } from './ajax'
+import { callHook } from '../init/lifecycle'
+import { getParentPath, stringifyQuery } from '../router/util'
+import { noop } from '../util/core'
+import { getAndActive } from '../event/sidebar'
 
 function loadNested(path, qs, file, next, vm, first) {
   path = first ? path : path.replace(/\/$/, '')
@@ -30,7 +30,7 @@ export function fetchMixin(proto) {
   }
 
   const get404Path = (path, config) => {
-    const {notFoundPage, ext} = config
+    const { notFoundPage, ext } = config
     const defaultPath = '_404' + (ext || '.md')
     let key
     let path404
@@ -75,9 +75,9 @@ export function fetchMixin(proto) {
   }
 
   proto._fetch = function (cb = noop) {
-    const {path, query} = this.route
+    const { path, query } = this.route
     const qs = stringifyQuery(query, ['id'])
-    const {loadNavbar, requestHeaders, loadSidebar} = this.config
+    const { loadNavbar, requestHeaders, loadSidebar } = this.config
     // Abort last request
 
     const file = this.router.getFile(path)
@@ -112,7 +112,7 @@ export function fetchMixin(proto) {
   }
 
   proto._fetchCover = function () {
-    const {coverpage, requestHeaders} = this.config
+    const { coverpage, requestHeaders } = this.config
     const query = this.route.query
     const root = getParentPath(this.route.path)
 
@@ -164,7 +164,7 @@ export function fetchMixin(proto) {
   }
 
   proto._fetchFallbackPage = function (path, qs, cb = noop) {
-    const {requestHeaders, fallbackLanguages, loadSidebar} = this.config
+    const { requestHeaders, fallbackLanguages, loadSidebar } = this.config
 
     if (!fallbackLanguages) {
       return false
@@ -194,14 +194,14 @@ export function fetchMixin(proto) {
 
   /**
    * Load the 404 page
-   * @param path
-   * @param qs
-   * @param cb
-   * @returns {*}
+   * @param {String} path URL to be loaded
+   * @param {*} qs TODO: define
+   * @param {Function} cb Callback
+   * @returns {Boolean} True if the requested page is not found
    * @private
    */
   proto._fetch404 = function (path, qs, cb = noop) {
-    const {loadSidebar, requestHeaders, notFoundPage} = this.config
+    const { loadSidebar, requestHeaders, notFoundPage } = this.config
 
     const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb)
     if (notFoundPage) {
@@ -220,7 +220,7 @@ export function fetchMixin(proto) {
 }
 
 export function initFetch(vm) {
-  const {loadSidebar} = vm.config
+  const { loadSidebar } = vm.config
 
   // Server-Side Rendering
   if (vm.rendered) {

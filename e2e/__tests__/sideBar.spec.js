@@ -45,7 +45,7 @@ test('should scroll down to readme', async done => {
 // Quickstart Page tests
 
 test('go to #quickstart', async done => {
-  await page.click("a[href='#/quickstart']")
+  await page.click('a[href=\'#/quickstart\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -70,7 +70,7 @@ quickStartIds.forEach(id => {
 // More pages id tests
 
 test('go to #more-pages', async done => {
-  await page.click("a[href='#/more-pages']")
+  await page.click('a[href=\'#/more-pages\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -95,7 +95,7 @@ morePagesIds.forEach(id => {
 // Custom-navbar id tests
 
 test('go to #custom-navbar', async done => {
-  await page.click("a[href='#/custom-navbar']")
+  await page.click('a[href=\'#/custom-navbar\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -119,7 +119,7 @@ customNavbarIds.forEach(id => {
 // Cover id tests
 
 test('go to #cover', async done => {
-  await page.click("a[href='#/cover']")
+  await page.click('a[href=\'#/cover\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -143,7 +143,7 @@ coverIds.forEach(id => {
 // Themes id tests
 
 test('go to #themes', async done => {
-  await page.click("a[href='#/themes']")
+  await page.click('a[href=\'#/themes\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -162,7 +162,7 @@ themesIds.forEach(id => {
 // Plugins id tests
 
 test('go to #plugins', async done => {
-  await page.click("a[href='#/plugins']")
+  await page.click('a[href=\'#/plugins\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -196,7 +196,7 @@ pluginsIds.forEach(id => {
 // Write-a-plugin id tests
 
 test('go to #write-a-plugin', async done => {
-  await page.click("a[href='#/write-a-plugin']")
+  await page.click('a[href=\'#/write-a-plugin\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -215,7 +215,7 @@ writeAPluginIds.forEach(id => {
 // Markdown id tests
 
 test('go to #markdown', async done => {
-  await page.click("a[href='#/markdown']")
+  await page.click('a[href=\'#/markdown\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -234,7 +234,7 @@ markdownIds.forEach(id => {
 // Language-highlight id tests
 
 test('go to #language-highlight', async done => {
-  await page.click("a[href='#/language-highlight']")
+  await page.click('a[href=\'#/language-highlight\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -243,7 +243,7 @@ test('go to #language-highlight', async done => {
 // Deploy id tests
 
 test('go to #deploy', async done => {
-  await page.click("a[href='#/deploy']")
+  await page.click('a[href=\'#/deploy\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -270,7 +270,7 @@ deployIds.forEach(id => {
 // Helpers id tests
 
 test('go to #helpers', async done => {
-  await page.click("a[href='#/helpers']")
+  await page.click('a[href=\'#/helpers\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -299,7 +299,7 @@ helpersIds.forEach(id => {
 // Vue id tests
 
 test('go to #vue', async done => {
-  await page.click("a[href='#/vue']")
+  await page.click('a[href=\'#/vue\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -318,7 +318,7 @@ vueIds.forEach(id => {
 // Cdn id tests
 
 test('go to #cdn', async done => {
-  await page.click("a[href='#/cdn']")
+  await page.click('a[href=\'#/cdn\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -342,7 +342,7 @@ cdnIds.forEach(id => {
 // Pwa id tests
 
 test('go to #pwa', async done => {
-  await page.click("a[href='#/pwa']")
+  await page.click('a[href=\'#/pwa\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -361,7 +361,7 @@ pwaIds.forEach(id => {
 // Ssr id tests
 
 test('go to #ssr', async done => {
-  await page.click("a[href='#/ssr']")
+  await page.click('a[href=\'#/ssr\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -386,7 +386,7 @@ ssrIds.forEach(id => {
 // Embed-files id tests
 
 test('go to #embed-files', async done => {
-  await page.click("a[href='#/embed-files']")
+  await page.click('a[href=\'#/embed-files\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()
@@ -410,7 +410,7 @@ embedFilesIds.forEach(id => {
 // Configuration id tests
 
 test('go to #configuration', async done => {
-  await page.click("a[href='#/configuration']")
+  await page.click('a[href=\'#/configuration\']')
   const ss = await page.screenshot()
   expectThres(ss)
   done()

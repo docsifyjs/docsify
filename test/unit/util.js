@@ -1,7 +1,6 @@
-/* eslint-env node, chai, mocha */
-require = require('esm')(module/*, options*/)
-const {expect} = require('chai')
-const {resolvePath} = require('../../src/core/router/util')
+require = require('esm')(module/* , options */) /* eslint-disable-line no-global-assign */
+const { expect } = require('chai')
+const { resolvePath } = require('../../src/core/router/util')
 
 describe('router/util', function () {
   it('resolvePath', async function () {

@@ -1,4 +1,4 @@
-import {cached} from '../util/core'
+import { cached } from '../util/core'
 
 const decode = decodeURIComponent
 const encode = encodeURIComponent
@@ -45,9 +45,12 @@ export const isAbsolutePath = cached(path => {
 })
 
 export const getParentPath = cached(path => {
-  return /\/$/g.test(path) ?
-    path :
-    (path = path.match(/(\S*\/)[^/]+$/)) ? path[1] : ''
+  if (/\/$/g.test(path)) {
+    return path
+  }
+
+  const matchingParts = path.match(/(\S*\/)[^/]+$/)
+  return matchingParts ? matchingParts[1] : ''
 })
 
 export const cleanPath = cached(path => {

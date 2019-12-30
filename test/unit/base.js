@@ -1,11 +1,10 @@
-/* eslint-env node, chai, mocha */
-require = require('esm')(module/*, options*/)
-const {expect} = require('chai')
-const {History} = require('../../src/core/router/history/base')
+require = require('esm')(module/* , options */) /* eslint-disable-line no-global-assign */
+const { expect } = require('chai')
+const { History } = require('../../src/core/router/history/base')
 
 class MockHistory extends History {
   parse(path) {
-    return {path}
+    return { path }
   }
 }
 
@@ -14,7 +13,7 @@ describe('router/history/base', function () {
     var history
 
     beforeEach(function () {
-      history = new MockHistory({relativePath: true})
+      history = new MockHistory({ relativePath: true })
     })
 
     it('toURL', function () {
@@ -51,7 +50,7 @@ describe('router/history/base', function () {
   })
 
   it('toURL without relative path', function () {
-    const history = new MockHistory({relativePath: false})
+    const history = new MockHistory({ relativePath: false })
 
     // WHEN
     const url = history.toURL('README', {}, '/zh-ch/')

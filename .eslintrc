@@ -1,7 +1,10 @@
 {
   "extends": "xo-space/browser",
   "rules": {
-    "semi": [2, "never"],
+    "semi": [
+      2,
+      "never"
+    ],
     "no-return-assign": "off",
     "no-unused-expressions": "off",
     "no-new-func": "off",
@@ -15,7 +18,7 @@
     "no-negated-condition": "off",
     "eqeqeq": "warn",
     "no-eq-null": "warn",
-    "max-statements-per-line":"warn"
+    "max-statements-per-line": "warn"
   },
   "globals": {
     "Docsify": true,
@@ -25,6 +28,7 @@
   "env": {
     "browser": true,
     "amd": true,
-    "node": true
+    "node": true,
+    "jest": true
   }
 }
