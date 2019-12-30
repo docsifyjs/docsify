@@ -239,6 +239,14 @@ window.$docsify = {
 };
 ```
 
+The name field can also contain custom HTML for easier customization:
+
+```js
+window.$docsify = {
+  name: '<span>docsify</span>'
+};
+```
+
 ## nameLink
 
 - Type: `String`
