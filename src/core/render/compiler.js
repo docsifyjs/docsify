@@ -232,7 +232,6 @@ export class Compiler {
       const {str, config} = getAndRemoveConfig(title)
       title = str
 
-      debugger
       if (
         !isAbsolutePath(href) &&
         !_self._matchNotCompileLink(href) &&
@@ -341,10 +340,8 @@ export class Compiler {
     let html = ''
 
     if (text) {
-        debugger
       html = this.compile(text)
     } else {
-        debugger
       for (let i = 0; i < toc.length; i++) {
         if (toc[i].ignoreSubHeading) {
           const deletedHeaderLevel = toc[i].level

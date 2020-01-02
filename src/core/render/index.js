@@ -67,7 +67,6 @@ function renderMain(html) {
     !getScript()
   ) {
     // setTimeout(_ => {
-      debugger
       const vueVM = window.__EXECUTE_RESULT__
       vueVM && vueVM.$destroy && vueVM.$destroy()
       window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
