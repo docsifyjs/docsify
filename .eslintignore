@@ -3,3 +3,4 @@ packages/docsify-server-renderer/build.js
 node_modules
 build
 server.js
+cypress
