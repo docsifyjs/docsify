@@ -4,7 +4,7 @@
 node_modules
 themes/
 lib/
-cypress/integration/examples/
+cypress/integration/examples
 cypress/fixtures/docs
 
 # exceptions
