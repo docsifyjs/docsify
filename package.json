@@ -30,7 +30,7 @@
     "test": "mocha test/*/**",
     "testServer": "node cypress/setup.js",
     "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
-    "posttest:e2e": "rimraf e2e/fixtures/docs",
+    "posttest:e2e": "rimraf cypress/fixtures/docs",
     "cy:run": "cypress run",
     "cy:open": "cypress open ",
     "css": "node build/css",
