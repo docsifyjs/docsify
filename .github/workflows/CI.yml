@@ -1,4 +1,4 @@
-name: Testing the e2e jest suites
+name: Testing the e2e test suites
 
 on: 
   push:
@@ -29,5 +29,5 @@ jobs:
       run: npm run build
     - name: linting
       run: npm run lint
-    - name: Jest + puppeteer end to end
-      run: npm run jest:e2e
+    - name: end to end
+      run: npm run test:e2e
