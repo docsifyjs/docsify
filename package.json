@@ -28,6 +28,9 @@
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint . --fix",
     "test": "mocha test/*/**",
+    "testServer": "node server",
+    "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:open",
+    "cy:open": "cypress open --env updateSnapshots=true",
     "css": "node build/css",
     "watch:css": "npm run css -- -o themes -w",
     "watch:js": "node build/build.js",
@@ -67,6 +70,8 @@
     "conventional-changelog-cli": "^2.0.25",
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
+    "cypress": "^3.8.1",
+    "cypress-image-snapshot": "^3.1.1",
     "eslint": "^5.16.0",
     "eslint-config-xo-space": "^0.21.0",
     "esm": "^3.1.4",
@@ -86,6 +91,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.4",
+    "start-server-and-test": "^1.10.6",
     "stylus": "^0.54.5"
   },
   "keywords": [
