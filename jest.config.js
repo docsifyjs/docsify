@@ -4,5 +4,10 @@ module.exports = {
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest'
   },
-  testEnvironment: '<rootDir>/e2e/babel_testEnvironment.js'
+  globalSetup: '<rootDir>/e2e/globalSetup.js',
+  globalTeardown: '<rootDir>/e2e/globalTeardown.js',
+  globals: {
+    PORT: 3000,
+    __LIVESERVER__: null
+  }
 }
