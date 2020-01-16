@@ -129,7 +129,7 @@ export function search(query) {
           start = indexContent < 11 ? 0 : indexContent - 10
           end = start === 0 ? 70 : indexContent + keyword.length + 60
 
-          if (end > postContent.length) {
+          if (postContent && end > postContent.length) {
             end = postContent.length
           }
 
