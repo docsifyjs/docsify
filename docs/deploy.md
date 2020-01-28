@@ -82,11 +82,17 @@ server {
 
 ### HTML5 router
 
-When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`, it's pretty simple when you're using Netlify, populate a `\redirects` file in the docs directory and you're all set:
+When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`, it's pretty simple when you're using Netlify, create a file named `_redirects` in the docs directory, add this snippet to the file and you're all set:
 
 ```sh
 /*    /index.html   200
 ```
+
+## ZEIT Now
+
+1. Install [Now CLI](https://zeit.co/download), `npm i -g now`
+2. Change directory to your docsify website, for example `cd docs`
+3. Deploy with a single command, `now` 
 
 ## AWS Amplify
 
@@ -122,10 +128,10 @@ frontend:
 
 ```
 
-6. Add the following Redirect rules in their displayed order.
+6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using. 
 
 | Source address | Target address | Type          |
 |----------------|----------------|---------------|
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
+| /<*>.png       | /<*>.png       | 200 (Rewrite) |
 | /<*>           | /index.html    | 200 (Rewrite) |        
-

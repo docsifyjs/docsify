@@ -12,7 +12,9 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
-  npm run test
+  # Removing test script as non - availibity of tests. Will Add it once tests are completed 
+
+  # npm run test
 
   # build
   VERSION=$VERSION npm run build

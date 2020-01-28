@@ -239,6 +239,14 @@ window.$docsify = {
 };
 ```
 
+The name field can also contain custom HTML for easier customization:
+
+```js
+window.$docsify = {
+  name: '<span>docsify</span>'
+};
+```
+
 ## nameLink
 
 - Type: `String`
@@ -397,11 +405,37 @@ window.$docsify = {
 - type: `String`
 - default: `_blank`
 
-Target to open external links. Default `'_blank'` (new window/tab)
+Target to open external links inside the markdown. Default `'_blank'` (new window/tab)
 
 ```js
 window.$docsify = {
   externalLinkTarget: '_self' // default: '_blank'
+};
+```
+
+## cornerExternalLinkTarget
+
+- type:`String`
+- default:`_blank`
+
+Target to open external link at the top right corner. Default `'_blank'` (new window/tab)
+
+```js
+window.$docsify = {
+  cornerExternalLinkTarget: '_self' // default: '_blank'
+};
+```
+
+## externalLinkRel
+
+- type: `String`
+- default: `noopener`
+
+Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when its not `'_blank'`.
+
+```js
+window.$docsify = {
+  externalLinkTarget: '' // default: 'noopener'
 };
 ```
 
@@ -453,6 +487,18 @@ window.$docsify = {
   }
 };
 ```
+
+Such as setting the cache
+
+```js
+window.$docsify = {
+  requestHeaders: {
+    'cache-control': 'max-age=600'
+  }
+};
+```
+
+
 
 ## ext
 

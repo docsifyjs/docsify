@@ -1,17 +1,20 @@
-import {isMobile} from '../util/env'
+import { isMobile } from '../util/env'
 import * as dom from '../util/dom'
 
 const title = dom.$.title
 /**
  * Toggle button
+ * @param {Element} el Button to be toggled
+ * @void
  */
 export function btn(el) {
   const toggle = _ => dom.body.classList.toggle('close')
 
   el = dom.getNode(el)
-  if (el == null) {
+  if (el === null || el === undefined) {
     return
   }
+
   dom.on(el, 'click', e => {
     e.stopPropagation()
     toggle()
@@ -27,10 +30,11 @@ export function btn(el) {
 
 export function collapse(el) {
   el = dom.getNode(el)
-  if (el == null) {
+  if (el === null || el === undefined) {
     return
   }
-  dom.on(el, 'click', ({target}) => {
+
+  dom.on(el, 'click', ({ target }) => {
     if (
       target.nodeName === 'A' &&
       target.nextSibling &&
@@ -46,6 +50,7 @@ export function sticky() {
   if (!cover) {
     return
   }
+
   const coverHeight = cover.getBoundingClientRect().height
 
   if (window.pageYOffset >= coverHeight || cover.classList.contains('hidden')) {
@@ -57,18 +62,19 @@ export function sticky() {
 
 /**
  * Get and active link
- * @param  {object} router
- * @param  {string|element}  el
- * @param  {Boolean} isParent   acitve parent
- * @param  {Boolean} autoTitle  auto set title
- * @return {element}
+ * @param  {Object} router Router
+ * @param  {String|Element} el Target element
+ * @param  {Boolean} isParent Active parent
+ * @param  {Boolean} autoTitle Automatically set title
+ * @return {Element} Active element
  */
 export function getAndActive(router, el, isParent, autoTitle) {
   el = dom.getNode(el)
   let links = []
-  if (el != null) {
+  if (el !== null && el !== undefined) {
     links = dom.findAll(el, 'a')
   }
+
   const hash = decodeURI(router.toURL(router.getCurrentPath()))
   let target
 

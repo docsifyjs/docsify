@@ -1,7 +1,7 @@
-import {History} from './base'
-import {noop} from '../../util/core'
-import {on} from '../../util/dom'
-import {parseQuery, getPath} from '../util'
+import { History } from './base'
+import { noop } from '../../util/core'
+import { on } from '../../util/dom'
+import { parseQuery, getPath } from '../util'
 
 export class HTML5History extends History {
   constructor(config) {
@@ -27,7 +27,7 @@ export class HTML5History extends History {
       if (el.tagName === 'A' && !/_blank/.test(el.target)) {
         e.preventDefault()
         const url = el.href
-        window.history.pushState({key: url}, '', url)
+        window.history.pushState({ key: url }, '', url)
         cb()
       }
     })
@@ -37,7 +37,7 @@ export class HTML5History extends History {
 
   /**
    * Parse the url
-   * @param {string} [path=location.href]
+   * @param {string} [path=location.href] URL to be parsed
    * @return {object} { path, query }
    */
   parse(path = location.href) {
