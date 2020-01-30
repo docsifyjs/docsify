@@ -42,6 +42,7 @@
     "build:ssr": "node build/ssr.js",
     "build:cover": "node build/cover.js",
     "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
+    "prepare": "npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
     "postinstall": "opencollective-postinstall"
@@ -62,6 +63,7 @@
     "medium-zoom": "^1.0.4",
     "opencollective-postinstall": "^2.0.2",
     "prismjs": "^1.15.0",
+    "strip-indent": "^3.0.0",
     "tinydate": "^1.0.0",
     "tweezer.js": "^1.4.0"
   },

@@ -1,5 +1,6 @@
 import { get } from '../fetch/ajax'
 import { merge } from '../util/core'
+import stripIndent from 'strip-indent'
 
 const cached = {}
 
@@ -23,7 +24,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             if (token.embed.fragment) {
               const fragment = token.embed.fragment
               const pattern = new RegExp(`(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`)
-              text = ((text.match(pattern) || [])[1] || '').trim()
+              text = stripIndent((text.match(pattern) || [])[1] || '').trim()
             }
 
             embedToken = compile.lexer(
