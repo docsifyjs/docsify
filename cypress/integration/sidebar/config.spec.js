@@ -202,34 +202,35 @@ context('sidebar.configurations', () => {
   })
 
   it('go to #Language-highlight', () => {
-    cy.get('[href="#/Language-highlight"]').click()
+    cy.get('a[href="#/language-highlight"]')
+      .click()
       .then(() => {
         cy.wait(500)
         cy.matchImageSnapshot()
       })
   })
 
-  const deployIds = [
-    'github-pages',
-    'gitlab-pages',
-    'firebase-hosting',
-    'vps',
-    'netlify',
-    'zeit-now',
-    'aws-amplify'
-  ]
-  deployIds.forEach(id => {
-    it('go to #deploy?id=' + id, () => {
-      cy.get('[href="#/deploy"]').click()
+  // const deployIds = [
+  //   'github-pages',
+  //   'gitlab-pages',
+  //   'firebase-hosting',
+  //   'vps',
+  //   'netlify',
+  //   'zeit-now',
+  //   'aws-amplify'
+  // ]
+  // deployIds.forEach(id => {
+  //   it('go to #deploy?id=' + id, () => {
+  //     cy.get('[href="#/deploy"]').click()
 
-      cy.get(`a.section-link[href='#/deploy?id=${id}']`)
-        .click()
-        .then(() => {
-          cy.wait(500)
-          cy.matchImageSnapshot()
-        })
-    })
-  })
+  //     cy.get(`a.section-link[href='#/deploy?id=${id}']`)
+  //       .click()
+  //       .then(() => {
+  //         cy.wait(500)
+  //         cy.matchImageSnapshot()
+  //       })
+  //   })
+  // })
 
   const helpersIds = [
     'important-content',
