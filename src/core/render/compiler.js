@@ -82,6 +82,7 @@ export class Compiler {
     this.contentBase = router.getBasePath()
 
     const renderer = this._initRenderer()
+    this.heading = renderer.heading
     let compile
     const mdConf = config.markdown || {}
 
@@ -401,6 +402,10 @@ export class Compiler {
     cacheTree[currentPath] = tree
     this.toc = []
     return treeTpl(tree)
+  }
+
+  header(text, level) {
+    return this.heading(text, level)
   }
 
   article(text) {
