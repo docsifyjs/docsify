@@ -2,6 +2,8 @@
 
 docsify extends Markdown syntax to make your documents more readable.
 
+> Note:  For the special code syntax cases, you'd better put them within a code backticks to avoid any conflicting from configurations or emojis. 
+
 ## important content
 
 Important content like:
