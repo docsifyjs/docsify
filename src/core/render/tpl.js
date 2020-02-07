@@ -1,20 +1,25 @@
-import {isMobile} from '../util/env'
+import { isMobile } from '../util/env'
 /**
  * Render github corner
- * @param  {Object} data
- * @return {String}
+ * @param  {Object} data URL for the View Source on Github link
+ * @param {String} cornerExternalLinkTarge value of the target attribute of the link
+ * @return {String} SVG element as string
  */
-export function corner(data) {
+export function corner(data, cornerExternalLinkTarge) {
   if (!data) {
     return ''
   }
+
   if (!/\/\//.test(data)) {
     data = 'https://github.com/' + data
   }
+
   data = data.replace(/^git\+/, '')
+  // Double check
+  cornerExternalLinkTarge = cornerExternalLinkTarge || '_blank'
 
   return (
-    `<a href="${data}" class="github-corner" aria-label="View source on Github">` +
+    `<a href="${data}" target="${cornerExternalLinkTarge}" class="github-corner" aria-label="View source on Github">` +
     '<svg viewBox="0 0 250 250" aria-hidden="true">' +
     '<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>' +
     '<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>' +
@@ -25,11 +30,15 @@ export function corner(data) {
 }
 
 /**
- * Render main content
+ * Renders main content
+ * @param {Object} config Configuration object
+ * @returns {String} HTML of the main content
  */
 export function main(config) {
+  const name = config.name ? config.name : ''
+
   const aside =
-    '<button class="sidebar-toggle">' +
+    '<button class="sidebar-toggle" aria-label="Menu">' +
     '<div class="sidebar-toggle-button">' +
     '<span></span><span></span><span></span>' +
     '</div>' +
@@ -37,9 +46,7 @@ export function main(config) {
     '<aside class="sidebar">' +
     (config.name ?
       `<h1 class="app-name"><a class="app-name-link" data-nosearch>${
-        config.logo ?
-          `<img alt=${config.name} src=${config.logo}>` :
-          config.name
+        config.logo ? `<img alt="${name}" src=${config.logo}>` : name
       }</a></h1>` :
       '') +
     '<div class="sidebar-nav"><!--sidebar--></div>' +
@@ -56,6 +63,7 @@ export function main(config) {
 
 /**
  * Cover Page
+ * @returns {String} Cover page
  */
 export function cover() {
   const SL = ', 100%, 85%'
@@ -74,14 +82,15 @@ export function cover() {
 
 /**
  * Render tree
- * @param  {Array} tree
- * @param  {String} tpl
- * @return {String}
+ * @param  {Array} toc Array of TOC section links
+ * @param  {String} tpl TPL list
+ * @return {String} Rendered tree
  */
 export function tree(toc, tpl = '<ul class="app-sub-sidebar">{inner}</ul>') {
   if (!toc || !toc.length) {
     return ''
   }
+
   let innerHTML = ''
   toc.forEach(node => {
     innerHTML += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`

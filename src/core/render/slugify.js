@@ -19,7 +19,6 @@ export function slugify(str) {
     .replace(re, '')
     .replace(/\s/g, '-')
     .replace(/-+/g, '-')
-    .replace(/^(\d)/, '_$1')
   let count = cache[slug]
 
   count = hasOwn.call(cache, slug) ? count + 1 : 0

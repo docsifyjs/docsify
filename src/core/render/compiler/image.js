@@ -1,11 +1,11 @@
-import {getAndRemoveConfig} from '../compiler'
-import {isAbsolutePath, getPath, getParentPath} from '../../router/util'
+import { getAndRemoveConfig } from '../compiler'
+import { isAbsolutePath, getPath, getParentPath } from '../../router/util'
 
-export const imageCompiler = ({renderer, contentBase, router}) => renderer.image = (href, title, text) => {
+export const imageCompiler = ({ renderer, contentBase, router }) => renderer.image = (href, title, text) => {
   let url = href
   let attrs = ''
 
-  const {str, config} = getAndRemoveConfig(title)
+  const { str, config } = getAndRemoveConfig(title)
   title = str
 
   if (config['no-zoom']) {
@@ -18,12 +18,10 @@ export const imageCompiler = ({renderer, contentBase, router}) => renderer.image
 
   const size = config.size
   if (size) {
-    const sizes = size.split('x')
-    if (sizes[1]) {
-      attrs += ' width=' + sizes[0] + ' height=' + sizes[1]
-    } else {
-      attrs += ' width=' + sizes[0]
-    }
+    const [width, height] = size.split('x')
+    attrs += height
+      ? `width=${width} height=${height}`
+      : ` width=${width}`
   }
 
   if (config.class) {

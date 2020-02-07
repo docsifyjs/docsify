@@ -1,19 +1,20 @@
-import {isFn} from '../util/core'
-import {inBrowser} from './env'
+import { isFn } from '../util/core'
+import { inBrowser } from './env'
 
 const cacheNode = {}
 
 /**
  * Get Node
- * @param  {String|Element} el
- * @param  {Boolean} noCache
- * @return {Element}
+ * @param  {String|Element} el A DOM element
+ * @param  {Boolean} noCache Flag to use or not use the cache
+ * @return {Element} The found node element
  */
 export function getNode(el, noCache = false) {
   if (typeof el === 'string') {
     if (typeof window.Vue !== 'undefined') {
       return find(el)
     }
+
     el = noCache ? find(el) : cacheNode[el] || (cacheNode[el] = find(el))
   }
 
@@ -27,7 +28,10 @@ export const body = inBrowser && $.body
 export const head = inBrowser && $.head
 
 /**
- * Find element
+ * Find elements
+ * @param {String|Element} el The root element where to perform the search from
+ * @param {Element} node The query
+ * @returns {Element} The found DOM element
  * @example
  * find('nav') => document.querySelector('nav')
  * find(nav, 'a') => nav.querySelector('a')
@@ -38,6 +42,9 @@ export function find(el, node) {
 
 /**
  * Find all elements
+ * @param {String|Element} el The root element where to perform the search from
+ * @param {Element} node The query
+ * @returns {Array<Element>} An array of DOM elements
  * @example
  * findAll('a') => [].slice.call(document.querySelectorAll('a'))
  * findAll(nav, 'a') => [].slice.call(nav.querySelectorAll('a'))
@@ -53,6 +60,7 @@ export function create(node, tpl) {
   if (tpl) {
     node.innerHTML = tpl
   }
+
   return node
 }
 
@@ -78,7 +86,10 @@ export function off(el, type, handler) {
 
 /**
  * Toggle class
- *
+ * @param {String|Element} el The element that needs the class to be toggled
+ * @param {Element} type The type of action to be performed on the classList (toggle by default)
+ * @param {String} val Name of the class to be toggled
+ * @void
  * @example
  * toggleClass(el, 'active') => el.classList.toggle('active')
  * toggleClass(el, 'add', 'active') => el.classList.add('active')

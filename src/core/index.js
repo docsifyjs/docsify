@@ -1,12 +1,15 @@
-import {initMixin} from './init'
-import {routerMixin} from './router'
-import {renderMixin} from './render'
-import {fetchMixin} from './fetch'
-import {eventMixin} from './event'
+import { initMixin } from './init'
+import { routerMixin } from './router'
+import { renderMixin } from './render'
+import { fetchMixin } from './fetch'
+import { eventMixin } from './event'
 import initGlobalAPI from './global-api'
 
 /**
  * Fork https://github.com/bendrucker/document-ready/blob/master/index.js
+ * @param {Function} callback The callbacack to be called when the page is loaded
+ * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
+ *  otherwise it only attaches the callback to the DOMContentLoaded event
  */
 function ready(callback) {
   const state = document.readyState

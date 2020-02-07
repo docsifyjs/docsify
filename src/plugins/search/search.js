@@ -8,6 +8,7 @@ const LOCAL_STORAGE = {
 function resolveExpireKey(namespace) {
   return namespace ? `${LOCAL_STORAGE.EXPIRE_KEY}/${namespace}` : LOCAL_STORAGE.EXPIRE_KEY
 }
+
 function resolveIndexKey(namespace) {
   return namespace ? `${LOCAL_STORAGE.INDEX_KEY}/${namespace}` : LOCAL_STORAGE.INDEX_KEY
 }
@@ -58,18 +59,27 @@ export function genIndex(path, content = '', router, depth) {
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
-      slug = router.toURL(path, {id: slugify(token.text)})
-      index[slug] = {slug, title: token.text, body: ''}
+      slug = router.toURL(path, { id: slugify(token.text) })
+      index[slug] = { slug, title: token.text, body: '' }
     } else {
       if (!slug) {
         return
       }
+
       if (!index[slug]) {
-        index[slug] = {slug, title: '', body: ''}
+        index[slug] = { slug, title: '', body: '' }
       } else if (index[slug].body) {
         index[slug].body += '\n' + (token.text || '')
       } else {
-        index[slug].body = token.text
+        if (!token.text) {
+          if (token.type === 'table') {
+            token.text = token.cells.map(function (rows) {
+              return rows.join(' | ')
+            }).join(' |\n ')
+          }
+        }
+
+        index[slug].body = (index[slug].body ? index[slug].body + token.text : token.text)
       }
     }
   })
@@ -78,8 +88,8 @@ export function genIndex(path, content = '', router, depth) {
 }
 
 /**
- * @param {String} query
- * @returns {Array}
+ * @param {String} query Search query
+ * @returns {Array} Array of results
  */
 export function search(query) {
   const matchingResults = []
@@ -103,12 +113,12 @@ export function search(query) {
     const postUrl = post.slug || ''
 
     if (postTitle) {
-      keywords.forEach( keyword => {
+      keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
           keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
           'gi'
-        );
+        )
         let indexTitle = -1
         let indexContent = -1
 
@@ -116,7 +126,7 @@ export function search(query) {
         indexContent = postContent ? postContent.search(regEx) : -1
 
         if (indexTitle >= 0 || indexContent >= 0) {
-          matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
+          matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0
           if (indexContent < 0) {
             indexContent = 0
           }
@@ -127,7 +137,7 @@ export function search(query) {
           start = indexContent < 11 ? 0 : indexContent - 10
           end = start === 0 ? 70 : indexContent + keyword.length + 60
 
-          if (end > postContent.length) {
+          if (postContent && end > postContent.length) {
             end = postContent.length
           }
 
@@ -155,7 +165,7 @@ export function search(query) {
     }
   }
 
-  return matchingResults.sort((r1, r2) => r2.score - r1.score);
+  return matchingResults.sort((r1, r2) => r2.score - r1.score)
 }
 
 export function init(config, vm) {

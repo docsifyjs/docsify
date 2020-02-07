@@ -18,6 +18,7 @@ function executeScript() {
   if (!script) {
     return false
   }
+
   const code = script.innerText.trim()
   if (!code) {
     return false
@@ -102,6 +103,7 @@ export function renderMixin(proto) {
       // Reset toc
       this.compiler.subSidebar()
     }
+
     // Bind event
     this._bindEventOnRendered(activeEl)
   }
@@ -115,9 +117,9 @@ export function renderMixin(proto) {
       const main = dom.getNode('#main')
       const firstNode = main.children[0]
       if (firstNode && firstNode.tagName !== 'H1') {
-        const h1 = dom.create('h1')
-        h1.innerText = activeEl.innerText
-        dom.before(main, h1)
+        const h1 = this.compiler.header(activeEl.innerText, 1)
+        const wrapper = dom.create('div', h1)
+        dom.before(main, wrapper.children[0])
       }
     }
 
@@ -145,6 +147,7 @@ export function renderMixin(proto) {
 
         callHook(this, 'afterEach', html, text => renderMain.call(this, text))
       }
+
       if (this.isHTML) {
         html = this.result = text
         callback()
@@ -173,6 +176,7 @@ export function renderMixin(proto) {
       dom.toggleClass(el, 'remove', 'show')
       return
     }
+
     dom.toggleClass(el, 'add', 'show')
 
     let html = this.coverIsHTML ? text : this.compiler.cover(text)
@@ -191,10 +195,12 @@ export function renderMixin(proto) {
         if (!isAbsolutePath(m[1])) {
           path = getPath(this.router.getBasePath(), m[1])
         }
+
         el.style.backgroundImage = `url(${path})`
         el.style.backgroundSize = 'cover'
         el.style.backgroundPosition = 'center center'
       }
+
       html = html.replace(m[0], '')
     }
 
@@ -226,8 +232,9 @@ export function initRender(vm) {
 
   if (el) {
     if (config.repo) {
-      html += tpl.corner(config.repo)
+      html += tpl.corner(config.repo, config.cornerExternalLinkTarge)
     }
+
     if (config.coverpage) {
       html += tpl.cover()
     }
@@ -271,6 +278,7 @@ export function initRender(vm) {
     // Polyfll
     cssVars(config.themeColor)
   }
+
   vm._updateRender()
   dom.toggleClass(dom.body, 'ready')
 }

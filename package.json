@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.9.4",
+  "version": "4.10.2",
   "description": "A magical documentation generator.",
   "author": {
     "name": "qingwei-li",
@@ -26,52 +26,78 @@
     "serve:ssr": "cross-env SSR=1 node server",
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
-    "lint": "eslint {src,packages} --fix",
+    "lint": "eslint . --fix",
     "test": "mocha test/*/**",
-    "css": "stylus src/themes/*.styl -u autoprefixer-stylus",
-    "watch:css": "run-p 'css -- -o themes -w'",
+    "testServer": "node cypress/setup.js",
+    "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
+    "posttest:e2e": "rimraf cypress/fixtures/docs",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open ",
+    "css": "node build/css",
+    "watch:css": "npm run css -- -o themes -w",
     "watch:js": "node build/build.js",
-    "build:css:min": "mkdir lib/themes && run-p 'css -- -o lib/themes' && node build/mincss.js",
-    "build:css": "mkdir -p  themes && run-p 'css --  -o themes'",
+    "build:css:min": "mkdirp lib/themes && npm run css -- -o lib/themes && node build/mincss.js",
+    "build:css": "mkdirp themes && npm run css -- -o themes",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
     "build:ssr": "node build/ssr.js",
     "build:cover": "node build/cover.js",
-    "build": "rimraf lib themes/* && run-s build:js build:css build:css:min build:ssr build:cover",
+    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
+    "prepare": "npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective-postinstall"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "dependencies": {
-    "marked": "^0.5.1",
-    "medium-zoom": "^0.4.0",
-    "opencollective": "^1.0.3",
+    "marked": "^0.7.0",
+    "medium-zoom": "^1.0.4",
+    "opencollective-postinstall": "^2.0.2",
     "prismjs": "^1.15.0",
+    "strip-indent": "^3.0.0",
     "tinydate": "^1.0.0",
     "tweezer.js": "^1.4.0"
   },
   "devDependencies": {
-    "autoprefixer-stylus": "^0.14.0",
+    "autoprefixer-stylus": "^1.0.0",
     "chai": "^4.2.0",
-    "chokidar": "^2.0.2",
-    "conventional-changelog-cli": "^1.3.5",
-    "cross-env": "^5.1.3",
-    "cssnano": "^3.10.0",
-    "eslint": "^4.14.0",
-    "eslint-config-xo-space": "^0.18.0",
+    "chokidar": "^3.2.1",
+    "conventional-changelog-cli": "^2.0.25",
+    "copy-dir": "^1.2.0",
+    "cross-env": "^6.0.3",
+    "css.escape": "^1.5.1",
+    "cssnano": "^4.1.10",
+    "cypress": "^3.8.1",
+    "cypress-image-snapshot": "^3.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-xo-space": "^0.21.0",
     "esm": "^3.1.4",
-    "jsdom": "^13.2.0",
-    "lerna": "^2.5.1",
+    "husky": "^3.1.0",
+    "jsdom": "^15.1.1",
+    "lerna": "^3.17.0",
+    "lint-staged": "^9.5.0",
     "live-server": "^1.2.1",
+    "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.53.3",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.23.1",
     "rollup-plugin-async": "^1.2.0",
-    "rollup-plugin-buble": "^0.18.0",
-    "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^2.0.1",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "start-server-and-test": "^1.10.6",
     "stylus": "^0.54.5"
   },
   "keywords": [
@@ -82,8 +108,6 @@
     "generator"
   ],
   "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/docsify",
-    "logo": "https://docsify.js.org/_media/icon.svg"
+    "url": "https://opencollective.com/docsify"
   }
 }
