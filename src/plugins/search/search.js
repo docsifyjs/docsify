@@ -71,7 +71,15 @@ export function genIndex(path, content = '', router, depth) {
       } else if (index[slug].body) {
         index[slug].body += '\n' + (token.text || '')
       } else {
-        index[slug].body = token.text
+        if (!token.text) {
+          if (token.type === 'table') {
+            token.text = token.cells.map(function (rows) {
+              return rows.join(' | ')
+            }).join(' |\n ')
+          }
+        }
+
+        index[slug].body = (index[slug].body ? index[slug].body + token.text : token.text)
       }
     }
   })
