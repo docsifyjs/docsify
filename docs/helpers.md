@@ -86,6 +86,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ### Resizing
 
 ```md
+![logo](https://docsify.js.org/_media/icon.svg ':size=WIDTHxHEIGHT')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
 

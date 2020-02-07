@@ -1,5 +1,3 @@
-
-import Prism from 'prismjs'
 import { tree as treeTpl } from './tpl'
 import { genTree } from './gen-tree'
 import { slugify } from './slugify'
@@ -12,6 +10,7 @@ import { paragraphCompiler } from './compiler/paragraph'
 import { taskListCompiler } from './compiler/taskList'
 import { taskListItemCompiler } from './compiler/taskListItem'
 import { linkCompiler } from './compiler/link'
+import marked from 'marked'
 
 const cachedLinks = {}
 
@@ -192,8 +191,7 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer()
-    const { linkTarget, router } = this
-    const { linkTarget, linkRel, router, contentBase } = this
+    const { linkTarget, router, contentBase } = this
     const _self = this
     const origin = {}
 
@@ -231,7 +229,7 @@ export class Compiler {
     origin.code = highlightCodeCompiler({ renderer })
     origin.link = linkCompiler({ renderer, router, linkTarget, compilerClass: _self })
     origin.paragraph = paragraphCompiler({ renderer })
-    origin.image = imageCompiler({ renderer })
+    origin.image = imageCompiler({ renderer, contentBase, router })
     origin.list = taskListCompiler({ renderer })
     origin.listitem = taskListItemCompiler({ renderer })
 

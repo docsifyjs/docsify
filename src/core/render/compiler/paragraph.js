@@ -1,6 +1,6 @@
-import {helper as helperTpl} from '../tpl'
+import { helper as helperTpl } from '../tpl'
 
-export const paragraphCompiler = ({renderer}) => renderer.paragraph = text => {
+export const paragraphCompiler = ({ renderer }) => renderer.paragraph = text => {
   let result
   if (/^!&gt;/.test(text)) {
     result = helperTpl('tip', text)
@@ -9,6 +9,7 @@ export const paragraphCompiler = ({renderer}) => renderer.paragraph = text => {
   } else {
     result = `<p>${text}</p>`
   }
+
   return result
 }
 
