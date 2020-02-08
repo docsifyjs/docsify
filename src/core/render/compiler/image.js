@@ -16,9 +16,8 @@ export const imageCompiler = ({ renderer, contentBase, router }) => renderer.ima
     attrs.push(`title="${title}"`)
   }
 
-  const size = config.size
-  if (size) {
-    const [width, height] = size.split('x')
+  if (config.size) {
+    const [width, height] = config.size.split('x')
     if (height) {
       attrs.push(`width="${width}" height="${height}"`)
     } else {
