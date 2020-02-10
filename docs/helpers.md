@@ -81,9 +81,12 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
   - [ ] bim
   - [ ] lim
 
-## Image resizing
+## Image
+
+### Resizing
 
 ```md
+![logo](https://docsify.js.org/_media/icon.svg ':size=WIDTHxHEIGHT')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
 
@@ -95,6 +98,18 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=10%')
+
+### Customise class
+
+```md
+![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass')
+```
+
+### Customise ID
+
+```md
+![logo](https://docsify.js.org/_media/icon.svg ':id=someCssId')
+```
 
 ## Customise ID for headings
 
