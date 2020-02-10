@@ -1,14 +1,16 @@
-import marked from 'marked'
-import Prism from 'prismjs'
-import { helper as helperTpl, tree as treeTpl } from './tpl'
+import { tree as treeTpl } from './tpl'
 import { genTree } from './gen-tree'
 import { slugify } from './slugify'
 import { emojify } from './emojify'
 import { isAbsolutePath, getPath, getParentPath } from '../router/util'
 import { isFn, merge, cached, isPrimitive } from '../util/core'
-
-// See https://github.com/PrismJS/prism/pull/1367
-import 'prismjs/components/prism-markup-templating'
+import { imageCompiler } from './compiler/image'
+import { highlightCodeCompiler } from './compiler/code'
+import { paragraphCompiler } from './compiler/paragraph'
+import { taskListCompiler } from './compiler/taskList'
+import { taskListItemCompiler } from './compiler/taskListItem'
+import { linkCompiler } from './compiler/link'
+import marked from 'marked'
 
 const cachedLinks = {}
 
@@ -189,7 +191,7 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer()
-    const { linkTarget, linkRel, router, contentBase } = this
+    const { linkTarget, router, contentBase } = this
     const _self = this
     const origin = {}
 
@@ -224,117 +226,12 @@ export class Compiler {
       return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`
     }
 
-    // Highlight code
-    origin.code = renderer.code = function (code, lang = '') {
-      code = code.replace(/@DOCSIFY_QM@/g, '`')
-      const hl = Prism.highlight(
-        code,
-        Prism.languages[lang] || Prism.languages.markup
-      )
-
-      return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${hl}</code></pre>`
-    }
-
-    origin.link = renderer.link = function (href, title = '', text) {
-      let attrs = ''
-
-      const { str, config } = getAndRemoveConfig(title)
-      title = str
-
-      if (
-        !isAbsolutePath(href) &&
-        !_self._matchNotCompileLink(href) &&
-        !config.ignore
-      ) {
-        if (href === _self.config.homepage) {
-          href = 'README'
-        }
-
-        href = router.toURL(href, null, router.getCurrentPath())
-      } else {
-        attrs += href.indexOf('mailto:') === 0 ? '' : ` target="${linkTarget}"`
-        attrs += href.indexOf('mailto:') === 0 ? '' : (linkRel !== '' ? ` rel="${linkRel}"` : '')
-      }
-
-      if (config.target) {
-        attrs += ' target=' + config.target
-      }
-
-      if (config.disabled) {
-        attrs += ' disabled'
-        href = 'javascript:void(0)'
-      }
-
-      if (title) {
-        attrs += ` title="${title}"`
-      }
-
-      return `<a href="${href}"${attrs}>${text}</a>`
-    }
-
-    origin.paragraph = renderer.paragraph = function (text) {
-      let result
-      if (/^!&gt;/.test(text)) {
-        result = helperTpl('tip', text)
-      } else if (/^\?&gt;/.test(text)) {
-        result = helperTpl('warn', text)
-      } else {
-        result = `<p>${text}</p>`
-      }
-
-      return result
-    }
-
-    origin.image = renderer.image = function (href, title, text) {
-      let url = href
-      let attrs = ''
-
-      const { str, config } = getAndRemoveConfig(title)
-      title = str
-
-      if (config['no-zoom']) {
-        attrs += ' data-no-zoom'
-      }
-
-      if (title) {
-        attrs += ` title="${title}"`
-      }
-
-      const size = config.size
-      if (size) {
-        const sizes = size.split('x')
-        if (sizes[1]) {
-          attrs += 'width=' + sizes[0] + ' height=' + sizes[1]
-        } else {
-          attrs += 'width=' + sizes[0]
-        }
-      }
-
-      if (!isAbsolutePath(href)) {
-        url = getPath(contentBase, getParentPath(router.getCurrentPath()), href)
-      }
-
-      return `<img src="${url}"data-origin="${href}" alt="${text}"${attrs}>`
-    }
-
-    origin.list = renderer.list = function (body, ordered, start) {
-      const isTaskList = /<li class="task-list-item">/.test(body.split('class="task-list"')[0])
-      const isStartReq = start && start > 1
-      const tag = ordered ? 'ol' : 'ul'
-      const tagAttrs = [
-        (isTaskList ? 'class="task-list"' : ''),
-        (isStartReq ? `start="${start}"` : '')
-      ].join(' ').trim()
-
-      return `<${tag} ${tagAttrs}>${body}</${tag}>`
-    }
-
-    origin.listitem = renderer.listitem = function (text) {
-      const isTaskItem = /^(<input.*type="checkbox"[^>]*>)/.test(text)
-      const html = isTaskItem ? `<li class="task-list-item"><label>${text}</label></li>` : `<li>${text}</li>`
-
-      return html
-    }
+    origin.code = highlightCodeCompiler({ renderer })
+    origin.link = linkCompiler({ renderer, router, linkTarget, compilerClass: _self })
+    origin.paragraph = paragraphCompiler({ renderer })
+    origin.image = imageCompiler({ renderer, contentBase, router })
+    origin.list = taskListCompiler({ renderer })
+    origin.listitem = taskListItemCompiler({ renderer })
 
     renderer.origin = origin
 

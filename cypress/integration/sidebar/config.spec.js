@@ -239,7 +239,6 @@ context('sidebar.configurations', () => {
     'set-target-attribute-for-link',
     'disable-link',
     'github-task-lists',
-    'image-resizing',
     'customise-id-for-headings',
     'markdown-in-html-tag'
   ]
