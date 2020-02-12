@@ -18,10 +18,10 @@ Alternatively, use [compressed files](#compressed-file).
 
 ```html
 <!-- load css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@2.0.0/themes/vue.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.10.2/themes/vue.css">
 
 <!-- load script -->
-<script src="//cdn.jsdelivr.net/npm/docsify@2.0.0/lib/docsify.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.10.2/lib/docsify.js"></script>
 ```
 
 ## Compressed file
@@ -36,10 +36,10 @@ Alternatively, use [compressed files](#compressed-file).
 
 ```html
 <!-- load css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@2.0.0/lib/themes/vue.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.10.2/lib/themes/vue.css">
 
 <!-- load script -->
-<script src="//cdn.jsdelivr.net/npm/docsify@2.0.0/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.10.2/lib/docsify.min.js"></script>
 ```
 
 ## Other CDN
