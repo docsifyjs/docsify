@@ -14,7 +14,7 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
     coverpage: true
   }
 </script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
 
 ```markdown
