@@ -1,5 +1,7 @@
 import {merge, hyphenate, isPrimitive, hasOwn} from './util/core'
 
+const currentScript = document.currentScript
+
 export default function () {
   const config = merge(
     {
@@ -36,7 +38,7 @@ export default function () {
   )
 
   const script =
-    document.currentScript ||
+    currentScript ||
     [].slice
       .call(document.getElementsByTagName('script'))
       .filter(n => /docsify\./.test(n.src))[0]
@@ -51,26 +53,22 @@ export default function () {
         }
       }
     }
+  }
 
-    if (config.loadSidebar === true) {
-      config.loadSidebar = '_sidebar' + config.ext
-    }
-
-    if (config.loadNavbar === true) {
-      config.loadNavbar = '_navbar' + config.ext
-    }
-
-    if (config.coverpage === true) {
-      config.coverpage = '_coverpage' + config.ext
-    }
-
-    if (config.repo === true) {
-      config.repo = ''
-    }
-
-    if (config.name === true) {
-      config.name = ''
-    }
+  if (config.loadSidebar === true) {
+    config.loadSidebar = '_sidebar' + config.ext
+  }
+  if (config.loadNavbar === true) {
+    config.loadNavbar = '_navbar' + config.ext
+  }
+  if (config.coverpage === true) {
+    config.coverpage = '_coverpage' + config.ext
+  }
+  if (config.repo === true) {
+    config.repo = ''
+  }
+  if (config.name === true) {
+    config.name = ''
   }
 
   window.$docsify = config
