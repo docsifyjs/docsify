@@ -2,14 +2,14 @@ import * as dom from '../util/dom'
 import * as tpl from './tpl'
 import cssVars from '../util/polyfill/css-vars'
 import tinydate from 'tinydate'
-import {callHook} from '../init/lifecycle'
-import {Compiler} from './compiler'
-import {getAndActive, sticky} from '../event/sidebar'
-import {getPath, isAbsolutePath} from '../router/util'
-import {isMobile, inBrowser} from '../util/env'
-import {isPrimitive} from '../util/core'
-import {scrollActiveSidebar, scroll2Top} from '../event/scroll'
-import {prerenderEmbed} from './embed'
+import { callHook } from '../init/lifecycle'
+import { Compiler } from './compiler'
+import { getAndActive, sticky } from '../event/sidebar'
+import { getPath, isAbsolutePath } from '../router/util'
+import { isMobile, inBrowser } from '../util/env'
+import { isPrimitive } from '../util/core'
+import { scrollActiveSidebar, scroll2Top } from '../event/scroll'
+import { prerenderEmbed } from './embed'
 
 function executeScript() {
   const script = dom
@@ -92,7 +92,19 @@ export function renderMixin(proto) {
   }
 
   proto._renderSidebar = function (text) {
-    const {maxLevel, subMaxLevel, loadSidebar} = this.config
+    console.log('this.config', this.config)
+    const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config
+
+    if (hideSidebar) {
+      // FIXME : better styling solution
+      document.querySelector('aside.sidebar').style.display = 'none'
+      document.querySelector('button.sidebar-toggle').style.display = 'none'
+      document.querySelector('section.content').style.right = 'unset'
+      document.querySelector('section.content').style.left = 'unset'
+      document.querySelector('section.content').style.position = 'relative'
+      document.querySelector('section.content').style.width = '100%'
+      return null
+    }
 
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
@@ -109,7 +121,7 @@ export function renderMixin(proto) {
   }
 
   proto._bindEventOnRendered = function (activeEl) {
-    const {autoHeader, auto2top} = this.config
+    const { autoHeader, auto2top } = this.config
 
     scrollActiveSidebar(this.router)
 
