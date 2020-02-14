@@ -369,6 +369,8 @@ window.$docsify = {
 };
 ```
 
+?> If this options is `false` but you dont want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
+
 ## mergeNavbar
 
 - type: `Boolean`

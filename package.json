@@ -27,7 +27,7 @@
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint .",
-    "fixlint" : "eslint . --fix",
+    "fixlint": "eslint . --fix",
     "test": "mocha ./test/**/*.test.js",
     "testServer": "node cypress/setup.js",
     "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
@@ -55,7 +55,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run lint",
+      "npm run fixlint",
       "git add"
     ]
   },
