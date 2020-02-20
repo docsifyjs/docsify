@@ -5,3 +5,7 @@ build
 server.js
 cypress
 lib
+themes
+build
+docs/
+**/*.md

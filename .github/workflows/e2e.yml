@@ -27,7 +27,5 @@ jobs:
       run: npm run bootstrap
     - name: Build
       run: npm run build
-    - name: linting
-      run: npm run lint
     - name: end to end
       run: npm run test:e2e

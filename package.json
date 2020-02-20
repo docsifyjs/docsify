@@ -26,8 +26,9 @@
     "serve:ssr": "cross-env SSR=1 node server",
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
-    "lint": "eslint . --fix",
-    "test": "mocha test/*/**",
+    "lint": "eslint .",
+    "fixlint": "eslint . --fix",
+    "test": "mocha ./test/**/*.test.js",
     "testServer": "node cypress/setup.js",
     "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
     "posttest:e2e": "rimraf cypress/fixtures/docs",
@@ -54,7 +55,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run lint",
+      "npm run fixlint",
       "git add"
     ]
   },
@@ -69,6 +70,7 @@
   },
   "devDependencies": {
     "autoprefixer-stylus": "^1.0.0",
+    "babel-eslint": "^10.0.3",
     "chai": "^4.2.0",
     "chokidar": "^3.2.1",
     "conventional-changelog-cli": "^2.0.25",
@@ -79,7 +81,8 @@
     "cypress": "^3.8.1",
     "cypress-image-snapshot": "^3.1.1",
     "eslint": "^5.16.0",
-    "eslint-config-xo-space": "^0.21.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
     "esm": "^3.1.4",
     "husky": "^3.1.0",
     "jsdom": "^15.1.1",
@@ -89,6 +92,7 @@
     "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "rollup": "^1.23.1",
     "rollup-plugin-async": "^1.2.0",
