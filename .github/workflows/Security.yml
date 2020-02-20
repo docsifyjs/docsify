@@ -1,0 +1,20 @@
+name: Security Flow
+
+on: 
+  push:
+   branches:
+    - master
+    - develop
+  pull_request:
+   branches:
+    - master
+    - develop
+jobs:
+  security:
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
