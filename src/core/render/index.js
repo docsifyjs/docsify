@@ -92,7 +92,6 @@ export function renderMixin(proto) {
   }
 
   proto._renderSidebar = function (text) {
-    console.log('this.config', this.config)
     const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config
 
     if (hideSidebar) {
