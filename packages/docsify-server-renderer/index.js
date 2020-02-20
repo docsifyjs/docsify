@@ -1,11 +1,11 @@
 import { readFileSync } from 'fs';
 import { resolve, basename } from 'path';
-import resolvePathname from 'resolve-pathname';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
+import resolvePathname from 'resolve-pathname';
 import debug from 'debug';
 import fetch from 'node-fetch';
 
