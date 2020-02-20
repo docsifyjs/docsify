@@ -7,8 +7,8 @@ You can configure the `window.$docsify`.
   window.$docsify = {
     repo: 'docsifyjs/docsify',
     maxLevel: 3,
-    coverpage: true
-  }
+    coverpage: true,
+  };
 </script>
 ```
 
@@ -21,8 +21,8 @@ The DOM element to be mounted on initialization. It can be a CSS selector string
 
 ```js
 window.$docsify = {
-  el: '#app'
-}
+  el: '#app',
+};
 ```
 
 ## repo
@@ -36,8 +36,8 @@ Configure the repository url or a string of `username/repo` can add the [GitHub 
 window.$docsify = {
   repo: 'docsifyjs/docsify',
   // or
-  repo: 'https://github.com/docsifyjs/docsify/'
-}
+  repo: 'https://github.com/docsifyjs/docsify/',
+};
 ```
 
 ## maxLevel
@@ -49,8 +49,8 @@ Maximum Table of content level.
 
 ```js
 window.$docsify = {
-  maxLevel: 4
-}
+  maxLevel: 4,
+};
 ```
 
 ## loadNavbar
@@ -66,8 +66,8 @@ window.$docsify = {
   loadNavbar: true,
 
   // load from nav.md
-  loadNavbar: 'nav.md'
-}
+  loadNavbar: 'nav.md',
+};
 ```
 
 ## loadSidebar
@@ -83,8 +83,8 @@ window.$docsify = {
   loadSidebar: true,
 
   // load from summary.md
-  loadSidebar: 'summary.md'
-}
+  loadSidebar: 'summary.md',
+};
 ```
 
 ## hideSidebar
@@ -94,13 +94,11 @@ window.$docsify = {
 
 This option will completely hide your sidebar and wont render any content of the side even .
 
-````js
+```js
 window.$docsify = {
-
   hideSidebar: true,
-
 };
-
+```
 
 ## subMaxLevel
 
@@ -111,9 +109,9 @@ Add table of contents (TOC) in custom sidebar.
 
 ```js
 window.$docsify = {
-  subMaxLevel: 2
+  subMaxLevel: 2,
 };
-````
+```
 
 ## auto2top
 
@@ -124,8 +122,8 @@ Scrolls to the top of the screen when the route is changed.
 
 ```js
 window.$docsify = {
-  auto2top: true
-}
+  auto2top: true,
+};
 ```
 
 ## homepage
@@ -142,8 +140,8 @@ window.$docsify = {
 
   // Or use the readme in your repo
   homepage:
-    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md'
-}
+    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md',
+};
 ```
 
 ## basePath
@@ -161,8 +159,8 @@ window.$docsify = {
 
   // Even can load files from other repo
   basePath:
-    'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/'
-}
+    'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/',
+};
 ```
 
 ## relativePath
@@ -201,8 +199,8 @@ window.$docsify = {
   relativePath: true,
 
   // Relative path disabled (default value)
-  relativePath: false
-}
+  relativePath: false,
+};
 ```
 
 ## coverpage
@@ -225,9 +223,9 @@ window.$docsify = {
   // mutiple covers and custom file name
   coverpage: {
     '/': 'cover.md',
-    '/zh-cn/': 'cover.md'
-  }
-}
+    '/zh-cn/': 'cover.md',
+  },
+};
 ```
 
 ## logo
@@ -238,8 +236,8 @@ Website logo as it appears in the sidebar, you can resize by CSS.
 
 ```js
 window.$docsify = {
-  logo: '/_media/icon.svg'
-}
+  logo: '/_media/icon.svg',
+};
 ```
 
 ## name
@@ -250,16 +248,16 @@ Website name as it appears in the sidebar.
 
 ```js
 window.$docsify = {
-  name: 'docsify'
-}
+  name: 'docsify',
+};
 ```
 
 The name field can also contain custom HTML for easier customization:
 
 ```js
 window.$docsify = {
-  name: '<span>docsify</span>'
-}
+  name: '<span>docsify</span>',
+};
 ```
 
 ## nameLink
@@ -276,9 +274,9 @@ window.$docsify = {
   // For each route
   nameLink: {
     '/zh-cn/': '/zh-cn/',
-    '/': '/'
-  }
-}
+    '/': '/',
+  },
+};
 ```
 
 ## markdown
@@ -295,16 +293,16 @@ window.$docsify = {
     renderer: {
       link: function() {
         // ...
-      }
-    }
+      },
+    },
   },
 
   // function
   markdown: function(marked, renderer) {
     // ...
-    return marked
-  }
-}
+    return marked;
+  },
+};
 ```
 
 ## themeColor
@@ -315,8 +313,8 @@ Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en
 
 ```js
 window.$docsify = {
-  themeColor: '#3F51B5'
-}
+  themeColor: '#3F51B5',
+};
 ```
 
 ## alias
@@ -332,9 +330,9 @@ window.$docsify = {
     '/zh-cn/changelog': '/changelog',
     '/changelog':
       'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
-    '/.*/_sidebar.md': '/_sidebar.md' // See #301
-  }
-}
+    '/.*/_sidebar.md': '/_sidebar.md', // See #301
+  },
+};
 ```
 
 ## autoHeader
@@ -346,8 +344,8 @@ If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.m
 ```js
 window.$docsify = {
   loadSidebar: true,
-  autoHeader: true
-}
+  autoHeader: true,
+};
 ```
 
 ## executeScript
@@ -358,8 +356,8 @@ Execute the script on the page. Only parse the first script tag([demo](themes)).
 
 ```js
 window.$docsify = {
-  executeScript: true
-}
+  executeScript: true,
+};
 ```
 
 ```markdown
@@ -380,8 +378,8 @@ Disabled emoji parse.
 
 ```js
 window.$docsify = {
-  noEmoji: true
-}
+  noEmoji: true,
+};
 ```
 
 ?> If this options is `false` but you dont want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
@@ -394,8 +392,8 @@ Navbar will be merged with the sidebar on smaller screens.
 
 ```js
 window.$docsify = {
-  mergeNavbar: true
-}
+  mergeNavbar: true,
+};
 ```
 
 ## formatUpdated
@@ -412,9 +410,9 @@ window.$docsify = {
   formatUpdated: function(time) {
     // ...
 
-    return time
-  }
-}
+    return time;
+  },
+};
 ```
 
 ## externalLinkTarget
@@ -426,8 +424,8 @@ Target to open external links inside the markdown. Default `'_blank'` (new windo
 
 ```js
 window.$docsify = {
-  externalLinkTarget: '_self' // default: '_blank'
-}
+  externalLinkTarget: '_self', // default: '_blank'
+};
 ```
 
 ## cornerExternalLinkTarget
@@ -439,8 +437,8 @@ Target to open external link at the top right corner. Default `'_blank'` (new wi
 
 ```js
 window.$docsify = {
-  cornerExternalLinkTarget: '_self' // default: '_blank'
-}
+  cornerExternalLinkTarget: '_self', // default: '_blank'
+};
 ```
 
 ## externalLinkRel
@@ -452,8 +450,8 @@ Default `'noopener'` (no opener) prevents the newly opened external page (when [
 
 ```js
 window.$docsify = {
-  externalLinkTarget: '' // default: 'noopener'
-}
+  externalLinkTarget: '', // default: 'noopener'
+};
 ```
 
 ## routerMode
@@ -463,8 +461,8 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  routerMode: 'history' // default: 'hash'
-}
+  routerMode: 'history', // default: 'hash'
+};
 ```
 
 ## noCompileLinks
@@ -475,8 +473,8 @@ Sometimes we do not want docsify to handle our links. See [#203](https://github.
 
 ```js
 window.$docsify = {
-  noCompileLinks: ['/foo', '/bar/.*']
-}
+  noCompileLinks: ['/foo', '/bar/.*'],
+};
 ```
 
 ## onlyCover
@@ -487,8 +485,8 @@ Only coverpage is loaded when visiting the home page.
 
 ```js
 window.$docsify = {
-  onlyCover: false
-}
+  onlyCover: false,
+};
 ```
 
 ## requestHeaders
@@ -500,9 +498,9 @@ Set the request resource headers.
 ```js
 window.$docsify = {
   requestHeaders: {
-    'x-token': 'xxx'
-  }
-}
+    'x-token': 'xxx',
+  },
+};
 ```
 
 Such as setting the cache
@@ -510,9 +508,9 @@ Such as setting the cache
 ```js
 window.$docsify = {
   requestHeaders: {
-    'cache-control': 'max-age=600'
-  }
-}
+    'cache-control': 'max-age=600',
+  },
+};
 ```
 
 ## ext
@@ -523,8 +521,8 @@ Request file extension.
 
 ```js
 window.$docsify = {
-  ext: '.md'
-}
+  ext: '.md',
+};
 ```
 
 ## fallbackLanguages
@@ -541,8 +539,8 @@ Example:
 
 ```js
 window.$docsify = {
-  fallbackLanguages: ['fr', 'de']
-}
+  fallbackLanguages: ['fr', 'de'],
+};
 ```
 
 ## notFoundPage
@@ -553,16 +551,16 @@ Load the `_404.md` file:
 
 ```js
 window.$docsify = {
-  notFoundPage: true
-}
+  notFoundPage: true,
+};
 ```
 
 Load the customised path of the 404 page:
 
 ```js
 window.$docsify = {
-  notFoundPage: 'my404.md'
-}
+  notFoundPage: 'my404.md',
+};
 ```
 
 Load the right 404 page according to the localisation:
@@ -571,9 +569,9 @@ Load the right 404 page according to the localisation:
 window.$docsify = {
   notFoundPage: {
     '/': '_404.md',
-    '/de': 'de/_404.md'
-  }
-}
+    '/de': 'de/_404.md',
+  },
+};
 ```
 
 > Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
