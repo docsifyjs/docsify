@@ -1,53 +1,54 @@
-import * as dom from '../util/dom'
-import * as tpl from './tpl'
-import cssVars from '../util/polyfill/css-vars'
-import tinydate from 'tinydate'
-import {callHook} from '../init/lifecycle'
-import {Compiler} from './compiler'
-import {getAndActive, sticky} from '../event/sidebar'
-import {getPath, isAbsolutePath} from '../router/util'
-import {isMobile, inBrowser} from '../util/env'
-import {isPrimitive} from '../util/core'
-import {scrollActiveSidebar, scroll2Top} from '../event/scroll'
-import {prerenderEmbed} from './embed'
+/* eslint-disable no-unused-vars */
+import * as dom from '../util/dom';
+import cssVars from '../util/polyfill/css-vars';
+import { callHook } from '../init/lifecycle';
+import { getAndActive, sticky } from '../event/sidebar';
+import { getPath, isAbsolutePath } from '../router/util';
+import { isMobile, inBrowser } from '../util/env';
+import { isPrimitive } from '../util/core';
+import { scrollActiveSidebar, scroll2Top } from '../event/scroll';
+import { Compiler } from './compiler';
+import * as tpl from './tpl';
+import { prerenderEmbed } from './embed';
+import tinydate from 'tinydate';
 
 function executeScript() {
   const script = dom
     .findAll('.markdown-section>script')
-    .filter(s => !/template/.test(s.type))[0]
+    .filter(s => !/template/.test(s.type))[0];
   if (!script) {
-    return false
+    return false;
   }
 
-  const code = script.innerText.trim()
+  const code = script.innerText.trim();
   if (!code) {
-    return false
+    return false;
   }
 
   setTimeout(_ => {
-    window.__EXECUTE_RESULT__ = new Function(code)()
-  }, 0)
+    window.__EXECUTE_RESULT__ = new Function(code)();
+  }, 0);
 }
 
 function formatUpdated(html, updated, fn) {
   updated =
-    typeof fn === 'function' ?
-      fn(updated) :
-      typeof fn === 'string' ?
-        tinydate(fn)(new Date(updated)) :
-        updated
+    typeof fn === 'function'
+      ? fn(updated)
+      : typeof fn === 'string'
+      ? tinydate(fn)(new Date(updated))
+      : updated;
 
-  return html.replace(/{docsify-updated}/g, updated)
+  return html.replace(/{docsify-updated}/g, updated);
 }
 
 function renderMain(html) {
   if (!html) {
-    html = '<h1>404 - Not found</h1>'
+    html = '<h1>404 - Not found</h1>';
   }
 
-  this._renderTo('.markdown-section', html)
+  this._renderTo('.markdown-section', html);
   // Render sidebar with the TOC
-  !this.config.loadSidebar && this._renderSidebar()
+  !this.config.loadSidebar && this._renderSidebar();
 
   // Execute script
   if (
@@ -56,229 +57,235 @@ function renderMain(html) {
     !executeScript()
   ) {
     setTimeout(_ => {
-      const vueVM = window.__EXECUTE_RESULT__
-      vueVM && vueVM.$destroy && vueVM.$destroy()
-      window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main')
-    }, 0)
+      const vueVM = window.__EXECUTE_RESULT__;
+      vueVM && vueVM.$destroy && vueVM.$destroy();
+      window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main');
+    }, 0);
   } else {
-    this.config.executeScript && executeScript()
+    this.config.executeScript && executeScript();
   }
 }
 
 function renderNameLink(vm) {
-  const el = dom.getNode('.app-name-link')
-  const nameLink = vm.config.nameLink
-  const path = vm.route.path
+  const el = dom.getNode('.app-name-link');
+  const nameLink = vm.config.nameLink;
+  const path = vm.route.path;
 
   if (!el) {
-    return
+    return;
   }
 
   if (isPrimitive(vm.config.nameLink)) {
-    el.setAttribute('href', nameLink)
+    el.setAttribute('href', nameLink);
   } else if (typeof nameLink === 'object') {
-    const match = Object.keys(nameLink).filter(key => path.indexOf(key) > -1)[0]
+    const match = Object.keys(nameLink).filter(
+      key => path.indexOf(key) > -1
+    )[0];
 
-    el.setAttribute('href', nameLink[match])
+    el.setAttribute('href', nameLink[match]);
   }
 }
 
 export function renderMixin(proto) {
-  proto._renderTo = function (el, content, replace) {
-    const node = dom.getNode(el)
+  proto._renderTo = function(el, content, replace) {
+    const node = dom.getNode(el);
     if (node) {
-      node[replace ? 'outerHTML' : 'innerHTML'] = content
+      node[replace ? 'outerHTML' : 'innerHTML'] = content;
     }
-  }
+  };
 
-  proto._renderSidebar = function (text) {
-    const {maxLevel, subMaxLevel, loadSidebar} = this.config
+  proto._renderSidebar = function(text) {
+    const { maxLevel, subMaxLevel, loadSidebar } = this.config;
 
-    this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel))
-    const activeEl = getAndActive(this.router, '.sidebar-nav', true, true)
+    this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
+    const activeEl = getAndActive(this.router, '.sidebar-nav', true, true);
     if (loadSidebar && activeEl) {
       activeEl.parentNode.innerHTML +=
-        this.compiler.subSidebar(subMaxLevel) || ''
+        this.compiler.subSidebar(subMaxLevel) || '';
     } else {
       // Reset toc
-      this.compiler.subSidebar()
+      this.compiler.subSidebar();
     }
 
     // Bind event
-    this._bindEventOnRendered(activeEl)
-  }
+    this._bindEventOnRendered(activeEl);
+  };
 
-  proto._bindEventOnRendered = function (activeEl) {
-    const {autoHeader, auto2top} = this.config
+  proto._bindEventOnRendered = function(activeEl) {
+    const { autoHeader, auto2top } = this.config;
 
-    scrollActiveSidebar(this.router)
+    scrollActiveSidebar(this.router);
 
     if (autoHeader && activeEl) {
-      const main = dom.getNode('#main')
-      const firstNode = main.children[0]
+      const main = dom.getNode('#main');
+      const firstNode = main.children[0];
       if (firstNode && firstNode.tagName !== 'H1') {
-        const h1 = this.compiler.header(activeEl.innerText, 1)
-        const wrapper = dom.create('div', h1)
-        dom.before(main, wrapper.children[0])
+        const h1 = this.compiler.header(activeEl.innerText, 1);
+        const wrapper = dom.create('div', h1);
+        dom.before(main, wrapper.children[0]);
       }
     }
 
-    auto2top && scroll2Top(auto2top)
-  }
+    auto2top && scroll2Top(auto2top);
+  };
 
-  proto._renderNav = function (text) {
-    text && this._renderTo('nav', this.compiler.compile(text))
+  proto._renderNav = function(text) {
+    text && this._renderTo('nav', this.compiler.compile(text));
     if (this.config.loadNavbar) {
-      getAndActive(this.router, 'nav')
+      getAndActive(this.router, 'nav');
     }
-  }
+  };
 
-  proto._renderMain = function (text, opt = {}, next) {
+  proto._renderMain = function(text, opt = {}, next) {
     if (!text) {
-      return renderMain.call(this, text)
+      return renderMain.call(this, text);
     }
 
     callHook(this, 'beforeEach', text, result => {
-      let html
+      let html;
       const callback = () => {
         if (opt.updatedAt) {
-          html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated)
+          html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated);
         }
 
-        callHook(this, 'afterEach', html, text => renderMain.call(this, text))
-      }
+        callHook(this, 'afterEach', html, text => renderMain.call(this, text));
+      };
 
       if (this.isHTML) {
-        html = this.result = text
-        callback()
-        next()
+        html = this.result = text;
+        callback();
+        next();
       } else {
         prerenderEmbed(
           {
             compiler: this.compiler,
-            raw: result
+            raw: result,
           },
           tokens => {
-            html = this.compiler.compile(tokens)
-            callback()
-            next()
+            html = this.compiler.compile(tokens);
+            callback();
+            next();
           }
-        )
+        );
       }
-    })
-  }
+    });
+  };
 
-  proto._renderCover = function (text, coverOnly) {
-    const el = dom.getNode('.cover')
+  proto._renderCover = function(text, coverOnly) {
+    const el = dom.getNode('.cover');
 
-    dom.toggleClass(dom.getNode('main'), coverOnly ? 'add' : 'remove', 'hidden')
+    dom.toggleClass(
+      dom.getNode('main'),
+      coverOnly ? 'add' : 'remove',
+      'hidden'
+    );
     if (!text) {
-      dom.toggleClass(el, 'remove', 'show')
-      return
+      dom.toggleClass(el, 'remove', 'show');
+      return;
     }
 
-    dom.toggleClass(el, 'add', 'show')
+    dom.toggleClass(el, 'add', 'show');
 
-    let html = this.coverIsHTML ? text : this.compiler.cover(text)
+    let html = this.coverIsHTML ? text : this.compiler.cover(text);
 
     const m = html
       .trim()
-      .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$')
+      .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
 
     if (m) {
       if (m[2] === 'color') {
-        el.style.background = m[1] + (m[3] || '')
+        el.style.background = m[1] + (m[3] || '');
       } else {
-        let path = m[1]
+        let path = m[1];
 
-        dom.toggleClass(el, 'add', 'has-mask')
+        dom.toggleClass(el, 'add', 'has-mask');
         if (!isAbsolutePath(m[1])) {
-          path = getPath(this.router.getBasePath(), m[1])
+          path = getPath(this.router.getBasePath(), m[1]);
         }
 
-        el.style.backgroundImage = `url(${path})`
-        el.style.backgroundSize = 'cover'
-        el.style.backgroundPosition = 'center center'
+        el.style.backgroundImage = `url(${path})`;
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center center';
       }
 
-      html = html.replace(m[0], '')
+      html = html.replace(m[0], '');
     }
 
-    this._renderTo('.cover-main', html)
-    sticky()
-  }
+    this._renderTo('.cover-main', html);
+    sticky();
+  };
 
-  proto._updateRender = function () {
+  proto._updateRender = function() {
     // Render name link
-    renderNameLink(this)
-  }
+    renderNameLink(this);
+  };
 }
 
 export function initRender(vm) {
-  const config = vm.config
+  const config = vm.config;
 
   // Init markdown compiler
-  vm.compiler = new Compiler(config, vm.router)
+  vm.compiler = new Compiler(config, vm.router);
   if (inBrowser) {
-    window.__current_docsify_compiler__ = vm.compiler
+    window.__current_docsify_compiler__ = vm.compiler;
   }
 
-  const id = config.el || '#app'
-  const navEl = dom.find('nav') || dom.create('nav')
+  const id = config.el || '#app';
+  const navEl = dom.find('nav') || dom.create('nav');
 
-  const el = dom.find(id)
-  let html = ''
-  let navAppendToTarget = dom.body
+  const el = dom.find(id);
+  let html = '';
+  let navAppendToTarget = dom.body;
 
   if (el) {
     if (config.repo) {
-      html += tpl.corner(config.repo, config.cornerExternalLinkTarge)
+      html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
     }
 
     if (config.coverpage) {
-      html += tpl.cover()
+      html += tpl.cover();
     }
 
     if (config.logo) {
-      const isBase64 = /^data:image/.test(config.logo)
-      const isExternal = /(?:http[s]?:)?\/\//.test(config.logo)
-      const isRelative = /^\./.test(config.logo)
+      const isBase64 = /^data:image/.test(config.logo);
+      const isExternal = /(?:http[s]?:)?\/\//.test(config.logo);
+      const isRelative = /^\./.test(config.logo);
 
       if (!isBase64 && !isExternal && !isRelative) {
-        config.logo = getPath(vm.router.getBasePath(), config.logo)
+        config.logo = getPath(vm.router.getBasePath(), config.logo);
       }
     }
 
-    html += tpl.main(config)
+    html += tpl.main(config);
     // Render main app
-    vm._renderTo(el, html, true)
+    vm._renderTo(el, html, true);
   } else {
-    vm.rendered = true
+    vm.rendered = true;
   }
 
   if (config.mergeNavbar && isMobile) {
-    navAppendToTarget = dom.find('.sidebar')
+    navAppendToTarget = dom.find('.sidebar');
   } else {
-    navEl.classList.add('app-nav')
+    navEl.classList.add('app-nav');
 
     if (!config.repo) {
-      navEl.classList.add('no-badge')
+      navEl.classList.add('no-badge');
     }
   }
 
   // Add nav
   if (config.loadNavbar) {
-    dom.before(navAppendToTarget, navEl)
+    dom.before(navAppendToTarget, navEl);
   }
 
   if (config.themeColor) {
     dom.$.head.appendChild(
       dom.create('div', tpl.theme(config.themeColor)).firstElementChild
-    )
+    );
     // Polyfll
-    cssVars(config.themeColor)
+    cssVars(config.themeColor);
   }
 
-  vm._updateRender()
-  dom.toggleClass(dom.body, 'ready')
+  vm._updateRender();
+  dom.toggleClass(dom.body, 'ready');
 }
