@@ -1508,17 +1508,17 @@ const AllGithubEmoji = [
   'zero',
   'zimbabwe',
   'zipper_mouth_face',
-  'zzz'
-]
+  'zzz',
+];
 
 // Emoji from All-Github-Emoji-Icons
 // https://github.com/scotch-io/All-Github-Emoji-Icons
-window.emojify = function (match, $1) {
-  return AllGithubEmoji.indexOf($1) === -1 ?
-    match :
-    '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/' +
+window.emojify = function(match, $1) {
+  return AllGithubEmoji.indexOf($1) === -1
+    ? match
+    : '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/' +
         $1 +
         '.png" alt="' +
         $1 +
-        '" />'
-}
+        '" />';
+};

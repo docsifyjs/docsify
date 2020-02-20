@@ -1,10 +1,14 @@
-import Prism from 'prismjs'
+import Prism from 'prismjs';
 // See https://github.com/PrismJS/prism/pull/1367
-import 'prismjs/components/prism-markup-templating'
+import 'prismjs/components/prism-markup-templating';
 
-export const highlightCodeCompiler = ({ renderer }) => renderer.code = function (code, lang = '') {
-  const langOrMarkup = Prism.languages[lang] || Prism.languages.markup
-  const text = Prism.highlight(code.replace(/@DOCSIFY_QM@/g, '`'), langOrMarkup)
+export const highlightCodeCompiler = ({ renderer }) =>
+  (renderer.code = function(code, lang = '') {
+    const langOrMarkup = Prism.languages[lang] || Prism.languages.markup;
+    const text = Prism.highlight(
+      code.replace(/@DOCSIFY_QM@/g, '`'),
+      langOrMarkup
+    );
 
-  return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${text}</code></pre>`
-}
+    return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${text}</code></pre>`;
+  });

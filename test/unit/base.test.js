@@ -1,61 +1,64 @@
-require = require('esm')(module/* , options */) /* eslint-disable-line no-global-assign */
-const { expect } = require('chai')
-const { History } = require('../../src/core/router/history/base')
+/* eslint-disable no-global-assign */
+require = require('esm')(
+  module /* , options */
+); /* eslint-disable-line no-global-assign */
+const { History } = require('../../src/core/router/history/base');
+const { expect } = require('chai');
 
 class MockHistory extends History {
   parse(path) {
-    return { path }
+    return { path };
   }
 }
 
-describe('router/history/base', function () {
-  describe('relativePath true', function () {
-    var history
+describe('router/history/base', function() {
+  describe('relativePath true', function() {
+    let history;
 
-    beforeEach(function () {
-      history = new MockHistory({ relativePath: true })
-    })
+    beforeEach(function() {
+      history = new MockHistory({ relativePath: true });
+    });
 
-    it('toURL', function () {
+    it('toURL', function() {
       // WHEN
-      const url = history.toURL('guide.md', {}, '/zh-ch/')
+      const url = history.toURL('guide.md', {}, '/zh-ch/');
 
       // THEN
-      expect(url).equal('/zh-ch/guide')
-    })
+      expect(url).equal('/zh-ch/guide');
+    });
 
-    it('toURL with double dot', function () {
+    it('toURL with double dot', function() {
       // WHEN
-      const url = history.toURL('../README.md', {}, '/zh-ch/')
+      const url = history.toURL('../README.md', {}, '/zh-ch/');
 
       // THEN
-      expect(url).equal('/README')
-    })
+      expect(url).equal('/README');
+    });
 
-    it('toURL child path', function () {
+    it('toURL child path', function() {
       // WHEN
-      const url = history.toURL('config/example.md', {}, '/zh-ch/')
+      const url = history.toURL('config/example.md', {}, '/zh-ch/');
 
       // THEN
-      expect(url).equal('/zh-ch/config/example')
-    })
+      expect(url).equal('/zh-ch/config/example');
+    });
 
-    it('toURL absolute path', function () {
+    it('toURL absolute path', function() {
       // WHEN
-      const url = history.toURL('/README', {}, '/zh-ch/')
+      const url = history.toURL('/README', {}, '/zh-ch/');
 
       // THEN
-      expect(url).equal('/README')
-    })
-  })
+      expect(url).equal('/README');
+    });
+  });
 
-  it('toURL without relative path', function () {
-    const history = new MockHistory({ relativePath: false })
+  it('toURL without relative path', function() {
+    const history = new MockHistory({ relativePath: false });
 
     // WHEN
-    const url = history.toURL('README', {}, '/zh-ch/')
+    const url = history.toURL('README', {}, '/zh-ch/');
 
     // THEN
-    expect(url).equal('/README')
-  })
-})
+    expect(url).equal('/README');
+  });
+});
