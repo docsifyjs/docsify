@@ -53,7 +53,7 @@ module.exports = {
     'import/no-mutable-exports': ['error'],
     'import/no-named-as-default': ['error'],
     'import/no-named-as-default-member': ['error'],
-    'import/order': ['error'],
+    'import/order': ['warn'],
   },
   globals: {
     Docsify: 'writable',
