@@ -1,8 +1,8 @@
-import {merge, hyphenate, isPrimitive, hasOwn} from './util/core'
+import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 
-const currentScript = document.currentScript
+const currentScript = document.currentScript;
 
-export default function () {
+export default function() {
   const config = merge(
     {
       el: '#app',
@@ -32,50 +32,50 @@ export default function () {
       externalLinkRel: 'noopener',
       routerMode: 'hash',
       noCompileLinks: [],
-      relativePath: false
+      relativePath: false,
     },
     window.$docsify
-  )
+  );
 
   const script =
     currentScript ||
     [].slice
       .call(document.getElementsByTagName('script'))
-      .filter(n => /docsify\./.test(n.src))[0]
+      .filter(n => /docsify\./.test(n.src))[0];
 
   if (script) {
     for (const prop in config) {
       if (hasOwn.call(config, prop)) {
-        const val = script.getAttribute('data-' + hyphenate(prop))
+        const val = script.getAttribute('data-' + hyphenate(prop));
 
         if (isPrimitive(val)) {
-          config[prop] = val === '' ? true : val
+          config[prop] = val === '' ? true : val;
         }
       }
     }
   }
 
   if (config.loadSidebar === true) {
-    config.loadSidebar = '_sidebar' + config.ext
+    config.loadSidebar = '_sidebar' + config.ext;
   }
 
   if (config.loadNavbar === true) {
-    config.loadNavbar = '_navbar' + config.ext
+    config.loadNavbar = '_navbar' + config.ext;
   }
 
   if (config.coverpage === true) {
-    config.coverpage = '_coverpage' + config.ext
+    config.coverpage = '_coverpage' + config.ext;
   }
 
   if (config.repo === true) {
-    config.repo = ''
+    config.repo = '';
   }
 
   if (config.name === true) {
-    config.name = ''
+    config.name = '';
   }
 
-  window.$docsify = config
+  window.$docsify = config;
 
-  return config
+  return config;
 }

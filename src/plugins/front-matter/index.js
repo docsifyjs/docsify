@@ -1,13 +1,13 @@
-import parser from './parser'
+import parser from './parser';
 
-const install = function (hook, vm) {
+const install = function(hook, vm) {
   hook.beforeEach(content => {
-    const {attributes, body} = parser(content)
+    const { attributes, body } = parser(content);
 
-    vm.frontmatter = attributes
+    vm.frontmatter = attributes;
 
-    return body
-  })
-}
+    return body;
+  });
+};
 
-$docsify.plugins = [].concat(install, $docsify.plugins)
+$docsify.plugins = [].concat(install, $docsify.plugins);
