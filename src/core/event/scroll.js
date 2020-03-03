@@ -1,7 +1,7 @@
-import { isMobile } from '../util/env';
-import * as dom from '../util/dom';
 import Tweezer from 'tweezer.js';
 import cssEscape from 'css.escape';
+import { isMobile } from '../util/env';
+import * as dom from '../util/dom';
 
 const nav = {};
 let hoverOver = false;
@@ -146,7 +146,7 @@ export function scrollIntoView(path, id) {
   const section = dom.find('#' + cssEscape(id));
   section && scrollTo(section);
 
-  const li = nav[getNavKey(path, id)];
+  const li = nav[decodeURIComponent(getNavKey(path, id))];
   const sidebar = dom.getNode('.sidebar');
   const active = dom.find(sidebar, 'li.active');
   active && active.classList.remove('active');

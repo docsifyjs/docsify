@@ -82,7 +82,7 @@ export function getAndActive(router, el, isParent, autoTitle) {
   links
     .sort((a, b) => b.href.length - a.href.length)
     .forEach(a => {
-      const href = a.getAttribute('href');
+      const href = decodeURI(a.getAttribute('href'));
       const node = isParent ? a.parentNode : a;
 
       if (hash.indexOf(href) === 0 && !target) {
