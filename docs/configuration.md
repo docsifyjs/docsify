@@ -575,3 +575,16 @@ window.$docsify = {
 ```
 
 > Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+
+## topMargin
+
+- type: `Number`
+- default: `0`
+
+Adds a space on top when scrolling content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+
+```js
+window.$docsify = {
+  topMargin: 90, // default: 0
+};
+```

@@ -33,7 +33,7 @@ export default function() {
       routerMode: 'hash',
       noCompileLinks: [],
       relativePath: false,
-      headerHeight: 0,
+      topMargin: 0,
     },
     window.$docsify
   );

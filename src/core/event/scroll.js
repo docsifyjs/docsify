@@ -143,9 +143,9 @@ export function scrollIntoView(path, id) {
   if (!id) {
     return;
   }
-  const headerHeight = config().headerHeight;
+  const topMargin = config().topMargin;
   const section = dom.find('#' + cssEscape(id));
-  section && scrollTo(section, headerHeight);
+  section && scrollTo(section, topMargin);
 
   const li = nav[getNavKey(path, id)];
   const sidebar = dom.getNode('.sidebar');
