@@ -96,13 +96,15 @@ function renderName(vm) {
   }
 
   if (isPrimitive(vm.config.name)) {
-    el.innerHTML = name;
+    el.innerText = name;
+    title = name; // Web page title updates with language
   } else if (typeof name === 'object') {
     const match = Object.keys(name).filter(
       key => path.indexOf(key) > -1
     )[0];
 
-    el.innerHTML = name[match];
+    el.innerText = name[match];
+    title = name[match];
   }
 }
 
