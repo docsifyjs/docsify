@@ -83,6 +83,12 @@ function renderNameLink(vm) {
     )[0];
 
     el.setAttribute('href', nameLink[match]);
+    // Correct document title by path
+    let names = vm.config.names; 
+    let language = `/${window.location.href.split("/")[4]}/`;
+    if (names && language){
+        el.innerHTML = names[language]
+    }
   }
 }
 

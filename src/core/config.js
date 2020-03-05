@@ -16,6 +16,7 @@ export default function() {
       basePath: '',
       auto2top: false,
       name: '',
+      names: null,
       themeColor: '',
       nameLink: window.location.pathname,
       autoHeader: false,
