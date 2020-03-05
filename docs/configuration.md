@@ -249,7 +249,12 @@ Website name as it appears in the sidebar.
 ```js
 window.$docsify = {
   name: 'docsify',
-};
+
+  // For each route
+  name: {
+    '/zh-cn/': 'docsify文档',
+    '/': 'docsify'
+  },
 ```
 
 The name field can also contain custom HTML for easier customization:

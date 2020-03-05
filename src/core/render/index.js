@@ -83,12 +83,26 @@ function renderNameLink(vm) {
     )[0];
 
     el.setAttribute('href', nameLink[match]);
-    // Correct document title by path
-    let names = vm.config.names; 
-    let language = `/${window.location.href.split("/")[4]}/`;
-    if (names && language){
-        el.innerHTML = names[language]
-    }
+  }
+}
+
+function renderName(vm) {
+  const el = dom.getNode('.app-name-link');
+  const name = vm.config.name;
+  const path = vm.route.path;
+
+  if (!el) {
+    return;
+  }
+
+  if (isPrimitive(vm.config.name)) {
+    el.innerHTML = name;
+  } else if (typeof name === 'object') {
+    const match = Object.keys(name).filter(
+      key => path.indexOf(key) > -1
+    )[0];
+
+    el.innerHTML = name[match];
   }
 }
 
@@ -235,6 +249,8 @@ export function renderMixin(proto) {
   proto._updateRender = function() {
     // Render name link
     renderNameLink(this);
+    // Render name
+    renderName(this);
   };
 }
 
