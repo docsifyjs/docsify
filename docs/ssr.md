@@ -10,7 +10,7 @@ Repo in https://github.com/docsifyjs/docsify-ssr-demo
 
 ## Quick start
 
-Install `now` and `docsify-cli` in your project.
+Install `nodejs` and `docsify-cli` in your project.
 
 ```bash
 npm i now docsify-cli -D
