@@ -106,6 +106,16 @@
   };
   </script>
   <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  <script>
+    function closechart(params) {
+      const buts = document.getElementsByClassName("gitter-chat-embed-action-bar-item");
+      for (let but of buts) {
+        if (but.className == "gitter-chat-embed-action-bar-item gitter-chat-embed-action-bar-item-collapse-chat") { but.click(); }
+      }
+    }
+    document.onkeydown = function () {if (event.keyCode == 27) {closechart()}};
+    document.onclick = function (e) {if (e.target.className.indexOf("gitter-open-chat-button") == -1) {closechart()}};
+  </script>
 </body>
 
 </html>
