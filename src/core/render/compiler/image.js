@@ -1,4 +1,4 @@
-import { getAndRemoveConfig } from '../compiler';
+import { getAndRemoveConfig } from '../utils';
 import { isAbsolutePath, getPath, getParentPath } from '../../router/util';
 
 export const imageCompiler = ({ renderer, contentBase, router }) =>
@@ -38,7 +38,11 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
       url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
     }
 
-    return `<img src="${url}" data-origin="${href}" alt="${text}" ${attrs.join(
-      ' '
-    )} />`;
+    if (attrs.length > 0) {
+      return `<img src="${url}" data-origin="${href}" alt="${text}" ${attrs.join(
+        ' '
+      )} />`;
+    }
+
+    return `<img src="${url}" data-origin="${href}" alt="${text}"${attrs}>`;
   });
