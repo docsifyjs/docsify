@@ -1,5 +1,4 @@
 import Tweezer from 'tweezer.js';
-import cssEscape from 'css.escape';
 import { isMobile } from '../util/env';
 import * as dom from '../util/dom';
 import config from '../config';
@@ -144,7 +143,7 @@ export function scrollIntoView(path, id) {
     return;
   }
   const topMargin = config().topMargin;
-  const section = dom.find('#' + cssEscape(id));
+  const section = dom.find('#' + id);
   section && scrollTo(section, topMargin);
 
   const li = nav[getNavKey(path, id)];
