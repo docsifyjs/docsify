@@ -1,7 +1,8 @@
-import { isMobile } from '../util/env';
-import * as dom from '../util/dom';
 import Tweezer from 'tweezer.js';
 import cssEscape from 'css.escape';
+import { isMobile } from '../util/env';
+import * as dom from '../util/dom';
+import config from '../config';
 
 const nav = {};
 let hoverOver = false;
@@ -9,7 +10,7 @@ let scroller = null;
 let enableScrollEvent = true;
 let coverHeight = 0;
 
-function scrollTo(el) {
+function scrollTo(el, offset = 0) {
   if (scroller) {
     scroller.stop();
   }
@@ -17,7 +18,7 @@ function scrollTo(el) {
   enableScrollEvent = false;
   scroller = new Tweezer({
     start: window.pageYOffset,
-    end: el.getBoundingClientRect().top + window.pageYOffset,
+    end: el.getBoundingClientRect().top + window.pageYOffset - offset,
     duration: 500,
   })
     .on('tick', v => window.scrollTo(0, v))
@@ -142,9 +143,9 @@ export function scrollIntoView(path, id) {
   if (!id) {
     return;
   }
-
+  const topMargin = config().topMargin;
   const section = dom.find('#' + cssEscape(id));
-  section && scrollTo(section);
+  section && scrollTo(section, topMargin);
 
   const li = nav[getNavKey(path, id)];
   const sidebar = dom.getNode('.sidebar');
