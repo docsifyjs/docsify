@@ -107,7 +107,7 @@ text
 
       expectSameDom(
         output,
-        '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text"  /></p>'
+        '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text"></p>'
       );
     });
 
