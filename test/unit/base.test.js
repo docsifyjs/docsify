@@ -2,8 +2,8 @@
 require = require('esm')(
   module /* , options */
 ); /* eslint-disable-line no-global-assign */
-const { expect } = require('chai');
 const { History } = require('../../src/core/router/history/base');
+const { expect } = require('chai');
 
 class MockHistory extends History {
   parse(path) {

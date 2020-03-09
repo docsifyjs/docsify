@@ -1,4 +1,4 @@
-import { getAndRemoveConfig } from '../compiler';
+import { getAndRemoveConfig } from '../utils';
 import { slugify } from './slugify';
 
 export const headingCompiler = ({ renderer, router, _self }) =>

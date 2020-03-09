@@ -1,4 +1,4 @@
-import { getAndRemoveConfig } from '../compiler';
+import { getAndRemoveConfig } from '../utils';
 import { isAbsolutePath } from '../../router/util';
 
 export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>

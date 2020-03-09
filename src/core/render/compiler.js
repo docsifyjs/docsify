@@ -1,39 +1,19 @@
-import marked from 'marked';
 import { isAbsolutePath, getPath, getParentPath } from '../router/util';
 import { isFn, merge, cached, isPrimitive } from '../util/core';
 import { tree as treeTpl } from './tpl';
 import { genTree } from './gen-tree';
 import { slugify } from './slugify';
 import { emojify } from './emojify';
+import { getAndRemoveConfig } from './utils';
 import { imageCompiler } from './compiler/image';
 import { highlightCodeCompiler } from './compiler/code';
 import { paragraphCompiler } from './compiler/paragraph';
 import { taskListCompiler } from './compiler/taskList';
 import { taskListItemCompiler } from './compiler/taskListItem';
 import { linkCompiler } from './compiler/link';
+import marked from 'marked';
 
 const cachedLinks = {};
-
-export function getAndRemoveConfig(str = '') {
-  const config = {};
-
-  if (str) {
-    str = str
-      .replace(/^'/, '')
-      .replace(/'$/, '')
-      .replace(/(?:^|\s):([\w-]+:?)=?([\w-]+)?/g, (m, key, value) => {
-        if (key.indexOf(':') === -1) {
-          config[key] = (value && value.replace(/&quot;/g, '')) || true;
-          return '';
-        }
-
-        return m;
-      })
-      .trim();
-  }
-
-  return { str, config };
-}
 
 const compileMedia = {
   markdown(url) {
