@@ -1,3 +1,12 @@
+## [4.11.2](https://github.com/docsifyjs/docsify/compare/v4.11.1...v4.11.2) (2020-03-09)
+
+
+### Bug Fixes
+
+* fixed rendering of color in coverpage issue ([406670c](https://github.com/docsifyjs/docsify/commit/406670c3d619a627142900fd45019fb8ce00f60a))
+
+
+
 ## [4.11.1](https://github.com/docsifyjs/docsify/compare/v4.11.0...v4.11.1) (2020-03-09)
 
 
