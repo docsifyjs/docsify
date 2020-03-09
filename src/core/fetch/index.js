@@ -148,7 +148,10 @@ export function fetchMixin(proto) {
     }
   };
 
-  proto.$fetch = function(cb = noop) {
+  proto.$fetch = function(
+    cb = noop,
+    $resetEvents = this.$resetEvents.bind(this)
+  ) {
     const done = () => {
       callHook(this, 'doneEach');
       cb();
@@ -160,7 +163,7 @@ export function fetchMixin(proto) {
       done();
     } else {
       this._fetch(() => {
-        this.$resetEvents();
+        $resetEvents();
         done();
       });
     }

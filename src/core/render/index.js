@@ -7,7 +7,7 @@ import { getAndActive, sticky } from '../event/sidebar';
 import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
 import { isPrimitive } from '../util/core';
-import { scrollActiveSidebar, scroll2Top } from '../event/scroll';
+import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
@@ -123,7 +123,7 @@ export function renderMixin(proto) {
   };
 
   proto._bindEventOnRendered = function(activeEl) {
-    const { autoHeader, auto2top } = this.config;
+    const { autoHeader } = this.config;
 
     scrollActiveSidebar(this.router);
 
@@ -136,8 +136,6 @@ export function renderMixin(proto) {
         dom.before(main, wrapper.children[0]);
       }
     }
-
-    auto2top && scroll2Top(auto2top);
   };
 
   proto._renderNav = function(text) {
