@@ -19,6 +19,10 @@ export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
 
       href = router.toURL(href, null, router.getCurrentPath());
     } else {
+      if (!isAbsolutePath(href) && href.startsWith('./')) {
+        href =
+          document.URL.replace(/\/(?!.*\/).*/, '/').replace('#/./', '') + href;
+      }
       attrs.push(href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`);
     }
 
