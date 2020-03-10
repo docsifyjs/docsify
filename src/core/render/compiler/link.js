@@ -30,6 +30,17 @@ export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
       attrs.push(`target="${config.target}"`);
     }
 
+    // special case to check crossorigin urls
+    if (
+      config.crossorgin &&
+      linkTarget === '_self' &&
+      compilerClass.config.routerMode === 'history'
+    ) {
+      if (compilerClass.config.crossOriginLinks.indexOf(href) === -1) {
+        compilerClass.config.crossOriginLinks.push(href);
+      }
+    }
+
     if (config.disabled) {
       attrs.push('disabled');
       href = 'javascript:void(0)';
