@@ -168,7 +168,7 @@ text
 
         expectSameDom(
           output,
-          '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" height="50" /></p>'
+          '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" /></p>'
         );
       });
     });
