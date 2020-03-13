@@ -69,6 +69,8 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 ## Contributing
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
+
 - Fork it!
 - Create your feature branch: `git checkout -b my-new-feature`
 - Commit your changes: `git commit -am 'Add some feature'`
