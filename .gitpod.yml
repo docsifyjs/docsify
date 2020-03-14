@@ -1,3 +1,6 @@
 tasks:
   - init: npm install && npm run build
     command: npm run dev
+ports:
+  - port: 3000
+    onOpen: open-preview
