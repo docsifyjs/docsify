@@ -4,3 +4,6 @@ tasks:
 ports:
   - port: 3000
     onOpen: open-preview
+vscode:
+  extensions:
+    - sysoev.language-stylus@1.11.0:xX39oruAJ5UQzTNVRdbBaQ==
