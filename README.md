@@ -68,7 +68,15 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 | [docute](https://github.com/egoist/docute)       | 📜 Effortlessly documentation done right |
 | [docpress](https://github.com/docpress/docpress) | Documentation website generator          |
 
-## Contributing
+## Online one-click setup for Contributing
+
+You can use Gitpod(A free online VS Code-like IDE) for contributing. With single click it'll launch a workspace and automatically:
+
+- clone the docsify repo.
+- install the dependencies.
+- start `npm run dev`.
+
+So that you can start straight away.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
 
