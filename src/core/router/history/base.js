@@ -55,7 +55,7 @@ export class History {
       rules['/.*/' + sidebar] = base + sidebar;
     }
 
-    path = config.alias ? getAlias(path, rules) : path;
+    path = getAlias(path, rules);
     path = getFileName(path, ext);
     path = path === `/README${ext}` ? config.homepage || path : path;
     path = isAbsolutePath(path) ? path : getPath(base, path);
