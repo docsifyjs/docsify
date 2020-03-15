@@ -42,8 +42,18 @@ export class History {
     const { config } = this;
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
+    const alias = config.alias || {};
+    const rules = {
+      ...alias,
+    };
 
-    path = config.alias ? getAlias(path, config.alias) : path;
+    // auto alias sidebar which is set to be absolute path
+    if (config.sidebarAbsolutePath) {
+      const sidebar = config.loadSidebar || '_sidebar.md';
+      rules['/.*/' + sidebar] = '/' + sidebar;
+    }
+
+    path = config.alias ? getAlias(path, rules) : path;
     path = getFileName(path, ext);
     path = path === `/README${ext}` ? config.homepage || path : path;
     path = isAbsolutePath(path) ? path : getPath(base, path);
