@@ -19,10 +19,13 @@ export const linkCompiler = ({
       !compiler._matchNotCompileLink(href) &&
       !config.ignore
     ) {
+      const sidebarAbsolutePath = compiler.config.sidebarAbsolutePath;
+      const basePath =
+        typeof sidebarAbsolutePath === 'string'
+          ? sidebarAbsolutePath
+          : router.getBasePath();
       const relativeTo =
-        isSidebar && compiler.config.sidebarAbsolutePath
-          ? router.getBasePath()
-          : router.getCurrentPath();
+        isSidebar && sidebarAbsolutePath ? basePath : router.getCurrentPath();
 
       if (href === compiler.config.homepage) {
         href = 'README';

@@ -48,7 +48,11 @@ export class History {
     // auto alias sidebar which is set to be absolute path
     if (config.sidebarAbsolutePath) {
       const sidebar = config.loadSidebar || '_sidebar.md';
-      rules['/.*/' + sidebar] = '/' + sidebar;
+      const base =
+        typeof config.sidebarAbsolutePath === 'string'
+          ? config.sidebarAbsolutePath
+          : this.getBasePath();
+      rules['/.*/' + sidebar] = base + sidebar;
     }
 
     path = config.alias ? getAlias(path, rules) : path;
