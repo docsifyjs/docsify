@@ -203,6 +203,14 @@ window.$docsify = {
 };
 ```
 
+## sidebarAbsolutePath
+
+In some case, you have only one sidebar.md in your project. But you may put doc files in different directories. You can set `sidebarAbsolutePath` to be `true`, so that it will automaticly make the given `loadSidebar` to be the only one to point at.
+
+It should works with `loadSidebar`. If you do not set `loadSidebar`, don't set this option any more.
+
+It works well with `relativePath` and `basePath`. You do not need to worry about the path conflict.
+
 ## coverpage
 
 - Type: `Boolean|String|String[]|Object`
