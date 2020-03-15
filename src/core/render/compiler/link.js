@@ -1,8 +1,14 @@
 import { getAndRemoveConfig } from '../utils';
 import { isAbsolutePath } from '../../router/util';
 
-export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
-  (renderer.link = (href, title = '', text) => {
+export const linkCompiler = ({
+  renderer,
+  router,
+  linkTarget,
+  compiler,
+  isSidebar = false,
+}) => {
+  const link = (href, title = '', text) => {
     let attrs = [];
     const { str, config } = getAndRemoveConfig(title);
 
@@ -10,14 +16,19 @@ export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
 
     if (
       !isAbsolutePath(href) &&
-      !compilerClass._matchNotCompileLink(href) &&
+      !compiler._matchNotCompileLink(href) &&
       !config.ignore
     ) {
-      if (href === compilerClass.config.homepage) {
+      const relativeTo =
+        isSidebar && compiler.config.sidebarAbsolutePath
+          ? router.getBasePath()
+          : router.getCurrentPath();
+
+      if (href === compiler.config.homepage) {
         href = 'README';
       }
 
-      href = router.toURL(href, null, router.getCurrentPath());
+      href = router.toURL(href, null, relativeTo);
     } else {
       if (!isAbsolutePath(href) && href.startsWith('./')) {
         href =
@@ -48,4 +59,7 @@ export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
     }
 
     return `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
-  });
+  };
+  renderer.link = link;
+  return link;
+};
