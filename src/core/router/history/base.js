@@ -43,9 +43,7 @@ export class History {
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
     const alias = config.alias || {};
-    const rules = {
-      ...alias,
-    };
+    const rules = Object.assign({}, alias);
 
     // auto alias sidebar which is set to be absolute path
     if (config.sidebarAbsolutePath) {
