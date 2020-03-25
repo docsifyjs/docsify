@@ -1,3 +1,12 @@
+## [4.11.3](https://github.com/docsifyjs/docsify/compare/v4.11.2...v4.11.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* fix: digit issue with sidebar (complete REVERT to old method) ([154abf5](https://github.com/docsifyjs/docsify/commit/154abf59a6153e84b018fcdffa86892776d6da7d))
+
+
+
 ## [4.11.2](https://github.com/docsifyjs/docsify/compare/v4.11.1...v4.11.2) (2020-03-09)
 
 
