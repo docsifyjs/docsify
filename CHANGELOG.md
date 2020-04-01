@@ -1,3 +1,101 @@
+## [4.11.3](https://github.com/docsifyjs/docsify/compare/v4.11.2...v4.11.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* fix: digit issue with sidebar (complete REVERT to old method) ([154abf5](https://github.com/docsifyjs/docsify/commit/154abf59a6153e84b018fcdffa86892776d6da7d))
+
+
+
+## [4.11.2](https://github.com/docsifyjs/docsify/compare/v4.11.1...v4.11.2) (2020-03-09)
+
+
+### Bug Fixes
+
+* fixed rendering of color in coverpage issue ([406670c](https://github.com/docsifyjs/docsify/commit/406670c3d619a627142900fd45019fb8ce00f60a))
+
+
+
+## [4.11.1](https://github.com/docsifyjs/docsify/compare/v4.11.0...v4.11.1) (2020-03-09)
+
+
+
+# [4.11.0](https://github.com/docsifyjs/docsify/compare/v4.10.2...v4.11.0) (2020-03-09)
+
+
+### Bug Fixes
+
+* emojis in titles not working correctly and update ([#1016](https://github.com/docsifyjs/docsify/issues/1016)) ([b3d9b96](https://github.com/docsifyjs/docsify/commit/b3d9b966dfbb6f456c2c457da1d2a366e85d9190))
+* searching table content ([6184e50](https://github.com/docsifyjs/docsify/commit/6184e502629932ca71fdd0a1b10150d118f5a7c8))
+* stage modified files as part of pre-commit hook ([#985](https://github.com/docsifyjs/docsify/issues/985)) ([5b77b0f](https://github.com/docsifyjs/docsify/commit/5b77b0f628f056b7ebb6d0b617561d19964516a2))
+* config initialization and coercion ([#861](https://github.com/docsifyjs/docsify/pull/861)) 
+* strip indent when embedding code fragment ([#996](https://github.com/docsifyjs/docsify/pull/996)) 
+* Ensure autoHeader dom result is similar to parsed H1 ([#811](https://github.com/docsifyjs/docsify/pull/811))
+* upgrade docsify from 4.9.4 to 4.10.2 ([#1054](https://github.com/docsifyjs/docsify/issues/1054)) ([78290b2](https://github.com/docsifyjs/docsify/commit/78290b21038a3ae09c4c7438bd89b14ca4c02805))
+* upgrade medium-zoom from 1.0.4 to 1.0.5 ([39ebd73](https://github.com/docsifyjs/docsify/commit/39ebd73021290439180878cae32e663b9e60e214))
+* upgrade prismjs from 1.17.1 to 1.19.0 ([9981c43](https://github.com/docsifyjs/docsify/commit/9981c4361ad690d0ed32cf1fb5b48cc5b9f770bb))
+
+
+### Features
+
+* configure pre-commit hook ([#983](https://github.com/docsifyjs/docsify/issues/983)) ([eea41a1](https://github.com/docsifyjs/docsify/commit/eea41a1207c46533ea9c6c59d82e2c94aa4dd70e))
+* Add a prepare script. ([efbea24](https://github.com/docsifyjs/docsify/commit/efbea24de71f2287993b52ed1cef1a2dd6a53f81))
+* added capability to add css class and id to images + links + refactoring ([#820](https://github.com/docsifyjs/docsify/issues/820)) ([724ac02](https://github.com/docsifyjs/docsify/commit/724ac024ddfc28e93d8b5dd909e722747286fa00))
+* added dark mode to docs closes [#1031](https://github.com/docsifyjs/docsify/issues/1031) ([dc43d3c](https://github.com/docsifyjs/docsify/commit/dc43d3c512c2f04750e76176c25ece626ae7fe2a))
+* new option `hideSidebar` ([#1026](https://github.com/docsifyjs/docsify/issues/1026)) ([b7547f1](https://github.com/docsifyjs/docsify/commit/b7547f151e928b3a0eb6a94b2af36023da4fa877))
+* new option `topMargin` ([#1045](https://github.com/docsifyjs/docsify/pull/1045)) ([8faee03](https://github.com/docsifyjs/docsify/pull/1024/commits/b53ea1e304d3a2782b125c1d8711295d88faee03))
+
+
+### Docs
+
+* update docs for the `name` config option ([#992](https://github.com/docsifyjs/docsify/pull/992)) 
+* about cache ([#854](https://github.com/docsifyjs/docsify/pull/854))
+* removed FOSSA badge
+* documented `__colon__` tip ([#1025](https://github.com/docsifyjs/docsify/pull/1025))
+
+### Chore
+
+* Migrate relative links to absolute in embedded markdown ([#867](https://github.com/docsifyjs/docsify/pull/867))
+* smarter scroll behavior ([#744](https://github.com/docsifyjs/docsify/pull/744)) 
+* improve basic layout style ([#884](https://github.com/docsifyjs/docsify/pull/884))
+* There are currently {three=>four} themes available. ([#892](https://github.com/docsifyjs/docsify/pull/892)) 
+* Added a redirect for images to show up in Amplify ([#918](https://github.com/docsifyjs/docsify/pull/918)) 
+* removed the escaping of the name of sidebar ([#991](https://github.com/docsifyjs/docsify/pull/991))
+* Eslint fixes for v4x ([#989](https://github.com/docsifyjs/docsify/pull/989)) 
+* added github Actions for CI ([#1000](https://github.com/docsifyjs/docsify/pull/1000)) 
+* Add a prepare script. ([#1010](https://github.com/docsifyjs/docsify/pull/1010))
+* chore(GH-action): using ubuntu 16 and removed node 8 from CI 
+* chore: add config ([#1014](https://github.com/docsifyjs/docsify/pull/1014))
+* chore(stale): added enhancement label to exemptlabels
+* chore(stale): added bug label to exemptlabels
+* .markdown-section max-width 800px to 80% ([#1017](https://github.com/docsifyjs/docsify/pull/1017)) 
+* changed the CDN from unpkg to jsDelivr #1020 ([#1022](https://github.com/docsifyjs/docsify/pull/1022)) 
+* migrate CI to github, refactore CI and npm scripts, linting fixes ([#1023](https://github.com/docsifyjs/docsify/pull/1023)) 
+* chore(readme): added CI badges and fixed the logo issue
+* added new linter config ([#1028](https://github.com/docsifyjs/docsify/pull/1028))
+
+
+## [4.10.2](https://github.com/docsifyjs/docsify/compare/v4.10.0...v4.10.2) (2019-12-16)
+
+
+
+# [4.10.0](https://github.com/docsifyjs/docsify/compare/v4.9.4...v4.10.0) (2019-12-16)
+
+
+### Bug Fixes
+
+* fixed security alert for chokidar(update dep) ([a62b037](https://github.com/docsifyjs/docsify/commit/a62b037becb36941c11c8eab6e4d83df8db85af3))
+* npm audit issues ([#934](https://github.com/docsifyjs/docsify/issues/934)) ([615205c](https://github.com/docsifyjs/docsify/commit/615205cfdb7aea8f37a1ec5dd928105eeef56357))
+* package security alerts ([f5f1561](https://github.com/docsifyjs/docsify/commit/f5f15619f1a239d6ce12a2f83ad8817352a3352b))
+* security alerts of cssnano ([d7d5c8f](https://github.com/docsifyjs/docsify/commit/d7d5c8f302d7c18dbb32e982202a07b73badf6f6))
+
+
+
+<a name="4.9.4"></a>
+## [4.9.4](https://github.com/docsifyjs/docsify/compare/v4.9.2...v4.9.4) (2019-05-05)
+
+
+
 <a name="4.9.2"></a>
 ## [4.9.2](https://github.com/docsifyjs/docsify/compare/v4.9.1...v4.9.2) (2019-04-21)
 

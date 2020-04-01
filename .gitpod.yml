@@ -1,0 +1,10 @@
+tasks:
+  - command: gp await-port 3000 && sleep 3 && gp preview $(gp url 3000)
+  - init: npm install
+    command: npm run dev
+ports:
+  - port: 3000
+    onOpen: ignore
+vscode:
+  extensions:
+    - sysoev.language-stylus@1.11.0:xX39oruAJ5UQzTNVRdbBaQ==

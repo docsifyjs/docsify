@@ -7,12 +7,12 @@ You can write Vue components directly in the Markdown file, and it will be parse
 Load the Vue in `./index.html`.
 
 ```html
-<script src="//unpkg.com/vue"></script>
-<script src="//unpkg.com/docsify"></script>
+<script src="//cdn.jsdelivr.net/npm/vue"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify"></script>
 
 <!-- Or use the compressed files -->
-<script src="//unpkg.com/vue/dist/vue.min.js"></script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
 
 Then you can immediately write Vue code at Markdown file. `new Vue({ el: '#main' })` script is executed by default to create instance.
@@ -62,17 +62,17 @@ You can manually initialize a Vue instance.
 
 ```html
 <!-- Inject CSS file -->
-<link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/vuep/dist/vuep.css">
 
 <!-- Inject JavaScript file -->
-<script src="//unpkg.com/vue"></script>
-<script src="//unpkg.com/vuep"></script>
-<script src="//unpkg.com/docsify"></script>
+<script src="//cdn.jsdelivr.net/npm/vue"></script>
+<script src="//cdn.jsdelivr.net/npm/vuep"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify"></script>
 
 <!-- or use the compressed files -->
-<script src="//unpkg.com/vue/dist/vue.min.js"></script>
-<script src="//unpkg.com/vuep/dist/vuep.min.js"></script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vuep/dist/vuep.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
 
 *README.md*

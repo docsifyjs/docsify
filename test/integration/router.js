@@ -1,14 +1,9 @@
-const path = require('path')
-
-const {expect} = require('chai')
-
-const {init, expectSameDom} = require('../_helper')
+const { init } = require('../_helper');
 
 describe('router', function() {
-	it('TODO: trigger to load another page', async function() {
-		const {docsify} = await init()
-  		window.location = '/?foo=bar'
-  		// TODO: add some expectations
-	})
-
-})
+  it('TODO: trigger to load another page', async function() {
+    await init();
+    window.location = '/?foo=bar';
+    // TODO: add some expectations
+  });
+});
