@@ -39,9 +39,9 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             embedToken = compile.lexer(text);
           } else if (token.embed.type === 'code') {
             if (token.embed.fragment) {
-              const fragment = token.embed.fragment
-              const marker = `(?:(?:(?:###|\\/\\/\\/)\\s*\\[${fragment}\\])|(?:<!--\\s*\\[${fragment}\\]\\s*-->))`
-              const pattern = new RegExp(`${marker}([\\s\\S]*)${marker}`)
+              const fragment = token.embed.fragment;
+              const marker = `(?:(?:(?:###|\\/\\/\\/)\\s*\\[${fragment}\\])|(?:<!--\\s*\\[${fragment}\\]\\s*-->))`;
+              const pattern = new RegExp(`${marker}([\\s\\S]*)${marker}`);
               text = stripIndent((text.match(pattern) || [])[1] || '').trim();
             }
 
