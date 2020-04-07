@@ -192,6 +192,31 @@ A docsify.js plugin for displaying tabbed content from markdown.
 
 Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
 
+## Words Countable
+
+This is a plugin to add word count for markdown files of docsify.Provided by [@827652549](https://github.com/827652549)
+
+It only counts Chinese characters and English words excludes special characters like `*`、`-`、`……` in markdown file.
+
+**Add JS**
+```html
+<script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+```
+
+**Add settings**
+```js
+window.$docsify = {
+  count:{
+    countable:true,
+    fontsize:'0.9em',
+    color:'rgb(90,90,90)',
+    language:'chinese'
+  }
+}
+```
+
+check [document](https://github.com/827652549/docsify-count)
+
 ## More plugins
 
 See [awesome-docsify](awesome?id=plugins)
