@@ -171,11 +171,11 @@ function bindEvents() {
 
   let timeId;
   // Prevent to Fold sidebar
-  Docsify.dom.on(
-    $search,
-    'click',
-    e => e.target.tagName !== 'A' && e.stopPropagation()
-  );
+//   Docsify.dom.on(
+//     $search,
+//     'click',
+//     e => e.target.tagName !== 'A' && e.stopPropagation()
+//   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);
     timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
