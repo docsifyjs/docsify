@@ -25,7 +25,7 @@ function escapeHtml(string) {
     '>': '&gt;',
     '"': '&quot;',
     "'": '&#39;'
-  }
+  };
 
   return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
