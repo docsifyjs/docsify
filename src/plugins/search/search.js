@@ -27,7 +27,7 @@ function escapeHtml(string) {
     "'": '&#39;'
   }
 
-  return String(string).replace(/[&<>"']/g, s => entityMap[s])
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
 
 function getAllPaths(router) {
@@ -65,8 +65,8 @@ export function genIndex(path, content = '', router, depth) {
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
-      slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) })
-      index[slug] = { slug, title: token.text, body: '' }
+      slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
+      index[slug] = { slug, title: token.text, body: '' };
     } else {
       if (!slug) {
         return;
