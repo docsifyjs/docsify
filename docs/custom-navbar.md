@@ -30,7 +30,7 @@ Alternatively, you can create a custom markdown-based navigation file by setting
     loadNavbar: true
   }
 </script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
 
 ```markdown
@@ -82,8 +82,8 @@ If you use the [emoji plugin](plugins#emoji):
     // ...
   }
 </script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
 ```
 
 you could, for example, use flag emojis in your custom navbar Markdown file:

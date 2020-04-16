@@ -1,13 +1,13 @@
-export const inBrowser = !process.env.SSR
+export const inBrowser = !process.env.SSR;
 
-export const isMobile = inBrowser && document.body.clientWidth <= 600
+export const isMobile = inBrowser && document.body.clientWidth <= 600;
 
 /**
  * @see https://github.com/MoOx/pjax/blob/master/lib/is-supported.js
  */
 export const supportsPushState =
   inBrowser &&
-  (function () {
+  (function() {
     // Borrowed wholesale from https://github.com/defunkt/jquery-pjax
     return (
       window.history &&
@@ -17,5 +17,5 @@ export const supportsPushState =
       !navigator.userAgent.match(
         /((iPod|iPhone|iPad).+\bOS\s+[1-4]\D|WebApps\/.+CFNetwork)/
       )
-    )
-  })()
+    );
+  })();

@@ -1,48 +1,66 @@
-import { History } from './base'
-import { noop } from '../../util/core'
-import { on } from '../../util/dom'
-import { parseQuery, cleanPath, replaceSlug } from '../util'
+import { noop } from '../../util/core';
+import { on } from '../../util/dom';
+import { parseQuery, cleanPath, replaceSlug } from '../util';
+import { History } from './base';
 
 function replaceHash(path) {
-  const i = location.href.indexOf('#')
-  location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path)
+  const i = location.href.indexOf('#');
+  location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path);
 }
 
 export class HashHistory extends History {
   constructor(config) {
-    super(config)
-    this.mode = 'hash'
+    super(config);
+    this.mode = 'hash';
   }
 
   getBasePath() {
-    const path = window.location.pathname || ''
-    const base = this.config.basePath
+    const path = window.location.pathname || '';
+    const base = this.config.basePath;
 
-    return /^(\/|https?:)/g.test(base) ? base : cleanPath(path + '/' + base)
+    return /^(\/|https?:)/g.test(base) ? base : cleanPath(path + '/' + base);
   }
 
   getCurrentPath() {
     // We can't use location.hash here because it's not
     // consistent across browsers - Firefox will pre-decode it!
-    const href = location.href
-    const index = href.indexOf('#')
-    return index === -1 ? '' : href.slice(index + 1)
+    const href = location.href;
+    const index = href.indexOf('#');
+    return index === -1 ? '' : href.slice(index + 1);
   }
 
   onchange(cb = noop) {
-    on('hashchange', cb)
+    // The hashchange event does not tell us if it originated from
+    // a clicked link or by moving back/forward in the history;
+    // therefore we set a `navigating` flag when a link is clicked
+    // to be able to tell these two scenarios apart
+    let navigating = false;
+
+    on('click', e => {
+      const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
+
+      if (el.tagName === 'A' && !/_blank/.test(el.target)) {
+        navigating = true;
+      }
+    });
+
+    on('hashchange', e => {
+      const source = navigating ? 'navigate' : 'history';
+      navigating = false;
+      cb({ event: e, source });
+    });
   }
 
   normalize() {
-    let path = this.getCurrentPath()
+    let path = this.getCurrentPath();
 
-    path = replaceSlug(path)
+    path = replaceSlug(path);
 
     if (path.charAt(0) === '/') {
-      return replaceHash(path)
+      return replaceHash(path);
     }
 
-    replaceHash('/' + path)
+    replaceHash('/' + path);
   }
 
   /**
@@ -51,27 +69,27 @@ export class HashHistory extends History {
    * @return {object} { path, query }
    */
   parse(path = location.href) {
-    let query = ''
+    let query = '';
 
-    const hashIndex = path.indexOf('#')
+    const hashIndex = path.indexOf('#');
     if (hashIndex >= 0) {
-      path = path.slice(hashIndex + 1)
+      path = path.slice(hashIndex + 1);
     }
 
-    const queryIndex = path.indexOf('?')
+    const queryIndex = path.indexOf('?');
     if (queryIndex >= 0) {
-      query = path.slice(queryIndex + 1)
-      path = path.slice(0, queryIndex)
+      query = path.slice(queryIndex + 1);
+      path = path.slice(0, queryIndex);
     }
 
     return {
       path,
       file: this.getFile(path, true),
-      query: parseQuery(query)
-    }
+      query: parseQuery(query),
+    };
   }
 
   toURL(path, params, currentRoute) {
-    return '#' + super.toURL(path, params, currentRoute)
+    return '#' + super.toURL(path, params, currentRoute);
   }
 }

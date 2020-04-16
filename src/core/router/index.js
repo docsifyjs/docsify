@@ -1,45 +1,47 @@
-import {HashHistory} from './history/hash'
-import {HTML5History} from './history/html5'
-import {supportsPushState} from '../util/env'
-import * as dom from '../util/dom'
+import { supportsPushState } from '../util/env';
+import * as dom from '../util/dom';
+import { noop } from '../util/core';
+import { HashHistory } from './history/hash';
+import { HTML5History } from './history/html5';
 
 export function routerMixin(proto) {
-  proto.route = {}
+  proto.route = {};
 }
 
-let lastRoute = {}
+let lastRoute = {};
 
 function updateRender(vm) {
-  vm.router.normalize()
-  vm.route = vm.router.parse()
-  dom.body.setAttribute('data-page', vm.route.file)
+  vm.router.normalize();
+  vm.route = vm.router.parse();
+  dom.body.setAttribute('data-page', vm.route.file);
 }
 
 export function initRouter(vm) {
-  const config = vm.config
-  const mode = config.routerMode || 'hash'
-  let router
+  const config = vm.config;
+  const mode = config.routerMode || 'hash';
+  let router;
 
   if (mode === 'history' && supportsPushState) {
-    router = new HTML5History(config)
+    router = new HTML5History(config);
   } else {
-    router = new HashHistory(config)
+    router = new HashHistory(config);
   }
 
-  vm.router = router
-  updateRender(vm)
-  lastRoute = vm.route
+  vm.router = router;
+  updateRender(vm);
+  lastRoute = vm.route;
 
-  router.onchange(_ => {
-    updateRender(vm)
-    vm._updateRender()
+  // eslint-disable-next-line no-unused-vars
+  router.onchange(params => {
+    updateRender(vm);
+    vm._updateRender();
 
     if (lastRoute.path === vm.route.path) {
-      vm.$resetEvents()
-      return
+      vm.$resetEvents(params.source);
+      return;
     }
 
-    vm.$fetch()
-    lastRoute = vm.route
-  })
+    vm.$fetch(noop, vm.$resetEvents.bind(vm, params.source));
+    lastRoute = vm.route;
+  });
 }

@@ -69,16 +69,16 @@ You can provide a template for entire page's HTML. such as
   <meta charset="UTF-8">
   <title>docsify</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css" title="vue">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" title="vue">
 </head>
 <body>
   <!--inject-app-->
   <!--inject-config-->
-  <script src="//unpkg.com/docsify/lib/docsify.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-nginx.min.js"></script>
 </body>
 </html>
 ```

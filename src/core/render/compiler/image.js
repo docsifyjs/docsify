@@ -1,42 +1,48 @@
-import { getAndRemoveConfig } from '../compiler'
-import { isAbsolutePath, getPath, getParentPath } from '../../router/util'
+import { getAndRemoveConfig } from '../utils';
+import { isAbsolutePath, getPath, getParentPath } from '../../router/util';
 
-export const imageCompiler = ({ renderer, contentBase, router }) => renderer.image = (href, title, text) => {
-  let url = href
-  let attrs = []
+export const imageCompiler = ({ renderer, contentBase, router }) =>
+  (renderer.image = (href, title, text) => {
+    let url = href;
+    let attrs = [];
 
-  const { str, config } = getAndRemoveConfig(title)
-  title = str
+    const { str, config } = getAndRemoveConfig(title);
+    title = str;
 
-  if (config['no-zoom']) {
-    attrs.push('data-no-zoom')
-  }
-
-  if (title) {
-    attrs.push(`title="${title}"`)
-  }
-
-  if (config.size) {
-    const [width, height] = config.size.split('x')
-    if (height) {
-      attrs.push(`width="${width}" height="${height}"`)
-    } else {
-      attrs.push(`width="${width}" height="${width}"`)
+    if (config['no-zoom']) {
+      attrs.push('data-no-zoom');
     }
-  }
 
-  if (config.class) {
-    attrs.push(`class="${config.class}"`)
-  }
+    if (title) {
+      attrs.push(`title="${title}"`);
+    }
 
-  if (config.id) {
-    attrs.push(`id="${config.id}"`)
-  }
+    if (config.size) {
+      const [width, height] = config.size.split('x');
+      if (height) {
+        attrs.push(`width="${width}" height="${height}"`);
+      } else {
+        attrs.push(`width="${width}" height="${width}"`);
+      }
+    }
 
-  if (!isAbsolutePath(href)) {
-    url = getPath(contentBase, getParentPath(router.getCurrentPath()), href)
-  }
+    if (config.class) {
+      attrs.push(`class="${config.class}"`);
+    }
 
-  return `<img src="${url}" data-origin="${href}" alt="${text}" ${attrs.join(' ')} />`
-}
+    if (config.id) {
+      attrs.push(`id="${config.id}"`);
+    }
 
+    if (!isAbsolutePath(href)) {
+      url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
+    }
+
+    if (attrs.length > 0) {
+      return `<img src="${url}" data-origin="${href}" alt="${text}" ${attrs.join(
+        ' '
+      )} />`;
+    }
+
+    return `<img src="${url}" data-origin="${href}" alt="${text}"${attrs}>`;
+  });

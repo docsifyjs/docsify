@@ -1,7 +1,8 @@
-import {search} from './search'
+/* eslint-disable no-unused-vars */
+import { search } from './search';
 
-let NO_DATA_TEXT = ''
-let options
+let NO_DATA_TEXT = '';
+let options;
 
 function style() {
   const code = `
@@ -97,14 +98,13 @@ function style() {
 
 .app-name.hide, .sidebar-nav.hide {
   display: none;
-}`
+}`;
 
-  Docsify.dom.style(code)
+  Docsify.dom.style(code);
 }
 
 function tpl(defaultValue = '') {
-  const html =
-    `<div class="input-wrap">
+  const html = `<div class="input-wrap">
       <input type="search" value="${defaultValue}" aria-label="Search text" />
       <div class="clear-button">
         <svg width="26" height="24">
@@ -115,120 +115,120 @@ function tpl(defaultValue = '') {
       </div>
     </div>
     <div class="results-panel"></div>
-    </div>`
-  const el = Docsify.dom.create('div', html)
-  const aside = Docsify.dom.find('aside')
+    </div>`;
+  const el = Docsify.dom.create('div', html);
+  const aside = Docsify.dom.find('aside');
 
-  Docsify.dom.toggleClass(el, 'search')
-  Docsify.dom.before(aside, el)
+  Docsify.dom.toggleClass(el, 'search');
+  Docsify.dom.before(aside, el);
 }
 
 function doSearch(value) {
-  const $search = Docsify.dom.find('div.search')
-  const $panel = Docsify.dom.find($search, '.results-panel')
-  const $clearBtn = Docsify.dom.find($search, '.clear-button')
-  const $sidebarNav = Docsify.dom.find('.sidebar-nav')
-  const $appName = Docsify.dom.find('.app-name')
+  const $search = Docsify.dom.find('div.search');
+  const $panel = Docsify.dom.find($search, '.results-panel');
+  const $clearBtn = Docsify.dom.find($search, '.clear-button');
+  const $sidebarNav = Docsify.dom.find('.sidebar-nav');
+  const $appName = Docsify.dom.find('.app-name');
 
   if (!value) {
-    $panel.classList.remove('show')
-    $clearBtn.classList.remove('show')
-    $panel.innerHTML = ''
+    $panel.classList.remove('show');
+    $clearBtn.classList.remove('show');
+    $panel.innerHTML = '';
 
     if (options.hideOtherSidebarContent) {
-      $sidebarNav.classList.remove('hide')
-      $appName.classList.remove('hide')
+      $sidebarNav.classList.remove('hide');
+      $appName.classList.remove('hide');
     }
 
-    return
+    return;
   }
 
-  const matchs = search(value)
+  const matchs = search(value);
 
-  let html = ''
+  let html = '';
   matchs.forEach(post => {
     html += `<div class="matching-post">
 <a href="${post.url}">
 <h2>${post.title}</h2>
 <p>${post.content}</p>
 </a>
-</div>`
-  })
+</div>`;
+  });
 
-  $panel.classList.add('show')
-  $clearBtn.classList.add('show')
-  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`
+  $panel.classList.add('show');
+  $clearBtn.classList.add('show');
+  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
   if (options.hideOtherSidebarContent) {
-    $sidebarNav.classList.add('hide')
-    $appName.classList.add('hide')
+    $sidebarNav.classList.add('hide');
+    $appName.classList.add('hide');
   }
 }
 
 function bindEvents() {
-  const $search = Docsify.dom.find('div.search')
-  const $input = Docsify.dom.find($search, 'input')
-  const $inputWrap = Docsify.dom.find($search, '.input-wrap')
+  const $search = Docsify.dom.find('div.search');
+  const $input = Docsify.dom.find($search, 'input');
+  const $inputWrap = Docsify.dom.find($search, '.input-wrap');
 
-  let timeId
+  let timeId;
   // Prevent to Fold sidebar
   Docsify.dom.on(
     $search,
     'click',
     e => e.target.tagName !== 'A' && e.stopPropagation()
-  )
+  );
   Docsify.dom.on($input, 'input', e => {
-    clearTimeout(timeId)
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100)
-  })
+    clearTimeout(timeId);
+    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
+  });
   Docsify.dom.on($inputWrap, 'click', e => {
     // Click input outside
     if (e.target.tagName !== 'INPUT') {
-      $input.value = ''
-      doSearch()
+      $input.value = '';
+      doSearch();
     }
-  })
+  });
 }
 
 function updatePlaceholder(text, path) {
-  const $input = Docsify.dom.getNode('.search input[type="search"]')
+  const $input = Docsify.dom.getNode('.search input[type="search"]');
 
   if (!$input) {
-    return
+    return;
   }
 
   if (typeof text === 'string') {
-    $input.placeholder = text
+    $input.placeholder = text;
   } else {
-    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0]
-    $input.placeholder = text[match]
+    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0];
+    $input.placeholder = text[match];
   }
 }
 
 function updateNoData(text, path) {
   if (typeof text === 'string') {
-    NO_DATA_TEXT = text
+    NO_DATA_TEXT = text;
   } else {
-    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0]
-    NO_DATA_TEXT = text[match]
+    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0];
+    NO_DATA_TEXT = text[match];
   }
 }
 
 function updateOptions(opts) {
-  options = opts
+  options = opts;
 }
 
 export function init(opts, vm) {
-  const keywords = vm.router.parse().query.s
+  const keywords = vm.router.parse().query.s;
 
-  updateOptions(opts)
-  style()
-  tpl(keywords)
-  bindEvents()
-  keywords && setTimeout(_ => doSearch(keywords), 500)
+  updateOptions(opts);
+  style();
+  tpl(keywords);
+  bindEvents();
+  keywords && setTimeout(_ => doSearch(keywords), 500);
 }
 
 export function update(opts, vm) {
-  updateOptions(opts)
-  updatePlaceholder(opts.placeholder, vm.route.path)
-  updateNoData(opts.noData, vm.route.path)
+  updateOptions(opts);
+  updatePlaceholder(opts.placeholder, vm.route.path);
+  updateNoData(opts.noData, vm.route.path);
 }
