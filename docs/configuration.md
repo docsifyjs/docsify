@@ -265,7 +265,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `window.location.pathname`
 
-The name of the link.
+The URL that the website `name` links to.
 
 ```js
 window.$docsify = {
