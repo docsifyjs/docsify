@@ -19,6 +19,7 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error'],
     camelcase: ['warn'],
+    'no-useless-escape': ['warn'],
     curly: ['error', 'all'],
     'dot-notation': ['error'],
     eqeqeq: ['error'],

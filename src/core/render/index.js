@@ -10,6 +10,7 @@ import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
+import DOMPurify from 'dompurify';
 import tinydate from 'tinydate';
 
 function executeScript() {
@@ -172,6 +173,7 @@ export function renderMixin(proto) {
           },
           tokens => {
             html = this.compiler.compile(tokens);
+            html = this.isRemoteUrl ? DOMPurify.sanitize(html) : html;
             callback();
             next();
           }
