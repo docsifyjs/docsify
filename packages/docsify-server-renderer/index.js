@@ -14,30 +14,19 @@ function cwd(...args) {
   return resolve(process.cwd(), ...args);
 }
 
+// Borrowed from https://j11y.io/snippets/getting-a-fully-qualified-url.
+function qualifyURL(url){
+    var img = document.createElement('img');
+    img.src = url; // set string url
+    url = img.src; // get qualified url
+    img.src = ''; // prevent the server request
+    return url;
+}
+
 function isExternal(url) {
-  let match = url.match(
-    /^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
-  if (
-    typeof match[1] === 'string' &&
-    match[1].length > 0 &&
-    match[1].toLowerCase() !== location.protocol
-  ) {
-    return true;
-  }
-  if (
-    typeof match[2] === 'string' &&
-    match[2].length > 0 &&
-    match[2].replace(
-      new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
-      ),
-      ''
-    ) !== location.host
-  ) {
-    return true;
-  }
-  return false;
+  url = qualifyURL(url)
+  url = new URL(url)
+  return url.origin !== location.origin
 }
 
 function mainTpl(config) {
