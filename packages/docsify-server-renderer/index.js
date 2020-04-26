@@ -15,18 +15,18 @@ function cwd(...args) {
 }
 
 // Borrowed from https://j11y.io/snippets/getting-a-fully-qualified-url.
-function qualifyURL(url){
-    var img = document.createElement('img');
-    img.src = url; // set string url
-    url = img.src; // get qualified url
-    img.src = ''; // prevent the server request
-    return url;
+function qualifyURL(url) {
+  const img = document.createElement('img');
+  img.src = url; // set string url
+  url = img.src; // get qualified url
+  img.src = ''; // prevent the server request
+  return url;
 }
 
 function isExternal(url) {
-  url = qualifyURL(url)
-  url = new URL(url)
-  return url.origin !== location.origin
+  url = qualifyURL(url);
+  url = new URL(url);
+  return url.origin !== location.origin;
 }
 
 function mainTpl(config) {
