@@ -470,3 +470,52 @@ body.close
 
   40%, 80%
     transform rotate(10deg)
+
+
+.app-sub-sidebar
+
+  ul
+    display none
+
+  ul.parent,
+  ul.wife,
+  ul.expand
+    display block
+  
+  ul.parent.expand,
+  ul.wife.expand
+    display none
+
+  li span
+    display block
+    width 20px
+    font-family monospace
+    font-weight bold
+    font-size 20px
+    float left
+    &:after
+        content '-'  
+    &.change
+      &:after
+        content '-'
+
+  li.has-children
+    > span
+      &:after
+        content '+'
+    > span.change
+      &:after
+        content '-'
+
+  li.parent,
+  li.has-children.active
+    > span
+      &:after
+        content '-'
+    > span.change
+      &:after
+        content '+'
+
+.current
+  span
+    color #c94922

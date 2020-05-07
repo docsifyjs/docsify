@@ -42,6 +42,17 @@ export function collapse(el) {
       target.nextSibling.classList.contains('app-sub-sidebar')
     ) {
       dom.toggleClass(target.parentNode, 'collapse');
+    } else if (
+      target.nodeName === 'SPAN' &&
+      target.nextSibling &&
+      target.nextSibling.classList.contains('section-link')
+    ) {
+      dom.toggleClass(target, 'change');
+
+      let expand = target.nextSibling.nextSibling;
+      if (expand && expand.nodeName === 'UL') {
+        dom.toggleClass(expand, 'expand');
+      }
     }
   });
 }

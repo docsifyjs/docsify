@@ -84,19 +84,27 @@ export function cover() {
  * Render tree
  * @param  {Array} toc Array of TOC section links
  * @param  {String} tpl TPL list
+ * @param  {Boolean} using specified TPL for all level(true), or root only(false)
  * @return {String} Rendered tree
  */
-export function tree(toc, tpl = '<ul class="app-sub-sidebar">{inner}</ul>') {
+export function tree(toc, tpl = '<ul>{inner}</ul>', all = false) {
   if (!toc || !toc.length) {
     return '';
   }
 
   let innerHTML = '';
   toc.forEach(node => {
-    innerHTML += `<li><a class="section-link" href="${node.slug}">${node.title}</a></li>`;
     if (node.children) {
-      innerHTML += tree(node.children, tpl);
+      innerHTML += `<li class="has-children"><span></span><a class="section-link" href="${node.slug}">${node.title}</a>`;
+      if (!all) {
+        innerHTML += tree(node.children);
+      } else {
+        innerHTML += tree(node.children, tpl, true);
+      }
+    } else {
+      innerHTML += `<li><span></span><a class="section-link" href="${node.slug}">${node.title}</a>`;
     }
+    innerHTML += `</li>`;
   });
   return tpl.replace('{inner}', innerHTML);
 }

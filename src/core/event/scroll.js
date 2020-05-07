@@ -36,7 +36,7 @@ function highlight(path) {
 
   const sidebar = dom.getNode('.sidebar');
   const anchors = dom.findAll('.anchor');
-  const wrap = dom.find(sidebar, '.sidebar-nav');
+  const wrap = dom.find(sidebar, '.app-sub-sidebar');
   let active = dom.find(sidebar, 'li.active');
   const doc = document.documentElement;
   const top = ((doc && doc.scrollTop) || document.body.scrollTop) - coverHeight;
@@ -70,12 +70,14 @@ function highlight(path) {
   li.classList.add('active');
   active = li;
 
+  updateTree(active);
+
   // Scroll into view
   // https://github.com/vuejs/vuejs.org/blob/master/themes/vue/source/js/common.js#L282-L297
   if (!hoverOver && dom.body.classList.contains('sticky')) {
     const height = sidebar.clientHeight;
     const curOffset = 0;
-    const cur = active.offsetTop + active.clientHeight + 40;
+    const cur = active.offsetTop + active.clientHeight + height / 2;
     const isInView =
       active.offsetTop >= wrap.scrollTop && cur <= wrap.scrollTop + height;
     const notThan = cur - curOffset < height;
@@ -83,6 +85,27 @@ function highlight(path) {
 
     sidebar.scrollTop = top;
   }
+}
+
+function updateTree(active) {
+  let prevParents = dom.findAll('.parent');
+  let prevWifes = dom.findAll('.wife');
+  let prevChanges = dom.findAll('.change');
+  let prevExpands = dom.findAll('.expand');
+
+  prevParents.forEach(node => node.classList.remove('parent'));
+  prevWifes.forEach(node => node.classList.remove('wife'));
+  prevChanges.forEach(node => node.classList.remove('change'));
+  prevExpands.forEach(node => node.classList.remove('expand'));
+
+  let father = active.parentNode;
+  while (father && father.className !== 'app-sub-sidebar') {
+    father.classList.add('parent');
+    father = father.parentNode;
+  }
+
+  let wife = active.lastChild;
+  wife.nodeName === 'UL' && wife.classList.add('wife');
 }
 
 function getNavKey(path, id) {
@@ -143,14 +166,25 @@ export function scrollIntoView(path, id) {
     return;
   }
   const topMargin = config().topMargin;
-  const section = dom.find('#' + id);
-  section && scrollTo(section, topMargin);
 
-  const li = nav[getNavKey(path, id)];
+  let prevSections = dom.findAll('.current');
+  prevSections.forEach(node => node.classList.remove('current'));
+
+  const section = dom.find('#' + id);
+  if (section) {
+    section.classList.add('current');
+    scrollTo(section, topMargin);
+  }
+
   const sidebar = dom.getNode('.sidebar');
   const active = dom.find(sidebar, 'li.active');
   active && active.classList.remove('active');
-  li && li.classList.add('active');
+
+  const li = nav[getNavKey(path, id)];
+  if (li) {
+    li.classList.add('active');
+    updateTree(li);
+  }
 }
 
 const scrollEl = dom.$.scrollingElement || dom.$.documentElement;
