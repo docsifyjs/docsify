@@ -494,15 +494,15 @@ body.close
     font-size 20px
     float left
     &:after
-        content '-'  
+        content '\00A0'
     &.change
       &:after
-        content '-'
+        content '\00A0'
 
   li.has-children
     > span
       &:after
-        content '+'
+        content '\203A'
     > span.change
       &:after
         content '-'
@@ -514,7 +514,7 @@ body.close
         content '-'
     > span.change
       &:after
-        content '+'
+        content '\203A'
 
 .current
   span
