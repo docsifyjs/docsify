@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { getAndRemoveConfig } from '../../core/render/utils';
+
 let INDEXS = {};
 
 const LOCAL_STORAGE = {
