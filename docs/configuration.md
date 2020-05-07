@@ -446,11 +446,11 @@ window.$docsify = {
 - type: `String`
 - default: `noopener`
 
-Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when its not `'_blank'`.
+Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when its not `'_blank'`. See [this post](https://mathiasbynens.github.io/rel-noopener/) for more information about why you may want to use this option.
 
 ```js
 window.$docsify = {
-  externalLinkTarget: '', // default: 'noopener'
+  externalLinkRel: '', // default: 'noopener'
 };
 ```
 
