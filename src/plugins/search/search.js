@@ -76,8 +76,6 @@ export function genIndex(path, content = '', router, depth) {
       }
 
       slug = router.toURL(path, { id: id });
-
-      slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
       index[slug] = { slug, title: token.text, body: '' };
     } else {
       if (!slug) {
