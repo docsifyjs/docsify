@@ -69,16 +69,13 @@ export function genIndex(path, content = '', router, depth) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      let id;
-
       if (config.id) {
-        id = config.id;
+        slug = router.toURL(path, { id: slugify(config.id) });
       } else {
-        id = slugify(escapeHtml(token.text));
+        slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
       }
 
-      slug = router.toURL(path, { id: id });
-      index[slug] = { slug, title: token.text, body: '' };
+      index[slug] = { slug, title: str, body: '' };
     } else {
       if (!slug) {
         return;
