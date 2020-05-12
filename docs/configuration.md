@@ -144,6 +144,16 @@ window.$docsify = {
 };
 ```
 
+If you have a link to the homepage in the sidebar and want it to be shown as active when accessing the root url, make sure to update your sidebar accordingly:
+
+```markdown
+- Sidebar
+  - [Home](/)
+  - [Another page](another.md)
+```
+
+For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
+
 ## basePath
 
 - Type: `String`
