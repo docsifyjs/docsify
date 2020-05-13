@@ -174,7 +174,9 @@ function bindEvents() {
   Docsify.dom.on(
     $search,
     'click',
-    e => e.target.tagName !== 'A' && e.stopPropagation()
+    e =>
+      ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
+      e.stopPropagation()
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);
