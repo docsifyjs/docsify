@@ -66,7 +66,9 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 ```
 
 ## Cross-Origin link
-Only when you set the `routerMode: 'history'` and `externalLinkTarget: '_self'` , you need add this configuration for those Cross-Origin links
+
+Only when you set the `routerMode: 'history'` and `externalLinkTarget: '_self'`, you need add this configuration for those Cross-Origin links.
+
 ```md
 [example.com](https://example.com/ ':crossorgin')  
 ```
