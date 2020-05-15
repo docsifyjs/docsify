@@ -170,13 +170,13 @@ function bindEvents() {
   const $inputWrap = Docsify.dom.find($search, '.input-wrap');
 
   let timeId;
-  
+
   /**
-   * Prevent to Fold sidebar.
-   * 
-   * When searching on the mobile end,
-   * the sidebar is collapsed when you click the INPUT box,
-   * making it impossible to search.
+    Prevent to Fold sidebar.
+
+    When searching on the mobile end,
+    the sidebar is collapsed when you click the INPUT box,
+    making it impossible to search.
    */
   Docsify.dom.on(
     $search,
