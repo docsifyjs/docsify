@@ -52,6 +52,7 @@ function style() {
   appearance: none;
 }
 .search .clear-button {
+  cursor: pointer;
   width: 36px;
   text-align: right;
   display: none;
