@@ -127,7 +127,12 @@ export function scrollActiveSidebar(router) {
     return;
   }
 
-  const path = router.getCurrentPath();
+  let path = router.getCurrentPath();
+
+  if (path.indexOf('?') > 0) {
+    path = path.split('?')[0];
+  }
+
   dom.off('scroll', () => highlight(path));
   dom.on('scroll', () => highlight(path));
   dom.on(sidebar, 'mouseover', () => {
