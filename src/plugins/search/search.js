@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { getAndRemoveConfig } from '../../core/render/utils';
+
 let INDEXS = {};
 
 const LOCAL_STORAGE = {
@@ -25,10 +27,9 @@ function escapeHtml(string) {
     '>': '&gt;',
     '"': '&quot;',
     "'": '&#39;',
-    '/': '&#x2F;',
   };
 
-  return String(string).replace(/[&<>"'/]/g, s => entityMap[s]);
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
 
 function getAllPaths(router) {
@@ -66,8 +67,15 @@ export function genIndex(path, content = '', router, depth) {
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
-      slug = router.toURL(path, { id: slugify(token.text) });
-      index[slug] = { slug, title: token.text, body: '' };
+      const { str, config } = getAndRemoveConfig(token.text);
+
+      if (config.id) {
+        slug = router.toURL(path, { id: slugify(config.id) });
+      } else {
+        slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
+      }
+
+      index[slug] = { slug, title: str, body: '' };
     } else {
       if (!slug) {
         return;

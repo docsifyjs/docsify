@@ -39,6 +39,7 @@ export function collapse(el) {
     if (
       target.nodeName === 'A' &&
       target.nextSibling &&
+      target.nextSibling.classList &&
       target.nextSibling.classList.contains('app-sub-sidebar')
     ) {
       dom.toggleClass(target.parentNode, 'collapse');

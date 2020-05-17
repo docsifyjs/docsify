@@ -27,7 +27,12 @@ export class HTML5History extends History {
       if (el.tagName === 'A' && !/_blank/.test(el.target)) {
         e.preventDefault();
         const url = el.href;
-        window.history.pushState({ key: url }, '', url);
+        // solve history.pushState cross-origin issue
+        if (this.config.crossOriginLinks.indexOf(url) !== -1) {
+          window.open(url, '_self');
+        } else {
+          window.history.pushState({ key: url }, '', url);
+        }
         cb({ event: e, source: 'navigate' });
       }
     });

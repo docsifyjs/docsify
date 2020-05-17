@@ -9,7 +9,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="keywords" content="doc,docs,documentation,gitbook,creator,generator,github,jekyll,github-pages">
   <meta name="description" content="A magical documentation generator.">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link 
     rel="stylesheet"
     href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css"
@@ -20,7 +21,7 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/buble.css" title="buble" disabled>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/pure.css" title="pure" disabled>
- 
+
   <script src="//cdn.jsdelivr.net/npm/docsify-plugin-codefund/index.js"></script>
   <style>
     nav.app-nav li ul {
@@ -37,7 +38,7 @@
         '.*?/awesome': 'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
         '.*?/changelog': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
         '/.*/_navbar.md': '/_navbar.md',
-        '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
+        '/zh-cn/(.*)': 'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
         '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
         '/ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
         '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
@@ -77,6 +78,10 @@
               url = vm.route.file
                 .replace('raw.githubusercontent.com', 'github.com')
                 .replace(/\/master/, '/blob/master')
+            } else if (/jsdelivr\.net/.test(vm.route.file)) {
+              url = vm.route.file
+                .replace('cdn.jsdelivr.net/gh', 'github.com')
+                .replace('@master', '/blob/master')
             } else {
               url = 'https://github.com/docsifyjs/docsify/blob/master/docs/' + vm.route.file
             }
