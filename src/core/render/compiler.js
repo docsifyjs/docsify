@@ -121,6 +121,21 @@ export class Compiler {
     };
   }
 
+  /**
+   * Pulls content from file and renders inline on the page as a embedded item.
+   *
+   * This allows you to embed different file types on the returned
+   * page.
+   * The basic format is:
+   * ```
+   *   [filename](_media/example.md ':include')
+   * ```
+   *
+   * @param {string}   href   The href to the file to embed in the page.
+   * @param {string}   title  Title of the link used to make the embed.
+   *
+   * @return {type} Return value description.
+   */
   compileEmbed(href, title) {
     const { str, config } = getAndRemoveConfig(title);
     let embed;

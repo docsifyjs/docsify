@@ -32,6 +32,7 @@ export default function() {
       externalLinkRel: 'noopener',
       routerMode: 'hash',
       noCompileLinks: [],
+      crossOriginLinks: [],
       relativePath: false,
       topMargin: 0,
     },
