@@ -1,3 +1,4 @@
+import marked from 'marked';
 import { isAbsolutePath, getPath, getParentPath } from '../router/util';
 import { isFn, merge, cached, isPrimitive } from '../util/core';
 import { tree as treeTpl } from './tpl';
@@ -11,7 +12,6 @@ import { paragraphCompiler } from './compiler/paragraph';
 import { taskListCompiler } from './compiler/taskList';
 import { taskListItemCompiler } from './compiler/taskListItem';
 import { linkCompiler } from './compiler/link';
-import marked from 'marked';
 
 const cachedLinks = {};
 
@@ -70,9 +70,12 @@ export class Compiler {
     this.contentBase = router.getBasePath();
 
     const renderer = this._initRenderer();
-    this.heading = renderer.heading;
-    let compile;
     const mdConf = config.markdown || {};
+
+    this.renderer = renderer;
+    this.heading = renderer.heading;
+
+    let compile;
 
     if (isFn(mdConf)) {
       compile = mdConf(marked, renderer);
@@ -233,7 +236,7 @@ export class Compiler {
       renderer,
       router,
       linkTarget,
-      compilerClass: _self,
+      compiler: _self,
     });
     origin.paragraph = paragraphCompiler({ renderer });
     origin.image = imageCompiler({ renderer, contentBase, router });
@@ -243,6 +246,26 @@ export class Compiler {
     renderer.origin = origin;
 
     return renderer;
+  }
+
+  compileSidebar(text) {
+    if (!this.config.sidebarAbsolutePath) {
+      return this.compile(text);
+    }
+
+    const { renderer, linkTarget, router } = this;
+
+    linkCompiler({
+      renderer,
+      router,
+      linkTarget,
+      compiler: this,
+      isSidebar: true,
+    });
+
+    const html = this.compile(text);
+    this.renderer.link = this.renderer.origin.link;
+    return html;
   }
 
   /**
@@ -257,7 +280,7 @@ export class Compiler {
     let html = '';
 
     if (text) {
-      html = this.compile(text);
+      html = this.compileSidebar(text);
     } else {
       for (let i = 0; i < toc.length; i++) {
         if (toc[i].ignoreSubHeading) {

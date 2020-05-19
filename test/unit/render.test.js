@@ -1,5 +1,5 @@
-const { init, expectSameDom } = require('../_helper');
 const { expect } = require('chai');
+const { init, expectSameDom } = require('../_helper');
 
 describe('render', function() {
   it('important content (tips)', async function() {
