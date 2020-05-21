@@ -22,7 +22,7 @@ function ready(callback) {
 module.exports.initJSDOM = initJSDOM;
 
 /** @param {string} markup - The HTML document to initialize JSDOM with. */
-function initJSDOM(markup, options = {}) {
+function initJSDOM(markup = '', options = {}) {
   const dom = new JSDOM(markup, options);
 
   global.window = dom.window;
