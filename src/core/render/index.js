@@ -9,6 +9,7 @@ import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
 import { isPrimitive } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
+import { isExternal } from '../fetch';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
@@ -259,10 +260,9 @@ export function initRender(vm) {
 
     if (config.logo) {
       const isBase64 = /^data:image/.test(config.logo);
-      const isExternal = /(?:http[s]?:)?\/\//.test(config.logo);
       const isRelative = /^\./.test(config.logo);
 
-      if (!isBase64 && !isExternal && !isRelative) {
+      if (!isBase64 && !isExternal(config.logo) && !isRelative) {
         config.logo = getPath(vm.router.getBasePath(), config.logo);
       }
     }

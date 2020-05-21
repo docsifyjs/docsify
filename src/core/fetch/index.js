@@ -29,7 +29,7 @@ function qualifyURL(url) {
   return url;
 }
 
-function isExternal(url) {
+export function isExternal(url) {
   url = qualifyURL(url);
   url = new URL(url);
   return url.origin !== location.origin;
