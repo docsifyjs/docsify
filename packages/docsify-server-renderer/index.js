@@ -197,4 +197,6 @@ export default class Renderer {
   }
 }
 
+export { Renderer };
+
 Renderer.version = '__VERSION__';
