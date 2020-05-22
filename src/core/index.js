@@ -11,7 +11,7 @@ import initGlobalAPI from './global-api';
  * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
  *  otherwise it only attaches the callback to the DOMContentLoaded event
  */
-function ready(callback) {
+export function documentReady(callback) {
   const state = document.readyState;
 
   if (state === 'complete' || state === 'interactive') {
@@ -21,7 +21,7 @@ function ready(callback) {
   document.addEventListener('DOMContentLoaded', callback);
 }
 
-function Docsify() {
+export function Docsify() {
   this._init();
 }
 
@@ -42,4 +42,4 @@ initGlobalAPI();
  * Run Docsify
  */
 // eslint-disable-next-line no-unused-vars
-ready(_ => new Docsify());
+documentReady(_ => new Docsify());
