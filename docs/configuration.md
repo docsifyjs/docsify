@@ -1,6 +1,6 @@
 # Configuration
 
-You can configure the `window.$docsify`.
+You can configure Docsify by defining `window.$docsify` as an object:
 
 ```html
 <script>
@@ -8,6 +8,24 @@ You can configure the `window.$docsify`.
     repo: 'docsifyjs/docsify',
     maxLevel: 3,
     coverpage: true,
+  };
+</script>
+```
+
+The config can also be defined as a function, in which case the first arg is the Docsify `vm` instance. The function should return a config object. This can be useful for referencing `vm` in places like the markdown configuration:
+
+```html
+<script>
+  window.$docsify = function(vm) {
+    return {
+      markdown: {
+        renderer: {
+          code(code, lang) {
+            // ... use `vm` ...
+          },
+        },
+      },
+    };
   };
 </script>
 ```
