@@ -2,7 +2,7 @@ import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 
 const currentScript = document.currentScript;
 
-export default function() {
+export default function(vm) {
   const config = merge(
     {
       el: '#app',
@@ -35,7 +35,9 @@ export default function() {
       relativePath: false,
       topMargin: 0,
     },
-    window.$docsify
+    typeof window.$docsify === 'function'
+      ? window.$docsify(vm)
+      : window.$docsify
   );
 
   const script =
