@@ -48,7 +48,7 @@
     "pub": "sh build/release.sh",
     "postinstall": "opencollective-postinstall"
   },
-  "husky": {
+  "husky-OFF": {
     "hooks": {
       "pre-commit": "lint-staged"
     }

@@ -8,11 +8,33 @@ const { initJSDOM } = require('../_helper');
 
 initJSDOM();
 
-const { Renderer } = require('../../packages/docsify-server-renderer/index');
+const {
+  Renderer,
+  getDefaultTemplate,
+} = require('../../packages/docsify-server-renderer/index');
 
 describe('pacakges/docsify-server-render', function() {
-  it('toURL', function() {
-    expect(Renderer).to.be.an.instanceof(Function);
-    expect('foo').equal('foo');
+  it('renders content', function() {
+    const renderer = new Renderer({
+      template: getDefaultTemplate(),
+      config: {
+        name: 'docsify',
+        repo: 'docsifyjs/docsify',
+        basePath: 'https://docsify.js.org/',
+        loadNavbar: true,
+        loadSidebar: true,
+        subMaxLevel: 3,
+        auto2top: true,
+        alias: {
+          '/de-de/changelog': '/changelog',
+          '/zh-cn/changelog': '/changelog',
+          '/changelog':
+            'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+        },
+      },
+      // path: './', // not used for anything?
+    });
+
+    expect(renderer).to.be.an.instanceof(Renderer);
   });
 });
