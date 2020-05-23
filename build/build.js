@@ -9,8 +9,16 @@ const version = process.env.VERSION || require('../package.json').version
 const chokidar = require('chokidar')
 const path = require('path')
 
-const build = function (opts) {
-  rollup
+/**
+ * @param {{
+ *   input: string,
+ *   output?: string,
+ *   globalName?: string,
+ *   plugins?: Array<import('rollup').Plugin>
+ * }} opts
+ */
+async function build(opts) {
+  await rollup
     .rollup({
       input: opts.input,
       plugins: (opts.plugins || []).concat([
@@ -27,31 +35,37 @@ const build = function (opts) {
       var dest = 'lib/' + (opts.output || opts.input)
 
       console.log(dest)
-      bundle.write({
+      return bundle.write({
         format: 'iife',
+        output: opts.globalName ? {name: opts.globalName} : {},
         file: dest,
         strict: false
       })
     })
-    .catch(function (err) {
-      console.error(err)
-    })
 }
-const buildCore = function () {
-  build({
+
+async function buildCore() {
+  const promises = []
+
+  promises.push(build({
     input: 'src/core/index.js',
-    output: 'docsify.js'
-  })
+    output: 'docsify.js',
+    globalName: 'DOCSIFY'
+  }))
 
   if (isProd) {
-    build({
+    promises.push(build({
       input: 'src/core/index.js',
       output: 'docsify.min.js',
+      globalName: 'DOCSIFY',
       plugins: [uglify()]
-    })
+    }))
   }
+
+  await Promise.all(promises)
 }
-const buildAllPlugin = function () {
+
+async function buildAllPlugin() {
   var plugins = [
     {name: 'search', input: 'search/index.js'},
     {name: 'ga', input: 'ga.js'},
@@ -64,8 +78,8 @@ const buildAllPlugin = function () {
     {name: 'gitalk', input: 'gitalk.js'}
   ]
 
-  plugins.forEach(item => {
-    build({
+  const promises = plugins.map(item => {
+    return build({
       input: 'src/plugins/' + item.input,
       output: 'plugins/' + item.name + '.js'
     })
@@ -73,47 +87,59 @@ const buildAllPlugin = function () {
 
   if (isProd) {
     plugins.forEach(item => {
-      build({
+      promises.push(build({
         input: 'src/plugins/' + item.input,
         output: 'plugins/' + item.name + '.min.js',
         plugins: [uglify()]
-      })
+      }))
     })
+  }
+
+  await Promise.all(promises)
+}
+
+async function main() {
+  if (!isProd) {
+    chokidar
+      .watch(['src/core', 'src/plugins'], {
+        atomic: true,
+        awaitWriteFinish: {
+          stabilityThreshold: 1000,
+          pollInterval: 100
+        }
+      })
+      .on('change', p => {
+        console.log('[watch] ', p)
+        const dirs = p.split(path.sep)
+        if (dirs[1] === 'core') {
+          buildCore()
+        } else if (dirs[2]) {
+          const name = path.basename(dirs[2], '.js')
+          const input = `src/plugins/${name}${
+            /\.js/.test(dirs[2]) ? '' : '/index'
+          }.js`
+
+          build({
+            input,
+            output: 'plugins/' + name + '.js'
+          })
+        }
+      })
+      .on('ready', () => {
+        console.log('[start]')
+        buildCore()
+        buildAllPlugin()
+      })
+  } else {
+    await Promise.all([
+      buildCore(),
+      buildAllPlugin()
+    ])
   }
 }
 
-if (!isProd) {
-  chokidar
-    .watch(['src/core', 'src/plugins'], {
-      atomic: true,
-      awaitWriteFinish: {
-        stabilityThreshold: 1000,
-        pollInterval: 100
-      }
-    })
-    .on('change', p => {
-      console.log('[watch] ', p)
-      const dirs = p.split(path.sep)
-      if (dirs[1] === 'core') {
-        buildCore()
-      } else if (dirs[2]) {
-        const name = path.basename(dirs[2], '.js')
-        const input = `src/plugins/${name}${
-          /\.js/.test(dirs[2]) ? '' : '/index'
-        }.js`
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})
 
-        build({
-          input,
-          output: 'plugins/' + name + '.js'
-        })
-      }
-    })
-    .on('ready', () => {
-      console.log('[start]')
-      buildCore()
-      buildAllPlugin()
-    })
-} else {
-  buildCore()
-  buildAllPlugin()
-}

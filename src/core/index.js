@@ -1,25 +1,16 @@
+import Prism from 'prismjs';
+import marked from 'marked';
 import { initMixin } from './init';
 import { routerMixin } from './router';
 import { renderMixin } from './render';
 import { fetchMixin } from './fetch';
 import { eventMixin } from './event';
 import initGlobalAPI from './global-api';
-
-/**
- * Fork https://github.com/bendrucker/document-ready/blob/master/index.js
- * @param {Function} callback The callbacack to be called when the page is loaded
- * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
- *  otherwise it only attaches the callback to the DOMContentLoaded event
- */
-export function documentReady(callback) {
-  const state = document.readyState;
-
-  if (state === 'complete' || state === 'interactive') {
-    return setTimeout(callback, 0);
-  }
-
-  document.addEventListener('DOMContentLoaded', callback);
-}
+import { Compiler as DocsifyCompiler } from './render/compiler';
+import * as util from './util';
+import * as dom from './util/dom';
+import { slugify } from './render/slugify';
+import { get } from './fetch/ajax';
 
 export function Docsify() {
   this._init();
@@ -36,10 +27,14 @@ eventMixin(proto);
 /**
  * Global API
  */
-initGlobalAPI();
+initGlobalAPI(); // deprecated
+
+// Rollup assigns all exports from this file onto a single DOCSIFY global.
+export { util, dom, get, slugify, DocsifyCompiler, marked, Prism };
+export const version = '__VERSION__';
 
 /**
  * Run Docsify
  */
 // eslint-disable-next-line no-unused-vars
-documentReady(_ => new Docsify());
+dom.documentReady(_ => new Docsify());
