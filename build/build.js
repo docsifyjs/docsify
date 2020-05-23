@@ -9,6 +9,14 @@ const version = process.env.VERSION || require('../package.json').version
 const chokidar = require('chokidar')
 const path = require('path')
 
+/**
+ * @param {{
+ *   input: string,
+ *   output?: string,
+ *   globalName?: string,
+ *   plugins?: Array<import('rollup').Plugin>
+ * }} opts
+ */
 async function build(opts) {
   await rollup
     .rollup({
@@ -29,6 +37,7 @@ async function build(opts) {
       console.log(dest)
       return bundle.write({
         format: 'iife',
+        output: opts.globalName ? {name: opts.globalName} : {},
         file: dest,
         strict: false
       })
@@ -40,13 +49,15 @@ async function buildCore() {
 
   promises.push(build({
     input: 'src/core/index.js',
-    output: 'docsify.js'
+    output: 'docsify.js',
+    globalName: 'DOCSIFY'
   }))
 
   if (isProd) {
     promises.push(build({
       input: 'src/core/index.js',
       output: 'docsify.min.js',
+      globalName: 'DOCSIFY',
       plugins: [uglify()]
     }))
   }
