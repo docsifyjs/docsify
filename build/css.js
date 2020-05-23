@@ -5,8 +5,8 @@ const {spawn} = require('child_process')
 const args = process.argv.slice(2)
 fs.readdir(path.join(__dirname, '../src/themes'), (err, files) => {
     if (err) {
-        console.log('err', err)
-        return
+        console.error('err', err)
+        process.exit(1)
     }
     files.map(async (file) => {
         if (/\.styl/g.test(file)) {
@@ -31,7 +31,14 @@ fs.readdir(path.join(__dirname, '../src/themes'), (err, files) => {
             });
 
             stylusCMD.on('close', (code) => {
-                console.log(`[Stylus Build ] child process exited with code ${code}`);
+                const message = `[Stylus Build ] child process exited with code ${code}`
+
+                if (code !== 0) {
+                  console.error(message);
+                  process.exit(code)
+                } else {
+                  console.log(message);
+                }
             });
         } else {
             return
