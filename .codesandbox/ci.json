@@ -1,4 +1,4 @@
 {
-  "sandboxes": ["vanilla"],
+  "sandboxes": ["./docs"],
   "packages": [".", "packages/docsify-server-renderer"]
 }
