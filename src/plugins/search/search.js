@@ -84,16 +84,22 @@ export function genIndex(path, content = '', router, depth) {
       if (!index[slug]) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
+        if (!token.text && token.type === 'table') {
+          token.text = token.cells
+            .map(function(rows) {
+              return rows.join(' | ');
+            })
+            .join(' |\n ');
+        }
+
         index[slug].body += '\n' + (token.text || '');
       } else {
-        if (!token.text) {
-          if (token.type === 'table') {
-            token.text = token.cells
-              .map(function(rows) {
-                return rows.join(' | ');
-              })
-              .join(' |\n ');
-          }
+        if (!token.text && token.type === 'table') {
+          token.text = token.cells
+            .map(function(rows) {
+              return rows.join(' | ');
+            })
+            .join(' |\n ');
         }
 
         index[slug].body = index[slug].body
