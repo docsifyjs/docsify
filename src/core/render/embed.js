@@ -36,6 +36,13 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
               return x;
             });
 
+            // This may contain YAML front matter and will need to be stripped.
+            const frontMatterInstalled =
+              ($docsify.frontMatter || {}).installed || false;
+            if (frontMatterInstalled === true) {
+              text = $docsify.frontMatter.parseMarkdown(text);
+            }
+
             embedToken = compile.lexer(text);
           } else if (token.embed.type === 'code') {
             if (token.embed.fragment) {
@@ -117,17 +124,27 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
     }
   });
 
-  let moveIndex = 0;
+  // keep track of which tokens have been embedded so far
+  // so that we know where to insert the embedded tokens as they
+  // are returned
+  const moves = [];
   walkFetchEmbed({ compile, embedTokens, fetch }, ({ embedToken, token }) => {
     if (token) {
-      const index = token.index + moveIndex;
+      // iterate through the array of previously inserted tokens
+      // to determine where the current embedded tokens should be inserted
+      let index = token.index;
+      moves.forEach(pos => {
+        if (index > pos.start) {
+          index += pos.length;
+        }
+      });
 
       merge(links, embedToken.links);
 
       tokens = tokens
         .slice(0, index)
         .concat(embedToken, tokens.slice(index + 1));
-      moveIndex += embedToken.length - 1;
+      moves.push({ start: index, length: embedToken.length - 1 });
     } else {
       cached[raw] = tokens.concat();
       tokens.links = cached[raw].links = links;

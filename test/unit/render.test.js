@@ -14,88 +14,81 @@ describe('render', function() {
     it('as unordered task list', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(`
-- [x] Task 1
-- [ ] Task 2
-- [ ] Task 3`);
+  - [x] Task 1
+  - [ ] Task 2
+  - [ ] Task 3`);
       expect(
         output,
         `<ul class="task-list">
-				<li class="task-list-item"><label><input checked="" disabled="" type="checkbox"> Task 1</label></li>
-				<li class="task-list-item"><label><input disabled="" type="checkbox"> Task 2</label></li>
-				<li class="task-list-item"><label><input disabled="" type="checkbox"> Task 3</label></li>
-			</ul>`
+  				<li class="task-list-item"><label><input checked="" disabled="" type="checkbox"> Task 1</label></li>
+  				<li class="task-list-item"><label><input disabled="" type="checkbox"> Task 2</label></li>
+  				<li class="task-list-item"><label><input disabled="" type="checkbox"> Task 3</label></li>
+  			</ul>`
       );
     });
 
     it('as ordered task list', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(`
-1. [ ] Task 1
-2. [x] Task 2`);
+  1. [ ] Task 1
+  2. [x] Task 2`);
       expectSameDom(
         output,
         `<ol class="task-list">
-				<li class="task-list-item"><label><input disabled="" type="checkbox"> Task 1</label></li>
-				<li class="task-list-item"><label><input checked="" disabled="" type="checkbox"> Task 2</label></li>
-			</ol>`
+  				<li class="task-list-item"><label><input disabled="" type="checkbox"> Task 1</label></li>
+  				<li class="task-list-item"><label><input checked="" disabled="" type="checkbox"> Task 2</label></li>
+  			</ol>`
       );
     });
 
     it('normal unordered', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(`
-- [linktext](link)
-- just text`);
+  - [linktext](link)
+  - just text`);
       expectSameDom(
         output,
         `<ul >
-				<li><a href="#/link" >linktext</a></li>
-				<li>just text</li>
-			</ul>`
+  				<li><a href="#/link" >linktext</a></li>
+  				<li>just text</li>
+  			</ul>`
       );
     });
 
     it('unordered with custom start', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(`
-1. first
-2. second
+  1. first
+  2. second
 
-text
+  text
 
-3. third`);
+  3. third`);
       expectSameDom(
         output,
-        `<ol >
-				<li>first</li>
-				<li>second</li>
-			</ol>
-			<p>text</p>
-			<ol start="3">
-			  <li>third</li>
-			</ol>`
+        `<ol ><li><p>first</p></li><li><p>second</p><p>text</p></li><li><p>third</p></li></ol>`
       );
     });
 
     it('nested', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(`
-- 1
-- 2
-  - 2 a
-  - 2 b
-- 3`);
+  - 1
+  - 2
+    - 2 a
+    - 2 b
+  - 3`);
       expectSameDom(
         output,
         `<ul >
-				<li>1</li>
-				<li>2<ul >
-						<li>2 a</li>
-						<li>2 b</li>
-					</ul>
-				</li>
-				<li>3</li>
-			</ul>`
+  				<li>1</li>
+  				<li>2<ul >
+  						<li>2 a</li>
+  						<li>2 b</li>
+  					</ul>
+  				</li>
+  				<li>3</li>
+  			</ul>`
       );
     });
   });
@@ -168,7 +161,7 @@ text
 
         expectSameDom(
           output,
-          '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" height="50" /></p>'
+          '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" /></p>'
         );
       });
     });
@@ -181,11 +174,11 @@ text
       expectSameDom(
         output,
         `
-      <h1 id="h1-tag">
-        <a href="#/?id=h1-tag" data-id="h1-tag" class="anchor">
-          <span>h1 tag</span>
-        </a>
-      </h1>`
+        <h1 id="h1-tag">
+          <a href="#/?id=h1-tag" data-id="h1-tag" class="anchor">
+            <span>h1 tag</span>
+          </a>
+        </h1>`
       );
     });
 
@@ -195,11 +188,11 @@ text
       expectSameDom(
         output,
         `
-      <h2 id="h2-tag">
-        <a href="#/?id=h2-tag" data-id="h2-tag" class="anchor">
-          <span>h2 tag</span>
-        </a>
-      </h2>`
+        <h2 id="h2-tag">
+          <a href="#/?id=h2-tag" data-id="h2-tag" class="anchor">
+            <span>h2 tag</span>
+          </a>
+        </h2>`
       );
     });
 
@@ -209,11 +202,11 @@ text
       expectSameDom(
         output,
         `
-      <h3 id="h3-tag">
-        <a href="#/?id=h3-tag" data-id="h3-tag" class="anchor">
-          <span>h3 tag</span>
-        </a>
-      </h3>`
+        <h3 id="h3-tag">
+          <a href="#/?id=h3-tag" data-id="h3-tag" class="anchor">
+            <span>h3 tag</span>
+          </a>
+        </h3>`
       );
     });
 
@@ -223,11 +216,11 @@ text
       expectSameDom(
         output,
         `
-      <h4 id="h4-tag">
-        <a href="#/?id=h4-tag" data-id="h4-tag" class="anchor">
-          <span>h4 tag</span>
-        </a>
-      </h4>`
+        <h4 id="h4-tag">
+          <a href="#/?id=h4-tag" data-id="h4-tag" class="anchor">
+            <span>h4 tag</span>
+          </a>
+        </h4>`
       );
     });
 
@@ -237,11 +230,11 @@ text
       expectSameDom(
         output,
         `
-      <h5 id="h5-tag">
-        <a href="#/?id=h5-tag" data-id="h5-tag" class="anchor">
-          <span>h5 tag</span>
-        </a>
-      </h5>`
+        <h5 id="h5-tag">
+          <a href="#/?id=h5-tag" data-id="h5-tag" class="anchor">
+            <span>h5 tag</span>
+          </a>
+        </h5>`
       );
     });
 
@@ -251,11 +244,11 @@ text
       expectSameDom(
         output,
         `
-      <h6 id="h6-tag">
-        <a href="#/?id=h6-tag" data-id="h6-tag" class="anchor">
-          <span>h6 tag</span>
-        </a>
-      </h6>`
+        <h6 id="h6-tag">
+          <a href="#/?id=h6-tag" data-id="h6-tag" class="anchor">
+            <span>h6 tag</span>
+          </a>
+        </h6>`
       );
     });
   });
@@ -267,7 +260,22 @@ text
 
       expectSameDom(
         output,
-        '<p><a href="http://url" target="_blank">alt text</a></p>'
+        '<p><a href="http://url" target="_blank"  rel="noopener">alt text</a></p>'
+      );
+    });
+
+    it('linkrel', async function() {
+      const { docsify } = await init('default', {
+        externalLinkTarget: '_blank',
+        externalLinkRel: 'noopener',
+      });
+      const output = docsify.compiler.compile(
+        '[alt text](http://www.example.com)'
+      );
+
+      expectSameDom(
+        output,
+        '<p><a href="http://www.example.com" target="_blank"  rel="noopener">alt text</a></p>'
       );
     });
 
@@ -279,7 +287,7 @@ text
 
       expectSameDom(
         output,
-        '<p><a href="javascript:void(0)" target="_blank" disabled>alt text</a></p>'
+        '<p><a href="javascript:void(0)" target="_blank"  rel="noopener" disabled>alt text</a></p>'
       );
     });
 
@@ -291,7 +299,7 @@ text
 
       expectSameDom(
         output,
-        '<p><a href="http://url" target="_blank" target="_self">alt text</a></p>'
+        '<p><a href="http://url" target="_self" >alt text</a></p>'
       );
     });
 
@@ -303,7 +311,7 @@ text
 
       expectSameDom(
         output,
-        '<p><a href="http://url" target="_blank" class="someCssClass">alt text</a></p>'
+        '<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass">alt text</a></p>'
       );
     });
 
@@ -315,7 +323,7 @@ text
 
       expectSameDom(
         output,
-        '<p><a href="http://url" target="_blank" id="someCssID">alt text</a></p>'
+        '<p><a href="http://url" target="_blank"  rel="noopener" id="someCssID">alt text</a></p>'
       );
     });
   });

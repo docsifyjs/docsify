@@ -1,11 +1,21 @@
 import { getAndRemoveConfig } from '../utils';
 import { isAbsolutePath } from '../../router/util';
 
-export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
+export const linkCompiler = ({
+  renderer,
+  router,
+  linkTarget,
+  linkRel,
+  compilerClass,
+}) =>
   (renderer.link = (href, title = '', text) => {
     let attrs = [];
     const { str, config } = getAndRemoveConfig(title);
-
+    linkTarget = config.target || linkTarget;
+    linkRel =
+      linkTarget === '_blank'
+        ? compilerClass.config.externalLinkRel || 'noopener'
+        : '';
     title = str;
 
     if (
@@ -24,10 +34,24 @@ export const linkCompiler = ({ renderer, router, linkTarget, compilerClass }) =>
           document.URL.replace(/\/(?!.*\/).*/, '/').replace('#/./', '') + href;
       }
       attrs.push(href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`);
+      attrs.push(
+        href.indexOf('mailto:') === 0
+          ? ''
+          : linkRel !== ''
+          ? ` rel="${linkRel}"`
+          : ''
+      );
     }
 
-    if (config.target) {
-      attrs.push(`target="${config.target}"`);
+    // special case to check crossorigin urls
+    if (
+      config.crossorgin &&
+      linkTarget === '_self' &&
+      compilerClass.config.routerMode === 'history'
+    ) {
+      if (compilerClass.config.crossOriginLinks.indexOf(href) === -1) {
+        compilerClass.config.crossOriginLinks.push(href);
+      }
     }
 
     if (config.disabled) {
