@@ -68,18 +68,6 @@ describe('Docsify public API', () => {
     expect(typeof DOM.window.DocsifyCompiler).to.equal('function');
     expect(typeof DOM.window.marked).to.equal('function');
     expect(typeof DOM.window.Prism).to.equal('object');
-
-    // new global API, everything under one namespace (DOCSIFY)
-    expect(typeof DOM.window.DOCSIFY).to.equal('object');
-    expect(typeof DOM.window.DOCSIFY.Docsify).to.equal('function');
-    expect(typeof DOM.window.DOCSIFY.util).to.equal('object');
-    expect(typeof DOM.window.DOCSIFY.dom).to.equal('object');
-    expect(typeof DOM.window.DOCSIFY.get).to.equal('function');
-    expect(typeof DOM.window.DOCSIFY.slugify).to.equal('function');
-    expect(typeof DOM.window.DOCSIFY.version).to.equal('string');
-    expect(typeof DOM.window.DOCSIFY.DocsifyCompiler).to.equal('function');
-    expect(typeof DOM.window.DOCSIFY.marked).to.equal('function');
-    expect(typeof DOM.window.DOCSIFY.Prism).to.equal('object');
   });
 
   describe('Docsify config function', function() {
@@ -102,7 +90,7 @@ describe('Docsify public API', () => {
       };
 
       const { documentReady } = require('../../src/core/util/dom');
-      const { Docsify } = require('../../src/core/index');
+      const { Docsify } = require('../../src/core/Docsify');
       await new Promise(resolve => documentReady(resolve));
 
       new Docsify(); // eslint-disable-line
@@ -136,7 +124,7 @@ describe('Docsify public API', () => {
       };
 
       const { documentReady } = require('../../src/core/util/dom');
-      const { Docsify } = require('../../src/core/index');
+      const { Docsify } = require('../../src/core/Docsify');
       await new Promise(resolve => documentReady(resolve));
 
       new Docsify(); // eslint-disable-line

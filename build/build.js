@@ -50,14 +50,12 @@ async function buildCore() {
   promises.push(build({
     input: 'src/core/index.js',
     output: 'docsify.js',
-    globalName: 'DOCSIFY'
   }))
 
   if (isProd) {
     promises.push(build({
       input: 'src/core/index.js',
       output: 'docsify.min.js',
-      globalName: 'DOCSIFY',
       plugins: [uglify()]
     }))
   }
