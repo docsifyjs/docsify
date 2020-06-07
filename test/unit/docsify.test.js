@@ -7,7 +7,8 @@ const handler = require('serve-handler');
 const { expect } = require('chai');
 const { initJSDOM } = require('../_helper');
 
-const docsifySite = 'http://127.0.0.1:3000';
+const port = 5432;
+const docsifySite = 'http://127.0.0.1:' + port;
 
 const markup = /* html */ `<!DOCTYPE html>
   <html>
@@ -30,7 +31,7 @@ describe('Docsify public API', () => {
       return handler(request, response);
     });
 
-    await new Promise(r => server.listen(3000, r));
+    await new Promise(r => server.listen(port, r));
   });
 
   after(async () => {
@@ -80,7 +81,6 @@ describe('Docsify public API', () => {
         expect(vm.constructor.name).to.equal('Docsify');
         expect(vm.$fetch).to.be.an.instanceof(Function);
         expect(vm.$resetEvents).to.be.an.instanceof(Function);
-        expect(vm.route).to.be.an.instanceof(Object);
 
         window.configFunctionCalled = true;
 

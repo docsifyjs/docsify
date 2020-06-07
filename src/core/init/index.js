@@ -6,19 +6,21 @@ import { initFetch } from '../fetch';
 import { isFn } from '../util/core';
 import { initLifecycle, callHook } from './lifecycle';
 
-export function initMixin(proto) {
-  proto._init = function() {
-    const vm = this;
-    vm.config = config(vm);
+export function initMixin(Base = class {}) {
+  return class extends Base {
+    _init() {
+      const vm = this;
+      vm.config = config(vm);
 
-    initLifecycle(vm); // Init hooks
-    initPlugin(vm); // Install plugins
-    callHook(vm, 'init');
-    initRouter(vm); // Add router
-    initRender(vm); // Render base DOM
-    initEvent(vm); // Bind events
-    initFetch(vm); // Fetch data
-    callHook(vm, 'mounted');
+      initLifecycle(vm); // Init hooks
+      initPlugin(vm); // Install plugins
+      callHook(vm, 'init');
+      initRouter(vm); // Add router
+      initRender(vm); // Render base DOM
+      initEvent(vm); // Bind events
+      initFetch(vm); // Fetch data
+      callHook(vm, 'mounted');
+    }
   };
 }
 

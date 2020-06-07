@@ -3,11 +3,11 @@ import { body, on } from '../util/dom';
 import * as sidebar from './sidebar';
 import { scrollIntoView, scroll2Top } from './scroll';
 
-export function eventMixin(proto) {
-  proto.$resetEvents = function(source) {
-    const { auto2top } = this.config;
+export function eventMixin(Base = class {}) {
+  return class extends Base {
+    $resetEvents(source) {
+      const { auto2top } = this.config;
 
-    (() => {
       // Rely on the browser's scroll auto-restoration when going back or forward
       if (source === 'history') {
         return;
@@ -20,10 +20,10 @@ export function eventMixin(proto) {
       if (source === 'navigate') {
         auto2top && scroll2Top(auto2top);
       }
-    })();
 
-    if (this.config.loadNavbar) {
-      sidebar.getAndActive(this.router, 'nav');
+      if (this.config.loadNavbar) {
+        sidebar.getAndActive(this.router, 'nav');
+      }
     }
   };
 }

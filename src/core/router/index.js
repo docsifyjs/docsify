@@ -4,8 +4,8 @@ import { noop } from '../util/core';
 import { HashHistory } from './history/hash';
 import { HTML5History } from './history/html5';
 
-export function routerMixin(proto) {
-  proto.route = {};
+export function routerMixin(Base = class {}) {
+  return class extends Base {};
 }
 
 let lastRoute = {};

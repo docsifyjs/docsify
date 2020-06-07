@@ -86,147 +86,155 @@ function renderNameLink(vm) {
   }
 }
 
-export function renderMixin(proto) {
-  proto._renderTo = function(el, content, replace) {
-    const node = dom.getNode(el);
-    if (node) {
-      node[replace ? 'outerHTML' : 'innerHTML'] = content;
-    }
-  };
-
-  proto._renderSidebar = function(text) {
-    const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
-
-    if (hideSidebar) {
-      // FIXME : better styling solution
-      document.querySelector('aside.sidebar').remove();
-      document.querySelector('button.sidebar-toggle').remove();
-      document.querySelector('section.content').style.right = 'unset';
-      document.querySelector('section.content').style.left = 'unset';
-      document.querySelector('section.content').style.position = 'relative';
-      document.querySelector('section.content').style.width = '100%';
-      return null;
-    }
-
-    this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
-    const activeEl = getAndActive(this.router, '.sidebar-nav', true, true);
-    if (loadSidebar && activeEl) {
-      activeEl.parentNode.innerHTML +=
-        this.compiler.subSidebar(subMaxLevel) || '';
-    } else {
-      // Reset toc
-      this.compiler.subSidebar();
-    }
-
-    // Bind event
-    this._bindEventOnRendered(activeEl);
-  };
-
-  proto._bindEventOnRendered = function(activeEl) {
-    const { autoHeader } = this.config;
-
-    scrollActiveSidebar(this.router);
-
-    if (autoHeader && activeEl) {
-      const main = dom.getNode('#main');
-      const firstNode = main.children[0];
-      if (firstNode && firstNode.tagName !== 'H1') {
-        const h1 = this.compiler.header(activeEl.innerText, 1);
-        const wrapper = dom.create('div', h1);
-        dom.before(main, wrapper.children[0]);
+export function renderMixin(Base = class {}) {
+  return class extends Base {
+    _renderTo(el, content, replace) {
+      const node = dom.getNode(el);
+      if (node) {
+        node[replace ? 'outerHTML' : 'innerHTML'] = content;
       }
     }
-  };
 
-  proto._renderNav = function(text) {
-    text && this._renderTo('nav', this.compiler.compile(text));
-    if (this.config.loadNavbar) {
-      getAndActive(this.router, 'nav');
-    }
-  };
+    _renderSidebar(text) {
+      const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
 
-  proto._renderMain = function(text, opt = {}, next) {
-    if (!text) {
-      return renderMain.call(this, text);
-    }
+      if (hideSidebar) {
+        // FIXME : better styling solution
+        document.querySelector('aside.sidebar').remove();
+        document.querySelector('button.sidebar-toggle').remove();
+        document.querySelector('section.content').style.right = 'unset';
+        document.querySelector('section.content').style.left = 'unset';
+        document.querySelector('section.content').style.position = 'relative';
+        document.querySelector('section.content').style.width = '100%';
+        return null;
+      }
 
-    callHook(this, 'beforeEach', text, result => {
-      let html;
-      const callback = () => {
-        if (opt.updatedAt) {
-          html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated);
-        }
-
-        callHook(this, 'afterEach', html, text => renderMain.call(this, text));
-      };
-
-      if (this.isHTML) {
-        html = this.result = text;
-        callback();
-        next();
+      this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
+      const activeEl = getAndActive(this.router, '.sidebar-nav', true, true);
+      if (loadSidebar && activeEl) {
+        activeEl.parentNode.innerHTML +=
+          this.compiler.subSidebar(subMaxLevel) || '';
       } else {
-        prerenderEmbed(
-          {
-            compiler: this.compiler,
-            raw: result,
-          },
-          tokens => {
-            html = this.compiler.compile(tokens);
-            callback();
-            next();
+        // Reset toc
+        this.compiler.subSidebar();
+      }
+
+      // Bind event
+      this._bindEventOnRendered(activeEl);
+    }
+
+    _bindEventOnRendered(activeEl) {
+      const { autoHeader } = this.config;
+
+      scrollActiveSidebar(this.router);
+
+      if (autoHeader && activeEl) {
+        const main = dom.getNode('#main');
+        const firstNode = main.children[0];
+        if (firstNode && firstNode.tagName !== 'H1') {
+          const h1 = this.compiler.header(activeEl.innerText, 1);
+          const wrapper = dom.create('div', h1);
+          dom.before(main, wrapper.children[0]);
+        }
+      }
+    }
+
+    _renderNav(text) {
+      text && this._renderTo('nav', this.compiler.compile(text));
+      if (this.config.loadNavbar) {
+        getAndActive(this.router, 'nav');
+      }
+    }
+
+    _renderMain(text, opt = {}, next) {
+      if (!text) {
+        return renderMain.call(this, text);
+      }
+
+      callHook(this, 'beforeEach', text, result => {
+        let html;
+        const callback = () => {
+          if (opt.updatedAt) {
+            html = formatUpdated(
+              html,
+              opt.updatedAt,
+              this.config.formatUpdated
+            );
           }
-        );
-      }
-    });
-  };
 
-  proto._renderCover = function(text, coverOnly) {
-    const el = dom.getNode('.cover');
+          callHook(this, 'afterEach', html, text =>
+            renderMain.call(this, text)
+          );
+        };
 
-    dom.toggleClass(
-      dom.getNode('main'),
-      coverOnly ? 'add' : 'remove',
-      'hidden'
-    );
-    if (!text) {
-      dom.toggleClass(el, 'remove', 'show');
-      return;
+        if (this.isHTML) {
+          html = this.result = text;
+          callback();
+          next();
+        } else {
+          prerenderEmbed(
+            {
+              compiler: this.compiler,
+              raw: result,
+            },
+            tokens => {
+              html = this.compiler.compile(tokens);
+              callback();
+              next();
+            }
+          );
+        }
+      });
     }
 
-    dom.toggleClass(el, 'add', 'show');
+    _renderCover(text, coverOnly) {
+      const el = dom.getNode('.cover');
 
-    let html = this.coverIsHTML ? text : this.compiler.cover(text);
+      dom.toggleClass(
+        dom.getNode('main'),
+        coverOnly ? 'add' : 'remove',
+        'hidden'
+      );
+      if (!text) {
+        dom.toggleClass(el, 'remove', 'show');
+        return;
+      }
 
-    const m = html
-      .trim()
-      .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
+      dom.toggleClass(el, 'add', 'show');
 
-    if (m) {
-      if (m[2] === 'color') {
-        el.style.background = m[1] + (m[3] || '');
-      } else {
-        let path = m[1];
+      let html = this.coverIsHTML ? text : this.compiler.cover(text);
 
-        dom.toggleClass(el, 'add', 'has-mask');
-        if (!isAbsolutePath(m[1])) {
-          path = getPath(this.router.getBasePath(), m[1]);
+      const m = html
+        .trim()
+        .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
+
+      if (m) {
+        if (m[2] === 'color') {
+          el.style.background = m[1] + (m[3] || '');
+        } else {
+          let path = m[1];
+
+          dom.toggleClass(el, 'add', 'has-mask');
+          if (!isAbsolutePath(m[1])) {
+            path = getPath(this.router.getBasePath(), m[1]);
+          }
+
+          el.style.backgroundImage = `url(${path})`;
+          el.style.backgroundSize = 'cover';
+          el.style.backgroundPosition = 'center center';
         }
 
-        el.style.backgroundImage = `url(${path})`;
-        el.style.backgroundSize = 'cover';
-        el.style.backgroundPosition = 'center center';
+        html = html.replace(m[0], '');
       }
 
-      html = html.replace(m[0], '');
+      this._renderTo('.cover-main', html);
+      sticky();
     }
 
-    this._renderTo('.cover-main', html);
-    sticky();
-  };
-
-  proto._updateRender = function() {
-    // Render name link
-    renderNameLink(this);
+    _updateRender() {
+      // Render name link
+      renderNameLink(this);
+    }
   };
 }
 

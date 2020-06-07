@@ -5,17 +5,14 @@ import { fetchMixin } from './fetch';
 import { eventMixin } from './event';
 import initGlobalAPI from './global-api';
 
-export function Docsify() {
-  this._init();
+export class Docsify extends initMixin(
+  routerMixin(renderMixin(fetchMixin(eventMixin())))
+) {
+  constructor() {
+    super();
+    this._init();
+  }
 }
-
-const proto = Docsify.prototype;
-
-initMixin(proto);
-routerMixin(proto);
-renderMixin(proto);
-fetchMixin(proto);
-eventMixin(proto);
 
 /**
  * Global API
