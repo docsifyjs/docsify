@@ -28,7 +28,7 @@
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint .",
     "fixlint": "eslint . --fix",
-    "test": "mocha ./test/**/*.test.js",
+    "test": "npm run build && mocha ./test/**/*.test.js",
     "testServer": "node cypress/setup.js",
     "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
     "posttest:e2e": "rimraf cypress/fixtures/docs",
