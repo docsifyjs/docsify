@@ -55,7 +55,8 @@ describe('Docsify public API', () => {
     const { documentReady } = require('../../src/core/util/dom');
     await new Promise(resolve => documentReady(resolve, DOM.window.document));
 
-    // deprecated global API, still works for now, backwards comaptible
+    // If the script was built successfully for production, then it should load
+    // and the following APIs should be available:
     expect(typeof DOM.window.Docsify).to.equal('object');
     expect(typeof DOM.window.Docsify.util).to.equal('object');
     expect(typeof DOM.window.Docsify.dom).to.equal('object');
