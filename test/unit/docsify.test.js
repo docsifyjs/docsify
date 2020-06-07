@@ -15,9 +15,6 @@ const markup = /* html */ `<!DOCTYPE html>
     <body>
       <div id="app"></div>
       <script src="/lib/docsify.js"></script>
-      <script>
-        //fetch("../lib/docsify.js").then(async r => console.log(r.text()))
-      </script>
     </body>
   </html>
 `;
