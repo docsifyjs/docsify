@@ -228,7 +228,7 @@ export function renderMixin(Base = class {}) {
       sticky();
     }
 
-    _updateRender() {
+    _render_updateRender() {
       // Render name link
       renderNameLink(this);
     }
@@ -300,6 +300,6 @@ export function initRender(vm) {
     cssVars(config.themeColor);
   }
 
-  vm._updateRender();
+  vm._render_updateRender();
   dom.toggleClass(dom.body, 'ready');
 }

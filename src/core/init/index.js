@@ -1,6 +1,5 @@
 import config from '../config';
 import { initRender } from '../render';
-import { initRouter } from '../router';
 import { initEvent } from '../event';
 import { initFetch } from '../fetch';
 
@@ -12,7 +11,7 @@ export function initMixin(Base = class {}) {
       this.initLifecycle(); // Init hooks
       this.initPlugin(); // Install plugins
       this.callHook('init');
-      initRouter(this); // Add router
+      this.initRouter(); // Add router
       initRender(this); // Render base DOM
       initEvent(this); // Bind events
       initFetch(this); // Fetch data

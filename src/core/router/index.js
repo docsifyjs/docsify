@@ -5,43 +5,46 @@ import { HashHistory } from './history/hash';
 import { HTML5History } from './history/html5';
 
 export function routerMixin(Base = class {}) {
-  return class extends Base {};
-}
-
-let lastRoute = {};
-
-function updateRender(vm) {
-  vm.router.normalize();
-  vm.route = vm.router.parse();
-  dom.body.setAttribute('data-page', vm.route.file);
-}
-
-export function initRouter(vm) {
-  const config = vm.config;
-  const mode = config.routerMode || 'hash';
-  let router;
-
-  if (mode === 'history' && supportsPushState) {
-    router = new HTML5History(config);
-  } else {
-    router = new HashHistory(config);
-  }
-
-  vm.router = router;
-  updateRender(vm);
-  lastRoute = vm.route;
-
-  // eslint-disable-next-line no-unused-vars
-  router.onchange(params => {
-    updateRender(vm);
-    vm._updateRender();
-
-    if (lastRoute.path === vm.route.path) {
-      vm.$resetEvents(params.source);
-      return;
+  return class extends Base {
+    constructor() {
+      super();
+      this._lastRoute = {};
     }
 
-    vm.$fetch(noop, vm.$resetEvents.bind(vm, params.source));
-    lastRoute = vm.route;
-  });
+    initRouter() {
+      const config = this.config;
+      const mode = config.routerMode || 'hash';
+      let router;
+
+      if (mode === 'history' && supportsPushState) {
+        router = new HTML5History(config);
+      } else {
+        router = new HashHistory(config);
+      }
+
+      this.router = router;
+      this._router_updateRender();
+      this._lastRoute = this.route;
+
+      // eslint-disable-next-line no-unused-vars
+      router.onchange(params => {
+        this._router_updateRender();
+        this._render_updateRender();
+
+        if (this._lastRoute.path === this.route.path) {
+          this.$resetEvents(params.source);
+          return;
+        }
+
+        this.$fetch(noop, this.$resetEvents.bind(this, params.source));
+        this._lastRoute = this.route;
+      });
+    }
+
+    _router_updateRender() {
+      this.router.normalize();
+      this.route = this.router.parse();
+      dom.body.setAttribute('data-page', this.route.file);
+    }
+  };
 }
