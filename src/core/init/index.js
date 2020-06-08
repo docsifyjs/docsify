@@ -1,5 +1,4 @@
 import config from '../config';
-import { initFetch } from '../fetch';
 
 export function initMixin(Base = class {}) {
   return class extends Base {
@@ -12,7 +11,7 @@ export function initMixin(Base = class {}) {
       this.initRouter(); // Add router
       this.initRender(); // Render base DOM
       this.initEvent(); // Bind events
-      initFetch(this); // Fetch data
+      this.initFetch(); // Fetch data
       this.callHook('mounted');
     }
   };

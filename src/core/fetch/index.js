@@ -4,61 +4,56 @@ import { noop } from '../util/core';
 import { getAndActive } from '../event/sidebar';
 import { get } from './ajax';
 
-function loadNested(path, qs, file, next, vm, first) {
-  path = first ? path : path.replace(/\/$/, '');
-  path = getParentPath(path);
-
-  if (!path) {
-    return;
-  }
-
-  get(
-    vm.router.getFile(path + file) + qs,
-    false,
-    vm.config.requestHeaders
-  ).then(next, _ => loadNested(path, qs, file, next, vm));
-}
-
-let last;
-
-const abort = () => last && last.abort && last.abort();
-const request = (url, hasbar, requestHeaders) => {
-  abort();
-  last = get(url, true, requestHeaders);
-  return last;
-};
-
-const get404Path = (path, config) => {
-  const { notFoundPage, ext } = config;
-  const defaultPath = '_404' + (ext || '.md');
-  let key;
-  let path404;
-
-  switch (typeof notFoundPage) {
-    case 'boolean':
-      path404 = defaultPath;
-      break;
-    case 'string':
-      path404 = notFoundPage;
-      break;
-
-    case 'object':
-      key = Object.keys(notFoundPage)
-        .sort((a, b) => b.length - a.length)
-        .find(key => path.match(new RegExp('^' + key)));
-
-      path404 = (key && notFoundPage[key]) || defaultPath;
-      break;
-
-    default:
-      break;
-  }
-
-  return path404;
-};
-
 export function fetchMixin(Base = class {}) {
   return class extends Base {
+    constructor() {
+      super();
+      this._lastRequest = null;
+    }
+
+    _abort() {
+      return (
+        this._lastRequest &&
+        this._lastRequest.abort &&
+        this._lastRequest.abort()
+      );
+    }
+
+    _request(url, hasbar, requestHeaders) {
+      this._abort();
+      this._lastRequest = get(url, true, requestHeaders);
+      return this._lastRequest;
+    }
+
+    _get404Path(path, config) {
+      const { notFoundPage, ext } = config;
+      const defaultPath = '_404' + (ext || '.md');
+      let key;
+      let path404;
+
+      switch (typeof notFoundPage) {
+        case 'boolean':
+          path404 = defaultPath;
+          break;
+        case 'string':
+          path404 = notFoundPage;
+          break;
+
+        case 'object':
+          key = Object.keys(notFoundPage)
+            .sort((a, b) => b.length - a.length)
+            .find(key => path.match(new RegExp('^' + key)));
+
+          path404 = (key && notFoundPage[key]) || defaultPath;
+          break;
+
+        default:
+          break;
+      }
+
+      return path404;
+    }
+
     _loadSideAndNav(path, qs, loadSidebar, cb) {
       return () => {
         if (!loadSidebar) {
@@ -71,7 +66,7 @@ export function fetchMixin(Base = class {}) {
         };
 
         // Load sidebar
-        loadNested(path, qs, loadSidebar, fn, this, true);
+        this._loadNested(path, qs, loadSidebar, fn, true);
       };
     }
 
@@ -82,7 +77,7 @@ export function fetchMixin(Base = class {}) {
       // Abort last request
 
       const file = this.router.getFile(path);
-      const req = request(file + qs, true, requestHeaders);
+      const req = this._request(file + qs, true, requestHeaders);
 
       // Current page is html
       this.isHTML = /\.html$/g.test(file);
@@ -102,14 +97,28 @@ export function fetchMixin(Base = class {}) {
 
       // Load nav
       loadNavbar &&
-        loadNested(
+        this._loadNested(
           path,
           qs,
           loadNavbar,
           text => this._renderNav(text),
-          this,
           true
         );
+    }
+
+    _loadNested(path, qs, file, next, first) {
+      path = first ? path : path.replace(/\/$/, '');
+      path = getParentPath(path);
+
+      if (!path) {
+        return;
+      }
+
+      get(
+        this.router.getFile(path + file) + qs,
+        false,
+        this.config.requestHeaders
+      ).then(next, _ => this._loadNested(path, qs, file, next));
     }
 
     _fetchCover() {
@@ -180,7 +189,7 @@ export function fetchMixin(Base = class {}) {
       }
 
       const newPath = path.replace(new RegExp(`^/${local}`), '');
-      const req = request(newPath + qs, true, requestHeaders);
+      const req = this._request(newPath + qs, true, requestHeaders);
 
       req.then(
         (text, opt) =>
@@ -208,9 +217,9 @@ export function fetchMixin(Base = class {}) {
 
       const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb);
       if (notFoundPage) {
-        const path404 = get404Path(path, this.config);
+        const path404 = this._get404Path(path, this.config);
 
-        request(this.router.getFile(path404), true, requestHeaders).then(
+        this._request(this.router.getFile(path404), true, requestHeaders).then(
           (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
           () => this._renderMain(null, {}, fnLoadSideAndNav)
         );
@@ -220,24 +229,24 @@ export function fetchMixin(Base = class {}) {
       this._renderMain(null, {}, fnLoadSideAndNav);
       return false;
     }
-  };
-}
 
-export function initFetch(vm) {
-  const { loadSidebar } = vm.config;
+    initFetch() {
+      const { loadSidebar } = this.config;
 
-  // Server-Side Rendering
-  if (vm.rendered) {
-    const activeEl = getAndActive(vm.router, '.sidebar-nav', true, true);
-    if (loadSidebar && activeEl) {
-      activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
+      // Server-Side Rendering
+      if (this.rendered) {
+        const activeEl = getAndActive(this.router, '.sidebar-nav', true, true);
+        if (loadSidebar && activeEl) {
+          activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
+        }
+
+        this._bindEventOnRendered(activeEl);
+        this.$resetEvents();
+        this.callHook('doneEach');
+        this.callHook('ready');
+      } else {
+        this.$fetch(_ => this.callHook('ready'));
+      }
     }
-
-    vm._bindEventOnRendered(activeEl);
-    vm.$resetEvents();
-    vm.callHook('doneEach');
-    vm.callHook('ready');
-  } else {
-    vm.$fetch(_ => vm.callHook('ready'));
-  }
+  };
 }
