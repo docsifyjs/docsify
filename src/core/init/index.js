@@ -4,22 +4,20 @@ import { initRouter } from '../router';
 import { initEvent } from '../event';
 import { initFetch } from '../fetch';
 import { isFn } from '../util/core';
-import { initLifecycle, callHook } from './lifecycle';
 
 export function initMixin(Base = class {}) {
   return class extends Base {
     _init() {
-      const vm = this;
-      vm.config = config(vm);
+      this.config = config(this);
 
-      initLifecycle(vm); // Init hooks
-      initPlugin(vm); // Install plugins
-      callHook(vm, 'init');
-      initRouter(vm); // Add router
-      initRender(vm); // Render base DOM
-      initEvent(vm); // Bind events
-      initFetch(vm); // Fetch data
-      callHook(vm, 'mounted');
+      this.initLifecycle(); // Init hooks
+      initPlugin(this); // Install plugins
+      this.callHook('init');
+      initRouter(this); // Add router
+      initRender(this); // Render base DOM
+      initEvent(this); // Bind events
+      initFetch(this); // Fetch data
+      this.callHook('mounted');
     }
   };
 }

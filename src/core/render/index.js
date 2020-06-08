@@ -2,7 +2,6 @@
 import tinydate from 'tinydate';
 import * as dom from '../util/dom';
 import cssVars from '../util/polyfill/css-vars';
-import { callHook } from '../init/lifecycle';
 import { getAndActive, sticky } from '../event/sidebar';
 import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
@@ -151,7 +150,7 @@ export function renderMixin(Base = class {}) {
         return renderMain.call(this, text);
       }
 
-      callHook(this, 'beforeEach', text, result => {
+      this.callHook('beforeEach', text, result => {
         let html;
         const callback = () => {
           if (opt.updatedAt) {
@@ -162,9 +161,7 @@ export function renderMixin(Base = class {}) {
             );
           }
 
-          callHook(this, 'afterEach', html, text =>
-            renderMain.call(this, text)
-          );
+          this.callHook('afterEach', html, text => renderMain.call(this, text));
         };
 
         if (this.isHTML) {

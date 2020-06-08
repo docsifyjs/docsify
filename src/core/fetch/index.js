@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { callHook } from '../init/lifecycle';
 import { getParentPath, stringifyQuery } from '../router/util';
 import { noop } from '../util/core';
 import { getAndActive } from '../event/sidebar';
@@ -151,7 +150,7 @@ export function fetchMixin(Base = class {}) {
 
     $fetch(cb = noop, $resetEvents = this.$resetEvents.bind(this)) {
       const done = () => {
-        callHook(this, 'doneEach');
+        this.callHook('doneEach');
         cb();
       };
 
@@ -236,9 +235,9 @@ export function initFetch(vm) {
 
     vm._bindEventOnRendered(activeEl);
     vm.$resetEvents();
-    callHook(vm, 'doneEach');
-    callHook(vm, 'ready');
+    vm.callHook('doneEach');
+    vm.callHook('ready');
   } else {
-    vm.$fetch(_ => callHook(vm, 'ready'));
+    vm.$fetch(_ => vm.callHook('ready'));
   }
 }
