@@ -1,5 +1,9 @@
 import config from '../config';
 
+/**
+ * This class is responsible to initializing all other mixins in a certain
+ * order, and calling lifecycle hooks at appropriate times.
+ */
 export function initMixin(Base = class {}) {
   return class extends Base {
     constructor() {

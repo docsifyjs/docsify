@@ -4,6 +4,10 @@ import { noop } from '../util/core';
 import { getAndActive } from '../event/sidebar';
 import { get } from './ajax';
 
+/**
+ * This class provides methods for fetching content (f.e. markdown pages). It
+ * coordinates renderMixin with help from the router.
+ */
 export function fetchMixin(Base = class {}) {
   return class extends Base {
     constructor() {

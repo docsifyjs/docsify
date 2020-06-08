@@ -1,5 +1,6 @@
 import { noop } from '../util/core';
 
+/** This class sets of lifecycle hooks that plugins can hook into. */
 export function lifecycleMixin(Base = class {}) {
   return class Lifecycle extends Base {
     initLifecycle() {

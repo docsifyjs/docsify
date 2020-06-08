@@ -4,6 +4,10 @@ import { noop } from '../util/core';
 import { HashHistory } from './history/hash';
 import { HTML5History } from './history/html5';
 
+/**
+ * This class wires up the mechanisms that react to URL changes of the browser
+ * address bar.
+ */
 export function routerMixin(Base = class {}) {
   return class extends Base {
     constructor() {

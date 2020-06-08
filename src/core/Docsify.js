@@ -7,6 +7,7 @@ import { renderMixin } from './render';
 import { fetchMixin } from './fetch';
 import { eventMixin } from './event';
 
+/** This class contains all the magic. */
 export class Docsify extends multiple(
   initMixin,
   lifecycleMixin,

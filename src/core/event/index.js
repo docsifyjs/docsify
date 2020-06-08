@@ -3,6 +3,13 @@ import { body, on } from '../util/dom';
 import * as sidebar from './sidebar';
 import { scrollIntoView, scroll2Top } from './scroll';
 
+/**
+ * This class wires up some UI events using the `sidebar` utility. On each
+ * route change it re-initializes the events because the sidebar is re-rendered
+ * each time we go to a new page.
+ */
+// TODO @trusktr, this should need to re-initialize events, and the sidebar
+// should not be re-rendered each time.
 export function eventMixin(Base = class {}) {
   return class extends Base {
     $resetEvents(source) {

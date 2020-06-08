@@ -11,6 +11,11 @@ import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
 
+/**
+ * This class is provides methods for rendering the Docsify site content using
+ * the Compiler to convert markdown into HTML. It wires up the Compiler with
+ * the router.
+ */
 export function renderMixin(Base = class {}) {
   return class extends Base {
     _executeScript() {
@@ -86,6 +91,7 @@ export function renderMixin(Base = class {}) {
         el.setAttribute('href', nameLink[match]);
       }
     }
+
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
