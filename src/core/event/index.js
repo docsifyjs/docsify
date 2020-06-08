@@ -8,8 +8,9 @@ import { scrollIntoView, scroll2Top } from './scroll';
  * route change it re-initializes the events because the sidebar is re-rendered
  * each time we go to a new page.
  */
-// TODO @trusktr, this should need to re-initialize events, and the sidebar
-// should not be re-rendered each time.
+// TODO @trusktr, this should not need to re-initialize events, and the sidebar
+// should not be re-rendered each time we navigate to a new page unless there is
+// a new sidebar.md file for that page.
 export function eventMixin(Base = class {}) {
   return class extends Base {
     $resetEvents(source) {
