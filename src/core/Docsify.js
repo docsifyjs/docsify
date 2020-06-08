@@ -16,12 +16,7 @@ export class Docsify extends multiple(
   renderMixin,
   fetchMixin,
   eventMixin
-) {
-  constructor() {
-    super();
-    this._init();
-  }
-}
+) {}
 
 /**
  * Global API

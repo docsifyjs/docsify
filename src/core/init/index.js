@@ -2,7 +2,9 @@ import config from '../config';
 
 export function initMixin(Base = class {}) {
   return class extends Base {
-    _init() {
+    constructor() {
+      super();
+
       this.config = config(this);
 
       this.initLifecycle(); // Init hooks
