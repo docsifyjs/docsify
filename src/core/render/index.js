@@ -232,74 +232,75 @@ export function renderMixin(Base = class {}) {
       // Render name link
       renderNameLink(this);
     }
-  };
-}
 
-export function initRender(vm) {
-  const config = vm.config;
+    initRender() {
+      const config = this.config;
 
-  // Init markdown compiler
-  vm.compiler = new Compiler(config, vm.router);
-  if (inBrowser) {
-    window.__current_docsify_compiler__ = vm.compiler;
-  }
-
-  const id = config.el || '#app';
-  const navEl = dom.find('nav') || dom.create('nav');
-
-  const el = dom.find(id);
-  let html = '';
-  let navAppendToTarget = dom.body;
-
-  if (el) {
-    if (config.repo) {
-      html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
-    }
-
-    if (config.coverpage) {
-      html += tpl.cover();
-    }
-
-    if (config.logo) {
-      const isBase64 = /^data:image/.test(config.logo);
-      const isExternal = /(?:http[s]?:)?\/\//.test(config.logo);
-      const isRelative = /^\./.test(config.logo);
-
-      if (!isBase64 && !isExternal && !isRelative) {
-        config.logo = getPath(vm.router.getBasePath(), config.logo);
+      // Init markdown compiler
+      this.compiler = new Compiler(config, this.router);
+      if (inBrowser) {
+        // TODO @trusktr, get rid of globals!
+        window.__current_docsify_compiler__ = this.compiler;
       }
+
+      const id = config.el || '#app';
+      const navEl = dom.find('nav') || dom.create('nav');
+
+      const el = dom.find(id);
+      let html = '';
+      let navAppendToTarget = dom.body;
+
+      if (el) {
+        if (config.repo) {
+          html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
+        }
+
+        if (config.coverpage) {
+          html += tpl.cover();
+        }
+
+        if (config.logo) {
+          const isBase64 = /^data:image/.test(config.logo);
+          const isExternal = /(?:http[s]?:)?\/\//.test(config.logo);
+          const isRelative = /^\./.test(config.logo);
+
+          if (!isBase64 && !isExternal && !isRelative) {
+            config.logo = getPath(this.router.getBasePath(), config.logo);
+          }
+        }
+
+        html += tpl.main(config);
+        // Render main app
+        this._renderTo(el, html, true);
+      } else {
+        this.rendered = true;
+      }
+
+      if (config.mergeNavbar && isMobile) {
+        navAppendToTarget = dom.find('.sidebar');
+      } else {
+        navEl.classList.add('app-nav');
+
+        if (!config.repo) {
+          navEl.classList.add('no-badge');
+        }
+      }
+
+      // Add nav
+      if (config.loadNavbar) {
+        dom.before(navAppendToTarget, navEl);
+      }
+
+      if (config.themeColor) {
+        dom.$.head.appendChild(
+          dom.create('div', tpl.theme(config.themeColor)).firstElementChild
+        );
+        // Polyfll
+        cssVars(config.themeColor);
+      }
+
+      this._render_updateRender();
+      dom.toggleClass(dom.body, 'ready');
     }
-
-    html += tpl.main(config);
-    // Render main app
-    vm._renderTo(el, html, true);
-  } else {
-    vm.rendered = true;
-  }
-
-  if (config.mergeNavbar && isMobile) {
-    navAppendToTarget = dom.find('.sidebar');
-  } else {
-    navEl.classList.add('app-nav');
-
-    if (!config.repo) {
-      navEl.classList.add('no-badge');
-    }
-  }
-
-  // Add nav
-  if (config.loadNavbar) {
-    dom.before(navAppendToTarget, navEl);
-  }
-
-  if (config.themeColor) {
-    dom.$.head.appendChild(
-      dom.create('div', tpl.theme(config.themeColor)).firstElementChild
-    );
-    // Polyfll
-    cssVars(config.themeColor);
-  }
-
-  vm._render_updateRender();
-  dom.toggleClass(dom.body, 'ready');
+  };
 }
