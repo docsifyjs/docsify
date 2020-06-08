@@ -6,7 +6,6 @@ import { routerMixin } from './router';
 import { renderMixin } from './render';
 import { fetchMixin } from './fetch';
 import { eventMixin } from './event';
-import initGlobalAPI from './global-api';
 
 export class Docsify extends multiple(
   initMixin,
@@ -17,8 +16,3 @@ export class Docsify extends multiple(
   fetchMixin,
   eventMixin
 ) {}
-
-/**
- * Global API
- */
-initGlobalAPI();
