@@ -11,82 +11,81 @@ import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
 
-function executeScript() {
-  const script = dom
-    .findAll('.markdown-section>script')
-    .filter(s => !/template/.test(s.type))[0];
-  if (!script) {
-    return false;
-  }
-
-  const code = script.innerText.trim();
-  if (!code) {
-    return false;
-  }
-
-  setTimeout(_ => {
-    window.__EXECUTE_RESULT__ = new Function(code)();
-  }, 0);
-}
-
-function formatUpdated(html, updated, fn) {
-  updated =
-    typeof fn === 'function'
-      ? fn(updated)
-      : typeof fn === 'string'
-      ? tinydate(fn)(new Date(updated))
-      : updated;
-
-  return html.replace(/{docsify-updated}/g, updated);
-}
-
-function renderMain(html) {
-  if (!html) {
-    html = '<h1>404 - Not found</h1>';
-  }
-
-  this._renderTo('.markdown-section', html);
-  // Render sidebar with the TOC
-  !this.config.loadSidebar && this._renderSidebar();
-
-  // Execute script
-  if (
-    this.config.executeScript !== false &&
-    typeof window.Vue !== 'undefined' &&
-    !executeScript()
-  ) {
-    setTimeout(_ => {
-      const vueVM = window.__EXECUTE_RESULT__;
-      vueVM && vueVM.$destroy && vueVM.$destroy();
-      window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main');
-    }, 0);
-  } else {
-    this.config.executeScript && executeScript();
-  }
-}
-
-function renderNameLink(vm) {
-  const el = dom.getNode('.app-name-link');
-  const nameLink = vm.config.nameLink;
-  const path = vm.route.path;
-
-  if (!el) {
-    return;
-  }
-
-  if (isPrimitive(vm.config.nameLink)) {
-    el.setAttribute('href', nameLink);
-  } else if (typeof nameLink === 'object') {
-    const match = Object.keys(nameLink).filter(
-      key => path.indexOf(key) > -1
-    )[0];
-
-    el.setAttribute('href', nameLink[match]);
-  }
-}
-
 export function renderMixin(Base = class {}) {
   return class extends Base {
+    _executeScript() {
+      const script = dom
+        .findAll('.markdown-section>script')
+        .filter(s => !/template/.test(s.type))[0];
+      if (!script) {
+        return false;
+      }
+
+      const code = script.innerText.trim();
+      if (!code) {
+        return false;
+      }
+
+      setTimeout(_ => {
+        window.__EXECUTE_RESULT__ = new Function(code)();
+      }, 0);
+    }
+
+    _formatUpdated(html, updated, fn) {
+      updated =
+        typeof fn === 'function'
+          ? fn(updated)
+          : typeof fn === 'string'
+          ? tinydate(fn)(new Date(updated))
+          : updated;
+
+      return html.replace(/{docsify-updated}/g, updated);
+    }
+
+    __renderMain(html) {
+      if (!html) {
+        html = '<h1>404 - Not found</h1>';
+      }
+
+      this._renderTo('.markdown-section', html);
+      // Render sidebar with the TOC
+      !this.config.loadSidebar && this._renderSidebar();
+
+      // Execute script
+      if (
+        this.config.executeScript !== false &&
+        typeof window.Vue !== 'undefined' &&
+        !this._executeScript()
+      ) {
+        setTimeout(_ => {
+          const vueVM = window.__EXECUTE_RESULT__;
+          vueVM && vueVM.$destroy && vueVM.$destroy();
+          window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main');
+        }, 0);
+      } else {
+        this.config.executeScript && this._executeScript();
+      }
+    }
+
+    _renderNameLink(vm) {
+      const el = dom.getNode('.app-name-link');
+      const nameLink = vm.config.nameLink;
+      const path = vm.route.path;
+
+      if (!el) {
+        return;
+      }
+
+      if (isPrimitive(vm.config.nameLink)) {
+        el.setAttribute('href', nameLink);
+      } else if (typeof nameLink === 'object') {
+        const match = Object.keys(nameLink).filter(
+          key => path.indexOf(key) > -1
+        )[0];
+
+        el.setAttribute('href', nameLink[match]);
+      }
+    }
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
@@ -147,21 +146,21 @@ export function renderMixin(Base = class {}) {
 
     _renderMain(text, opt = {}, next) {
       if (!text) {
-        return renderMain.call(this, text);
+        return this.__renderMain(text);
       }
 
       this.callHook('beforeEach', text, result => {
         let html;
         const callback = () => {
           if (opt.updatedAt) {
-            html = formatUpdated(
+            html = this._formatUpdated(
               html,
               opt.updatedAt,
               this.config.formatUpdated
             );
           }
 
-          this.callHook('afterEach', html, text => renderMain.call(this, text));
+          this.callHook('afterEach', html, text => this.__renderMain(text));
         };
 
         if (this.isHTML) {
@@ -230,7 +229,7 @@ export function renderMixin(Base = class {}) {
 
     _render_updateRender() {
       // Render name link
-      renderNameLink(this);
+      this._renderNameLink(this);
     }
 
     initRender() {
