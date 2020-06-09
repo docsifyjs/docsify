@@ -9,20 +9,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="keywords" content="doc,docs,documentation,gitbook,creator,generator,github,jekyll,github-pages">
   <meta name="description" content="A magical documentation generator.">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link 
-    rel="stylesheet"
-    href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/docsify-style.min.css"
-    title="docsify-darklight-theme"
-    type="text/css"
-  />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" title="vue" disabled>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" title="vue">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/buble.css" title="buble" disabled>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/pure.css" title="pure" disabled>
 
   <script src="//cdn.jsdelivr.net/npm/docsify-plugin-codefund/index.js"></script>
+  <link rel="stylesheet"  href="//cdn.jsdelivr.net/npm/docsify-dark-mode@0.6.1/dist/style.css"/>
   <style>
     nav.app-nav li ul {
       min-width: 100px;
@@ -70,8 +64,10 @@
           '/': 'Search'
         }
       },
-      darklightTheme: {
-        bodyFontSize : '15px',
+      darkMode: {
+        light: {
+          toggleBtnBg: '#42b983'
+        }
       },
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
@@ -107,10 +103,7 @@
   <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-nginx.min.js"></script>
-  <script 
-    src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@3/dist/index.min.js"
-    type="text/javascript">
-  </script> 
+  <script src="https://cdn.jsdelivr.net/npm/docsify-dark-mode@0.6.1/dist/index.js"></script>
   <script>
   ((window.gitter = {}).chat = {}).options = {
     room: 'docsifyjs/Lobby'
