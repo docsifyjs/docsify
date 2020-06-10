@@ -1,3 +1,4 @@
+import marked from 'marked';
 import { isAbsolutePath, getPath, getParentPath } from '../router/util';
 import { isFn, merge, cached, isPrimitive } from '../util/core';
 import { tree as treeTpl } from './tpl';
@@ -11,7 +12,6 @@ import { paragraphCompiler } from './compiler/paragraph';
 import { taskListCompiler } from './compiler/taskList';
 import { taskListItemCompiler } from './compiler/taskListItem';
 import { linkCompiler } from './compiler/link';
-import marked from 'marked';
 
 const cachedLinks = {};
 
@@ -121,6 +121,21 @@ export class Compiler {
     };
   }
 
+  /**
+   * Pulls content from file and renders inline on the page as a embedded item.
+   *
+   * This allows you to embed different file types on the returned
+   * page.
+   * The basic format is:
+   * ```
+   *   [filename](_media/example.md ':include')
+   * ```
+   *
+   * @param {string}   href   The href to the file to embed in the page.
+   * @param {string}   title  Title of the link used to make the embed.
+   *
+   * @return {type} Return value description.
+   */
   compileEmbed(href, title) {
     const { str, config } = getAndRemoveConfig(title);
     let embed;
@@ -178,7 +193,7 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer();
-    const { linkTarget, router, contentBase } = this;
+    const { linkTarget, linkRel, router, contentBase } = this;
     const _self = this;
     const origin = {};
 
@@ -218,6 +233,7 @@ export class Compiler {
       renderer,
       router,
       linkTarget,
+      linkRel,
       compilerClass: _self,
     });
     origin.paragraph = paragraphCompiler({ renderer });

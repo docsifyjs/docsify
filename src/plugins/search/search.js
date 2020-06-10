@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { getAndRemoveConfig } from '../../core/render/utils';
+
 let INDEXS = {};
 
 const LOCAL_STORAGE = {
@@ -25,10 +27,9 @@ function escapeHtml(string) {
     '>': '&gt;',
     '"': '&quot;',
     "'": '&#39;',
-    '/': '&#x2F;',
   };
 
-  return String(string).replace(/[&<>"'/]/g, s => entityMap[s]);
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
 
 function getAllPaths(router) {
@@ -53,6 +54,17 @@ function getAllPaths(router) {
   return paths;
 }
 
+function getTableData(token) {
+  if (!token.text && token.type === 'table') {
+    token.text = token.cells
+      .map(function(rows) {
+        return rows.join(' | ');
+      })
+      .join(' |\n ');
+  }
+  return token.text;
+}
+
 function saveData(maxAge, expireKey, indexKey) {
   localStorage.setItem(expireKey, Date.now() + maxAge);
   localStorage.setItem(indexKey, JSON.stringify(INDEXS));
@@ -66,8 +78,15 @@ export function genIndex(path, content = '', router, depth) {
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
-      slug = router.toURL(path, { id: slugify(token.text) });
-      index[slug] = { slug, title: token.text, body: '' };
+      const { str, config } = getAndRemoveConfig(token.text);
+
+      if (config.id) {
+        slug = router.toURL(path, { id: slugify(config.id) });
+      } else {
+        slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
+      }
+
+      index[slug] = { slug, title: str, body: '' };
     } else {
       if (!slug) {
         return;
@@ -76,17 +95,11 @@ export function genIndex(path, content = '', router, depth) {
       if (!index[slug]) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
+        token.text = getTableData(token);
+
         index[slug].body += '\n' + (token.text || '');
       } else {
-        if (!token.text) {
-          if (token.type === 'table') {
-            token.text = token.cells
-              .map(function(rows) {
-                return rows.join(' | ');
-              })
-              .join(' |\n ');
-          }
-        }
+        token.text = getTableData(token);
 
         index[slug].body = index[slug].body
           ? index[slug].body + token.text
