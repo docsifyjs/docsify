@@ -171,11 +171,20 @@ function bindEvents() {
   const $inputWrap = Docsify.dom.find($search, '.input-wrap');
 
   let timeId;
-  // Prevent to Fold sidebar
+
+  /**
+    Prevent to Fold sidebar.
+
+    When searching on the mobile end,
+    the sidebar is collapsed when you click the INPUT box,
+    making it impossible to search.
+   */
   Docsify.dom.on(
     $search,
     'click',
-    e => e.target.tagName !== 'A' && e.stopPropagation()
+    e =>
+      ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
+      e.stopPropagation()
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);

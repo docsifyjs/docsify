@@ -54,6 +54,17 @@ function getAllPaths(router) {
   return paths;
 }
 
+function getTableData(token) {
+  if (!token.text && token.type === 'table') {
+    token.text = token.cells
+      .map(function(rows) {
+        return rows.join(' | ');
+      })
+      .join(' |\n ');
+  }
+  return token.text;
+}
+
 function saveData(maxAge, expireKey, indexKey) {
   localStorage.setItem(expireKey, Date.now() + maxAge);
   localStorage.setItem(indexKey, JSON.stringify(INDEXS));
@@ -84,17 +95,11 @@ export function genIndex(path, content = '', router, depth) {
       if (!index[slug]) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
+        token.text = getTableData(token);
+
         index[slug].body += '\n' + (token.text || '');
       } else {
-        if (!token.text) {
-          if (token.type === 'table') {
-            token.text = token.cells
-              .map(function(rows) {
-                return rows.join(' | ');
-              })
-              .join(' |\n ');
-          }
-        }
+        token.text = getTableData(token);
 
         index[slug].body = index[slug].body
           ? index[slug].body + token.text
