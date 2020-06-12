@@ -423,7 +423,7 @@ body.close
     left - $sidebar-width
     transition transform 250ms ease-out
 
-  .content
+  .content, .cover
     left 0
     max-width 100vw
     position static
@@ -441,6 +441,7 @@ body.close
   body.close
     .sidebar, .cover
       transform translateX($sidebar-width)
+      transition transform 250ms ease-out
 
     .sidebar-toggle
       background-color rgba($color-bg, 0.8)
