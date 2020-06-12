@@ -61,6 +61,32 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
 </html>
 ```
 
+If you want to install a specific version of docsify, you can manually create `index.html`:
+
+```html
+!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      //...
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+</body>
+</html>
+```
+
 If you installed python on your system, you can easily use it to run a static server to preview your site.
 
 ```bash
