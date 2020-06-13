@@ -12,40 +12,6 @@ body:not(.ready)
   [data-cloak], .app-nav, > nav
     display none
 
-.tooltip {
-	position: relative;
-}
-
-.tooltip .tooltiptext {
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0.3s linear 1s, opacity 0.3s linear 1s;
-	-webkit-transition: visibility 0.3s linear 1s, opacity 0.3s linear 1s;
-	-o-transition: visibility 0.3s linear 1s, opacity 0.3s linear 1s;
-	-moz-transition: visibility 0.3s linear 1s, opacity 0.3s linear 1s;
-	visibility: hidden;
-	background-color: black;
-	color: #fff;
-	text-align: center;
-	border-radius: 6px;
-	padding: 5px 5px;
-	position: absolute;
-	z-index: 21;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -105px;
-}
-
-.tooltip:hover .tooltiptext {
-	visibility: visible;
-	opacity: 1;
-}
-
-.tooltip .tooltiptext:hover {
-	visibility: hidden;
-}
-
-
 div#app
   font-size 30px
   font-weight lighter
