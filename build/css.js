@@ -36,9 +36,8 @@ fs.readdir(path.join(__dirname, '../src/themes'), (err, files) => {
                 if (code !== 0) {
                   console.error(message);
                   process.exit(code)
-                } else {
-                  console.log(message);
                 }
+                console.log(message);
             });
         } else {
             return
