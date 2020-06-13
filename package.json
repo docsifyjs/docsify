@@ -81,7 +81,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "esm": "^3.1.4",
     "husky": "^3.1.0",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.2.2",
     "lerna": "^3.17.0",
     "lint-staged": "^10.1.2",
     "live-server": "^1.2.1",
@@ -97,6 +97,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.4",
+    "serve-handler": "^6.1.2",
     "start-server-and-test": "^1.10.6",
     "stylus": "^0.54.5"
   },
