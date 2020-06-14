@@ -54,10 +54,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "npm run fixlint",
-      "git add"
-    ]
+    "*.js": "eslint --fix"
   },
   "dependencies": {
     "dompurify": "^2.0.8",
@@ -85,9 +82,9 @@
     "eslint-plugin-prettier": "^3.1.2",
     "esm": "^3.1.4",
     "husky": "^3.1.0",
-    "jsdom": "^15.1.1",
-    "lerna": "^3.17.0",
-    "lint-staged": "^9.5.0",
+    "jsdom": "^16.2.2",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.1.2",
     "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
@@ -101,6 +98,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.4",
+    "serve-handler": "^6.1.2",
     "start-server-and-test": "^1.10.6",
     "stylus": "^0.54.5"
   },

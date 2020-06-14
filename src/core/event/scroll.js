@@ -1,7 +1,8 @@
+import Tweezer from 'tweezer.js';
 import { isMobile } from '../util/env';
 import * as dom from '../util/dom';
+import { removeParams } from '../router/util';
 import config from '../config';
-import Tweezer from 'tweezer.js';
 
 const nav = {};
 let hoverOver = false;
@@ -59,8 +60,7 @@ function highlight(path) {
     return;
   }
 
-  const li =
-    nav[getNavKey(decodeURIComponent(path), last.getAttribute('data-id'))];
+  const li = nav[getNavKey(path, last.getAttribute('data-id'))];
 
   if (!li || li === active) {
     return;
@@ -86,7 +86,7 @@ function highlight(path) {
 }
 
 function getNavKey(path, id) {
-  return `${path}?id=${id}`;
+  return `${decodeURIComponent(path)}?id=${decodeURIComponent(id)}`;
 }
 
 export function scrollActiveSidebar(router) {
@@ -127,7 +127,7 @@ export function scrollActiveSidebar(router) {
     return;
   }
 
-  const path = router.getCurrentPath();
+  const path = removeParams(router.getCurrentPath());
   dom.off('scroll', () => highlight(path));
   dom.on('scroll', () => highlight(path));
   dom.on(sidebar, 'mouseover', () => {

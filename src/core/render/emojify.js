@@ -12,6 +12,8 @@ function replace(m, $1) {
 
 export function emojify(text) {
   return text
+    .replace(/:\+1:/g, ':thumbsup:')
+    .replace(/:-1:/g, ':thumbsdown:')
     .replace(/<(pre|template|code)[^>]*?>[\s\S]+?<\/(pre|template|code)>/g, m =>
       m.replace(/:/g, '__colon__')
     )

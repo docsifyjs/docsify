@@ -22,7 +22,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
       if (height) {
         attrs.push(`width="${width}" height="${height}"`);
       } else {
-        attrs.push(`width="${width}" height="${width}"`);
+        attrs.push(`width="${width}"`);
       }
     }
 

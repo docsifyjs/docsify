@@ -24,11 +24,12 @@ rollup
     var dest = 'packages/docsify-server-renderer/build.js'
 
     console.log(dest)
-    bundle.write({
+    return bundle.write({
       format: 'cjs',
       file: dest
     })
   })
   .catch(function (err) {
     console.error(err)
+    process.exit(1)
   })

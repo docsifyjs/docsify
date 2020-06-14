@@ -39,7 +39,20 @@ You will get it
 
 [filename](_media/example.md ':include :type=code')
 
+## Markdown with YAML Front Matter
+
+When using Markdown, YAML front matter will be stripped from the rendered content. The attributes cannot be used in this case.
+
+```markdown
+[filename](_media/example-with-yaml.md ':include')
+```
+
+You will get just the content
+
+[filename](_media/example-with-yaml.md ':include')
+
 ## Embedded code fragments
+
 Sometimes you don't want to embed a whole file. Maybe because you need just a few lines but you want to compile and test the file in CI.
 
 ```markdown
@@ -52,7 +65,6 @@ Alternatively you can use `### [demo]`.
 Example:
 
 [filename](_media/example.js ':include :type=code :fragment=demo')
-
 
 ## Tag attribute
 
