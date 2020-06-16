@@ -140,17 +140,17 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 <a href="https://github.com/docsifyjs/docsify/actions?query=workflow%3A%22unit+tests%22"><img
   alt="Docsify unit test suite"
   title="Docsify unit test suite"
-  src="https://github.com/docsifyjs/docsify/workflows/unit%20tests/badge.svg?branch=develop&amp;event=push"
-/></a>
-<a href="https://github.com/docsifyjs/docsify/actions?query=workflow%3A%22lint+checks%22"><img
-  alt="Docsify linting checks"
-  title="Docsify linting checks"
-  src="https://github.com/docsifyjs/docsify/workflows/lint%20checks/badge.svg?branch=develop&amp;event=push"
+  src="https://img.shields.io/github/workflow/status/docsifyjs/docsify/unit tests/develop?label=unit%20tests&cacheSeconds=300"
 /></a>
 <a href="https://github.com/docsifyjs/docsify/actions?query=workflow%3A%22e2e+tests%22"><img
   alt="Docsify e2e test suites"
   title="Docsify e2e test suites"
-  src="https://github.com/docsifyjs/docsify/workflows/e2e%20tests/badge.svg?branch=develop&amp;event=push"
+  src="https://img.shields.io/github/workflow/status/docsifyjs/docsify/e2e tests/develop?label=e2e%20tests&cacheSeconds=300"
+/></a>
+<a href="https://github.com/docsifyjs/docsify/actions?query=workflow%3A%22lint+checks%22"><img
+  alt="Docsify linting checks"
+  title="Docsify linting checks"
+  src="https://img.shields.io/github/workflow/status/docsifyjs/docsify/lint checks/develop?label=lint%20checks&cacheSeconds=300"
 /></a>
 
 ## License
