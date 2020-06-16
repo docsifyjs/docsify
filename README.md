@@ -51,7 +51,7 @@
 - [CLI](https://github.com/docsifyjs/docsify-cli)
 - CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
 - [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
-- [Community chat](https://gitter.im/docsifyjs/Lobby)
+- [Community chat](https://discord.gg/3NwKFyR)
 
 ## Features
 
