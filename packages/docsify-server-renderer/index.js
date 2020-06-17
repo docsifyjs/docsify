@@ -9,6 +9,9 @@ import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
+import { getDefaultTemplate } from './default-template';
+
+export { getDefaultTemplate };
 
 function cwd(...args) {
   return resolve(process.cwd(), ...args);
@@ -16,6 +19,7 @@ function cwd(...args) {
 
 // Borrowed from https://j11y.io/snippets/getting-a-fully-qualified-url.
 function qualifyURL(url) {
+  // TODO this doesn't work in Node, passing in / results in /. It doesn't know the origin. Maybe we should update `location` globally first.
   const img = document.createElement('img');
   img.src = url; // set string url
   url = img.src; // get qualified url
@@ -25,6 +29,7 @@ function qualifyURL(url) {
 
 function isExternal(url) {
   url = qualifyURL(url);
+  //   console.log('qualified URL:', url, location.origin);
   url = new URL(url);
   return url.origin !== location.origin;
 }
@@ -48,12 +53,11 @@ function mainTpl(config) {
 }
 
 export default class Renderer {
-  constructor({ template, config, cache }) {
+  constructor({ template, config }) {
     this.html = template;
     this.config = config = Object.assign({}, config, {
       routerMode: 'history',
     });
-    this.cache = cache;
 
     this.router = new AbstractHistory(config);
     this.compiler = new Compiler(config, this.router);

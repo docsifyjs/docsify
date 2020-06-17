@@ -46,7 +46,6 @@ describe('Docsify public API', () => {
   });
 
   it('global APIs are available', async () => {
-    // const DOM = new (require('jsdom').JSDOM)(markup, {
     const DOM = initJSDOM(markup, {
       url: docsifySite,
       runScripts: 'dangerously',

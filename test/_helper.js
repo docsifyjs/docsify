@@ -21,7 +21,13 @@ function ready(callback) {
 
 module.exports.initJSDOM = initJSDOM;
 
-/** @param {string} markup - The HTML document to initialize JSDOM with. */
+/**
+ * Creates a JSDOM instance and assigns the following variables to Node's
+ * `global`: window, document, navigator, location, XMLHttpRequest.
+ *
+ * @param {string} markup - The HTML document to initialize JSDOM with.
+ * @param {object} options - Options to pass to JSDOM. See https://github.com/jsdom/jsdom#customizing-jsdom
+ */
 function initJSDOM(markup = '', options = {}) {
   const dom = new JSDOM(markup, options);
 
