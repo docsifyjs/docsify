@@ -3,6 +3,7 @@ import { resolve, basename } from 'path';
 import resolvePathname from 'resolve-pathname';
 import fetch from 'node-fetch';
 import debug from 'debug';
+import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
@@ -11,6 +12,32 @@ import { prerenderEmbed } from '../../src/core/render/embed';
 
 function cwd(...args) {
   return resolve(process.cwd(), ...args);
+}
+
+function isExternal(url) {
+  let match = url.match(
+    /^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+  );
+  if (
+    typeof match[1] === 'string' &&
+    match[1].length > 0 &&
+    match[1].toLowerCase() !== location.protocol
+  ) {
+    return true;
+  }
+  if (
+    typeof match[2] === 'string' &&
+    match[2].length > 0 &&
+    match[2].replace(
+      new RegExp(
+        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
+      ),
+      ''
+    ) !== location.host
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function mainTpl(config) {
@@ -60,6 +87,7 @@ export default class Renderer {
 
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
+    this.isRemoteUrl = isExternal(this.url);
     const { loadSidebar, loadNavbar, coverpage } = this.config;
 
     const mainFile = this._getPath(url);
@@ -95,9 +123,8 @@ export default class Renderer {
       this._renderHtml('cover', await this._render(coverFile), 'cover');
     }
 
-    const html = this.html;
+    const html = this.isRemoteUrl ? DOMPurify.sanitize(this.html) : this.html;
     this.html = this.template;
-
     return html;
   }
 
