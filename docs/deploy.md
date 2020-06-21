@@ -78,7 +78,7 @@ server {
 
 1.  Login to your [Netlify](https://www.netlify.com/) account.
 2.  In the [dashboard](https://app.netlify.com/) page, click **New site from Git**.
-3.  Choose a repository where you store your docs, leave the **Build Command** area blank, fill in the Publish directory area with the directory of your `index.html`, for example it should be docs if you populated it at `docs/index.html`.
+3.  Choose a repository where you store your docs, leave the **Build Command** area blank, fill in the Publish directory area with the directory of your document file, for example it should be docs if you populated it at `docs`.
 
 ### HTML5 router
 
@@ -92,7 +92,7 @@ When using the HTML5 router, you need to set up redirect rules that redirect all
 
 1. Install [Now CLI](https://zeit.co/download), `npm i -g now`
 2. Change directory to your docsify website, for example `cd docs`
-3. Deploy with a single command, `now` 
+3. Deploy with a single command, `now`
 
 ## AWS Amplify
 
@@ -117,7 +117,7 @@ version: 0.1
 frontend:
   phases:
     build:
-      commands: 
+      commands:
         - echo "Nothing to build"
   artifacts:
     baseDirectory: /docs
@@ -128,10 +128,10 @@ frontend:
 
 ```
 
-6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using. 
+6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using.
 
 | Source address | Target address | Type          |
 |----------------|----------------|---------------|
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
 | /<*>.png       | /<*>.png       | 200 (Rewrite) |
-| /<*>           | /index.html    | 200 (Rewrite) |        
+| /<*>           | /index.html    | 200 (Rewrite) |
