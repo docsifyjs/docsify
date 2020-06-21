@@ -92,3 +92,58 @@ Embedding any type of source code file, you can specify the highlighted language
 [](_media/example.html ':include :type=code text')
 
 ?> How to set highlight? You can see [here](language-highlight.md).
+
+## Embed a gist
+
+You can embed a gist as markdown content or as a code block. No plugin or app config change is needed - just an element which follows the formatting covered in [Embed files](#embed-files) and uses a raw gist URL.
+
+Start by viewing a gist on `gist.github.com`. 
+
+For the purposes of the examples below, we assume is this is a valid gist URL.
+
+- https://gist.github.com/docsify/c2bece08f27c4277001f123898d16a7c
+
+Identify the following:
+
+- **Github username** - e.g. `docsify`
+- **Gist ID** - e.g. `c2bece08f27c4277001f123898d16a7c`
+- **Filename** - choose any valid filename in the gist e.g. `instructions.md`
+
+Next, you can create the full URL for the file on the `gist.githubusercontent.com` domain. See below for markdown or codeblock approaches.
+
+### Render markdown content from gist
+
+Embed markdown content on your Docsify page. This is a great way to embed content seemlessly without an external link, whether the gist was created by yourself or another account. 
+
+Here is the format:
+
+```markdown
+[LABEL](https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME ':include')
+```
+
+Note that the `LABEL` will be the fallback text if the link is broken - so if the filename is there it helps for debugging.
+
+Using the example case, the element would be:
+
+```markdown
+[instructions.md](https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md ':include')
+```
+
+### Render codeblock from gist
+
+Embed a gist on your Docsify page as a code block. The format is the same as the previous section except it just has `:type=code` added on in the alt text. 
+
+As with the [Embedded file type](#embedded-file-type) section, the syntax highlighting will be inferred from the extension (e.g. `.js` or `.py`) so you can leave the type as `code`.
+ 
+Here is the format:
+
+```markdown
+[LABEL](https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME ':include :type=code')
+```
+
+Using the example case, the element would be:
+
+```markdown
+[instructions.md](https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md ':include :type=code')
+```
+ 
