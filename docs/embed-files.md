@@ -1,15 +1,16 @@
 # Embed files
 
 With docsify 4.6 it is now possible to embed any type of file.
+
 You can embed these files as video, audio, iframes, or code blocks, and even Markdown files can even be embedded directly into the document.
 
-For example, here embedded a Markdown file. You only need to do this:
+For example, here is an embedded Markdown file. You only need to do this:
 
 ```markdown
 [filename](_media/example.md ':include')
 ```
 
-Then the content of `example.md` will be displayed directly here
+Then the content of `example.md` will be displayed directly here;
 
 [filename](_media/example.md ':include')
 
@@ -19,9 +20,9 @@ Normally, this will compiled into a link, but in docsify, if you add `:include` 
 
 ## Embedded file type
 
-Currently, file extension are automatically recognized and embedded in different ways.
+Currently, file extensions are automatically recognized and embedded in different ways.
 
-This is a supported embedding type:
+These types are supported:
 
 * **iframe** `.html`, `.htm`
 * **markdown** `.markdown`, `.md`
@@ -29,13 +30,13 @@ This is a supported embedding type:
 * **video** `.mp4`, `.ogg`
 * **code** other file extension
 
-Of course, you can force the specified. For example, you want to Markdown file as code block embedded.
+Of course, you can force the specified type. For example, a Markdown file can be embedded as a code block by setting `:type=code`.
 
 ```markdown
 [filename](_media/example.md ':include :type=code')
 ```
 
-You will get it
+You will get:
 
 [filename](_media/example.md ':include :type=code')
 
