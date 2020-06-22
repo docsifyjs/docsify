@@ -95,15 +95,13 @@ Embedding any type of source code file, you can specify the highlighted language
 
 ## Embed a gist
 
-You can embed a gist as markdown content or as a code block - this is based on the approach in the [Embed files](#embed-files) but uses raw gist URL as the target.
+You can embed a gist as markdown content or as a code block - this is based on the approach at the start of [Embed Files](#embed-files) section, but uses a raw gist URL as the target.
 
-?> No plugin or app config change is needed here. In fact, an "Embed" script tag that is copied from a gist will _not_ load even if you make plugin or config changes to allow the external script.
+?> **No** plugin or app config change is needed here to make this work. In fact, the "Embed" `script` tag that is copied from a gist will _not_ load even if you make plugin or config changes to allow an external script.
 
-### Identify gist metadata
+### Identify the gist's metadata
 
-Start by viewing a gist on `gist.github.com`. 
-
-For the purposes of this guide, we assume that is this is a valid gist URL:
+Start by viewing a gist on `gist.github.com`. For the purposes of this guide, we assume that is this is a valid gist URL:
 
 - https://gist.github.com/docsify/c2bece08f27c4277001f123898d16a7c
 
@@ -113,17 +111,21 @@ Identify the following from the gist:
 - **Gist ID** - e.g. `c2bece08f27c4277001f123898d16a7c`
 - **Filename** - choose any valid filename in the gist e.g. `instructions.md`
 
-Now you can create the _raw gist URL_ for the file on the `gist.githubusercontent.com` domain.
+Now you have to build the _raw gist URL_ for the target file on the `gist.githubusercontent.com` domain.
 
 For example:
 
 - https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md 
 
-Continue with one of the the sections below to actually embed the gist on a Docsify page.
+?> Alternatively, you can get a raw gist URL directly from a gist by clicking the _Raw_ button on a gist file. But if you use that value, just be sure to **remove** the revision number between `raw/` and the filename so that the URL matches the pattern above instead. Otherwise your embedded gist will **not** show the latest content when the gist is updated.
 
-### Render markdown content from gist
+Continue with one of the sections below to embed the gist on a Docsify page.
 
-Embed markdown content on your Docsify page. This is a great way to embed content seemlessly without an external link, whether the gist was created by yourself or another account. 
+### Render markdown content from a gist
+
+This is a great way to embed content **seamlessly** in your docs, without sending someone to an external link. This approach is well-suited to reusing a gist of say installation instructions across doc sites of multiple repos.
+
+?> This approach works equally well with a gist owned by your account or by someone else.
 
 Here is the format:
 
@@ -131,19 +133,19 @@ Here is the format:
 [LABEL](https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME ':include')
 ```
 
-Using the example case, the element on your page would be:
+Using the example case, the element on your Docsify page would be:
 
 ```markdown
-[instructions.md](https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md ':include')
+[gist: instructions.md](https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md ':include')
 ```
 
-?> The the `LABEL` will be the fallback text if the link is broken, so it is useful to repeat the filename in the label.
+?> The `LABEL` can be any text you want. It acts fallback text if the link is broken - so it is useful to repeat the filename here in case you need to fix the link.
 
-### Render codeblock from gist
+### Render a codeblock from a gist
 
-Embed a gist on your Docsify page as a code block. The format is the same as the previous section, but with `:type=code` added to the alt text. 
+The format is the same as the previous section, but with `:type=code` added to the alt text at the end. 
 
-?> As with the [Embedded file type](#embedded-file-type) section, the syntax highlighting will be inferred from the extension (e.g. `.js` or `.py`) so you can leave the type as the generic value of `code`.
+?> As with the [Embedded file type](#embedded-file-type) section, the syntax highlighting will be inferred from the extension (e.g. `.js` or `.py`), so you can leave the `:type` as the generic value of `code`.
  
 Here is the format:
 
@@ -151,8 +153,8 @@ Here is the format:
 [LABEL](https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME ':include :type=code')
 ```
 
-Using the example case, the element on your page would be:
+Using the example case, the element on your Docsify page would be:
 
 ```markdown
-[instructions.md](https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md ':include :type=code')
+[gist: instructions.md](https://gist.githubusercontent.com/docsify/c2bece08f27c4277001f123898d16a7c/raw/instructions.md ':include :type=code')
 ```
