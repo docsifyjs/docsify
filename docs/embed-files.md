@@ -117,30 +117,26 @@ Field               | Example                            | Description
 
 You will need those to build the _raw gist URL_ for the target file. This has the following format:
 
-- https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME
+- `https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME`
 
 Here are two examples based on the sample gist:
 
 - https://gist.githubusercontent.com/anikethsaha/f88893bb563bb7229d6e575db53a8c15/raw/content.md
 - https://gist.githubusercontent.com/anikethsaha/f88893bb563bb7229d6e575db53a8c15/raw/script.js
 
-?> Alternatively, you can get a raw URL directly from a gist by clicking the _Raw_ button next to file. But, if you use that approach, just be sure to **remove** the revision number between `raw/` and the filename so that the URL matches the pattern above instead. Otherwise your embedded gist will **not** show the latest content when the gist is updated.
+?> Alternatively, you can get a raw URL directly clicking the _Raw_ button on a gist file. But, if you use that approach, just be sure to **remove** the revision number between `raw/` and the filename so that the URL matches the pattern above instead. Otherwise your embedded gist will **not** show the latest content when the gist is updated.
 
 Continue with one of the sections below to embed the gist on a Docsify page.
 
 ### Render markdown content from a gist
 
-This is a great way to embed content **seamlessly** in your docs, without sending someone to an external link. This approach is well-suited to reusing a gist of say installation instructions across doc sites of multiple repos.
-
-?> This approach works equally well with a gist owned by your account or by another user.
+This is a great way to embed content **seamlessly** in your docs, without sending someone to an external link. This approach is well-suited to reusing a gist of say installation instructions across doc sites of multiple repos. This approach works equally well with a gist owned by your account or by another user.
 
 Here is the format:
 
 ```markdown
 [LABEL](https://gist.githubusercontent.com/USERNAME/GIST_ID/raw/FILENAME ':include')
 ```
-
-?> The `LABEL` can be any text you want. It acts as a _fallback_ message if the link is broken - so it is useful to repeat the filename here in case you need to fix a broken link.
 
 For example:
 
@@ -152,11 +148,11 @@ Which renders as:
 
 [gist: content.md](https://gist.githubusercontent.com/anikethsaha/f88893bb563bb7229d6e575db53a8c15/raw/content.md ':include')
 
+The `LABEL` can be any text you want. It acts as a _fallback_ message if the link is broken - so it is useful to repeat the filename here in case you need to fix a broken link. It also makes an embedded element easy to read at a glance.
+
 ### Render a codeblock from a gist
 
-The format is the same as the previous section, but with `:type=code` added to the alt text.
-
-?> As with the [Embedded file type](#embedded-file-type) section, the syntax highlighting will be **inferred** from the extension (e.g. `.js` or `.py`), so you can leave the `type` set as `code`.
+The format is the same as the previous section, but with `:type=code` added to the alt text. As with the [Embedded file type](#embedded-file-type) section, the syntax highlighting will be **inferred** from the extension (e.g. `.js` or `.py`), so you can leave the `type` set as `code`.
  
 Here is the format:
 
@@ -173,4 +169,3 @@ For example:
 Which renders as:
 
 [gist: script.js](https://gist.githubusercontent.com/anikethsaha/f88893bb563bb7229d6e575db53a8c15/raw/script.js ':include :type=code')
-
