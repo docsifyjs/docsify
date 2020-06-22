@@ -32,7 +32,7 @@ async function build(opts) {
       ]),
       onwarn: function (message) {
         if (message.code === 'UNRESOLVED_IMPORT') {
-          throw new Error(`Could not resolve module ` + message.source)
+          throw new Error(`Could not resolve module ` + message.source + `. Try running 'npm install'`)
         }
       }
     })
