@@ -36,7 +36,7 @@ docsify serve docs
 
 ## Manual initialization
 
-If you don't like `npm` or have trouble installing the tool, you can manually create `index.html` (the code below will load the latest version of docsify automatically. If you want a specific version to avoid any broken elements in the future, [see below](#specifying-docsify-versions)):
+If you don't like `npm` or have trouble installing the tool, you can manually create `index.html`:
 
 ```html
 <!-- index.html -->
@@ -47,7 +47,7 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css" />
 </head>
 <body>
   <div id="app"></div>
@@ -56,7 +56,7 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
       //...
     }
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
 </html>
 ```
