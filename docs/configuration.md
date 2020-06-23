@@ -1,6 +1,6 @@
 # Configuration
 
-You can configure the `window.$docsify`.
+You can configure Docsify by defining `window.$docsify` as an object:
 
 ```html
 <script>
@@ -8,6 +8,24 @@ You can configure the `window.$docsify`.
     repo: 'docsifyjs/docsify',
     maxLevel: 3,
     coverpage: true,
+  };
+</script>
+```
+
+The config can also be defined as a function, in which case the first arg is the Docsify `vm` instance. The function should return a config object. This can be useful for referencing `vm` in places like the markdown configuration:
+
+```html
+<script>
+  window.$docsify = function(vm) {
+    return {
+      markdown: {
+        renderer: {
+          code(code, lang) {
+            // ... use `vm` ...
+          },
+        },
+      },
+    };
   };
 </script>
 ```
@@ -144,6 +162,16 @@ window.$docsify = {
 };
 ```
 
+If you have a link to the homepage in the sidebar and want it to be shown as active when accessing the root url, make sure to update your sidebar accordingly:
+
+```markdown
+- Sidebar
+  - [Home](/)
+  - [Another page](another.md)
+```
+
+For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
+
 ## basePath
 
 - Type: `String`
@@ -265,7 +293,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `window.location.pathname`
 
-The name of the link.
+The URL that the website `name` links to.
 
 ```js
 window.$docsify = {
@@ -446,11 +474,11 @@ window.$docsify = {
 - type: `String`
 - default: `noopener`
 
-Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when its not `'_blank'`.
+Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when its not `'_blank'`. See [this post](https://mathiasbynens.github.io/rel-noopener/) for more information about why you may want to use this option.
 
 ```js
 window.$docsify = {
-  externalLinkTarget: '', // default: 'noopener'
+  externalLinkRel: '', // default: 'noopener'
 };
 ```
 

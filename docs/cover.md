@@ -34,8 +34,6 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
 [Get Started](#docsify)
 ```
 
-!> A document site can have only one coverpage!
-
 ## Custom background
 
 The background color is generated randomly by default. You can customize the background color or a background image:

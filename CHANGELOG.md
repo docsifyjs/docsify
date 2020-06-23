@@ -1,3 +1,50 @@
+## [4.11.4](https://github.com/docsifyjs/docsify/compare/v4.11.3...v4.11.4) (2020-06-18)
+
+
+### Bug Fixes
+
+* consistent location of search result ([e9dd2de](https://github.com/docsifyjs/docsify/commit/e9dd2de384b81619aae2bcbf92f52721cb76a177))
+* cover overlapping sidebar by removing z-index ([0bf03f5](https://github.com/docsifyjs/docsify/commit/0bf03f58103037d100b1635cf3989c8d3672b4ba))
+* cross-origin url cannot be redirected when  "externalLinkTarget" is set to "_self" and "routerMode" is set to "history". ([#1062](https://github.com/docsifyjs/docsify/issues/1062)) ([fd2cec6](https://github.com/docsifyjs/docsify/commit/fd2cec6bd66c46d6957811fefae4c615c3052a4f)), closes [#1046](https://github.com/docsifyjs/docsify/issues/1046) [#1046](https://github.com/docsifyjs/docsify/issues/1046) [#1046](https://github.com/docsifyjs/docsify/issues/1046)
+* default html img resize if no height included ([#1065](https://github.com/docsifyjs/docsify/issues/1065)) ([9ff4d06](https://github.com/docsifyjs/docsify/commit/9ff4d0677304bc190e7bd9e89bbbdc64895197fa))
+* fixed target and rel issue (fixes [#1183](https://github.com/docsifyjs/docsify/issues/1183)) ([3d662a5](https://github.com/docsifyjs/docsify/commit/3d662a5bf71bbfef077cfbc478df241d794f55a0))
+* Inconsistent search and body rendering ([dcb0aae](https://github.com/docsifyjs/docsify/commit/dcb0aaea99efbd68175f1d1aeb5076b6dde9801e))
+* rendering cover width bug ([717991c](https://github.com/docsifyjs/docsify/commit/717991c90cf709f4da91fe32610129de6529266b))
+* search does not find the contents of the table ([#1198](https://github.com/docsifyjs/docsify/issues/1198)) ([31010e4](https://github.com/docsifyjs/docsify/commit/31010e4979b3d3ab4bd247a09c4ac5fd1405eaa8))
+* The search error after setting the ID in the title ([#1159](https://github.com/docsifyjs/docsify/issues/1159)) ([6e554f8](https://github.com/docsifyjs/docsify/commit/6e554f8ebd3d4a2c5c7e4f66cff3dfe2b6aa1e31))
+* upgrade docsify from 4.10.2 to 4.11.2 ([60b7f89](https://github.com/docsifyjs/docsify/commit/60b7f89b373b0d48ec8406a51eddeaed8126696d))
+
+
+### Features
+
+* added html sanitizer for remote rendering ([#1128](https://github.com/docsifyjs/docsify/issues/1128)) ([714ef29](https://github.com/docsifyjs/docsify/commit/714ef29afe779a6db5c4761ebaacdfc70ee2d8dd))
+* update src/core/index.js to export all global APIs, deprecate old globals in favor of a single global DOCSIFY, and add tests for this ([7e002bf](https://github.com/docsifyjs/docsify/commit/7e002bf939d7837843908417b5445b4f8d36c1cd))
+
+
+### Reverts
+
+* Revert "Updated docs site dark and light mode with switch and redesigned search bar using docsify-darklight-theme" (#1207) ([26cb940](https://github.com/docsifyjs/docsify/commit/26cb940b51d34ee584b8425012a336f38a4abd76)), closes [#1207](https://github.com/docsifyjs/docsify/issues/1207) [#1182](https://github.com/docsifyjs/docsify/issues/1182)
+
+
+
+## [4.11.3](https://github.com/docsifyjs/docsify/compare/v4.11.2...v4.11.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* fix: digit issue with sidebar (complete REVERT to old method) ([154abf5](https://github.com/docsifyjs/docsify/commit/154abf59a6153e84b018fcdffa86892776d6da7d))
+
+
+
+## [4.11.2](https://github.com/docsifyjs/docsify/compare/v4.11.1...v4.11.2) (2020-03-09)
+
+
+### Bug Fixes
+
+* fixed rendering of color in coverpage issue ([406670c](https://github.com/docsifyjs/docsify/commit/406670c3d619a627142900fd45019fb8ce00f60a))
+
+
+
 ## [4.11.1](https://github.com/docsifyjs/docsify/compare/v4.11.0...v4.11.1) (2020-03-09)
 
 

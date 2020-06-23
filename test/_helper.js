@@ -19,6 +19,21 @@ function ready(callback) {
   document.addEventListener('DOMContentLoaded', callback);
 }
 
+module.exports.initJSDOM = initJSDOM;
+
+/** @param {string} markup - The HTML document to initialize JSDOM with. */
+function initJSDOM(markup, options = {}) {
+  const dom = new JSDOM(markup, options);
+
+  global.window = dom.window;
+  global.document = dom.window.document;
+  global.navigator = dom.window.navigator;
+  global.location = dom.window.location;
+  global.XMLHttpRequest = dom.window.XMLHttpRequest;
+
+  return dom;
+}
+
 module.exports.init = function(
   fixture = 'default',
   config = {},
@@ -39,14 +54,8 @@ module.exports.init = function(
 
   const rootPath = path.join(__dirname, 'fixtures', fixture);
 
-  const dom = new JSDOM(markup);
+  const dom = initJSDOM(markup);
   dom.reconfigure({ url: 'file:///' + rootPath });
-
-  global.window = dom.window;
-  global.document = dom.window.document;
-  global.navigator = dom.window.navigator;
-  global.location = dom.window.location;
-  global.XMLHttpRequest = dom.window.XMLHttpRequest;
 
   // Mimic src/core/index.js but for Node.js
   function Docsify() {
