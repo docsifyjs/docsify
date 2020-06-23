@@ -20,6 +20,32 @@ function loadNested(path, qs, file, next, vm, first) {
   ).then(next, _ => loadNested(path, qs, file, next, vm));
 }
 
+function isExternal(url) {
+  let match = url.match(
+    /^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+  );
+  if (
+    typeof match[1] === 'string' &&
+    match[1].length > 0 &&
+    match[1].toLowerCase() !== location.protocol
+  ) {
+    return true;
+  }
+  if (
+    typeof match[2] === 'string' &&
+    match[2].length > 0 &&
+    match[2].replace(
+      new RegExp(
+        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
+      ),
+      ''
+    ) !== location.host
+  ) {
+    return true;
+  }
+  return false;
+}
+
 export function fetchMixin(proto) {
   let last;
 
@@ -84,6 +110,7 @@ export function fetchMixin(proto) {
     const file = this.router.getFile(path);
     const req = request(file + qs, true, requestHeaders);
 
+    this.isRemoteUrl = isExternal(file);
     // Current page is html
     this.isHTML = /\.html$/g.test(file);
 
