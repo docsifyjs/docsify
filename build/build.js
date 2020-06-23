@@ -29,7 +29,17 @@ async function build(opts) {
           __VERSION__: version,
           'process.env.SSR': false
         })
-      ])
+      ]),
+      onwarn: function (message) {
+        if (message.code === 'UNRESOLVED_IMPORT') {
+          throw new Error(
+            `Could not resolve module ` + 
+            message.source + 
+            `. Try running 'npm install' or using rollup's 'external' option if this is an external dependency. ` +
+            `Module ${message.source} is imported in ${message.importer}`
+            )
+        }
+      }
     })
     .then(function (bundle) {
       var dest = 'lib/' + (opts.output || opts.input)
