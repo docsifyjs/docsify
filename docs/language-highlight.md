@@ -22,8 +22,9 @@ For `prism-php.js`, it would be:
 
 ````
 ```php
-function getAdder(int $x): int {
-    return 123
+function getAdder(int $x): int 
+{
+    return 123;
 }
 ```
 ````
