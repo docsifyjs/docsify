@@ -266,7 +266,7 @@ describe('Mobile', () => {
       'the-code-block-highlight',
     ];
     embedFilesIds.forEach(id => {
-      it.only('go to #embed-files?id=' + id, () => {
+      it('go to #embed-files?id=' + id, () => {
         cy.get('.sidebar-toggle').click();
         cy.get('[href="#/embed-files"]').click();
 
