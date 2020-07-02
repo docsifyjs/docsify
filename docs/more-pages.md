@@ -51,6 +51,18 @@ Create the `_sidebar.md`:
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
+!> Docsify only looks for `_sidebar.md` in the current folder, and uses that, otherwise it falls back to the one configured using `$docsify` config.
+
+Example file structure:
+
+```text
+└── services/
+    ├── _sidebar.md
+    ├── index.md
+    ├── getting-started.md
+    └── running-services.md
+```
+
 ## Nested Sidebars
 
 You may want the sidebar to update with only navigation to reflect the current directory. This can be done by adding a `_sidebar.md` file to each folder.
