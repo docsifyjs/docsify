@@ -56,7 +56,7 @@ You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignori
 Example file structure:
 
 ```text
-└── services/
+└── docs/
     ├── _sidebar.md
     ├── index.md
     ├── getting-started.md
