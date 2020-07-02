@@ -168,22 +168,6 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
 
-## codefund
-
-a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codefund.io/)
-
-> codefund is formerly known as "codesponsor"
-
-```
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-
-window.$docsify = {
-  plugins: [
-    DocsifyCodefund.create('xxxx-xxx-xxx') // change to your codefund id
-  ]
-}
-```
-
 ## Tabs
 
 A docsify.js plugin for displaying tabbed content from markdown.
