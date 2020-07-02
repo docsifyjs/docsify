@@ -26,7 +26,7 @@ This is a supported embedding type:
 * **iframe** `.html`, `.htm`
 * **markdown** `.markdown`, `.md`
 * **audio** `.mp3`
-* **video** `.mp4`, `.ogg`
+* **video** `.mp4`, `.ogg`, `.webm` Example: [filename](_media/example.webm ':include :type=video width=400 controls')
 * **code** other file extension
 
 Of course, you can force the specified. For example, you want to Markdown file as code block embedded.
