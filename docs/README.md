@@ -11,7 +11,7 @@ See the [Quick start](quickstart.md) guide for more details.
 ## Features
 
 - No statically built html files
-- Simple and lightweight (~21kB gzipped)
+- Simple and lightweight
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API

@@ -1,4 +1,3 @@
-import { isMobile } from '../util/env';
 /**
  * Render github corner
  * @param  {Object} data URL for the View Source on Github link
@@ -51,9 +50,8 @@ export function main(config) {
       : '') +
     '<div class="sidebar-nav"><!--sidebar--></div>' +
     '</aside>';
-
   return (
-    (isMobile ? `${aside}<main>` : `<main>${aside}`) +
+    `<main>${aside}` +
     '<section class="content">' +
     '<article class="markdown-section" id="main"><!--main--></article>' +
     '</section>' +
@@ -74,8 +72,8 @@ export function cover() {
 
   return (
     `<section class="cover show" style="background: ${bgc}">` +
-    '<div class="cover-main"><!--cover--></div>' +
     '<div class="mask"></div>' +
+    '<div class="cover-main"><!--cover--></div>' +
     '</section>'
   );
 }
