@@ -60,7 +60,7 @@
     "dompurify": "^2.0.8",
     "marked": "^0.7.0",
     "medium-zoom": "^1.0.5",
-    "opencollective-postinstall": "^2.0.2",
+    "opencollective-postinstall": "^2.0.3",
     "prismjs": "^1.19.0",
     "strip-indent": "^3.0.0",
     "tinydate": "^1.0.0",
