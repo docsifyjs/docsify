@@ -123,3 +123,9 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 ## License
 
 [MIT](LICENSE)
+
+## Special Thanks
+
+_Vercel_ has given us a Pro account.
+
+<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="docs/_media/vercel_logo.svg" width="100px"></a>
