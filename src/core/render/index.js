@@ -26,9 +26,7 @@ function executeScript() {
     return false;
   }
 
-  setTimeout(_ => {
-    window.__EXECUTE_RESULT__ = new Function(code)();
-  }, 0);
+  new Function(code)();
 }
 
 function formatUpdated(html, updated, fn) {
@@ -48,22 +46,35 @@ function renderMain(html) {
   }
 
   this._renderTo('.markdown-section', html);
+
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar();
 
-  // Execute script
-  if (
-    this.config.executeScript !== false &&
-    typeof window.Vue !== 'undefined' &&
-    !executeScript()
-  ) {
-    setTimeout(_ => {
-      const vueVM = window.__EXECUTE_RESULT__;
-      vueVM && vueVM.$destroy && vueVM.$destroy();
-      window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main');
-    }, 0);
-  } else {
-    this.config.executeScript && executeScript();
+  // Execute markdown <script>
+  if (this.config.executeScript || 'Vue' in window) {
+    executeScript();
+  }
+
+  // Handle Vue content not handled by markdown <script>
+  if ('Vue' in window) {
+    const mainElm = document.querySelector('#main') || {};
+    const childElms = mainElm.children || [];
+
+    for (let i = 0, len = childElms.length; i < len; i++) {
+      const elm = childElms[i];
+      const isValid = ['SCRIPT'].indexOf(elm.tagName) === -1;
+      const isVue = Boolean(elm.__vue__ && elm.__vue__._isVue);
+
+      if (isValid && !isVue) {
+        new window.Vue({
+          mounted: function() {
+            if (this.$children.length === 0) {
+              this.$destroy;
+            }
+          },
+        }).$mount(elm);
+      }
+    }
   }
 }
 
