@@ -255,7 +255,7 @@ context('sidebar.configurations', () => {
     });
   });
 
-  const vueIds = ['basic-usage', 'combine-vuep-to-write-playground'];
+  const vueIds = ['basic-rendering', 'advanced-usage', 'vuep-playgrounds'];
   vueIds.forEach(id => {
     it('go to #vue?id=' + id, () => {
       cy.get('[href="#/vue"]').click();
