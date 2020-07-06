@@ -84,7 +84,7 @@ Sponsors
 <h2 align="center"> Much love to all our sponsors! </h2>
 
 <p align="justify">
-	Support this project by donating to our <a href="https://opencollective.com/docsify#silver-sponsors" target="_blank" rel="noopener">OpenCollective</a>. By sponsoring this project your logo will be shown below.  The core maintainers and contributors to this open-source project are working mostly in their free time.. Thank you so much for your never ending support!
+	Support this project by donating to our <a href="https://opencollective.com/docsify#silver-sponsors" target="_blank" rel="noopener">OpenCollective</a>. By sponsoring this project your logo will be shown below.  The core maintainers and contributors to this open-source project are working mostly in their free time. Thank you so much for your never ending support!
 </p>
 
 <p align="center">
