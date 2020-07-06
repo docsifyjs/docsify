@@ -51,7 +51,10 @@ function renderMain(html) {
   !this.config.loadSidebar && this._renderSidebar();
 
   // Execute markdown <script>
-  if (this.config.executeScript || 'Vue' in window) {
+  if (
+    this.config.executeScript ||
+    ('Vue' in window && this.config.executeScript !== false)
+  ) {
     executeScript();
   }
 
@@ -62,15 +65,13 @@ function renderMain(html) {
 
     for (let i = 0, len = childElms.length; i < len; i++) {
       const elm = childElms[i];
-      const isValid = ['SCRIPT'].indexOf(elm.tagName) === -1;
+      const isValid = elm.tagName !== 'SCRIPT';
       const isVue = Boolean(elm.__vue__ && elm.__vue__._isVue);
 
       if (isValid && !isVue) {
         new window.Vue({
           mounted: function() {
-            if (this.$children.length === 0) {
-              this.$destroy;
-            }
+            this.$destroy;
           },
         }).$mount(elm);
       }
