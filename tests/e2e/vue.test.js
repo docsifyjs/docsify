@@ -1,7 +1,9 @@
 const docsifyInit = require('../helpers/docsifyInit');
-// const { serverURL } = require('../helpers/server.js');
 
 describe(`Vue.js Rendering`, function() {
+  const content = `<div id="test">test<span v-for="i in 5">{{ i }}</span></div>`;
+  const scriptURLs = ['https://unpkg.com/vue@2/dist/vue.js'];
+
   // Setup & Teardown
   // -------------------------------------------------------------------------
   beforeEach(async () => {
@@ -9,31 +11,43 @@ describe(`Vue.js Rendering`, function() {
   });
 
   // Tests
-  // -------------------------------------------------------------------------
-  test('renders basic Vue content', async () => {
-    // const pageUrl = `${serverURL}/#/vue`;
-
+  // ---------------------------------------------------------------------------
+  test('does render Vue content when executeScript is unspecified', async () => {
     await docsifyInit(page, {
-      // url: pageUrl,
-      content: 'hello',
+      content,
+      scriptURLs,
+    });
+
+    const testResult = await page.textContent('#test');
+
+    expect(testResult).toBe('test12345');
+  });
+
+  test('does render Vue content when executeScript:true', async () => {
+    await docsifyInit(page, {
       config: {
         executeScript: true,
       },
-      scriptURLs: ['https://unpkg.com/vue@2'],
-      routes: [
-        '**/README.md',
-        `
-          # Home Page
-
-          This is a paragraph
-        `,
-      ],
+      content,
+      scriptURLs,
     });
 
-    const pageTitle = await page.title();
+    const testResult = await page.textContent('#test');
 
-    await jestPlaywright.debug();
+    expect(testResult).toBe('test12345');
+  });
 
-    expect(pageTitle).toBe('docsify');
+  test('does not render Vue content when executeScript:false', async () => {
+    await docsifyInit(page, {
+      config: {
+        executeScript: false,
+      },
+      content,
+      scriptURLs,
+    });
+
+    const testResult = await page.textContent('#test');
+
+    expect(testResult).toBe('test{{ i }}');
   });
 });
