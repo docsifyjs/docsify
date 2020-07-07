@@ -14,6 +14,8 @@ async function docsifyInit(page, options) {
     script: '',
     scriptURLs: [],
     url: `http://${serverIP}:${serverPort}`,
+    docsifyURL: '/lib/docsify.js',
+    waitForSelector: '#main',
   };
   const settings = {
     ...defaults,
@@ -72,6 +74,11 @@ async function docsifyInit(page, options) {
   settings.scriptURLs.push(settings.docsifyURL);
   for (const url of settings.scriptURLs) {
     await page.addScriptTag({ url });
+  }
+
+  // Detect docsify "complete" by waiting for specified element
+  if (settings.waitForSelector) {
+    await page.waitForSelector(settings.waitForSelector);
   }
 }
 
