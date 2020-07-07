@@ -68,9 +68,11 @@ async function docsifyInit(page, options) {
   // CSS
   settings.styleURLs.forEach(async url => await page.addStyleTag({ url }));
 
-  // JavaScript
-  settings.scriptURLs.forEach(async url => await page.addScriptTag({ url }));
-  await page.addScriptTag({ url: '/lib/docsify.js' });
+  // JavaScript (must load/resolve sequentially)
+  settings.scriptURLs.push(settings.docsifyURL);
+  for (const url of settings.scriptURLs) {
+    await page.addScriptTag({ url });
+  }
 }
 
 module.exports = docsifyInit;
