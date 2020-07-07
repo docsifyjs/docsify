@@ -5,6 +5,7 @@ module.exports = {
     // 'webkit'
   ],
   launchOptions: {
-    headless: false,
+    // headless: false,
+    // devtools: true,
   },
 };
