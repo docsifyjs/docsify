@@ -4,7 +4,7 @@
 
 First, thank you for considering contributing to docsify! It's people like you that make the open source community such a great community! 😊
 
-We welcome any type of contribution, not only code. You can help with 
+We welcome any type of contribution, not only code. You can help with
 - **QA**: file bug reports, the more details you can give the better (e.g. screenshots with the console open)
 - **Marketing**: writing blog posts, howto's, printing stickers, ...
 - **Community**: presenting the project at meetups, organizing a dedicated meetup for the local community, ...
@@ -21,6 +21,7 @@ After cloning the project, run the following in your terminal
 
 ```sh
 npm install
+npm run dev
 npm run build
 npx serve .
 ```
