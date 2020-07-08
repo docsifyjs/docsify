@@ -513,7 +513,8 @@ Only coverpage is loaded when visiting the home page.
 
 ```js
 window.$docsify = {
-  onlyCover: false,
+  onlyCover: true,
+  onlyCoverShowMenu: true,
 };
 ```
 
