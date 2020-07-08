@@ -1,17 +1,16 @@
-/* jest
- * https://jestjs.io
- *
- * jest-playwright
- * https://github.com/playwright-community/jest-playwright
- *
- * Playwright
- * https://playwright.dev
- */
-
+// Imports, Modules, Constants, and Variables
+// ---------------------------------------------------------------------------
 const docsifyInit = require('./helpers/docsifyInit');
-const { serverURL } = require('./helpers/server.js');
 
-describe(`Sample e2e Tests`, function() {
+// Functions
+// ---------------------------------------------------------------------------
+function add(...numbers) {
+  return numbers.reduce(
+    (accumulator, currentValue) => accumulator + currentValue
+  );
+}
+
+describe(`Sample Tests`, function() {
   // Setup & Teardown
   // ---------------------------------------------------------------------------
   beforeEach(async () => {
@@ -20,88 +19,113 @@ describe(`Sample e2e Tests`, function() {
 
   // Tests
   // ---------------------------------------------------------------------------
-  test.only('renders the default docsify site', async () => {
-    // Loads a new docsify site at serverURL
-    await docsifyInit(page, {
-      // Options...
-    });
+  test('function', async () => {
+    const testValue = add(1, 2, 3);
 
-    const pageTitle = await page.title();
-
-    // await jestPlaywright.debug();
-
-    expect(pageTitle).toBe('docsify');
+    expect(testValue).toBe(6);
   });
 
-  test('renders a customized docsify site', async () => {
-    // const pageUrl = `${serverURL}/#/vue`;
+  test('injected HTML', async () => {
+    const testText = 'This is a test';
+    const testHTML = `<h1>Test</h1><p>${testText}</p>`;
 
+    // Inject HTML
+    // https://playwright.dev/#path=docs%2Fapi.md&q=pagesetcontenthtml-options
+    await page.setContent(testHTML);
+
+    // Use helper methods from expect-playright (via jest-playwright)
+    // - https://github.com/playwright-community/expect-playwright
+    // - https://playwright.tech/blog/using-jest-with-playwright
+    await expect(page).toHaveText('body', 'Test');
+    await expect(page).toHaveSelector('p');
+    await expect(page).toEqualText('p', testText);
+    await expect(page).not.toHaveSelector('table', { timeout: 1 });
+
+    // Or use standard jest + playwrite methods
+    // https://playwright.dev/#path=docs%2Fapi.md&q=pagetextcontentselector-options
+    expect(await page.textContent('body')).toMatch(/Test/);
+    expect(await page.waitForSelector('p'));
+    expect(await page.textContent('p')).toEqual(testText);
+    expect(await page.waitForSelector('table', { state: 'detached' }));
+  });
+
+  test('docsify docs site', async () => {
+    // Load docsify docs site
+    // See ./helpers/docsifyInit.js for details
     await docsifyInit(page, {
-      url: serverURL,
+      basePath: '/docs', // default
+    });
+
+    // TIP 1: Use the jestPlaywright.debug() helper to pause execution
+    // TIP 2: Debug with devtools by setting `headless: false` in jest-playwright.config.js
+    // await jestPlaywright.debug();
+
+    expect(await page.title()).toBe('docsify');
+  });
+
+  test('docsify custom site', async () => {
+    // Load a custom docsify site
+    // See ./helpers/docsifyInit.js for details
+    await docsifyInit(page, {
       config: {
-        homepage: 'test.md',
-        themeColor: 'red',
+        name: 'Docsify Test',
       },
       content: `
-            # It worked!
+        # Page Title
 
-            This is a test
-          `,
+        This is a paragraph
+
+        1. Item
+        1. Item
+        1. Item
+      `,
       coverpage: `
-            # docsify
+        # Docsify Test
 
-            > A magical documentation site generator.
+        > Testing a magical documentation site generator
 
-            - Simple and lightweight
-            - No statically built html files
-            - Multiple themes
-
-            [GitHub](https://github.com/docsifyjs/docsify/)
-            [Getting Started](#docsify)
-          `,
+        [GitHub](https://github.com/docsifyjs/docsify/)
+        [Getting Started](#page-title)
+      `,
       navbar: `
-            - Translations
-            - [:uk: English](/)
-            - [:cn: 中文](/zh-cn/)
-            - [:de: Deutsch](/de-de/)
-            - [:es: Spanish](/es/)
-            - [:ru: Russian](/ru/)
-          `,
+        - [docsify.js.org](https://docsify.js.org/#/)
+      `,
       sidebar: `
-            - Did this work?
-
-            - [Yes](quickstart.md)
-            - [No](more-pages.md)
-            - [Maybe So](custom-navbar.md)
-
-            - Customization
-          `,
+        - [Test Page](test)
+      `,
       routes: [
         [
-          '**/README.md',
+          '**/test.md',
           `
-            # Home Page
+            # Test Page
 
-            This is a paragraph
+            This is a custom route
           `,
         ],
-        [
-          '**/test.md',
-          {
-            body: `
-              # Test
-
-              This is a paragraph
-            `,
-          },
-        ],
+      ],
+      script: `
+        console.log('Injected JavaScript');
+      `,
+      scriptURLs: ['https://cdn.jsdelivr.net/npm/docsify-themeable@0'],
+      style: `
+        :root {
+          --theme-hue: 275;
+        }
+      `,
+      styleURLs: [
+        'https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css',
       ],
     });
 
-    const pageTitle = await page.title();
-
     // await jestPlaywright.debug();
 
-    expect(pageTitle).toBe('docsify');
+    // Click the test page link
+    await page.click('a[href="#/test"]');
+
+    // Verify page change by checking URL
+    await expect(page.url()).toMatch(/\/test$/);
+
+    // Or verify page change by checking page content
+    await expect(page).toHaveText('#main', 'This is a custom route');
   });
 });
