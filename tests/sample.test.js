@@ -10,7 +10,7 @@ function add(...numbers) {
   );
 }
 
-describe(`Sample Tests`, function() {
+describe(`Example Tests`, function() {
   // Setup & Teardown
   // ---------------------------------------------------------------------------
   beforeEach(async () => {
