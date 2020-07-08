@@ -32,6 +32,7 @@
     "testServer": "node cypress/setup.js",
     "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
     "test:jest": "jest ./tests/**/*.test.js",
+    "test:jest-example": "jest ./tests/example.test.js",
     "posttest:e2e": "rimraf cypress/fixtures/docs",
     "cy:run": "cypress run",
     "cy:open": "cypress open ",
