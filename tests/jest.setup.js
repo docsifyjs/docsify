@@ -1,13 +1,13 @@
 const path = require('path');
 const liveServer = require('live-server');
-const { serverIP, serverPort } = require('./helpers/server.js');
+const { host, port } = require('./helpers/server.js');
 
 module.exports = async () => {
-  global.__SERVER__ = liveServer;
+  global.__SERVER__ = liveServer; // Instance reference for teardown script
 
   liveServer.start({
-    host: serverIP,
-    port: serverPort,
+    host,
+    port,
     root: path.resolve(__dirname, 'fixtures'),
     open: false,
     logLevel: 0,
