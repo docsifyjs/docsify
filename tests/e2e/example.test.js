@@ -49,6 +49,10 @@ describe(`Example Tests`, function() {
     await page.waitForSelector('p');
     expect(await page.textContent('p')).toEqual(testText);
     await page.waitForSelector('table', { state: 'detached' });
+
+    // Debug mode
+    // https://github.com/playwright-community/jest-playwright#put-in-debug-mode
+    // await jestPlaywright.debug();
   });
 
   test('javascript in the browser context', async () => {
