@@ -1,14 +1,8 @@
-const docsifyInit = require('../helpers/docsifyInit');
+const docsifyInit = require('./helpers/docsifyInit');
 
 describe(`Vue.js Rendering`, function() {
   const content = `<div id="test">test<span v-for="i in 5">{{ i }}</span></div>`;
   const scriptURLs = ['https://unpkg.com/vue@2/dist/vue.js'];
-
-  // Setup & Teardown
-  // -------------------------------------------------------------------------
-  beforeEach(async () => {
-    await jestPlaywright.resetPage();
-  });
 
   // Tests
   // ---------------------------------------------------------------------------

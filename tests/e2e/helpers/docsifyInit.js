@@ -1,5 +1,5 @@
 const stripIndent = require('common-tags/lib/stripIndent');
-const { URL: serverURL } = require('./server.js');
+const { URL: serverURL } = require('../config/server.js');
 
 /**
  * Playwright helper for dynamically creating custom docsify sites.
@@ -16,7 +16,7 @@ const { URL: serverURL } = require('./server.js');
  * @param {string|String[]} [options.styleURLs=['/lib/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
  * @param {String} [options.script] JS to inject via <script> tag
  * @param {string|String[]} [options.scriptURLs] External JS to inject via <script src="..."> tag(s)
- * @param {String} [options.url=serverURL] URL of local test server
+ * @param {String} [options.url=`${serverURL}/docsify-init.html`] URL of local test server
  * @param {String} [options.docsifyURL='/lib/docsify.js']
  * @param {String} [options.waitForSelector='#main']
  */
@@ -32,7 +32,7 @@ async function docsifyInit(page, options) {
     styleURLs: ['/lib/themes/vue.css'],
     script: '',
     scriptURLs: [],
-    url: serverURL,
+    url: `${serverURL}/docsify-init.html`,
     docsifyURL: '/lib/docsify.js',
     waitForSelector: '#main',
   };
