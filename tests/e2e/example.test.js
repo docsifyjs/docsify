@@ -159,7 +159,7 @@ describe(`Example Tests`, function() {
       config: {
         name: 'Docsify Test',
       },
-      content: `
+      contentMarkdown: `
         # Page Title
 
         This is a paragraph
@@ -168,7 +168,7 @@ describe(`Example Tests`, function() {
         1. Item
         1. Item
       `,
-      coverpage: `
+      coverpageMarkdown: `
         # Docsify Test
 
         > Testing a magical documentation site generator
@@ -176,10 +176,10 @@ describe(`Example Tests`, function() {
         [GitHub](https://github.com/docsifyjs/docsify/)
         [Getting Started](#page-title)
       `,
-      navbar: `
+      navbarMarkdown: `
         - [docsify.js.org](https://docsify.js.org/#/)
       `,
-      sidebar: `
+      sidebarMarkdown: `
         - [Test Page](test)
       `,
       routes: [

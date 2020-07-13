@@ -7,33 +7,35 @@ const { URL: serverURL } = require('../config/server.js');
  * @param {Object} page Playwright page reference
  * @param {Object} options options object
  * @param {Object} [options.config] docsify configuration (merged with default)
- * @param {String} [options.content] homepage markdown
- * @param {String} [options.coverpage] coverpage markdown
- * @param {String} [options.navbar] navbar markdown
- * @param {String} [options.sidebar] sidebar markdown
+ * @param {String} [options.contentMarkdown] homepage markdown
+ * @param {String} [options.coverpageMarkdown] coverpage markdown
+ * @param {String} [options.debug] initiate debugger after site is created
+ * @param {String} [options.docsifyURL='/lib/docsify.js']
+ * @param {String} [options.navbarMarkdown] navbar markdown
  * @param {Array[]|Array[][]} [options.routes] custom routes as [path, response] (See https://playwright.dev/#path=docs%2Fapi.md&q=routefulfillresponse for details)
- * @param {String} [options.style] CSS to inject via <style> tag
- * @param {string|String[]} [options.styleURLs=['/lib/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
  * @param {String} [options.script] JS to inject via <script> tag
  * @param {string|String[]} [options.scriptURLs] External JS to inject via <script src="..."> tag(s)
+ * @param {String} [options.sidebarMarkdown] sidebar markdown
+ * @param {String} [options.style] CSS to inject via <style> tag
+ * @param {string|String[]} [options.styleURLs=['/lib/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
  * @param {String} [options.url=`${serverURL}/docsify-init.html`] URL of local test server
- * @param {String} [options.docsifyURL='/lib/docsify.js']
  * @param {String} [options.waitForSelector='#main']
  */
 async function docsifyInit(page, options) {
   const defaults = {
     config: {},
-    content: '',
-    coverpage: '',
-    navbar: '',
-    sidebar: '',
+    contentMarkdown: '',
+    coverpageMarkdown: '',
+    debug: false,
+    docsifyURL: '/lib/docsify.js',
+    navbarMarkdown: '',
     routes: [[]],
-    style: '',
-    styleURLs: ['/lib/themes/vue.css'],
     script: '',
     scriptURLs: [],
+    sidebarMarkdown: '',
+    style: '',
+    styleURLs: ['/lib/themes/vue.css'],
     url: `${serverURL}/docsify-init.html`,
-    docsifyURL: '/lib/docsify.js',
     waitForSelector: '#main',
   };
   const settings = {
@@ -58,10 +60,10 @@ async function docsifyInit(page, options) {
 
   // Docsify markdown
   [
-    [settings.content, '**/README.md'],
-    [settings.coverpage, '**/_coverpage.md', { coverpage: true }],
-    [settings.navbar, '**/_navbar.md', { loadNavbar: true }],
-    [settings.sidebar, '**/_sidebar.md', { loadSidebar: true }],
+    [settings.contentMarkdown, '**/README.md'],
+    [settings.coverpageMarkdown, '**/_coverpage.md', { coverpage: true }],
+    [settings.navbarMarkdown, '**/_navbar.md', { loadNavbar: true }],
+    [settings.sidebarMarkdown, '**/_sidebar.md', { loadSidebar: true }],
   ].forEach(async ([markdown, urlGlob, config]) => {
     if (markdown) {
       if (config) {
@@ -117,6 +119,11 @@ async function docsifyInit(page, options) {
   // Docsify "Ready"
   if (settings.waitForSelector) {
     await page.waitForSelector(settings.waitForSelector);
+  }
+
+  // Debug
+  if (settings.debug) {
+    await jestPlaywright.debug();
   }
 
   return Promise.resolve();

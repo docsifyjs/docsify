@@ -1,14 +1,14 @@
 const docsifyInit = require('./helpers/docsifyInit');
 
 describe(`Vue.js Rendering`, function() {
-  const content = `<div id="test">test<span v-for="i in 5">{{ i }}</span></div>`;
+  const contentMarkdown = `<div id="test">test<span v-for="i in 5">{{ i }}</span></div>`;
   const scriptURLs = ['https://unpkg.com/vue@2/dist/vue.js'];
 
   // Tests
   // ---------------------------------------------------------------------------
   test('does render Vue content when executeScript is unspecified', async () => {
     await docsifyInit(page, {
-      content,
+      contentMarkdown,
       scriptURLs,
     });
 
@@ -22,7 +22,7 @@ describe(`Vue.js Rendering`, function() {
       config: {
         executeScript: true,
       },
-      content,
+      contentMarkdown,
       scriptURLs,
     });
 
@@ -36,7 +36,7 @@ describe(`Vue.js Rendering`, function() {
       config: {
         executeScript: false,
       },
-      content,
+      contentMarkdown,
       scriptURLs,
     });
 
