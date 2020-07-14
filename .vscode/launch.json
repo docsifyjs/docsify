@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run tests",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test:jest"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run current test file",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test:jest"],
+      "args": ["--", "-i", "${relativeFile}"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run selected test name",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test:jest"],
+      "args": ["--", "-i", "${relativeFile}", "-t", "${selectedText}"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
