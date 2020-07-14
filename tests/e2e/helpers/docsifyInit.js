@@ -4,7 +4,6 @@ const { URL: serverURL } = require('../config/server.js');
 /**
  * Playwright helper for dynamically creating custom docsify sites.
  *
- * @param {Object} page Playwright page reference
  * @param {Object} options options object
  * @param {Object} [options.config] docsify configuration (merged with default)
  * @param {String} [options.contentMarkdown] homepage markdown
@@ -21,7 +20,7 @@ const { URL: serverURL } = require('../config/server.js');
  * @param {String} [options.url=`${serverURL}/docsify-init.html`] URL of local test server
  * @param {String} [options.waitForSelector='#main']
  */
-async function docsifyInit(page, options) {
+async function docsifyInit(options) {
   const defaults = {
     config: {},
     contentMarkdown: '',

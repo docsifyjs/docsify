@@ -142,7 +142,7 @@ describe(`Example Tests`, function() {
   test('docsify test using docsifyInit()', async () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
-    await docsifyInit(page, {
+    await docsifyInit({
       config: {
         themeColor: 'red',
       },
@@ -159,7 +159,7 @@ describe(`Example Tests`, function() {
   test('custom docsify site using docsifyInit()', async () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
-    await docsifyInit(page, {
+    await docsifyInit({
       config: {
         name: 'Docsify Test',
       },

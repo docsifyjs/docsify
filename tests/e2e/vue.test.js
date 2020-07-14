@@ -7,7 +7,7 @@ describe(`Vue.js Rendering`, function() {
   // Tests
   // ---------------------------------------------------------------------------
   test('does render Vue content when executeScript is unspecified', async () => {
-    await docsifyInit(page, {
+    await docsifyInit({
       contentMarkdown,
       scriptURLs,
     });
@@ -18,7 +18,7 @@ describe(`Vue.js Rendering`, function() {
   });
 
   test('does render Vue content when executeScript:true', async () => {
-    await docsifyInit(page, {
+    await docsifyInit({
       config: {
         executeScript: true,
       },
@@ -32,7 +32,7 @@ describe(`Vue.js Rendering`, function() {
   });
 
   test('does not render Vue content when executeScript:false', async () => {
-    await docsifyInit(page, {
+    await docsifyInit({
       config: {
         executeScript: false,
       },
