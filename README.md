@@ -11,7 +11,7 @@
 <p align="center">
   <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/docsify/backers/badge.svg?style=flat-square"></a>
   <a href="#sponsors">
-    <img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a> 
+    <img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
   <a><img src="https://github.com/docsifyjs/docsify/workflows/Unit%20tests%20Suite/badge.svg?branch=develop&amp;event=push" alt="Unit tests Suite"></a>
   <a><img src="https://github.com/docsifyjs/docsify/workflows/Linting%20Checks/badge.svg?branch=develop&amp;event=push" alt="Linting Checks"></a>
   <a><img src="https://github.com/docsifyjs/docsify/workflows/Testing%20the%20e2e%20test%20suites/badge.svg?branch=develop&amp;event=push" alt="Testing the e2e test suites"></a>
@@ -41,7 +41,7 @@
 ## Features
 
 - No statically built html files
-- Simple and lightweight (~21kB gzipped)
+- Simple and lightweight
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
@@ -123,3 +123,9 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 ## License
 
 [MIT](LICENSE)
+
+## Special Thanks
+
+_Vercel_ has given us a Pro account.
+
+<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="docs/_media/vercel_logo.svg" width="100px"></a>
