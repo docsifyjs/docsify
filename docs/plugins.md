@@ -176,6 +176,16 @@ A docsify.js plugin for displaying tabbed content from markdown.
 
 Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
 
+## envdot
+
+A docsify plugin that load different parameters according to different environments and use {{}} or cunstom
+```html
+<script src="//cdn.jsdelivr.net/gh/shijf/docsify-envdot/docsify-envdot.min.js"></script> 
+or
+<script src="//cdn.jsdelivr.net/npm/docsify-envdot/docsify-envdot.min.js"></script> 
+```
+- [Documentation & Demos](https://github.com/Shijf/docsify-envdot)
+
 ## More plugins
 
 See [awesome-docsify](awesome?id=plugins)
