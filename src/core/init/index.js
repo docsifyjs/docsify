@@ -4,12 +4,17 @@ import { initRouter } from '../router';
 import { initEvent } from '../event';
 import { initFetch } from '../fetch';
 import { isFn } from '../util/core';
+import { body } from '../util/dom';
 import { initLifecycle, callHook } from './lifecycle';
 
 export function initMixin(proto) {
   proto._init = function() {
     const vm = this;
     vm.config = config(vm);
+
+    if (vm.config.rightSidebar) {
+      body.classList.add('right-sidebar');
+    }
 
     initLifecycle(vm); // Init hooks
     initPlugin(vm); // Install plugins

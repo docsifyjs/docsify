@@ -79,6 +79,15 @@ li input[type='checkbox']
   vertical-align middle
 
 /* navbar */
+body.right-sidebar .app-nav
+  margin 25px 0 0 60px
+  left 0
+  right unset
+
+  & > ul
+    padding-inline-start: 0;
+    padding-inline-end: 40px; // Chrome's default value.
+
 .app-nav
   margin 25px 60px 0 0
   position absolute
@@ -159,6 +168,10 @@ li input[type='checkbox']
       display block
 
 /* github corner */
+body.right-sidebar .github-corner
+  right unset
+  transform scaleX(-1)
+
 .github-corner
   border-bottom 0
   position fixed
@@ -199,6 +212,11 @@ main.hidden
     text-decoration underline
 
 /* sidebar */
+body.right-sidebar .sidebar
+  left 100%
+  border-left 1px solid rgba(0, 0, 0, 0.07)
+  border-right none
+
 .sidebar
   border-right 1px solid rgba(0, 0, 0, 0.07)
   overflow-y auto
@@ -265,6 +283,11 @@ main.hidden
     background rgba(136, 136, 136, 0.1)
 
 /* sidebar toggle */
+body.right-sidebar .sidebar-toggle
+  left unset
+  right 0
+  transform scaleX(-1) // keeps toggle button on the right
+
 .sidebar-toggle
   background-color transparent
   background-color rgba($color-bg, 0.8)
@@ -295,6 +318,10 @@ body.sticky
     position fixed
 
 /* main content */
+body.right-sidebar .content
+  right $sidebar-width
+  left 0
+
 .content
   padding-top 60px
   position absolute
@@ -302,7 +329,7 @@ body.sticky
   right 0
   bottom 0
   left $sidebar-width
-  transition left 250ms ease
+  transition left 250ms ease, right 250ms ease
 
 /* markdown content found on pages */
 .markdown-section
@@ -391,15 +418,24 @@ body.sticky
 .markdown-section ul.task-list > li
   list-style-type none
 
-body.close
-  .sidebar
+body
+  &.close .sidebar
     transform translateX(- $sidebar-width)
 
-  .sidebar-toggle
+  &.right-sidebar .sidebar
+    transform translateX(- $sidebar-width)
+
+  &.close.right-sidebar .sidebar
+    transform translateX(0)
+
+  &.close .sidebar-toggle
     width auto
 
-  .content
+  $.close .content
     left 0
+
+  &.close.right-sidebar .content
+    right 0
 
 @media print
   .github-corner, .sidebar-toggle, .sidebar, .app-nav
@@ -418,6 +454,9 @@ body.close
   main
     height auto
     overflow-x hidden
+
+  body.right-sidebar .sidebar
+    left 100%
 
   .sidebar
     left - $sidebar-width
@@ -438,21 +477,35 @@ body.close
     width auto
     padding 30px 30px 10px 10px
 
-  body.close
-    .sidebar
+  body
+    // Note, on mobile .close means open, because mobile starts with the sidebar
+    // closed (opposite of desktop which starts with sidebar open), and the
+    // `close` class is toggled by the toggle button.
+
+    &.close .sidebar
       transform translateX($sidebar-width)
 
-    .sidebar-toggle
-      background-color rgba($color-bg, 0.8)
-      transition 1s background-color
-      width $sidebar-width - 16px
-      padding 10px
+    &.right-sidebar .sidebar
+      transform translateX(0)
 
-    .content
-      transform translateX($sidebar-width)
+    &.close.right-sidebar .sidebar
+      transform translateX(- $sidebar-width)
 
-    .app-nav, .github-corner
-      display none
+    &.close
+      .sidebar-toggle
+        background-color rgba($color-bg, 0.8)
+        transition 1s background-color
+        width $sidebar-width - 16px
+        padding 10px
+
+      .content
+        transform translateX($sidebar-width)
+
+      &.right-sidebar .content
+        transform translateX(- $sidebar-width)
+
+      .app-nav, .github-corner
+        display none
 
   .github-corner
     &:hover .octo-arm
