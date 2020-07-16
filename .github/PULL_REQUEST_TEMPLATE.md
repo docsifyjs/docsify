@@ -14,6 +14,7 @@
 - [ ] Refactor
 - [ ] Docs
 - [ ] Build-related changes
+- [ ] Repo settings
 - [ ] Other, please describe:
 
 If changing the UI of default theme, please provide the **before/after** screenshot:
@@ -44,11 +45,3 @@ If adding a **new feature**, the PR's description includes:
 - [ ] Related tests have been updated
 
 To avoid wasting your time, it's best to open a **feature request issue** first and wait for approval before working on it.
-
-
-**Other information:**
-
----
-
-* [ ] DO NOT include files inside `lib` directory.
-
