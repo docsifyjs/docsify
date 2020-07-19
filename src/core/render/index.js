@@ -140,7 +140,13 @@ export function renderMixin(proto) {
   };
 
   proto._renderNav = function(text) {
-    text && this._renderTo('nav', this.compiler.compile(text));
+    if (text) {
+      callHook(this, 'updateNav', text, result => {
+        text = result || text;
+        this._renderTo('nav', this.compiler.compile(text));
+      });
+    }
+
     if (this.config.loadNavbar) {
       getAndActive(this.router, 'nav');
     }
