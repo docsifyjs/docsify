@@ -124,7 +124,7 @@ Only when you both set the `routerMode: 'history'` and `externalLinkTarget: '_se
 ## Customise ID for headings
 
 ```md
-### 你好，世界！ :id=hello-world
+### Hello there, world！ :id=hello-world
 ```
 
 ## Markdown in html tag
