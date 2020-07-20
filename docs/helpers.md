@@ -2,7 +2,7 @@
 
 docsify extends Markdown syntax to make your documents more readable.
 
-> Note:  For the special code syntax cases, you'd better put them within a code backticks to avoid any conflicting from configurations or emojis. 
+> Note:  For the special code syntax cases, you'd better put them within a code backticks to avoid any conflicting from configurations or emojis.
 
 ## important content
 
@@ -70,7 +70,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 Only when you both set the `routerMode: 'history'` and `externalLinkTarget: '_self'`, you need add this configuration for those Cross-Origin links.
 
 ```md
-[example.com](https://example.com/ ':crossorgin')  
+[example.com](https://example.com/ ':crossorgin')
 ```
 
 ## Github Task Lists
@@ -124,7 +124,7 @@ Only when you both set the `routerMode: 'history'` and `externalLinkTarget: '_se
 ## Customise ID for headings
 
 ```md
-### 你好，世界！ :id=hello-world
+### Hello, world! :id=hello-world
 ```
 
 ## Markdown in html tag
