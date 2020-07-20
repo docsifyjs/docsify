@@ -35,7 +35,7 @@ The config can also be defined as a function, in which case the first argument i
 - Type: `String`
 - Default: `#app`
 
-The DOM element to be mounted on initialization. It can be a CSS selector string or an actual HTML element.
+The DOM element to be mounted on initialization. It can be a CSS selector string or an actual [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
 
 ```js
 window.$docsify = {
