@@ -1,26 +1,49 @@
 # Docsify Testing
 
-## Environment
+### Environment
 
-- Tests located in `/tests/e2e/` use [Jest](https://jestjs.io) and [Playwright](https://playwright.dev)
-- Tests located in `/tests/integration/` use [Jest](https://jestjs.io)
-- Tests located in `/tests/unit/` use [Jest](https://jestjs.io)
+* [Jest](https://jestjs.io): A test framework used for assertions, mocks, spies, etc.
+* [Playwright](https://playwright.dev): A test automation tool for launching browsers and manipulating the DOM.
+* [Jest-Playwright](https://github.com/playwright-community/jest-playwright): A Jest preset that simplifies using Jest and Playwright together
 
-### Jest
+### Test files
 
-A test framework used for assertions, mocks, spies, etc.
+- E2E tests are located in `/tests/e2e/` and use [Jest](https://jestjs.io) and [Playwright](https://playwright.dev).
+- Integration tests are located in `/tests/integration/` and use [Jest](https://jestjs.io).
+- Unit tests located in `/tests/unit/` and use [Jest](https://jestjs.io).
 
-- Docs: https://jestjs.io
+### CLI commands
 
-### Playwright
+```shell
+# Run all tests
+npm run test:jest
 
-A test automation tool for launching browsers and manipulating the DOM.
+# Run test types
+npm run test:jest-e2e
+npm run test:jest-integration
+npm run test:jest-unit
 
-- Docs: https://playwright.dev
+# Run test file
+npm run test:jest -- -i /path/to/file.test.js
 
-### Jest-Playwright
+# Run matching test files
+npm run test:jest -- -i /path/to/*.test.js
 
-A Jest preset that simplifies using Jest and Playwright together.
+# Run matching test name(s)
+npm run test:jest -- -t \"describe() or test() name\"
 
-- Docs: https://github.com/playwright-community/jest-playwright
-- Info: https://playwright.tech/blog/using-jest-with-playwright
+# Run matching test name(s) in file
+npm run test:jest -- -i /path/to/file.test.js -t \"describe() or test() name\"
+
+# Run all example tests
+npm run test:jest -- -i /tests/**/example.test.js --testPathIgnorePatterns
+
+# Run specific example test file
+npm run test:jest -- -i /path/to/example.test.js --testPathIgnorePatterns
+```
+
+### Resource
+
+* [UI Testing Best Practices](https://github.com/NoriSte/ui-testing-best-practices)
+* [Using Jest with Playwright](https://playwright.tech/blog/using-jest-with-playwright)
+
