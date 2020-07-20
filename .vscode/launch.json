@@ -18,7 +18,7 @@
       "name": "Run current test file",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "test:jest"],
-      "args": ["--", "-i", "${relativeFile}"],
+      "args": ["--", "-i", "${relativeFile}", "--testPathIgnorePatterns"],
       "console": "integratedTerminal"
     },
     {
@@ -27,7 +27,14 @@
       "name": "Run selected test name",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "test:jest"],
-      "args": ["--", "-i", "${relativeFile}", "-t", "${selectedText}"],
+      "args": [
+        "--",
+        "-i",
+        "${relativeFile}",
+        "-t",
+        "${selectedText}",
+        "--testPathIgnorePatterns"
+      ],
       "console": "integratedTerminal"
     }
   ]

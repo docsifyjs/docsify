@@ -8,11 +8,13 @@ module.exports = {
     {
       displayName: 'unit',
       testMatch: ['<rootDir>/tests/unit/*.test.js'],
+      testPathIgnorePatterns: ['example.test'],
     },
     // Integration Tests (Jest)
     {
       displayName: 'integration',
       testMatch: ['<rootDir>/tests/integration/*.test.js'],
+      testPathIgnorePatterns: ['example.test'],
     },
     // E2E Tests (Jest + Playwright)
     {
@@ -21,6 +23,7 @@ module.exports = {
       globalTeardown: './tests/e2e/config/jest.teardown.js',
       preset: 'jest-playwright-preset',
       testMatch: ['<rootDir>/tests/e2e/*.test.js'],
+      testPathIgnorePatterns: ['example.test'],
     },
   ],
 };
