@@ -30,7 +30,7 @@ describe(`Example Tests`, function() {
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagesetcontenthtml-options
     await page.setContent(testHTML);
 
-    // Add class to <body> element and verify
+    // Add class to <body> element and test
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevalselector-pagefunction-arg
     await page.$eval('body', elm => elm.classList.add('foo'));
     expect(await page.getAttribute('body', 'class')).toEqual('foo');
@@ -55,7 +55,7 @@ describe(`Example Tests`, function() {
     // await jestPlaywright.debug();
   });
 
-  test('javascript in the browser context', async () => {
+  test('javascript in browser context', async () => {
     // Get native DOM values
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
     const clientDimensions = await page.evaluate(() => {
@@ -64,6 +64,11 @@ describe(`Example Tests`, function() {
         height: document.documentElement.clientHeight,
       };
     });
+
+    expect(clientDimensions).toHaveProperty('width');
+    expect(typeof clientDimensions.width).toBe('number');
+    expect(clientDimensions).toHaveProperty('height');
+    expect(typeof clientDimensions.height).toBe('number');
 
     // Get result of script executed in browser context
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
@@ -78,6 +83,8 @@ describe(`Example Tests`, function() {
       [1, 2, 3]
     );
 
+    expect(scriptResult).toBe(6);
+
     // Get result of local function executed in browser context
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
     const functionResult = await page.evaluate(`
@@ -88,15 +95,10 @@ describe(`Example Tests`, function() {
       Promise.resolve(result);
     `);
 
-    expect(clientDimensions).toHaveProperty('width');
-    expect(typeof clientDimensions.width).toBe('number');
-    expect(clientDimensions).toHaveProperty('height');
-    expect(typeof clientDimensions.height).toBe('number');
-    expect(scriptResult).toBe(6);
     expect(functionResult).toBe(6);
   });
 
-  test('docsify test using playwright methods', async () => {
+  test('manual docsify site using playwright methods', async () => {
     // Goto URL
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
     await page.goto(`${serverURL}/html5.html`);
@@ -137,9 +139,7 @@ describe(`Example Tests`, function() {
     expect($docsify).toHaveProperty('themeColor', 'red');
   });
 
-  //
-
-  test('docsify test using docsifyInit()', async () => {
+  test('default docsify site using docsifyInit()', async () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
@@ -214,10 +214,10 @@ describe(`Example Tests`, function() {
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageclickselector-options
     await page.click('a[href="#/test"]');
 
-    // Verify page change by checking URL
+    // Test page change by checking URL
     await expect(page.url()).toMatch(/\/test$/);
 
-    // Or verify page change by checking page content
+    // Or test page change by checking page content
     await expect(page).toHaveText('#main', 'This is a custom route');
   });
 });
