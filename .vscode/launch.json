@@ -36,6 +36,38 @@
         "--testPathIgnorePatterns"
       ],
       "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Update current test file snapshot(s)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test:jest"],
+      "args": [
+        "--",
+        "-i",
+        "${relativeFile}",
+        "--updateSnapshot",
+        "--testPathIgnorePatterns"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Update selected test name snapshot(s)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test:jest"],
+      "args": [
+        "--",
+        "-i",
+        "${relativeFile}",
+        "-t",
+        "${selectedText}",
+        "--updateSnapshot",
+        "--testPathIgnorePatterns"
+      ],
+      "console": "integratedTerminal"
     }
   ]
 }
