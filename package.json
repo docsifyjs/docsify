@@ -33,6 +33,7 @@
     "test:e2e": "start-server-and-test testServer http://localhost:3000 cy:run",
     "test:jest": "jest",
     "test:jest-e2e": "jest --selectProjects e2e",
+    "test:jest-examples": "jest -i ./tests/**/example.test.js --testPathIgnorePatterns",
     "test:jest-integration": "jest --selectProjects integration",
     "test:jest-unit": "jest --selectProjects unit",
     "posttest:e2e": "rimraf cypress/fixtures/docs",
