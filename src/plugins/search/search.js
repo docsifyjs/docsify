@@ -166,11 +166,19 @@ export function search(query) {
             end = postContent.length;
           }
 
+          let originKeyword = escapeHtml(postContent).substr(
+            indexContent,
+            keyword.length
+          );
+
           const matchContent =
             '...' +
             escapeHtml(postContent)
               .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
+              .replace(
+                regEx,
+                `<em class="search-keyword">${originKeyword}</em>`
+              ) +
             '...';
 
           resultStr += matchContent;
