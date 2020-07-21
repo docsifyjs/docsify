@@ -178,12 +178,16 @@ export default class Renderer {
     let content;
     try {
       if (isAbsolutePath(filePath)) {
-        const res = await fetch(filePath);
-        if (!res.ok) {
-          throw Error();
-        }
+        if (isExternal(filePath)) {
+          const res = await fetch(filePath);
+          if (!res.ok) {
+            throw Error();
+          }
 
-        content = await res.text();
+          content = await res.text();
+        } else {
+          content = await readFileSync(filePath, 'utf8');
+        }
         this.lock = 0;
       } else {
         content = await readFileSync(filePath, 'utf8');
