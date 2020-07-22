@@ -209,7 +209,9 @@ export function fetchMixin(proto) {
       return false;
     }
 
-    const newPath = path.replace(new RegExp(`^/${local}`), '');
+    const newPath = this.router.getFile(
+      path.replace(new RegExp(`^/${local}`), '')
+    );
     const req = request(newPath + qs, true, requestHeaders);
 
     req.then(
