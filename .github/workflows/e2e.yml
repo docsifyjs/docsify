@@ -27,7 +27,5 @@ jobs:
         run: npm run bootstrap
       - name: build
         run: npm run build
-      - name: e2e tests (cypress)
-        run: npm run test:e2e
       - name: e2e tests (jest+playwright)
         run: npm run test:jest-e2e -- -ci
