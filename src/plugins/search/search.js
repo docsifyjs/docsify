@@ -166,10 +166,12 @@ export function search(query) {
             end = postContent.length;
           }
 
-          let originKeyword = escapeHtml(postContent).substr(
-            indexContent,
-            keyword.length
-          );
+          let originKeyword = escapeHtml(postContent)
+            .substring(indexContent, end)
+            .match(regEx);
+          originKeyword = Array.isArray(originKeyword)
+            ? originKeyword[0]
+            : keyword;
 
           const matchContent =
             '...' +
