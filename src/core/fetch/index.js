@@ -123,7 +123,7 @@ export function fetchMixin(proto) {
           this._loadSideAndNav(path, qs, loadSidebar, cb)
         ),
       _ => {
-        this._fetchFallbackPage(file, qs, cb) || this._fetch404(file, qs, cb);
+        this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
       }
     );
 
