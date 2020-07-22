@@ -28,4 +28,5 @@ jobs:
       - name: build
         run: npm run build
       - name: e2e tests (jest+playwright)
+        uses: microsoft/playwright-github-action@v1
         run: npm run test:jest-e2e -- -ci
