@@ -25,7 +25,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: bootstrap
         run: npm run bootstrap
-      - name: Build
+      - name: build
         run: npm run build
-      - name: end to end
-        run: npm run test:e2e && npm run test:jest-e2e
+      - name: e2e tests (cypress)
+        run: npm run test:e2e
+      - name: e2e tests (jest+playwright)
+        run: npm run test:jest-e2e -- -ci
