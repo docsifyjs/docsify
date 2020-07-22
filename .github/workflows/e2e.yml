@@ -23,10 +23,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: microsoft/playwright-github-action@v1.3.0
       - name: bootstrap
         run: npm run bootstrap
       - name: build
         run: npm run build
       - name: e2e tests (jest+playwright)
-        uses: microsoft/playwright-github-action@v1
         run: npm run test:jest-e2e -- -ci
