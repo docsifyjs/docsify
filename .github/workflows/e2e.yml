@@ -1,4 +1,4 @@
-name: Testing the e2e test suites
+name: E2E Tests
 
 on:
   push:
@@ -12,10 +12,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 13.x]
+        node-version: [10.x, 12.x, 14.x]
 
     steps:
       - uses: actions/checkout@v1
