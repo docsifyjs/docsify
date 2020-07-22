@@ -1,4 +1,4 @@
-name: E2E Tests
+name: Testing the e2e test suites
 
 on:
   push:
