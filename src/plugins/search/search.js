@@ -223,6 +223,11 @@ export function init(config, vm) {
   const len = paths.length;
   let count = 0;
 
+  // Fix search error when exist translations documents
+  if (INDEXS !== null && !INDEXS[paths[0]]) {
+    INDEXS = {};
+  }
+
   paths.forEach(path => {
     if (INDEXS[path]) {
       return count++;
