@@ -32,7 +32,7 @@ jobs:
       - name: unit tests (jest+playwright)
         run: npm run test:jest-unit -- -ci
       - uses: microsoft/playwright-github-action@v1.3.0
-        name: e2e tests
+      - name: e2e tests
         run: npm run test:jest-e2e -- --ci
       - name: Upload artifacts (diff output)
         uses: actions/upload-artifact@v2
