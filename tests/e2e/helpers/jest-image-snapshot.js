@@ -1,9 +1,6 @@
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
-  customDiffConfig: {
-    threshold: 0.3,
-  },
   comparisonMethod: 'ssim',
   customSnapshotIdentifier(data) {
     return `${data.defaultIdentifier}-${browserName}`;
