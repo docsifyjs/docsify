@@ -7,6 +7,8 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   customSnapshotIdentifier(data) {
     return `${data.defaultIdentifier}-${browserName}`;
   },
+  diffDirection: 'vertical',
+  noColors: true,
 });
 
 expect.extend({ toMatchImageSnapshot });
