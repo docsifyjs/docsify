@@ -34,10 +34,10 @@ jobs:
       - uses: microsoft/playwright-github-action@v1.3.0
       - if: matrix.os == 'macos-latest'
         name: e2e tests (maxWorkers=50%)
-        run: npm run test:jest-e2e -- -ci --maxWorkers=50%
+        run: npm run test:jest-e2e -- --ci --maxWorkers=50%
       - if: matrix.os != 'macos-latest'
         name: e2e tests
-        run: npm run test:jest-e2e -- -ci
+        run: npm run test:jest-e2e -- --ci
       - name: Upload artifacts (diff output)
         uses: actions/upload-artifact@v2
         if: failure()
