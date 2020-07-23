@@ -8,6 +8,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
     return `${data.defaultIdentifier}-${browserName}`;
   },
   diffDirection: 'vertical',
+  failureThreshold: 0.04,
   noColors: true,
 });
 
