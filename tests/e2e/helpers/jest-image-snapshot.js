@@ -9,6 +9,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   },
   diffDirection: 'vertical',
   failureThreshold: 0.04,
+  failureThresholdType: 'percent',
   noColors: true,
 });
 
