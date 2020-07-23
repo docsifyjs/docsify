@@ -18,13 +18,14 @@ const config = {
 };
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
+  allowSizeMismatch: true, // Windows CI fix
   customSnapshotIdentifier(data) {
     return `${data.defaultIdentifier}-${browserName}`;
   },
   diffDirection: 'vertical',
   failureThresholdType: 'percent',
   noColors: true,
-  allowSizeMismatch: true, // Required for Windows test
+  runInProcess: true, // macOS CI fix
   // pixel or ssim
   ...config.ssimCompare,
 });
