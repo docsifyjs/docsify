@@ -120,6 +120,9 @@ async function docsifyInit(options) {
     await page.waitForSelector(settings.waitForSelector);
   }
 
+  // Wait for all network requests to complete
+  await page.waitForLoadState('networkidle');
+
   // Debug
   if (settings.debug) {
     await jestPlaywright.debug();
