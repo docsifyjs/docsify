@@ -165,13 +165,18 @@ export function search(query) {
             end = postContent.length;
           }
 
-          const matchContent =
-            '...' +
-            escapeHtml(postContent)
-              .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
-            '...';
+          let content = escapeHtml(postContent).substring(start, end);
+          let matchKeywords = content.match(regEx);
 
+          matchKeywords = new Set(matchKeywords);
+          matchKeywords.forEach(keyword => {
+            content = content.replace(
+              new RegExp(keyword, 'g'),
+              `<em class="search-keyword">${keyword}</em>`
+            );
+          });
+
+          const matchContent = '...' + content + '...';
           resultStr += matchContent;
         }
       });
