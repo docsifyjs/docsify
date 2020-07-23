@@ -24,6 +24,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   diffDirection: 'vertical',
   failureThresholdType: 'percent',
   noColors: true,
+  allowSizeMismatch: true, // Required for Windows test
   // pixel or ssim
   ...config.ssimCompare,
 });
