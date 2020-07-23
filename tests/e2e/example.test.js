@@ -4,6 +4,9 @@ const add = require('./fixtures/add.js');
 const docsifyInit = require('./helpers/docsifyInit');
 const { URL: serverURL } = require('./config/server.js');
 
+// Setup jest-image-snapshot
+require('./helpers/jest-image-snapshot.js');
+
 // Suite
 // -----------------------------------------------------------------------------
 describe(`Example Tests`, function() {
@@ -219,5 +222,35 @@ describe(`Example Tests`, function() {
 
     // Or test page change by checking page content
     await expect(page).toHaveText('#main', 'This is a custom route');
+  });
+
+  test('image snapshots', async () => {
+    await docsifyInit({
+      config: {
+        name: 'Docsify Test',
+      },
+      contentMarkdown: `
+        # Page Title
+
+        This is a paragraph
+
+        1. Item
+        1. Item
+        1. Item
+      `,
+    });
+
+    // Viewport screenshot
+    const screenshot1 = await page.screenshot();
+    expect(screenshot1).toMatchImageSnapshot();
+
+    // Full page screenshot
+    const screenshot2 = await page.screenshot({ fullPage: true });
+    expect(screenshot2).toMatchImageSnapshot();
+
+    // Element screenshot
+    const elmHandle = await page.$('h1');
+    const screenshot3 = await elmHandle.screenshot();
+    expect(screenshot3).toMatchImageSnapshot();
   });
 });
