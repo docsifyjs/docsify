@@ -33,3 +33,7 @@ jobs:
       - uses: microsoft/playwright-github-action@v1.3.0
       - name: e2e tests (jest+playwright)
         run: npm run test:jest-e2e -- -ci
+      - uses: actions/upload-artifact@v2
+        with:
+          name: diff_output
+          path: ${{ github.workspace }}/tests/**/__diff_output__/*
