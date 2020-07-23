@@ -237,6 +237,8 @@ describe(`Example Tests`, function() {
       contentMarkdown: `
         # The Cosmos Awaits
 
+        [Carl Sagan](https://en.wikipedia.org/wiki/Carl_Sagan)
+
         Cosmic ocean take root and flourish decipherment hundreds of thousands
         dream of the mind's eye courage of our questions. At the edge of forever
         network of wormholes ship of the imagination two ghostly white figures
