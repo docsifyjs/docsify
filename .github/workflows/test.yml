@@ -32,10 +32,10 @@ jobs:
       - name: unit tests (jest+playwright)
         run: npm run test:jest-unit -- -ci
       - uses: microsoft/playwright-github-action@v1.3.0
-      - if: matrix.os == "macos-latest"
+      - if: matrix.os == macos-latest
         name: e2e tests (maxWorkers=50%)
         run: npm run test:jest-e2e -- -ci --maxWorkers=50%
-      - if: matrix.os != "macos-latest"
+      - if: matrix.os != macos-latest
         name: e2e tests
         run: npm run test:jest-e2e -- -ci
       - name: Upload artifacts (diff output)
