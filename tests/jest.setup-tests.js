@@ -1,7 +1,7 @@
 const isJSDOM =
   global && global.navigator && global.navigator.userAgent.match(/jsdom/);
 
-beforeEach(() => {
+beforeEach(async () => {
   // Soft-reset jsdom. This clears the DOM and removes all attribute from the
   // root element, however it does not undo changes made to jsdom globals like
   // window or document. For a full jsdom reset, tests requiring a full jsdom
@@ -19,5 +19,9 @@ beforeEach(() => {
 
     // Restore base elements
     rootElm.innerHTML = '<html><head></head><body></body></html>';
+  }
+
+  if (global.jestPlaywright) {
+    await global.jestPlaywright.resetPage();
   }
 });
