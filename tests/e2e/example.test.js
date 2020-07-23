@@ -1,6 +1,5 @@
 // Modules, constants, and variables
 // -----------------------------------------------------------------------------
-const add = require('./fixtures/add.js');
 const docsifyInit = require('./helpers/docsifyInit');
 const { URL: serverURL } = require('./config/server.js');
 
@@ -90,6 +89,12 @@ describe(`Example Tests`, function() {
 
     // Get result of local function executed in browser context
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
+    function add(...addends) {
+      return addends.reduce(
+        (accumulator, currentValue) => accumulator + currentValue
+      );
+    }
+
     const functionResult = await page.evaluate(`
       ${add.toString()}
 
