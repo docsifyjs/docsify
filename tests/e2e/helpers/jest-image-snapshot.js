@@ -4,11 +4,12 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   customDiffConfig: {
     threshold: 0.3,
   },
+  comparisonMethod: 'ssim',
   customSnapshotIdentifier(data) {
     return `${data.defaultIdentifier}-${browserName}`;
   },
   diffDirection: 'vertical',
-  failureThreshold: 0.04,
+  failureThreshold: 0.01,
   failureThresholdType: 'percent',
   noColors: true,
 });
