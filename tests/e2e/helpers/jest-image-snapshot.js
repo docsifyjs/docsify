@@ -16,7 +16,7 @@ const config = {
     customDiffConfig: {
       ssim: 'fast',
     },
-    failureThreshold: 0.15,
+    failureThreshold: 0.01,
     runInProcess: true,
   },
 };
