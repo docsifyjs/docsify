@@ -5,6 +5,7 @@ It is recommended to install `docsify-cli` globally, which helps initializing an
 ```bash
 npm i docsify-cli -g
 ```
+222
 
 ## Initialize
 
