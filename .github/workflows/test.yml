@@ -38,5 +38,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: ${{ matrix.os }}-${{ matrix.node-version }}-diff-output
+          name: ${{ matrix.os }}-diff-output
           path: ${{ github.workspace }}/tests/**/__diff_output__/*
