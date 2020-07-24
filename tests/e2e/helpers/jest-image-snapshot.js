@@ -30,7 +30,7 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   noColors: true,
   runInProcess: true, // macOS CI fix
   // pixel- or ssim-based configuration
-  ...config.ssimCompare,
+  ...config.pixelCompare,
 });
 
 expect.extend({ toMatchImageSnapshot });
