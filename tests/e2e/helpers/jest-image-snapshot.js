@@ -25,7 +25,6 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   diffDirection: 'vertical',
   failureThresholdType: 'percent',
   noColors: true,
-  runInProcess: true, // macOS CI fix
   // pixel or ssim
   ...config.ssimCompare,
 });
