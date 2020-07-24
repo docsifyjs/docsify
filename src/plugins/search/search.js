@@ -170,7 +170,10 @@ export function search(query) {
             '...' +
             escapeHtml(postContent)
               .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
+              .replace(
+                regEx,
+                word => `<em class="search-keyword">${word}</em>`
+              ) +
             '...';
 
           resultStr += matchContent;
