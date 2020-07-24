@@ -13,7 +13,11 @@ const config = {
   // https://github.com/obartra/ssim
   ssimCompare: {
     comparisonMethod: 'ssim',
+    customDiffConfig: {
+      ssim: 'fast',
+    },
     failureThreshold: 0.15,
+    runInProcess: true,
   },
 };
 
