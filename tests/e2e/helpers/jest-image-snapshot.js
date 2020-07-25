@@ -1,5 +1,8 @@
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
+// Storing separate image comparison configurations for easy switching while
+// evaluating results. Once more e2e tests are in place, we'll settle on a
+// configuration, allowing us to safely remove the multi-config object below.
 const config = {
   // Pixel-based image comparisons
   // https://github.com/mapbox/pixelmatch#pixelmatchimg1-img2-output-width-height-options
@@ -25,8 +28,9 @@ const toMatchImageSnapshot = configureToMatchImageSnapshot({
   diffDirection: 'vertical',
   failureThresholdType: 'percent',
   noColors: true,
-  // pixel or ssim
-  ...config.ssimCompare,
+  runInProcess: true, // macOS CI fix
+  // pixel- or ssim-based configuration
+  ...config.pixelCompare,
 });
 
 expect.extend({ toMatchImageSnapshot });
