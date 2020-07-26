@@ -81,20 +81,20 @@ export default class Renderer {
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
     this.isRemoteUrl = isExternal(this.url);
-    const { loadSidebar, loadNavbar, coverpage } = this.config;
+    const { basePath, loadSidebar, loadNavbar, coverpage } = this.config;
 
-    const mainFile = this._getPath(url);
+    const mainFile = this._getPath(basePath, url);
     this._renderHtml('main', await this._render(mainFile, 'main'));
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar;
-      const sidebarFile = this._getPath(resolve(url, `./${name}`));
+      const sidebarFile = this._getPath(resolve(basePath, url, `./${name}`));
       this._renderHtml('sidebar', await this._render(sidebarFile, 'sidebar'));
     }
 
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar;
-      const navbarFile = this._getPath(resolve(url, `./${name}`));
+      const navbarFile = this._getPath(resolve(basePath, url, `./${name}`));
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'));
     }
 
@@ -111,7 +111,7 @@ export default class Renderer {
         path = cover === true ? '_coverpage.md' : cover;
       }
 
-      const coverFile = this._getPath(resolve(url, `./${path}`));
+      const coverFile = this._getPath(resolve(basePath, url, `./${path}`));
 
       this._renderHtml('cover', await this._render(coverFile), 'cover');
     }
