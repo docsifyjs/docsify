@@ -170,7 +170,10 @@ export function search(query) {
             '...' +
             escapeHtml(postContent)
               .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
+              .replace(
+                regEx,
+                word => `<em class="search-keyword">${word}</em>`
+              ) +
             '...';
 
           resultStr += matchContent;
@@ -212,6 +215,11 @@ export function init(config, vm) {
   const paths = isAuto ? getAllPaths(vm.router) : config.paths;
   const len = paths.length;
   let count = 0;
+
+  // Fix search error when exist translations documents
+  if (INDEXS !== null && !INDEXS[paths[0]]) {
+    INDEXS = {};
+  }
 
   paths.forEach(path => {
     if (INDEXS[path]) {

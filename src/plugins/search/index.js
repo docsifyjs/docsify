@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { init as initComponet, update as updateComponent } from './component';
+import { init as initComponent, update as updateComponent } from './component';
 import { init as initSearch } from './search';
 
 const CONFIG = {
@@ -32,7 +32,7 @@ const install = function(hook, vm) {
   const isAuto = CONFIG.paths === 'auto';
 
   hook.mounted(_ => {
-    initComponet(CONFIG, vm);
+    initComponent(CONFIG, vm);
     !isAuto && initSearch(CONFIG, vm);
   });
   hook.doneEach(_ => {
