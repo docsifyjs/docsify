@@ -1,3 +1,5 @@
+const server = require('./server.js');
+
 module.exports = async () => {
-  global.__SERVER__.shutdown();
+  server.stop();
 };
