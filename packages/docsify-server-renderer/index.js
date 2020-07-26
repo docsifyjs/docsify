@@ -20,7 +20,8 @@ function isExternal(url) {
   );
   if (
     typeof match[1] === 'string' &&
-    match[1].length > 0
+    match[1].length > 0 &&
+    ['http', 'https'].indexOf(match[1].toLowerCase()) !== -1
   ) {
     return true;
   }
@@ -55,6 +56,7 @@ export default class Renderer {
   constructor({ template, config, cache }) {
     this.html = template;
     this.config = config = Object.assign({}, config, {
+      homepage: 'README.md',
       routerMode: 'history',
     });
     this.cache = cache;
@@ -81,9 +83,11 @@ export default class Renderer {
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
     this.isRemoteUrl = isExternal(this.url);
-    const { basePath, loadSidebar, loadNavbar, coverpage } = this.config;
+    const { basePath, homepage, loadSidebar, loadNavbar, coverpage } = this.config;
 
-    const mainFile = this._getPath(basePath, url);
+    const fileName = basename(url);
+    const name = fileName || homepage;
+    const mainFile = this._getPath(resolve(basePath, url, `./${name}`));
     this._renderHtml('main', await this._render(mainFile, 'main'));
 
     if (loadSidebar) {
