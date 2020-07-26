@@ -293,7 +293,7 @@ export class Compiler {
   subSidebar(level) {
     if (!level) {
       this.toc = [];
-      return;
+      return treeTpl();
     }
 
     const currentPath = this.router.getCurrentPath();
