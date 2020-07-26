@@ -3,9 +3,6 @@
 const docsifyInit = require('./helpers/docsifyInit');
 const { URL: serverURL } = require('./config/server.js');
 
-// Setup jest-image-snapshot
-require('./helpers/jest-image-snapshot.js');
-
 // Suite
 // -----------------------------------------------------------------------------
 describe(`Example Tests`, function() {

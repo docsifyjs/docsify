@@ -1,5 +1,3 @@
-// TODO: Enable testPathIgnorePatterns after first unit test is in place
-
 // Jest-Playwrigth Config
 process.env.JEST_PLAYWRIGHT_CONFIG =
   './tests/e2e/config/jest-playwright.config.js';
@@ -9,14 +7,14 @@ module.exports = {
     // Unit Tests (Jest)
     {
       displayName: 'unit',
-      setupFilesAfterEnv: ['<rootDir>/tests/jest.setup-tests.js'],
+      setupFilesAfterEnv: ['<rootDir>/tests/unit/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/tests/unit/*.test.js'],
       // testPathIgnorePatterns: ['example.test'],
     },
     // Integration Tests (Jest)
     {
       displayName: 'integration',
-      setupFilesAfterEnv: ['<rootDir>/tests/jest.setup-tests.js'],
+      setupFilesAfterEnv: ['<rootDir>/tests/unit/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/tests/integration/*.test.js'],
       // testPathIgnorePatterns: ['example.test'],
     },
@@ -26,7 +24,7 @@ module.exports = {
       globalSetup: './tests/e2e/config/jest.setup.js',
       globalTeardown: './tests/e2e/config/jest.teardown.js',
       preset: 'jest-playwright-preset',
-      setupFilesAfterEnv: ['<rootDir>/tests/jest.setup-tests.js'],
+      setupFilesAfterEnv: ['<rootDir>/tests/e2e/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/tests/e2e/*.test.js'],
       // testPathIgnorePatterns: ['example.test'],
     },
