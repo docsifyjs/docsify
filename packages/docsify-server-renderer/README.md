@@ -14,7 +14,7 @@ var readFileSync = require('fs').readFileSync
 
 // init
 var renderer = new Renderer({
-  template: readFileSync('./docs/index.template.html', 'utf-8').,
+  template: readFileSync('./docs/index.template.html', 'utf-8'),
   config: {
     name: 'docsify',
     repo: 'docsifyjs/docsify'
@@ -35,12 +35,12 @@ renderer.renderToString(url)
   <meta charset="UTF-8">
   <title>docsify</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/buble.css" title="buble" disabled>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
 </head>
 <body>
   <!--inject-app-->
   <!--inject-config-->
-  <script src="//unpkg.com/docsify/lib/docsify.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.js"></script>
 </body>
 </html>
 ```
