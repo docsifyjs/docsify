@@ -1,25 +1,60 @@
 const path = require('path');
-const liveServer = require('live-server');
 
 const SERVER_HOST = '127.0.0.1';
 const SERVER_PORT = 3001;
 
+// Dependencies
+// =============================================================================
+const browserSync = require('browser-sync').create();
+
 function startServer() {
-  liveServer.start({
+  browserSync.init({
     host: SERVER_HOST,
-    port: SERVER_PORT,
-    root: path.resolve(__dirname, '../fixtures'),
+    notify: false,
     open: false,
-    logLevel: 0,
-    mount: [
-      ['/docs', path.resolve(__dirname, '../../../docs')],
-      ['/lib', path.resolve(__dirname, '../../../lib')],
+    port: SERVER_PORT,
+    rewriteRules: [
+      // Replace CDN URLs with local paths
+      {
+        match: /(https?:)?\/\/cdn\.jsdelivr\.net\/npm\/docsify(@\d?\.?\d?\.?\d)?\/lib\//g,
+        replace: '/lib/',
+      },
     ],
+    server: {
+      baseDir: path.resolve(__dirname, '../fixtures'),
+      routes: {
+        '/docs': path.resolve(__dirname, '../../../docs'),
+        '/lib': path.resolve(__dirname, '../../../lib'),
+        '/docs/changelog.md': './CHANGELOG.md',
+      },
+    },
+    snippetOptions: {
+      rule: {
+        match: /<\/body>/i,
+        fn: function(snippet, match) {
+          // Override changelog alias to load local changelog (see routes)
+          const injectJS = `
+            <script>
+              (function() {
+                const aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
+
+                aliasConfig['.*?/changelog'] = '/changelog.md';
+              })();
+            </script>
+          `;
+
+          return injectJS + snippet + match;
+        },
+      },
+    },
+    ui: {
+      port: 3002,
+    },
   });
 }
 
 function stopServer() {
-  liveServer.shutdown();
+  browserSync.exit();
 }
 
 module.exports = {

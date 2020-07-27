@@ -74,6 +74,7 @@
   "devDependencies": {
     "autoprefixer-stylus": "^1.0.0",
     "babel-eslint": "^10.0.3",
+    "browser-sync": "^2.26.10",
     "chai": "^4.2.0",
     "chokidar": "^3.2.1",
     "common-tags": "^1.8.0",
