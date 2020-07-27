@@ -1,18 +1,16 @@
+const browserSync = require('browser-sync').create();
 const path = require('path');
 
-const SERVER_HOST = '127.0.0.1';
-const SERVER_PORT = 3001;
+const hasStartArg = process.argv.includes('--start');
+const serverConfig = {
+  host: '127.0.0.1',
+  port: 3001,
+};
 
-// Dependencies
-// =============================================================================
-const browserSync = require('browser-sync').create();
-
-function startServer() {
-  browserSync.init({
-    host: SERVER_HOST,
+function startServer(options = {}) {
+  const defaults = {
     notify: false,
     open: false,
-    port: SERVER_PORT,
     rewriteRules: [
       // Replace CDN URLs with local paths
       {
@@ -47,9 +45,13 @@ function startServer() {
         },
       },
     },
-    ui: {
-      port: 3002,
-    },
+    ui: false,
+  };
+
+  browserSync.init({
+    ...defaults,
+    ...serverConfig,
+    ...options,
   });
 }
 
@@ -57,8 +59,18 @@ function stopServer() {
   browserSync.exit();
 }
 
+// Allow starting the test server from the CLI. Useful for viewing test content
+// like fixtures (/index.html)) and local docs site (/docs) used for testing.
+if (hasStartArg) {
+  startServer({
+    open: true,
+    port: serverConfig.port + 2,
+    startPath: '/docs',
+  });
+}
+
 module.exports = {
   start: startServer,
   stop: stopServer,
-  URL: `http://${SERVER_HOST}:${SERVER_PORT}`,
+  URL: `http://${serverConfig.host}:${serverConfig.port}`,
 };

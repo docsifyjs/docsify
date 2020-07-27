@@ -8,13 +8,13 @@
 
 ### Test files
 
-- E2E tests are located in `/tests/e2e/` and use [Jest](https://jestjs.io) and [Playwright](https://playwright.dev).
+- E2E tests are located in `/tests/e2e/` and use [Jest](https://jestjs.io) + [Playwright](https://playwright.dev).
 - Integration tests are located in `/tests/integration/` and use [Jest](https://jestjs.io).
 - Unit tests located in `/tests/unit/` and use [Jest](https://jestjs.io).
 
 ### CLI commands
 
-```shell
+```bash
 # Run all tests
 npm run test:jest
 
@@ -22,6 +22,9 @@ npm run test:jest
 npm run test:jest-e2e
 npm run test:jest-integration
 npm run test:jest-unit
+
+# Run example tests
+npm run test:jest-examples
 
 # Run test file
 npm run test:jest -- -i /path/to/file.test.js
@@ -51,6 +54,13 @@ npm run test:jest -- -u -t \"describe() or test() name\"
 
 # Update snapshots for matching test name(s) in file
 npm run test:jest -- -u -i /path/to/file.test.js -t \"describe() or test() name\"
+
+# ------------------------------------------------------------------------------
+
+# Start manual test server instance. Useful for previewing test fixtures.
+# Root: /tests/e2e/fixtures/
+# Routes: /docs, /lib,
+node ./tests/e2e/config/server.js --start
 ```
 
 ### Resource
