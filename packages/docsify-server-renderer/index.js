@@ -65,9 +65,15 @@ export default class Renderer {
     this.compiler = new Compiler(config, this.router);
 
     this.router.getCurrentPath = () => this.url;
+
+    let webConf = Object.assign({}, config);
+    if (isAbsolutePath(config.basePath) && !isExternal(config.basePath)) {
+      webConf.basePath = webConf.baseUrl;
+      delete webConf.baseUrl;
+    }
     this._renderHtml(
       'inject-config',
-      `<script>window.$docsify = ${JSON.stringify(config)}</script>`
+      `<script>window.$docsify = ${JSON.stringify(webConf)}</script>`
     );
     this._renderHtml('inject-app', mainTpl(config));
 
