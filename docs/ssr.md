@@ -125,7 +125,7 @@ renderer.renderToString(url)
 
 ## 3rd Party Frameworks
 
-You can use `docsify-server-renderer` with other server frameworks such as `koa` and `express`.
+You can use `docsify-server-renderer` with server frameworks such as `koa` and `express`.
 
 ```js
 // The example is in express.js
@@ -156,4 +156,6 @@ router.get('/:url(.{0,})', async function(req, res, next) { // The `{0,}` is due
 
   res.send(html)
 })
+
+module.exports = router
 ```
