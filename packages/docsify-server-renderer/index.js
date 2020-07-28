@@ -16,7 +16,7 @@ function cwd(...args) {
 
 function isExternal(url) {
   let match = url.match(
-    /^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+    /^([^:/?#]+:)?(?:\/\/([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
   );
   if (
     typeof match[1] === 'string' &&
@@ -25,10 +25,7 @@ function isExternal(url) {
   ) {
     return true;
   }
-  if (
-    typeof match[2] === 'string' &&
-    match[2].length > 0
-  ) {
+  if (typeof match[2] === 'string' && match[2].length > 0) {
     return true;
   }
   return false;
@@ -89,7 +86,13 @@ export default class Renderer {
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
     this.isRemoteUrl = isExternal(this.url);
-    const { basePath, homepage, loadSidebar, loadNavbar, coverpage } = this.config;
+    const {
+      basePath,
+      homepage,
+      loadSidebar,
+      loadNavbar,
+      coverpage,
+    } = this.config;
 
     const fileName = basename(url);
     const name = fileName || homepage;
