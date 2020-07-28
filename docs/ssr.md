@@ -123,7 +123,7 @@ renderer.renderToString(url)
   .catch(err => {})
 ```
 
-## Work with other server frameworks
+## 3rd Party Frameworks
 
 You can use `docsify-server-renderer` with other server frameworks such as `koa` and `express`.
 
