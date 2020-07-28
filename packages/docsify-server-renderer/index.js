@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
-import { resolve, basename } from 'path';
+import { resolve as resolvePath, basename } from 'path';
+import { resolve as resolveUrl } from 'url';
 import resolvePathname from 'resolve-pathname';
 import fetch from 'node-fetch';
 import debug from 'debug';
@@ -12,6 +13,14 @@ import { prerenderEmbed } from '../../src/core/render/embed';
 
 function cwd(...args) {
   return resolve(process.cwd(), ...args);
+}
+
+function resolve(base, ...args) {
+  if (isAbsolutePath(base) && isExternal(base)) {
+    return resolveUrl(base, ...args);
+  } else {
+    return resolvePath(base, ...args);
+  }
 }
 
 function isExternal(url) {
