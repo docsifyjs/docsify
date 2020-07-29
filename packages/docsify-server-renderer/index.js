@@ -16,10 +16,14 @@ function cwd(...args) {
 }
 
 function resolve(base, ...args) {
-  if (isAbsolutePath(base) && isExternal(base)) {
-    return resolveUrl(base, ...args);
+  if (isAbsolutePath(base)) {
+    if (isExternal(base)) {
+      return resolveUrl(base, ...args);
+    } else {
+      return resolvePath(base, ...args);
+    }
   } else {
-    return resolvePath(base, ...args);
+    return cwd(base, ...args);
   }
 }
 
@@ -105,18 +109,18 @@ export default class Renderer {
 
     const fileName = basename(url);
     const name = fileName || homepage;
-    const mainFile = this._getPath(resolve(basePath, url, `./${name}`));
+    const mainFile = this._getPath(resolve(basePath, `./${url}`, `./${name}`));
     this._renderHtml('main', await this._render(mainFile, 'main'));
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar;
-      const sidebarFile = this._getPath(resolve(basePath, url, `./${name}`));
+      const sidebarFile = this._getPath(resolve(basePath, `./${url}`, `./${name}`));
       this._renderHtml('sidebar', await this._render(sidebarFile, 'sidebar'));
     }
 
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar;
-      const navbarFile = this._getPath(resolve(basePath, url, `./${name}`));
+      const navbarFile = this._getPath(resolve(basePath, `./${url}`, `./${name}`));
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'));
     }
 
