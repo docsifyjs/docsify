@@ -146,9 +146,10 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
         .concat(embedToken, tokens.slice(index + 1));
       moves.push({ start: index, length: embedToken.length - 1 });
     } else {
+      const cloned = tokens.concat();
       cached[raw] = tokens.concat();
-      tokens.links = cached[raw].links = links;
-      done(tokens);
+      tokens.links = cloned.links = cached[raw].links = links;
+      done(cloned);
     }
   });
 }
