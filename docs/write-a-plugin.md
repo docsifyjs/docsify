@@ -109,6 +109,6 @@ Current version: <span id='tip-version'>loading</span>
 <script>
 document.getElementById('tip-version').innerText = Docsify.version  
 // fix1320 replace the content to show the {docsify-ignore} example in case of being replaced in default.
-let text = document.getElementsByClassName("lang-js")[2].innerHTML.replace(/Last modified .*$'/,"Last modified {docsify-updated}")
+let text = document.getElementsByClassName("lang-js")[2].innerHTML.replace(/Last modified .*'/,"Last modified {docsify-updated<span>}'</span>")
 document.getElementsByClassName("lang-js")[2].innerHTML = text
 </script>
