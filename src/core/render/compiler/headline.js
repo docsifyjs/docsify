@@ -6,14 +6,14 @@ export const headingCompiler = ({ renderer, router, _self }) =>
     let { str, config } = getAndRemoveConfig(text);
     const nextToc = { level, title: str };
 
-    if (/{docsify-ignore}/g.test(str)) {
-      str = str.replace('{docsify-ignore}', '');
+    if (/<!-- {docsify-ignore} -->/g.test(str)) {
+      str = str.replace('<!-- {docsify-ignore} -->', '');
       nextToc.title = str;
       nextToc.ignoreSubHeading = true;
     }
 
-    if (/{docsify-ignore-all}/g.test(str)) {
-      str = str.replace('{docsify-ignore-all}', '');
+    if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
+      str = str.replace('<!-- {docsify-ignore-all} -->', '');
       nextToc.title = str;
       nextToc.ignoreAllSubs = true;
     }
