@@ -87,7 +87,7 @@ window.$docsify = {
           editHtml +
           html +
           '\n----\n' +
-          '{content}' +
+          'Last modified {docsify-update}' +
           editHtml
         );
       });
@@ -107,8 +107,8 @@ console.log(window.Docsify.version)
 Current version: <span id='tip-version'>loading</span>
 
 <script>
-document.getElementById('tip-version').innerText = Docsify.version
+document.getElementById('tip-version').innerText = Docsify.version  
 // fix1320 replace the content to show the {docsify-ignore} example in case of being replaced in default.
-let text = document.getElementsByClassName("lang-js")[2].innerHTML.replace("{content}", "Last modified {docsify-update}")
+let text = document.getElementsByClassName("lang-js")[2].innerHTML.replace(/Last modified .*$'/,"Last modified {docsify-update}")
 document.getElementsByClassName("lang-js")[2].innerHTML = text
 </script>
