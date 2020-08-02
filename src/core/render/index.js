@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import tinydate from 'tinydate';
-import DOMPurify from 'dompurify';
 import * as dom from '../util/dom';
 import cssVars from '../util/polyfill/css-vars';
 import { callHook } from '../init/lifecycle';
@@ -12,6 +10,8 @@ import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
+import DOMPurify from 'dompurify';
+import tinydate from 'tinydate';
 
 function executeScript() {
   const script = dom

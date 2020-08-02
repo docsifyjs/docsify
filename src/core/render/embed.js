@@ -1,6 +1,6 @@
-import stripIndent from 'strip-indent';
 import { get } from '../fetch/ajax';
 import { merge } from '../util/core';
+import stripIndent from 'strip-indent';
 
 const cached = {};
 
