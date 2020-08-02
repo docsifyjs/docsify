@@ -1,17 +1,17 @@
 import { readFileSync } from 'fs';
 import { resolve as resolvePath, isAbsolute, basename } from 'path';
 import { resolve as resolveUrl } from 'url';
-import fetch from 'node-fetch';
-import debug from 'debug';
-import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import configDealer from '../../src/core/config';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
+import fetch from 'node-fetch';
+import debug from 'debug';
+import DOMPurify from 'dompurify';
 
 function resolve(base, ...args) {
-  for (var i in args) {
+  for (let i in args) {
     let arg = args[i];
     if (isExternal(arg)) {
       return resolveUrl('', ...args);
@@ -19,17 +19,15 @@ function resolve(base, ...args) {
   }
   if (isExternal(base)) {
     return resolveUrl(base, ...args);
+  } else if (isAbsolute(base)) {
+    return resolvePath(base, ...args);
   } else {
-    if (isAbsolute(base)) {
-      return resolvePath(base, ...args);
-    } else {
-      return resolvePath(process.cwd(), base, ...args);
-    }
+    return resolvePath(process.cwd(), base, ...args);
   }
 }
 
 function isExternal(url) {
-  let check = /^https?:\/\//ig.test(url);
+  let check = /^https?:\/\//gi.test(url);
   return check;
 }
 
@@ -65,7 +63,9 @@ export default class Renderer {
 
     this._renderHtml(
       'inject-config',
-      `<script>window.$docsify = ${JSON.stringify(this._getWebConfig())}</script>`
+      `<script>window.$docsify = ${JSON.stringify(
+        this._getWebConfig()
+      )}</script>`
     );
     this._renderHtml('inject-app', mainTpl(config));
 
@@ -75,11 +75,7 @@ export default class Renderer {
   async renderToString(url) {
     this.html = this.template;
     this.url = url = this.router.getFile(url, true);
-    const {
-      loadSidebar,
-      loadNavbar,
-      coverpage,
-    } = this.config;
+    const { loadSidebar, loadNavbar, coverpage } = this.config;
 
     const mainFile = this._getPath(url);
     this._renderHtml('main', await this._render(mainFile, 'main'));
@@ -118,7 +114,7 @@ export default class Renderer {
   }
 
   _getWebConfig() {
-    let config  = Object.assign({}, this.config);
+    let config = Object.assign({}, this.config);
     config.routerMode = 'abstract';
 
     if (!this.isExternal) {
@@ -164,9 +160,7 @@ export default class Renderer {
       }
 
       const fileName = basename(filePath);
-      const result = await this._loadFile(
-        resolve(filePath, `../${fileName}`)
-      );
+      const result = await this._loadFile(resolve(filePath, `../${fileName}`));
 
       return result;
     }
@@ -211,7 +205,7 @@ export default class Renderer {
     return html;
   }
 
-   _renderHtml(match, content) {
+  _renderHtml(match, content) {
     this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content);
   }
 }

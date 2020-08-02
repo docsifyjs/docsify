@@ -30,7 +30,7 @@ export function initRouter(vm) {
     router = new HashHistory(config);
   }
 
-  if(vm) {
+  if (vm) {
     vm.router = router;
     updateRender(vm);
     lastRoute = vm.route;

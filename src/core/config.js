@@ -37,11 +37,11 @@ export default function(vm, ssrConf = {}) {
       relativePath: false,
       topMargin: 0,
     },
-    inBrowser ? (
-      typeof window.$docsify === 'function'
+    inBrowser
+      ? typeof window.$docsify === 'function'
         ? window.$docsify(vm)
         : window.$docsify
-    ) : ssrConf
+      : ssrConf
   );
 
   if (inBrowser) {

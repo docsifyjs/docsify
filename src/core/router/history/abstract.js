@@ -1,4 +1,3 @@
-import { on } from '../../util/dom';
 import { parseQuery } from '../util';
 import { History } from './base';
 
