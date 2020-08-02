@@ -1,47 +1,36 @@
 import { readFileSync } from 'fs';
-import { resolve as resolvePath, basename } from 'path';
+import { resolve as resolvePath, isAbsolute, basename } from 'path';
 import { resolve as resolveUrl } from 'url';
-import resolvePathname from 'resolve-pathname';
 import fetch from 'node-fetch';
 import debug from 'debug';
 import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
-import { isAbsolutePath } from '../../src/core/router/util';
+import configDealer from '../../src/core/config';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
 
-function cwd(...args) {
-  return resolve(process.cwd(), ...args);
-}
-
 function resolve(base, ...args) {
-  if (isAbsolutePath(base)) {
-    if (isExternal(base)) {
-      return resolveUrl(base, ...args);
-    } else {
-      return resolvePath(base, ...args);
+  for (var i in args) {
+    let arg = args[i];
+    if (isExternal(arg)) {
+      return resolveUrl('', ...args);
     }
+  }
+  if (isExternal(base)) {
+    return resolveUrl(base, ...args);
   } else {
-    return cwd(base, ...args);
+    if (isAbsolute(base)) {
+      return resolvePath(base, ...args);
+    } else {
+      return resolvePath(process.cwd(), base, ...args);
+    }
   }
 }
 
 function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/\/([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
-  if (
-    typeof match[1] === 'string' &&
-    match[1].length > 0 &&
-    ['http', 'https'].indexOf(match[1].toLowerCase()) !== -1
-  ) {
-    return true;
-  }
-  if (typeof match[2] === 'string' && match[2].length > 0) {
-    return true;
-  }
-  return false;
+  let check = /^https?:\/\//ig.test(url);
+  return check;
 }
 
 function mainTpl(config) {
@@ -65,66 +54,45 @@ function mainTpl(config) {
 export default class Renderer {
   constructor({ template, config, cache }) {
     this.html = template;
-    this.config = config = Object.assign({}, config, {
-      homepage: 'README.md',
-      routerMode: 'history',
-    });
     this.cache = cache;
+    this.config = config = configDealer(null, config);
 
     this.router = new AbstractHistory(config);
     this.compiler = new Compiler(config, this.router);
 
-    this.router.getCurrentPath = () => this.url;
+    this.basePath = this.router.getBasePath();
+    this.isExternal = isExternal(this.basePath);
 
-    let webConf = Object.assign({}, config);
-    if (isAbsolutePath(config.basePath) && !isExternal(config.basePath)) {
-      webConf.basePath = webConf.baseUrl;
-      delete webConf.baseUrl;
-    }
     this._renderHtml(
       'inject-config',
-      `<script>window.$docsify = ${JSON.stringify(webConf)}</script>`
+      `<script>window.$docsify = ${JSON.stringify(this._getWebConfig())}</script>`
     );
     this._renderHtml('inject-app', mainTpl(config));
 
     this.template = this.html;
   }
 
-  _getPath(url) {
-    const file = this.router.getFile(url);
-
-    return isAbsolutePath(file) ? file : cwd(`./${file}`);
-  }
-
   async renderToString(url) {
-    this.url = url = this.router.parse(url).path;
-    this.isRemoteUrl = isExternal(this.url);
+    this.html = this.template;
+    this.url = url = this.router.getFile(url, true);
     const {
-      basePath,
-      homepage,
       loadSidebar,
       loadNavbar,
       coverpage,
     } = this.config;
 
-    const fileName = basename(url);
-    const name = fileName || homepage;
-    const mainFile = this._getPath(resolve(basePath, `./${url}`, `./${name}`));
+    const mainFile = this._getPath(url);
     this._renderHtml('main', await this._render(mainFile, 'main'));
 
     if (loadSidebar) {
       const name = loadSidebar === true ? '_sidebar.md' : loadSidebar;
-      const sidebarFile = this._getPath(
-        resolve(basePath, `./${url}`, `./${name}`)
-      );
+      const sidebarFile = this._getPath(name);
       this._renderHtml('sidebar', await this._render(sidebarFile, 'sidebar'));
     }
 
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar;
-      const navbarFile = this._getPath(
-        resolve(basePath, `./${url}`, `./${name}`)
-      );
+      const navbarFile = this._getPath(name);
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'));
     }
 
@@ -141,20 +109,67 @@ export default class Renderer {
         path = cover === true ? '_coverpage.md' : cover;
       }
 
-      const coverFile = this._getPath(resolve(basePath, url, `./${path}`));
-
-      this._renderHtml('cover', await this._render(coverFile), 'cover');
+      const coverFile = this._getPath(path);
+      this._renderHtml('cover', await this._render(coverFile, 'cover'));
     }
 
-    const html = this.isRemoteUrl ? DOMPurify.sanitize(this.html) : this.html;
-    this.html = this.template;
+    let html = this.isExternal ? DOMPurify.sanitize(this.html) : this.html;
     return html;
   }
 
-  _renderHtml(match, content) {
-    this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content);
+  _getWebConfig() {
+    let config  = Object.assign({}, this.config);
+    config.routerMode = 'abstract';
 
-    return this.html;
+    if (!this.isExternal) {
+      config.basePath = config.baseUrl;
+      delete config.baseUrl;
+    }
+
+    return config;
+  }
+
+  _getPath(url) {
+    let path = this.router.getFile(url, true);
+    let outPath = resolve(this.basePath, path);
+
+    return outPath;
+  }
+
+  async _loadFile(filePath) {
+    debug('docsify')(`load > ${filePath}`);
+    let content;
+
+    try {
+      if (isExternal(filePath)) {
+        const res = await fetch(filePath);
+        if (!res.ok) {
+          throw Error();
+        }
+
+        content = await res.text();
+        this.lock = 0;
+      } else {
+        filePath = resolve(filePath);
+        content = await readFileSync(filePath, 'utf8');
+        this.lock = 0;
+      }
+
+      return content;
+    } catch (e) {
+      this.lock = this.lock || 0;
+      if (++this.lock > 10) {
+        this.lock = 0;
+        return;
+      }
+
+      const fileName = basename(filePath);
+      const result = await this._loadFile(
+        resolve(filePath, `../${fileName}`)
+      );
+
+      return result;
+    }
   }
 
   async _render(path, type) {
@@ -196,42 +211,8 @@ export default class Renderer {
     return html;
   }
 
-  async _loadFile(filePath) {
-    debug('docsify')(`load > ${filePath}`);
-    let content;
-    try {
-      if (isAbsolutePath(filePath)) {
-        if (isExternal(filePath)) {
-          const res = await fetch(filePath);
-          if (!res.ok) {
-            throw Error();
-          }
-
-          content = await res.text();
-        } else {
-          content = await readFileSync(filePath, 'utf8');
-        }
-        this.lock = 0;
-      } else {
-        content = await readFileSync(filePath, 'utf8');
-        this.lock = 0;
-      }
-
-      return content;
-    } catch (e) {
-      this.lock = this.lock || 0;
-      if (++this.lock > 10) {
-        this.lock = 0;
-        return;
-      }
-
-      const fileName = basename(filePath);
-      const result = await this._loadFile(
-        resolvePathname(`../${fileName}`, filePath)
-      );
-
-      return result;
-    }
+   _renderHtml(match, content) {
+    this.html = this.html.replace(new RegExp(`<!--${match}-->`, 'g'), content);
   }
 }
 

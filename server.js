@@ -24,6 +24,7 @@ if (isSSR) {
       name: 'docsify',
       repo: 'docsifyjs/docsify',
       basePath: 'docs/',
+      baseUrl: '/',
       loadNavbar: true,
       loadSidebar: true,
       subMaxLevel: 3,

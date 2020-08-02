@@ -48,7 +48,7 @@ export const removeParams = cached(path => {
   return path.split(/[?#]/)[0];
 });
 
-export const getParentPath = cached(path => {
+export const getParentPath = cached((path = '') => {
   if (/\/$/g.test(path)) {
     return path;
   }
@@ -80,6 +80,6 @@ export function getPath(...args) {
   return cleanPath(args.join('/'));
 }
 
-export const replaceSlug = cached(path => {
+export const replaceSlug = cached((path = '') => {
   return path.replace('#', '?id=');
 });
