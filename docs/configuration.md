@@ -12,7 +12,7 @@ You can configure Docsify by defining `window.$docsify` as an object:
 </script>
 ```
 
-The config can also be defined as a function, in which case the first arg is the Docsify `vm` instance. The function should return a config object. This can be useful for referencing `vm` in places like the markdown configuration:
+The config can also be defined as a function, in which case the first argument is the Docsify `vm` instance. The function should return a config object. This can be useful for referencing `vm` in places like the markdown configuration:
 
 ```html
 <script>
@@ -35,7 +35,7 @@ The config can also be defined as a function, in which case the first arg is the
 - Type: `String`
 - Default: `#app`
 
-The DOM element to be mounted on initialization. It can be a CSS selector string or an actual HTMLElement.
+The DOM element to be mounted on initialization. It can be a CSS selector string or an actual [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
 
 ```js
 window.$docsify = {
@@ -48,7 +48,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `null`
 
-Configure the repository url or a string of `username/repo` can add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
+Configure the repository url, or a string of `username/repo` can add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
 
 ```js
 window.$docsify = {
@@ -76,7 +76,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-Loads navbar from the Markdown file `_navbar.md` if **true**, or else from the path specified.
+Loads navbar from the Markdown file `_navbar.md` if **true**, else loads it from the path specified.
 
 ```js
 window.$docsify = {
@@ -93,7 +93,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-Loads sidebar from the Markdown file `_sidebar.md` if **true**, or else from the path specified.
+Loads sidebar from the Markdown file `_sidebar.md` if **true**, else loads it from the path specified.
 
 ```js
 window.$docsify = {
@@ -110,7 +110,7 @@ window.$docsify = {
 - Type : `Boolean`
 - Default: `true`
 
-This option will completely hide your sidebar and wont render any content of the side even .
+This option will completely hide your sidebar and won't render any content on the side.
 
 ```js
 window.$docsify = {
@@ -149,7 +149,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `README.md`
 
-`README.md` in your docs folder will be treated as homepage for your website, but sometimes you may need to serve another file as your homepage.
+`README.md` in your docs folder will be treated as the homepage for your website, but sometimes you may need to serve another file as your homepage.
 
 ```js
 window.$docsify = {
@@ -196,7 +196,7 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-If **true** links are relative to the current context.
+If **true**, links are relative to the current context.
 
 For example, the directory structure is as follows:
 
@@ -260,7 +260,7 @@ window.$docsify = {
 
 - Type: `String`
 
-Website logo as it appears in the sidebar, you can resize by CSS.
+Website logo as it appears in the sidebar. You can resize it by using CSS.
 
 ```js
 window.$docsify = {
@@ -367,7 +367,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to html. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -474,7 +474,7 @@ window.$docsify = {
 - type: `String`
 - default: `noopener`
 
-Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when its not `'_blank'`. See [this post](https://mathiasbynens.github.io/rel-noopener/) for more information about why you may want to use this option.
+Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when it's not `'_blank'`. See [this post](https://mathiasbynens.github.io/rel-noopener/) for more information about why you may want to use this option.
 
 ```js
 window.$docsify = {
@@ -557,13 +557,13 @@ window.$docsify = {
 
 - type: `Array<string>`
 
-List of languages that will fallback to the default language when a page is request and didn't exists for the given local.
+List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given local.
 
 Example:
 
-- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
-- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
-- then display 404 page.
+- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed.
+- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed.
+- then display the 404 page.
 
 ```js
 window.$docsify = {
@@ -583,7 +583,7 @@ window.$docsify = {
 };
 ```
 
-Load the customised path of the 404 page:
+Load the customized path of the 404 page:
 
 ```js
 window.$docsify = {

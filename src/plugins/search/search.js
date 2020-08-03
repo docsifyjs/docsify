@@ -170,7 +170,10 @@ export function search(query) {
             '...' +
             escapeHtml(postContent)
               .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
+              .replace(
+                regEx,
+                word => `<em class="search-keyword">${word}</em>`
+              ) +
             '...';
 
           resultStr += matchContent;
@@ -195,9 +198,29 @@ export function search(query) {
 
 export function init(config, vm) {
   const isAuto = config.paths === 'auto';
+  const paths = isAuto ? getAllPaths(vm.router) : config.paths;
 
-  const expireKey = resolveExpireKey(config.namespace);
-  const indexKey = resolveIndexKey(config.namespace);
+  let namespaceSuffix = '';
+
+  // only in auto mode
+  if (isAuto && config.pathNamespaces) {
+    const path = paths[0];
+
+    if (Array.isArray(config.pathNamespaces)) {
+      namespaceSuffix =
+        config.pathNamespaces.find(prefix => path.startsWith(prefix)) ||
+        namespaceSuffix;
+    } else if (config.pathNamespaces instanceof RegExp) {
+      const matches = path.match(config.pathNamespaces);
+
+      if (matches) {
+        namespaceSuffix = matches[0];
+      }
+    }
+  }
+
+  const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
+  const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
 
   const isExpired = localStorage.getItem(expireKey) < Date.now();
 
@@ -209,14 +232,8 @@ export function init(config, vm) {
     return;
   }
 
-  const paths = isAuto ? getAllPaths(vm.router) : config.paths;
   const len = paths.length;
   let count = 0;
-
-  // Fix search error when exist translations documents
-  if (INDEXS !== null && !INDEXS[paths[0]]) {
-    INDEXS = {};
-  }
 
   paths.forEach(path => {
     if (INDEXS[path]) {

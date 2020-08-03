@@ -28,7 +28,8 @@
         '/zh-cn/(.*)': 'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
         '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
         '/ru-ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
-        '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
+        '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
+        '/write-a-plugin': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/docs/write-a-plugin.md'
       },
       auto2top: true,
       basePath: '/docs/',
@@ -51,7 +52,8 @@
           '/de-de/': 'Suche',
           '/zh-cn/': '搜索',
           '/': 'Search'
-        }
+        },
+        pathNamespaces: ['/zh-cn', '/de-de', '/ru-ru', '/es']
       },
       plugins: [
         function (hook, vm) {
