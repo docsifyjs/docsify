@@ -1,7 +1,6 @@
 // Modules, constants, and variables
 // -----------------------------------------------------------------------------
-const docsifyInit = require('./helpers/docsifyInit');
-const { URL: serverURL } = require('./config/server.js');
+const docsifyInit = require('./helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -16,7 +15,7 @@ describe(`Example Tests`, function() {
     // will cause operations that require the window location to be a valid URL
     // to fail (e.g. AJAX requests). To avoid these issues, this hook ensures
     // that each tests begins by loading the default test server page.
-    await page.goto(serverURL);
+    await page.goto(TEST_URL);
   });
 
   // Tests
@@ -106,7 +105,7 @@ describe(`Example Tests`, function() {
   test('manual docsify site using playwright methods', async () => {
     // Goto URL
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
-    await page.goto(`${serverURL}/html5.html`);
+    await page.goto(`${TEST_URL}/html5.html`);
 
     // Set docsify configuration
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
@@ -126,11 +125,11 @@ describe(`Example Tests`, function() {
 
     // Inject docsify theme (vue.css)
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddstyletagoptions
-    await page.addStyleTag({ url: `${serverURL}/lib/themes/vue.css` });
+    await page.addStyleTag({ url: `${TEST_URL}/lib/themes/vue.css` });
 
     // Inject docsify.js
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddscripttagoptions
-    await page.addScriptTag({ url: `${serverURL}/lib/docsify.js` });
+    await page.addScriptTag({ url: `${TEST_URL}/lib/docsify.js` });
 
     // Wait for docsify to initialize
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagewaitforselectorselector-options

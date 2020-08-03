@@ -72,8 +72,11 @@
     "tweezer.js": "^1.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "autoprefixer-stylus": "^1.0.0",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^26.1.0",
     "browser-sync": "^2.26.10",
     "chai": "^4.2.0",
     "chokidar": "^3.2.1",
@@ -90,6 +93,7 @@
     "eslint-plugin-jest-playwright": "^0.2.1",
     "eslint-plugin-prettier": "^3.1.2",
     "esm": "^3.1.4",
+    "got": "^11.5.1",
     "husky": "^3.1.0",
     "jest": "^26.1.0",
     "jest-image-snapshot": "^4.1.0",

@@ -1,4 +1,4 @@
-const docsifyInit = require('./helpers/docsifyInit');
+const docsifyInit = require('./helpers/docsify-init');
 
 describe(`Vue.js Rendering`, function() {
   const contentMarkdown = `<div id="test">test<span v-for="i in 5">{{ i }}</span></div>`;

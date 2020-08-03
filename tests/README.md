@@ -12,6 +12,14 @@
 - Integration tests are located in `/tests/integration/` and use [Jest](https://jestjs.io).
 - Unit tests located in `/tests/unit/` and use [Jest](https://jestjs.io).
 
+### Global Variables
+
+- `TEST_URL`: Test server base URL (http://localhost:3001)
+- `DOCS_PATH`: File system path to docsify's `/docs` directory
+- `DOCS_URL`: Test server route to docsify's `/docs` directory
+- `LIB_PATH`: File system path to docsify's `/lib` directory
+- `LIB_URL`: Test server route to docsify's `/lib` directory
+
 ### CLI commands
 
 ```bash

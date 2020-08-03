@@ -2,17 +2,19 @@ const browserSync = require('browser-sync').create();
 const path = require('path');
 
 const hasStartArg = process.argv.includes('--start');
+
 const serverConfig = {
   host: '127.0.0.1',
   port: 3001,
 };
 
-function startServer(options = {}) {
+function startServer(options = {}, cb = Function.prototype) {
   const defaults = {
+    ...serverConfig,
     notify: false,
     open: false,
     rewriteRules: [
-      // Replace CDN URLs with local paths
+      // Replace docsify-related CDN URLs with local paths
       {
         match: /(https?:)?\/\/cdn\.jsdelivr\.net\/npm\/docsify(@\d?\.?\d?\.?\d)?\/lib\//g,
         replace: '/lib/',
@@ -48,10 +50,25 @@ function startServer(options = {}) {
     ui: false,
   };
 
-  browserSync.init({
-    ...defaults,
-    ...serverConfig,
-    ...options,
+  console.log('\n');
+
+  browserSync.init(
+    // Config
+    {
+      ...defaults,
+      ...options,
+    },
+    // Callback
+    cb
+  );
+}
+
+async function startServerAsync() {
+  await new Promise((resolve, reject) => {
+    startServer({}, () => {
+      console.log('\n');
+      resolve();
+    });
   });
 }
 
@@ -64,13 +81,20 @@ function stopServer() {
 if (hasStartArg) {
   startServer({
     open: true,
-    port: serverConfig.port + 2,
-    startPath: '/docs',
+    port: serverConfig.port + 1,
   });
 }
 
 module.exports = {
   start: startServer,
+  startAsync: startServerAsync,
   stop: stopServer,
-  URL: `http://${serverConfig.host}:${serverConfig.port}`,
+  // Jest Globals
+  TEST_URL: `http://${serverConfig.host}:${serverConfig.port}`,
+  get DOCS_URL() {
+    return `${this.TEST_URL}/docs`;
+  },
+  get LIB_URL() {
+    return `${this.TEST_URL}/lib`;
+  },
 };

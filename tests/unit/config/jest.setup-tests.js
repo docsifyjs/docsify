@@ -13,6 +13,27 @@ beforeEach(async () => {
     rootElm.removeChild(rootElm.firstChild);
   }
 
+  // Remove docsify side-effects
+  [
+    '__current_docsify_compiler__',
+    '_paq',
+    '$docsify',
+    'Docsify',
+    'DocsifyCompiler',
+    'ga',
+    'gaData',
+    'gaGlobal',
+    'gaplugins',
+    'gitter',
+    'google_tag_data',
+    'marked',
+    'Prism',
+  ].forEach(prop => {
+    if (global[prop]) {
+      delete global[prop];
+    }
+  });
+
   // Remove attributes
   [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
 
