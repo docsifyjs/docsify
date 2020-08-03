@@ -85,7 +85,7 @@ export function fetchMixin(proto) {
     return path404;
   };
 
-  proto._loadSideAndNav = function(path, qs, loadSidebar, cb) {
+  proto._loadSideAndNav = function (path, qs, loadSidebar, cb) {
     return () => {
       if (!loadSidebar) {
         return cb();
@@ -101,7 +101,7 @@ export function fetchMixin(proto) {
     };
   };
 
-  proto._fetch = function(cb = noop) {
+  proto._fetch = function (cb = noop) {
     const { path, query } = this.route;
     const qs = stringifyQuery(query, ['id']);
     const { loadNavbar, requestHeaders, loadSidebar } = this.config;
@@ -139,7 +139,7 @@ export function fetchMixin(proto) {
       );
   };
 
-  proto._fetchCover = function() {
+  proto._fetchCover = function () {
     const { coverpage, requestHeaders } = this.config;
     const query = this.route.query;
     const root = getParentPath(this.route.path);
@@ -175,7 +175,7 @@ export function fetchMixin(proto) {
     }
   };
 
-  proto.$fetch = function(
+  proto.$fetch = function (
     cb = noop,
     $resetEvents = this.$resetEvents.bind(this)
   ) {
@@ -196,8 +196,8 @@ export function fetchMixin(proto) {
     }
   };
 
-  proto._fetchFallbackPage = function(path, qs, cb = noop) {
-    const { requestHeaders, fallbackLanguages, loadSidebar } = this.config;
+  proto._fetchFallbackPage = function (path, qs, cb = noop) {
+    const { requestHeaders, defaultFallbackLanguage, fallbackLanguages, loadSidebar } = this.config;
 
     if (!fallbackLanguages) {
       return false;
@@ -209,7 +209,8 @@ export function fetchMixin(proto) {
       return false;
     }
 
-    const newPath = path.replace(new RegExp(`^/${local}`), '');
+    const defaultLanguage = defaultFallbackLanguage ? defaultFallbackLanguage : '';
+    const newPath = path.replace(new RegExp(`^/${local}`), defaultLanguage);
     const req = request(newPath + qs, true, requestHeaders);
 
     req.then(
@@ -233,7 +234,7 @@ export function fetchMixin(proto) {
    * @returns {Boolean} True if the requested page is not found
    * @private
    */
-  proto._fetch404 = function(path, qs, cb = noop) {
+  proto._fetch404 = function (path, qs, cb = noop) {
     const { loadSidebar, requestHeaders, notFoundPage } = this.config;
 
     const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb);
