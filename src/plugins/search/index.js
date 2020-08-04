@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { init as initComponet, update as updateComponent } from './component';
+import { init as initComponent, update as updateComponent } from './component';
 import { init as initSearch } from './search';
 
 const CONFIG = {
@@ -10,6 +10,7 @@ const CONFIG = {
   maxAge: 86400000, // 1 day
   hideOtherSidebarContent: false,
   namespace: undefined,
+  pathNamespaces: undefined,
 };
 
 const install = function(hook, vm) {
@@ -27,12 +28,13 @@ const install = function(hook, vm) {
     CONFIG.hideOtherSidebarContent =
       opts.hideOtherSidebarContent || CONFIG.hideOtherSidebarContent;
     CONFIG.namespace = opts.namespace || CONFIG.namespace;
+    CONFIG.pathNamespaces = opts.pathNamespaces || CONFIG.pathNamespaces;
   }
 
   const isAuto = CONFIG.paths === 'auto';
 
   hook.mounted(_ => {
-    initComponet(CONFIG, vm);
+    initComponent(CONFIG, vm);
     !isAuto && initSearch(CONFIG, vm);
   });
   hook.doneEach(_ => {
