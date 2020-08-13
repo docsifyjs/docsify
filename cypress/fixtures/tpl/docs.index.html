@@ -28,7 +28,7 @@
       alias: {
         '.*?/awesome':
           'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
-        '.*?/changelog':
+        '/changelog':
           'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
         '/.*/_navbar.md': '/_navbar.md',
         '/zh-cn/(.*)':
@@ -40,6 +40,7 @@
         '/es/(.*)':
           'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
       },
+      fallbackLanguages: ['es'],
       auto2top: true,
       coverpage: true,
       executeScript: true,
