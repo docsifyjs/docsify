@@ -1,17 +1,17 @@
-import marked from 'marked';
 import { isAbsolutePath, getPath, getParentPath } from '../router/util';
 import { isFn, merge, cached, isPrimitive } from '../util/core';
 import { tree as treeTpl } from './tpl';
 import { genTree } from './gen-tree';
 import { slugify } from './slugify';
 import { emojify } from './emojify';
-import { getAndRemoveConfig } from './utils';
+import { getAndRemoveConfig, removeAtag } from './utils';
 import { imageCompiler } from './compiler/image';
 import { highlightCodeCompiler } from './compiler/code';
 import { paragraphCompiler } from './compiler/paragraph';
 import { taskListCompiler } from './compiler/taskList';
 import { taskListItemCompiler } from './compiler/taskListItem';
 import { linkCompiler } from './compiler/link';
+import marked from 'marked';
 
 const cachedLinks = {};
 
@@ -206,11 +206,11 @@ export class Compiler {
      */
     origin.heading = renderer.heading = function(text, level) {
       let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { level, title: str };
+      const nextToc = { level, title: removeAtag(str) };
 
       if (/<!-- {docsify-ignore} -->/g.test(str)) {
         str = str.replace('<!-- {docsify-ignore} -->', '');
-        nextToc.title = str;
+        nextToc.title = removeAtag(str);
         nextToc.ignoreSubHeading = true;
       }
 
@@ -222,7 +222,7 @@ export class Compiler {
 
       if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
         str = str.replace('<!-- {docsify-ignore-all} -->', '');
-        nextToc.title = str;
+        nextToc.title = removeAtag(str);
         nextToc.ignoreAllSubs = true;
       }
 
