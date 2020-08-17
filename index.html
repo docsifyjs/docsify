@@ -41,7 +41,7 @@
       maxLevel: 4,
       subMaxLevel: 2,
       name: 'docsify',
-      search: {
+      /*search: {
         noData: {
           '/de-de/': 'Keine Ergebnisse!',
           '/zh-cn/': '没有结果!',
@@ -52,10 +52,11 @@
           '/de-de/': 'Suche',
           '/zh-cn/': '搜索',
           '/': 'Search'
-        },
+        },*/
         pathNamespaces: ['/zh-cn', '/de-de', '/ru-ru', '/es']
       },
       plugins: [
+        fullTextSearch,
         function (hook, vm) {
           hook.beforeEach(function (html) {
             if (/githubusercontent\.com/.test(vm.route.file)) {

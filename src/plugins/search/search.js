@@ -1,250 +1,338 @@
-/* eslint-disable no-unused-vars */
-import { getAndRemoveConfig } from '../../core/render/utils';
+const paths = {}
+const promises = []
+// const NO_DATA_TEXT = "Sonuç bulunamadı ..."
+// var ResultColor = 'yellow'
 
-let INDEXS = {};
-
-const LOCAL_STORAGE = {
-  EXPIRE_KEY: 'docsify.search.expires',
-  INDEX_KEY: 'docsify.search.index',
-};
-
-function resolveExpireKey(namespace) {
-  return namespace
-    ? `${LOCAL_STORAGE.EXPIRE_KEY}/${namespace}`
-    : LOCAL_STORAGE.EXPIRE_KEY;
+const configs = {
+	NO_DATA_TEXT: 'Nothing Found ...',
+	RESULT_COLOR: 'yellow',
 }
 
-function resolveIndexKey(namespace) {
-  return namespace
-    ? `${LOCAL_STORAGE.INDEX_KEY}/${namespace}`
-    : LOCAL_STORAGE.INDEX_KEY;
-}
-
-function escapeHtml(string) {
-  const entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  };
-
-  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
-}
-
-function getAllPaths(router) {
-  const paths = [];
-
-  Docsify.dom
-    .findAll('.sidebar-nav a:not(.section-link):not([data-nosearch])')
-    .forEach(node => {
-      const href = node.href;
-      const originHref = node.getAttribute('href');
-      const path = router.parse(href).path;
-
-      if (
-        path &&
-        paths.indexOf(path) === -1 &&
-        !Docsify.util.isAbsolutePath(originHref)
-      ) {
-        paths.push(path);
-      }
-    });
-
-  return paths;
-}
-
-function getTableData(token) {
-  if (!token.text && token.type === 'table') {
-    token.cells.unshift(token.header);
-    token.text = token.cells
-      .map(function(rows) {
-        return rows.join(' | ');
-      })
-      .join(' |\n ');
+function CreateSearchComponent () {
+	const code = `
+  .sidebar {
+  padding-top: 0;
   }
-  return token.text;
-}
-
-function saveData(maxAge, expireKey, indexKey) {
-  localStorage.setItem(expireKey, Date.now() + maxAge);
-  localStorage.setItem(indexKey, JSON.stringify(INDEXS));
-}
-
-export function genIndex(path, content = '', router, depth) {
-  const tokens = window.marked.lexer(content);
-  const slugify = window.Docsify.slugify;
-  const index = {};
-  let slug;
-
-  tokens.forEach(token => {
-    if (token.type === 'heading' && token.depth <= depth) {
-      const { str, config } = getAndRemoveConfig(token.text);
-
-      if (config.id) {
-        slug = router.toURL(path, { id: slugify(config.id) });
-      } else {
-        slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
-      }
-
-      index[slug] = { slug, title: str, body: '' };
-    } else {
-      if (!slug) {
-        return;
-      }
-
-      if (!index[slug]) {
-        index[slug] = { slug, title: '', body: '' };
-      } else if (index[slug].body) {
-        token.text = getTableData(token);
-
-        index[slug].body += '\n' + (token.text || '');
-      } else {
-        token.text = getTableData(token);
-
-        index[slug].body = index[slug].body
-          ? index[slug].body + token.text
-          : token.text;
-      }
-    }
-  });
-  slugify.clear();
-  return index;
-}
-
-/**
- * @param {String} query Search query
- * @returns {Array} Array of results
- */
-export function search(query) {
-  const matchingResults = [];
-  let data = [];
-  Object.keys(INDEXS).forEach(key => {
-    data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]));
-  });
-
-  query = query.trim();
-  let keywords = query.split(/[\s\-，\\/]+/);
-  if (keywords.length !== 1) {
-    keywords = [].concat(query, keywords);
+  .search {
+  margin-bottom: 20px;
+  padding: 6px;
+  border-bottom: 1px solid #eee;
+  }
+  .search .input-wrap {
+  display: flex;
+  align-items: center;
+  }
+  .search .results-panel {
+  display: none;
+  }
+  .search .results-panel.show {
+  display: block;
+  }
+  .search input {
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 0 7px;
+  line-height: 36px;
+  font-size: 14px;
+  border: 1px solid transparent;
+  }
+  .search input:focus {
+  box-shadow: 0 0 5px var(--theme-color, #42b983);
+  border: 1px solid var(--theme-color, #42b983);
+  }
+  .search input::-webkit-search-decoration,
+  .search input::-webkit-search-cancel-button,
+  .search input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  }
+  .search .clear-button {
+  cursor: pointer;
+  width: 36px;
+  text-align: right;
+  display: none;
+  }
+  .search .clear-button.show {
+  display: block;
+  }
+  .search .clear-button svg {
+  transform: scale(.5);
+  }
+  .search h2 {
+  font-size: 17px;
+  margin: 10px 0;
+  }
+  .search a {
+  text-decoration: none;
+  color: inherit;
+  }
+  .search .matching-post {
+  border-bottom: 1px solid #eee;
+  }
+  .search .matching-post:last-child {
+  border-bottom: 0;
+  }
+  .search p {
+  font-size: 12px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  }
+  .search p.empty {
+  text-align: center;
+  }
+  .app-name.hide, .sidebar-nav.hide {
+  display: none;
   }
 
-  for (let i = 0; i < data.length; i++) {
-    const post = data[i];
-    let matchesScore = 0;
-    let resultStr = '';
-    const postTitle = post.title && post.title.trim();
-    const postContent = post.body && post.body.trim();
-    const postUrl = post.slug || '';
-
-    if (postTitle) {
-      keywords.forEach(keyword => {
-        // From https://github.com/sindresorhus/escape-string-regexp
-        const regEx = new RegExp(
-          keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
-          'gi'
-        );
-        let indexTitle = -1;
-        let indexContent = -1;
-
-        indexTitle = postTitle ? postTitle.search(regEx) : -1;
-        indexContent = postContent ? postContent.search(regEx) : -1;
-
-        if (indexTitle >= 0 || indexContent >= 0) {
-          matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
-          if (indexContent < 0) {
-            indexContent = 0;
-          }
-
-          let start = 0;
-          let end = 0;
-
-          start = indexContent < 11 ? 0 : indexContent - 10;
-          end = start === 0 ? 70 : indexContent + keyword.length + 60;
-
-          if (postContent && end > postContent.length) {
-            end = postContent.length;
-          }
-
-          const matchContent =
-            '...' +
-            escapeHtml(postContent)
-              .substring(start, end)
-              .replace(
-                regEx,
-                word => `<em class="search-keyword">${word}</em>`
-              ) +
-            '...';
-
-          resultStr += matchContent;
-        }
-      });
-
-      if (matchesScore > 0) {
-        const matchingPost = {
-          title: escapeHtml(postTitle),
-          content: postContent ? resultStr : '',
-          url: postUrl,
-          score: matchesScore,
-        };
-
-        matchingResults.push(matchingPost);
-      }
-    }
+  .lbC {
+    background-color: yellow;
   }
 
-  return matchingResults.sort((r1, r2) => r2.score - r1.score);
+  `
+	const search = Docsify.dom.find('.search')
+	if (!search) {
+		Docsify.dom.style(code)
+		const search = 'Arama ...'
+		const html = `<div class="input-wrap">
+    <input type="search" value="" placeholder="${ search }" aria-label="fullTextSearch text" />
+    <div class="clear-button" onclick="ClearLabelStyle()">
+      <svg width="26" height="24">
+        <circle cx="12" cy="12" r="11" fill="#ccc" />
+        <path stroke="white" stroke-width="2" d="M8.25,8.25,15.75,15.75" />
+        <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />
+      </svg>
+    </div>
+    </div>
+    <div class="results-panel"></div>
+    </div>`
+		const el = Docsify.dom.create('div', html)
+		const aside = Docsify.dom.find('aside')
+
+		Docsify.dom.toggleClass(el, 'search')
+		Docsify.dom.before(aside, el)
+		bindEvents()
+	}
+
 }
 
-export function init(config, vm) {
-  const isAuto = config.paths === 'auto';
-  const paths = isAuto ? getAllPaths(vm.router) : config.paths;
+function bindEvents () {
+	const $search = Docsify.dom.find('div.search')
+	const $input = Docsify.dom.find($search, 'input')
+	const $inputWrap = Docsify.dom.find($search, '.input-wrap')
+	let timeId
+	Docsify.dom.on($input, 'input', e => {
+		clearTimeout(timeId)
+		timeId = setTimeout(() => SearchInputOnPage(e.target.value.trim()) /* ListSearcMatches(e.target.value.trim())*/, 400)
+	})
+	Docsify.dom.on($inputWrap, 'click', e => {
+		// Click input outside
+		if (e.target.tagName !== 'INPUT') {
+			$input.value = ''
+			SearchInputOnPage(null)
+			// ClearLabelStyle()
+		} else if (!$input.value)
+			ClearLabelStyle()
 
-  let namespaceSuffix = '';
+	})
+}
 
-  // only in auto mode
-  if (isAuto && config.pathNamespaces) {
-    const path = paths[0];
+function ClearLabelStyle () {
+	console.log('ClearLabelStyle tetiklendi')
+	const labels = document.querySelectorAll('label')
+	for (let i = 0; i < labels.length; i++)
+		labels[i].style = ''
+}
 
-    if (Array.isArray(config.pathNamespaces)) {
-      namespaceSuffix =
-        config.pathNamespaces.find(prefix => path.startsWith(prefix)) ||
-        namespaceSuffix;
-    } else if (config.pathNamespaces instanceof RegExp) {
-      const matches = path.match(config.pathNamespaces);
+function ClickToSearchResult (e) {
+	localStorage.setItem('searcIndex', e.attributes.data.nodeValue)
+	if (window.location == e.href) {
+		console.log(window.location, e.href)
+		ScroolToResult()
+	}
+}
 
-      if (matches) {
-        namespaceSuffix = matches[0];
-      }
-    }
-  }
+function SearchInputOnPage (searchKey) {
+	// Invoked each time after the data is fully loaded, no arguments,
+	if (searchKey) {
+		Docsify.dom
+			.findAll('.sidebar-nav a:not(.section-link):not([data-nosearch])')
+			.forEach(item => {
+				promises.push(new Promise(res => {
+					const page = item.href
+					const url = page.replace(/\/\#\//, '/') + '.md'
+					if (url.indexOf('/.md') === -1)
+						GetMDFiles(url, page, item.innerText, paths, res)
+					 else
+						res(true)
+				}))
+			})
+		console.log(paths)
 
-  const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
-  const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
+		Promise.all(promises).then(() => {
+			const keys = Object.keys(paths)
+			// const searchKey = 'pointObj'
+			localStorage.setItem('regex', '(.{30}|.)' + searchKey + '(.{30}|.)')
+			localStorage.setItem('searchKey', searchKey)
+			const re = new RegExp('(.{30}|.)' + searchKey + '(.{30}|.)', 'g')
+			const storageData = []
+			let found
+			for (let i = keys.length; i--;) {
+				found = paths[keys[i]].data.match(re)
+				if (found)
+					storageData.push({
+						url: paths[keys[i]].page,
+						title: paths[keys[i]].title,
+						key: searchKey,
+						results: found,
+					})
 
-  const isExpired = localStorage.getItem(expireKey) < Date.now();
+			}
+			// if(data.length){
+			//    localStorage.setItem('searchData',JSON.stringify(storageData))
+			// }
+			return storageData
+		})
+			.then(matches => {
+				console.log('isteklerden sonra: ', matches)
+				ListSearcMatches(matches)
+				ScroolToResult()
+			})
+	} else
+		ListSearcMatches([])
 
-  INDEXS = JSON.parse(localStorage.getItem(indexKey));
 
-  if (isExpired) {
-    INDEXS = {};
-  } else if (!isAuto) {
-    return;
-  }
+}
 
-  const len = paths.length;
-  let count = 0;
+function ListSearcMatches (matchs) {
+	const $search = Docsify.dom.find('div.search')
+	const $panel = Docsify.dom.find($search, '.results-panel')
+	const $clearBtn = Docsify.dom.find($search, '.clear-button')
+	// const $sidebarNav = Docsify.dom.find('.sidebar-nav')
+	// const $appName = Docsify.dom.find('.app-name')
+	if (!matchs.length) {
+		$panel.classList.remove('show')
+		$clearBtn.classList.remove('show')
+		$panel.innerHTML = ''
+		return
+	}
+	let html = ''
+	console.log(matchs)
+	matchs.forEach(post => {
+		console.log(post)
+		html += `<div class="matching-post">
+    <a href="${ post.url }">
+    <h2>${ post.title }</h2>
+    <!-- <p>${ post.results }</p>  -->
+    </a>
+    </div>`
 
-  paths.forEach(path => {
-    if (INDEXS[path]) {
-      return count++;
-    }
+		post.results.forEach((res, i) => {
+			html += `<div class="matching-post">
+      <a href="${ post.url }" onclick="ClickToSearchResult(this)" data="${ i }">
+      <!-- <h2>${ post.url }</h2> -->
+      <p>${ res }</p>
+      </a>
+      </div>`
+		})
 
-    Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      result => {
-        INDEXS[path] = genIndex(path, result, vm.router, config.depth);
-        len === ++count && saveData(config.maxAge, expireKey, indexKey);
-      }
-    );
-  });
+	})
+
+	$panel.classList.add('show')
+	$clearBtn.classList.add('show')
+	$panel.innerHTML = html || `<p class="empty">${ configs.NO_DATA_TEXT }</p>`
+	// if (options.hideOtherSidebarContent) {
+	//   $sidebarNav.classList.add('hide');
+	//   $appName.classList.add('hide');
+	// }
+}
+
+function GetMDFiles (url, page, title, obj, res) {
+	const http = new XMLHttpRequest()
+	http.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			obj[url] = {
+				page,
+				data: http.responseText,
+				title,
+			}
+			res(true)
+		}
+	}
+	http.open('GET', url)
+	http.send()
+}
+
+function ScroolToResult () {
+	const itemIndex = parseInt(localStorage.getItem('searcIndex'))
+	console.log(itemIndex)
+	if (itemIndex != null) {
+		const main = document.getElementById('main')
+		const itemIndexInPage = 0
+		let item = null
+		for (let i = 0; i < main.children.length; i++) {
+			item = FindResultElem(main.children[i], itemIndexInPage, itemIndex)
+			if (item)
+				break
+
+		}
+		console.log('item', item)
+		if (item)
+			item.scrollIntoView({
+				behavior: 'smooth',
+				block: 'end',
+				inline: 'start',
+			})
+	}
+
+
+}
+
+function FindResultElem (item, itemIndexInPage, itemIndex) {
+	const searchKey = localStorage.getItem('searchKey')
+	if (searchKey) {
+		const re = new RegExp(searchKey, 'g')
+		const match = item.innerHTML.match(re)
+		console.log('match', match)
+		if (match) {
+			console.log(match, configs.RESULT_COLOR)
+			item.innerHTML = item.innerHTML.replace(re, `<label style='background-color:${ configs.RESULT_COLOR }'>${ searchKey }</label>`)
+			itemIndexInPage += match.length
+			if (itemIndexInPage >= itemIndex) return item
+		}
+	} else
+		console.log('yokkk')
+
+	return null
+}
+
+function fullTextSearch (hook, vm) {
+
+	hook.init(() => {
+		localStorage.removeItem('searcIndex')
+		localStorage.removeItem('searchKey')
+		ClearLabelStyle()
+	})
+
+	hook.beforeEach(content => {
+	})
+
+	hook.afterEach((html, next) => {
+		next(html)
+	})
+
+	hook.doneEach((x, vm) => {
+		CreateSearchComponent()
+		ScroolToResult()
+	})
+
+	hook.mounted(() => {
+	})
+
+	hook.ready(() => {
+	})
 }
