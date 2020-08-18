@@ -10,10 +10,15 @@
   <link rel="stylesheet" href="/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="/themes/buble.css" title="buble" disabled>
   <link rel="stylesheet" href="/themes/pure.css" title="pure" disabled>
+  <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1.0.1/index.min.js"></script>
   <style>
     nav.app-nav li ul {
       min-width: 100px;
     }
+
+    #carbonads {
+			box-shadow: none !important;
+		}
   </style>
 </head>
 
@@ -56,6 +61,7 @@
         pathNamespaces: ['/zh-cn', '/de-de', '/ru-ru', '/es']
       },
       plugins: [
+        DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
         function (hook, vm) {
           hook.beforeEach(function (html) {
             if (/githubusercontent\.com/.test(vm.route.file)) {
