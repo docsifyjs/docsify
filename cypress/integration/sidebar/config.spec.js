@@ -157,7 +157,6 @@ context('sidebar.configurations', () => {
     'disqus',
     'gitalk',
     'pagination',
-    'codefund',
     'tabs',
     'more-plugins',
   ];

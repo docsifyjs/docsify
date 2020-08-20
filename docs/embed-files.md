@@ -62,7 +62,7 @@ Sometimes you don't want to embed a whole file. Maybe because you need just a fe
 [filename](_media/example.js ':include :type=code :fragment=demo')
 ```
 
-In your code file you need to surround the fragment between `/// [demo]` lines (before and after the fragment).  
+In your code file you need to surround the fragment between `/// [demo]` lines (before and after the fragment).
 Alternatively you can use `### [demo]`.
 
 Example:
@@ -153,7 +153,7 @@ The `LABEL` can be any text you want. It acts as a _fallback_ message if the lin
 ### Render a codeblock from a gist
 
 The format is the same as the previous section, but with `:type=code` added to the alt text. As with the [Embedded file type](#embedded-file-type) section, the syntax highlighting will be **inferred** from the extension (e.g. `.js` or `.py`), so you can leave the `type` set as `code`.
- 
+
 Here is the format:
 
 ```markdown
