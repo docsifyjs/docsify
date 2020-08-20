@@ -123,7 +123,7 @@ export function fetchMixin(proto) {
           this._loadSideAndNav(path, qs, loadSidebar, cb)
         ),
       _ => {
-        this._fetchFallbackPage(file, qs, cb) || this._fetch404(file, qs, cb);
+        this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
       }
     );
 
@@ -209,7 +209,9 @@ export function fetchMixin(proto) {
       return false;
     }
 
-    const newPath = path.replace(new RegExp(`^/${local}`), '');
+    const newPath = this.router.getFile(
+      path.replace(new RegExp(`^/${local}`), '')
+    );
     const req = request(newPath + qs, true, requestHeaders);
 
     req.then(
