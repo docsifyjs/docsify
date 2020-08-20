@@ -17,7 +17,6 @@
   "unpkg": "lib/docsify.min.js",
   "files": [
     "lib",
-    "src",
     "themes"
   ],
   "scripts": {
