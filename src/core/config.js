@@ -35,6 +35,7 @@ export default function(vm) {
       crossOriginLinks: [],
       relativePath: false,
       topMargin: 0,
+      rootRelativeImageURL: false,
     },
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)
@@ -77,6 +78,10 @@ export default function(vm) {
 
   if (config.name === true) {
     config.name = '';
+  }
+
+  if (config.rootRelativeImageURL === true) {
+    config.rootRelativeImageURL = '';
   }
 
   window.$docsify = config;
