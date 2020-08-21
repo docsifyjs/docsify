@@ -1,3 +1,32 @@
+## [4.11.5](https://github.com/docsifyjs/docsify/compare/v4.11.4...v4.11.5) (2020-08-21)
+
+
+### Bug Fixes
+
+*  Russian language link error ([#1270](https://github.com/docsifyjs/docsify/issues/1270)) ([2a52460](https://github.com/docsifyjs/docsify/commit/2a52460a59448abaf681046fbc5dca642285ae1f))
+* {docsify-updated} in the sample code is parsed into time ([#1321](https://github.com/docsifyjs/docsify/issues/1321)) ([2048610](https://github.com/docsifyjs/docsify/commit/2048610aacd4e3c6a592f4247834a726c7ca33fb))
+* Add error handling for missing dependencies (fixes [#1210](https://github.com/docsifyjs/docsify/issues/1210)) ([#1232](https://github.com/docsifyjs/docsify/issues/1232)) ([3673001](https://github.com/docsifyjs/docsify/commit/3673001a24cb24c57454f9bc7619de49d2c3a044))
+* after setting the background image, the button is obscured ([#1234](https://github.com/docsifyjs/docsify/issues/1234)) ([34d918f](https://github.com/docsifyjs/docsify/commit/34d918f9973bdb8e893248853e3ef7e803d4c253))
+* convert {docsify-ignore} and {docsify-ignore-all} to HTML comments ([#1318](https://github.com/docsifyjs/docsify/issues/1318)) ([90d283d](https://github.com/docsifyjs/docsify/commit/90d283d340502456a5d8495df596bb4a02ceb39b))
+* fallback page should use path not file location ([#1301](https://github.com/docsifyjs/docsify/issues/1301)) ([2bceabc](https://github.com/docsifyjs/docsify/commit/2bceabcb8e623570540493e2f1d956adf45c99e7))
+* Fix search error when exist translations documents ([#1300](https://github.com/docsifyjs/docsify/issues/1300)) ([b869019](https://github.com/docsifyjs/docsify/commit/b8690199006366e86084e9e018def7b9b8f46512))
+* gitignore was ignoring folders in src, so VS Code search results or file fuzzy finder were not working, etc ([d4c9247](https://github.com/docsifyjs/docsify/commit/d4c9247b87c0a2701683ed1a17383cfb451cf609))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1250](https://github.com/docsifyjs/docsify/issues/1250)) ([d439bac](https://github.com/docsifyjs/docsify/commit/d439bac93f479d0480799880538fc3104e54c907))
+* search can not search the table header ([#1256](https://github.com/docsifyjs/docsify/issues/1256)) ([3f03e78](https://github.com/docsifyjs/docsify/commit/3f03e78418993d8e9a4f5062e10dc79c3753389e))
+* Search plugin: matched text is replaced with search text ([#1298](https://github.com/docsifyjs/docsify/issues/1298)) ([78775b6](https://github.com/docsifyjs/docsify/commit/78775b6ee73102cc5ac71c0ee2b392c5f4f6f4f8))
+* the uncaught typeerror when el is null ([#1308](https://github.com/docsifyjs/docsify/issues/1308)) ([952f4c9](https://github.com/docsifyjs/docsify/commit/952f4c921b7a6a558c500ca6b105582d39ad36a2))
+* Updated docs with instructions for installing specific version (fixes [#780](https://github.com/docsifyjs/docsify/issues/780)) ([#1225](https://github.com/docsifyjs/docsify/issues/1225)) ([b90c948](https://github.com/docsifyjs/docsify/commit/b90c948090e89fa778279c95060dbd7668285658))
+* upgrade medium-zoom from 1.0.5 to 1.0.6 ([3beaa66](https://github.com/docsifyjs/docsify/commit/3beaa6666b78518f1ffaa37f6942f3cb08fef896))
+* upgrade tinydate from 1.2.0 to 1.3.0 ([#1341](https://github.com/docsifyjs/docsify/issues/1341)) ([59d090f](https://github.com/docsifyjs/docsify/commit/59d090fe9096bc03e259c166634bb75bb2623f85))
+
+
+### Features
+
+* **search:** add pathNamespaces option ([d179dde](https://github.com/docsifyjs/docsify/commit/d179dde1c71acdcbe66cb762377b123926c55bf2))
+* Add title to sidebar links ([#1286](https://github.com/docsifyjs/docsify/issues/1286)) ([667496b](https://github.com/docsifyjs/docsify/commit/667496b85d99b168255f58e60a6bfe902cc6ee03))
+
+
+
 ## [4.11.4](https://github.com/docsifyjs/docsify/compare/v4.11.3...v4.11.4) (2020-06-18)
 
 
