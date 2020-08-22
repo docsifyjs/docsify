@@ -1,6 +1,11 @@
 ## [4.11.6](https://github.com/docsifyjs/docsify/compare/v4.11.5...v4.11.6) (2020-08-22)
 
 
+### Bug Fixes
+
+* Add patch for {docsify-ignore} and {docsify-ignore-all} ([ce31607](https://github.com/docsifyjs/docsify/commit/ce316075e033afdbeb43ce01e284a29fe1870e38))
+
+
 
 ## [4.11.5](https://github.com/docsifyjs/docsify/compare/v4.11.4...v4.11.5) (2020-08-21)
 
@@ -90,8 +95,8 @@
 * emojis in titles not working correctly and update ([#1016](https://github.com/docsifyjs/docsify/issues/1016)) ([b3d9b96](https://github.com/docsifyjs/docsify/commit/b3d9b966dfbb6f456c2c457da1d2a366e85d9190))
 * searching table content ([6184e50](https://github.com/docsifyjs/docsify/commit/6184e502629932ca71fdd0a1b10150d118f5a7c8))
 * stage modified files as part of pre-commit hook ([#985](https://github.com/docsifyjs/docsify/issues/985)) ([5b77b0f](https://github.com/docsifyjs/docsify/commit/5b77b0f628f056b7ebb6d0b617561d19964516a2))
-* config initialization and coercion ([#861](https://github.com/docsifyjs/docsify/pull/861)) 
-* strip indent when embedding code fragment ([#996](https://github.com/docsifyjs/docsify/pull/996)) 
+* config initialization and coercion ([#861](https://github.com/docsifyjs/docsify/pull/861))
+* strip indent when embedding code fragment ([#996](https://github.com/docsifyjs/docsify/pull/996))
 * Ensure autoHeader dom result is similar to parsed H1 ([#811](https://github.com/docsifyjs/docsify/pull/811))
 * upgrade docsify from 4.9.4 to 4.10.2 ([#1054](https://github.com/docsifyjs/docsify/issues/1054)) ([78290b2](https://github.com/docsifyjs/docsify/commit/78290b21038a3ae09c4c7438bd89b14ca4c02805))
 * upgrade medium-zoom from 1.0.4 to 1.0.5 ([39ebd73](https://github.com/docsifyjs/docsify/commit/39ebd73021290439180878cae32e663b9e60e214))
@@ -110,7 +115,7 @@
 
 ### Docs
 
-* update docs for the `name` config option ([#992](https://github.com/docsifyjs/docsify/pull/992)) 
+* update docs for the `name` config option ([#992](https://github.com/docsifyjs/docsify/pull/992))
 * about cache ([#854](https://github.com/docsifyjs/docsify/pull/854))
 * removed FOSSA badge
 * documented `__colon__` tip ([#1025](https://github.com/docsifyjs/docsify/pull/1025))
@@ -118,21 +123,21 @@
 ### Chore
 
 * Migrate relative links to absolute in embedded markdown ([#867](https://github.com/docsifyjs/docsify/pull/867))
-* smarter scroll behavior ([#744](https://github.com/docsifyjs/docsify/pull/744)) 
+* smarter scroll behavior ([#744](https://github.com/docsifyjs/docsify/pull/744))
 * improve basic layout style ([#884](https://github.com/docsifyjs/docsify/pull/884))
-* There are currently {three=>four} themes available. ([#892](https://github.com/docsifyjs/docsify/pull/892)) 
-* Added a redirect for images to show up in Amplify ([#918](https://github.com/docsifyjs/docsify/pull/918)) 
+* There are currently {three=>four} themes available. ([#892](https://github.com/docsifyjs/docsify/pull/892))
+* Added a redirect for images to show up in Amplify ([#918](https://github.com/docsifyjs/docsify/pull/918))
 * removed the escaping of the name of sidebar ([#991](https://github.com/docsifyjs/docsify/pull/991))
-* Eslint fixes for v4x ([#989](https://github.com/docsifyjs/docsify/pull/989)) 
-* added github Actions for CI ([#1000](https://github.com/docsifyjs/docsify/pull/1000)) 
+* Eslint fixes for v4x ([#989](https://github.com/docsifyjs/docsify/pull/989))
+* added github Actions for CI ([#1000](https://github.com/docsifyjs/docsify/pull/1000))
 * Add a prepare script. ([#1010](https://github.com/docsifyjs/docsify/pull/1010))
-* chore(GH-action): using ubuntu 16 and removed node 8 from CI 
+* chore(GH-action): using ubuntu 16 and removed node 8 from CI
 * chore: add config ([#1014](https://github.com/docsifyjs/docsify/pull/1014))
 * chore(stale): added enhancement label to exemptlabels
 * chore(stale): added bug label to exemptlabels
-* .markdown-section max-width 800px to 80% ([#1017](https://github.com/docsifyjs/docsify/pull/1017)) 
-* changed the CDN from unpkg to jsDelivr #1020 ([#1022](https://github.com/docsifyjs/docsify/pull/1022)) 
-* migrate CI to github, refactore CI and npm scripts, linting fixes ([#1023](https://github.com/docsifyjs/docsify/pull/1023)) 
+* .markdown-section max-width 800px to 80% ([#1017](https://github.com/docsifyjs/docsify/pull/1017))
+* changed the CDN from unpkg to jsDelivr #1020 ([#1022](https://github.com/docsifyjs/docsify/pull/1022))
+* migrate CI to github, refactore CI and npm scripts, linting fixes ([#1023](https://github.com/docsifyjs/docsify/pull/1023))
 * chore(readme): added CI badges and fixed the logo issue
 * added new linter config ([#1028](https://github.com/docsifyjs/docsify/pull/1028))
 
