@@ -269,14 +269,14 @@ describe('render', function() {
     it('ignore-html-comments', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(
-        '## h2 tag <!-- {docsify-ignore} -->'
+        '## h2 tag ignore <!-- {docsify-ignore} -->'
       );
       expectSameDom(
         output,
         `
-        <h2 id="h2-tag">
-          <a href="#/?id=h2-tag" data-id="h2-tag" class="anchor">
-            <span>h2 tag </span>
+        <h2 id="h2-tag-ignore">
+          <a href="#/?id=h2-tag-ignore" data-id="h2-tag-ignore" class="anchor">
+            <span>h2 tag ignore </span>
           </a>
         </h2>`
       );
@@ -306,14 +306,14 @@ describe('render', function() {
     it('ignore-all-html-comments', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(
-        `# h1 tag <!-- {docsify-ignore-all} -->` + `\n## h2 tag`
+        `# h1 tag ignore <!-- {docsify-ignore-all} -->` + `\n## h2 tag`
       );
       expectSameDom(
         output,
         `
         <h1 id="h1-tag">
-          <a href="#/?id=h1-tag" data-id="h1-tag" class="anchor">
-            <span>h1 tag </span>
+          <a href="#/?id=h1-tag-ignore" data-id="h1-tag-ignore" class="anchor">
+            <span>h1 tag ignore </span>
           </a>
         </h1>
         <h2 id="h2-tag">
