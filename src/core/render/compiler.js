@@ -214,8 +214,20 @@ export class Compiler {
         nextToc.ignoreSubHeading = true;
       }
 
+      if (/{docsify-ignore}/g.test(str)) {
+        str = str.replace('{docsify-ignore}', '');
+        nextToc.title = str;
+        nextToc.ignoreSubHeading = true;
+      }
+
       if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
         str = str.replace('<!-- {docsify-ignore-all} -->', '');
+        nextToc.title = str;
+        nextToc.ignoreAllSubs = true;
+      }
+
+      if (/{docsify-ignore-all}/g.test(str)) {
+        str = str.replace('{docsify-ignore-all}', '');
         nextToc.title = str;
         nextToc.ignoreAllSubs = true;
       }
