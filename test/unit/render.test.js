@@ -311,7 +311,7 @@ describe('render', function() {
       expectSameDom(
         output,
         `
-        <h1 id="h1-tag">
+        <h1 id="h1-tag-ignore">
           <a href="#/?id=h1-tag-ignore" data-id="h1-tag-ignore" class="anchor">
             <span>h1 tag ignore </span>
           </a>
