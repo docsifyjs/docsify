@@ -254,9 +254,7 @@ describe('render', function() {
 
     it('ignore', async function() {
       const { docsify } = await init();
-      const output = docsify.compiler.compile(
-        '## h2 tag <!-- {docsify-ignore} -->'
-      );
+      const output = docsify.compiler.compile('## h2 tag {docsify-ignore}');
       expectSameDom(
         output,
         `
@@ -271,7 +269,7 @@ describe('render', function() {
     it('ignore-all', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(
-        `# h1 tag <!-- {docsify-ignore-all} -->` + `\n## h2 tag`
+        `# h1 tag {docsify-ignore-all}` + `\n## h2 tag`
       );
       expectSameDom(
         output,
