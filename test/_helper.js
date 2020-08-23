@@ -54,7 +54,9 @@ module.exports.init = function(
 
   const rootPath = path.join(__dirname, 'fixtures', fixture);
 
-  const dom = initJSDOM(markup);
+  const runScriptInJSDom =
+    Object.values(config).length !== 0 ? 'dangerously' : undefined;
+  const dom = initJSDOM(markup, { runScripts: runScriptInJSDom });
   dom.reconfigure({ url: 'file:///' + rootPath });
 
   // Mimic src/core/index.js but for Node.js
