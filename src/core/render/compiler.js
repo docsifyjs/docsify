@@ -68,7 +68,7 @@ export class Compiler {
     this.linkRel =
       this.linkTarget === '_blank' ? config.externalLinkRel || 'noopener' : '';
     this.contentBase = router.getBasePath();
-    this.rootRelativeImageURL = config.rootRelativeImageURL || false;
+    this.rootRelativeImageURL = config.rootRelativeImageURL;
 
     const renderer = this._initRenderer();
     this.heading = renderer.heading;
