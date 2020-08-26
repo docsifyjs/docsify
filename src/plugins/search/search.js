@@ -211,7 +211,7 @@ export function init(config, vm) {
         config.pathNamespaces.find(prefix => path && path.startsWith(prefix)) ||
         namespaceSuffix;
     } else if (config.pathNamespaces instanceof RegExp) {
-      const matches = path.match(config.pathNamespaces);
+      const matches = path && path.match(config.pathNamespaces);
 
       if (matches) {
         namespaceSuffix = matches[0];
