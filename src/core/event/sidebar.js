@@ -86,7 +86,7 @@ export function getAndActive(router, el, isParent, autoTitle) {
       const href = a.getAttribute('href');
       const node = isParent ? a.parentNode : a;
 
-      a.title = a.innerText;
+      a.title = a.title || a.innerText;
 
       if (hash.indexOf(href) === 0 && !target) {
         target = a;
@@ -95,7 +95,6 @@ export function getAndActive(router, el, isParent, autoTitle) {
         dom.toggleClass(node, 'remove', 'active');
       }
     });
-
   if (autoTitle) {
     dom.$.title = target
       ? target.title || `${target.innerText} - ${title}`
