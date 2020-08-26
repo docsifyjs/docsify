@@ -199,19 +199,18 @@ export function search(query) {
 export function init(config, vm) {
   const isAuto = config.paths === 'auto';
   const paths = isAuto ? getAllPaths(vm.router) : config.paths;
-
   let namespaceSuffix = '';
 
   // only in auto mode
-  if (isAuto && config.pathNamespaces) {
+  if (paths.length && isAuto && config.pathNamespaces) {
     const path = paths[0];
 
     if (Array.isArray(config.pathNamespaces)) {
       namespaceSuffix =
-        config.pathNamespaces.find(prefix => path && path.startsWith(prefix)) ||
+        config.pathNamespaces.find(prefix => path.startsWith(prefix)) ||
         namespaceSuffix;
     } else if (config.pathNamespaces instanceof RegExp) {
-      const matches = path && path.match(config.pathNamespaces);
+      const matches = path.match(config.pathNamespaces);
 
       if (matches) {
         namespaceSuffix = matches[0];
