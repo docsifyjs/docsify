@@ -95,6 +95,7 @@ export function getAndActive(router, el, isParent, autoTitle) {
         dom.toggleClass(node, 'remove', 'active');
       }
     });
+
   if (autoTitle) {
     dom.$.title = target
       ? target.title || `${target.innerText} - ${title}`
