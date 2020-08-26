@@ -199,6 +199,7 @@ export function search(query) {
 export function init(config, vm) {
   const isAuto = config.paths === 'auto';
   const paths = isAuto ? getAllPaths(vm.router) : config.paths;
+
   let namespaceSuffix = '';
 
   // only in auto mode
