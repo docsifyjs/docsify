@@ -1,6 +1,6 @@
 {
   "name": "docsify-server-renderer",
-  "version": "4.11.4",
+  "version": "4.11.6",
   "description": "docsify server renderer",
   "author": {
     "name": "qingwei-li",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "debug": "^4.1.1",
-    "docsify": "^4.11.2",
+    "docsify": "^4.11.4",
     "dompurify": "^2.0.8",
     "node-fetch": "^2.6.0"
   }
