@@ -3,7 +3,7 @@ import { resolve as resolvePath, isAbsolute, basename } from 'path';
 import { resolve as resolveUrl } from 'url';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
-import configDealer from '../../src/core/config';
+import configHandler from '../../src/core/config';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
 import fetch from 'node-fetch';
@@ -53,7 +53,7 @@ export default class Renderer {
   constructor({ template, config, cache }) {
     this.html = template;
     this.cache = cache;
-    this.config = config = configDealer(null, config);
+    this.config = config = configHandler(null, config);
 
     this.router = new AbstractHistory(config);
     this.compiler = new Compiler(config, this.router);
