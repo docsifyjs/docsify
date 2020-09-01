@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://docsify.js.org">
-    <img alt="docsify" src="https://github.com/docsifyjs/docsify/blob/develop/docs/_media/icon.svg">
+    <img alt="docsify" src="./docs/_media/icon.svg">
   </a>
 </p>
 
@@ -84,7 +84,7 @@ So that you can start straight away.
 
 - Fork it!
 - Create your feature branch: `git checkout -b my-new-feature`
-- Commit your changes: `git commit -am 'Add some feature'`
+- Commit your changes: `git add . && git commit -m 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
 - Submit a pull request
 

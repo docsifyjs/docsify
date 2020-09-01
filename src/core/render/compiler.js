@@ -214,8 +214,20 @@ export class Compiler {
         nextToc.ignoreSubHeading = true;
       }
 
+      if (/{docsify-ignore}/g.test(str)) {
+        str = str.replace('{docsify-ignore}', '');
+        nextToc.title = str;
+        nextToc.ignoreSubHeading = true;
+      }
+
       if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
         str = str.replace('<!-- {docsify-ignore-all} -->', '');
+        nextToc.title = str;
+        nextToc.ignoreAllSubs = true;
+      }
+
+      if (/{docsify-ignore-all}/g.test(str)) {
+        str = str.replace('{docsify-ignore-all}', '');
         nextToc.title = str;
         nextToc.ignoreAllSubs = true;
       }
@@ -267,7 +279,7 @@ export class Compiler {
           // Remove headers who are under current header
           for (
             let j = i;
-            deletedHeaderLevel < toc[j].level && j < toc.length;
+            j < toc.length && deletedHeaderLevel < toc[j].level;
             j++
           ) {
             toc.splice(j, 1) && j-- && i++;
