@@ -38,7 +38,8 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
 
             // This may contain YAML front matter and will need to be stripped.
             const frontMatterInstalled =
-              (((global || window || {}).$docsify || {}).frontMatter || {}).installed || false;
+              (((global || window || {}).$docsify || {}).frontMatter || {})
+                .installed || false;
             if (frontMatterInstalled === true) {
               text = $docsify.frontMatter.parseMarkdown(text);
             }

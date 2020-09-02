@@ -1,4 +1,3 @@
-import { noop } from '../../util/core';
 import { inBrowser } from '../../util/env';
 import { on } from '../../util/dom';
 import { parseQuery } from '../util';
@@ -12,8 +11,8 @@ export class AbstractHistory extends History {
     this.mode = this.config.routerMode;
   }
 
-  onchange(cb = noop) {
-    if(inBrowser) {
+  onchange() {
+    if (inBrowser) {
       on('hashchange', e => {
         let hash = e.target.location.hash;
         let parsed = this.parse(hash);
@@ -25,7 +24,7 @@ export class AbstractHistory extends History {
   }
 
   parse(path = '') {
-    if(this.mode === 'history') {
+    if (this.mode === 'history') {
       let query = '';
 
       const queryIndex = path.indexOf('?');
@@ -45,8 +44,8 @@ export class AbstractHistory extends History {
   }
 
   toURL(path, params, currentRoute = '') {
-    return this.mode === 'history' ?
-      HTML5History.prototype.toURL.bind(this)(path, params, currentRoute) :
-      HashHistory.prototype.toURL.bind(this)(path, params, currentRoute);
+    return this.mode === 'history'
+      ? HTML5History.prototype.toURL.bind(this)(path, params, currentRoute)
+      : HashHistory.prototype.toURL.bind(this)(path, params, currentRoute);
   }
 }
