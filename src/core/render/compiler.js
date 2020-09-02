@@ -279,7 +279,7 @@ export class Compiler {
           // Remove headers who are under current header
           for (
             let j = i;
-            deletedHeaderLevel < toc[j].level && j < toc.length;
+            j < toc.length && deletedHeaderLevel < toc[j].level;
             j++
           ) {
             toc.splice(j, 1) && j-- && i++;
