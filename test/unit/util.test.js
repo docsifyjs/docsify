@@ -2,8 +2,8 @@
 require = require('esm')(
   module /* , options */
 ); /* eslint-disable-line no-global-assign */
-const { resolvePath } = require('../../src/core/router/util');
 const { expect } = require('chai');
+const { resolvePath } = require('../../src/core/router/util');
 
 describe('router/util', function() {
   it('resolvePath', async function() {

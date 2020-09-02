@@ -1,14 +1,14 @@
 import { readFileSync } from 'fs';
 import { resolve as resolvePath, isAbsolute, basename } from 'path';
 import { resolve as resolveUrl } from 'url';
+import fetch from 'node-fetch';
+import debug from 'debug';
+import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import configHandler from '../../src/core/config';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
-import fetch from 'node-fetch';
-import debug from 'debug';
-import DOMPurify from 'dompurify';
 
 function resolve(base, ...args) {
   for (let i in args) {

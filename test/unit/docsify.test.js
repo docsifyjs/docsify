@@ -3,9 +3,9 @@
 require = require('esm')(module /* , options */);
 
 const http = require('http');
-const { initJSDOM } = require('../_helper');
 const handler = require('serve-handler');
 const { expect } = require('chai');
+const { initJSDOM } = require('../_helper');
 
 const port = 9753;
 const docsifySite = 'http://127.0.0.1:' + port;
