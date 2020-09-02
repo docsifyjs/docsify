@@ -40,11 +40,11 @@ export function stringifyQuery(obj, ignores = []) {
   return qs.length ? `?${qs.join('&')}` : '';
 }
 
-export const isAbsolutePath = cached(path => {
+export const isAbsolutePath = cached((path = '') => {
   return /(:|(\/{2}))/g.test(path);
 });
 
-export const removeParams = cached(path => {
+export const removeParams = cached((path = '') => {
   return path.split(/[?#]/)[0];
 });
 
@@ -57,11 +57,11 @@ export const getParentPath = cached((path = '') => {
   return matchingParts ? matchingParts[1] : '';
 });
 
-export const cleanPath = cached(path => {
+export const cleanPath = cached((path = '') => {
   return path.replace(/^\/+/, '/').replace(/([^:])\/{2,}/g, '$1/');
 });
 
-export const resolvePath = cached(path => {
+export const resolvePath = cached((path = '') => {
   const segments = path.replace(/^\//, '').split('/');
   let resolved = [];
   for (let i = 0, len = segments.length; i < len; i++) {
