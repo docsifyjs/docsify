@@ -66,6 +66,13 @@ function getTableData(token) {
   return token.text;
 }
 
+function getListData(token) {
+  if (!token.text && token.type === 'list') {
+    token.text = token.raw;
+  }
+  return token.text;
+}
+
 function saveData(maxAge, expireKey, indexKey) {
   localStorage.setItem(expireKey, Date.now() + maxAge);
   localStorage.setItem(indexKey, JSON.stringify(INDEXS));
@@ -97,10 +104,12 @@ export function genIndex(path, content = '', router, depth) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
         token.text = getTableData(token);
+        token.text = getListData(token);
 
         index[slug].body += '\n' + (token.text || '');
       } else {
         token.text = getTableData(token);
+        token.text = getListData(token);
 
         index[slug].body = index[slug].body
           ? index[slug].body + token.text
@@ -203,7 +212,7 @@ export function init(config, vm) {
   let namespaceSuffix = '';
 
   // only in auto mode
-  if (isAuto && config.pathNamespaces) {
+  if (paths.length && isAuto && config.pathNamespaces) {
     const path = paths[0];
 
     if (Array.isArray(config.pathNamespaces)) {
