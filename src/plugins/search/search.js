@@ -212,7 +212,7 @@ export function init(config, vm) {
   let namespaceSuffix = '';
 
   // only in auto mode
-  if (isAuto && config.pathNamespaces) {
+  if (paths.length && isAuto && config.pathNamespaces) {
     const path = paths[0];
 
     if (Array.isArray(config.pathNamespaces)) {
