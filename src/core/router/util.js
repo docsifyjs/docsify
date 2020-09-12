@@ -76,8 +76,15 @@ export const resolvePath = cached(path => {
   return '/' + resolved.join('/');
 });
 
+function normaliseFragment(path) {
+  return path
+    .split('/')
+    .filter(p => !p.includes('#'))
+    .join('/');
+}
+
 export function getPath(...args) {
-  return cleanPath(args.join('/'));
+  return cleanPath(args.map(normaliseFragment).join('/'));
 }
 
 export const replaceSlug = cached(path => {

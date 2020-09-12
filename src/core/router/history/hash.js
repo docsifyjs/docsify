@@ -18,7 +18,10 @@ export class HashHistory extends History {
     const path = window.location.pathname || '';
     const base = this.config.basePath;
 
-    return /^(\/|https?:)/g.test(base) ? base : cleanPath(path + '/' + base);
+    const basePath = path.endsWith('.html')
+      ? path + '#/' + base
+      : path + '/' + base;
+    return /^(\/|https?:)/g.test(base) ? base : cleanPath(basePath);
   }
 
   getCurrentPath() {
