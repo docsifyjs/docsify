@@ -76,6 +76,29 @@ export const resolvePath = cached(path => {
   return '/' + resolved.join('/');
 });
 
+/**
+ * Normalises the URI path to handle the case where Docsify is
+ * hosted off explicit files, i.e. /index.html. This function
+ * eliminates any path segments that contain `#` fragments.
+ *
+ * This is used to map browser URIs to markdown file sources.
+ *
+ * For example:
+ *
+ * http://example.org/base/index.html#/blah
+ *
+ * would be mapped to:
+ *
+ * http://example.org/base/blah.md.
+ *
+ * See here for more information:
+ *
+ * https://github.com/docsifyjs/docsify/pull/1372
+ *
+ * @param {string} path The URI path to normalise
+ * @return {string} { path, query }
+ */
+
 function normaliseFragment(path) {
   return path
     .split('/')

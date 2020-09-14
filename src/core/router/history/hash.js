@@ -18,6 +18,11 @@ export class HashHistory extends History {
     const path = window.location.pathname || '';
     const base = this.config.basePath;
 
+    // This handles the case where Docsify is served off an
+    // explicit file path, i.e.`/base/index.html#/blah`. This
+    // prevents the `/index.html` part of the URI from being
+    // remove during routing.
+    // See here: https://github.com/docsifyjs/docsify/pull/1372
     const basePath = path.endsWith('.html')
       ? path + '#/' + base
       : path + '/' + base;
