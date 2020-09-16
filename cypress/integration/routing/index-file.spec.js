@@ -7,10 +7,16 @@ context('routing.indexFile', () => {
     cy.get('#main').should('contain', 'Bug Fixes');
   })
 
-  it('handles index file routing with fragments', () => {
+  it('handles index file routing with root fragment', () => {
     cy.visit('http://localhost:3000/index.html#/');
 
     cy.get('.sidebar-nav').contains('Changelog').click();
+
+    cy.get('#main').should('contain', 'Bug Fixes');
+  })
+
+  it('handles index file routing with page fragment', () => {
+    cy.visit('http://localhost:3000/index.html#/changelog');
 
     cy.get('#main').should('contain', 'Bug Fixes');
   })
@@ -27,7 +33,6 @@ context('routing.indexFile', () => {
       failOnStatusCode: false
     }).then((resp) => expect(500).to.eq(resp.status))
   })
-
 
   it('does not serve shadowing index markdown file', () => {
     cy.request({
