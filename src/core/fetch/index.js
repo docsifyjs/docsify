@@ -104,7 +104,12 @@ export function fetchMixin(proto) {
   proto._fetch = function(cb = noop) {
     const { path, query } = this.route;
     const qs = stringifyQuery(query, ['id']);
-    const { loadNavbar, requestHeaders, loadSidebar } = this.config;
+    const {
+      loadNavbar,
+      requestHeaders,
+      loadSidebar,
+      loadNavbarOnCover,
+    } = this.config;
     // Abort last request
 
     const file = this.router.getFile(path);
@@ -128,7 +133,15 @@ export function fetchMixin(proto) {
     );
 
     // Load nav
-    loadNavbar &&
+    if (loadNavbar) {
+      // default show the nav
+      document.querySelector('.app-nav').style.display = 'inline';
+      if (path === '/' && !loadNavbarOnCover) {
+        // hidden nav on cover
+        document.querySelector('.app-nav').style.display = 'none';
+        return;
+      }
+
       loadNested(
         path,
         qs,
@@ -137,6 +150,7 @@ export function fetchMixin(proto) {
         this,
         true
       );
+    }
   };
 
   proto._fetchCover = function() {

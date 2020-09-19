@@ -629,3 +629,15 @@ window.$docsify = {
   topMargin: 90, // default: 0
 };
 ```
+
+## loadNavbarOnCover
+
+- type: `Boolean`
+
+If set to `false`, the navbar will not be shown on the cover.
+
+```js
+window.$docsify = {
+  loadNavbarOnCover: false,
+};
+```
