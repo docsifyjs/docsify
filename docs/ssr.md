@@ -118,7 +118,7 @@ var renderer = new Renderer({
   }
 })
 
-renderer.renderToString(url)
+renderer.renderToString()
   .then(html => {})
   .catch(err => {})
 ```
