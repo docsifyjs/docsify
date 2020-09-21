@@ -44,6 +44,17 @@ By default, the hyperlink on the current page is recognized and the content is s
       // To avoid search index collision
       // between multiple websites under the same domain
       namespace: 'website-1',
+
+      // Use different indexes for path prefixes (namespaces).
+      // NOTE: Only works in 'auto' mode.
+      //
+      // When initialiazing an index, we look for the first path from the sidebar.
+      // If it matches the prefix from the list, we switch to the corresponding index.
+      pathNamespaces: ['/zh-cn', '/ru-ru', '/ru-ru/v1'],
+
+      // You can provide a regexp to match prefixes. In this case,
+      // the matching substring will be used to identify the index
+      pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/
     }
   }
 </script>
@@ -166,22 +177,6 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
-```
-
-## codefund
-
-a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codefund.io/)
-
-> codefund is formerly known as "codesponsor"
-
-```
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-
-window.$docsify = {
-  plugins: [
-    DocsifyCodefund.create('xxxx-xxx-xxx') // change to your codefund id
-  ]
-}
 ```
 
 ## Tabs

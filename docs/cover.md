@@ -26,15 +26,13 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
 
 > A magical documentation site generator.
 
-- Simple and lightweight (~21kB gzipped)
+- Simple and lightweight
 - No statically built html files
 - Multiple themes
 
 [GitHub](https://github.com/docsifyjs/docsify/)
 [Get Started](#docsify)
 ```
-
-!> A document site can have only one coverpage!
 
 ## Custom background
 
