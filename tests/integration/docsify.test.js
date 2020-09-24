@@ -1,4 +1,4 @@
-import docsifyInit from '../unit/helpers/docsify-init.js';
+const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------

@@ -35,6 +35,7 @@ function startServer(options = {}, cb = Function.prototype) {
           // Override changelog alias to load local changelog (see routes)
           const injectJS = `
             <script>
+              // Fix /docs site configuration during tests
               (function() {
                 const aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
 

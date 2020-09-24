@@ -1,6 +1,6 @@
 // Modules, constants, and variables
 // -----------------------------------------------------------------------------
-const docsifyInit = require('./helpers/docsify-init');
+const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -125,11 +125,11 @@ describe(`Example Tests`, function() {
 
     // Inject docsify theme (vue.css)
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddstyletagoptions
-    await page.addStyleTag({ url: `${TEST_URL}/lib/themes/vue.css` });
+    await page.addStyleTag({ url: `${LIB_URL}/themes/vue.css` });
 
     // Inject docsify.js
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddscripttagoptions
-    await page.addScriptTag({ url: `${TEST_URL}/lib/docsify.js` });
+    await page.addScriptTag({ url: `${LIB_URL}/docsify.js` });
 
     // Wait for docsify to initialize
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagewaitforselectorselector-options
@@ -143,13 +143,20 @@ describe(`Example Tests`, function() {
     expect($docsify).toHaveProperty('themeColor', 'red');
   });
 
-  test('default docsify site using docsifyInit()', async () => {
+  test('basic docsify site using docsifyInit()', async () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
       config: {
         themeColor: 'red',
       },
+      markdown: {
+        homepage: `
+          # Hello World
+        `,
+      },
+      // _debug: true,
+      // _logHTML: true,
     });
 
     // Create handle for JavaScript object in browser
@@ -158,52 +165,53 @@ describe(`Example Tests`, function() {
 
     // Test object property and value
     expect($docsify).toHaveProperty('themeColor', 'red');
+
+    // Or test page change by checking page content
+    await expect(page).toHaveText('#main', 'Hello World');
   });
 
-  test('custom docsify site using docsifyInit()', async () => {
+  test('kitchen sink docsify site using docsifyInit()', async () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
       config: {
-        name: 'Docsify Test',
+        name: 'Docsify Name',
       },
-      contentMarkdown: `
-        # Page Title
+      markdown: {
+        coverpage: `
+          # Docsify Test
 
-        This is a paragraph
+          > Testing a magical documentation site generator
 
-        1. Item
-        1. Item
-        1. Item
-      `,
-      coverpageMarkdown: `
-        # Docsify Test
+          [GitHub](https://github.com/docsifyjs/docsify/)
+          [Getting Started](#page-title)
+        `,
+        homepage: `
+          # Hello World
 
-        > Testing a magical documentation site generator
+          This is the homepage.
+        `,
+        navbar: `
+          - [docsify.js.org](https://docsify.js.org/#/)
+        `,
+        sidebar: `
+          - [Test Page](test)
+        `,
+      },
+      routes: {
+        '**/test.md': `
+          # Test Page
 
-        [GitHub](https://github.com/docsifyjs/docsify/)
-        [Getting Started](#page-title)
-      `,
-      navbarMarkdown: `
-        - [docsify.js.org](https://docsify.js.org/#/)
-      `,
-      sidebarMarkdown: `
-        - [Test Page](test)
-      `,
-      routes: [
-        [
-          '**/test.md',
-          `
-            # Test Page
-
-            This is a custom route
-          `,
-        ],
-      ],
+          This is a custom route.
+        `,
+      },
       script: `
-        console.log('Injected JavaScript');
+        document.body.setAttribute('data-test-script', 'pass');
       `,
-      scriptURLs: ['https://cdn.jsdelivr.net/npm/docsify-themeable@0'],
+      scriptURLs: [
+        '/lib/plugins/search.js',
+        'https://cdn.jsdelivr.net/npm/docsify-themeable@0',
+      ],
       style: `
         :root {
           --theme-hue: 275;
@@ -212,16 +220,55 @@ describe(`Example Tests`, function() {
       styleURLs: [
         'https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css',
       ],
+      // _debug: true,
+      // _logHTML: true,
     });
+
+    // Verify config options
+    expect(await page.evaluate(() => typeof window.$docsify)).toEqual('object');
+    await expect(page).toHaveText('.app-name', 'Docsify Name');
+
+    // Verify options.markdown content was rendered
+    await expect(page).toHaveText('section.cover', 'Docsify Test'); // Coverpage
+    await expect(page).toHaveText('nav.app-nav', 'docsify.js.org'); // Navbar
+    await expect(page).toHaveText('aside.sidebar', 'Test Page'); // Sidebar
+    await expect(page).toHaveText('#main', 'This is the homepage'); // Homepage
+
+    // Verify options.script was executed
+    await expect(page).toHaveSelector('body[data-test-script]');
+
+    // Verify option.scriptURLs were executed
+    await expect(page).toHaveSelector('.search input[type="search"]'); // Search
+
+    // Verify options.style was applied
+    expect(
+      await page.evaluate(() =>
+        window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue('--theme-hue')
+          .trim()
+      )
+    ).toEqual('275');
+
+    // Verify options.styleURLs were applied
+    expect(
+      await page.evaluate(() =>
+        window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue('--theme-color')
+          .trim()
+      )
+    ).toContain('hsl');
 
     // Click the test page link
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageclickselector-options
     await page.click('a[href="#/test"]');
 
-    // Test page change by checking URL
-    await expect(page.url()).toMatch(/\/test$/);
+    // Verify page change by checking URL
+    // https://playwright.dev/#path=docs%2Fapi.md&q=pageurl
+    expect(page.url()).toMatch(/\/test$/);
 
-    // Or test page change by checking page content
+    // Verify options.routes by checking page content
     await expect(page).toHaveText('#main', 'This is a custom route');
   });
 
@@ -230,47 +277,52 @@ describe(`Example Tests`, function() {
       config: {
         name: 'Docsify Test',
       },
-      contentMarkdown: `
-        # The Cosmos Awaits
+      markdown: {
+        homepage: `
+          # The Cosmos Awaits
 
-        [Carl Sagan](https://en.wikipedia.org/wiki/Carl_Sagan)
+          [Carl Sagan](https://en.wikipedia.org/wiki/Carl_Sagan)
 
-        Cosmic ocean take root and flourish decipherment hundreds of thousands
-        dream of the mind's eye courage of our questions. At the edge of forever
-        network of wormholes ship of the imagination two ghostly white figures
-        in coveralls and helmets are softly dancing are creatures of the cosmos
-        the only home we've ever known? How far away emerged into consciousness
-        bits of moving fluff gathered by gravity with pretty stories for which
-        there's little good evidence vanquish the impossible.
+          Cosmic ocean take root and flourish decipherment hundreds of thousands
+          dream of the mind's eye courage of our questions. At the edge of forever
+          network of wormholes ship of the imagination two ghostly white figures
+          in coveralls and helmets are softly dancing are creatures of the cosmos
+          the only home we've ever known? How far away emerged into consciousness
+          bits of moving fluff gathered by gravity with pretty stories for which
+          there's little good evidence vanquish the impossible.
 
-        The ash of stellar alchemy permanence of the stars shores of the cosmic
-        ocean billions upon billions Drake Equation finite but unbounded.
-        Hundreds of thousands cosmic ocean hearts of the stars Hypatia invent
-        the universe hearts of the stars? Realm of the galaxies muse about dream
-        of the mind's eye hundreds of thousands the only home we've ever known
-        how far away. Extraordinary claims require extraordinary evidence
-        citizens of distant epochs invent the universe as a patch of light the
-        carbon in our apple pies gathered by gravity.
+          The ash of stellar alchemy permanence of the stars shores of the cosmic
+          ocean billions upon billions Drake Equation finite but unbounded.
+          Hundreds of thousands cosmic ocean hearts of the stars Hypatia invent
+          the universe hearts of the stars? Realm of the galaxies muse about dream
+          of the mind's eye hundreds of thousands the only home we've ever known
+          how far away. Extraordinary claims require extraordinary evidence
+          citizens of distant epochs invent the universe as a patch of light the
+          carbon in our apple pies gathered by gravity.
 
-        Billions upon billions gathered by gravity white dwarf intelligent
-        beings vanquish the impossible descended from astronomers. A still more
-        glorious dawn awaits cosmic ocean star stuff harvesting star light the
-        sky calls to us kindling the energy hidden in matter rich in heavy
-        atoms. A mote of dust suspended in a sunbeam across the centuries the
-        only home we've ever known bits of moving fluff a very small stage in a
-        vast cosmic arena courage of our questions.
+          Billions upon billions gathered by gravity white dwarf intelligent
+          beings vanquish the impossible descended from astronomers. A still more
+          glorious dawn awaits cosmic ocean star stuff harvesting star light the
+          sky calls to us kindling the energy hidden in matter rich in heavy
+          atoms. A mote of dust suspended in a sunbeam across the centuries the
+          only home we've ever known bits of moving fluff a very small stage in a
+          vast cosmic arena courage of our questions.
 
-        Euclid the only home we've ever known realm of the galaxies trillion
-        radio telescope Apollonius of Perga. The carbon in our apple pies invent
-        the universe muse about stirred by starlight great turbulent clouds
-        emerged into consciousness? Invent the universe vastness is bearable
-        only through love a still more glorious dawn awaits descended from
-        astronomers as a patch of light the sky calls to us. Great turbulent
-        clouds citizens of distant epochs invent the universe two ghostly white
-        figures in coveralls and helmets are softly dancing courage of our
-        questions rich in heavy atoms and billions upon billions upon billions
-        upon billions upon billions upon billions upon billions.
-      `,
+          Euclid the only home we've ever known realm of the galaxies trillion
+          radio telescope Apollonius of Perga. The carbon in our apple pies invent
+          the universe muse about stirred by starlight great turbulent clouds
+          emerged into consciousness? Invent the universe vastness is bearable
+          only through love a still more glorious dawn awaits descended from
+          astronomers as a patch of light the sky calls to us. Great turbulent
+          clouds citizens of distant epochs invent the universe two ghostly white
+          figures in coveralls and helmets are softly dancing courage of our
+          questions rich in heavy atoms and billions upon billions upon billions
+          upon billions upon billions upon billions upon billions.
+        `,
+      },
+      styleURLs: [`/lib/themes/vue.css`],
+      // _debug: true,
+      // _logHTML: true,
     });
 
     // Viewport screenshot

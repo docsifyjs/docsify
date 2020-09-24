@@ -6,7 +6,10 @@ module.exports = {
   globals: {
     TEST_URL: 'readonly',
     DOCS_PATH: 'readonly',
+    DOCS_URL: 'readonly',
     LIB_PATH: 'readonly',
+    LIB_URL: 'readonly',
+    SRC_PATH: 'readonly',
   },
   plugins: ['jest'],
 };

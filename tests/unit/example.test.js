@@ -7,43 +7,45 @@ import * as getTimeOfDayModule from './fixtures/examples/get-time-of-day.js';
 describe(`Example Tests`, function() {
   // Tests
   // ---------------------------------------------------------------------------
-  test('dom manipulation (jsdom)', () => {
-    const testText = 'This is a test';
-    const testHTML = `<h1>Test</h1><p>${testText}</p>`;
+  describe('Jest & JSDOM basics', function() {
+    test('dom manipulation (jsdom)', () => {
+      const testText = 'This is a test';
+      const testHTML = `<h1>Test</h1><p>${testText}</p>`;
 
-    // Inject HTML
-    document.body.innerHTML = testHTML;
+      // Inject HTML
+      document.body.innerHTML = testHTML;
 
-    // Add class to <body> element and verify
-    document.body.classList.add('foo');
+      // Add class to <body> element and verify
+      document.body.classList.add('foo');
 
-    // Test HTML
-    expect(document.body.getAttribute('class')).toEqual('foo');
-    expect(document.body.textContent).toMatch(/Test/);
-    expect(document.querySelectorAll('p')).toHaveLength(1);
-    expect(document.querySelector('p').textContent).toBe(testText);
-    expect(document.querySelector('table')).toBeNull();
-  });
+      // Test HTML
+      expect(document.body.getAttribute('class')).toEqual('foo');
+      expect(document.body.textContent).toMatch(/Test/);
+      expect(document.querySelectorAll('p')).toHaveLength(1);
+      expect(document.querySelector('p').textContent).toBe(testText);
+      expect(document.querySelector('table')).toBeNull();
+    });
 
-  // Snapshot Testing
-  // https://jestjs.io/docs/en/snapshot-testing
-  test('snapshot (jsdom)', () => {
-    const testText = 'This is a test';
-    const testHTML = `<h1>Test</h1><p>${testText}</p>`;
+    // Snapshot Testing
+    // https://jestjs.io/docs/en/snapshot-testing
+    test('snapshot (jsdom)', () => {
+      const testText = 'This is a test';
+      const testHTML = `<h1>Test</h1><p>${testText}</p>`;
 
-    // Inject HTML
-    document.body.innerHTML = testHTML;
+      // Inject HTML
+      document.body.innerHTML = testHTML;
 
-    // Add class to <body> element and verify
-    document.body.classList.add('foo');
+      // Add class to <body> element and verify
+      document.body.classList.add('foo');
 
-    const documentHTML = document.documentElement.outerHTML;
+      const documentHTML = document.documentElement.outerHTML;
 
-    // Test snapshots
-    expect(documentHTML).toMatchSnapshot(); // See __snapshots__
-    expect(documentHTML).toMatchInlineSnapshot(
-      `"<html><head></head><body class=\\"foo\\"><h1>Test</h1><p>This is a test</p></body></html>"`
-    );
+      // Test snapshots
+      expect(documentHTML).toMatchSnapshot(); // See __snapshots__
+      expect(documentHTML).toMatchInlineSnapshot(
+        `"<html><head></head><body class=\\"foo\\"><h1>Test</h1><p>This is a test</p></body></html>"`
+      );
+    });
   });
 
   describe('Fake Timers', function() {
@@ -59,22 +61,22 @@ describe(`Example Tests`, function() {
     });
   });
 
-  describe.skip('Mocks & Spys', function() {
+  describe('Mocks & Spys', function() {
     test('mock import/require dependency using jest.fn()', () => {
-      const testModule = require('../fixtures/examples/get-time-of-day.js');
-      const { greet } = require('../fixtures/examples/greet.js');
+      const testModule = require('./fixtures/examples/get-time-of-day.js');
+      const { greet: testGreet } = require('./fixtures/examples/greet.js');
 
       testModule.getTimeOfDay = jest.fn(() => 'day');
 
       const timeOfDay = testModule.getTimeOfDay();
-      const greeting = greet('John');
+      const greeting = testGreet('John');
 
       expect(timeOfDay).toBe('day');
       expect(greeting).toBe(`Good day, John!`);
     });
 
     test('mock import/require dependency using jest.doMock()', () => {
-      const mockModulePath = '../fixtures/examples/get-time-of-day.js';
+      const mockModulePath = './fixtures/examples/get-time-of-day.js';
 
       jest.doMock(mockModulePath, () => ({
         __esModule: true,
@@ -82,13 +84,22 @@ describe(`Example Tests`, function() {
       }));
 
       const mockGetTimeOfDay = require(mockModulePath).getTimeOfDay;
-      const { greet } = require('../fixtures/examples/greet.js');
+      const { greet: testGreet } = require('./fixtures/examples/greet.js');
 
       const timeOfDay = mockGetTimeOfDay();
-      const greeting = greet('John');
+      const greeting = testGreet('John');
 
       expect(timeOfDay).toBe('night');
       expect(greeting).toBe(`Good night, John!`);
+    });
+
+    test('spy on native method using jest.spyOn()', () => {
+      // Replace Math.random() implementation to return fixed value
+      jest.spyOn(Math, 'random').mockImplementation(() => 0.1);
+
+      expect(Math.random()).toEqual(0.1);
+      expect(Math.random()).toEqual(0.1);
+      expect(Math.random()).toEqual(0.1);
     });
 
     test('spy on import/require dependency using jest.spyOn()', () => {
@@ -97,38 +108,6 @@ describe(`Example Tests`, function() {
         .mockImplementation(() => 'night');
 
       const timeOfDay = getTimeOfDay();
-      const greeting = greet('John');
-
-      expect(timeOfDay).toBe('night');
-      expect(greeting).toBe(`Good night, John!`);
-    });
-
-    test('restored mock/spy', () => {
-      const timeOfDay = getTimeOfDay();
-      const greeting = greet('Bill');
-
-      expect(timeOfDay).toBe('evening');
-      expect(greeting).toBe(`Good evening, Bill!`);
-    });
-
-    test('Jest spyOn()', () => {
-      // Replace Math.random() implementation to return fixed value
-      // jest.spyOn(Math, 'random').mockImplementation(() => 0.1);
-
-      // jest
-      //   .spyOn(exampleFunctions, 'getTimeOfDay')
-      //   .mockImplementation(() => 'whatever');
-
-      jest.doMock('../fixtures/examples/get-time-of-day.js', () => ({
-        __esModule: true,
-        getTimeOfDay: jest.fn(() => 'night'),
-      }));
-
-      const mockGetTimeOfDay = require('../fixtures/examples/get-time-of-day.js')
-        .getTimeOfDay;
-      const greet = require('../fixtures/examples/greet.js').greet;
-
-      const timeOfDay = mockGetTimeOfDay();
       const greeting = greet('John');
 
       expect(timeOfDay).toBe('night');

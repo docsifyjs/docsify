@@ -4,20 +4,16 @@ const { TEST_URL, DOCS_URL, LIB_URL } = require('./tests/e2e/config/server.js');
 const sharedConfig = {
   errorOnDeprecated: true,
   globals: {
+    DOCS_PATH: path.resolve(__dirname, 'docs'),
+    DOCS_URL,
+    LIB_PATH: path.resolve(__dirname, 'lib'),
+    LIB_URL,
+    SRC_PATH: path.resolve(__dirname, 'src'),
     TEST_URL,
   },
   resetModules: true,
   restoreMocks: true,
   // testPathIgnorePatterns: ['example.test'],
-};
-
-const sharedUnitIntegration = {
-  globals: {
-    ...sharedConfig.globals,
-    DOCS_PATH: path.resolve(__dirname, 'docs'),
-    LIB_PATH: path.resolve(__dirname, 'lib'),
-  },
-  testURL: TEST_URL,
 };
 
 // Jest-Playwrigth Config
@@ -29,28 +25,23 @@ module.exports = {
     // Unit Tests (Jest)
     {
       ...sharedConfig,
-      ...sharedUnitIntegration,
       displayName: 'unit',
       setupFilesAfterEnv: ['<rootDir>/tests/unit/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/tests/unit/*.test.js'],
+      testURL: TEST_URL,
     },
     // Integration Tests (Jest)
     {
       ...sharedConfig,
-      ...sharedUnitIntegration,
       displayName: 'integration',
       setupFilesAfterEnv: ['<rootDir>/tests/unit/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/tests/integration/*.test.js'],
+      testURL: TEST_URL,
     },
     // E2E Tests (Jest + Playwright)
     {
       ...sharedConfig,
       displayName: 'e2e',
-      globals: {
-        ...sharedConfig.globals,
-        DOCS_URL,
-        LIB_URL,
-      },
       globalSetup: './tests/e2e/config/jest.setup.js',
       globalTeardown: './tests/e2e/config/jest.teardown.js',
       preset: 'jest-playwright-preset',

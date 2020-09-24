@@ -1,20 +1,25 @@
-import docsifyInit from '../unit/helpers/docsify-init.js';
+const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
 describe('Example Tests', function() {
   // Tests
   // ---------------------------------------------------------------------------
-  test('docsifyInit() helper kitchen sink', async () => {
+  test('kitchen sink docsify site using docsifyInit()', async () => {
+    // Load custom docsify
+    // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
       config: {
-        themeColor: 'red',
+        name: 'Docsify Name',
       },
       markdown: {
         coverpage: `
           # Docsify Test
 
-          This is the coverpage.
+          > Testing a magical documentation site generator
+
+          [GitHub](https://github.com/docsifyjs/docsify/)
+          [Getting Started](#page-title)
         `,
         homepage: `
           # Hello World
@@ -22,40 +27,83 @@ describe('Example Tests', function() {
           This is the homepage.
         `,
         navbar: `
-          - Navbar Item 1
-          - Navbar Item 2
-          - Navbar Item 3
+          - [docsify.js.org](https://docsify.js.org/#/)
         `,
         sidebar: `
-          - Sidebar Item 1
-          - Sidebar Item 2
-          - Sidebar Item 3
+          - [Test Page](test)
         `,
       },
       routes: {
-        'test.md': 'This is content from a custom route',
+        '**/test.md': `
+          # Test Page
+
+          This is a custom route.
+        `,
       },
       script: `
-        console.log('Injected <script> executed');
+        document.body.setAttribute('data-test-script', 'pass');
       `,
-      scriptURLs:
-        'https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js',
-      styleURLs: ['/lib/themes/vue.css'],
+      scriptURLs: [
+        '/lib/plugins/search.js',
+        'https://cdn.jsdelivr.net/npm/docsify-themeable@0',
+      ],
+      style: `
+        :root {
+          --theme-hue: 275;
+        }
+      `,
+      styleURLs: [
+        'https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css',
+      ],
+      // _debug: true,
       // _logHTML: true,
     });
 
-    const styleElm = document.querySelector('head style');
-    const mainElm = document.querySelector('#main');
-    const coverElm = document.querySelector('section.cover');
-    const sidebarElm = document.querySelector('aside.sidebar');
-    const navbarElm = document.querySelector('nav.app-nav');
-
-    expect(typeof window.Docsify).toEqual('object');
+    // Verify config options
     expect(typeof window.$docsify).toEqual('object');
-    expect(styleElm.textContent).toContain('--theme-color: red;');
-    expect(mainElm.textContent).toContain('Hello World');
-    expect(coverElm.textContent).toContain('Docsify Test');
-    expect(sidebarElm.textContent).toContain('Sidebar Item 1');
-    expect(navbarElm.textContent).toContain('Navbar Item 1');
+    expect(document.querySelector('.app-name').textContent).toContain(
+      'Docsify Name'
+    );
+
+    // Verify options.markdown content was rendered
+    Object.entries({
+      'section.cover': 'Docsify Test', // Coverpage
+      'nav.app-nav': 'docsify.js.org', // Navbar
+      'aside.sidebar': 'Test Page', // Sidebar
+      '#main': 'This is the homepage', // Homepage
+    }).forEach(([selector, content]) => {
+      expect(document.querySelector(selector).textContent).toContain(content);
+    });
+
+    // Verify options.script was executed
+    expect(document.body.hasAttribute('data-test-script')).toBe(true);
+
+    // Verify option.scriptURLs were executed
+    // expect(document.querySelector('.search input[type="search"]')).toBeTruthy(); // Search
+
+    // Verify options.style was applied
+    // expect(
+    //   window
+    //     .getComputedStyle(document.documentElement)
+    //     .getPropertyValue('--theme-hue')
+    //     .trim()
+    // ).toEqual('275');
+
+    // Verify options.styleURLs were applied
+    // expect(
+    //   window
+    //     .getComputedStyle(document.documentElement)
+    //     .getPropertyValue('--theme-hue')
+    //     .trim()
+    // ).toContain('hsl');
+
+    // Click the test page link
+    // TBD
+
+    // Verify page change by checking URL
+    // TBD
+
+    // Verify options.routes by checking page content
+    // TBD
   });
 });
