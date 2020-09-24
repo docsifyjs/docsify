@@ -27,10 +27,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: bootstrap
         run: npm run bootstrap
-      - name: unit tests (mocha+chai+jsdom)
-        run: npm run test
-      - name: unit tests (jest+playwright)
+      - name: unit tests
         run: npm run test:jest-unit -- -ci
+      - name: integration tests
+        run: npm run test:jest-integration -- -ci
       - uses: microsoft/playwright-github-action@v1.3.0
       - name: e2e tests
         run: npm run test:jest-e2e -- --ci
