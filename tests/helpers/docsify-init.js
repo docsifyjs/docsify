@@ -130,12 +130,33 @@ async function docsifyInit(options = {}) {
   if (isJSDOM) {
     doMockAjax(settings.routes);
   } else if (isPlaywright) {
+    const contentTypes = {
+      css: 'text/css',
+      html: 'text/html',
+      js: 'application/javascript',
+      json: 'application/json',
+      md: 'text/markdown',
+    };
+    const reFileExtentionFromURL = new RegExp(
+      '(?:.)(' + Object.keys(contentTypes).join('|') + ')(?:[?#].*)?$',
+      'i'
+    );
+
     Object.entries(settings.routes).forEach(async ([urlGlob, response]) => {
       if (typeof response === 'string') {
+        const urlFileExtension = (urlGlob.match(reFileExtentionFromURL) ||
+          [])[1];
+        const contentType = contentTypes[urlFileExtension];
+
         response = {
-          // contentType: 'text/markdown',
+          status: 200,
           body: response,
         };
+
+        // Specifying contentType required for Webkit
+        if (contentType) {
+          response.contentType = contentType;
+        }
       }
       await page.route(urlGlob, route => route.fulfill(response));
     });
