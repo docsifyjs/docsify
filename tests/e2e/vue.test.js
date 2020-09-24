@@ -1,16 +1,17 @@
-const docsifyInit = require('./helpers/docsify-init');
+const docsifyInit = require('../helpers/docsify-init');
 
 describe(`Vue.js Rendering`, function() {
-  const contentMarkdown = `<div id="test">test<span v-for="i in 5">{{ i }}</span></div>`;
-  const scriptURLs = ['https://unpkg.com/vue@2/dist/vue.js'];
+  const sharedConfig = {
+    markdown: {
+      homepage: '<div id="test">test<span v-for="i in 5">{{ i }}</span></div>',
+    },
+    scriptURLs: ['https://unpkg.com/vue@2/dist/vue.js'],
+  };
 
   // Tests
   // ---------------------------------------------------------------------------
   test('does render Vue content when executeScript is unspecified', async () => {
-    await docsifyInit({
-      contentMarkdown,
-      scriptURLs,
-    });
+    await docsifyInit(sharedConfig);
 
     const testResult = await page.textContent('#test');
 
@@ -19,11 +20,10 @@ describe(`Vue.js Rendering`, function() {
 
   test('does render Vue content when executeScript:true', async () => {
     await docsifyInit({
+      ...sharedConfig,
       config: {
         executeScript: true,
       },
-      contentMarkdown,
-      scriptURLs,
     });
 
     const testResult = await page.textContent('#test');
@@ -33,11 +33,10 @@ describe(`Vue.js Rendering`, function() {
 
   test('does not render Vue content when executeScript:false', async () => {
     await docsifyInit({
+      ...sharedConfig,
       config: {
         executeScript: false,
       },
-      contentMarkdown,
-      scriptURLs,
     });
 
     const testResult = await page.textContent('#test');
