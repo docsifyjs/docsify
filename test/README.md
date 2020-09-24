@@ -8,9 +8,9 @@
 
 ### Test files
 
-- E2E tests are located in `/tests/e2e/` and use [Jest](https://jestjs.io) + [Playwright](https://playwright.dev).
-- Integration tests are located in `/tests/integration/` and use [Jest](https://jestjs.io).
-- Unit tests located in `/tests/unit/` and use [Jest](https://jestjs.io).
+- E2E tests are located in `/test/e2e/` and use [Jest](https://jestjs.io) + [Playwright](https://playwright.dev).
+- Integration tests are located in `/test/integration/` and use [Jest](https://jestjs.io).
+- Unit tests located in `/test/unit/` and use [Jest](https://jestjs.io).
 
 ### Global Variables
 
@@ -24,51 +24,51 @@
 
 ```bash
 # Run all tests
-npm run test:jest
+npm run test
 
 # Run test types
-npm run test:jest-e2e
-npm run test:jest-integration
-npm run test:jest-unit
+npm run test:e2e
+npm run test:integration
+npm run test:unit
 
 # Run example tests
-npm run test:jest-examples
+npm run test:examples
 
 # Run test file
-npm run test:jest -- -i /path/to/file.test.js
+npm run test -- -i /path/to/file.test.js
 
 # Run matching test files
-npm run test:jest -- -i /path/to/*.test.js
+npm run test -- -i /path/to/*.test.js
 
 # Run matching test name(s)
-npm run test:jest -- -t \"describe() or test() name\"
+npm run test -- -t \"describe() or test() name\"
 
 # Run matching test name(s) in file
-npm run test:jest -- -i /path/to/file.test.js -t \"describe() or test() name\"
+npm run test -- -i /path/to/file.test.js -t \"describe() or test() name\"
 
 # Run all example tests
-npm run test:jest -- -i /tests/**/example.test.js --testPathIgnorePatterns
+npm run test -- -i /test/**/example.test.js --testPathIgnorePatterns
 
 # Run specific example test file
-npm run test:jest -- -i /path/to/example.test.js --testPathIgnorePatterns
+npm run test -- -i /path/to/example.test.js --testPathIgnorePatterns
 
 # ------------------------------------------------------------------------------
 
 # Update snapshots for matching test files
-npm run test:jest -- -u -i /path/to/*.test.js
+npm run test -- -u -i /path/to/*.test.js
 
 # Update snapshots for matching test name(s)
-npm run test:jest -- -u -t \"describe() or test() name\"
+npm run test -- -u -t \"describe() or test() name\"
 
 # Update snapshots for matching test name(s) in file
-npm run test:jest -- -u -i /path/to/file.test.js -t \"describe() or test() name\"
+npm run test -- -u -i /path/to/file.test.js -t \"describe() or test() name\"
 
 # ------------------------------------------------------------------------------
 
 # Start manual test server instance. Useful for previewing test fixtures.
-# Root: /tests/e2e/fixtures/
+# Root: /test/e2e/fixtures/
 # Routes: /docs, /lib,
-node ./tests/e2e/config/server.js --start
+node ./test/e2e/config/server.js --start
 ```
 
 ### Resource

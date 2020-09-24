@@ -28,15 +28,15 @@ jobs:
       - name: bootstrap
         run: npm run bootstrap
       - name: unit tests
-        run: npm run test:jest-unit -- -ci
+        run: npm run test:unit -- -ci
       - name: integration tests
-        run: npm run test:jest-integration -- -ci
+        run: npm run test:integration -- -ci
       - uses: microsoft/playwright-github-action@v1.3.0
       - name: e2e tests
-        run: npm run test:jest-e2e -- --ci
+        run: npm run test:e2e -- --ci
       - name: Upload artifacts (diff output)
         uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: ${{ matrix.os }}-${{ matrix.node-version }}-diff-output
-          path: ${{ github.workspace }}/tests/**/__diff_output__/*
+          path: ${{ github.workspace }}/test/**/__diff_output__/*

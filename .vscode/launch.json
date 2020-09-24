@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Run tests",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test:jest"],
+      "runtimeArgs": ["run-script", "test"],
       "console": "integratedTerminal"
     },
     {
@@ -17,7 +17,7 @@
       "request": "launch",
       "name": "Run current test file",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test:jest"],
+      "runtimeArgs": ["run-script", "test"],
       "args": ["--", "-i", "${relativeFile}", "--testPathIgnorePatterns"],
       "console": "integratedTerminal"
     },
@@ -26,7 +26,7 @@
       "request": "launch",
       "name": "Run selected test name",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test:jest"],
+      "runtimeArgs": ["run-script", "test"],
       "args": [
         "--",
         "-i",
@@ -42,7 +42,7 @@
       "request": "launch",
       "name": "Update current test file snapshot(s)",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test:jest"],
+      "runtimeArgs": ["run-script", "test"],
       "args": [
         "--",
         "-i",
@@ -57,7 +57,7 @@
       "request": "launch",
       "name": "Update selected test name snapshot(s)",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test:jest"],
+      "runtimeArgs": ["run-script", "test"],
       "args": [
         "--",
         "-i",
