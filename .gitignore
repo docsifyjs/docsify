@@ -2,8 +2,6 @@
 .DS_Store
 .idea
 __diff_output__
-cypress/fixtures/docs
-cypress/integration/examples
 lib/
 node_modules
 themes/
