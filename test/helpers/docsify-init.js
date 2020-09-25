@@ -1,15 +1,15 @@
 /* global jestPlaywright page */
-
 import { waitForSelector } from './wait-for-selector';
 import doMockAjax from './do-mock-ajax.js';
 
+const axios = require('axios');
 const prettier = require('prettier');
 const stripIndent = require('common-tags/lib/stripIndent');
 
 const docsifyPATH = `${SRC_PATH}/core`; // JSDOM
 const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
-const isPlaywright = 'page' in global;
 const isJSDOM = 'window' in global;
+const isPlaywright = 'page' in global;
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -30,7 +30,8 @@ const isJSDOM = 'window' in global;
  * @param {String} [options.testURL] URL to set as window.location.href
  * @param {String} [options.waitForSelector='#main'] Element to wait for before returning promsie
  * @param {String} [options._debug] initiate debugger after site is created
- * @param {Boolean} [options._logHTML] Logs formatted HTML to console after initialization
+ * @param {Boolean|Object} [options._logHTML] Logs HTML to console after initialization
+ * @param {Boolean} [options._logHTML.format=true] Formats HTML output
  * @returns {Promise}
  */
 async function docsifyInit(options = {}) {
@@ -61,7 +62,7 @@ async function docsifyInit(options = {}) {
     script: '',
     scriptURLs: [],
     style: '',
-    styleURLs: [`${LIB_URL}/themes/vue.css`],
+    styleURLs: [],
     testURL: `${TEST_URL}/docsify-init.html`,
     waitForSelector: '#main',
   };
@@ -101,29 +102,38 @@ async function docsifyInit(options = {}) {
     get routes() {
       const helperRoutes = {
         [settings.testURL]: stripIndent`${settings.html}`,
-        [`${TEST_URL}/README.md`]: settings.markdown.homepage,
-        [`${TEST_URL}/_coverpage.md`]: settings.markdown.coverpage,
-        [`${TEST_URL}/_navbar.md`]: settings.markdown.navbar,
-        [`${TEST_URL}/_sidebar.md`]: settings.markdown.sidebar,
+        ['/README.md']: settings.markdown.homepage,
+        ['/_coverpage.md']: settings.markdown.coverpage,
+        ['/_navbar.md']: settings.markdown.navbar,
+        ['/_sidebar.md']: settings.markdown.sidebar,
       };
 
-      const optionRoutes = Object.fromEntries(
-        Object.entries(options.routes || {}).map(([url, response]) => [
-          url,
-          stripIndent`${response}`,
-        ])
-      );
-
-      return Object.fromEntries(
+      const finalRoutes = Object.fromEntries(
         Object.entries({
           ...helperRoutes,
-          ...optionRoutes,
-        }).filter(([url, response]) => url && response)
+          ...options.routes,
+        })
+          // Remove items with falsey responseText
+          .filter(([url, responseText]) => url && responseText)
+          .map(([url, responseText]) => [
+            // Convert relative to absolute URL
+            new URL(url, TEST_URL).href,
+            // Strip indentation from responseText
+            stripIndent`${responseText}`,
+          ])
       );
+
+      return finalRoutes;
     },
     // Merge scripts and remove duplicates
-    scriptURLs: [].concat(options.scriptURLs || '').filter(url => url),
-    styleURLs: [].concat(options.styleURLs || '').filter(url => url),
+    scriptURLs: []
+      .concat(options.scriptURLs || '')
+      .filter(url => url)
+      .map(url => new URL(url, TEST_URL).href),
+    styleURLs: []
+      .concat(options.styleURLs || '')
+      .filter(url => url)
+      .map(url => new URL(url, TEST_URL).href),
   };
 
   // Routes
@@ -182,11 +192,13 @@ async function docsifyInit(options = {}) {
 
   // Style URLs
   if (isJSDOM) {
-    for (const styleURL of settings.styleURLs) {
-      document.head.insertAdjacentHTML(
-        'beforeend',
-        `<link rel="stylesheet" type="text/css" href="${styleURL}">`
-      );
+    for (const url of settings.styleURLs) {
+      const linkElm = document.createElement('link');
+
+      linkElm.setAttribute('rel', 'stylesheet');
+      linkElm.setAttribute('type', 'text/css');
+      linkElm.setAttribute('href', url);
+      document.head.appendChild(linkElm);
     }
   } else if (isPlaywright) {
     await Promise.all(settings.styleURLs.map(url => page.addStyleTag({ url })));
@@ -194,11 +206,13 @@ async function docsifyInit(options = {}) {
 
   // JavaScript URLs
   if (isJSDOM) {
-    for (const scriptURL of settings.scriptURLs) {
-      document.body.insertAdjacentHTML(
-        'beforeend',
-        `<script src="${scriptURL}"></script>`
-      );
+    for (const url of settings.scriptURLs) {
+      const responseText = settings.routes[url] || (await axios.get(url)).data;
+      const scriptElm = document.createElement('script');
+
+      scriptElm.setAttribute('data-src', url);
+      scriptElm.textContent = stripIndent`${responseText}`;
+      document.head.appendChild(scriptElm);
     }
 
     const isDocsifyLoaded = 'Docsify' in window;
@@ -240,19 +254,12 @@ async function docsifyInit(options = {}) {
   // JavaScript
   if (settings.script) {
     if (isJSDOM) {
-      const bodyElm = document.querySelector('body');
       const scriptElm = document.createElement('script');
 
       scriptElm.textContent = stripIndent`${settings.script}`;
-      bodyElm.appendChild(scriptElm);
+      document.head.appendChild(scriptElm);
     } else if (isPlaywright) {
-      await page.evaluate(data => {
-        const headElm = document.querySelector('head');
-        const scriptElm = document.createElement('script');
-
-        scriptElm.textContent = data;
-        headElm.appendChild(scriptElm);
-      }, stripIndent`${settings.script}`);
+      await page.addScriptTag({ content: settings.script });
     }
   }
 
@@ -269,9 +276,13 @@ async function docsifyInit(options = {}) {
     const html = isJSDOM
       ? document.documentElement.innerHTML
       : await page.content();
+    const output =
+      settings._logHTML.format === false
+        ? html
+        : prettier.format(html, { parser: 'html' });
 
     // eslint-disable-next-line no-console
-    console.log(prettier.format(html, { parser: 'html' }));
+    console.log(output);
   }
 
   // Debug

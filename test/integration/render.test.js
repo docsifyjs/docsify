@@ -1,6 +1,5 @@
-import docsifyInit from '../unit/helpers/docsify-init.js';
-
 const stripIndent = require('common-tags/lib/stripIndent');
+const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------

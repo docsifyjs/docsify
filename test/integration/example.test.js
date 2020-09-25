@@ -1,3 +1,5 @@
+import { waitForSelector } from '../helpers/wait-for-selector';
+
 const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
@@ -5,12 +7,31 @@ const docsifyInit = require('../helpers/docsify-init');
 describe('Example Tests', function() {
   // Tests
   // ---------------------------------------------------------------------------
+  // test('Docsify /docs/ site using docsifyInit()', async () => {
+  //   // Load custom docsify
+  //   // (See ./helpers/docsifyInit.js for details)
+  //   await docsifyInit({
+  //     config: {
+  //       basePath: `${TEST_URL}/docs/`,
+  //     },
+  //     // _debug: true,
+  //     // _logHTML: true,
+  //   });
+
+  //   // Verify config options
+  //   expect(typeof window.$docsify).toEqual('object');
+
+  //   // Verify options.markdown content was rendered
+  //   expect(document.querySelector('#main').textContent).toContain(
+  //     'A magical documentation site generator'
+  //   );
+  // });
+
   test('kitchen sink docsify site using docsifyInit()', async () => {
-    // Load custom docsify
-    // (See ./helpers/docsifyInit.js for details)
-    await docsifyInit({
+    const docsifyInitConfig = {
       config: {
         name: 'Docsify Name',
+        themeColor: 'red',
       },
       markdown: {
         coverpage: `
@@ -19,7 +40,6 @@ describe('Example Tests', function() {
           > Testing a magical documentation site generator
 
           [GitHub](https://github.com/docsifyjs/docsify/)
-          [Getting Started](#page-title)
         `,
         homepage: `
           # Hello World
@@ -34,38 +54,48 @@ describe('Example Tests', function() {
         `,
       },
       routes: {
-        '**/test.md': `
+        '/test.md': `
           # Test Page
 
           This is a custom route.
+
+          <div id="test">Hello</div>
+        `,
+        '/data-test-scripturls.js': `
+          document.body.setAttribute('data-test-scripturls', 'pass');
         `,
       },
       script: `
         document.body.setAttribute('data-test-script', 'pass');
       `,
       scriptURLs: [
-        '/lib/plugins/search.js',
-        'https://cdn.jsdelivr.net/npm/docsify-themeable@0',
+        // docsifyInit() route
+        '/data-test-scripturls.js',
+        // Server route
+        '/lib/plugins/search.min.js',
       ],
       style: `
-        :root {
-          --theme-hue: 275;
+        body {
+          background: red !important;
         }
       `,
-      styleURLs: [
-        'https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css',
-      ],
+      styleURLs: ['/lib/themes/vue.css'],
+    };
+
+    await docsifyInit({
+      ...docsifyInitConfig,
       // _debug: true,
       // _logHTML: true,
     });
 
     // Verify config options
     expect(typeof window.$docsify).toEqual('object');
+    expect(window.$docsify).toHaveProperty('themeColor', 'red');
     expect(document.querySelector('.app-name').textContent).toContain(
       'Docsify Name'
     );
 
-    // Verify options.markdown content was rendered
+    // Verify docsifyInitConfig.markdown content was rendered
     Object.entries({
       'section.cover': 'Docsify Test', // Coverpage
       'nav.app-nav': 'docsify.js.org', // Navbar
@@ -75,35 +105,53 @@ describe('Example Tests', function() {
       expect(document.querySelector(selector).textContent).toContain(content);
     });
 
-    // Verify options.script was executed
+    // Verify docsifyInitConfig.scriptURLs were added to the DOM
+    for (const scriptURL of docsifyInitConfig.scriptURLs) {
+      const matchElm = document.querySelector(
+        `script[data-src$="${scriptURL}"]`
+      );
+      expect(matchElm).toBeTruthy();
+    }
+
+    // Verify docsifyInitConfig.scriptURLs were executed
+    expect(document.body.hasAttribute('data-test-scripturls')).toBe(true);
+    expect(document.querySelector('.search input[type="search"]')).toBeTruthy();
+
+    // Verify docsifyInitConfig.script was added to the DOM
+    expect(
+      [...document.querySelectorAll('script')].some(
+        elm =>
+          elm.textContent.replace(/\s+/g, '') ===
+          docsifyInitConfig.script.replace(/\s+/g, '')
+      )
+    ).toBe(true);
+
+    // Verify docsifyInitConfig.script was executed
     expect(document.body.hasAttribute('data-test-script')).toBe(true);
 
-    // Verify option.scriptURLs were executed
-    // expect(document.querySelector('.search input[type="search"]')).toBeTruthy(); // Search
+    // Verify docsifyInitConfig.styleURLs were added to the DOM
+    for (const styleURL of docsifyInitConfig.styleURLs) {
+      const matchElm = document.querySelector(
+        `link[rel*="stylesheet"][href$="${styleURL}"]`
+      );
+      expect(matchElm).toBeTruthy();
+    }
 
-    // Verify options.style was applied
-    // expect(
-    //   window
-    //     .getComputedStyle(document.documentElement)
-    //     .getPropertyValue('--theme-hue')
-    //     .trim()
-    // ).toEqual('275');
+    // Verify docsifyInitConfig.style was added to the DOM
+    expect(
+      [...document.querySelectorAll('style')].some(
+        elm =>
+          elm.textContent.replace(/\s+/g, '') ===
+          docsifyInitConfig.style.replace(/\s+/g, '')
+      )
+    ).toBe(true);
 
-    // Verify options.styleURLs were applied
-    // expect(
-    //   window
-    //     .getComputedStyle(document.documentElement)
-    //     .getPropertyValue('--theme-hue')
-    //     .trim()
-    // ).toContain('hsl');
-
-    // Click the test page link
-    // TBD
-
-    // Verify page change by checking URL
-    // TBD
-
-    // Verify options.routes by checking page content
-    // TBD
+    // Verify docsify navigation and docsifyInitConfig.routes
+    document.querySelector('a[href="#/test"]').click();
+    await waitForSelector('#test');
+    expect(window.location.href).toMatch(/\/test$/);
+    expect(document.querySelector('#main').textContent).toContain(
+      'This is a custom route'
+    );
   });
 });

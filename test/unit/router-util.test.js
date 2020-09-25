@@ -1,4 +1,4 @@
-const { resolvePath } = require('../../src/core/util');
+const { resolvePath } = require(`${SRC_PATH}/core/util`);
 
 // Suite
 // -----------------------------------------------------------------------------

@@ -143,17 +143,12 @@ describe(`Example Tests`, function() {
     expect($docsify).toHaveProperty('themeColor', 'red');
   });
 
-  test('basic docsify site using docsifyInit()', async () => {
+  test('Docsify /docs/ site using docsifyInit()', async () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
       config: {
-        themeColor: 'red',
-      },
-      markdown: {
-        homepage: `
-          # Hello World
-        `,
+        basePath: '/docs/',
       },
       // _debug: true,
       // _logHTML: true,
@@ -163,19 +158,21 @@ describe(`Example Tests`, function() {
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
     const $docsify = await page.evaluate(() => window.$docsify);
 
-    // Test object property and value
-    expect($docsify).toHaveProperty('themeColor', 'red');
+    // Verify config options
+    expect(typeof $docsify).toEqual('object');
 
-    // Or test page change by checking page content
-    await expect(page).toHaveText('#main', 'Hello World');
+    // Verify docsifyInitConfig.markdown content was rendered
+    await expect(page).toHaveText(
+      '#main',
+      'A magical documentation site generator'
+    );
   });
 
-  test('kitchen sink docsify site using docsifyInit()', async () => {
-    // Load custom docsify
-    // (See ./helpers/docsifyInit.js for details)
-    await docsifyInit({
+  test('custom docsify site using docsifyInit()', async () => {
+    const docsifyInitConfig = {
       config: {
         name: 'Docsify Name',
+        themeColor: 'red',
       },
       markdown: {
         coverpage: `
@@ -184,7 +181,6 @@ describe(`Example Tests`, function() {
           > Testing a magical documentation site generator
 
           [GitHub](https://github.com/docsifyjs/docsify/)
-          [Getting Started](#page-title)
         `,
         homepage: `
           # Hello World
@@ -199,76 +195,96 @@ describe(`Example Tests`, function() {
         `,
       },
       routes: {
-        '**/test.md': `
+        '/test.md': `
           # Test Page
 
           This is a custom route.
+        `,
+        '/data-test-scripturls.js': `
+          document.body.setAttribute('data-test-scripturls', 'pass');
         `,
       },
       script: `
         document.body.setAttribute('data-test-script', 'pass');
       `,
       scriptURLs: [
-        '/lib/plugins/search.js',
-        'https://cdn.jsdelivr.net/npm/docsify-themeable@0',
+        // docsifyInit() route
+        '/data-test-scripturls.js',
+        // Server route
+        '/lib/plugins/search.min.js',
       ],
       style: `
-        :root {
-          --theme-hue: 275;
+        body {
+          background: red !important;
         }
       `,
-      styleURLs: [
-        'https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css',
-      ],
+      styleURLs: ['/lib/themes/vue.css'],
+    };
+
+    await docsifyInit({
+      ...docsifyInitConfig,
       // _debug: true,
       // _logHTML: true,
     });
 
+    const $docsify = await page.evaluate(() => window.$docsify);
+
     // Verify config options
-    expect(await page.evaluate(() => typeof window.$docsify)).toEqual('object');
+    expect(typeof $docsify).toEqual('object');
+    expect($docsify).toHaveProperty('themeColor', 'red');
     await expect(page).toHaveText('.app-name', 'Docsify Name');
 
-    // Verify options.markdown content was rendered
+    // Verify docsifyInitConfig.markdown content was rendered
     await expect(page).toHaveText('section.cover', 'Docsify Test'); // Coverpage
     await expect(page).toHaveText('nav.app-nav', 'docsify.js.org'); // Navbar
     await expect(page).toHaveText('aside.sidebar', 'Test Page'); // Sidebar
     await expect(page).toHaveText('#main', 'This is the homepage'); // Homepage
 
-    // Verify options.script was executed
+    // Verify docsifyInitConfig.scriptURLs were added to the DOM
+    for (const scriptURL of docsifyInitConfig.scriptURLs) {
+      await expect(page).toHaveSelector(`script[src$="${scriptURL}"]`, {
+        state: 'attached',
+      });
+    }
+
+    // Verify docsifyInitConfig.scriptURLs were executed
+    await expect(page).toHaveSelector('body[data-test-scripturls]');
+    await expect(page).toHaveSelector('.search input[type="search"]');
+
+    // Verify docsifyInitConfig.script was added to the DOM
+    expect(
+      await page.evaluate(scriptText => {
+        return [...document.querySelectorAll('script')].some(
+          elm => elm.textContent.replace(/\s+/g, '') === scriptText
+        );
+      }, docsifyInitConfig.script.replace(/\s+/g, ''))
+    ).toBe(true);
+
+    // Verify docsifyInitConfig.script was executed
     await expect(page).toHaveSelector('body[data-test-script]');
 
-    // Verify option.scriptURLs were executed
-    await expect(page).toHaveSelector('.search input[type="search"]'); // Search
+    // Verify docsifyInitConfig.styleURLs were added to the DOM
+    for (const styleURL of docsifyInitConfig.styleURLs) {
+      await expect(page).toHaveSelector(
+        `link[rel*="stylesheet"][href$="${styleURL}"]`,
+        {
+          state: 'attached',
+        }
+      );
+    }
 
-    // Verify options.style was applied
+    // Verify docsifyInitConfig.style was added to the DOM
     expect(
-      await page.evaluate(() =>
-        window
-          .getComputedStyle(document.documentElement)
-          .getPropertyValue('--theme-hue')
-          .trim()
-      )
-    ).toEqual('275');
+      await page.evaluate(styleText => {
+        return [...document.querySelectorAll('style')].some(
+          elm => elm.textContent.replace(/\s+/g, '') === styleText
+        );
+      }, docsifyInitConfig.style.replace(/\s+/g, ''))
+    ).toBe(true);
 
-    // Verify options.styleURLs were applied
-    expect(
-      await page.evaluate(() =>
-        window
-          .getComputedStyle(document.documentElement)
-          .getPropertyValue('--theme-color')
-          .trim()
-      )
-    ).toContain('hsl');
-
-    // Click the test page link
-    // https://playwright.dev/#path=docs%2Fapi.md&q=pageclickselector-options
+    // Verify docsify navigation and docsifyInitConfig.routes
     await page.click('a[href="#/test"]');
-
-    // Verify page change by checking URL
-    // https://playwright.dev/#path=docs%2Fapi.md&q=pageurl
     expect(page.url()).toMatch(/\/test$/);
-
-    // Verify options.routes by checking page content
     await expect(page).toHaveText('#main', 'This is a custom route');
   });
 

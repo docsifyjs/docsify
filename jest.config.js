@@ -11,6 +11,8 @@ const sharedConfig = {
     SRC_PATH: path.resolve(__dirname, 'src'),
     TEST_URL,
   },
+  globalSetup: './test/e2e/config/jest.setup.js',
+  globalTeardown: './test/e2e/config/jest.teardown.js',
   resetModules: true,
   restoreMocks: true,
 };
@@ -41,8 +43,6 @@ module.exports = {
     {
       ...sharedConfig,
       displayName: 'e2e',
-      globalSetup: './test/e2e/config/jest.setup.js',
-      globalTeardown: './test/e2e/config/jest.teardown.js',
       preset: 'jest-playwright-preset',
       setupFilesAfterEnv: ['<rootDir>/test/e2e/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/e2e/*.test.js'],

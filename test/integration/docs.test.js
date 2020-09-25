@@ -1,5 +1,4 @@
-import docsifyInit from '../unit/helpers/docsify-init.js';
-
+const docsifyInit = require('../helpers/docsify-init');
 const fs = require('fs').promises;
 const path = require('path');
 
