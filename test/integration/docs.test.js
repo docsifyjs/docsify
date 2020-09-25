@@ -1,6 +1,6 @@
-const docsifyInit = require('../helpers/docsify-init');
 const fs = require('fs').promises;
 const path = require('path');
+const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------

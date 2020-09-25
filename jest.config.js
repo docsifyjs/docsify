@@ -1,5 +1,5 @@
 const path = require('path');
-const { TEST_URL, DOCS_URL, LIB_URL } = require('./test/e2e/config/server.js');
+const { TEST_URL, DOCS_URL, LIB_URL } = require('./test/config/server.js');
 
 const sharedConfig = {
   errorOnDeprecated: true,
@@ -11,15 +11,14 @@ const sharedConfig = {
     SRC_PATH: path.resolve(__dirname, 'src'),
     TEST_URL,
   },
-  globalSetup: './test/e2e/config/jest.setup.js',
-  globalTeardown: './test/e2e/config/jest.teardown.js',
+  globalSetup: './test/config/jest.setup.js',
+  globalTeardown: './test/config/jest.teardown.js',
   resetModules: true,
   restoreMocks: true,
 };
 
 // Jest-Playwrigth Config
-process.env.JEST_PLAYWRIGHT_CONFIG =
-  './test/e2e/config/jest-playwright.config.js';
+process.env.JEST_PLAYWRIGHT_CONFIG = './test/config/jest-playwright.config.js';
 
 module.exports = {
   projects: [
@@ -27,7 +26,7 @@ module.exports = {
     {
       ...sharedConfig,
       displayName: 'unit',
-      setupFilesAfterEnv: ['<rootDir>/test/unit/config/jest.setup-tests.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/unit/*.test.js'],
       testURL: TEST_URL,
     },
@@ -35,7 +34,7 @@ module.exports = {
     {
       ...sharedConfig,
       displayName: 'integration',
-      setupFilesAfterEnv: ['<rootDir>/test/unit/config/jest.setup-tests.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/integration/*.test.js'],
       testURL: TEST_URL,
     },
@@ -44,7 +43,9 @@ module.exports = {
       ...sharedConfig,
       displayName: 'e2e',
       preset: 'jest-playwright-preset',
-      setupFilesAfterEnv: ['<rootDir>/test/e2e/config/jest.setup-tests.js'],
+      setupFilesAfterEnv: [
+        '<rootDir>/test/config/jest-playwright.setup-tests.js',
+      ],
       testMatch: ['<rootDir>/test/e2e/*.test.js'],
     },
   ],

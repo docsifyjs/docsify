@@ -23,8 +23,8 @@ function startServer(options = {}, cb = Function.prototype) {
     server: {
       baseDir: path.resolve(__dirname, '../fixtures'),
       routes: {
-        '/docs': path.resolve(__dirname, '../../../docs'),
-        '/lib': path.resolve(__dirname, '../../../lib'),
+        '/docs': path.resolve(__dirname, '../../docs'),
+        '/lib': path.resolve(__dirname, '../../lib'),
         '/docs/changelog.md': './CHANGELOG.md',
       },
     },

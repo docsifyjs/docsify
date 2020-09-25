@@ -1,6 +1,6 @@
-import { greet } from './fixtures/examples/greet.js';
-import { getTimeOfDay } from './fixtures/examples/get-time-of-day.js';
-import * as getTimeOfDayModule from './fixtures/examples/get-time-of-day.js';
+import { greet } from './fixtures/greet.js';
+import { getTimeOfDay } from './fixtures/get-time-of-day.js';
+import * as getTimeOfDayModule from './fixtures/get-time-of-day.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -63,8 +63,8 @@ describe(`Example Tests`, function() {
 
   describe('Mocks & Spys', function() {
     test('mock import/require dependency using jest.fn()', () => {
-      const testModule = require('./fixtures/examples/get-time-of-day.js');
-      const { greet: testGreet } = require('./fixtures/examples/greet.js');
+      const testModule = require('./fixtures/get-time-of-day.js');
+      const { greet: testGreet } = require('./fixtures/greet.js');
 
       testModule.getTimeOfDay = jest.fn(() => 'day');
 
@@ -76,7 +76,7 @@ describe(`Example Tests`, function() {
     });
 
     test('mock import/require dependency using jest.doMock()', () => {
-      const mockModulePath = './fixtures/examples/get-time-of-day.js';
+      const mockModulePath = './fixtures/get-time-of-day.js';
 
       jest.doMock(mockModulePath, () => ({
         __esModule: true,
@@ -84,7 +84,7 @@ describe(`Example Tests`, function() {
       }));
 
       const mockGetTimeOfDay = require(mockModulePath).getTimeOfDay;
-      const { greet: testGreet } = require('./fixtures/examples/greet.js');
+      const { greet: testGreet } = require('./fixtures/greet.js');
 
       const timeOfDay = mockGetTimeOfDay();
       const greeting = testGreet('John');

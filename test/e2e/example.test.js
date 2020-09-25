@@ -105,7 +105,7 @@ describe(`Example Tests`, function() {
   test('manual docsify site using playwright methods', async () => {
     // Goto URL
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
-    await page.goto(`${TEST_URL}/html5.html`);
+    await page.goto(TEST_URL);
 
     // Set docsify configuration
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg

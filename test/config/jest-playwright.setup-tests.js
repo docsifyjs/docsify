@@ -1,3 +1,4 @@
+/* global browserName */
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
 // Lifecycle Hooks

@@ -14,11 +14,12 @@
 
 ### Global Variables
 
-- `TEST_URL`: Test server base URL (http://localhost:3001)
+- `TEST_URL`: Test server base URL (http://localhost:3001 => `/test/fixtures/`)
 - `DOCS_PATH`: File system path to docsify's `/docs` directory
 - `DOCS_URL`: Test server route to docsify's `/docs` directory
 - `LIB_PATH`: File system path to docsify's `/lib` directory
 - `LIB_URL`: Test server route to docsify's `/lib` directory
+- `SRC_PATH`: File system path to docsify's `/src` directory
 
 ### CLI commands
 
@@ -47,10 +48,10 @@ npm run test -- -t \"describe() or test() name\"
 npm run test -- -i /path/to/file.test.js -t \"describe() or test() name\"
 
 # Run all example tests
-npm run test -- -i /test/**/example.test.js --testPathIgnorePatterns
+npm run test -- -i /test/**/example.test.js
 
 # Run specific example test file
-npm run test -- -i /path/to/example.test.js --testPathIgnorePatterns
+npm run test -- -i /path/to/example.test.js
 
 # ------------------------------------------------------------------------------
 
@@ -68,7 +69,7 @@ npm run test -- -u -i /path/to/file.test.js -t \"describe() or test() name\"
 # Start manual test server instance. Useful for previewing test fixtures.
 # Root: /test/e2e/fixtures/
 # Routes: /docs, /lib,
-node ./test/e2e/config/server.js --start
+node ./test/config/server.js --start
 ```
 
 ### Resource
