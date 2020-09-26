@@ -1,12 +1,12 @@
 /* global jestPlaywright page */
+import mock, { proxy } from 'xhr-mock';
 import { waitForSelector } from './wait-for-selector';
-import doMockAjax from './do-mock-ajax.js';
 
 const axios = require('axios');
 const prettier = require('prettier');
 const stripIndent = require('common-tags/lib/stripIndent');
 
-const docsifyPATH = `${SRC_PATH}/core/index.js`; // JSDOM
+const docsifyPATH = `${LIB_PATH}/docsify.js`; // JSDOM
 const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
 const isJSDOM = 'window' in global;
 const isPlaywright = 'page' in global;
@@ -37,7 +37,7 @@ const isPlaywright = 'page' in global;
 async function docsifyInit(options = {}) {
   const defaults = {
     config: {
-      basePath: '/',
+      basePath: TEST_URL,
       el: '#app',
     },
     html: `
@@ -136,39 +136,52 @@ async function docsifyInit(options = {}) {
   };
 
   // Routes
+  const contentTypes = {
+    css: 'text/css',
+    html: 'text/html',
+    js: 'application/javascript',
+    json: 'application/json',
+    md: 'text/markdown',
+  };
+  const reFileExtentionFromURL = new RegExp(
+    '(?:.)(' + Object.keys(contentTypes).join('|') + ')(?:[?#].*)?$',
+    'i'
+  );
+
   if (isJSDOM) {
-    doMockAjax(settings.routes);
-  } else if (isPlaywright) {
-    const contentTypes = {
-      css: 'text/css',
-      html: 'text/html',
-      js: 'application/javascript',
-      json: 'application/json',
-      md: 'text/markdown',
-    };
-    const reFileExtentionFromURL = new RegExp(
-      '(?:.)(' + Object.keys(contentTypes).join('|') + ')(?:[?#].*)?$',
-      'i'
-    );
+    // Replace the global XMLHttpRequest object
+    mock.setup();
+  }
 
-    Object.entries(settings.routes).forEach(async ([urlGlob, response]) => {
-      if (typeof response === 'string') {
-        const urlFileExtension = (urlGlob.match(reFileExtentionFromURL) ||
-          [])[1];
-        const contentType = contentTypes[urlFileExtension];
+  for (let [urlGlob, response] of Object.entries(settings.routes)) {
+    const fileExtension = (urlGlob.match(reFileExtentionFromURL) || [])[1];
+    const contentType = contentTypes[fileExtension];
 
-        response = {
-          status: 200,
-          body: response,
-        };
+    if (typeof response === 'string') {
+      response = {
+        status: 200,
+        body: response,
+      };
+    }
 
-        // Specifying contentType required for Webkit
-        if (contentType) {
-          response.contentType = contentType;
-        }
-      }
+    // Specifying contentType required for Webkit
+    response.contentType = response.contentType || contentType || '';
+
+    if (isJSDOM) {
+      mock.get(urlGlob, (req, res) => {
+        return res
+          .status(response.status)
+          .body(settings.routes[urlGlob])
+          .header('Content-Type', contentType);
+      });
+    } else {
       await page.route(urlGlob, route => route.fulfill(response));
-    });
+    }
+  }
+
+  if (isJSDOM) {
+    // Proxy unhandled requests to real server(s)
+    mock.use(proxy);
   }
 
   // Set test URL / HTML
@@ -292,6 +305,11 @@ async function docsifyInit(options = {}) {
     } else if (isPlaywright) {
       await jestPlaywright.debug();
     }
+  }
+
+  if (isJSDOM) {
+    // Restore the global XMLHttpRequest object
+    mock.teardown();
   }
 
   return Promise.resolve();

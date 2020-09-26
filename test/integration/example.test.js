@@ -7,24 +7,22 @@ const docsifyInit = require('../helpers/docsify-init');
 describe('Example Tests', function() {
   // Tests
   // ---------------------------------------------------------------------------
-  // test('Docsify /docs/ site using docsifyInit()', async () => {
-  //   // Load custom docsify
-  //   // (See ./helpers/docsifyInit.js for details)
-  //   await docsifyInit({
-  //     config: {
-  //       basePath: `/docs`,
-  //     },
-  //     // _logHTML: true,
-  //   });
+  test('Docsify /docs/ site using docsifyInit()', async () => {
+    await docsifyInit({
+      config: {
+        basePath: `${TEST_URL}/docs`,
+      },
+      // _logHTML: true,
+    });
 
-  //   // Verify config options
-  //   expect(typeof window.$docsify).toEqual('object');
+    // Verify config options
+    expect(typeof window.$docsify).toEqual('object');
 
-  //   // Verify options.markdown content was rendered
-  //   expect(document.querySelector('#main').textContent).toContain(
-  //     'A magical documentation site generator'
-  //   );
-  // });
+    // Verify options.markdown content was rendered
+    expect(document.querySelector('#main').textContent).toContain(
+      'A magical documentation site generator'
+    );
+  });
 
   test('kitchen sink docsify site using docsifyInit()', async () => {
     const docsifyInitConfig = {

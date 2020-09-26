@@ -103,7 +103,8 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.4",
     "serve-handler": "^6.1.2",
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "xhr-mock": "^2.5.1"
   },
   "keywords": [
     "doc",
