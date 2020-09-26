@@ -22,6 +22,8 @@ const stripIndent = require('common-tags/lib/stripIndent');
 function doMockAjax(markdownMap) {
   const mockAjax = jest.doMock(`${SRC_PATH}/core/fetch/ajax.js`, () => ({
     get: jest.fn(url => {
+      url = new URL(url, TEST_URL).href;
+
       const markdownMatch =
         markdownMap[
           Object.keys(markdownMap).find(key =>

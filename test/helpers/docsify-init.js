@@ -6,7 +6,7 @@ const axios = require('axios');
 const prettier = require('prettier');
 const stripIndent = require('common-tags/lib/stripIndent');
 
-const docsifyPATH = `${SRC_PATH}/core`; // JSDOM
+const docsifyPATH = `${SRC_PATH}/core/index.js`; // JSDOM
 const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
 const isJSDOM = 'window' in global;
 const isPlaywright = 'page' in global;
@@ -37,8 +37,7 @@ const isPlaywright = 'page' in global;
 async function docsifyInit(options = {}) {
   const defaults = {
     config: {
-      // basePath: '/',
-      basePath: TEST_URL,
+      basePath: '/',
       el: '#app',
     },
     html: `

@@ -12,9 +12,8 @@ describe('Example Tests', function() {
   //   // (See ./helpers/docsifyInit.js for details)
   //   await docsifyInit({
   //     config: {
-  //       basePath: `${TEST_URL}/docs/`,
+  //       basePath: `/docs`,
   //     },
-  //     // _debug: true,
   //     // _logHTML: true,
   //   });
 
@@ -84,7 +83,6 @@ describe('Example Tests', function() {
 
     await docsifyInit({
       ...docsifyInitConfig,
-      // _debug: true,
       // _logHTML: true,
     });
 
