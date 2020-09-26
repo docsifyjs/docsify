@@ -1,6 +1,6 @@
 /* global jestPlaywright page */
 import mock, { proxy } from 'xhr-mock';
-import { waitForSelector } from './wait-for-selector';
+import { waitForSelector } from './wait-for';
 
 const axios = require('axios');
 const prettier = require('prettier');

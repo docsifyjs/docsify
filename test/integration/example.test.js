@@ -1,4 +1,4 @@
-import { waitForSelector } from '../helpers/wait-for-selector';
+import { waitForFunction, waitForText } from '../helpers/wait-for';
 
 const docsifyInit = require('../helpers/docsify-init');
 
@@ -55,8 +55,6 @@ describe('Example Tests', function() {
           # Test Page
 
           This is a custom route.
-
-          <div id="test">Hello</div>
         `,
         '/data-test-scripturls.js': `
           document.body.setAttribute('data-test-scripturls', 'pass');
@@ -144,10 +142,9 @@ describe('Example Tests', function() {
 
     // Verify docsify navigation and docsifyInitConfig.routes
     document.querySelector('a[href="#/test"]').click();
-    await waitForSelector('#test');
-    expect(window.location.href).toMatch(/\/test$/);
-    expect(document.querySelector('#main').textContent).toContain(
-      'This is a custom route'
-    );
+    expect(
+      await waitForFunction(() => /#\/test$/.test(window.location.href))
+    ).toBeTruthy();
+    expect(await waitForText('#main', 'This is a custom route')).toBeTruthy();
   });
 });
