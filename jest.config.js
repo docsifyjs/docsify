@@ -15,9 +15,6 @@ const sharedConfig = {
   restoreMocks: true,
 };
 
-// Jest-Playwrigth Config
-process.env.JEST_PLAYWRIGHT_CONFIG = './test/config/jest-playwright.config.js';
-
 module.exports = {
   // Adding globals to config root for easier importing into .eslint.js, but
   // as of Jest 26.4.2 these globals need to be added to each project config
@@ -48,6 +45,20 @@ module.exports = {
       setupFilesAfterEnv: [
         '<rootDir>/test/config/jest-playwright.setup-tests.js',
       ],
+      testEnvironmentOptions: {
+        'jest-playwright': {
+          // prettier-ignore
+          browsers: [
+            'chromium',
+            'firefox',
+            'webkit',
+          ],
+          launchOptions: {
+            // headless: false,
+            // devtools: true,
+          },
+        },
+      },
       testMatch: ['<rootDir>/test/e2e/*.test.js'],
     },
   ],
