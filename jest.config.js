@@ -1,15 +1,13 @@
 const path = require('path');
-const { TEST_URL, DOCS_URL, LIB_URL } = require('./test/config/server.js');
+const { globals: serverGlobals } = require('./test/config/server.js');
 
 const sharedConfig = {
   errorOnDeprecated: true,
   globals: {
+    ...serverGlobals, // BLANK_URL, DOCS_URL, LIB_URL, TEST_HOST
     DOCS_PATH: path.resolve(__dirname, 'docs'),
-    DOCS_URL,
     LIB_PATH: path.resolve(__dirname, 'lib'),
-    LIB_URL,
     SRC_PATH: path.resolve(__dirname, 'src'),
-    TEST_URL,
   },
   globalSetup: './test/config/jest.setup.js',
   globalTeardown: './test/config/jest.teardown.js',
@@ -21,6 +19,10 @@ const sharedConfig = {
 process.env.JEST_PLAYWRIGHT_CONFIG = './test/config/jest-playwright.config.js';
 
 module.exports = {
+  // Adding globals to config root for easier importing into .eslint.js, but
+  // as of Jest 26.4.2 these globals need to be added to each project config
+  // as well.
+  globals: sharedConfig.globals,
   projects: [
     // Unit Tests (Jest)
     {
@@ -28,7 +30,7 @@ module.exports = {
       displayName: 'unit',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/unit/*.test.js'],
-      testURL: TEST_URL,
+      testURL: serverGlobals.BLANK_URL,
     },
     // Integration Tests (Jest)
     {
@@ -36,7 +38,7 @@ module.exports = {
       displayName: 'integration',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/integration/*.test.js'],
-      testURL: TEST_URL,
+      testURL: serverGlobals.BLANK_URL,
     },
     // E2E Tests (Jest + Playwright)
     {

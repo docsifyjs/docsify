@@ -1,4 +1,4 @@
-/* global browserName */
+/* global browserName page */
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
 // Lifecycle Hooks
@@ -42,4 +42,13 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await global.jestPlaywright.resetPage();
+
+  // Goto URL ()
+  // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
+  // NOTE: Tests typically begin by navigating to a page for testing. When
+  // this doesn't happen, Playwright operates on the "about:blank" page which
+  // will cause operations that require the window location to be a valid URL
+  // to fail (e.g. AJAX requests). To avoid these issues, this hook ensures
+  // that each tests begins by a blank HTML page.
+  await page.goto(BLANK_URL);
 });

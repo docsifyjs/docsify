@@ -14,12 +14,18 @@
 
 ### Global Variables
 
-- `TEST_URL`: Test server base URL (http://localhost:3001 => `/test/fixtures/`)
-- `DOCS_PATH`: File system path to docsify's `/docs` directory
+#### File paths
+
+- `DOCS_PATH`: File path to docsify's `/docs` directory
+- `LIB_PATH`: File path to docsify's `/lib` directory
+- `SRC_PATH`: File path to docsify's `/src` directory
+
+#### URLs
+
+- `BLANK_URL`: Test server route to virtual `_blank.html` file
 - `DOCS_URL`: Test server route to docsify's `/docs` directory
-- `LIB_PATH`: File system path to docsify's `/lib` directory
 - `LIB_URL`: Test server route to docsify's `/lib` directory
-- `SRC_PATH`: File system path to docsify's `/src` directory
+- `TEST_HOST`: Test server host:port (`http://127.0.0.1:3001`)
 
 ### CLI commands
 
@@ -31,9 +37,6 @@ npm run test
 npm run test:e2e
 npm run test:integration
 npm run test:unit
-
-# Run example tests
-npm run test:examples
 
 # Run test file
 npm run test -- -i /path/to/file.test.js

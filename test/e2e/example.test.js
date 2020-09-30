@@ -5,19 +5,6 @@ const docsifyInit = require('../helpers/docsify-init');
 // Suite
 // -----------------------------------------------------------------------------
 describe(`Example Tests`, function() {
-  // Setup & Teardown
-  // ---------------------------------------------------------------------------
-  beforeEach(async () => {
-    // Goto URL (fixtures/index.html)
-    // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
-    // NOTE: Tests typically begin by navigating to a page for testing. When
-    // this doesn't happen, Playwright operates on the "about:blank" page which
-    // will cause operations that require the window location to be a valid URL
-    // to fail (e.g. AJAX requests). To avoid these issues, this hook ensures
-    // that each tests begins by loading the default test server page.
-    await page.goto(TEST_URL);
-  });
-
   // Tests
   // ---------------------------------------------------------------------------
   test('dom manipulation', async () => {
@@ -105,7 +92,7 @@ describe(`Example Tests`, function() {
   test('manual docsify site using playwright methods', async () => {
     // Goto URL
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
-    await page.goto(TEST_URL);
+    await page.goto(BLANK_URL);
 
     // Set docsify configuration
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg

@@ -10,7 +10,7 @@ describe('Example Tests', function() {
   test('Docsify /docs/ site using docsifyInit()', async () => {
     await docsifyInit({
       config: {
-        basePath: `${TEST_URL}/docs`,
+        basePath: `${TEST_HOST}/docs`,
       },
       // _logHTML: true,
     });

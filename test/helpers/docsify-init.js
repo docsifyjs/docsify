@@ -37,7 +37,7 @@ const isPlaywright = 'page' in global;
 async function docsifyInit(options = {}) {
   const defaults = {
     config: {
-      basePath: TEST_URL,
+      basePath: TEST_HOST,
       el: '#app',
     },
     html: `
@@ -62,7 +62,7 @@ async function docsifyInit(options = {}) {
     scriptURLs: [],
     style: '',
     styleURLs: [],
-    testURL: `${TEST_URL}/docsify-init.html`,
+    testURL: `${TEST_HOST}/docsify-init.html`,
     waitForSelector: '#main',
   };
   const settings = {
@@ -116,7 +116,7 @@ async function docsifyInit(options = {}) {
           .filter(([url, responseText]) => url && responseText)
           .map(([url, responseText]) => [
             // Convert relative to absolute URL
-            new URL(url, TEST_URL).href,
+            new URL(url, TEST_HOST).href,
             // Strip indentation from responseText
             stripIndent`${responseText}`,
           ])
@@ -128,11 +128,11 @@ async function docsifyInit(options = {}) {
     scriptURLs: []
       .concat(options.scriptURLs || '')
       .filter(url => url)
-      .map(url => new URL(url, TEST_URL).href),
+      .map(url => new URL(url, TEST_HOST).href),
     styleURLs: []
       .concat(options.styleURLs || '')
       .filter(url => url)
-      .map(url => new URL(url, TEST_URL).href),
+      .map(url => new URL(url, TEST_HOST).href),
   };
 
   // Routes

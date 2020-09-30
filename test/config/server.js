@@ -11,6 +11,16 @@ const serverConfig = {
 function startServer(options = {}, cb = Function.prototype) {
   const defaults = {
     ...serverConfig,
+    middleware: [
+      {
+        route: '/_blank.html',
+        handle: function(req, res, next) {
+          res.setHeader('Content-Type', 'text/html');
+          res.end('');
+          next();
+        },
+      },
+    ],
     notify: false,
     open: false,
     rewriteRules: [
@@ -21,7 +31,7 @@ function startServer(options = {}, cb = Function.prototype) {
       },
     ],
     server: {
-      baseDir: path.resolve(__dirname, '../fixtures'),
+      baseDir: path.resolve(__dirname, '../'),
       routes: {
         '/docs': path.resolve(__dirname, '../../docs'),
         '/lib': path.resolve(__dirname, '../../lib'),
@@ -87,15 +97,19 @@ if (hasStartArg) {
 }
 
 module.exports = {
+  globals: {
+    get BLANK_URL() {
+      return `${this.TEST_HOST}/_blank.html`;
+    },
+    get DOCS_URL() {
+      return `${this.TEST_HOST}/docs`;
+    },
+    get LIB_URL() {
+      return `${this.TEST_HOST}/lib`;
+    },
+    TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
+  },
   start: startServer,
   startAsync: startServerAsync,
   stop: stopServer,
-  // Jest Globals
-  TEST_URL: `http://${serverConfig.host}:${serverConfig.port}`,
-  get DOCS_URL() {
-    return `${this.TEST_URL}/docs`;
-  },
-  get LIB_URL() {
-    return `${this.TEST_URL}/lib`;
-  },
 };
