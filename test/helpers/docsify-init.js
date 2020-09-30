@@ -307,11 +307,6 @@ async function docsifyInit(options = {}) {
     }
   }
 
-  if (isJSDOM) {
-    // Restore the global XMLHttpRequest object
-    mock.teardown();
-  }
-
   return Promise.resolve();
 }
 
