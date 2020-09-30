@@ -21,7 +21,13 @@ export function waitForFunction(fn, arg, options = {}) {
     let timeElapsed = 0;
 
     const int = setInterval(() => {
-      const result = fn(arg);
+      let result;
+
+      try {
+        result = fn(arg);
+      } catch (e) {
+        // Continue...
+      }
 
       if (result) {
         clearInterval(int);
