@@ -68,6 +68,7 @@ export class Compiler {
     this.linkRel =
       this.linkTarget === '_blank' ? config.externalLinkRel || 'noopener' : '';
     this.contentBase = router.getBasePath();
+    this.rootRelativeImageURL = config.rootRelativeImageURL;
 
     const renderer = this._initRenderer();
     this.heading = renderer.heading;
@@ -193,7 +194,13 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer();
-    const { linkTarget, linkRel, router, contentBase } = this;
+    const {
+      linkTarget,
+      linkRel,
+      router,
+      contentBase,
+      rootRelativeImageURL,
+    } = this;
     const _self = this;
     const origin = {};
 
@@ -249,7 +256,12 @@ export class Compiler {
       compilerClass: _self,
     });
     origin.paragraph = paragraphCompiler({ renderer });
-    origin.image = imageCompiler({ renderer, contentBase, router });
+    origin.image = imageCompiler({
+      renderer,
+      contentBase,
+      router,
+      rootRelativeImageURL,
+    });
     origin.list = taskListCompiler({ renderer });
     origin.listitem = taskListItemCompiler({ renderer });
 

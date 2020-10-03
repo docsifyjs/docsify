@@ -44,6 +44,10 @@ export const isAbsolutePath = cached(path => {
   return /(:|(\/{2}))/g.test(path);
 });
 
+export const isPathRootRelative = cached(path => {
+  return path[0] === '/';
+});
+
 export const removeParams = cached(path => {
   return path.split(/[?#]/)[0];
 });

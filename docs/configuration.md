@@ -616,3 +616,24 @@ window.$docsify = {
   topMargin: 90, // default: 0
 };
 ```
+
+## rootRelativeImageURL
+
+- Type: `Boolean|String`
+- Default: `false`
+
+Configure image URL rendering behavior when inserting markdown images when the image URL is root-relative, i.e. starts with '/'.
+
+By default, Docsify resolves all image paths against the current page's parent path.
+
+E.g. if the current path is `/advanced/guide`, `![](/assets/image.png)` would render as `<img src="advanced/assets/image.png">`.
+
+```js
+  window.$docsify = {
+    rootRelativeImageURL = false // default behaviour
+
+    rootRelativeImageURL = true // ![](/assets/image.png) renders as <img src="/assets/image.png" />
+
+    rootRelativeImageURL = 'my-root-path' // ![](/assets/image.png) renders as <img src="/my-root-path/assets/image.png />
+  }
+```

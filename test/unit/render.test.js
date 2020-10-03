@@ -1,3 +1,4 @@
+const path = require('path');
 const { expect } = require('chai');
 const { init, expectSameDom } = require('../_helper');
 
@@ -104,6 +105,23 @@ describe('render', function() {
       );
     });
 
+    it('relative image url', async function() {
+      const { docsify } = await init();
+      const output = docsify.compiler.compile(
+        '![alt text](some-path/image.png)'
+      );
+      const expectedCompiledPath = path.posix.join(
+        // must use posix here because if run on windows, paths are joined using backslash (\)
+        __dirname,
+        '../fixtures/default',
+        'some-path/image.png'
+      );
+      expectSameDom(
+        output,
+        `<p><img src="${expectedCompiledPath}" data-origin="some-path/image.png" alt="alt text"></p>`
+      );
+    });
+
     it('class', async function() {
       const { docsify } = await init();
       const output = docsify.compiler.compile(
@@ -162,6 +180,53 @@ describe('render', function() {
         expectSameDom(
           output,
           '<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" /></p>'
+        );
+      });
+    });
+
+    describe('compiling root-relative image src path', async function() {
+      it('behaves normally if config.rootRelativeImageURL is set to false', async function() {
+        const { docsify } = await init('default', {
+          rootRelativeImageURL: false,
+        });
+        const rootRelativePathOutput = docsify.compiler.compile(
+          '![alt text](/some-path/image.png)'
+        );
+        const expectedCompiledPath = path.posix.join(
+          // must use posix here because if run on windows, file paths use backslash (\)
+          __dirname,
+          '../fixtures/default',
+          'some-path/image.png'
+        );
+        expectSameDom(
+          rootRelativePathOutput,
+          `<p><img src="${expectedCompiledPath}" data-origin="/some-path/image.png" alt="alt text"></p>`
+        );
+      });
+
+      it('only uses the image href if config.rootRelativeImageURL is set to true', async function() {
+        const { docsify } = await init('default', {
+          rootRelativeImageURL: true,
+        });
+        const rootRelativePathOutput = docsify.compiler.compile(
+          '![alt text](/some-path/image.png)'
+        );
+        expectSameDom(
+          rootRelativePathOutput,
+          `<p><img src="/some-path/image.png" data-origin="/some-path/image.png" alt="alt text"></p>`
+        );
+      });
+
+      it('uses config.rootRelativeImageURL as a prefix for the compiled image path, if passed as a string', async function() {
+        const { docsify } = await init('default', {
+          rootRelativeImageURL: 'docs',
+        });
+        const rootRelativePathOutput = docsify.compiler.compile(
+          '![alt text](/some-path/image.png)'
+        );
+        expectSameDom(
+          rootRelativePathOutput,
+          `<p><img src="/docs/some-path/image.png" data-origin="/some-path/image.png" alt="alt text"></p>`
         );
       });
     });
