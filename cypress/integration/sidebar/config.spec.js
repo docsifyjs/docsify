@@ -32,6 +32,7 @@ context('sidebar.configurations', () => {
     'loadnavbar',
     'loadsidebar',
     'hidesidebar',
+    // 'rightSidebar', // This would require updated snapshots. I think we should get playwright in first.
     'submaxlevel',
     'auto2top',
     'homepage',

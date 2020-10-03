@@ -108,7 +108,7 @@ window.$docsify = {
 ## hideSidebar
 
 - Type : `Boolean`
-- Default: `true`
+- Default: `false`
 
 This option will completely hide your sidebar and won't render any content on the side.
 
@@ -117,6 +117,13 @@ window.$docsify = {
   hideSidebar: true,
 };
 ```
+
+## rightSidebar
+
+- Type: `Boolean|String`
+- Default: `false`
+
+If true, the sidebar will be on the right side instead of the left.
 
 ## subMaxLevel
 
