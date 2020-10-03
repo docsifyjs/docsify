@@ -91,6 +91,8 @@ The default is to support parsing emoji. For example `:100:` will be parsed to :
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
 ```
 
+?> If you don't want to parse to emoji, you can use __colon_<span>_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
+
 ## External Script
 
 If the script on the page is an external one (imports a js file via `src` attribute), you'll need this plugin to make it work.
