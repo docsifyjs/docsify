@@ -41,7 +41,6 @@
       title="pure"
       disabled
     />
-    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1.0.1/index.min.js"></script>
     <style>
       nav.app-nav li ul {
         min-width: 100px;
@@ -65,7 +64,7 @@
             'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
           '/.*/_navbar.md': '/_navbar.md',
           '/zh-cn/(.*)':
-            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
+            'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
           '/de-de/(.*)':
             'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
           '/ru-ru/(.*)':
@@ -138,10 +137,11 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-nginx.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1/index.min.js"></script>
     <script>
       (function() {
         function loadJS(src, attrs) {
@@ -158,7 +158,7 @@
 
           loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js');
           loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js');
-          loadJS('https://sidecar.gitter.im/dist/sidecar.v1.js', 'async defer');
+          loadJS('//sidecar.gitter.im/dist/sidecar.v1.js', 'async defer');
         }
       })();
     </script>
