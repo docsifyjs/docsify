@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const AllGithubEmoji = {
   '100': 'unicode/1f4af',
   '1234': 'unicode/1f522',
@@ -1799,6 +1800,7 @@ const AllGithubEmoji = {
   zombie_woman: 'unicode/1f9df-2640',
   zzz: 'unicode/1f4a4',
 };
+/* eslint-enable camelcase */
 
 // Emoji from GitHub API
 // https://api.github.com/emojis

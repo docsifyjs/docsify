@@ -1,0 +1,73 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run tests",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run current test file",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "args": ["--", "-i", "${relativeFile}", "--testPathIgnorePatterns"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run selected test name",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "args": [
+        "--",
+        "-i",
+        "${relativeFile}",
+        "-t",
+        "${selectedText}",
+        "--testPathIgnorePatterns"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Update current test file snapshot(s)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "args": [
+        "--",
+        "-i",
+        "${relativeFile}",
+        "--updateSnapshot",
+        "--testPathIgnorePatterns"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Update selected test name snapshot(s)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "args": [
+        "--",
+        "-i",
+        "${relativeFile}",
+        "-t",
+        "${selectedText}",
+        "--updateSnapshot",
+        "--testPathIgnorePatterns"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
