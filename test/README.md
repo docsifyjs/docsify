@@ -25,7 +25,7 @@
 - `BLANK_URL`: Test server route to virtual `_blank.html` file
 - `DOCS_URL`: Test server route to docsify's `/docs` directory
 - `LIB_URL`: Test server route to docsify's `/lib` directory
-- `TEST_HOST`: Test server host:port (`http://127.0.0.1:3001`)
+- `TEST_HOST`: Test server ip:port
 
 ### CLI commands
 
