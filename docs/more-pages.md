@@ -51,6 +51,18 @@ Create the `_sidebar.md`:
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
+!> Docsify only looks for `_sidebar.md` in the current folder, and uses that, otherwise it falls back to the one configured using `window.$docsify.loadSidebar` config.
+
+Example file structure:
+
+```text
+└── docs/
+    ├── _sidebar.md
+    ├── index.md
+    ├── getting-started.md
+    └── running-services.md
+```
+
 ## Nested Sidebars
 
 You may want the sidebar to update with only navigation to reflect the current directory. This can be done by adding a `_sidebar.md` file to each folder.
@@ -102,24 +114,24 @@ A custom sidebar can also automatically generate a table of contents by setting 
 
 ## Ignoring Subheaders
 
-When `subMaxLevel` is set, each header is automatically added to the table of contents by default. If you want to ignore a specific header, add `{docsify-ignore}` to it.
+When `subMaxLevel` is set, each header is automatically added to the table of contents by default. If you want to ignore a specific header, add `<!-- {docsify-ignore} -->` to it.
 
 ```markdown
 # Getting Started
 
-## Header {docsify-ignore}
+## Header <!-- {docsify-ignore} -->
 
 This header won't appear in the sidebar table of contents.
 ```
 
-To ignore all headers on a specific page, you can use `{docsify-ignore-all}` on the first header of the page.
+To ignore all headers on a specific page, you can use `<!-- {docsify-ignore-all} -->` on the first header of the page.
 
 ```markdown
-# Getting Started {docsify-ignore-all}
+# Getting Started <!-- {docsify-ignore-all} -->
 
 ## Header
 
 This header won't appear in the sidebar table of contents.
 ```
 
-Both `{docsify-ignore}` and `{docsify-ignore-all}` will not be rendered on the page when used.
+Both `<!-- {docsify-ignore} -->` and `<!-- {docsify-ignore-all} -->` will not be rendered on the page when used.

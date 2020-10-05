@@ -250,6 +250,7 @@ export function initRender(vm) {
   // Init markdown compiler
   vm.compiler = new Compiler(config, vm.router);
   if (inBrowser) {
+    /* eslint-disable-next-line camelcase */
     window.__current_docsify_compiler__ = vm.compiler;
   }
 

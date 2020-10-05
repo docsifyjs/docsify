@@ -9,11 +9,17 @@
   <link rel="stylesheet" href="/themes/vue.css" title="vue">
   <link rel="stylesheet" href="/themes/dark.css" title="dark" disabled>
   <link rel="stylesheet" href="/themes/buble.css" title="buble" disabled>
-  <link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
+  <link rel="stylesheet" href="/themes/pure.css" title="pure" disabled>
+  <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1.0.1/index.min.js"></script>
   <style>
     nav.app-nav li ul {
       min-width: 100px;
     }
+
+    #carbonads {
+			box-shadow: none !important;
+      width: auto !important;
+		}
   </style>
 </head>
 
@@ -27,8 +33,9 @@
         '/.*/_navbar.md': '/_navbar.md',
         '/zh-cn/(.*)': 'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
         '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
-        '/ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
-        '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
+        '/ru-ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
+        '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
+        '/write-a-plugin': 'https://raw.githubusercontent.com/docsifyjs/docsify/master/docs/write-a-plugin.md'
       },
       auto2top: true,
       basePath: '/docs/',
@@ -51,10 +58,11 @@
           '/de-de/': 'Suche',
           '/zh-cn/': '搜索',
           '/': 'Search'
-        }
+        },
+        pathNamespaces: ['/zh-cn', '/de-de', '/ru-ru', '/es']
       },
-      formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
+        DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
         function (hook, vm) {
           hook.beforeEach(function (html) {
             if (/githubusercontent\.com/.test(vm.route.file)) {
@@ -69,7 +77,6 @@
               url = 'https://github.com/docsifyjs/docsify/blob/master/docs/' + vm.route.file
             }
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
-
             return editHtml
               + html
               + '\n\n----\n\n'
@@ -83,11 +90,10 @@
   <script src="/lib/plugins/search.js"></script>
   <script src="/lib/plugins/emoji.js"></script>
   <script src="/lib/plugins/front-matter.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
-  <script src="//unpkg.com/vue/dist/vue.js"></script>
-  <script src="//unpkg.com/vuep/dist/vuep.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-nginx.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
 </body>
 
 </html>
