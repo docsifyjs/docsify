@@ -6,7 +6,6 @@ module.exports = {
     ecmaVersion: 2019,
   },
   env: {
-    jest: true,
     browser: true,
     node: true,
     es6: true,

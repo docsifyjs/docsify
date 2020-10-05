@@ -16,7 +16,7 @@ function cwd(...args) {
 
 function isExternal(url) {
   let match = url.match(
-    /^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+    /^([^:/?#]+:)?(?:\/\/([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
   );
   if (
     typeof match[1] === 'string' &&
