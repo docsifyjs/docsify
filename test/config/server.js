@@ -58,6 +58,7 @@ function startServer(options = {}, cb = Function.prototype) {
         },
       },
     },
+    startPath: '/docs',
     ui: false,
   };
 
