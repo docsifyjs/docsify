@@ -34,8 +34,9 @@ function startServer(options = {}, cb = Function.prototype) {
       baseDir: path.resolve(__dirname, '../'),
       routes: {
         '/docs': path.resolve(__dirname, '../../docs'),
-        '/lib': path.resolve(__dirname, '../../lib'),
         '/docs/changelog.md': './CHANGELOG.md',
+        '/lib': path.resolve(__dirname, '../../lib'),
+        '/node_modules': path.resolve(__dirname, '../../node_modules'),
       },
     },
     snippetOptions: {
@@ -107,6 +108,9 @@ module.exports = {
     },
     get LIB_URL() {
       return `${this.TEST_HOST}/lib`;
+    },
+    get NODE_MODULES_URL() {
+      return `${this.TEST_HOST}/node_modules`;
     },
     TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
   },
