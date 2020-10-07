@@ -97,7 +97,9 @@ if (hasStartArg) {
     port: serverConfig.port + 1,
     directory: true,
   });
-} else if (!process.env.NODE_ENV) {
+}
+// Display friendly message about manually starting a server instance
+else if (require.main === module) {
   console.info('Use --start argument to manually start server instance');
 }
 
