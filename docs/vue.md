@@ -1,15 +1,27 @@
 # Vue compatibility
 
-Docsify allows [Vue.js](https://vuejs.org) components to be added directly to you Markdown files. These components can greatly simplify working with data and adding reactivity to your content.
+Docsify allows Vue [v2.x](https://vuejs.org) and [v3.x](https://v3.vuejs.org) components to be added directly to you Markdown files. These components can greatly simplify working with data and adding reactivity to your content.
 
-To get started, load either the production (minified) or development (unminified) version of Vue in your `index.html`:
+To get started, load either the production or development version of Vue in your `index.html`:
+
+#### Vue 2.x
 
 ```html
-<!-- Production (minified) -->
+<!-- Production -->
 <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
 
-<!-- Development (unminified, with debugging info via console) -->
+<!-- Development (debugging and Vue.js devtools support) -->
 <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+```
+
+#### Vue 3.x
+
+```html
+<!-- Production -->
+<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+
+<!-- Development (debugging and Vue.js devtools support) -->
+<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
 ```
 
 ## Basic rendering
@@ -17,16 +29,12 @@ To get started, load either the production (minified) or development (unminified
 Docsify will automatically render basic Vue content that does not require `data`, `methods`, or other instance features.
 
 ```markdown
-<button v-on:click.native="this.alert('Hello, World!')">Say Hello</button>
-
 <ul>
   <li v-for="i in 3">{{ i }}</li>
 </ul>
 ```
 
 The HTML above will render the following:
-
-<button v-on:click="this.alert('Hello, World!')">Say Hello</button>
 
 <ul>
   <li v-for="i in 3">{{ i }}</li>
@@ -35,6 +43,8 @@ The HTML above will render the following:
 ## Advanced usage
 
 Vue components and templates that require `data`, `methods`, computed properties, lifecycle hooks, etc. require manually creating a new `Vue()` instance within a `<script>` tag in your markdown.
+
+<!-- prettier-ignore-start -->
 
 ```markdown
 <div id="example-1">
@@ -48,13 +58,19 @@ Vue components and templates that require `data`, `methods`, computed properties
 </div>
 ```
 
+<!-- prettier-ignore-end -->
+
+#### Vue 2.x
+
 ```markdown
 <script>
   new Vue({
     el: "#example-1",
     data: function() {
-      counter: 0,
-      message: "Hello, World!"
+      return {
+        counter: 0,
+        message: "Hello, World!"
+      };
     },
     methods: {
       hello: function() {
@@ -65,7 +81,29 @@ Vue components and templates that require `data`, `methods`, computed properties
 </script>
 ```
 
+#### Vue 3.x
+
+```markdown
+<script>
+  Vue.createApp({
+    data: function() {
+      return {
+        counter: 0,
+        message: "Hello, World!"
+      };
+    },
+    methods: {
+      hello: function() {
+        alert(this.message);
+      }
+    }
+  }).mount("#example-1");
+</script>
+```
+
 The HTML & JavaScript above will render the following:
+
+<!-- prettier-ignore-start -->
 
 <div id="example-1">
   <p>{{ message }}</p>
@@ -77,64 +115,18 @@ The HTML & JavaScript above will render the following:
   <button v-on:click="counter += 1">+</button>
 </div>
 
+<!-- prettier-ignore-end -->
+
 !> Only the first `<script>` tag in a markdown file is executed. If you are working with multiple Vue components, all `Vue` instances must be created within this tag.
-
-## Vuep playgrounds
-
-[Vuep](https://github.com/QingWei-Li/vuep) is a Vue component that provides a live editor and preview for Vue content. See the [vuep documentation](https://qingwei-li.github.io/vuep/) for details.
-
-Add Vuep CSS and JavaScript to your `index.html`:
-
-```html
-<!-- Vuep CSS -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/vuep/dist/vuep.css">
-
-<!-- Vuep JavaScript -->
-<script src="//cdn.jsdelivr.net/npm/vuep/dist/vuep.min.js"></script>
-```
-
-Add vuep markup to a markdown file (e.g. `README.md`):
-
-```markdown
-<vuep template="#example-2"></vuep>
-
-<script v-pre type="text/x-template" id="example-2">
-  <template>
-    <div>Hello, {{ name }}!</div>
-  </template>
-
-  <script>
-    module.exports = {
-      data: function() {
-        return { name: 'Vue' }
-      }
-    }
-  </script>
-</script>
-```
-
-<vuep template="#example-2"></vuep>
-
-<script v-pre type="text/x-template" id="example-2">
-  <template>
-    <div>Hello, {{ name }}!</div>
-  </template>
-
-  <script>
-    module.exports = {
-      data: function() {
-        return { name: 'World' }
-      }
-    }
-  </script>
-</script>
 
 <script>
   new Vue({
     el: "#example-1",
-    data: {
-      counter: 0,
-      message: "Hello, World!"
+    data: function() {
+      return {
+        counter: 0,
+        message: "Hello, World!"
+      };
     },
     methods: {
       hello: function() {

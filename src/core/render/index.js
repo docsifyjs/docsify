@@ -62,18 +62,38 @@ function renderMain(html) {
   if ('Vue' in window) {
     const mainElm = document.querySelector('#main') || {};
     const childElms = mainElm.children || [];
+    const vueVersion =
+      window.Vue.version && Number(window.Vue.version.charAt(0));
 
     for (let i = 0, len = childElms.length; i < len; i++) {
       const elm = childElms[i];
       const isValid = elm.tagName !== 'SCRIPT';
-      const isVue = Boolean(elm.__vue__ && elm.__vue__._isVue);
 
-      if (isValid && !isVue) {
-        new window.Vue({
-          mounted: function() {
-            this.$destroy;
-          },
-        }).$mount(elm);
+      if (!isValid) {
+        continue;
+      }
+
+      // Vue 3
+      if (vueVersion === 3) {
+        const isAlreadyVue = Boolean(elm._vnode && elm._vnode.__v_skip);
+
+        if (!isAlreadyVue) {
+          const app = window.Vue.createApp({});
+
+          app.mount(elm);
+        }
+      }
+      // Vue 2
+      else if (vueVersion === 2) {
+        const isAlreadyVue = Boolean(elm.__vue__ && elm.__vue__._isVue);
+
+        if (!isAlreadyVue) {
+          new window.Vue({
+            mounted: function() {
+              this.$destroy();
+            },
+          }).$mount(elm);
+        }
       }
     }
   }
