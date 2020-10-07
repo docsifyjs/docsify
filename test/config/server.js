@@ -95,7 +95,10 @@ if (hasStartArg) {
   startServer({
     open: true,
     port: serverConfig.port + 1,
+    directory: true,
   });
+} else if (!process.env.NODE_ENV) {
+  console.info('Use --start argument to manually start server instance');
 }
 
 module.exports = {
