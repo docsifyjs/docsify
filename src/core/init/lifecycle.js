@@ -18,21 +18,22 @@ export function initLifecycle(vm) {
   });
 }
 
-export function callHook(vm, hook, data, next = noop) {
-  const queue = vm._hooks[hook];
+export function callHook(vm, hookName, data, next = noop) {
+  const queue = vm._hooks[hookName];
 
   const step = function(index) {
-    const hook = queue[index];
+    const hookFn = queue[index];
+
     if (index >= queue.length) {
       next(data);
-    } else if (typeof hook === 'function') {
-      if (hook.length === 2) {
-        hook(data, result => {
+    } else if (typeof hookFn === 'function') {
+      if (hookFn.length === 2) {
+        hookFn(data, result => {
           data = result;
           step(index + 1);
         });
       } else {
-        const result = hook(data);
+        const result = hookFn(data);
         data = result === undefined ? data : result;
         step(index + 1);
       }

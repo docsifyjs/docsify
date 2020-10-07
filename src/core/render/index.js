@@ -190,7 +190,9 @@ export function renderMixin(proto) {
           html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated);
         }
 
-        callHook(this, 'afterEach', html, text => renderMain.call(this, text));
+        callHook(this, 'afterEach', html, hookData =>
+          renderMain.call(this, hookData)
+        );
       };
 
       if (this.isHTML) {
