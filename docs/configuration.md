@@ -493,6 +493,19 @@ window.$docsify = {
 };
 ```
 
+## crossOriginLinks
+- type: `Array`  
+
+When `routerMode: 'history'`, you may face the cross-origin issues, See [#1379](https://github.com/docsifyjs/docsify/issues/1379).  
+In Markdown content, there is a simple way to solve it, see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).  
+```js
+window.$docsify = {
+  crossOriginLinks:[
+      "https://example.com/cross-origin-link",
+   ],
+};
+```
+
 ## noCompileLinks
 
 - type: `Array`
