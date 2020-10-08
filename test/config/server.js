@@ -34,8 +34,9 @@ function startServer(options = {}, cb = Function.prototype) {
       baseDir: path.resolve(__dirname, '../'),
       routes: {
         '/docs': path.resolve(__dirname, '../../docs'),
-        '/lib': path.resolve(__dirname, '../../lib'),
         '/docs/changelog.md': './CHANGELOG.md',
+        '/lib': path.resolve(__dirname, '../../lib'),
+        '/node_modules': path.resolve(__dirname, '../../node_modules'),
       },
     },
     snippetOptions: {
@@ -94,7 +95,12 @@ if (hasStartArg) {
   startServer({
     open: true,
     port: serverConfig.port + 1,
+    directory: true,
   });
+}
+// Display friendly message about manually starting a server instance
+else if (require.main === module) {
+  console.info('Use --start argument to manually start server instance');
 }
 
 module.exports = {
@@ -107,6 +113,9 @@ module.exports = {
     },
     get LIB_URL() {
       return `${this.TEST_HOST}/lib`;
+    },
+    get NODE_MODULES_URL() {
+      return `${this.TEST_HOST}/node_modules`;
     },
     TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
   },

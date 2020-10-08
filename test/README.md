@@ -1,33 +1,34 @@
 # Docsify Testing
 
-### Environment
+## Environment
 
 - [Jest](https://jestjs.io): A test framework used for assertions, mocks, spies, etc.
 - [Playwright](https://playwright.dev): A test automation tool for launching browsers and manipulating the DOM.
 - [Jest-Playwright](https://github.com/playwright-community/jest-playwright): A Jest preset that simplifies using Jest and Playwright together
 
-### Test files
+## Test files
 
 - E2E tests are located in `/test/e2e/` and use [Jest](https://jestjs.io) + [Playwright](https://playwright.dev).
 - Integration tests are located in `/test/integration/` and use [Jest](https://jestjs.io).
 - Unit tests located in `/test/unit/` and use [Jest](https://jestjs.io).
 
-### Global Variables
+## Global Variables
 
-#### File paths
+### File paths
 
-- `DOCS_PATH`: File path to docsify's `/docs` directory
-- `LIB_PATH`: File path to docsify's `/lib` directory
-- `SRC_PATH`: File path to docsify's `/src` directory
+- `DOCS_PATH`: File path to `/docs` directory
+- `LIB_PATH`: File path to `/lib` directory
+- `SRC_PATH`: File path to `/src` directory
 
-#### URLs
+### URLs
 
 - `BLANK_URL`: Test server route to virtual `_blank.html` file
-- `DOCS_URL`: Test server route to docsify's `/docs` directory
-- `LIB_URL`: Test server route to docsify's `/lib` directory
+- `DOCS_URL`: Test server route to `/docs` directory
+- `LIB_URL`: Test server route to `/lib` directory
+- `NODE_MODULES_URL`: Test server route to `/node_modules` directory
 - `TEST_HOST`: Test server ip:port
 
-### CLI commands
+## CLI commands
 
 ```bash
 # Run all tests
@@ -75,7 +76,7 @@ npm run test -- -u -i /path/to/file.test.js -t \"describe() or test() name\"
 node ./test/config/server.js --start
 ```
 
-### Resource
+## Resource
 
 - [UI Testing Best Practices](https://github.com/NoriSte/ui-testing-best-practices)
 - [Using Jest with Playwright](https://playwright.tech/blog/using-jest-with-playwright)

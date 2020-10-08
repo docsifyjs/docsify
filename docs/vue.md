@@ -1,99 +1,137 @@
-# Compatible with Vue
+# Vue compatibility
 
-You can write Vue components directly in the Markdown file, and it will be parsed. You can use this feature to write vue demo and documentation together.
+Docsify allows Vue [v2.x](https://vuejs.org) and [v3.x](https://v3.vuejs.org) components to be added directly to you Markdown files. These components can greatly simplify working with data and adding reactivity to your content.
 
-## Basic usage
+To get started, load either the production or development version of Vue in your `index.html`:
 
-Load the Vue in `./index.html`.
-
-```html
-<script src="//cdn.jsdelivr.net/npm/vue"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify"></script>
-
-<!-- Or use the compressed files -->
-<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-```
-
-Then you can immediately write Vue code at Markdown file. `new Vue({ el: '#main' })` script is executed by default to create instance.
-
-*README.md*
-
-````markdown
-# Vue guide
-
-`v-for` usage.
+#### Vue 2.x
 
 ```html
-<ul>
-  <li v-for="i in 10">{{ i }}</li>
-</ul>
+<!-- Production -->
+<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+
+<!-- Development (debugging and Vue.js devtools support) -->
+<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 ```
 
-<ul>
-  <li v-for="i in 10">{{ i }}</li>
-</ul>
-````
+#### Vue 3.x
 
-You can manually initialize a Vue instance.
+```html
+<!-- Production -->
+<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 
-*README.md*
+<!-- Development (debugging and Vue.js devtools support) -->
+<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+```
+
+## Basic rendering
+
+Docsify will automatically render basic Vue content that does not require `data`, `methods`, or other instance features.
 
 ```markdown
-# Vue demo
+<ul>
+  <li v-for="i in 3">{{ i }}</li>
+</ul>
+```
 
-<div id="main">hello {{ msg }}</div>
+The HTML above will render the following:
+
+<ul>
+  <li v-for="i in 3">{{ i }}</li>
+</ul>
+
+## Advanced usage
+
+Vue components and templates that require `data`, `methods`, computed properties, lifecycle hooks, etc. require manually creating a new `Vue()` instance within a `<script>` tag in your markdown.
+
+<!-- prettier-ignore-start -->
+
+```markdown
+<div id="example-1">
+  <p>{{ message }}</p>
+
+  <button v-on:click="hello">Say Hello</button>
+
+  <button v-on:click="counter -= 1">-</button>
+  {{ counter }}
+  <button v-on:click="counter += 1">+</button>
+</div>
+```
+
+<!-- prettier-ignore-end -->
+
+#### Vue 2.x
+
+```markdown
+<script>
+  new Vue({
+    el: "#example-1",
+    data: function() {
+      return {
+        counter: 0,
+        message: "Hello, World!"
+      };
+    },
+    methods: {
+      hello: function() {
+        alert(this.message);
+      }
+    }
+  });
+</script>
+```
+
+#### Vue 3.x
+
+```markdown
+<script>
+  Vue.createApp({
+    data: function() {
+      return {
+        counter: 0,
+        message: "Hello, World!"
+      };
+    },
+    methods: {
+      hello: function() {
+        alert(this.message);
+      }
+    }
+  }).mount("#example-1");
+</script>
+```
+
+The HTML & JavaScript above will render the following:
+
+<!-- prettier-ignore-start -->
+
+<div id="example-1">
+  <p>{{ message }}</p>
+
+  <button v-on:click="hello">Say Hello</button>
+
+  <button v-on:click="counter -= 1">-</button>
+  {{ counter }}
+  <button v-on:click="counter += 1">+</button>
+</div>
+
+<!-- prettier-ignore-end -->
+
+!> Only the first `<script>` tag in a markdown file is executed. If you are working with multiple Vue components, all `Vue` instances must be created within this tag.
 
 <script>
   new Vue({
-    el: '#main',
-    data: { msg: 'Vue' }
-  })
-</script>
-```
-
-!> In a Markdown file, only the script within the first script tag is executed.
-
-## Combine Vuep to write playground
-
-[Vuep](https://github.com/QingWei-Li/vuep) is a component for rendering Vue components with live editor and preview. Supports Vue component spec and JSX.
-
-*index.html*
-
-```html
-<!-- Inject CSS file -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/vuep/dist/vuep.css">
-
-<!-- Inject JavaScript file -->
-<script src="//cdn.jsdelivr.net/npm/vue"></script>
-<script src="//cdn.jsdelivr.net/npm/vuep"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify"></script>
-
-<!-- or use the compressed files -->
-<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/vuep/dist/vuep.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-```
-
-*README.md*
-```markdown
-# Vuep
-
-<vuep template="#example"></vuep>
-
-<script v-pre type="text/x-template" id="example">
-  <template>
-    <div>Hello, {{ name }}!</div>
-  </template>
-
-  <script>
-    module.exports = {
-      data: function () {
-        return { name: 'Vue' }
+    el: "#example-1",
+    data: function() {
+      return {
+        counter: 0,
+        message: "Hello, World!"
+      };
+    },
+    methods: {
+      hello: function() {
+        alert(this.message);
       }
     }
-  </script>
+  });
 </script>
-```
-
-?> Example Refer to the [Vuep documentation](https://qingwei-li.github.io/vuep/).
