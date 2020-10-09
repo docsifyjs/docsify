@@ -1,31 +1,30 @@
-name: Linting Checks
+name: Lint
 
-on: 
+on:
   push:
-   branches:
-    - master
-    - develop
+    branches:
+      - master
+      - develop
   pull_request:
-   branches:
-    - master
-    - develop
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 13.x]
+        node-version: [12.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name:  bootstrap
-      run: npm run bootstrap
-    - name: Build
-      run: npm run build
-    - name: Linting
-      run: npm run lint
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: npm i --ignore-scripts
+      - name: Lint
+        run: npm run lint

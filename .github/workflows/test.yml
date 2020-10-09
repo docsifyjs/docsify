@@ -1,0 +1,42 @@
+name: Build & Test
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [12.x, 14.x]
+        os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: bootstrap
+        run: npm run bootstrap
+      - name: unit tests
+        run: npm run test:unit -- -ci --runInBand
+      - name: integration tests
+        run: npm run test:integration -- -ci --runInBand
+      - uses: microsoft/playwright-github-action@v1.3.0
+      - name: e2e tests
+        run: npm run test:e2e -- --ci --runInBand
+      - name: Upload artifacts (diff output)
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: ${{ matrix.os }}-${{ matrix.node-version }}-diff-output
+          path: ${{ github.workspace }}/test/**/__diff_output__/*

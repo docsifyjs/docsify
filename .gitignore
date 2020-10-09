@@ -1,11 +1,10 @@
 *.log
 .DS_Store
 .idea
+__diff_output__
+lib/
 node_modules
-/themes/
-/lib/
-/cypress/integration/examples
-/cypress/fixtures/docs
+themes/
 
 # exceptions
 !.gitkeep
