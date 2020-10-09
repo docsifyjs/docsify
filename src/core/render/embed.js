@@ -14,6 +14,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   }
 
   while ((token = embedTokens[step++])) {
+    // eslint-disable-next-line no-shadow
     const next = (function(token) {
       return text => {
         let embedToken;
