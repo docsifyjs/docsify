@@ -15,7 +15,7 @@
     "test": "echo 'hello'"
   },
   "dependencies": {
-    "debug": "^4.1.1",
+    "debug": "^4.3.0",
     "docsify": "^4.11.6",
     "dompurify": "^2.0.17",
     "node-fetch": "^2.6.0",
