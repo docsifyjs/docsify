@@ -13,6 +13,8 @@ import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
 
+let vueGlobalData;
+
 function executeScript() {
   const script = dom
     .findAll('.markdown-section>script')
@@ -41,58 +43,103 @@ function formatUpdated(html, updated, fn) {
 }
 
 function renderMain(html) {
+  const docsifyConfig = this.config;
+  const markdownElm = dom.find('.markdown-section');
+  const vueVersion =
+    'Vue' in window &&
+    window.Vue.version &&
+    Number(window.Vue.version.charAt(0));
+
+  const isMountedVue = elm => {
+    const isVue2 = Boolean(elm.__vue__ && elm.__vue__._isVue);
+    const isVue3 = Boolean(elm._vnode && elm._vnode.__v_skip);
+
+    return isVue2 || isVue3;
+  };
+
   if (!html) {
     html = '<h1>404 - Not found</h1>';
   }
 
-  this._renderTo('.markdown-section', html);
+  if ('Vue' in window) {
+    const mountedElms = dom
+      .findAll('.markdown-section > *')
+      .filter(elm => isMountedVue(elm));
+
+    // Store global data() return value as shared data object
+    if (!vueGlobalData && docsifyConfig.vueGlobalOptions.data) {
+      vueGlobalData = docsifyConfig.vueGlobalOptions.data();
+    }
+
+    // Destroy/unmount existing Vue instances
+    for (const mountedElm of mountedElms) {
+      if (vueVersion === 2) {
+        mountedElm.__vue__.$destroy();
+      } else if (vueVersion === 3) {
+        mountedElm.__vue_app__.unmount();
+      }
+    }
+  }
+
+  this._renderTo(markdownElm, html);
 
   // Render sidebar with the TOC
-  !this.config.loadSidebar && this._renderSidebar();
+  !docsifyConfig.loadSidebar && this._renderSidebar();
 
   // Execute markdown <script>
   if (
-    this.config.executeScript ||
-    ('Vue' in window && this.config.executeScript !== false)
+    docsifyConfig.executeScript ||
+    ('Vue' in window && docsifyConfig.executeScript !== false)
   ) {
     executeScript();
   }
 
-  // Handle Vue content not handled by markdown <script>
+  // Handle Vue content not mounted by markdown <script>
   if ('Vue' in window) {
-    const mainElm = document.querySelector('#main') || {};
-    const childElms = mainElm.children || [];
-    const vueVersion =
-      window.Vue.version && Number(window.Vue.version.charAt(0));
+    const vueMountData = [];
 
-    for (let i = 0, len = childElms.length; i < len; i++) {
-      const elm = childElms[i];
-      const isValid = elm.tagName !== 'SCRIPT';
+    if (docsifyConfig.vueOptions) {
+      vueMountData.push(
+        ...Object.entries(docsifyConfig.vueOptions || {})
+          .map(([cssSelector, vueConfig]) => [
+            dom.find(markdownElm, cssSelector),
+            vueConfig,
+          ])
+          .filter(([elm, vueConfig]) => elm)
+      );
+    }
 
-      if (!isValid) {
-        continue;
-      }
+    if (docsifyConfig.vueGlobalOptions) {
+      vueMountData.push(
+        ...dom
+          .findAll('.markdown-section > *')
+          // Remove duplicates
+          .filter(elm => !vueMountData.some(([e, c]) => e === elm))
+          .map(elm => [
+            elm,
+            !docsifyConfig.vueGlobalOptions.data
+              ? docsifyConfig.vueGlobalOptions
+              : // Replace data() return value with shared data object. This
+                // mimics the behavior of a global store when using the same
+                // configuration with multiple Vue instances.
+                Object.assign({}, docsifyConfig.vueGlobalOptions, {
+                  data() {
+                    return vueGlobalData;
+                  },
+                }),
+          ])
+      );
+    }
 
-      // Vue 3
-      if (vueVersion === 3) {
-        const isAlreadyVue = Boolean(elm._vnode && elm._vnode.__v_skip);
+    for (const [mountElm, vueConfig] of vueMountData) {
+      const isValidTag = mountElm.tagName !== 'SCRIPT';
+      const hasBrackets = /{{2}[^{}]*}{2}/.test(mountElm.outerHTML);
 
-        if (!isAlreadyVue) {
-          const app = window.Vue.createApp({});
-
-          app.mount(elm);
-        }
-      }
-      // Vue 2
-      else if (vueVersion === 2) {
-        const isAlreadyVue = Boolean(elm.__vue__ && elm.__vue__._isVue);
-
-        if (!isAlreadyVue) {
-          new window.Vue({
-            mounted: function() {
-              this.$destroy();
-            },
-          }).$mount(elm);
+      if (isValidTag && hasBrackets && !isMountedVue(mountElm)) {
+        if (vueVersion === 2) {
+          new window.Vue(vueConfig).$mount(mountElm);
+        } else if (vueVersion === 3) {
+          window.Vue.createApp(vueConfig).mount(mountElm);
         }
       }
     }
