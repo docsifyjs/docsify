@@ -67,7 +67,12 @@ function renderMain(html) {
       .filter(elm => isMountedVue(elm));
 
     // Store global data() return value as shared data object
-    if (!vueGlobalData && docsifyConfig.vueGlobalOptions.data) {
+    if (
+      !vueGlobalData &&
+      docsifyConfig.vueGlobalOptions &&
+      docsifyConfig.vueGlobalOptions.data &&
+      typeof docsifyConfig.vueGlobalOptions.data === 'function'
+    ) {
       vueGlobalData = docsifyConfig.vueGlobalOptions.data();
     }
 
@@ -98,38 +103,36 @@ function renderMain(html) {
   if ('Vue' in window) {
     const vueMountData = [];
 
-    if (docsifyConfig.vueOptions) {
-      vueMountData.push(
-        ...Object.entries(docsifyConfig.vueOptions || {})
-          .map(([cssSelector, vueConfig]) => [
-            dom.find(markdownElm, cssSelector),
-            vueConfig,
-          ])
-          .filter(([elm, vueConfig]) => elm)
-      );
-    }
+    // vueOptions
+    vueMountData.push(
+      ...Object.entries(docsifyConfig.vueOptions || {})
+        .map(([cssSelector, vueConfig]) => [
+          dom.find(markdownElm, cssSelector),
+          vueConfig,
+        ])
+        .filter(([elm, vueConfig]) => elm)
+    );
 
-    if (docsifyConfig.vueGlobalOptions) {
-      vueMountData.push(
-        ...dom
-          .findAll('.markdown-section > *')
-          // Remove duplicates
-          .filter(elm => !vueMountData.some(([e, c]) => e === elm))
-          .map(elm => [
-            elm,
-            !docsifyConfig.vueGlobalOptions.data
-              ? docsifyConfig.vueGlobalOptions
-              : // Replace data() return value with shared data object. This
-                // mimics the behavior of a global store when using the same
-                // configuration with multiple Vue instances.
-                Object.assign({}, docsifyConfig.vueGlobalOptions, {
-                  data() {
-                    return vueGlobalData;
-                  },
-                }),
-          ])
-      );
-    }
+    // vueGlobalOptions
+    vueMountData.push(
+      ...dom
+        .findAll('.markdown-section > *')
+        // Remove duplicates
+        .filter(elm => !vueMountData.some(([e, c]) => e === elm))
+        .map(elm => [
+          elm,
+          !vueGlobalData
+            ? {}
+            : // Replace data() return value with shared data object. This
+              // mimics the behavior of a global store when using the same
+              // configuration with multiple Vue instances.
+              Object.assign({}, docsifyConfig.vueGlobalOptions || {}, {
+                data() {
+                  return vueGlobalData;
+                },
+              }),
+        ])
+    );
 
     for (const [mountElm, vueConfig] of vueMountData) {
       const isValidTag = mountElm.tagName !== 'SCRIPT';
