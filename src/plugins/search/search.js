@@ -227,6 +227,8 @@ export function init(config, vm) {
       }
     }
     paths.unshift(namespaceSuffix + '/');
+  } else {
+    paths.unshift('/');
   }
 
   const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
