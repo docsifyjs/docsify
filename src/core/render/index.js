@@ -131,7 +131,6 @@ export function renderMixin(proto) {
     const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
 
     if (hideSidebar) {
-      // FIXME : better styling solution
       if (
         document.querySelector('aside.sidebar') &&
         document.querySelector('button.sidebar-toggle')
