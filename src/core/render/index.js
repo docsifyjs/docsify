@@ -132,12 +132,16 @@ export function renderMixin(proto) {
 
     if (hideSidebar) {
       // FIXME : better styling solution
-      document.querySelector('aside.sidebar').remove();
-      document.querySelector('button.sidebar-toggle').remove();
-      document.querySelector('section.content').style.right = 'unset';
-      document.querySelector('section.content').style.left = 'unset';
-      document.querySelector('section.content').style.position = 'relative';
-      document.querySelector('section.content').style.width = '100%';
+      try {
+        document.querySelector('aside.sidebar').remove();
+        document.querySelector('button.sidebar-toggle').remove();
+        document.querySelector('section.content').style.right = 'unset';
+        document.querySelector('section.content').style.left = 'unset';
+        document.querySelector('section.content').style.position = 'relative';
+        document.querySelector('section.content').style.width = '100%';
+      } catch (e) {
+        return null;
+      }
       return null;
     }
 
