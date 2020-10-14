@@ -63,7 +63,6 @@ describe('Configuration Tests', function() {
     expect(window.$docsify).toHaveProperty('hideSidebar', true);
 
     // Verify sidebar not exist
-    // There should use toEqual(null), not toBeNull
     expect(document.querySelector('aside.sidebar')).toBeNull();
     expect(document.querySelector('button.sidebar-toggle')).toBeNull();
   });
