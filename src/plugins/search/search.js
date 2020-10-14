@@ -83,7 +83,7 @@ export function genIndex(path, content = '', router, depth) {
   const slugify = window.Docsify.slugify;
   const index = {};
   let slug;
-  let title;
+  let title = '';
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
