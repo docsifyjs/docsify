@@ -8,9 +8,9 @@ describe('Sidebar Tests', function() {
   test('search readme', async () => {
     await docsifyInit();
     await page.goto(DOCS_URL + '/#/quickstart');
-    await page.fill('input[type=search]', 'site generator');
+    await page.fill('input[type=search]', 'Please consider donating');
     expect(
       await page.innerText('.results-panel > .matching-post > a > h2')
-    ).toEqual('docsify');
+    ).toEqual('Donate');
   });
 });
