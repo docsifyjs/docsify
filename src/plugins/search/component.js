@@ -148,25 +148,6 @@ function doSearch(value) {
 
   let html = '';
   matchs.forEach(post => {
-    if (/&lt;!-- {docsify-ignore} --&gt;/g.test(post.title)) {
-      post.title = post.title.replace('&lt;!-- {docsify-ignore} --&gt;', '');
-    }
-
-    if (/{docsify-ignore}/g.test(post.title)) {
-      post.title = post.title.replace('{docsify-ignore}', '');
-    }
-
-    if (/&lt;!-- {docsify-ignore-all} --&gt;/g.test(post.title)) {
-      post.title = post.title.replace(
-        '&lt;!-- {docsify-ignore-all} --&gt;',
-        ''
-      );
-    }
-
-    if (/{docsify-ignore-all}/g.test(post.title)) {
-      post.title = post.title.replace('{docsify-ignore-all}', '');
-    }
-
     html += `<div class="matching-post">
 <a href="${post.url}">
 <h2>${post.title}</h2>

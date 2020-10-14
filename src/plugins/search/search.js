@@ -83,6 +83,7 @@ export function genIndex(path, content = '', router, depth) {
   const slugify = window.Docsify.slugify;
   const index = {};
   let slug;
+  let title;
 
   tokens.forEach(token => {
     if (token.type === 'heading' && token.depth <= depth) {
@@ -94,7 +95,16 @@ export function genIndex(path, content = '', router, depth) {
         slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
       }
 
-      index[slug] = { slug, title: str, body: '' };
+      if (str) {
+        title = str
+          .replace(/<!-- {docsify-ignore} -->/, '')
+          .replace(/{docsify-ignore}/, '')
+          .replace(/<!-- {docsify-ignore-all} -->/, '')
+          .replace(/{docsify-ignore-all}/, '')
+          .trim();
+      }
+
+      index[slug] = { slug, title: title, body: '' };
     } else {
       if (!slug) {
         return;
