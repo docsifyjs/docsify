@@ -48,7 +48,7 @@ function renderMain(html) {
   this._renderTo('.markdown-section', html);
 
   // Render sidebar with the TOC
-  !this.config.loadSidebar && !this.config.hideSidebar && this._renderSidebar();
+  !this.config.hideSidebar && !this.config.loadSidebar && this._renderSidebar();
 
   // Execute markdown <script>
   if (
