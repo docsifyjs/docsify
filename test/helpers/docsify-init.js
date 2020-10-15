@@ -197,9 +197,21 @@ async function docsifyInit(options = {}) {
   if (isJSDOM) {
     window.$docsify = settings.config;
   } else if (isPlaywright) {
+    // Convert config functions to strings
+    const configString = JSON.stringify(settings.config, (key, val) =>
+      typeof val === 'function' ? `__FN__${val.toString()}` : val
+    );
+
     await page.evaluate(config => {
-      window.$docsify = config;
-    }, settings.config);
+      // Restore config functions from strings
+      const configObj = JSON.parse(config, (key, val) =>
+        /^__FN__/.test(val)
+          ? new Function(`return ${val.split('__FN__')[1]}`)()
+          : val
+      );
+
+      window.$docsify = configObj;
+    }, configString);
   }
 
   // Style URLs
