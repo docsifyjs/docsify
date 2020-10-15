@@ -70,7 +70,6 @@ function renderMain(html) {
     if (
       !vueGlobalData &&
       docsifyConfig.vueGlobalOptions &&
-      docsifyConfig.vueGlobalOptions.data &&
       typeof docsifyConfig.vueGlobalOptions.data === 'function'
     ) {
       vueGlobalData = docsifyConfig.vueGlobalOptions.data();
@@ -110,35 +109,44 @@ function renderMain(html) {
           dom.find(markdownElm, cssSelector),
           vueConfig,
         ])
-        .filter(([elm, vueConfig]) => elm)
+        .filter(
+          ([elm, vueConfig]) => elm && Object.keys(vueConfig || {}).length
+        )
     );
 
     // vueGlobalOptions
-    vueMountData.push(
-      ...dom
-        .findAll('.markdown-section > *')
-        // Remove duplicates
-        .filter(elm => !vueMountData.some(([e, c]) => e === elm))
-        .map(elm => [
-          elm,
-          !vueGlobalData
-            ? {}
-            : // Replace data() return value with shared data object. This
-              // mimics the behavior of a global store when using the same
-              // configuration with multiple Vue instances.
-              Object.assign({}, docsifyConfig.vueGlobalOptions || {}, {
-                data() {
-                  return vueGlobalData;
-                },
-              }),
-        ])
-    );
+    if (Object.keys(docsifyConfig.vueGlobalOptions || {}).length) {
+      vueMountData.push(
+        ...dom
+          .findAll('.markdown-section > *')
+          // Remove duplicates
+          .filter(elm => !vueMountData.some(([e, c]) => e === elm))
+          .map(elm => [
+            elm,
+            !vueGlobalData
+              ? docsifyConfig.vueGlobalOptions
+              : // Replace vueGlobalOptions data() return value with shared data
+                // object. This provides a global store for all Vue instances
+                // that receive vueGlobalOptions as their configuration.
+                Object.assign({}, docsifyConfig.vueGlobalOptions, {
+                  data() {
+                    return vueGlobalData;
+                  },
+                }),
+          ])
+      );
+    }
 
     for (const [mountElm, vueConfig] of vueMountData) {
-      const isValidTag = mountElm.tagName !== 'SCRIPT';
-      const hasBrackets = /{{2}[^{}]*}{2}/.test(mountElm.outerHTML);
+      const isVueMount =
+        // Valid tag
+        mountElm.tagName !== 'SCRIPT' &&
+        // Matches curly braces or HTML directives
+        /{{2}[^{}]*}{2}|\sv-(bind|cloak|else|else-if|for|html|if|is|model|on|once|pre|show|slot|text)=/.test(
+          mountElm.outerHTML
+        );
 
-      if (isValidTag && hasBrackets && !isMountedVue(mountElm)) {
+      if (isVueMount && !isMountedVue(mountElm)) {
         if (vueVersion === 2) {
           new window.Vue(vueConfig).$mount(mountElm);
         } else if (vueVersion === 3) {

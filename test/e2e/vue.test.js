@@ -1,141 +1,183 @@
+const stripIndent = require('common-tags/lib/stripIndent');
 const docsifyInit = require('../helpers/docsify-init');
 
-describe('Vue.js Rendering', function() {
-  const vueURLs = [
-    `${NODE_MODULES_URL}/vue2/dist/vue.js`,
-    `${NODE_MODULES_URL}/vue3/dist/vue.global.js`,
-  ];
+const vueURLs = [
+  `${NODE_MODULES_URL}/vue2/dist/vue.js`,
+  `${NODE_MODULES_URL}/vue3/dist/vue.global.js`,
+];
 
-  // Tests
-  // ---------------------------------------------------------------------------
-  test(`ignores Vue content when window.Vue is not present`, async () => {
-    await docsifyInit({
-      markdown: {
-        homepage: `
-          <div id="test">test<span v-for="i in 5">{{ i }}</span></div>
-        `,
-      },
-    });
-
-    await page.evaluate(() => {
-      return 'Vue' in window === false;
-    });
-    await expect(page).toEqualText('#test', 'test{{ i }}');
-  });
-
-  describe('Basic rendering', function() {
-    for (const vueURL of vueURLs) {
-      const vueVersion = vueURL.match(/vue(\d+)/)[1]; // vue2|vue3
-
-      for (const executeScript of ['unspecified', true, false]) {
-        test(`handles Vue v${vueVersion}.x basic rendering when executeScript is ${executeScript}`, async () => {
-          const docsifyInitConfig = {
-            markdown: {
-              homepage: `
-                <div id="test">test<span v-for="i in 5">{{ i }}</span></div>
-              `,
-            },
-            scriptURLs: vueURL,
-          };
-
-          if (executeScript !== 'unspecified') {
-            docsifyInitConfig.config = {
-              executeScript,
+describe('Vue.js Compatibility', function() {
+  function getSharedConfig() {
+    const config = {
+      config: {
+        vueGlobalOptions: {
+          data: function() {
+            return {
+              counter: 0,
+              msg: 'vueglobaloptions',
             };
-          }
-
-          await docsifyInit(docsifyInitConfig);
-
-          await expect(page).toEqualText('#test', 'test12345');
-        });
-      }
-    }
-  });
-
-  describe('Advanced usage', function() {
-    const testData = {
-      vue2: {
-        markdown: `
-          <div id="test">
-            <button v-on:click="counter += 1">+</button>
-            <span>{{ counter }}<span>
-          </div>
-
-          <script>
-            new Vue({
-              el: '#test',
-              data() {
-                return {
-                  counter: 0
-                }
-              },
-            });
-          </script>
-        `,
+          },
+        },
+        vueOptions: {
+          '#vueoptions': {
+            data: function() {
+              return {
+                counter: 0,
+                msg: 'vueoptions',
+              };
+            },
+          },
+        },
       },
-      vue3: {
-        markdown: `
-          <div id="test">
+      markdown: {
+        homepage: stripIndent`
+          # <span v-for="i in 5">{{ i }}</span>
+
+          <div id="vueoptions">
+            <p v-text="msg">---</p>
+            <button v-on:click="counter += 1">+</button>
+            <span>{{ counter }}<span>
+          </div>
+
+          <div id="vueglobaloptions">
+            <p v-text="msg">---</p>
+            <button v-on:click="counter += 1">+</button>
+            <span>{{ counter }}<span>
+          </div>
+
+          <div id="vuescript">
+            <p v-text="msg">---</p>
             <button v-on:click="counter += 1">+</button>
             <span>{{ counter }}<span>
           </div>
 
           <script>
-            Vue.createApp({
+            const vueConfig = {
               data() {
                 return {
-                  counter: 0
+                  counter: 0,
+                  msg: 'vuescript'
                 }
               },
-            }).mount('#test');
+            }
+            const vueMountElm = '#vuescript';
+            const vueVersion = Number(window.Vue.version.charAt(0));
+
+            if (vueVersion === 2) {
+              new Vue(vueConfig).$mount(vueMountElm);
+            }
+            else if (vueVersion === 3) {
+              Vue.createApp(vueConfig).mount(vueMountElm);
+            }
           </script>
         `,
       },
     };
 
+    return config;
+  }
+
+  // Tests
+  // ---------------------------------------------------------------------------
+  describe('Ignores Vue', function() {
+    test(`content when Vue is not present`, async () => {
+      const docsifyInitConfig = getSharedConfig();
+
+      await docsifyInit(docsifyInitConfig);
+      await page.evaluate(() => {
+        return 'Vue' in window === false;
+      });
+      await expect(page).toEqualText('h1', '{{ i }}');
+      await expect(page).toEqualText('#vueglobaloptions p', '---');
+      await expect(page).toEqualText('#vueoptions p', '---');
+      await expect(page).toEqualText('#vuescript p', '---');
+    });
+
+    test(`content when vueOptions and vueGlobalOptions are undefined`, async () => {
+      const docsifyInitConfig = getSharedConfig();
+
+      docsifyInitConfig.config.vueGlobalOptions = undefined;
+      docsifyInitConfig.config.vueOptions = undefined;
+      docsifyInitConfig.scriptURLs = vueURLs[0];
+
+      await docsifyInit(docsifyInitConfig);
+      await expect(page).toEqualText('h1', '{{ i }}');
+      await expect(page).toEqualText('#vueglobaloptions p', '---');
+      await expect(page).toEqualText('#vueoptions p', '---');
+      await expect(page).toEqualText('#vuescript p', 'vuescript');
+    });
+
+    test(`content when vueGlobalOptions data is undefined`, async () => {
+      const docsifyInitConfig = getSharedConfig();
+
+      docsifyInitConfig.config.vueGlobalOptions.data = undefined;
+      docsifyInitConfig.scriptURLs = vueURLs[0];
+
+      await docsifyInit(docsifyInitConfig);
+      await expect(page).toEqualText('h1', '{{ i }}');
+      await expect(page).toEqualText('#vueoptions p', 'vueoptions');
+      await expect(page).toEqualText('#vueglobaloptions p', '---');
+      await expect(page).toEqualText('#vuescript p', 'vuescript');
+    });
+
+    test(`content when vueOptions data is undefined`, async () => {
+      const docsifyInitConfig = getSharedConfig();
+
+      docsifyInitConfig.config.vueOptions['#vueoptions'].data = undefined;
+      docsifyInitConfig.scriptURLs = vueURLs[0];
+
+      await docsifyInit(docsifyInitConfig);
+      await expect(page).toEqualText('h1', '12345');
+      await expect(page).toEqualText('#vueoptions p', 'vueglobaloptions');
+      await expect(page).toEqualText('#vueglobaloptions p', 'vueglobaloptions');
+      await expect(page).toEqualText('#vuescript p', 'vuescript');
+    });
+
+    test(`<script> when executeScript is false`, async () => {
+      const docsifyInitConfig = getSharedConfig();
+
+      docsifyInitConfig.config.executeScript = false;
+      docsifyInitConfig.scriptURLs = vueURLs[0];
+
+      await docsifyInit(docsifyInitConfig);
+      await expect(page).toEqualText('#vuescript p', 'vueglobaloptions');
+    });
+  });
+
+  describe('Renders Vue', function() {
     for (const vueURL of vueURLs) {
-      const vueVersion = vueURL.match(/vue(\d+)/)[1]; // vue2|vue3
-      const vueData = testData[`vue${vueVersion}`];
+      const vueVersion = Number(vueURL.match(/vue(\d+)/)[1]); // 2|3
 
-      for (const executeScript of ['unspecified', true]) {
-        test(`handles Vue v${vueVersion}.x advanced usage when executeScript is ${executeScript}`, async () => {
-          const docsifyInitConfig = {
-            markdown: {
-              homepage: vueData.markdown,
-            },
-            scriptURLs: vueURL,
-          };
+      for (const executeScript of [true, undefined]) {
+        test(`Vue v${vueVersion}: renders when executeScript is ${executeScript}`, async () => {
+          const docsifyInitConfig = getSharedConfig(vueVersion);
 
-          if (executeScript !== 'unspecified') {
-            docsifyInitConfig.config = {
-              executeScript,
-            };
-          }
+          docsifyInitConfig.config.executeScript = executeScript;
+          docsifyInitConfig.scriptURLs = vueURL;
 
           await docsifyInit(docsifyInitConfig);
 
-          await expect(page).toEqualText('#test span', '0');
-          await page.click('#test button');
-          await expect(page).toEqualText('#test span', '1');
+          // Static data
+          await expect(page).toEqualText('h1', '12345');
+          await expect(page).toEqualText('#vueoptions p', 'vueoptions');
+          await expect(page).toEqualText(
+            '#vueglobaloptions p',
+            'vueglobaloptions'
+          );
+          await expect(page).toEqualText('#vuescript p', 'vuescript');
+
+          // Reactive data
+          await expect(page).toEqualText('#vueoptions span', '0');
+          await page.click('#vueoptions button');
+          await expect(page).toEqualText('#vueoptions span', '1');
+          await expect(page).toEqualText('#vueglobaloptions span', '0');
+          await page.click('#vueglobaloptions button');
+          await expect(page).toEqualText('#vueglobaloptions span', '1');
+          await expect(page).toEqualText('#vuescript span', '0');
+          await page.click('#vuescript button');
+          await expect(page).toEqualText('#vuescript span', '1');
         });
       }
-
-      test(`handles Vue v${vueVersion}.x advanced usage when executeScript is false`, async () => {
-        const docsifyInitConfig = {
-          config: {
-            executeScript: false,
-          },
-          markdown: {
-            homepage: vueData.markdown,
-          },
-          scriptURLs: vueURL,
-        };
-
-        await docsifyInit(docsifyInitConfig);
-
-        const textContent = await page.textContent('#test span');
-        expect(textContent).toBe('');
-      });
     }
   });
 });
