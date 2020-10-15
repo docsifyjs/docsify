@@ -40,22 +40,37 @@ describe('Search Plugin Tests', function() {
     const docsifyInitConfig = {
       markdown: {
         homepage: `
-        # Hello World
+          # Hello World
 
-        This is the homepage.
+          This is the homepage.
+        `,
+        sidebar: `
+          - [Home page](/)
+          - [GitHub Pages](github)
+        `,
+      },
+      routes: {
+        '/github.md': `
+            # GitHub Pages
 
-        ## Test ignore title <!-- {docsify-ignore} -->
+            This is the GitHub Pages.
 
-        This is the test ignore title.
-      `,
+            ## GitHub Pages ignore1 <!-- {docsify-ignore} -->
+
+            There're three places to populate your docs for your Github repository1.
+
+            ## GitHub Pages ignore2 {docsify-ignore}
+
+            There're three places to populate your docs for your Github repository2.
+          `,
       },
       scriptURLs: ['/lib/plugins/search.min.js'],
-      styleURLs: ['/lib/themes/vue.css'],
     };
     await docsifyInit(docsifyInitConfig);
-    await page.fill('input[type=search]', 'Test ignore title');
-    expect(await page.innerText('.results-panel h2')).toEqual(
-      'Test ignore title'
-    );
+    await page.fill('input[type=search]', 'repository1');
+    await expect(page).toEqualText('.results-panel h2', 'GitHub Pages ignore1');
+    await page.click('.clear-button');
+    await page.fill('input[type=search]', 'repository2');
+    await expect(page).toEqualText('.results-panel h2', 'GitHub Pages ignore2');
   });
 });
