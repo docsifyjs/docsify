@@ -35,4 +35,27 @@ describe('Search Plugin Tests', function() {
     await page.fill('input[type=search]', 'test');
     await expect(page).toEqualText('.results-panel h2', 'Test Page');
   });
+
+  test('search ignore title', async () => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+        # Hello World
+
+        This is the homepage.
+
+        ## Test ignore title <!-- {docsify-ignore} -->
+
+        This is the test ignore title.
+      `,
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+      styleURLs: ['/lib/themes/vue.css'],
+    };
+    await docsifyInit(docsifyInitConfig);
+    await page.fill('input[type=search]', 'Test ignore title');
+    expect(await page.innerText('.results-panel h2')).toEqual(
+      'Test ignore title'
+    );
+  });
 });
