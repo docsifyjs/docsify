@@ -66,15 +66,6 @@ function renderMain(html) {
       .findAll('.markdown-section > *')
       .filter(elm => isMountedVue(elm));
 
-    // Store global data() return value as shared data object
-    if (
-      !vueGlobalData &&
-      docsifyConfig.vueGlobalOptions &&
-      typeof docsifyConfig.vueGlobalOptions.data === 'function'
-    ) {
-      vueGlobalData = docsifyConfig.vueGlobalOptions.data();
-    }
-
     // Destroy/unmount existing Vue instances
     for (const mountedElm of mountedElms) {
       if (vueVersion === 2) {
@@ -101,6 +92,27 @@ function renderMain(html) {
   // Handle Vue content not mounted by markdown <script>
   if ('Vue' in window) {
     const vueMountData = [];
+    const vueComponentNames = Object.keys(docsifyConfig.vueComponents || {});
+
+    // Register global vueComponents
+    if (vueVersion === 2 && vueComponentNames.length) {
+      vueComponentNames.forEach(name => {
+        const isNotRegistered = !window.Vue.options.components[name];
+
+        if (isNotRegistered) {
+          window.Vue.component(name, docsifyConfig.vueComponents[name]);
+        }
+      });
+    }
+
+    // Store global data() return value as shared data object
+    if (
+      !vueGlobalData &&
+      docsifyConfig.vueGlobalOptions &&
+      typeof docsifyConfig.vueGlobalOptions.data === 'function'
+    ) {
+      vueGlobalData = docsifyConfig.vueGlobalOptions.data();
+    }
 
     // vueOptions
     vueMountData.push(
@@ -109,48 +121,82 @@ function renderMain(html) {
           dom.find(markdownElm, cssSelector),
           vueConfig,
         ])
-        .filter(
-          ([elm, vueConfig]) => elm && Object.keys(vueConfig || {}).length
-        )
+        .filter(([elm, vueConfig]) => elm)
     );
 
     // vueGlobalOptions
-    if (Object.keys(docsifyConfig.vueGlobalOptions || {}).length) {
+    if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
       vueMountData.push(
         ...dom
           .findAll('.markdown-section > *')
           // Remove duplicates
           .filter(elm => !vueMountData.some(([e, c]) => e === elm))
-          .map(elm => [
-            elm,
-            !vueGlobalData
-              ? docsifyConfig.vueGlobalOptions
-              : // Replace vueGlobalOptions data() return value with shared data
-                // object. This provides a global store for all Vue instances
-                // that receive vueGlobalOptions as their configuration.
-                Object.assign({}, docsifyConfig.vueGlobalOptions, {
-                  data() {
-                    return vueGlobalData;
-                  },
-                }),
-          ])
+          // Detect Vue content
+          .filter(elm => {
+            const isVueMount =
+              // is a component
+              elm.tagName.toLowerCase() in
+                (docsifyConfig.vueComponents || {}) ||
+              // has a component(s)
+              elm.querySelector(vueComponentNames.join(',') || null) ||
+              // has brackets
+              (docsifyConfig.vueGlobalOptions &&
+                /{{2}[^{}]*}{2}/.test(elm.outerHTML)) ||
+              // has directive
+              /{\sv-(bind|cloak|else|else-if|for|html|if|is|model|on|once|pre|show|slot|text)=/.test(
+                elm.outerHTML
+              );
+
+            return isVueMount;
+          })
+          .map(elm => {
+            // Clone global configuration
+            const vueConfig = Object.assign(
+              {},
+              docsifyConfig.vueGlobalOptions || {}
+            );
+
+            // Replace vueGlobalOptions data() return value with shared data object.
+            // This provides a global store for all Vue instances that receive
+            // vueGlobalOptions as their configuration.
+            if (vueGlobalData) {
+              vueConfig.data = function() {
+                return vueGlobalData;
+              };
+            }
+
+            return [elm, vueConfig];
+          })
       );
     }
 
+    // Mount
     for (const [mountElm, vueConfig] of vueMountData) {
-      const isVueMount =
-        // Valid tag
-        mountElm.tagName !== 'SCRIPT' &&
-        // Matches curly braces or HTML directives
-        /{{2}[^{}]*}{2}|\sv-(bind|cloak|else|else-if|for|html|if|is|model|on|once|pre|show|slot|text)=/.test(
-          mountElm.outerHTML
-        );
+      const isVueAttr = 'data-isvue';
+      const isSkipElm =
+        // Is an invalid tag
+        mountElm.matches('pre, script') ||
+        // Is a mounted instance
+        isMountedVue(mountElm) ||
+        // Has mounted instance(s)
+        mountElm.querySelector(`[${isVueAttr}]`);
 
-      if (isVueMount && !isMountedVue(mountElm)) {
+      if (!isSkipElm) {
+        mountElm.setAttribute(isVueAttr, '');
+
         if (vueVersion === 2) {
           new window.Vue(vueConfig).$mount(mountElm);
         } else if (vueVersion === 3) {
-          window.Vue.createApp(vueConfig).mount(mountElm);
+          const app = window.Vue.createApp(vueConfig);
+
+          // Register global vueComponents
+          vueComponentNames.forEach(name => {
+            const config = docsifyConfig.vueComponents[name];
+
+            app.component(name, config);
+          });
+
+          app.mount(mountElm);
         }
       }
     }
