@@ -185,6 +185,7 @@ function renderMain(html) {
         mountElm.setAttribute(isVueAttr, '');
 
         if (vueVersion === 2) {
+          vueConfig.el = undefined;
           new window.Vue(vueConfig).$mount(mountElm);
         } else if (vueVersion === 3) {
           const app = window.Vue.createApp(vueConfig);
