@@ -124,8 +124,11 @@ function renderMain(html) {
         .filter(([elm, vueConfig]) => elm)
     );
 
-    // vueGlobalOptions
+    // Template syntax, vueComponents, vueGlobalOptions
     if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
+      const reHasBraces = /{{2}[^{}]*}{2}/;
+      const reHasDirective = /\sv-(bind|cloak|else|else-if|for|html|if|is|model|on|once|pre|show|slot|text)=/;
+
       vueMountData.push(
         ...dom
           .findAll('.markdown-section > *')
@@ -139,13 +142,10 @@ function renderMain(html) {
                 (docsifyConfig.vueComponents || {}) ||
               // has a component(s)
               elm.querySelector(vueComponentNames.join(',') || null) ||
-              // has brackets
-              (docsifyConfig.vueGlobalOptions &&
-                /{{2}[^{}]*}{2}/.test(elm.outerHTML)) ||
+              // has curly braces
+              reHasBraces.test(elm.outerHTML) ||
               // has directive
-              /{\sv-(bind|cloak|else|else-if|for|html|if|is|model|on|once|pre|show|slot|text)=/.test(
-                elm.outerHTML
-              );
+              reHasDirective.test(elm.outerHTML);
 
             return isVueMount;
           })
