@@ -127,7 +127,7 @@ function renderMain(html) {
     // Template syntax, vueComponents, vueGlobalOptions
     if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
       const reHasBraces = /{{2}[^{}]*}{2}/;
-      const reHasDirective = /\sv-(bind|cloak|else|else-if|for|html|if|is|model|on|once|pre|show|slot|text)=/;
+      const reHasDirective = /\sv-(bind:|cloak|else|else-if=|for=|html=|if=|is=|model=|on:|once|pre|show=|slot=|text=)/;
 
       vueMountData.push(
         ...dom
