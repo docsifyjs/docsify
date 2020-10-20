@@ -106,7 +106,27 @@
             return {
               count: 0,
               message: 'Hello, World!',
+              // Fake API response
+              images: [
+                { title: 'Image 1', url: 'https://picsum.photos/150?random=1' },
+                { title: 'Image 2', url: 'https://picsum.photos/150?random=2' },
+                { title: 'Image 3', url: 'https://picsum.photos/150?random=3' },
+              ],
             };
+          },
+          computed: {
+            timeOfDay() {
+              const date = new Date();
+              const hours = date.getHours();
+
+              if (hours < 12) {
+                return 'morning';
+              } else if (hours < 18) {
+                return 'afternoon';
+              } else {
+                return 'evening';
+              }
+            },
           },
           methods: {
             hello: function() {
@@ -120,15 +140,6 @@
               return {
                 count: 0,
               };
-            },
-            computed: {
-              message: function() {
-                const date = new Date();
-                const hours = date.getHours();
-                const greeting = hours < 12 ? 'morning' : 'day';
-
-                return `Good ${greeting}!`;
-              },
             },
           },
         },

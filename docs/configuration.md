@@ -494,15 +494,15 @@ window.$docsify = {
 ```
 
 ## crossOriginLinks
-- type: `Array`  
 
-When `routerMode: 'history'`, you may face the cross-origin issues, See [#1379](https://github.com/docsifyjs/docsify/issues/1379).  
-In Markdown content, there is a simple way to solve it, see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).  
+- type: `Array`
+
+When `routerMode: 'history'`, you may face the cross-origin issues, See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
+In Markdown content, there is a simple way to solve it, see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
+
 ```js
 window.$docsify = {
-  crossOriginLinks:[
-      "https://example.com/cross-origin-link",
-   ],
+  crossOriginLinks: ['https://example.com/cross-origin-link'],
 };
 ```
 
@@ -629,3 +629,104 @@ window.$docsify = {
   topMargin: 90, // default: 0
 };
 ```
+
+## vueComponents
+
+- type: `Object`
+
+Registers Vue components using the component name as the key with an object containing Vue options as the value.
+
+```js
+window.$docsify = {
+  vueComponents: {
+    'button-counter': {
+      template: `
+        <button @click="count += 1">
+          You clicked me {{ count }} times
+        </button>
+      `,
+      data() {
+        return {
+          count: 0,
+        };
+      },
+    },
+  },
+};
+```
+
+```markdown
+<button-counter></button-counter>
+```
+
+<output data-lang="output">
+  <button-counter></button-counter>
+</output>
+
+## vueGlobalOptions
+
+- type: `Object`
+
+Specifies Vue options to be shared throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [vueOptions](#vueoptions), [vueComponents](#vuecomponents), or a markdown `<script>`.
+
+```js
+window.$docsify = {
+  vueGlobalOptions: {
+    data() {
+      return {
+        count: 0,
+      };
+    },
+  },
+};
+```
+
+```markdown
+<p>
+  <button v-on:click="count -= 1">-</button>
+  {{ count }}
+  <button v-on:click="count += 1">+</button>
+</p>
+```
+
+<output data-lang="output">
+  <p>
+    <button v-on:click="count -= 1">-</button>
+    {{ count }}
+    <button v-on:click="count += 1">+</button>
+  </p>
+</output>
+
+## vueOptions
+
+- type: `Object`
+
+Specifies Vue mount elements and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value.
+
+```js
+window.$docsify = {
+  vueOptions: {
+    '#counter': {
+      data() {
+        return {
+          count: 0,
+        };
+      },
+    },
+  },
+};
+```
+
+```markdown
+<div id="counter">
+  <button v-on:click="count -= 1">-</button>
+  {{ count }}
+  <button v-on:click="count += 1">+</button>
+</div>
+```
+
+<output id="counter">
+  <button v-on:click="count -= 1">-</button>
+  {{ count }}
+  <button v-on:click="count += 1">+</button>
+</output>
