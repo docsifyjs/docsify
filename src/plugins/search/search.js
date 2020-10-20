@@ -226,8 +226,13 @@ export function init(config, vm) {
         namespaceSuffix = matches[0];
       }
     }
-    paths.unshift(namespaceSuffix + '/');
-  } else {
+    if (
+      paths.indexOf(namespaceSuffix + '/') === -1 &&
+      paths.indexOf(namespaceSuffix + '/README') === -1
+    ) {
+      paths.unshift(namespaceSuffix + '/');
+    }
+  } else if (paths.indexOf('/') === -1 && paths.indexOf('/README') === -1) {
     paths.unshift('/');
   }
 
