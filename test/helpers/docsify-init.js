@@ -63,7 +63,7 @@ async function docsifyInit(options = {}) {
     style: '',
     styleURLs: [],
     testURL: `${TEST_HOST}/docsify-init.html`,
-    waitForSelector: '#main',
+    waitForSelector: '#main > *',
   };
   const settings = {
     ...defaults,
