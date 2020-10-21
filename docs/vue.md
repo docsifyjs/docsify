@@ -2,23 +2,25 @@
 
 Docsify allows Vue content to be added directly to you markdown pages. This can greatly simplify working with data and adding reactivity to your site.
 
-To get started, add either Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) to your `index.html` file:
+To get started, add Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
+
+#### Vue 2.x
 
 ```html
-<!-- Vue 2.x (production)-->
+<!-- Production -->
 <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
 
-<!-- Vue 3.x (production) -->
-<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<!-- Development -->
+<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 ```
 
-The URLs above will load a **production** version of Vue which has been optimized for performance. Alternatively, **development** versions of Vue are available that are larger in size but offer helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support:
+#### Vue 3.x
 
 ```html
-<!-- Vue 2.x (development) -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!-- Production -->
+<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 
-<!-- Vue 3.x (development) -->
+<!-- Development -->
 <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
 ```
 
@@ -187,7 +189,7 @@ Good {{ timeOfDay }}!
 
 ## Global options
 
-Use `vueGlobalOptions` to share Vue options throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [instance options](#instance-options), [components](#components), or a [markdown script](#markdown-script). Global `data()` is shared and changes will persist as users navigate the site.
+Use `vueGlobalOptions` to share Vue options throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [instance options](#instance-options), [components](#components), or a [markdown script](#markdown-script).
 
 ```js
 window.$docsify = {
@@ -209,14 +211,7 @@ window.$docsify = {
 </p>
 ```
 
-Notice the behavior when multilpe global counters are rendered below: changes made to one counter affect the other because both instances reference the global `count` value.
-
 <output data-lang="output">
-  <p>
-    <button v-on:click="count -= 1">-</button>
-    {{ count }}
-    <button v-on:click="count += 1">+</button>
-  </p>
   <p>
     <button v-on:click="count -= 1">-</button>
     {{ count }}
@@ -224,11 +219,21 @@ Notice the behavior when multilpe global counters are rendered below: changes ma
   </p>
 </output>
 
-Now, navigate to a new page and return to this section to see how changes made to global data persist.
+Notice the behavior when multiple global counters are rendered:
+
+<output data-lang="output">
+  <p>
+    <button v-on:click="count -= 1">-</button>
+    {{ count }}
+    <button v-on:click="count += 1">+</button>
+  </p>
+</output>
+
+Changes made to one counter affect the both counters. This is because both instances reference the same global `count` value. Now, navigate to a new page and return to this section to see how changes made to global data persist between page loads.
 
 ## Instance options
 
-Use `vueOptions` to specify Vue mount elements and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area (`#main, .markdown-section`) each time a new page is loaded. Instance data is not shared and changes will not persist as users navigate the site.
+Use `vueOptions` to specify Vue mount elements and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area (`#main, .markdown-section`) each time a new page is loaded.
 
 ```js
 window.$docsify = {
@@ -295,7 +300,7 @@ window.$docsify = {
 
 Vue content can mounted using a `<script>` tag in your markdown pages.
 
-!> Only the first `<script>` tag in a markdown file is executed. If you are working with multiple Vue components, all `Vue` instances must be created within the first `<script>` tag in your markdown.
+!> Only the first `<script>` tag in a markdown file is executed. If you wish to mount multiple Vue instances using a script tag, all instances must be mounted within the first script tag in your markdown.
 
 ```html
 <!-- Vue 2.x  -->
@@ -319,10 +324,10 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 ## Technical Notes
 
 - Docsify processes Vue content in the following order:
-  1. markdown script,
+  1. Markdown `<script>`
   1. `vueOptions`
   1. `vueGlobalOptions`
-- Docsify will not mount an element that is already a Vue instance or contains a Vue instance.
-- Docsify will automatically destroy/unmount all Vue instances it creates.
+- Docsify will not mount an existing Vue instance or an element that contains an existing Vue instance.
+- Docsify will automatically destroy/unmount all Vue instances it creates before new page content is loaded.
 - When processing `vueGlobalOptions`, docsify parses each root element of the main content area and mounts the element if Vue content is detected. Docsify does not parse each individual node within the main content area.
-- When processing `vueGlobalOptions`, docsify detects the full `v-` attribute syntax (e.g `v-bind:href` or `v-on:click`) but not the [shorthand](https://vuejs.org/v2/guide/syntax.html#Shorthands) syntax (e.g. `:href`or `@click`).
+- When processing `vueGlobalOptions`, docsify will only detect the full `v-` attribute syntax (e.g `v-bind:href` or `v-on:click`). For performance reasons, detection of Vue's [shorthand](https://vuejs.org/v2/guide/syntax.html#Shorthands) attribute syntax (e.g. `:href`or `@click`) is not supported.
