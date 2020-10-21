@@ -667,7 +667,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Specifies Vue options to be shared throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [vueOptions](#vueoptions), [vueComponents](#vuecomponents), or a markdown `<script>`.
+Specifies Vue options to be shared throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [vueMountOptions](#vuemountoptions), [vueComponents](#vuecomponents), or a markdown `<script>`.
 
 ```js
 window.$docsify = {
@@ -697,7 +697,7 @@ window.$docsify = {
   </p>
 </output>
 
-## vueOptions
+## vueMountOptions
 
 - type: `Object`
 
@@ -705,7 +705,7 @@ Specifies Vue mount elements and their associated options. Mount elements are sp
 
 ```js
 window.$docsify = {
-  vueOptions: {
+  vueMountOptions: {
     '#counter': {
       data() {
         return {
