@@ -59,7 +59,6 @@ function startServer(options = {}, cb = Function.prototype) {
         },
       },
     },
-    startPath: '/docs',
     ui: false,
   };
 
@@ -96,6 +95,7 @@ if (hasStartArg) {
     open: true,
     port: serverConfig.port + 1,
     directory: true,
+    startPath: '/docs',
   });
 }
 // Display friendly message about manually starting a server instance
