@@ -1,3 +1,7 @@
+import mock from 'xhr-mock';
+
+const windowKeys = JSON.parse(JSON.stringify(Object.keys(window)));
+
 // Lifecycle Hooks
 // -----------------------------------------------------------------------------
 // Soft-reset jsdom. This clears the DOM and removes all attribute from the
@@ -13,30 +17,21 @@ beforeEach(async () => {
     rootElm.removeChild(rootElm.firstChild);
   }
 
-  // Remove docsify side-effects
-  [
-    '__current_docsify_compiler__',
-    '_paq',
-    '$docsify',
-    'Docsify',
-    'DocsifyCompiler',
-    'ga',
-    'gaData',
-    'gaGlobal',
-    'gaplugins',
-    'gitter',
-    'google_tag_data',
-    'marked',
-    'Prism',
-  ].forEach(prop => {
-    if (global[prop]) {
-      delete global[prop];
-    }
-  });
+  // Remove jest/docsify side-effects
+  Object.keys(window)
+    .filter(key => !windowKeys.includes(key))
+    .forEach(key => {
+      delete window[key];
+    });
 
   // Remove attributes
   [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
 
   // Restore base elements
   rootElm.innerHTML = '<html><head></head><body></body></html>';
+});
+
+afterEach(async () => {
+  // Restore the global XMLHttpRequest object to its original state
+  mock.teardown();
 });
