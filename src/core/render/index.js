@@ -127,7 +127,8 @@ function renderMain(html) {
     // Template syntax, vueComponents, vueGlobalOptions
     if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
       const reHasBraces = /{{2}[^{}]*}{2}/;
-      const reHasDirective = /\sv-(bind:|cloak|else|else-if=|for=|html=|if=|is=|model=|on:|once|pre|show=|slot=|text=)/;
+      const reHasDataDirective = /\sv-(bind:|cloak|html=|is=|model=|on:|slot=|text=)/;
+      const reHasStaticDirective = /\sv-(else|else-if=|for=|if=|once|pre|show=)/;
 
       vueMountData.push(
         ...dom
@@ -144,8 +145,11 @@ function renderMain(html) {
               elm.querySelector(vueComponentNames.join(',') || null) ||
               // has curly braces
               reHasBraces.test(elm.outerHTML) ||
-              // has directive
-              reHasDirective.test(elm.outerHTML);
+              // has data directive
+              (docsifyConfig.vueGlobalOptions &&
+                reHasDataDirective.test(elm.outerHTML)) ||
+              // has static content directive
+              reHasStaticDirective.test(elm.outerHTML);
 
             return isVueMount;
           })
