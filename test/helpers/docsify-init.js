@@ -77,15 +77,27 @@ async function docsifyInit(options = {}) {
         loadSidebar: Boolean(settings.markdown.sidebar),
       };
 
+      const updateBasePath = config => {
+        config.basePath = new URL(config.basePath, TEST_HOST).href;
+      };
+
       // Config as function
       if (typeof options.config === 'function') {
         return function(vm) {
-          return { ...sharedConfig, ...options.config(vm) };
+          const config = { ...sharedConfig, ...options.config(vm) };
+
+          updateBasePath(config);
+
+          return config;
         };
       }
       // Config as object
       else {
-        return { ...sharedConfig, ...options.config };
+        const config = { ...sharedConfig, ...options.config };
+
+        updateBasePath(config);
+
+        return config;
       }
     },
     get markdown() {
@@ -101,10 +113,10 @@ async function docsifyInit(options = {}) {
     get routes() {
       const helperRoutes = {
         [settings.testURL]: stripIndent`${settings.html}`,
-        ['/README.md']: settings.markdown.homepage,
-        ['/_coverpage.md']: settings.markdown.coverpage,
-        ['/_navbar.md']: settings.markdown.navbar,
-        ['/_sidebar.md']: settings.markdown.sidebar,
+        ['README.md']: settings.markdown.homepage,
+        ['_coverpage.md']: settings.markdown.coverpage,
+        ['_navbar.md']: settings.markdown.navbar,
+        ['_sidebar.md']: settings.markdown.sidebar,
       };
 
       const finalRoutes = Object.fromEntries(
@@ -116,7 +128,7 @@ async function docsifyInit(options = {}) {
           .filter(([url, responseText]) => url && responseText)
           .map(([url, responseText]) => [
             // Convert relative to absolute URL
-            new URL(url, TEST_HOST).href,
+            new URL(url, settings.config.basePath).href,
             // Strip indentation from responseText
             stripIndent`${responseText}`,
           ])
