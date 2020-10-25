@@ -1,31 +1,77 @@
 import mock from 'xhr-mock';
 
-const windowKeys = JSON.parse(JSON.stringify(Object.keys(window)));
+const sideEffects = {
+  document: {
+    addEventListener: {
+      fn: document.addEventListener,
+      refs: [],
+    },
+    keys: Object.keys(document),
+  },
+  window: {
+    addEventListener: {
+      fn: window.addEventListener,
+      refs: [],
+    },
+    keys: Object.keys(window),
+  },
+};
 
 // Lifecycle Hooks
 // -----------------------------------------------------------------------------
-// Soft-reset jsdom. This clears the DOM and removes all attribute from the
-// root element, however it does not undo changes made to jsdom globals like
-// the window or document object. Tests requiring a full jsdom reset should be
-// stored in separate files, as this is the only way (?) to do a complete
-// reset of JSDOM with Jest.
+beforeAll(async () => {
+  // Spy addEventListener
+  ['document', 'window'].forEach(obj => {
+    const fn = sideEffects[obj].addEventListener.fn;
+    const refs = sideEffects[obj].addEventListener.refs;
+
+    function addEventListenerSpy(type, listener, options) {
+      // Store listener reference so it can be removed during reset
+      refs.push({ type, listener, options });
+      // Call original window.addEventListener
+      fn(type, listener, options);
+    }
+
+    // Add to default key arry to prevent removal during reset
+    sideEffects[obj].keys.push('addEventListener');
+
+    // Replace addEventListener with mock
+    global[obj].addEventListener = addEventListenerSpy;
+  });
+});
+
+// Reset JSDOM. This attempts to remove side effects from tests, however it does
+// not reset all changes made to globals like the the window and document
+// objects. Tests requiring a full JSDOM reset should be stored in separate
+// files, which is only way to do a complete reset of JSDOM with Jest.
 beforeEach(async () => {
   const rootElm = document.documentElement;
+
+  // Remove attributes on root element
+  [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
 
   // Remove elements (faster the setting innerHTML)
   while (rootElm.firstChild) {
     rootElm.removeChild(rootElm.firstChild);
   }
 
-  // Remove jest/docsify side-effects
-  Object.keys(window)
-    .filter(key => !windowKeys.includes(key))
-    .forEach(key => {
-      delete window[key];
-    });
+  // Remove global listeners and keys
+  ['document', 'window'].forEach(obj => {
+    const refs = sideEffects[obj].addEventListener.refs;
 
-  // Remove attributes
-  [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
+    // Listeners
+    while (refs.length) {
+      const { type, listener, options } = refs.pop();
+      global[obj].removeEventListener(type, listener, options);
+    }
+
+    // Keys
+    Object.keys(global[obj])
+      .filter(key => !sideEffects[obj].keys.includes(key))
+      .forEach(key => {
+        delete global[obj][key];
+      });
+  });
 
   // Restore base elements
   rootElm.innerHTML = '<html><head></head><body></body></html>';
