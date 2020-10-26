@@ -6,8 +6,8 @@ const axios = require('axios');
 const prettier = require('prettier');
 const stripIndent = require('common-tags/lib/stripIndent');
 
-const docsifyPATH = `${LIB_PATH}/docsify.js`; // JSDOM
-const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
+const docsifyPATH = '../../lib/docsify.js'; // JSDOM
+const docsifyURL = '/lib/docsify.js'; // Playwright
 const isJSDOM = 'window' in global;
 const isPlaywright = 'page' in global;
 

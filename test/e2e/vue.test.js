@@ -2,8 +2,8 @@ const stripIndent = require('common-tags/lib/stripIndent');
 const docsifyInit = require('../helpers/docsify-init');
 
 const vueURLs = [
-  `${NODE_MODULES_URL}/vue2/dist/vue.js`,
-  `${NODE_MODULES_URL}/vue3/dist/vue.global.js`,
+  '/node_modules/vue2/dist/vue.js',
+  '/node_modules/vue3/dist/vue.global.js',
 ];
 
 describe('Vue.js Compatibility', function() {

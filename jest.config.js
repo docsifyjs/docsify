@@ -1,13 +1,9 @@
-const path = require('path');
 const { globals: serverGlobals } = require('./test/config/server.js');
 
 const sharedConfig = {
   errorOnDeprecated: true,
   globals: {
-    ...serverGlobals, // BLANK_URL, DOCS_URL, LIB_URL, NODE_MODULES_URL, TEST_HOST
-    DOCS_PATH: path.resolve(__dirname, 'docs'),
-    LIB_PATH: path.resolve(__dirname, 'lib'),
-    SRC_PATH: path.resolve(__dirname, 'src'),
+    ...serverGlobals, // BLANK_URL, TEST_HOST
   },
   globalSetup: './test/config/jest.setup.js',
   globalTeardown: './test/config/jest.teardown.js',

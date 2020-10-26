@@ -112,11 +112,11 @@ describe(`Example Tests`, function() {
 
     // Inject docsify theme (vue.css)
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddstyletagoptions
-    await page.addStyleTag({ url: `${LIB_URL}/themes/vue.css` });
+    await page.addStyleTag({ url: '/lib/themes/vue.css' });
 
     // Inject docsify.js
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddscripttagoptions
-    await page.addScriptTag({ url: `${LIB_URL}/docsify.js` });
+    await page.addScriptTag({ url: '/lib/docsify.js' });
 
     // Wait for docsify to initialize
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagewaitforselectorselector-options

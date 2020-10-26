@@ -14,18 +14,7 @@
 
 ## Global Variables
 
-### File paths
-
-- `DOCS_PATH`: File path to `/docs` directory
-- `LIB_PATH`: File path to `/lib` directory
-- `SRC_PATH`: File path to `/src` directory
-
-### URLs
-
 - `BLANK_URL`: Test server route to virtual `_blank.html` file
-- `DOCS_URL`: Test server route to `/docs` directory
-- `LIB_URL`: Test server route to `/lib` directory
-- `NODE_MODULES_URL`: Test server route to `/node_modules` directory
 - `TEST_HOST`: Test server ip:port
 
 ## CLI commands

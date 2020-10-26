@@ -108,15 +108,6 @@ module.exports = {
     get BLANK_URL() {
       return `${this.TEST_HOST}/_blank.html`;
     },
-    get DOCS_URL() {
-      return `${this.TEST_HOST}/docs`;
-    },
-    get LIB_URL() {
-      return `${this.TEST_HOST}/lib`;
-    },
-    get NODE_MODULES_URL() {
-      return `${this.TEST_HOST}/node_modules`;
-    },
     TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
   },
   start: startServer,
