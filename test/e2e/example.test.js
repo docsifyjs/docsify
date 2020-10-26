@@ -99,7 +99,7 @@ describe(`Example Tests`, function() {
     await page.evaluate(() => {
       window.$docsify = {
         el: '#app',
-        basePath: '/docs',
+        basePath: '/docs/',
         themeColor: 'red',
       };
     });
@@ -182,12 +182,12 @@ describe(`Example Tests`, function() {
         `,
       },
       routes: {
-        '/test.md': `
+        'test.md': `
           # Test Page
 
           This is a custom route.
         `,
-        '/data-test-scripturls.js': `
+        'data-test-scripturls.js': `
           document.body.setAttribute('data-test-scripturls', 'pass');
         `,
       },
@@ -196,7 +196,7 @@ describe(`Example Tests`, function() {
       `,
       scriptURLs: [
         // docsifyInit() route
-        '/data-test-scripturls.js',
+        'data-test-scripturls.js',
         // Server route
         '/lib/plugins/search.min.js',
       ],
