@@ -17,7 +17,7 @@ describe('Docs Site', function() {
       markdown: {
         homepage: '# Hello World',
       },
-      waitForSelector: '.cover.show',
+      waitForSelector: '.cover-main > *',
     });
 
     const coverpageElm = document.querySelector('section.cover');
