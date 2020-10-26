@@ -27,7 +27,7 @@
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint .",
     "fixlint": "eslint . --fix",
-    "test": "jest --runInBand",
+    "test": "jest",
     "test:e2e": "jest --selectProjects e2e",
     "test:integration": "jest --selectProjects integration",
     "test:unit": "jest --selectProjects unit",
