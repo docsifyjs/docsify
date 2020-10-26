@@ -1,4 +1,4 @@
-const { removeAtag } = require(`${SRC_PATH}/core/render/utils`);
+const { removeAtag } = require('../../src/core/render/utils');
 
 // Suite
 // -----------------------------------------------------------------------------
