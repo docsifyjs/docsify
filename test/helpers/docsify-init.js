@@ -78,7 +78,9 @@ async function docsifyInit(options = {}) {
       };
 
       const updateBasePath = config => {
-        config.basePath = new URL(config.basePath, TEST_HOST).href;
+        if (config.basePath) {
+          config.basePath = new URL(config.basePath, TEST_HOST).href;
+        }
       };
 
       // Config as function
@@ -128,7 +130,7 @@ async function docsifyInit(options = {}) {
           .filter(([url, responseText]) => url && responseText)
           .map(([url, responseText]) => [
             // Convert relative to absolute URL
-            new URL(url, settings.config.basePath).href,
+            new URL(url, settings.config.basePath || TEST_HOST).href,
             // Strip indentation from responseText
             stripIndent`${responseText}`,
           ])
