@@ -228,6 +228,7 @@ function updateOptions(opts) {
 }
 
 export function init(opts, vm) {
+  // TODO FIXME parse() expects an argument
   const keywords = vm.router.parse().query.s;
 
   updateOptions(opts);

@@ -7,7 +7,7 @@ export class AbstractHistory extends History {
     this.mode = 'abstract';
   }
 
-  parse(path) {
+  parse(path = location.href) {
     let query = '';
 
     const queryIndex = path.indexOf('?');

@@ -26,7 +26,10 @@ module.exports = {
       ...sharedConfig,
       displayName: 'unit',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
-      testMatch: ['<rootDir>/test/unit/*.test.js'],
+      testMatch: [
+        '<rootDir>/test/unit/**/*.test.js',
+        '<rootDir>/packages/docsify-server-renderer/src/**/*.test.js',
+      ],
       testURL: serverGlobals.BLANK_URL,
     },
     // Integration Tests (Jest)

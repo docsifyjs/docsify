@@ -14,15 +14,16 @@
     "url": "git+https://github.com/docsifyjs/docsify.git"
   },
   "main": "lib/docsify.js",
+  "type": "module",
   "unpkg": "lib/docsify.min.js",
   "files": [
     "lib",
     "themes"
   ],
   "scripts": {
-    "bootstrap": "npm i && lerna bootstrap && npm run build:ssr",
+    "bootstrap": "npm i && lerna bootstrap",
     "serve": "node server",
-    "serve:ssr": "cross-env SSR=1 node server",
+    "serve:ssr": "cross-env SSR=1 node --experimental-specifier-resolution=node server",
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "eslint .",
@@ -37,15 +38,14 @@
     "build:css:min": "mkdirp lib/themes && npm run css -- -o lib/themes && node build/mincss.js",
     "build:css": "mkdirp themes && npm run css -- -o themes",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
-    "build:ssr": "node build/ssr.js",
     "build:cover": "node build/cover.js",
-    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover",
+    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:cover",
     "prepare": "npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
     "postinstall": "opencollective-postinstall"
   },
-  "husky": {
+  "husky-OFF": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
@@ -55,6 +55,8 @@
   },
   "dependencies": {
     "dompurify": "^2.0.8",
+    "esm": "^3.2.25",
+    "jsdom": "^16.4.0",
     "marked": "^1.1.1",
     "medium-zoom": "^1.0.6",
     "opencollective-postinstall": "^2.0.2",

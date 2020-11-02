@@ -11,6 +11,7 @@
   "license": "MIT",
   "repository": "docsifyjs/docsify",
   "main": "build.js",
+  "type": "module",
   "scripts": {
     "test": "echo 'hello'"
   },

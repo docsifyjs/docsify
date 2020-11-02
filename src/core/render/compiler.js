@@ -109,6 +109,7 @@ export class Compiler {
         return html;
       })(text);
 
+      // TODO parse() expects an arg, but here it does not receive an arg so it fails.
       const curFileName = this.router.parse().file;
 
       if (isCached) {

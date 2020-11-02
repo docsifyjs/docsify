@@ -1,8 +1,10 @@
-const cssnano = require('cssnano').process
-const path = require('path')
-const fs = require('fs')
+import _cssnano from 'cssnano'
+import path from 'path'
+import fs from 'fs'
 
-files = fs.readdirSync(path.resolve('lib/themes'))
+const cssnano = _cssnano.process
+
+const files = fs.readdirSync(path.resolve('lib/themes'))
 
 files.forEach(file => {
   file = path.resolve('lib/themes', file)

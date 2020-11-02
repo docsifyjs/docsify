@@ -9,24 +9,13 @@ import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
+import { getServerHTMLTemplate } from './template';
+import { isExternal } from './src/utils';
+
+export { getServerHTMLTemplate };
 
 function cwd(...args) {
   return resolve(process.cwd(), ...args);
-}
-
-// Borrowed from https://j11y.io/snippets/getting-a-fully-qualified-url.
-function qualifyURL(url) {
-  const img = document.createElement('img');
-  img.src = url; // set string url
-  url = img.src; // get qualified url
-  img.src = ''; // prevent the server request
-  return url;
-}
-
-function isExternal(url) {
-  url = qualifyURL(url);
-  url = new URL(url);
-  return url.origin !== location.origin;
 }
 
 function mainTpl(config) {
@@ -48,12 +37,11 @@ function mainTpl(config) {
 }
 
 export default class Renderer {
-  constructor({ template, config, cache }) {
+  constructor({ template, config }) {
     this.html = template;
     this.config = config = Object.assign({}, config, {
       routerMode: 'history',
     });
-    this.cache = cache;
 
     this.router = new AbstractHistory(config);
     this.compiler = new Compiler(config, this.router);

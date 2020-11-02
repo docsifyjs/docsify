@@ -9,7 +9,7 @@ import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
 import { isPrimitive } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
-import { isExternal } from '../fetch';
+import { isExternal } from '../../../packages/docsify-server-renderer/src/utils';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
