@@ -44,7 +44,7 @@ Alternatively, use [compressed files](#compressed-file).
 
 ## Other CDN
 
-- http://www.bootcdn.cn/docsify
+- https://www.bootcdn.cn/docsify/
 - https://cdn.jsdelivr.net/npm/docsify/
 - https://cdnjs.com/libraries/docsify
-
+- https://unpkg.com/browse/docsify/

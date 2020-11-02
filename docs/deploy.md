@@ -135,3 +135,49 @@ frontend:
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
 | /<*>.png       | /<*>.png       | 200 (Rewrite) |
 | /<*>           | /index.html    | 200 (Rewrite) |        
+
+
+## Docker
+
+- Create docsify files 
+
+  You need prepare the initial files instead of making in container.  
+  See the [Quickstart](https://docsify.js.org/#/quickstart) section for instructions on how to create these files manually or using [docsify-cli](https://github.com/docsifyjs/docsify-cli).
+
+    ```sh
+    index.html
+    README.md
+    ```
+
+- Create dockerfile
+
+  ```Dockerfile
+    FROM node:latest
+    LABEL description="A demo Dockerfile for build Docsify."
+    WORKDIR /docs
+    RUN npm install -g docsify-cli@latest
+    EXPOSE 3000/tcp
+    ENTRYPOINT docsify serve .
+  
+  ```
+
+  So, current directory structure should be this: 
+
+  ```sh
+   index.html
+   README.md
+   Dockerfile
+  ```
+
+- Build docker image
+
+  ```sh
+  docker build -f Dockerfile -t docsify/demo .
+  ```
+
+- Run docker image
+
+  ```sh
+  docker run -itp 3000:3000 --name=docsify -v $(pwd):/docs docsify/demo 
+  ```
+

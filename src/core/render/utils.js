@@ -38,3 +38,13 @@ export function getAndRemoveConfig(str = '') {
 
   return { str, config };
 }
+
+/**
+ * Remove the <a> tag from sidebar when the header with link, details see issue 1069
+ * @param {string}   str   The string to deal with.
+ *
+ * @return {string}   str   The string after delete the <a> element.
+ */
+export function removeAtag(str = '') {
+  return str.replace(/(<\/?a.*?>)/gi, '');
+}

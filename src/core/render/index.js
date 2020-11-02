@@ -27,9 +27,7 @@ function executeScript() {
     return false;
   }
 
-  setTimeout(_ => {
-    window.__EXECUTE_RESULT__ = new Function(code)();
-  }, 0);
+  new Function(code)();
 }
 
 function formatUpdated(html, updated, fn) {
@@ -49,22 +47,56 @@ function renderMain(html) {
   }
 
   this._renderTo('.markdown-section', html);
+
   // Render sidebar with the TOC
   !this.config.loadSidebar && this._renderSidebar();
 
-  // Execute script
+  // Execute markdown <script>
   if (
-    this.config.executeScript !== false &&
-    typeof window.Vue !== 'undefined' &&
-    !executeScript()
+    this.config.executeScript ||
+    ('Vue' in window && this.config.executeScript !== false)
   ) {
-    setTimeout(_ => {
-      const vueVM = window.__EXECUTE_RESULT__;
-      vueVM && vueVM.$destroy && vueVM.$destroy();
-      window.__EXECUTE_RESULT__ = new window.Vue().$mount('#main');
-    }, 0);
-  } else {
-    this.config.executeScript && executeScript();
+    executeScript();
+  }
+
+  // Handle Vue content not handled by markdown <script>
+  if ('Vue' in window) {
+    const mainElm = document.querySelector('#main') || {};
+    const childElms = mainElm.children || [];
+    const vueVersion =
+      window.Vue.version && Number(window.Vue.version.charAt(0));
+
+    for (let i = 0, len = childElms.length; i < len; i++) {
+      const elm = childElms[i];
+      const isValid = elm.tagName !== 'SCRIPT';
+
+      if (!isValid) {
+        continue;
+      }
+
+      // Vue 3
+      if (vueVersion === 3) {
+        const isAlreadyVue = Boolean(elm._vnode && elm._vnode.__v_skip);
+
+        if (!isAlreadyVue) {
+          const app = window.Vue.createApp({});
+
+          app.mount(elm);
+        }
+      }
+      // Vue 2
+      else if (vueVersion === 2) {
+        const isAlreadyVue = Boolean(elm.__vue__ && elm.__vue__._isVue);
+
+        if (!isAlreadyVue) {
+          new window.Vue({
+            mounted: function() {
+              this.$destroy();
+            },
+          }).$mount(elm);
+        }
+      }
+    }
   }
 }
 
@@ -159,7 +191,9 @@ export function renderMixin(proto) {
           html = formatUpdated(html, opt.updatedAt, this.config.formatUpdated);
         }
 
-        callHook(this, 'afterEach', html, text => renderMain.call(this, text));
+        callHook(this, 'afterEach', html, hookData =>
+          renderMain.call(this, hookData)
+        );
       };
 
       if (this.isHTML) {
@@ -239,6 +273,7 @@ export function initRender(vm) {
   // Init markdown compiler
   vm.compiler = new Compiler(config, vm.router);
   if (inBrowser) {
+    /* eslint-disable-next-line camelcase */
     window.__current_docsify_compiler__ = vm.compiler;
   }
 

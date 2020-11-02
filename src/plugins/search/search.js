@@ -56,11 +56,19 @@ function getAllPaths(router) {
 
 function getTableData(token) {
   if (!token.text && token.type === 'table') {
+    token.cells.unshift(token.header);
     token.text = token.cells
       .map(function(rows) {
         return rows.join(' | ');
       })
       .join(' |\n ');
+  }
+  return token.text;
+}
+
+function getListData(token) {
+  if (!token.text && token.type === 'list') {
+    token.text = token.raw;
   }
   return token.text;
 }
@@ -96,10 +104,12 @@ export function genIndex(path, content = '', router, depth) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
         token.text = getTableData(token);
+        token.text = getListData(token);
 
         index[slug].body += '\n' + (token.text || '');
       } else {
         token.text = getTableData(token);
+        token.text = getListData(token);
 
         index[slug].body = index[slug].body
           ? index[slug].body + token.text
@@ -169,7 +179,10 @@ export function search(query) {
             '...' +
             escapeHtml(postContent)
               .substring(start, end)
-              .replace(regEx, `<em class="search-keyword">${keyword}</em>`) +
+              .replace(
+                regEx,
+                word => `<em class="search-keyword">${word}</em>`
+              ) +
             '...';
 
           resultStr += matchContent;
@@ -194,9 +207,32 @@ export function search(query) {
 
 export function init(config, vm) {
   const isAuto = config.paths === 'auto';
+  const paths = isAuto ? getAllPaths(vm.router) : config.paths;
 
-  const expireKey = resolveExpireKey(config.namespace);
-  const indexKey = resolveIndexKey(config.namespace);
+  let namespaceSuffix = '';
+
+  // only in auto mode
+  if (paths.length && isAuto && config.pathNamespaces) {
+    const path = paths[0];
+
+    if (Array.isArray(config.pathNamespaces)) {
+      namespaceSuffix =
+        config.pathNamespaces.find(prefix => path.startsWith(prefix)) ||
+        namespaceSuffix;
+    } else if (config.pathNamespaces instanceof RegExp) {
+      const matches = path.match(config.pathNamespaces);
+
+      if (matches) {
+        namespaceSuffix = matches[0];
+      }
+    }
+    paths.unshift(namespaceSuffix + '/');
+  } else {
+    paths.unshift('/');
+  }
+
+  const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
+  const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
 
   const isExpired = localStorage.getItem(expireKey) < Date.now();
 
@@ -208,7 +244,6 @@ export function init(config, vm) {
     return;
   }
 
-  const paths = isAuto ? getAllPaths(vm.router) : config.paths;
   const len = paths.length;
   let count = 0;
 

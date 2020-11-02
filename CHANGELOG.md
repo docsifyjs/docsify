@@ -1,3 +1,70 @@
+## [4.11.6](https://github.com/docsifyjs/docsify/compare/v4.11.5...v4.11.6) (2020-08-22)
+
+
+### Bug Fixes
+
+* Add patch for {docsify-ignore} and {docsify-ignore-all} ([ce31607](https://github.com/docsifyjs/docsify/commit/ce316075e033afdbeb43ce01e284a29fe1870e38))
+
+
+
+## [4.11.5](https://github.com/docsifyjs/docsify/compare/v4.11.4...v4.11.5) (2020-08-21)
+
+
+### Bug Fixes
+
+*  Russian language link error ([#1270](https://github.com/docsifyjs/docsify/issues/1270)) ([2a52460](https://github.com/docsifyjs/docsify/commit/2a52460a59448abaf681046fbc5dca642285ae1f))
+* {docsify-updated} in the sample code is parsed into time ([#1321](https://github.com/docsifyjs/docsify/issues/1321)) ([2048610](https://github.com/docsifyjs/docsify/commit/2048610aacd4e3c6a592f4247834a726c7ca33fb))
+* Add error handling for missing dependencies (fixes [#1210](https://github.com/docsifyjs/docsify/issues/1210)) ([#1232](https://github.com/docsifyjs/docsify/issues/1232)) ([3673001](https://github.com/docsifyjs/docsify/commit/3673001a24cb24c57454f9bc7619de49d2c3a044))
+* after setting the background image, the button is obscured ([#1234](https://github.com/docsifyjs/docsify/issues/1234)) ([34d918f](https://github.com/docsifyjs/docsify/commit/34d918f9973bdb8e893248853e3ef7e803d4c253))
+* convert {docsify-ignore} and {docsify-ignore-all} to HTML comments ([#1318](https://github.com/docsifyjs/docsify/issues/1318)) ([90d283d](https://github.com/docsifyjs/docsify/commit/90d283d340502456a5d8495df596bb4a02ceb39b))
+* fallback page should use path not file location ([#1301](https://github.com/docsifyjs/docsify/issues/1301)) ([2bceabc](https://github.com/docsifyjs/docsify/commit/2bceabcb8e623570540493e2f1d956adf45c99e7))
+* Fix search error when exist translations documents ([#1300](https://github.com/docsifyjs/docsify/issues/1300)) ([b869019](https://github.com/docsifyjs/docsify/commit/b8690199006366e86084e9e018def7b9b8f46512))
+* gitignore was ignoring folders in src, so VS Code search results or file fuzzy finder were not working, etc ([d4c9247](https://github.com/docsifyjs/docsify/commit/d4c9247b87c0a2701683ed1a17383cfb451cf609))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1250](https://github.com/docsifyjs/docsify/issues/1250)) ([d439bac](https://github.com/docsifyjs/docsify/commit/d439bac93f479d0480799880538fc3104e54c907))
+* search can not search the table header ([#1256](https://github.com/docsifyjs/docsify/issues/1256)) ([3f03e78](https://github.com/docsifyjs/docsify/commit/3f03e78418993d8e9a4f5062e10dc79c3753389e))
+* Search plugin: matched text is replaced with search text ([#1298](https://github.com/docsifyjs/docsify/issues/1298)) ([78775b6](https://github.com/docsifyjs/docsify/commit/78775b6ee73102cc5ac71c0ee2b392c5f4f6f4f8))
+* the uncaught typeerror when el is null ([#1308](https://github.com/docsifyjs/docsify/issues/1308)) ([952f4c9](https://github.com/docsifyjs/docsify/commit/952f4c921b7a6a558c500ca6b105582d39ad36a2))
+* Updated docs with instructions for installing specific version (fixes [#780](https://github.com/docsifyjs/docsify/issues/780)) ([#1225](https://github.com/docsifyjs/docsify/issues/1225)) ([b90c948](https://github.com/docsifyjs/docsify/commit/b90c948090e89fa778279c95060dbd7668285658))
+* upgrade medium-zoom from 1.0.5 to 1.0.6 ([3beaa66](https://github.com/docsifyjs/docsify/commit/3beaa6666b78518f1ffaa37f6942f3cb08fef896))
+* upgrade tinydate from 1.2.0 to 1.3.0 ([#1341](https://github.com/docsifyjs/docsify/issues/1341)) ([59d090f](https://github.com/docsifyjs/docsify/commit/59d090fe9096bc03e259c166634bb75bb2623f85))
+
+
+### Features
+
+* **search:** add pathNamespaces option ([d179dde](https://github.com/docsifyjs/docsify/commit/d179dde1c71acdcbe66cb762377b123926c55bf2))
+* Add title to sidebar links ([#1286](https://github.com/docsifyjs/docsify/issues/1286)) ([667496b](https://github.com/docsifyjs/docsify/commit/667496b85d99b168255f58e60a6bfe902cc6ee03))
+
+
+
+## [4.11.4](https://github.com/docsifyjs/docsify/compare/v4.11.3...v4.11.4) (2020-06-18)
+
+
+### Bug Fixes
+
+* consistent location of search result ([e9dd2de](https://github.com/docsifyjs/docsify/commit/e9dd2de384b81619aae2bcbf92f52721cb76a177))
+* cover overlapping sidebar by removing z-index ([0bf03f5](https://github.com/docsifyjs/docsify/commit/0bf03f58103037d100b1635cf3989c8d3672b4ba))
+* cross-origin url cannot be redirected when  "externalLinkTarget" is set to "_self" and "routerMode" is set to "history". ([#1062](https://github.com/docsifyjs/docsify/issues/1062)) ([fd2cec6](https://github.com/docsifyjs/docsify/commit/fd2cec6bd66c46d6957811fefae4c615c3052a4f)), closes [#1046](https://github.com/docsifyjs/docsify/issues/1046) [#1046](https://github.com/docsifyjs/docsify/issues/1046) [#1046](https://github.com/docsifyjs/docsify/issues/1046)
+* default html img resize if no height included ([#1065](https://github.com/docsifyjs/docsify/issues/1065)) ([9ff4d06](https://github.com/docsifyjs/docsify/commit/9ff4d0677304bc190e7bd9e89bbbdc64895197fa))
+* fixed target and rel issue (fixes [#1183](https://github.com/docsifyjs/docsify/issues/1183)) ([3d662a5](https://github.com/docsifyjs/docsify/commit/3d662a5bf71bbfef077cfbc478df241d794f55a0))
+* Inconsistent search and body rendering ([dcb0aae](https://github.com/docsifyjs/docsify/commit/dcb0aaea99efbd68175f1d1aeb5076b6dde9801e))
+* rendering cover width bug ([717991c](https://github.com/docsifyjs/docsify/commit/717991c90cf709f4da91fe32610129de6529266b))
+* search does not find the contents of the table ([#1198](https://github.com/docsifyjs/docsify/issues/1198)) ([31010e4](https://github.com/docsifyjs/docsify/commit/31010e4979b3d3ab4bd247a09c4ac5fd1405eaa8))
+* The search error after setting the ID in the title ([#1159](https://github.com/docsifyjs/docsify/issues/1159)) ([6e554f8](https://github.com/docsifyjs/docsify/commit/6e554f8ebd3d4a2c5c7e4f66cff3dfe2b6aa1e31))
+* upgrade docsify from 4.10.2 to 4.11.2 ([60b7f89](https://github.com/docsifyjs/docsify/commit/60b7f89b373b0d48ec8406a51eddeaed8126696d))
+
+
+### Features
+
+* added html sanitizer for remote rendering ([#1128](https://github.com/docsifyjs/docsify/issues/1128)) ([714ef29](https://github.com/docsifyjs/docsify/commit/714ef29afe779a6db5c4761ebaacdfc70ee2d8dd))
+* update src/core/index.js to export all global APIs, deprecate old globals in favor of a single global DOCSIFY, and add tests for this ([7e002bf](https://github.com/docsifyjs/docsify/commit/7e002bf939d7837843908417b5445b4f8d36c1cd))
+
+
+### Reverts
+
+* Revert "Updated docs site dark and light mode with switch and redesigned search bar using docsify-darklight-theme" (#1207) ([26cb940](https://github.com/docsifyjs/docsify/commit/26cb940b51d34ee584b8425012a336f38a4abd76)), closes [#1207](https://github.com/docsifyjs/docsify/issues/1207) [#1182](https://github.com/docsifyjs/docsify/issues/1182)
+
+
+
 ## [4.11.3](https://github.com/docsifyjs/docsify/compare/v4.11.2...v4.11.3) (2020-03-24)
 
 
@@ -28,8 +95,8 @@
 * emojis in titles not working correctly and update ([#1016](https://github.com/docsifyjs/docsify/issues/1016)) ([b3d9b96](https://github.com/docsifyjs/docsify/commit/b3d9b966dfbb6f456c2c457da1d2a366e85d9190))
 * searching table content ([6184e50](https://github.com/docsifyjs/docsify/commit/6184e502629932ca71fdd0a1b10150d118f5a7c8))
 * stage modified files as part of pre-commit hook ([#985](https://github.com/docsifyjs/docsify/issues/985)) ([5b77b0f](https://github.com/docsifyjs/docsify/commit/5b77b0f628f056b7ebb6d0b617561d19964516a2))
-* config initialization and coercion ([#861](https://github.com/docsifyjs/docsify/pull/861)) 
-* strip indent when embedding code fragment ([#996](https://github.com/docsifyjs/docsify/pull/996)) 
+* config initialization and coercion ([#861](https://github.com/docsifyjs/docsify/pull/861))
+* strip indent when embedding code fragment ([#996](https://github.com/docsifyjs/docsify/pull/996))
 * Ensure autoHeader dom result is similar to parsed H1 ([#811](https://github.com/docsifyjs/docsify/pull/811))
 * upgrade docsify from 4.9.4 to 4.10.2 ([#1054](https://github.com/docsifyjs/docsify/issues/1054)) ([78290b2](https://github.com/docsifyjs/docsify/commit/78290b21038a3ae09c4c7438bd89b14ca4c02805))
 * upgrade medium-zoom from 1.0.4 to 1.0.5 ([39ebd73](https://github.com/docsifyjs/docsify/commit/39ebd73021290439180878cae32e663b9e60e214))
@@ -48,7 +115,7 @@
 
 ### Docs
 
-* update docs for the `name` config option ([#992](https://github.com/docsifyjs/docsify/pull/992)) 
+* update docs for the `name` config option ([#992](https://github.com/docsifyjs/docsify/pull/992))
 * about cache ([#854](https://github.com/docsifyjs/docsify/pull/854))
 * removed FOSSA badge
 * documented `__colon__` tip ([#1025](https://github.com/docsifyjs/docsify/pull/1025))
@@ -56,21 +123,21 @@
 ### Chore
 
 * Migrate relative links to absolute in embedded markdown ([#867](https://github.com/docsifyjs/docsify/pull/867))
-* smarter scroll behavior ([#744](https://github.com/docsifyjs/docsify/pull/744)) 
+* smarter scroll behavior ([#744](https://github.com/docsifyjs/docsify/pull/744))
 * improve basic layout style ([#884](https://github.com/docsifyjs/docsify/pull/884))
-* There are currently {three=>four} themes available. ([#892](https://github.com/docsifyjs/docsify/pull/892)) 
-* Added a redirect for images to show up in Amplify ([#918](https://github.com/docsifyjs/docsify/pull/918)) 
+* There are currently {three=>four} themes available. ([#892](https://github.com/docsifyjs/docsify/pull/892))
+* Added a redirect for images to show up in Amplify ([#918](https://github.com/docsifyjs/docsify/pull/918))
 * removed the escaping of the name of sidebar ([#991](https://github.com/docsifyjs/docsify/pull/991))
-* Eslint fixes for v4x ([#989](https://github.com/docsifyjs/docsify/pull/989)) 
-* added github Actions for CI ([#1000](https://github.com/docsifyjs/docsify/pull/1000)) 
+* Eslint fixes for v4x ([#989](https://github.com/docsifyjs/docsify/pull/989))
+* added github Actions for CI ([#1000](https://github.com/docsifyjs/docsify/pull/1000))
 * Add a prepare script. ([#1010](https://github.com/docsifyjs/docsify/pull/1010))
-* chore(GH-action): using ubuntu 16 and removed node 8 from CI 
+* chore(GH-action): using ubuntu 16 and removed node 8 from CI
 * chore: add config ([#1014](https://github.com/docsifyjs/docsify/pull/1014))
 * chore(stale): added enhancement label to exemptlabels
 * chore(stale): added bug label to exemptlabels
-* .markdown-section max-width 800px to 80% ([#1017](https://github.com/docsifyjs/docsify/pull/1017)) 
-* changed the CDN from unpkg to jsDelivr #1020 ([#1022](https://github.com/docsifyjs/docsify/pull/1022)) 
-* migrate CI to github, refactore CI and npm scripts, linting fixes ([#1023](https://github.com/docsifyjs/docsify/pull/1023)) 
+* .markdown-section max-width 800px to 80% ([#1017](https://github.com/docsifyjs/docsify/pull/1017))
+* changed the CDN from unpkg to jsDelivr #1020 ([#1022](https://github.com/docsifyjs/docsify/pull/1022))
+* migrate CI to github, refactore CI and npm scripts, linting fixes ([#1023](https://github.com/docsifyjs/docsify/pull/1023))
 * chore(readme): added CI badges and fixed the logo issue
 * added new linter config ([#1028](https://github.com/docsifyjs/docsify/pull/1028))
 

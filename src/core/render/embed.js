@@ -14,6 +14,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   }
 
   while ((token = embedTokens[step++])) {
+    // eslint-disable-next-line no-shadow
     const next = (function(token) {
       return text => {
         let embedToken;
@@ -101,7 +102,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const compile = compiler._marked;
   let tokens = compile.lexer(raw);
   const embedTokens = [];
-  const linkRE = compile.InlineLexer.rules.link;
+  const linkRE = compile.Lexer.rules.inline.link;
   const links = tokens.links;
 
   tokens.forEach((token, index) => {

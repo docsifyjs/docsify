@@ -18,7 +18,8 @@ function scrollTo(el, offset = 0) {
   enableScrollEvent = false;
   scroller = new Tweezer({
     start: window.pageYOffset,
-    end: el.getBoundingClientRect().top + window.pageYOffset - offset,
+    end:
+      Math.round(el.getBoundingClientRect().top) + window.pageYOffset - offset,
     duration: 500,
   })
     .on('tick', v => window.scrollTo(0, v))
@@ -79,9 +80,12 @@ function highlight(path) {
     const isInView =
       active.offsetTop >= wrap.scrollTop && cur <= wrap.scrollTop + height;
     const notThan = cur - curOffset < height;
-    const top = isInView ? wrap.scrollTop : notThan ? curOffset : cur - height;
 
-    sidebar.scrollTop = top;
+    sidebar.scrollTop = isInView
+      ? wrap.scrollTop
+      : notThan
+      ? curOffset
+      : cur - height;
   }
 }
 

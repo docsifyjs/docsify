@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example Tests Jest & JSDOM basics snapshot (jsdom) 1`] = `"<html><head></head><body class=\\"foo\\"><h1>Test</h1><p>This is a test</p></body></html>"`;
