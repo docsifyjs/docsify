@@ -13,7 +13,7 @@ export function parseQuery(query) {
   }
 
   // Simple parse
-  query.split('&').forEach(function(param) {
+  query.split('&').forEach(function (param) {
     const parts = param.replace(/\+/g, ' ').split('=');
 
     res[parts[0]] = parts[1] && decode(parts[1]);

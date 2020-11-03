@@ -13,7 +13,7 @@ const cache = {};
  */
 export function get(url, hasBar = false, headers = {}) {
   const xhr = new XMLHttpRequest();
-  const on = function() {
+  const on = function () {
     xhr.addEventListener.apply(xhr, arguments);
   };
 
@@ -33,7 +33,7 @@ export function get(url, hasBar = false, headers = {}) {
   xhr.send();
 
   return {
-    then: function(success, error = noop) {
+    then: function (success, error = noop) {
       if (hasBar) {
         const id = setInterval(
           _ =>

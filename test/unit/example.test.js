@@ -1,13 +1,17 @@
-import { greet } from './fixtures/greet.js';
-import { getTimeOfDay } from './fixtures/get-time-of-day.js';
-import * as getTimeOfDayModule from './fixtures/get-time-of-day.js';
+import { jest } from '@jest/globals';
+import { greet } from './fixtures/greet';
+import { getTimeOfDay } from './fixtures/get-time-of-day';
+import * as _getTimeOfDayModule from './fixtures/get-time-of-day';
+
+// ES Modules are non-extensible objects, so clone this one into an extensible object.
+const getTimeOfDayModule = { ..._getTimeOfDayModule };
 
 // Suite
 // -----------------------------------------------------------------------------
-describe(`Example Tests`, function() {
+describe(`Example Tests`, function () {
   // Tests
   // ---------------------------------------------------------------------------
-  describe('Jest & JSDOM basics', function() {
+  describe('Jest & JSDOM basics', function () {
     test('dom manipulation (jsdom)', () => {
       const testText = 'This is a test';
       const testHTML = `<h1>Test</h1><p>${testText}</p>`;
@@ -48,7 +52,7 @@ describe(`Example Tests`, function() {
     });
   });
 
-  describe('Fake Timers', function() {
+  describe('Fake Timers', function () {
     test('data & time', () => {
       const fakeDate = new Date().setHours(1);
 
@@ -61,10 +65,14 @@ describe(`Example Tests`, function() {
     });
   });
 
-  describe('Mocks & Spys', function() {
-    test('mock import/require dependency using jest.fn()', () => {
-      const testModule = require('./fixtures/get-time-of-day.js');
-      const { greet: testGreet } = require('./fixtures/greet.js');
+  describe('Mocks & Spys', function () {
+    // It is not yet possible to mock/spy on ES Modules, but they're working on it (https://github.com/facebook/jest/issues/10025).
+    // For now, don't mock/spy on modules. The alternative is to mock/spy on objects exported from modules.
+    // {{{
+
+    test.skip('mock import/require dependency using jest.fn()', async () => {
+      const testModule = { ...(await import('./fixtures/get-time-of-day.js')) };
+      const { greet: testGreet } = await import('./fixtures/greet.js');
 
       testModule.getTimeOfDay = jest.fn(() => 'day');
 
@@ -75,7 +83,7 @@ describe(`Example Tests`, function() {
       expect(greeting).toBe(`Good day, John!`);
     });
 
-    test('mock import/require dependency using jest.doMock()', () => {
+    test.skip('mock import/require dependency using jest.doMock()', async () => {
       const mockModulePath = './fixtures/get-time-of-day.js';
 
       jest.doMock(mockModulePath, () => ({
@@ -83,8 +91,8 @@ describe(`Example Tests`, function() {
         getTimeOfDay: jest.fn(() => 'night'),
       }));
 
-      const mockGetTimeOfDay = require(mockModulePath).getTimeOfDay;
-      const { greet: testGreet } = require('./fixtures/greet.js');
+      const mockGetTimeOfDay = (await import(mockModulePath)).getTimeOfDay;
+      const { greet: testGreet } = await import('./fixtures/greet.js');
 
       const timeOfDay = mockGetTimeOfDay();
       const greeting = testGreet('John');
@@ -93,16 +101,7 @@ describe(`Example Tests`, function() {
       expect(greeting).toBe(`Good night, John!`);
     });
 
-    test('spy on native method using jest.spyOn()', () => {
-      // Replace Math.random() implementation to return fixed value
-      jest.spyOn(Math, 'random').mockImplementation(() => 0.1);
-
-      expect(Math.random()).toEqual(0.1);
-      expect(Math.random()).toEqual(0.1);
-      expect(Math.random()).toEqual(0.1);
-    });
-
-    test('spy on import/require dependency using jest.spyOn()', () => {
+    test.skip('spy on import/require dependency using jest.spyOn()', () => {
       jest
         .spyOn(getTimeOfDayModule, 'getTimeOfDay')
         .mockImplementation(() => 'night');
@@ -112,6 +111,17 @@ describe(`Example Tests`, function() {
 
       expect(timeOfDay).toBe('night');
       expect(greeting).toBe(`Good night, John!`);
+    });
+
+    // }}}
+
+    test('spy on native method using jest.spyOn()', () => {
+      // Replace Math.random() implementation to return fixed value
+      jest.spyOn(Math, 'random').mockImplementation(() => 0.1);
+
+      expect(Math.random()).toEqual(0.1);
+      expect(Math.random()).toEqual(0.1);
+      expect(Math.random()).toEqual(0.1);
     });
   });
 });

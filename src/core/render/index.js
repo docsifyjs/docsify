@@ -90,7 +90,7 @@ function renderMain(html) {
 
         if (!isAlreadyVue) {
           new window.Vue({
-            mounted: function() {
+            mounted: function () {
               this.$destroy();
             },
           }).$mount(elm);
@@ -121,14 +121,14 @@ function renderNameLink(vm) {
 }
 
 export function renderMixin(proto) {
-  proto._renderTo = function(el, content, replace) {
+  proto._renderTo = function (el, content, replace) {
     const node = dom.getNode(el);
     if (node) {
       node[replace ? 'outerHTML' : 'innerHTML'] = content;
     }
   };
 
-  proto._renderSidebar = function(text) {
+  proto._renderSidebar = function (text) {
     const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
 
     if (hideSidebar) {
@@ -156,7 +156,7 @@ export function renderMixin(proto) {
     this._bindEventOnRendered(activeEl);
   };
 
-  proto._bindEventOnRendered = function(activeEl) {
+  proto._bindEventOnRendered = function (activeEl) {
     const { autoHeader } = this.config;
 
     scrollActiveSidebar(this.router);
@@ -172,14 +172,14 @@ export function renderMixin(proto) {
     }
   };
 
-  proto._renderNav = function(text) {
+  proto._renderNav = function (text) {
     text && this._renderTo('nav', this.compiler.compile(text));
     if (this.config.loadNavbar) {
       getAndActive(this.router, 'nav');
     }
   };
 
-  proto._renderMain = function(text, opt = {}, next) {
+  proto._renderMain = function (text, opt = {}, next) {
     if (!text) {
       return renderMain.call(this, text);
     }
@@ -217,7 +217,7 @@ export function renderMixin(proto) {
     });
   };
 
-  proto._renderCover = function(text, coverOnly) {
+  proto._renderCover = function (text, coverOnly) {
     const el = dom.getNode('.cover');
 
     dom.toggleClass(
@@ -261,7 +261,7 @@ export function renderMixin(proto) {
     sticky();
   };
 
-  proto._updateRender = function() {
+  proto._updateRender = function () {
     // Render name link
     renderNameLink(this);
   };

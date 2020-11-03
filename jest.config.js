@@ -1,22 +1,31 @@
-const path = require('path');
-const { globals: serverGlobals } = require('./test/config/server.js');
+import path from 'path';
+import server from './test/config/server';
+
+const { globals: serverGlobals } = server;
+const dirname = path.dirname(import.meta.url.replace('file://', ''));
 
 const sharedConfig = {
   errorOnDeprecated: true,
   globals: {
     ...serverGlobals, // BLANK_URL, DOCS_URL, LIB_URL, NODE_MODULES_URL, TEST_HOST
-    DOCS_PATH: path.resolve(__dirname, 'docs'),
-    LIB_PATH: path.resolve(__dirname, 'lib'),
-    SRC_PATH: path.resolve(__dirname, 'src'),
+    DOCS_PATH: path.resolve(dirname, 'docs'),
+    LIB_PATH: path.resolve(dirname, 'lib'),
+    SRC_PATH: path.resolve(dirname, 'src'),
   },
-  globalSetup: './test/config/jest.setup.js',
-  globalTeardown: './test/config/jest.teardown.js',
+  globalSetup: './test/config/jest.setup.cjs',
+  globalTeardown: './test/config/jest.teardown.cjs',
   resetModules: true,
   restoreMocks: true,
 };
 
-module.exports = {
-  // Adding globals to config root for easier importing into .eslint.js, but
+// Jest configuration: https://jestjs.io/docs/en/configuration
+
+export default {
+  // Disable transforms, we'll write plain JS. This is also needed for native
+  // ESM (see https://jestjs.io/docs/en/ecmascript-modules).
+  transform: {},
+
+  // Adding globals to config root for easier importing into .eslint.cjs, but
   // as of Jest 26.4.2 these globals need to be added to each project config
   // as well.
   globals: sharedConfig.globals,

@@ -7,7 +7,7 @@ import { isFn } from '../util/core';
 import { initLifecycle, callHook } from './lifecycle';
 
 export function initMixin(proto) {
-  proto._init = function() {
+  proto._init = function () {
     const vm = this;
     vm.config = config(vm);
 

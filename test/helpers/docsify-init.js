@@ -1,15 +1,14 @@
 /* global jestPlaywright page */
+import axios from 'axios';
+import * as prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent';
 import mock, { proxy } from 'xhr-mock';
 import { waitForSelector } from './wait-for';
 
-const axios = require('axios');
-const prettier = require('prettier');
-const stripIndent = require('common-tags/lib/stripIndent');
-
 const docsifyPATH = `${LIB_PATH}/docsify.js`; // JSDOM
 const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
-const isJSDOM = 'window' in global;
-const isPlaywright = 'page' in global;
+const isJSDOM = 'window' in globalThis;
+const isPlaywright = 'page' in globalThis;
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -79,7 +78,7 @@ async function docsifyInit(options = {}) {
 
       // Config as function
       if (typeof options.config === 'function') {
-        return function(vm) {
+        return function (vm) {
           return { ...sharedConfig, ...options.config(vm) };
         };
       }
@@ -127,12 +126,12 @@ async function docsifyInit(options = {}) {
     // Merge scripts and remove duplicates
     scriptURLs: []
       .concat(options.scriptURLs || '')
-      .filter(url => url)
-      .map(url => new URL(url, TEST_HOST).href),
+      .filter((url) => url)
+      .map((url) => new URL(url, TEST_HOST).href),
     styleURLs: []
       .concat(options.styleURLs || '')
-      .filter(url => url)
-      .map(url => new URL(url, TEST_HOST).href),
+      .filter((url) => url)
+      .map((url) => new URL(url, TEST_HOST).href),
   };
 
   // Routes
@@ -175,7 +174,7 @@ async function docsifyInit(options = {}) {
           .header('Content-Type', contentType);
       });
     } else {
-      await page.route(urlGlob, route => route.fulfill(response));
+      await page.route(urlGlob, (route) => route.fulfill(response));
     }
   }
 
@@ -197,7 +196,7 @@ async function docsifyInit(options = {}) {
   if (isJSDOM) {
     window.$docsify = settings.config;
   } else if (isPlaywright) {
-    await page.evaluate(config => {
+    await page.evaluate((config) => {
       window.$docsify = config;
     }, settings.config);
   }
@@ -213,7 +212,9 @@ async function docsifyInit(options = {}) {
       document.head.appendChild(linkElm);
     }
   } else if (isPlaywright) {
-    await Promise.all(settings.styleURLs.map(url => page.addStyleTag({ url })));
+    await Promise.all(
+      settings.styleURLs.map((url) => page.addStyleTag({ url }))
+    );
   }
 
   // JavaScript URLs
@@ -230,7 +231,8 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      require(docsifyPATH);
+      // require(docsifyPATH);
+      await import(docsifyPATH);
     }
   } else if (isPlaywright) {
     for (const url of settings.scriptURLs) {
@@ -253,7 +255,7 @@ async function docsifyInit(options = {}) {
       styleElm.textContent = stripIndent`${settings.style}`;
       headElm.appendChild(styleElm);
     } else if (isPlaywright) {
-      await page.evaluate(data => {
+      await page.evaluate((data) => {
         const headElm = document.querySelector('head');
         const styleElm = document.createElement('style');
 
@@ -310,4 +312,4 @@ async function docsifyInit(options = {}) {
   return Promise.resolve();
 }
 
-module.exports = docsifyInit;
+export default docsifyInit;

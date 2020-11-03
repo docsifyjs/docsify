@@ -4,7 +4,7 @@ import * as sidebar from './sidebar';
 import { scrollIntoView, scroll2Top } from './scroll';
 
 export function eventMixin(proto) {
-  proto.$resetEvents = function(source) {
+  proto.$resetEvents = function (source) {
     const { auto2top } = this.config;
 
     (() => {
