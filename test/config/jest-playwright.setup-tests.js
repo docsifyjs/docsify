@@ -1,4 +1,4 @@
-/* global browserName page */
+/* global browserName page jestPlaywright */
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
 // Lifecycle Hooks
@@ -41,7 +41,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await global.jestPlaywright.resetPage();
+  await jestPlaywright.resetPage();
 
   // Goto URL ()
   // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options

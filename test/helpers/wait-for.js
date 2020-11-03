@@ -95,7 +95,7 @@ export function waitForText(cssSelector, text, options = {}) {
 
   return new Promise((resolve, reject) => {
     waitForSelector(cssSelector, settings)
-      .then(elm => {
+      .then((elm) => {
         const isMatch = elm.textContent.includes(text);
 
         if (isMatch) {

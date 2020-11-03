@@ -32,7 +32,7 @@ export function initRouter(vm) {
   lastRoute = vm.route;
 
   // eslint-disable-next-line no-unused-vars
-  router.onchange(params => {
+  router.onchange((params) => {
     updateRender(vm);
     vm._updateRender();
 

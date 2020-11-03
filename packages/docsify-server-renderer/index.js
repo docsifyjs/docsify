@@ -62,6 +62,10 @@ export default class Renderer {
     return isAbsolutePath(file) ? file : cwd(`./${file}`);
   }
 
+  /**
+   * @param {string} url
+   * @returns {Promise<string>}
+   */
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
     this.isRemoteUrl = isExternal(this.url);
@@ -128,10 +132,10 @@ export default class Renderer {
         html = this.compiler.cover(html);
         break;
       case 'main':
-        tokens = await new Promise(r => {
+        tokens = await new Promise((r) => {
           prerenderEmbed(
             {
-              fetch: url => this._loadFile(this._getPath(url)),
+              fetch: (url) => this._loadFile(this._getPath(url)),
               compiler: this.compiler,
               raw: html,
             },

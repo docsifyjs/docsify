@@ -32,6 +32,6 @@ export function slugify(str) {
   return slug;
 }
 
-slugify.clear = function() {
+slugify.clear = function () {
   cache = {};
 };

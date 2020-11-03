@@ -12,23 +12,23 @@ export function initLifecycle(vm) {
 
   vm._hooks = {};
   vm._lifecycle = {};
-  hooks.forEach(hook => {
+  hooks.forEach((hook) => {
     const arr = (vm._hooks[hook] = []);
-    vm._lifecycle[hook] = fn => arr.push(fn);
+    vm._lifecycle[hook] = (fn) => arr.push(fn);
   });
 }
 
 export function callHook(vm, hookName, data, next = noop) {
   const queue = vm._hooks[hookName];
 
-  const step = function(index) {
+  const step = function (index) {
     const hookFn = queue[index];
 
     if (index >= queue.length) {
       next(data);
     } else if (typeof hookFn === 'function') {
       if (hookFn.length === 2) {
-        hookFn(data, result => {
+        hookFn(data, (result) => {
           data = result;
           step(index + 1);
         });

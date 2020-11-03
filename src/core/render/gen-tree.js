@@ -9,7 +9,7 @@ export function genTree(toc, maxLevel) {
   const headlines = [];
   const last = {};
 
-  toc.forEach(headline => {
+  toc.forEach((headline) => {
     const level = headline.level || 1;
     const len = level - 1;
 

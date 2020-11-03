@@ -11,7 +11,7 @@ import { noop, merge } from '../../util/core';
 const cached = {};
 
 function getAlias(path, alias, last) {
-  const match = Object.keys(alias).filter(key => {
+  const match = Object.keys(alias).filter((key) => {
     const re = cached[key] || (cached[key] = new RegExp(`^${key}$`));
     return re.test(path) && path !== last;
   })[0];

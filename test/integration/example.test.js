@@ -1,10 +1,9 @@
 import { waitForFunction, waitForText } from '../helpers/wait-for';
-
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Example Tests', function() {
+describe('Example Tests', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('Docsify /docs/ site using docsifyInit()', async () => {
@@ -114,7 +113,7 @@ describe('Example Tests', function() {
     // Verify docsifyInitConfig.script was added to the DOM
     expect(
       [...document.querySelectorAll('script')].some(
-        elm =>
+        (elm) =>
           elm.textContent.replace(/\s+/g, '') ===
           docsifyInitConfig.script.replace(/\s+/g, '')
       )
@@ -134,7 +133,7 @@ describe('Example Tests', function() {
     // Verify docsifyInitConfig.style was added to the DOM
     expect(
       [...document.querySelectorAll('style')].some(
-        elm =>
+        (elm) =>
           elm.textContent.replace(/\s+/g, '') ===
           docsifyInitConfig.style.replace(/\s+/g, '')
       )

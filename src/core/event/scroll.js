@@ -22,7 +22,7 @@ function scrollTo(el, offset = 0) {
       Math.round(el.getBoundingClientRect().top) + window.pageYOffset - offset,
     duration: 500,
   })
-    .on('tick', v => window.scrollTo(0, v))
+    .on('tick', (v) => window.scrollTo(0, v))
     .on('done', () => {
       enableScrollEvent = true;
       scroller = null;

@@ -28,14 +28,14 @@ beforeEach(async () => {
     'google_tag_data',
     'marked',
     'Prism',
-  ].forEach(prop => {
-    if (global[prop]) {
-      delete global[prop];
+  ].forEach((prop) => {
+    if (globalThis[prop]) {
+      delete globalThis[prop];
     }
   });
 
   // Remove attributes
-  [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
+  [...rootElm.attributes].forEach((attr) => rootElm.removeAttribute(attr.name));
 
   // Restore base elements
   rootElm.innerHTML = '<html><head></head><body></body></html>';

@@ -2,7 +2,7 @@ import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 
 const currentScript = document.currentScript;
 
-export default function(vm) {
+export default function (vm) {
   const config = merge(
     {
       el: '#app',
@@ -45,7 +45,7 @@ export default function(vm) {
     currentScript ||
     [].slice
       .call(document.getElementsByTagName('script'))
-      .filter(n => /docsify\./.test(n.src))[0];
+      .filter((n) => /docsify\./.test(n.src))[0];
 
   if (script) {
     for (const prop in config) {

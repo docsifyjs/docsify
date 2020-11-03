@@ -8,14 +8,14 @@ function replaceVar(block, color) {
   );
 }
 
-export default function(color) {
+export default function (color) {
   // Variable support
   if (window.CSS && window.CSS.supports && window.CSS.supports('(--v:red)')) {
     return;
   }
 
   const styleBlocks = dom.findAll('style:not(.inserted),link');
-  [].forEach.call(styleBlocks, block => {
+  [].forEach.call(styleBlocks, (block) => {
     if (block.nodeName === 'STYLE') {
       replaceVar(block, color);
     } else if (block.nodeName === 'LINK') {
@@ -25,7 +25,7 @@ export default function(color) {
         return;
       }
 
-      get(href).then(res => {
+      get(href).then((res) => {
         const style = dom.create('style', res);
 
         dom.head.appendChild(style);

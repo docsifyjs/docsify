@@ -1,10 +1,13 @@
-const fs = require('fs').promises;
-const path = require('path');
-const docsifyInit = require('../helpers/docsify-init');
+import _fs from 'fs';
+import path from 'path';
+import { jest } from '@jest/globals';
+import docsifyInit from '../helpers/docsify-init';
+
+const fs = _fs.promises;
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Docs Site', function() {
+describe('Docs Site', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('coverpage renders and is unchanged', async () => {

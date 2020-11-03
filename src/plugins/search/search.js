@@ -29,7 +29,7 @@ function escapeHtml(string) {
     "'": '&#39;',
   };
 
-  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+  return String(string).replace(/[&<>"']/g, (s) => entityMap[s]);
 }
 
 function getAllPaths(router) {
@@ -37,7 +37,7 @@ function getAllPaths(router) {
 
   Docsify.dom
     .findAll('.sidebar-nav a:not(.section-link):not([data-nosearch])')
-    .forEach(node => {
+    .forEach((node) => {
       const href = node.href;
       const originHref = node.getAttribute('href');
       const path = router.parse(href).path;
@@ -58,7 +58,7 @@ function getTableData(token) {
   if (!token.text && token.type === 'table') {
     token.cells.unshift(token.header);
     token.text = token.cells
-      .map(function(rows) {
+      .map(function (rows) {
         return rows.join(' | ');
       })
       .join(' |\n ');
@@ -84,7 +84,7 @@ export function genIndex(path, content = '', router, depth) {
   const index = {};
   let slug;
 
-  tokens.forEach(token => {
+  tokens.forEach((token) => {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
@@ -128,8 +128,10 @@ export function genIndex(path, content = '', router, depth) {
 export function search(query) {
   const matchingResults = [];
   let data = [];
-  Object.keys(INDEXS).forEach(key => {
-    data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]));
+  Object.keys(INDEXS).forEach((key) => {
+    data = data.concat(
+      Object.keys(INDEXS[key]).map((page) => INDEXS[key][page])
+    );
   });
 
   query = query.trim();
@@ -147,7 +149,7 @@ export function search(query) {
     const postUrl = post.slug || '';
 
     if (postTitle) {
-      keywords.forEach(keyword => {
+      keywords.forEach((keyword) => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
           keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
@@ -181,7 +183,7 @@ export function search(query) {
               .substring(start, end)
               .replace(
                 regEx,
-                word => `<em class="search-keyword">${word}</em>`
+                (word) => `<em class="search-keyword">${word}</em>`
               ) +
             '...';
 
@@ -217,7 +219,7 @@ export function init(config, vm) {
 
     if (Array.isArray(config.pathNamespaces)) {
       namespaceSuffix =
-        config.pathNamespaces.find(prefix => path.startsWith(prefix)) ||
+        config.pathNamespaces.find((prefix) => path.startsWith(prefix)) ||
         namespaceSuffix;
     } else if (config.pathNamespaces instanceof RegExp) {
       const matches = path.match(config.pathNamespaces);
@@ -247,13 +249,13 @@ export function init(config, vm) {
   const len = paths.length;
   let count = 0;
 
-  paths.forEach(path => {
+  paths.forEach((path) => {
     if (INDEXS[path]) {
       return count++;
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      result => {
+      (result) => {
         INDEXS[path] = genIndex(path, result, vm.router, config.depth);
         len === ++count && saveData(config.maxAge, expireKey, indexKey);
       }

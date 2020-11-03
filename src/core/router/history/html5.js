@@ -21,7 +21,7 @@ export class HTML5History extends History {
   }
 
   onchange(cb = noop) {
-    on('click', e => {
+    on('click', (e) => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
       if (el.tagName === 'A' && !/_blank/.test(el.target)) {
@@ -37,7 +37,7 @@ export class HTML5History extends History {
       }
     });
 
-    on('popstate', e => {
+    on('popstate', (e) => {
       cb({ event: e, source: 'history' });
     });
   }

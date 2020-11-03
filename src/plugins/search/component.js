@@ -147,7 +147,7 @@ function doSearch(value) {
   const matchs = search(value);
 
   let html = '';
-  matchs.forEach(post => {
+  matchs.forEach((post) => {
     html += `<div class="matching-post">
 <a href="${post.url}">
 <h2>${post.title}</h2>
@@ -182,15 +182,15 @@ function bindEvents() {
   Docsify.dom.on(
     $search,
     'click',
-    e =>
+    (e) =>
       ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
       e.stopPropagation()
   );
-  Docsify.dom.on($input, 'input', e => {
+  Docsify.dom.on($input, 'input', (e) => {
     clearTimeout(timeId);
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
+    timeId = setTimeout((_) => doSearch(e.target.value.trim()), 100);
   });
-  Docsify.dom.on($inputWrap, 'click', e => {
+  Docsify.dom.on($inputWrap, 'click', (e) => {
     // Click input outside
     if (e.target.tagName !== 'INPUT') {
       $input.value = '';
@@ -209,7 +209,7 @@ function updatePlaceholder(text, path) {
   if (typeof text === 'string') {
     $input.placeholder = text;
   } else {
-    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0];
+    const match = Object.keys(text).filter((key) => path.indexOf(key) > -1)[0];
     $input.placeholder = text[match];
   }
 }
@@ -218,7 +218,7 @@ function updateNoData(text, path) {
   if (typeof text === 'string') {
     NO_DATA_TEXT = text;
   } else {
-    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0];
+    const match = Object.keys(text).filter((key) => path.indexOf(key) > -1)[0];
     NO_DATA_TEXT = text[match];
   }
 }
@@ -235,7 +235,7 @@ export function init(opts, vm) {
   style();
   tpl(keywords);
   bindEvents();
-  keywords && setTimeout(_ => doSearch(keywords), 500);
+  keywords && setTimeout((_) => doSearch(keywords), 500);
 }
 
 export function update(opts, vm) {

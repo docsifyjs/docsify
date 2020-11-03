@@ -9,14 +9,14 @@ const title = dom.$.title;
  * @void
  */
 export function btn(el) {
-  const toggle = _ => dom.body.classList.toggle('close');
+  const toggle = (_) => dom.body.classList.toggle('close');
 
   el = dom.getNode(el);
   if (el === null || el === undefined) {
     return;
   }
 
-  dom.on(el, 'click', e => {
+  dom.on(el, 'click', (e) => {
     e.stopPropagation();
     toggle();
   });
@@ -25,7 +25,7 @@ export function btn(el) {
     dom.on(
       dom.body,
       'click',
-      _ => dom.body.classList.contains('close') && toggle()
+      (_) => dom.body.classList.contains('close') && toggle()
     );
 }
 
@@ -82,7 +82,7 @@ export function getAndActive(router, el, isParent, autoTitle) {
 
   links
     .sort((a, b) => b.href.length - a.href.length)
-    .forEach(a => {
+    .forEach((a) => {
       const href = a.getAttribute('href');
       const node = isParent ? a.parentNode : a;
 
