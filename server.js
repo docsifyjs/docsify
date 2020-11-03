@@ -1,5 +1,5 @@
-// const liveServer = require('live-server');
 import liveServer from 'live-server';
+
 const isSSR = !!process.env.SSR;
 const middleware = [];
 
@@ -12,13 +12,7 @@ async function main() {
     // URL to operate under (it probably can be anything).
     initJSDOM('', { url: 'https://127.0.0.1:3000' });
 
-    // const requireESM = require('esm')(module /* , options */);
-    // const { Renderer, getServerHTMLTemplate } = requireESM(
-    //   './packages/docsify-server-renderer/index'
-    // );
-
     const { Renderer, getServerHTMLTemplate } = await import(
-      // './packages/docsify-server-renderer/index.js'
       './packages/docsify-server-renderer/index'
     );
 
@@ -41,11 +35,11 @@ async function main() {
       },
     });
 
-    middleware.push(function(req, res, next) {
+    middleware.push(function (req, res, next) {
       if (/\.(css|js)$/.test(req.url)) {
         return next();
       }
-      renderer.renderToString(req.url).then(html => res.end(html));
+      renderer.renderToString(req.url).then((html) => res.end(html));
     });
   }
 
@@ -59,7 +53,6 @@ async function main() {
 }
 
 async function initJSDOM(markup, options) {
-  // const { JSDOM } = require('jsdom');
   const { JSDOM } = (await import('jsdom')).default;
   const dom = new JSDOM(markup, options);
 

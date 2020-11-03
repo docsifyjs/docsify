@@ -17,7 +17,7 @@ function init() {
 /**
  * Render progress bar
  */
-export default function({ loaded, total, step }) {
+export default function ({ loaded, total, step }) {
   let num;
 
   !barEl && init();

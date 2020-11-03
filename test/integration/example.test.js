@@ -1,10 +1,9 @@
 import { waitForFunction, waitForText } from '../helpers/wait-for';
-
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Example Tests', function() {
+describe('Example Tests', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('Docsify /docs/ site using docsifyInit()', async () => {

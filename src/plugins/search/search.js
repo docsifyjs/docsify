@@ -58,7 +58,7 @@ function getTableData(token) {
   if (!token.text && token.type === 'table') {
     token.cells.unshift(token.header);
     token.text = token.cells
-      .map(function(rows) {
+      .map(function (rows) {
         return rows.join(' | ');
       })
       .join(' |\n ');

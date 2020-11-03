@@ -1,15 +1,14 @@
-/* global jestPlaywright page */
+/* global jestPlaywright page globalThis */
+import axios from 'axios';
+import * as prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent';
 import mock, { proxy } from 'xhr-mock';
 import { waitForSelector } from './wait-for';
 
-const axios = require('axios');
-const prettier = require('prettier');
-const stripIndent = require('common-tags/lib/stripIndent');
-
 const docsifyPATH = `${LIB_PATH}/docsify.js`; // JSDOM
 const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
-const isJSDOM = 'window' in global;
-const isPlaywright = 'page' in global;
+const isJSDOM = 'window' in globalThis;
+const isPlaywright = 'page' in globalThis;
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -79,7 +78,7 @@ async function docsifyInit(options = {}) {
 
       // Config as function
       if (typeof options.config === 'function') {
-        return function(vm) {
+        return function (vm) {
           return { ...sharedConfig, ...options.config(vm) };
         };
       }
@@ -230,7 +229,8 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      require(docsifyPATH);
+      // require(docsifyPATH);
+      await import(docsifyPATH);
     }
   } else if (isPlaywright) {
     for (const url of settings.scriptURLs) {
@@ -310,4 +310,4 @@ async function docsifyInit(options = {}) {
   return Promise.resolve();
 }
 
-module.exports = docsifyInit;
+export default docsifyInit;

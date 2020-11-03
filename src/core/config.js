@@ -2,7 +2,7 @@ import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 
 const currentScript = document.currentScript;
 
-export default function(vm) {
+export default function (vm) {
   const config = merge(
     {
       el: '#app',

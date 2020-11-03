@@ -1,6 +1,6 @@
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init';
 
-describe('Vue.js Rendering', function() {
+describe('Vue.js Rendering', function () {
   const vueURLs = [
     `${NODE_MODULES_URL}/vue2/dist/vue.js`,
     `${NODE_MODULES_URL}/vue3/dist/vue.global.js`,
@@ -23,7 +23,7 @@ describe('Vue.js Rendering', function() {
     await expect(page).toEqualText('#test', 'test{{ i }}');
   });
 
-  describe('Basic rendering', function() {
+  describe('Basic rendering', function () {
     for (const vueURL of vueURLs) {
       const vueVersion = vueURL.match(/vue(\d+)/)[1]; // vue2|vue3
 
@@ -52,7 +52,7 @@ describe('Vue.js Rendering', function() {
     }
   });
 
-  describe('Advanced usage', function() {
+  describe('Advanced usage', function () {
     const testData = {
       vue2: {
         markdown: `

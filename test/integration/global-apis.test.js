@@ -1,8 +1,8 @@
-import initGlobalAPI from '../../src/core/global-api.js';
+import initGlobalAPI from '../../src/core/global-api';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Global APIs', function() {
+describe('Global APIs', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('APIs are available', () => {

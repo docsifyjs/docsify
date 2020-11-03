@@ -1,3 +1,5 @@
+/* global globalThis */
+
 // Lifecycle Hooks
 // -----------------------------------------------------------------------------
 // Soft-reset jsdom. This clears the DOM and removes all attribute from the
@@ -29,8 +31,8 @@ beforeEach(async () => {
     'marked',
     'Prism',
   ].forEach(prop => {
-    if (global[prop]) {
-      delete global[prop];
+    if (globalThis[prop]) {
+      delete globalThis[prop];
     }
   });
 

@@ -1,7 +1,10 @@
-const browserSync = require('browser-sync').create();
-const path = require('path');
+import path from 'path';
+import browserSyncModule from 'browser-sync';
+import esMain from 'es-main';
 
+const browserSync = browserSyncModule.create();
 const hasStartArg = process.argv.includes('--start');
+const dirname = path.dirname(import.meta.url.replace('file://', ''));
 
 const serverConfig = {
   host: '127.0.0.1',
@@ -14,7 +17,7 @@ function startServer(options = {}, cb = Function.prototype) {
     middleware: [
       {
         route: '/_blank.html',
-        handle: function(req, res, next) {
+        handle: function (req, res, next) {
           res.setHeader('Content-Type', 'text/html');
           res.end('');
           next();
@@ -31,18 +34,18 @@ function startServer(options = {}, cb = Function.prototype) {
       },
     ],
     server: {
-      baseDir: path.resolve(__dirname, '../'),
+      baseDir: path.resolve(dirname, '../'),
       routes: {
-        '/docs': path.resolve(__dirname, '../../docs'),
+        '/docs': path.resolve(dirname, '../../docs'),
         '/docs/changelog.md': './CHANGELOG.md',
-        '/lib': path.resolve(__dirname, '../../lib'),
-        '/node_modules': path.resolve(__dirname, '../../node_modules'),
+        '/lib': path.resolve(dirname, '../../lib'),
+        '/node_modules': path.resolve(dirname, '../../node_modules'),
       },
     },
     snippetOptions: {
       rule: {
         match: /<\/body>/i,
-        fn: function(snippet, match) {
+        fn: function (snippet, match) {
           // Override changelog alias to load local changelog (see routes)
           const injectJS = `
             <script>
@@ -77,7 +80,7 @@ function startServer(options = {}, cb = Function.prototype) {
 }
 
 async function startServerAsync() {
-  await new Promise((resolve, reject) => {
+  await new Promise(resolve => {
     startServer({}, () => {
       console.log('\n');
       resolve();
@@ -89,6 +92,8 @@ function stopServer() {
   browserSync.exit();
 }
 
+const isTopLevelModule = esMain(import.meta);
+
 // Allow starting the test server from the CLI. Useful for viewing test content
 // like fixtures (/index.html)) and local docs site (/docs) used for testing.
 if (hasStartArg) {
@@ -99,11 +104,11 @@ if (hasStartArg) {
   });
 }
 // Display friendly message about manually starting a server instance
-else if (require.main === module) {
-  console.info('Use --start argument to manually start server instance');
+else if (isTopLevelModule) {
+  console.info('Use the --start argument to manually start server instance');
 }
 
-module.exports = {
+export default {
   globals: {
     get BLANK_URL() {
       return `${this.TEST_HOST}/_blank.html`;

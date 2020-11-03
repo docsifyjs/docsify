@@ -9,8 +9,8 @@ yarn add docsify-server-renderer
 ## Usage
 
 ```js
-var Renderer = require('docsify-server-renderer')
-var readFileSync = require('fs').readFileSync
+import Renderer from 'docsify-server-renderer'
+import {readFileSync} from 'fs'
 
 // init
 var renderer = new Renderer({
