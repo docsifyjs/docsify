@@ -35,4 +35,42 @@ describe('Search Plugin Tests', function() {
     await page.fill('input[type=search]', 'test');
     await expect(page).toEqualText('.results-panel h2', 'Test Page');
   });
+
+  test('search ignore title', async () => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          # Hello World
+
+          This is the homepage.
+        `,
+        sidebar: `
+          - [Home page](/)
+          - [GitHub Pages](github)
+        `,
+      },
+      routes: {
+        '/github.md': `
+            # GitHub Pages
+
+            This is the GitHub Pages.
+
+            ## GitHub Pages ignore1 <!-- {docsify-ignore} -->
+
+            There're three places to populate your docs for your Github repository1.
+
+            ## GitHub Pages ignore2 {docsify-ignore}
+
+            There're three places to populate your docs for your Github repository2.
+          `,
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+    await docsifyInit(docsifyInitConfig);
+    await page.fill('input[type=search]', 'repository1');
+    await expect(page).toEqualText('.results-panel h2', 'GitHub Pages ignore1');
+    await page.click('.clear-button');
+    await page.fill('input[type=search]', 'repository2');
+    await expect(page).toEqualText('.results-panel h2', 'GitHub Pages ignore2');
+  });
 });
