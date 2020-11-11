@@ -245,10 +245,10 @@ window.$docsify = {
   // Custom file name
   coverpage: 'cover.md',
 
-  // mutiple covers
+  // multiple covers
   coverpage: ['/', '/zh-cn/'],
 
-  // mutiple covers and custom file name
+  // multiple covers and custom file name
   coverpage: {
     '/': 'cover.md',
     '/zh-cn/': 'cover.md',
@@ -410,7 +410,7 @@ window.$docsify = {
 };
 ```
 
-?> If this options is `false` but you dont want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
+?> If this options is `false` but you don't want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
 
 ## mergeNavbar
 
@@ -604,7 +604,7 @@ window.$docsify = {
 };
 ```
 
-Load the right 404 page according to the localisation:
+Load the right 404 page according to the localization:
 
 ```js
 window.$docsify = {
