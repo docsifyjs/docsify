@@ -265,7 +265,7 @@ window.$docsify = {
 
 ## Components
 
-Use `vueComponents` to register Vue components using the component name as the key with an object containing Vue options as the value. Components data is not shared and changes will not persist as users navigate the site.
+Use `vueComponents` to register Vue components using the component name as the key with an object containing Vue options as the value. Component data is not shared and changes will not persist as users navigate the site.
 
 ```js
 window.$docsify = {

@@ -634,7 +634,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Registers Vue components using the component name as the key with an object containing Vue options as the value.
+Registers Vue components using the component name as the key with an object containing Vue options as the value. Component data is not shared and changes will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -701,7 +701,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Specifies Vue mount elements and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value.
+Specifies Vue mount elements and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area (`#main, .markdown-section`) each time a new page is loaded.
 
 ```js
 window.$docsify = {
