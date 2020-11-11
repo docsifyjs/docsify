@@ -1,9 +1,9 @@
-const { globals: serverGlobals } = require('./test/config/server.js');
+const { TEST_HOST } = require('./test/config/server.js');
 
 const sharedConfig = {
   errorOnDeprecated: true,
   globals: {
-    ...serverGlobals, // BLANK_URL, TEST_HOST
+    TEST_HOST,
   },
   globalSetup: './test/config/jest.setup.js',
   globalTeardown: './test/config/jest.teardown.js',
@@ -23,7 +23,7 @@ module.exports = {
       displayName: 'unit',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/unit/*.test.js'],
-      testURL: serverGlobals.BLANK_URL,
+      testURL: `${TEST_HOST}/_blank.html`,
     },
     // Integration Tests (Jest)
     {
@@ -31,7 +31,7 @@ module.exports = {
       displayName: 'integration',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/integration/*.test.js'],
-      testURL: serverGlobals.BLANK_URL,
+      testURL: `${TEST_HOST}/_blank.html`,
     },
     // E2E Tests (Jest + Playwright)
     {

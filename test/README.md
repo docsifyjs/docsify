@@ -14,7 +14,6 @@
 
 ## Global Variables
 
-- `BLANK_URL`: Test server route to virtual `_blank.html` file
 - `TEST_HOST`: Test server ip:port
 
 ## CLI commands

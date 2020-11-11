@@ -104,13 +104,8 @@ else if (require.main === module) {
 }
 
 module.exports = {
-  globals: {
-    get BLANK_URL() {
-      return `${this.TEST_HOST}/_blank.html`;
-    },
-    TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
-  },
   start: startServer,
   startAsync: startServerAsync,
   stop: stopServer,
+  TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
 };

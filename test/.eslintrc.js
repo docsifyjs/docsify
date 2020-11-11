@@ -5,8 +5,6 @@ module.exports = {
     'jest/globals': true,
   },
   extends: ['plugin:jest/recommended', 'plugin:jest/style'],
-  globals: {
-    ...jestConfig.globals,
-  },
+  globals: jestConfig.globals,
   plugins: ['jest'],
 };
