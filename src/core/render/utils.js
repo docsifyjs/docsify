@@ -48,3 +48,20 @@ export function getAndRemoveConfig(str = '') {
 export function removeAtag(str = '') {
   return str.replace(/(<\/?a.*?>)/gi, '');
 }
+
+/**
+ * Escape html
+ * @param {String} string html string
+ * @returns {string} Return escaped html string
+ */
+export function escapeHtml(string) {
+  const entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+}

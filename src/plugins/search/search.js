@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { getAndRemoveConfig } from '../../core/render/utils';
+import { getAndRemoveConfig, escapeHtml } from '../../core/render/utils';
 
 let INDEXS = {};
 
@@ -18,18 +18,6 @@ function resolveIndexKey(namespace) {
   return namespace
     ? `${LOCAL_STORAGE.INDEX_KEY}/${namespace}`
     : LOCAL_STORAGE.INDEX_KEY;
-}
-
-function escapeHtml(string) {
-  const entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  };
-
-  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
 
 function getAllPaths(router) {
