@@ -30,12 +30,12 @@ describe('Vue.js Compatibility', function() {
             };
           },
         },
-        vueMountOptions: {
-          '#vuemountoptions': {
+        vueMounts: {
+          '#vuemounts': {
             data: function() {
               return {
                 counter: 0,
-                msg: 'vuemountoptions',
+                msg: 'vuemounts',
               };
             },
           },
@@ -53,7 +53,7 @@ describe('Vue.js Compatibility', function() {
             <span>{{ counter }}<span>
           </div>
 
-          <div id="vuemountoptions">
+          <div id="vuemounts">
             <p v-text="msg">---</p>
             <button v-on:click="counter += 1">+</button>
             <span>{{ counter }}<span>
@@ -114,11 +114,8 @@ describe('Vue.js Compatibility', function() {
             'vueglobaloptions'
           );
           await expect(page).toEqualText('#vueglobaloptions span', '0');
-          await expect(page).toEqualText(
-            '#vuemountoptions p',
-            'vuemountoptions'
-          );
-          await expect(page).toEqualText('#vuemountoptions span', '0');
+          await expect(page).toEqualText('#vuemounts p', 'vuemounts');
+          await expect(page).toEqualText('#vuemounts span', '0');
           await expect(page).toEqualText('#vuescript p', 'vuescript');
           await expect(page).toEqualText('#vuescript span', '0');
 
@@ -127,8 +124,8 @@ describe('Vue.js Compatibility', function() {
           await expect(page).toEqualText('#vuecomponent', '1');
           await page.click('#vueglobaloptions button');
           await expect(page).toEqualText('#vueglobaloptions span', '1');
-          await page.click('#vuemountoptions button');
-          await expect(page).toEqualText('#vuemountoptions span', '1');
+          await page.click('#vuemounts button');
+          await expect(page).toEqualText('#vuemounts span', '1');
           await page.click('#vuescript button');
           await expect(page).toEqualText('#vuescript span', '1');
         });
@@ -144,23 +141,23 @@ describe('Vue.js Compatibility', function() {
         await expect(page).toEqualText('#vuefor', '{{ i }}');
         await expect(page).toEqualText('#vuecomponent', '---');
         await expect(page).toEqualText('#vueglobaloptions p', '---');
-        await expect(page).toEqualText('#vuemountoptions p', '---');
+        await expect(page).toEqualText('#vuemounts p', '---');
         await expect(page).toEqualText('#vuescript p', '---');
       });
 
-      test(`ignores content when vueComponents, vueMountOptions, and vueGlobalOptions are undefined`, async () => {
+      test(`ignores content when vueComponents, vueMounts, and vueGlobalOptions are undefined`, async () => {
         const docsifyInitConfig = getSharedConfig();
 
         docsifyInitConfig.config.vueComponents = undefined;
         docsifyInitConfig.config.vueGlobalOptions = undefined;
-        docsifyInitConfig.config.vueMountOptions = undefined;
+        docsifyInitConfig.config.vueMounts = undefined;
         docsifyInitConfig.scriptURLs = vueURL;
 
         await docsifyInit(docsifyInitConfig);
         await expect(page).toEqualText('#vuefor', '{{ i }}');
         await expect(page).toEqualText('#vuecomponent', '---');
         await expect(page).toEqualText('#vueglobaloptions p', '---');
-        await expect(page).toEqualText('#vuemountoptions p', '---');
+        await expect(page).toEqualText('#vuemounts p', '---');
         await expect(page).toEqualText('#vuescript p', 'vuescript');
       });
 
@@ -174,16 +171,14 @@ describe('Vue.js Compatibility', function() {
         await expect(page).toEqualText('#vuefor', '12345');
         await expect(page).toEqualText('#vuecomponent', '0');
         expect(await page.innerText('#vueglobaloptions p')).toBe('');
-        await expect(page).toEqualText('#vuemountoptions p', 'vuemountoptions');
+        await expect(page).toEqualText('#vuemounts p', 'vuemounts');
         await expect(page).toEqualText('#vuescript p', 'vuescript');
       });
 
-      test(`ignores content when vueMountOptions is undefined`, async () => {
+      test(`ignores content when vueMounts is undefined`, async () => {
         const docsifyInitConfig = getSharedConfig();
 
-        docsifyInitConfig.config.vueMountOptions[
-          '#vuemountoptions'
-        ] = undefined;
+        docsifyInitConfig.config.vueMounts['#vuemounts'] = undefined;
         docsifyInitConfig.scriptURLs = vueURL;
 
         await docsifyInit(docsifyInitConfig);
@@ -193,10 +188,7 @@ describe('Vue.js Compatibility', function() {
           '#vueglobaloptions p',
           'vueglobaloptions'
         );
-        await expect(page).toEqualText(
-          '#vuemountoptions p',
-          'vueglobaloptions'
-        );
+        await expect(page).toEqualText('#vuemounts p', 'vueglobaloptions');
         await expect(page).toEqualText('#vuescript p', 'vuescript');
       });
 

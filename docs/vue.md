@@ -26,7 +26,7 @@ To get started, add Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) 
 
 ## Template syntax
 
-Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create dynamic content. With no additinal configuration, this syntax offers several useful features like support for [JavaScript expressions](https://vuejs.org/v2/guide/syntax.html#Using-JavaScript-Expressions) and Vue [directives](https://vuejs.org/v2/guide/syntax.html#Directives) for loops and conditional rendering.
+Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create dynamic content. With no additional configuration, this syntax offers several useful features like support for [JavaScript expressions](https://vuejs.org/v2/guide/syntax.html#Using-JavaScript-Expressions) and Vue [directives](https://vuejs.org/v2/guide/syntax.html#Directives) for loops and conditional rendering.
 
 ```markdown
 <!-- Hide in docsify, show elsewhere (e.g. GitHub) -->
@@ -53,7 +53,7 @@ Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create 
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#template-syntax)
 
-Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options), [mount options](#mount-options), or within [components](#components).
+Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or, when [mounting DOM elements](#mounting-dom-elements), or within Vue [components](#components).
 
 ### Data
 
@@ -189,7 +189,7 @@ Good {{ timeOfDay }}!
 
 ## Global options
 
-Use `vueGlobalOptions` to share Vue options throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [mount options](#mount-options), [components](#components), or a [markdown script](#markdown-script).
+Use `vueGlobalOptions` to share Vue options throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not already been mounted with [vueMounts](#mounting-dom-elements), [vueComponents](#components), or a [markdown script](#markdown-script).
 
 ```js
 window.$docsify = {
@@ -231,13 +231,13 @@ Notice the behavior when multiple global counters are rendered:
 
 Changes made to one counter affect the both counters. This is because both instances reference the same global `count` value. Now, navigate to a new page and return to this section to see how changes made to global data persist between page loads.
 
-## Mount options
+## Mounting DOM elements
 
-Use `vueMountOptions` to specify Vue mount elements and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area (`#main, .markdown-section`) each time a new page is loaded.
+Use `vueMounts` to specify DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded.
 
 ```js
 window.$docsify = {
-  vueMountOptions: {
+  vueMounts: {
     '#counter': {
       data() {
         return {
@@ -325,7 +325,7 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 
 - Docsify processes Vue content in the following order:
   1. Markdown `<script>`
-  1. `vueMountOptions`
+  1. `vueMounts`
   1. `vueGlobalOptions`
 - Docsify will not mount an existing Vue instance or an element that contains an existing Vue instance.
 - Docsify will automatically destroy/unmount all Vue instances it creates before new page content is loaded.

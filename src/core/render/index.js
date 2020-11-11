@@ -114,9 +114,9 @@ function renderMain(html) {
       vueGlobalData = docsifyConfig.vueGlobalOptions.data();
     }
 
-    // vueMountOptions
+    // vueMounts
     vueMountData.push(
-      ...Object.entries(docsifyConfig.vueMountOptions || {})
+      ...Object.entries(docsifyConfig.vueMounts || {})
         .map(([cssSelector, vueConfig]) => [
           dom.find(markdownElm, cssSelector),
           vueConfig,
