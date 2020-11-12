@@ -634,7 +634,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Registers Vue components using the component name as the key with an object containing Vue options as the value. Component data is not shared and changes will not persist as users navigate the site.
+Registers Vue components using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -667,7 +667,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Specifies Vue options to be shared throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not been previously mounted via [vueMounts](#vuemounts), [vueComponents](#vuecomponents), or a markdown `<script>`.
+Specifies options for use with Vue content not explicitly mounted with [vueMounts](#mounting-dom-elements), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
 ```js
 window.$docsify = {
@@ -701,7 +701,7 @@ window.$docsify = {
 
 - type: `Object`
 
-Specifies DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded.
+Specifies DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {

@@ -53,7 +53,7 @@ Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create 
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#template-syntax)
 
-Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or, when [mounting DOM elements](#mounting-dom-elements), or within Vue [components](#components).
+Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or within DOM [mounts](#mounts) and [components](#components).
 
 ### Data
 
@@ -189,7 +189,7 @@ Good {{ timeOfDay }}!
 
 ## Global options
 
-Use `vueGlobalOptions` to share Vue options throughout your site. These options will be used when Docsify detects Vue content in the main content area that has not already been mounted with [vueMounts](#mounting-dom-elements), [vueComponents](#components), or a [markdown script](#markdown-script).
+Use `vueGlobalOptions` to specify options for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
 ```js
 window.$docsify = {
@@ -231,9 +231,9 @@ Notice the behavior when multiple global counters are rendered:
 
 Changes made to one counter affect the both counters. This is because both instances reference the same global `count` value. Now, navigate to a new page and return to this section to see how changes made to global data persist between page loads.
 
-## Mounting DOM elements
+## Mounts
 
-Use `vueMounts` to specify DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded.
+Use `vueMounts` to specify DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -265,7 +265,7 @@ window.$docsify = {
 
 ## Components
 
-Use `vueComponents` to register Vue components using the component name as the key with an object containing Vue options as the value. Component data is not shared and changes will not persist as users navigate the site.
+Use `vueComponents` to register Vue components using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -324,10 +324,11 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 ## Technical Notes
 
 - Docsify processes Vue content in the following order:
-  1. Markdown `<script>`
-  1. `vueMounts`
-  1. `vueGlobalOptions`
+  1. Execute markdown `<script>`
+  1. Register `vueComponents`
+  1. Mount DOM elements via `vueMounts`
+  1. Process unmounted Vue content using `vueGlobalOptions`
 - Docsify will not mount an existing Vue instance or an element that contains an existing Vue instance.
 - Docsify will automatically destroy/unmount all Vue instances it creates before new page content is loaded.
-- When processing `vueGlobalOptions`, docsify parses each root element of the main content area and mounts the element if Vue content is detected. Docsify does not parse each individual node within the main content area.
-- When processing `vueGlobalOptions`, docsify will only detect the full `v-` attribute syntax (e.g `v-bind:href` or `v-on:click`). For performance reasons, detection of Vue's [shorthand](https://vuejs.org/v2/guide/syntax.html#Shorthands) attribute syntax (e.g. `:href`or `@click`) is not supported.
+- When processing `vueGlobalOptions`, docsify parses the child elements within the main content area (`#main`) and mounts the element if it contains Vue content. Docsify does not parse each individual node within the main content area.
+- When processing `vueGlobalOptions`, docsify will only detect the full `v-` attribute syntax (e.g `v-bind:href` or `v-on:click`). For performance reasons, detection of Vue's [shorthand](https://vuejs.org/v2/guide/syntax.html#Shorthands) attribute syntax (e.g. `:href`or `@click`) is not supported. Shorthand syntax is supported when explicitly mounting Vue content via `vueComponents`, `vueMounts`, or a markdown `<script>`.
