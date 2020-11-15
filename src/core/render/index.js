@@ -127,8 +127,25 @@ function renderMain(html) {
     // Template syntax, vueComponents, vueGlobalOptions
     if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
       const reHasBraces = /{{2}[^{}]*}{2}/;
-      const reHasDataDirective = /\sv-(bind:|cloak|html=|is=|model=|on:|slot=|text=)/;
-      const reHasStaticDirective = /\sv-(else|else-if=|for=|if=|once|pre|show=)/;
+      // Matches Vue full and shorthand syntax as attributes in HTML tags.
+      //
+      // Full syntax examples:
+      // v-foo, v-foo[bar], v-foo-bar, v-foo:bar-baz.prop
+      //
+      // Shorthand syntax examples:
+      // @foo, @foo.bar, @foo.bar.baz, @[foo], :foo, :[foo]
+      //
+      // Markup examples:
+      // <div v-html>{{ html }}</div>
+      // <div v-text="msg"></div>
+      // <div v-bind:text-content.prop="text">
+      // <button v-on:click="doThis"></button>
+      // <button v-on:click.once="doThis"></button>
+      // <button v-on:[event]="doThis"></button>
+      // <button @click.stop.prevent="doThis">
+      // <a :href="url">
+      // <a :[key]="url">
+      const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
 
       vueMountData.push(
         ...dom
@@ -145,11 +162,8 @@ function renderMain(html) {
               elm.querySelector(vueComponentNames.join(',') || null) ||
               // has curly braces
               reHasBraces.test(elm.outerHTML) ||
-              // has data directive
-              (docsifyConfig.vueGlobalOptions &&
-                reHasDataDirective.test(elm.outerHTML)) ||
-              // has static content directive
-              reHasStaticDirective.test(elm.outerHTML);
+              // has content directive
+              reHasDirective.test(elm.outerHTML);
 
             return isVueMount;
           })

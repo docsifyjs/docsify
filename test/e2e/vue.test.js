@@ -49,19 +49,19 @@ describe('Vue.js Compatibility', function() {
 
           <div id="vueglobaloptions">
             <p v-text="msg">---</p>
-            <button v-on:click="counter += 1">+</button>
+            <button @click="counter += 1">+</button>
             <span>{{ counter }}<span>
           </div>
 
           <div id="vuemounts">
             <p v-text="msg">---</p>
-            <button v-on:click="counter += 1">+</button>
+            <button @click="counter += 1">+</button>
             <span>{{ counter }}<span>
           </div>
 
           <div id="vuescript">
             <p v-text="msg">---</p>
-            <button v-on:click="counter += 1">+</button>
+            <button @click="counter += 1">+</button>
             <span>{{ counter }}<span>
           </div>
 

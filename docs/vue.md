@@ -140,8 +140,12 @@ Good {{ timeOfDay }}!
 }
 ```
 
+```markdown
+<button @click="hello">Say Hello</button>
+```
+
 <output data-lang="output">
-  <p><button v-on:click="hello">Say Hello</button></p>
+  <p><button @click="hello">Say Hello</button></p>
 </output>
 
 ### Lifecycle Hooks
@@ -205,17 +209,17 @@ window.$docsify = {
 
 ```markdown
 <p>
-  <button v-on:click="count -= 1">-</button>
+  <button @click="count -= 1">-</button>
   {{ count }}
-  <button v-on:click="count += 1">+</button>
+  <button @click="count += 1">+</button>
 </p>
 ```
 
 <output data-lang="output">
   <p>
-    <button v-on:click="count -= 1">-</button>
+    <button @click="count -= 1">-</button>
     {{ count }}
-    <button v-on:click="count += 1">+</button>
+    <button @click="count += 1">+</button>
   </p>
 </output>
 
@@ -223,9 +227,9 @@ Notice the behavior when multiple global counters are rendered:
 
 <output data-lang="output">
   <p>
-    <button v-on:click="count -= 1">-</button>
+    <button @click="count -= 1">-</button>
     {{ count }}
-    <button v-on:click="count += 1">+</button>
+    <button @click="count += 1">+</button>
   </p>
 </output>
 
@@ -251,16 +255,16 @@ window.$docsify = {
 
 ```markdown
 <div id="counter">
-  <button v-on:click="count -= 1">-</button>
+  <button @click="count -= 1">-</button>
   {{ count }}
-  <button v-on:click="count += 1">+</button>
+  <button @click="count += 1">+</button>
 </div>
 ```
 
 <output id="counter">
-  <button v-on:click="count -= 1">-</button>
+  <button @click="count -= 1">-</button>
   {{ count }}
-  <button v-on:click="count += 1">+</button>
+  <button @click="count += 1">+</button>
 </output>
 
 ## Components
@@ -331,4 +335,3 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 - Docsify will not mount an existing Vue instance or an element that contains an existing Vue instance.
 - Docsify will automatically destroy/unmount all Vue instances it creates before new page content is loaded.
 - When processing `vueGlobalOptions`, docsify parses the child elements within the main content area (`#main`) and mounts the element if it contains Vue content. Docsify does not parse each individual node within the main content area.
-- When processing `vueGlobalOptions`, docsify will only detect the full `v-` attribute syntax (e.g `v-bind:href` or `v-on:click`). For performance reasons, detection of Vue's [shorthand](https://vuejs.org/v2/guide/syntax.html#Shorthands) attribute syntax (e.g. `:href`or `@click`) is not supported. Shorthand syntax is supported when explicitly mounting Vue content via `vueComponents`, `vueMounts`, or a markdown `<script>`.

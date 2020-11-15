@@ -683,17 +683,17 @@ window.$docsify = {
 
 ```markdown
 <p>
-  <button v-on:click="count -= 1">-</button>
+  <button @click="count -= 1">-</button>
   {{ count }}
-  <button v-on:click="count += 1">+</button>
+  <button @click="count += 1">+</button>
 </p>
 ```
 
 <output data-lang="output">
   <p>
-    <button v-on:click="count -= 1">-</button>
+    <button @click="count -= 1">-</button>
     {{ count }}
-    <button v-on:click="count += 1">+</button>
+    <button @click="count += 1">+</button>
   </p>
 </output>
 
@@ -719,14 +719,14 @@ window.$docsify = {
 
 ```markdown
 <div id="counter">
-  <button v-on:click="count -= 1">-</button>
+  <button @click="count -= 1">-</button>
   {{ count }}
-  <button v-on:click="count += 1">+</button>
+  <button @click="count += 1">+</button>
 </div>
 ```
 
 <output id="counter">
-  <button v-on:click="count -= 1">-</button>
+  <button @click="count -= 1">-</button>
   {{ count }}
-  <button v-on:click="count += 1">+</button>
+  <button @click="count += 1">+</button>
 </output>
