@@ -1,5 +1,7 @@
 import path from 'path';
-import server from './test/config/server';
+import server from './test/config/server.js';
+
+console.log('jest.config');
 
 const { globals: serverGlobals } = server;
 const dirname = path.dirname(import.meta.url.replace('file://', ''));

@@ -2,6 +2,8 @@ import path from 'path';
 import browserSyncModule from 'browser-sync';
 import esMain from 'es-main';
 
+console.log('test/config/server');
+
 const browserSync = browserSyncModule.create();
 const hasStartArg = process.argv.includes('--start');
 const dirname = path.dirname(import.meta.url.replace('file://', ''));
@@ -80,7 +82,7 @@ function startServer(options = {}, cb = Function.prototype) {
 }
 
 async function startServerAsync() {
-  await new Promise((resolve) => {
+  await new Promise(resolve => {
     startServer({}, () => {
       console.log('\n');
       resolve();

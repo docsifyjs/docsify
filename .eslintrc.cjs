@@ -1,13 +1,24 @@
 const deasync = require('deasync'); // powerful magic
 
 const promiseSync = deasync((promise, cb) => {
-  promise.then((result) => cb(null, result)).catch((error) => cb(error));
+  console.log('wait for promise, before');
+  promise
+    .then(result => {
+      console.log('promise resolved');
+      cb(null, result);
+    })
+    .catch(error => {
+      console.log('promise error');
+      cb(error);
+    });
 });
 
-const importSync = (name) => promiseSync(import(name));
+const importSync = name => promiseSync(import(name));
 
 // Look, no await needed here!
-const jestConfig = importSync('./jest.config').default;
+console.log('import sync before');
+const jestConfig = importSync('./jest.config.js').default;
+console.log('import sync after');
 
 const testGlobals = {};
 
