@@ -1,4 +1,5 @@
 // @ts-check
+import fs from 'fs';
 import {
   Renderer,
   getServerHTMLTemplate,
@@ -53,6 +54,12 @@ describe('pacakges/docsify-server-render Renderer', function () {
       await renderer.renderToString('/de-de/changelog'),
       await renderer.renderToString('/zh-cn/changelog'),
       await renderer.renderToString('/changelog'),
+    ]);
+
+    await Promise.all([
+      fs.promises.writeFile('tmp1.html', one),
+      fs.promises.writeFile('tmp2.html', two),
+      fs.promises.writeFile('tmp3.html', three),
     ]);
 
     expect(one).toEqual(two);

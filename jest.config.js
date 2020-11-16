@@ -20,9 +20,13 @@ const sharedConfig = {
 
 // Jest configuration: https://jestjs.io/docs/en/configuration
 
+// Jest is configured for us to write our code as native ES Modules. See
+// https://github.com/facebook/jest/issues/9430 and
+// https://jestjs.io/docs/en/ecmascript-modules.
+
 export default {
-  // Disable transforms, we'll write plain JS. This is also needed for native
-  // ESM (see https://jestjs.io/docs/en/ecmascript-modules).
+  // Disable transforms, we'll write plain JS. This is needed for native
+  // ESM
   transform: {},
 
   // Adding globals to config root for easier importing into .eslint.cjs, but

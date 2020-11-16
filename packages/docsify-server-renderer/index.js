@@ -66,6 +66,7 @@ export default class Renderer {
    * @param {string} url
    * @returns {Promise<string>}
    */
+  // CONTINUE: looking for why navbar renders "undefined" in linux
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
     this.isRemoteUrl = isExternal(this.url);
@@ -83,6 +84,7 @@ export default class Renderer {
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar;
       const navbarFile = this._getPath(resolve(url, `./${name}`));
+      console.log(navbarFile);
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'));
     }
 
