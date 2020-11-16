@@ -1,5 +1,5 @@
 import path from 'path';
-import server from './test/config/server.js';
+import server from './test/config/server';
 
 console.log('jest.config');
 
