@@ -1,9 +1,12 @@
+{% set _mediaPath = "_media" if isProduction else "docs/_media" %}
+{% set libPath = "//cdn.jsdelivr.net/npm/docsify@4/lib" if isProduction else "/lib" %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>docsify</title>
-    <link rel="icon" href="_media/favicon.ico" />
+    <title>docsify{{ " (Preview)" if not isProduction }}</title>
+    <link rel="icon" href="{{ _mediaPath }}/favicon.ico" />
     <meta
       name="google-site-verification"
       content="6t0LoIeFksrjF4c9sqUEsVXiQNxLp2hgoqo0KryT-sE"
@@ -20,24 +23,24 @@
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
+      href="{{ libPath }}/themes/vue.css"
       title="vue"
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css"
+      href="{{ libPath }}/themes/dark.css"
       title="dark"
       disabled
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/buble.css"
+      href="{{ libPath }}/themes/buble.css"
       title="buble"
       disabled
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/pure.css"
+      href="{{ libPath }}/themes/pure.css"
       title="pure"
       disabled
     />
@@ -46,39 +49,44 @@
         min-width: 100px;
       }
     </style>
+    {%- if isProduction %}
     <style>
       #carbonads {
         box-shadow: none !important;
         width: auto !important;
       }
     </style>
+    {% endif %}
   </head>
   <body>
     <div id="app">Loading ...</div>
     <script>
       window.$docsify = {
-        name: "docsify",
+        name: 'docsify',
         // repo: 'docsifyjs/docsify',
         auto2top: true,
         coverpage: true,
         executeScript: true,
+        {%- if not isProduction %}
+        basePath: '/docs/',
+        {%- endif %}
         // Navigation
         alias: {
-          ".*?/awesome":
-            "https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md",
-          ".*?/changelog":
-            "https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md",
-          "/.*/_navbar.md": "/_navbar.md",
-          "/zh-cn/(.*)":
-            "https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1",
-          "/de-de/(.*)":
-            "https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1",
-          "/ru-ru/(.*)":
-            "https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1",
-          "/es/(.*)":
-            "https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1",
-          "/write-a-plugin":
-            "https://raw.githubusercontent.com/docsifyjs/docsify/master/docs/write-a-plugin.md"
+          '.*?/awesome':
+            'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
+          '.*?/changelog':
+            'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
+          '/.*/_navbar.md': '/_navbar.md',
+          '/zh-cn/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
+          '/de-de/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
+          '/ru-ru/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
+          '/es/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
+          '/write-a-plugin':
+            'https://raw.githubusercontent.com/docsifyjs/docsify/master/docs/write-a-plugin.md',
         },
         loadNavbar: true,
         loadSidebar: true,
@@ -86,14 +94,13 @@
         mergeNavbar: true,
         subMaxLevel: 2,
         // Vue
-
+        {% raw %}
         vueComponents: {
-          "button-counter": {
-            template:
-              '<button @click="count += 1">You clicked me {{ count }} times</button>',
+          'button-counter': {
+            template: '<button @click="count += 1">You clicked me {{ count }} times</button>',
             data() {
               return {
-                count: 0
+                count: 0,
               };
             }
           }
@@ -102,13 +109,13 @@
           data() {
             return {
               count: 0,
-              message: "Hello, World!",
+              message: 'Hello, World!',
               // Fake API response
               images: [
-                { title: "Image 1", url: "https://picsum.photos/150?random=1" },
-                { title: "Image 2", url: "https://picsum.photos/150?random=2" },
-                { title: "Image 3", url: "https://picsum.photos/150?random=3" }
-              ]
+                { title: 'Image 1', url: 'https://picsum.photos/150?random=1' },
+                { title: 'Image 2', url: 'https://picsum.photos/150?random=2' },
+                { title: 'Image 3', url: 'https://picsum.photos/150?random=3' }
+              ],
             };
           },
           computed: {
@@ -117,11 +124,11 @@
               const hours = date.getHours();
 
               if (hours < 12) {
-                return "morning";
+                return 'morning';
               } else if (hours < 18) {
-                return "afternoon";
+                return 'afternoon';
               } else {
-                return "evening";
+                return 'evening';
               }
             }
           },
@@ -132,7 +139,7 @@
           }
         },
         vueMounts: {
-          "#counter": {
+          '#counter': {
             data() {
               return {
                 count: 0
@@ -140,24 +147,26 @@
             }
           }
         },
-
+        {% endraw %}
         // Plugins (docsify)
-        ga: "UA-106147152-1",
-        matomo: {
-          host: "//matomo.thunderwave.de",
-          id: 6
-        },
+        {%- if isProduction %}
+          ga: 'UA-106147152-1',
+          matomo: {
+            host: '//matomo.thunderwave.de',
+            id: 6
+          },
+        {%- endif %}
         search: {
           noData: {
-            "/de-de/": "Keine Ergebnisse!",
-            "/zh-cn/": "没有结果!",
-            "/": "No results!"
+            '/de-de/': 'Keine Ergebnisse!',
+            '/zh-cn/': '没有结果!',
+            '/': 'No results!'
           },
-          paths: "auto",
+          paths: 'auto',
           placeholder: {
-            "/de-de/": "Suche",
-            "/zh-cn/": "搜索",
-            "/": "Search"
+            '/de-de/': 'Suche',
+            '/zh-cn/': '搜索',
+            '/': 'Search'
           }
         },
         // Plugins (custom)
@@ -166,46 +175,62 @@
           function(hook, vm) {
             hook.beforeEach(function(html) {
               var url =
-                "https://github.com/docsifyjs/docsify/blob/master/docs/" +
+                'https://github.com/docsifyjs/docsify/blob/master/docs/' +
                 vm.route.file;
 
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
-                  .replace("raw.githubusercontent.com", "github.com")
-                  .replace(/\/master/, "/blob/master");
+                  .replace('raw.githubusercontent.com', 'github.com')
+                  .replace(/\/master/, '/blob/master');
               } else if (/jsdelivr\.net/.test(vm.route.file)) {
                 url = vm.route.file
-                  .replace("cdn.jsdelivr.net/gh", "github.com")
-                  .replace("@master", "/blob/master");
+                  .replace('cdn.jsdelivr.net/gh', 'github.com')
+                  .replace('@master', '/blob/master');
               }
 
               return [
                 html,
                 '<div style="text-align: right;">',
-                "[:memo: Edit Document](" + url + ")",
-                "</div>"
-              ].join("\n\n");
+                '[:memo: Edit Document](' + url + ')',
+                '</div>',
+              ].join('\n\n');
             });
-          }
+          },
+          {%- if not isProduction %}
+          // Fix prevew paths to local /docs resources
+          function(hook, vm) {
+            hook.afterEach(function(html) {
+              const reDocsDirs = /(=\s*"\/?)(_media|_image)\//gm;
+
+              html = html.replace(reDocsDirs, '$1docs/$2/');
+
+              return html;
+            });
+          },
+          {% endif -%}
         ]
       };
     </script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/front-matter.js"></script>
+    <script src="{{ libPath }}/docsify.min.js"></script>
+    <script src="{{ libPath }}/plugins/search.min.js"></script>
+    {#- <script src="{{ libPath }}/plugins/emoji.js"></script> #}
+    <script src="{{ libPath }}/plugins/front-matter.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+    {%- if isProduction %}
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1/index.min.js"></script>
     <script>
       ((window.gitter = {}).chat = {}).options = {
-        room: "docsifyjs/Lobby"
+        room: 'docsifyjs/Lobby',
       };
     </script>
     <script src="//sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+    {% endif -%}
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    {#- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> #}
   </body>
 </html>
