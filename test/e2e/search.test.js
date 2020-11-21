@@ -98,10 +98,9 @@ describe('Search Plugin Tests', function() {
 
     await docsifyInit(docsifyInitConfig);
     await page.fill('input[type=search]', 'hello');
+    await expect(page).toHaveSelector('.matching-post');
+    expect(await page.$$eval('.matching-post', elms => elms.length)).toBe(1);
     await expect(page).toEqualText('.results-panel h2', 'Hello World');
-    // error
-    await expect(page).toEqualText('.results-panel', 'Hello World');
-
     await page.click('.clear-button');
     await page.fill('input[type=search]', 'test');
     await expect(page).toEqualText('.results-panel h2', 'Test Page');

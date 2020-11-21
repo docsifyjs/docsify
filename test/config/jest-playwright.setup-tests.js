@@ -51,4 +51,9 @@ beforeEach(async () => {
   // to fail (e.g. AJAX requests). To avoid these issues, this hook ensures
   // that each tests begins by a blank HTML page.
   await page.goto(BLANK_URL);
+
+  // Clear local storage
+  await page.evaluate(() => {
+    window.localStorage.clear();
+  });
 });
