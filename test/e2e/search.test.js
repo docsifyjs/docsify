@@ -14,7 +14,6 @@ describe('Search Plugin Tests', function() {
           This is the homepage.
         `,
         sidebar: `
-          - [Home page](/)
           - [Test Page](test)
         `,
       },
@@ -72,5 +71,39 @@ describe('Search Plugin Tests', function() {
     await page.click('.clear-button');
     await page.fill('input[type=search]', 'repository2');
     await expect(page).toEqualText('.results-panel h2', 'GitHub Pages ignore2');
+  });
+
+  test('search only one homepage', async () => {
+    const docsifyInitConfig = {
+      markdown: {
+        sidebar: `
+          - [README](README)
+          - [Test Page](test)
+        `,
+      },
+      routes: {
+        '/README.md': `
+          # Hello World
+
+          This is the homepage.
+        `,
+        '/test.md': `
+          # Test Page
+
+          This is a custom route.
+        `,
+      },
+      scriptURLs: ['/lib/plugins/search.js'],
+    };
+
+    await docsifyInit(docsifyInitConfig);
+    await page.fill('input[type=search]', 'hello');
+    await expect(page).toEqualText('.results-panel h2', 'Hello World');
+    // error
+    await expect(page).toEqualText('.results-panel', 'Hello World');
+
+    await page.click('.clear-button');
+    await page.fill('input[type=search]', 'test');
+    await expect(page).toEqualText('.results-panel h2', 'Test Page');
   });
 });
