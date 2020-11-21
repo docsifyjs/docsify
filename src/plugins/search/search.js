@@ -236,10 +236,9 @@ export function init(config, vm) {
         namespaceSuffix = matches[0];
       }
     }
-    if (
-      paths.indexOf(namespaceSuffix + '/') === -1 &&
-      paths.indexOf(namespaceSuffix + '/README') === -1
-    ) {
+    const isExistHome = paths.indexOf(namespaceSuffix + '/') === -1;
+    const isExistReadme = paths.indexOf(namespaceSuffix + '/README') === -1;
+    if (isExistHome && isExistReadme) {
       paths.unshift(namespaceSuffix + '/');
     }
   } else if (paths.indexOf('/') === -1 && paths.indexOf('/README') === -1) {
