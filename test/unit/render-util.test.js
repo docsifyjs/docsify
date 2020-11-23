@@ -1,4 +1,5 @@
 const { removeAtag } = require('../../src/core/render/utils');
+
 const { tree } = require(`../../src/core/render/tpl`);
 
 // Suite
