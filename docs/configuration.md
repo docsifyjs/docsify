@@ -1,14 +1,32 @@
 # Configuration
 
-You can configure the `window.$docsify`.
+You can configure Docsify by defining `window.$docsify` as an object:
 
 ```html
 <script>
   window.$docsify = {
     repo: 'docsifyjs/docsify',
     maxLevel: 3,
-    coverpage: true
-  }
+    coverpage: true,
+  };
+</script>
+```
+
+The config can also be defined as a function, in which case the first argument is the Docsify `vm` instance. The function should return a config object. This can be useful for referencing `vm` in places like the markdown configuration:
+
+```html
+<script>
+  window.$docsify = function(vm) {
+    return {
+      markdown: {
+        renderer: {
+          code(code, lang) {
+            // ... use `vm` ...
+          },
+        },
+      },
+    };
+  };
 </script>
 ```
 
@@ -17,11 +35,11 @@ You can configure the `window.$docsify`.
 - Type: `String`
 - Default: `#app`
 
-The DOM element to be mounted on initialization. It can be a CSS selector string or an actual HTMLElement.
+The DOM element to be mounted on initialization. It can be a CSS selector string or an actual [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
 
 ```js
 window.$docsify = {
-  el: '#app'
+  el: '#app',
 };
 ```
 
@@ -30,13 +48,13 @@ window.$docsify = {
 - Type: `String`
 - Default: `null`
 
-Configure the repository url or a string of `username/repo` can add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
+Configure the repository url, or a string of `username/repo` can add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
 
 ```js
 window.$docsify = {
   repo: 'docsifyjs/docsify',
   // or
-  repo: 'https://github.com/docsifyjs/docsify/'
+  repo: 'https://github.com/docsifyjs/docsify/',
 };
 ```
 
@@ -49,7 +67,7 @@ Maximum Table of content level.
 
 ```js
 window.$docsify = {
-  maxLevel: 4
+  maxLevel: 4,
 };
 ```
 
@@ -58,7 +76,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-Loads navbar from the Markdown file `_navbar.md` if **true**, or else from the path specified.
+Loads navbar from the Markdown file `_navbar.md` if **true**, else loads it from the path specified.
 
 ```js
 window.$docsify = {
@@ -66,7 +84,7 @@ window.$docsify = {
   loadNavbar: true,
 
   // load from nav.md
-  loadNavbar: 'nav.md'
+  loadNavbar: 'nav.md',
 };
 ```
 
@@ -75,7 +93,7 @@ window.$docsify = {
 - Type: `Boolean|String`
 - Default: `false`
 
-Loads sidebar from the Markdown file `_sidebar.md` if **true**, or else from the path specified.
+Loads sidebar from the Markdown file `_sidebar.md` if **true**, else loads it from the path specified.
 
 ```js
 window.$docsify = {
@@ -83,7 +101,20 @@ window.$docsify = {
   loadSidebar: true,
 
   // load from summary.md
-  loadSidebar: 'summary.md'
+  loadSidebar: 'summary.md',
+};
+```
+
+## hideSidebar
+
+- Type : `Boolean`
+- Default: `true`
+
+This option will completely hide your sidebar and won't render any content on the side.
+
+```js
+window.$docsify = {
+  hideSidebar: true,
 };
 ```
 
@@ -96,7 +127,7 @@ Add table of contents (TOC) in custom sidebar.
 
 ```js
 window.$docsify = {
-  subMaxLevel: 2
+  subMaxLevel: 2,
 };
 ```
 
@@ -109,7 +140,7 @@ Scrolls to the top of the screen when the route is changed.
 
 ```js
 window.$docsify = {
-  auto2top: true
+  auto2top: true,
 };
 ```
 
@@ -118,7 +149,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `README.md`
 
-`README.md` in your docs folder will be treated as homepage for your website, but sometimes you may need to serve another file as your homepage.
+`README.md` in your docs folder will be treated as the homepage for your website, but sometimes you may need to serve another file as your homepage.
 
 ```js
 window.$docsify = {
@@ -127,9 +158,19 @@ window.$docsify = {
 
   // Or use the readme in your repo
   homepage:
-    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md'
+    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md',
 };
 ```
+
+If you have a link to the homepage in the sidebar and want it to be shown as active when accessing the root url, make sure to update your sidebar accordingly:
+
+```markdown
+- Sidebar
+  - [Home](/)
+  - [Another page](another.md)
+```
+
+For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
 ## basePath
 
@@ -146,7 +187,47 @@ window.$docsify = {
 
   // Even can load files from other repo
   basePath:
-    'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/'
+    'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/',
+};
+```
+
+## relativePath
+
+- Type: `Boolean`
+- Default: `false`
+
+If **true**, links are relative to the current context.
+
+For example, the directory structure is as follows:
+
+```text
+.
+└── docs
+    ├── README.md
+    ├── guide.md
+    └── zh-cn
+        ├── README.md
+        ├── guide.md
+        └── config
+            └── example.md
+```
+
+With relative path **enabled** and current URL `http://domain.com/zh-cn/README`, given links will resolve to:
+
+```text
+guide.md              => http://domain.com/zh-cn/guide
+config/example.md     => http://domain.com/zh-cn/config/example
+../README.md          => http://domain.com/README
+/README.md            => http://domain.com/README
+```
+
+```js
+window.$docsify = {
+  // Relative path enabled
+  relativePath: true,
+
+  // Relative path disabled (default value)
+  relativePath: false,
 };
 ```
 
@@ -170,8 +251,8 @@ window.$docsify = {
   // mutiple covers and custom file name
   coverpage: {
     '/': 'cover.md',
-    '/zh-cn/': 'cover.md'
-  }
+    '/zh-cn/': 'cover.md',
+  },
 };
 ```
 
@@ -179,11 +260,11 @@ window.$docsify = {
 
 - Type: `String`
 
-Website logo as it appears in the sidebar, you can resize by CSS.
+Website logo as it appears in the sidebar. You can resize it by using CSS.
 
 ```js
 window.$docsify = {
-  logo: '/_media/icon.svg'
+  logo: '/_media/icon.svg',
 };
 ```
 
@@ -195,7 +276,15 @@ Website name as it appears in the sidebar.
 
 ```js
 window.$docsify = {
-  name: 'docsify'
+  name: 'docsify',
+};
+```
+
+The name field can also contain custom HTML for easier customization:
+
+```js
+window.$docsify = {
+  name: '<span>docsify</span>',
 };
 ```
 
@@ -204,7 +293,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `window.location.pathname`
 
-The name of the link.
+The URL that the website `name` links to.
 
 ```js
 window.$docsify = {
@@ -213,8 +302,8 @@ window.$docsify = {
   // For each route
   nameLink: {
     '/zh-cn/': '/zh-cn/',
-    '/': '/'
-  }
+    '/': '/',
+  },
 };
 ```
 
@@ -232,15 +321,15 @@ window.$docsify = {
     renderer: {
       link: function() {
         // ...
-      }
-    }
+      },
+    },
   },
 
   // function
   markdown: function(marked, renderer) {
     // ...
     return marked;
-  }
+  },
 };
 ```
 
@@ -252,7 +341,7 @@ Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en
 
 ```js
 window.$docsify = {
-  themeColor: '#3F51B5'
+  themeColor: '#3F51B5',
 };
 ```
 
@@ -269,8 +358,8 @@ window.$docsify = {
     '/zh-cn/changelog': '/changelog',
     '/changelog':
       'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
-    '/.*/_sidebar.md': '/_sidebar.md' // See #301
-  }
+    '/.*/_sidebar.md': '/_sidebar.md', // See #301
+  },
 };
 ```
 
@@ -278,12 +367,12 @@ window.$docsify = {
 
 - type: `Boolean`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to html. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
   loadSidebar: true,
-  autoHeader: true
+  autoHeader: true,
 };
 ```
 
@@ -295,7 +384,7 @@ Execute the script on the page. Only parse the first script tag([demo](themes)).
 
 ```js
 window.$docsify = {
-  executeScript: true
+  executeScript: true,
 };
 ```
 
@@ -317,9 +406,11 @@ Disabled emoji parse.
 
 ```js
 window.$docsify = {
-  noEmoji: true
+  noEmoji: true,
 };
 ```
+
+?> If this options is `false` but you dont want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
 
 ## mergeNavbar
 
@@ -329,7 +420,7 @@ Navbar will be merged with the sidebar on smaller screens.
 
 ```js
 window.$docsify = {
-  mergeNavbar: true
+  mergeNavbar: true,
 };
 ```
 
@@ -348,7 +439,7 @@ window.$docsify = {
     // ...
 
     return time;
-  }
+  },
 };
 ```
 
@@ -357,11 +448,37 @@ window.$docsify = {
 - type: `String`
 - default: `_blank`
 
-Target to open external links. Default `'_blank'` (new window/tab)
+Target to open external links inside the markdown. Default `'_blank'` (new window/tab)
 
 ```js
 window.$docsify = {
-  externalLinkTarget: '_self' // default: '_blank'
+  externalLinkTarget: '_self', // default: '_blank'
+};
+```
+
+## cornerExternalLinkTarget
+
+- type:`String`
+- default:`_blank`
+
+Target to open external link at the top right corner. Default `'_blank'` (new window/tab)
+
+```js
+window.$docsify = {
+  cornerExternalLinkTarget: '_self', // default: '_blank'
+};
+```
+
+## externalLinkRel
+
+- type: `String`
+- default: `noopener`
+
+Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when it's not `'_blank'`. See [this post](https://mathiasbynens.github.io/rel-noopener/) for more information about why you may want to use this option.
+
+```js
+window.$docsify = {
+  externalLinkRel: '', // default: 'noopener'
 };
 ```
 
@@ -372,7 +489,7 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
-  routerMode: 'history' // default: 'hash'
+  routerMode: 'history', // default: 'hash'
 };
 ```
 
@@ -384,7 +501,7 @@ Sometimes we do not want docsify to handle our links. See [#203](https://github.
 
 ```js
 window.$docsify = {
-  noCompileLinks: ['/foo', '/bar/.*']
+  noCompileLinks: ['/foo', '/bar/.*'],
 };
 ```
 
@@ -396,7 +513,7 @@ Only coverpage is loaded when visiting the home page.
 
 ```js
 window.$docsify = {
-  onlyCover: false
+  onlyCover: false,
 };
 ```
 
@@ -409,8 +526,18 @@ Set the request resource headers.
 ```js
 window.$docsify = {
   requestHeaders: {
-    'x-token': 'xxx'
-  }
+    'x-token': 'xxx',
+  },
+};
+```
+
+Such as setting the cache
+
+```js
+window.$docsify = {
+  requestHeaders: {
+    'cache-control': 'max-age=600',
+  },
 };
 ```
 
@@ -422,7 +549,7 @@ Request file extension.
 
 ```js
 window.$docsify = {
-  ext: '.md'
+  ext: '.md',
 };
 ```
 
@@ -430,17 +557,17 @@ window.$docsify = {
 
 - type: `Array<string>`
 
-List of languages that will fallback to the default language when a page is request and didn't exists for the given local.
+List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given local.
 
 Example:
 
-- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed
-- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed
-- then display 404 page.
+- try to fetch the page of `/de/overview`. If this page exists, it'll be displayed.
+- then try to fetch the default page `/overview` (depending on the default language). If this page exists, it'll be displayed.
+- then display the 404 page.
 
 ```js
 window.$docsify = {
-  fallbackLanguages: ['fr', 'de']
+  fallbackLanguages: ['fr', 'de'],
 };
 ```
 
@@ -452,15 +579,15 @@ Load the `_404.md` file:
 
 ```js
 window.$docsify = {
-  notFoundPage: true
+  notFoundPage: true,
 };
 ```
 
-Load the customised path of the 404 page:
+Load the customized path of the 404 page:
 
 ```js
 window.$docsify = {
-  notFoundPage: 'my404.md'
+  notFoundPage: 'my404.md',
 };
 ```
 
@@ -470,9 +597,22 @@ Load the right 404 page according to the localisation:
 window.$docsify = {
   notFoundPage: {
     '/': '_404.md',
-    '/de': 'de/_404.md'
-  }
+    '/de': 'de/_404.md',
+  },
 };
 ```
 
 > Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+
+## topMargin
+
+- type: `Number`
+- default: `0`
+
+Adds a space on top when scrolling content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+
+```js
+window.$docsify = {
+  topMargin: 90, // default: 0
+};
+```

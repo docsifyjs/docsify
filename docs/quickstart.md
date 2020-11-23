@@ -47,7 +47,7 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css" />
 </head>
 <body>
   <div id="app"></div>
@@ -56,10 +56,30 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
       //...
     }
   </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
 </html>
 ```
+
+### Specifying docsify versions
+
+?> Note that in both of the examples below, docsify URLs will need to be manually updated when a new major version of docsify is released (e.g. `v4.x.x` => `v5.x.x`). Check the docsify website periodically to see if a new major version has been released.
+
+Specifying a major version in the URL (`@4`) will allow your site will receive non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch" updates) automatically. This is the recommended way to load docsify resources.
+
+```html
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css" />
+<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+```
+
+If you prefer to lock docsify to a specific version, specify the full version after the `@` symbol in the URL. This is the safest way to ensure your site will look and behave the same way regardless of any changes made to future versions of docsify.
+
+```html
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.11.4/themes/vue.css">
+<script src="//cdn.jsdelivr.net/npm/docsify@4.11.4"></script>
+```
+
+### Manually preview your site
 
 If you installed python on your system, you can easily use it to run a static server to preview your site.
 
@@ -72,17 +92,17 @@ cd docs && python -m SimpleHTTPServer 3000
 If you want, you can show a loading dialog before docsify starts to render your documentation:
 
 ```html
-  <!-- index.html -->
+<!-- index.html -->
 
-  <div id="app">Please wait...</div>
+<div id="app">Please wait...</div>
 ```
 
 You should set the `data-app` attribute if you changed `el`:
 
 ```html
-  <!-- index.html -->
+<!-- index.html -->
 
-  <div data-app id="main">Please wait...</div>
+<div data-app id="main">Please wait...</div>
 
   <script>
     window.$docsify = {

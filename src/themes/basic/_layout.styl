@@ -74,11 +74,8 @@ kbd
   padding 3px 5px
   vertical-align middle
 
-.task-list-item
-  list-style-type none
-
 li input[type='checkbox']
-  margin 0 0.2em 0.25em -1.6em
+  margin 0 0.2em 0.25em 0
   vertical-align middle
 
 /* navbar */
@@ -123,6 +120,7 @@ li input[type='checkbox']
     margin 0 1rem
     padding 5px 0
     position relative
+    cursor pointer
 
     ul
       background-color #fff
@@ -280,8 +278,9 @@ main.hidden
   transition opacity 0.3s
   width $sidebar-width - 16px
   z-index 30
+  cursor pointer
 
-  .sidebar-toggle-button:hover
+  &:hover .sidebar-toggle-button
     opacity 0.4
 
   span
@@ -308,7 +307,7 @@ body.sticky
 /* markdown content found on pages */
 .markdown-section
   margin 0 auto
-  max-width 800px
+  max-width 80%
   padding 30px 15px 40px 15px
   position relative
 
@@ -326,6 +325,9 @@ body.sticky
 
 .markdown-section iframe
   border 1px solid #eee
+  /* fix horizontal overflow on iOS Safari */
+  width 1px
+  min-width 100%
 
 .markdown-section table
   border-collapse collapse
@@ -385,6 +387,9 @@ body.sticky
   background rgba($color-primary, 0.1)
   border-radius 2px
   padding 1rem
+
+.markdown-section ul.task-list > li
+  list-style-type none
 
 body.close
   .sidebar

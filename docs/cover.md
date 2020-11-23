@@ -14,7 +14,7 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
     coverpage: true
   }
 </script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
 
 ```markdown
@@ -26,15 +26,13 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
 
 > A magical documentation site generator.
 
-* Simple and lightweight (~19kB gzipped)
-* No statically built html files
-* Multiple themes
+- Simple and lightweight
+- No statically built html files
+- Multiple themes
 
 [GitHub](https://github.com/docsifyjs/docsify/)
 [Get Started](#docsify)
 ```
-
-!> A document site can have only one coverpage!
 
 ## Custom background
 

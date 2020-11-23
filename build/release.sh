@@ -12,7 +12,9 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
-  npm run test
+  # Removing test script as non - availibity of tests. Will Add it once tests are completed 
+
+  # npm run test
 
   # build
   VERSION=$VERSION npm run build
@@ -29,7 +31,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # commit
   git add -A
-  git add -f lib/ -A
   git commit -m "[build] $VERSION $RELEASE_TAG"
   npm --no-git-tag-version version $VERSION --message "[release] $VERSION $RELEASE_TAG"
 

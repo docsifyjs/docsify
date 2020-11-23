@@ -1,28 +1,28 @@
-* Getting started
+- Getting started
 
-  * [Quick start](quickstart.md)
-  * [Writing more pages](more-pages.md)
-  * [Custom navbar](custom-navbar.md)
-  * [Cover page](cover.md)
+  - [Quick start](quickstart.md)
+  - [Writing more pages](more-pages.md)
+  - [Custom navbar](custom-navbar.md)
+  - [Cover page](cover.md)
 
-* Customization
+- Customization
 
-  * [Configuration](configuration.md)
-  * [Themes](themes.md)
-  * [List of Plugins](plugins.md)
-  * [Write a Plugin](write-a-plugin.md)
-  * [Markdown configuration](markdown.md)
-  * [Language highlighting](language-highlight.md)
+  - [Configuration](configuration.md)
+  - [Themes](themes.md)
+  - [List of Plugins](plugins.md)
+  - [Write a Plugin](write-a-plugin.md)
+  - [Markdown configuration](markdown.md)
+  - [Language highlighting](language-highlight.md)
 
-* Guide
+- Guide
 
-  * [Deploy](deploy.md)
-  * [Helpers](helpers.md)
-  * [Vue compatibility](vue.md)
-  * [CDN](cdn.md)
-  * [Offline Mode(PWA)](pwa.md)
-  * [Server-Side Rendering(SSR)](ssr.md)
-  * [Embed Files <sup style="color:red">(new)<sup>](embed-files.md)
+  - [Deploy](deploy.md)
+  - [Helpers](helpers.md)
+  - [Vue compatibility](vue.md)
+  - [CDN](cdn.md)
+  - [Offline Mode(PWA)](pwa.md)
+  - [Server-Side Rendering(SSR)](ssr.md)
+  - [Embed Files](embed-files.md)
 
-* [Awesome docsify](awesome.md)
-* [Changelog](changelog.md)
+- [Awesome docsify](awesome.md)
+- [Changelog](changelog.md)

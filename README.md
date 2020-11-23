@@ -10,11 +10,15 @@
 
 <p align="center">
   <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/docsify/backers/badge.svg?style=flat-square"></a>
-  <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
-  <a href="https://travis-ci.org/docsifyjs/docsify"><img alt="Travis Status" src="https://img.shields.io/travis/docsifyjs/docsify/master.svg?style=flat-square"></a>
+  <a href="#sponsors">
+    <img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
+  <a><img src="https://github.com/docsifyjs/docsify/workflows/Unit%20tests%20Suite/badge.svg?branch=develop&amp;event=push" alt="Unit tests Suite"></a>
+  <a><img src="https://github.com/docsifyjs/docsify/workflows/Linting%20Checks/badge.svg?branch=develop&amp;event=push" alt="Linting Checks"></a>
+  <a><img src="https://github.com/docsifyjs/docsify/workflows/Testing%20the%20e2e%20test%20suites/badge.svg?branch=develop&amp;event=push" alt="Testing the e2e test suites"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
   <a href="https://github.com/QingWei-Li/donate"><img alt="donate" src="https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square"></a>
   <a href="https://gitter.im/docsifyjs/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link"><img alt="gitter" src="https://img.shields.io/gitter/room/docsifyjs/docsify.svg?style=flat-square"></a>
+  <a href="https://gitpod.io/#https://github.com/docsifyjs/docsify"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"></a>
 </p>
 
 <p align="center">Gold Sponsor via <a href="https://opencollective.com/docsify">Open Collective</a></p>
@@ -27,6 +31,7 @@
 
 ## Links
 
+- [`develop` branch preview](https://docsifyjs.netlify.com/)
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/docsifyjs/docsify-cli)
 - CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
@@ -36,23 +41,25 @@
 ## Features
 
 - No statically built html files
-- Simple and lightweight (~19kB gzipped)
+- Simple and lightweight
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE10+
+- Compatible with IE11
 - Support SSR ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 - Support embedded files
 
 ## Quick start
 
-Look at [this tutorial](https://docsify.js.org/#/quickstart) or [online demo](https://jsfiddle.net/7ztb8qsr/1/).
+Look at [this tutorial](https://docsify.js.org/#/quickstart)
+
+[![Edit 307qqv236](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
 
 ## Showcase
 
 These projects are using docsify to generate their sites. Pull requests welcome :blush:
 
-Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify)
+Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 ## Similar projects
 
@@ -63,9 +70,21 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify)
 
 ## Contributing
 
+### Online one-click setup for Contributing
+
+You can use Gitpod(A free online VS Code-like IDE) for contributing. With single click it'll launch a workspace and automatically:
+
+- clone the docsify repo.
+- install the dependencies.
+- start `npm run dev`.
+
+So that you can start straight away.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
+
 - Fork it!
 - Create your feature branch: `git checkout -b my-new-feature`
-- Commit your changes: `git commit -am 'Add some feature'`
+- Commit your changes: `git add . && git commit -m 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
 - Submit a pull request
 
@@ -103,6 +122,10 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fdocsifyjs%2Fdocsify.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fdocsifyjs%2Fdocsify?ref=badge_large)
+## Special Thanks
+
+_Vercel_ has given us a Pro account.
+
+<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="docs/_media/vercel_logo.svg" width="100px"></a>

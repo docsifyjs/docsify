@@ -37,12 +37,29 @@ By default, the hyperlink on the current page is recognized and the content is s
       },
 
       // Headline depth, 1 - 6
-      depth: 2
+      depth: 2,
+
+      hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+
+      // To avoid search index collision
+      // between multiple websites under the same domain
+      namespace: 'website-1',
+
+      // Use different indexes for path prefixes (namespaces).
+      // NOTE: Only works in 'auto' mode.
+      //
+      // When initialiazing an index, we look for the first path from the sidebar.
+      // If it matches the prefix from the list, we switch to the corresponding index.
+      pathNamespaces: ['/zh-cn', '/ru-ru', '/ru-ru/v1'],
+
+      // You can provide a regexp to match prefixes. In this case,
+      // the matching substring will be used to identify the index
+      pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/
     }
   }
 </script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 ```
 
 ## Google Analytics
@@ -55,15 +72,15 @@ Install the plugin and configure the track id.
     ga: 'UA-XXXXX-Y'
   }
 </script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 
 Configure by `data-ga`.
 
 ```html
-<script src="//unpkg.com/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
-<script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 
 ## emoji
@@ -71,7 +88,7 @@ Configure by `data-ga`.
 The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
 
 ```html
-<script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
 ```
 
 ## External Script
@@ -79,7 +96,7 @@ The default is to support parsing emoji. For example `:100:` will be parsed to :
 If the script on the page is an external one (imports a js file via `src` attribute), you'll need this plugin to make it work.
 
 ```html
-<script src="//unpkg.com/docsify/lib/plugins/external-script.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
 ```
 
 ## Zoom image
@@ -87,13 +104,13 @@ If the script on the page is an external one (imports a js file via `src` attrib
 Medium's image zoom. Based on [medium-zoom](https://github.com/francoischalifour/medium-zoom).
 
 ```html
-<script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 ```
 
 Exclude the special image
 
 ```markdown
-![](image.png ':no-zoom')
+![](image.png ":no-zoom")
 ```
 
 ## Edit on github
@@ -113,7 +130,7 @@ When readers expand the demo box, the source code and description are shown ther
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<script src="//unpkg.com/docsify-copy-code"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
@@ -128,7 +145,7 @@ Disqus comments. https://disqus.com/
     disqus: 'shortname'
   }
 </script>
-<script src="//unpkg.com/docsify/lib/plugins/disqus.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
 ```
 
 ## Gitalk
@@ -136,10 +153,10 @@ Disqus comments. https://disqus.com/
 [Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
 
 ```html
-<link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
 
-<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
-<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
   const gitalk = new Gitalk({
     clientID: 'Github Application Client ID',
@@ -158,22 +175,18 @@ Disqus comments. https://disqus.com/
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 
 ```html
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-<script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
 
-## codefund
+## Tabs
 
-a [plugin](https://github.com/njleonzhang/docsify-plugin-codefund) to make it easy to join up [codefund](https://codefund.io/)
+A docsify.js plugin for displaying tabbed content from markdown.
 
-> codefund is formerly known as "codesponsor"
+- [Documentation & Demos](https://jhildenbiddle.github.io/docsify-tabs)
 
-```
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
 
-window.$docsify = {
-  plugins: [
-    DocsifyCodefund.create('xxxx-xxx-xxx') // change to your codefund id
-  ]
-}
-```
+## More plugins
+
+See [awesome-docsify](awesome?id=plugins)

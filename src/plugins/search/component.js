@@ -1,6 +1,8 @@
-import {search} from './search'
+/* eslint-disable no-unused-vars */
+import { search } from './search';
 
-let NO_DATA_TEXT = ''
+let NO_DATA_TEXT = '';
+let options;
 
 function style() {
   const code = `
@@ -34,6 +36,12 @@ function style() {
   padding: 0 7px;
   line-height: 36px;
   font-size: 14px;
+  border: 1px solid transparent;
+}
+
+.search input:focus {
+  box-shadow: 0 0 5px var(--theme-color, #42b983);
+  border: 1px solid var(--theme-color, #42b983);
 }
 
 .search input::-webkit-search-decoration,
@@ -44,6 +52,7 @@ function style() {
   appearance: none;
 }
 .search .clear-button {
+  cursor: pointer;
   width: 36px;
   text-align: right;
   display: none;
@@ -86,15 +95,18 @@ function style() {
 
 .search p.empty {
   text-align: center;
-}`
-
-  Docsify.dom.style(code)
 }
 
-function tpl(opts, defaultValue = '') {
-  const html =
-    `<div class="input-wrap">
-      <input type="search" value="${defaultValue}" />
+.app-name.hide, .sidebar-nav.hide {
+  display: none;
+}`;
+
+  Docsify.dom.style(code);
+}
+
+function tpl(defaultValue = '') {
+  const html = `<div class="input-wrap">
+      <input type="search" value="${defaultValue}" aria-label="Search text" />
       <div class="clear-button">
         <svg width="26" height="24">
           <circle cx="12" cy="12" r="11" fill="#ccc" />
@@ -104,100 +116,129 @@ function tpl(opts, defaultValue = '') {
       </div>
     </div>
     <div class="results-panel"></div>
-    </div>`
-  const el = Docsify.dom.create('div', html)
-  const aside = Docsify.dom.find('aside')
+    </div>`;
+  const el = Docsify.dom.create('div', html);
+  const aside = Docsify.dom.find('aside');
 
-  Docsify.dom.toggleClass(el, 'search')
-  Docsify.dom.before(aside, el)
+  Docsify.dom.toggleClass(el, 'search');
+  Docsify.dom.before(aside, el);
 }
 
 function doSearch(value) {
-  const $search = Docsify.dom.find('div.search')
-  const $panel = Docsify.dom.find($search, '.results-panel')
-  const $clearBtn = Docsify.dom.find($search, '.clear-button')
+  const $search = Docsify.dom.find('div.search');
+  const $panel = Docsify.dom.find($search, '.results-panel');
+  const $clearBtn = Docsify.dom.find($search, '.clear-button');
+  const $sidebarNav = Docsify.dom.find('.sidebar-nav');
+  const $appName = Docsify.dom.find('.app-name');
 
   if (!value) {
-    $panel.classList.remove('show')
-    $clearBtn.classList.remove('show')
-    $panel.innerHTML = ''
-    return
-  }
-  const matchs = search(value)
+    $panel.classList.remove('show');
+    $clearBtn.classList.remove('show');
+    $panel.innerHTML = '';
 
-  let html = ''
+    if (options.hideOtherSidebarContent) {
+      $sidebarNav.classList.remove('hide');
+      $appName.classList.remove('hide');
+    }
+
+    return;
+  }
+
+  const matchs = search(value);
+
+  let html = '';
   matchs.forEach(post => {
     html += `<div class="matching-post">
 <a href="${post.url}">
 <h2>${post.title}</h2>
 <p>${post.content}</p>
 </a>
-</div>`
-  })
+</div>`;
+  });
 
-  $panel.classList.add('show')
-  $clearBtn.classList.add('show')
-  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`
+  $panel.classList.add('show');
+  $clearBtn.classList.add('show');
+  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
+  if (options.hideOtherSidebarContent) {
+    $sidebarNav.classList.add('hide');
+    $appName.classList.add('hide');
+  }
 }
 
 function bindEvents() {
-  const $search = Docsify.dom.find('div.search')
-  const $input = Docsify.dom.find($search, 'input')
-  const $inputWrap = Docsify.dom.find($search, '.input-wrap')
+  const $search = Docsify.dom.find('div.search');
+  const $input = Docsify.dom.find($search, 'input');
+  const $inputWrap = Docsify.dom.find($search, '.input-wrap');
 
-  let timeId
-  // Prevent to Fold sidebar
+  let timeId;
+
+  /**
+    Prevent to Fold sidebar.
+
+    When searching on the mobile end,
+    the sidebar is collapsed when you click the INPUT box,
+    making it impossible to search.
+   */
   Docsify.dom.on(
     $search,
     'click',
-    e => e.target.tagName !== 'A' && e.stopPropagation()
-  )
+    e =>
+      ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
+      e.stopPropagation()
+  );
   Docsify.dom.on($input, 'input', e => {
-    clearTimeout(timeId)
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100)
-  })
+    clearTimeout(timeId);
+    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
+  });
   Docsify.dom.on($inputWrap, 'click', e => {
     // Click input outside
     if (e.target.tagName !== 'INPUT') {
-      $input.value = ''
-      doSearch()
+      $input.value = '';
+      doSearch();
     }
-  })
+  });
 }
 
 function updatePlaceholder(text, path) {
-  const $input = Docsify.dom.getNode('.search input[type="search"]')
+  const $input = Docsify.dom.getNode('.search input[type="search"]');
 
   if (!$input) {
-    return
+    return;
   }
+
   if (typeof text === 'string') {
-    $input.placeholder = text
+    $input.placeholder = text;
   } else {
-    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0]
-    $input.placeholder = text[match]
+    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0];
+    $input.placeholder = text[match];
   }
 }
 
 function updateNoData(text, path) {
   if (typeof text === 'string') {
-    NO_DATA_TEXT = text
+    NO_DATA_TEXT = text;
   } else {
-    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0]
-    NO_DATA_TEXT = text[match]
+    const match = Object.keys(text).filter(key => path.indexOf(key) > -1)[0];
+    NO_DATA_TEXT = text[match];
   }
 }
 
-export function init(opts, vm) {
-  const keywords = vm.router.parse().query.s
+function updateOptions(opts) {
+  options = opts;
+}
 
-  style()
-  tpl(opts, keywords)
-  bindEvents()
-  keywords && setTimeout(_ => doSearch(keywords), 500)
+export function init(opts, vm) {
+  const keywords = vm.router.parse().query.s;
+
+  updateOptions(opts);
+  style();
+  tpl(keywords);
+  bindEvents();
+  keywords && setTimeout(_ => doSearch(keywords), 500);
 }
 
 export function update(opts, vm) {
-  updatePlaceholder(opts.placeholder, vm.route.path)
-  updateNoData(opts.noData, vm.route.path)
+  updateOptions(opts);
+  updatePlaceholder(opts.placeholder, vm.route.path);
+  updateNoData(opts.noData, vm.route.path);
 }

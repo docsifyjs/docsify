@@ -8,5 +8,8 @@ files.forEach(file => {
   file = path.resolve('lib/themes', file)
   cssnano(fs.readFileSync(file)).then(result => {
     fs.writeFileSync(file, result.css)
+  }).catch(e => {
+    console.error(e)
+    process.exit(1)
   })
 })

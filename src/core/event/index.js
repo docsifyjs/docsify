@@ -1,26 +1,41 @@
-import {isMobile} from '../util/env'
-import {body, on} from '../util/dom'
-import * as sidebar from './sidebar'
-import {scrollIntoView} from './scroll'
+import { isMobile } from '../util/env';
+import { body, on } from '../util/dom';
+import * as sidebar from './sidebar';
+import { scrollIntoView, scroll2Top } from './scroll';
 
 export function eventMixin(proto) {
-  proto.$resetEvents = function () {
-    scrollIntoView(this.route.path, this.route.query.id)
+  proto.$resetEvents = function(source) {
+    const { auto2top } = this.config;
+
+    (() => {
+      // Rely on the browser's scroll auto-restoration when going back or forward
+      if (source === 'history') {
+        return;
+      }
+      // Scroll to ID if specified
+      if (this.route.query.id) {
+        scrollIntoView(this.route.path, this.route.query.id);
+      }
+      // Scroll to top if a link was clicked and auto2top is enabled
+      if (source === 'navigate') {
+        auto2top && scroll2Top(auto2top);
+      }
+    })();
 
     if (this.config.loadNavbar) {
-      sidebar.getAndActive(this.router, 'nav')
+      sidebar.getAndActive(this.router, 'nav');
     }
-  }
+  };
 }
 
 export function initEvent(vm) {
   // Bind toggle button
-  sidebar.btn('button.sidebar-toggle', vm.router)
-  sidebar.collapse('.sidebar', vm.router)
+  sidebar.btn('button.sidebar-toggle', vm.router);
+  sidebar.collapse('.sidebar', vm.router);
   // Bind sticky effect
   if (vm.config.coverpage) {
-    !isMobile && on('scroll', sidebar.sticky)
+    !isMobile && on('scroll', sidebar.sticky);
   } else {
-    body.classList.add('sticky')
+    body.classList.add('sticky');
   }
 }

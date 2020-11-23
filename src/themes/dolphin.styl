@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css?family=Thasadith:400,400i,700')
+
+$color-primary = #00ffff
+$color-bg = #f0ffff
+$color-text = #34495e
+$sidebar-width = 300px
+
+@import 'basic/_layout'
+@import 'basic/_coverpage'
+
+body
+  background-color $color-bg
+
+/* sidebar */
+.sidebar
+  background-color $color-bg
+  color #364149
+
+  li
+    margin 6px 0 6px 0
+
+  ul li a
+    color #505d6b
+    font-size 14px
+    font-weight normal
+    overflow hidden
+    text-decoration none
+    text-overflow ellipsis
+    white-space nowrap
+
+    &:hover
+      text-decoration underline
+
+  ul li ul
+    padding 0
+
+  ul li.active > a
+    border-right 2px solid
+    color var(--theme-color, $color-primary)
+    font-weight 600
+
+.app-sub-sidebar
+  li
+    &::before
+      content '-'
+      padding-right 4px
+      float left
+
+/* markdown content found on pages */
+.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong
+  color #2c3e50
+  font-weight 600
+
+.markdown-section a
+  color var(--theme-color, $color-primary)
+  font-weight 600
+  
+  &:hover
+      text-decoration underline
+
+.markdown-section h1
+  font-size 2rem
+  margin 0 0 1rem
+
+.markdown-section h2
+  font-size 1.75rem
+  margin 45px 0 0.8rem
+
+.markdown-section h3
+  font-size 1.5rem
+  margin 40px 0 0.6rem
+
+.markdown-section h4
+  font-size 1.25rem
+
+.markdown-section h5
+  font-size 1rem
+
+.markdown-section h6
+  color #777
+  font-size 1rem
+
+.markdown-section figure, .markdown-section p
+  margin 1.2em 0
+
+.markdown-section p, .markdown-section ul, .markdown-section ol
+  line-height 1.6rem
+  word-spacing 0.05rem
+
+.markdown-section ul, .markdown-section ol
+  padding-left 1.5rem
+
+.markdown-section blockquote
+  border-left 4px solid var(--theme-color, $color-primary)
+  color #858585
+  margin 2em 0
+  padding-left 20px
+
+.markdown-section blockquote p
+  font-weight 600
+  margin-left 0
+
+.markdown-section iframe
+  margin 1em 0
+
+.markdown-section em
+  color #7f8c8d
+
+.markdown-section code
+  background-color #f8f8f8
+  border-radius 2px
+  color #e96900
+  font-family 'Roboto Mono', Monaco, courier, monospace
+  font-size 0.8rem
+  margin 0 2px
+  padding 3px 5px
+  white-space pre-wrap
+
+.markdown-section pre
+  -moz-osx-font-smoothing initial
+  -webkit-font-smoothing initial
+  background-color #f8f8f8
+  font-family 'Roboto Mono', Monaco, courier, monospace
+  line-height 1.5rem
+  margin 1.2em 0
+  overflow auto
+  padding 0 1.4rem
+  position relative
+  word-wrap normal
+
+/* code highlight */
+.token.comment, .token.prolog, .token.doctype, .token.cdata
+  color #8e908c
+
+.token.namespace
+  opacity 0.7
+
+.token.boolean, .token.number
+  color #c76b29
+
+.token.punctuation
+  color #525252
+
+.token.property
+  color #c08b30
+
+.token.tag
+  color #2973b7
+
+.token.string
+  color var(--theme-color, $color-primary)
+
+.token.selector
+  color #6679cc
+
+.token.attr-name
+  color #2973b7
+
+.token.entity, .token.url, .language-css .token.string, .style .token.string
+  color #22a2c9
+
+.token.attr-value, .token.control, .token.directive, .token.unit
+  color var(--theme-color, $color-primary)
+
+.token.keyword, .token.function
+  color #e96900
+
+.token.statement, .token.regex, .token.atrule
+  color #22a2c9
+
+.token.placeholder, .token.variable
+  color #3d8fd1
+
+.token.deleted
+  text-decoration line-through
+
+.token.inserted
+  border-bottom 1px dotted #202746
+  text-decoration none
+
+.token.italic
+  font-style italic
+
+.token.important, .token.bold
+  font-weight bold
+
+.token.important
+  color #c94922
+
+.token.entity
+  cursor help
+
+.markdown-section pre > code
+  -moz-osx-font-smoothing initial
+  -webkit-font-smoothing initial
+  background-color #f8f8f8
+  border-radius 2px
+  color #525252
+  display block
+  font-family 'Roboto Mono', Monaco, courier, monospace
+  font-size 0.8rem
+  line-height inherit
+  margin 0 2px
+  max-width inherit
+  overflow inherit
+  padding 2.2em 5px
+  white-space inherit
+
+.markdown-section code::after, .markdown-section code::before
+  letter-spacing 0.05rem
+
+code .token
+  -moz-osx-font-smoothing initial
+  -webkit-font-smoothing initial
+  min-height 1.5rem
+  position: relative
+  left: auto
+
+pre::after
+  color #ccc
+  content attr(data-lang)
+  font-size 0.6rem
+  font-weight 600
+  height 15px
+  line-height 15px
+  padding 5px 10px 0
+  position absolute
+  right 0
+  text-align right
+  top 0

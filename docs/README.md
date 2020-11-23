@@ -2,26 +2,26 @@
 
 > A magical documentation site generator.
 
-## What is it
+## What it is
 
-docsify generates your documentation website on the fly. Unlike GitBook, it does not generate static html files. Instead, it smartly loads and parses your Markdown files and displays them as website. All you need to do is create an `index.html` to start and [deploy it on GitHub Pages](deploy.md).
+docsify generates your documentation website on the fly. Unlike GitBook, it does not generate static html files. Instead, it smartly loads and parses your Markdown files and displays them as a website. To start using it, all you need to do is create an `index.html` and [deploy it on GitHub Pages](deploy.md).
 
-See the [Quick start](quickstart.md) for more details.
+See the [Quick start](quickstart.md) guide for more details.
 
 ## Features
 
 - No statically built html files
-- Simple and lightweight (~19kB gzipped)
+- Simple and lightweight
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
 - Emoji support
-- Compatible with IE10+
-- Support SSR ([example](https://github.com/docsifyjs/docsify-ssr-demo))
+- Compatible with IE11
+- Support server-side rendering ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 
 ## Examples
 
-Check out the [Showcase](https://github.com/docsifyjs/docsify/#showcase) to docsify in use.
+Check out the [Showcase](https://github.com/docsifyjs/awesome-docsify#showcase) to see docsify in use.
 
 ## Donate
 
@@ -29,4 +29,10 @@ Please consider donating if you think docsify is helpful to you or that my work 
 
 ## Community
 
-Users and development team are in the [Gitter](https://gitter.im/docsifyjs/Lobby).
+Users and the development team are usually in the [Gitter chat room](https://gitter.im/docsifyjs/Lobby).
+
+## Special Thanks
+
+_Vercel_ has given us a Pro account.
+
+<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="_media/vercel_logo.svg" width="100px"></a>
