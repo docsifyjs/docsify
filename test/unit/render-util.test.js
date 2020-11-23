@@ -1,5 +1,6 @@
-const { removeAtag } = require(`${SRC_PATH}/core/render/utils`);
-const { tree } = require(`${SRC_PATH}/core/render/tpl`);
+const { removeAtag } = require('../../src/core/render/utils');
+
+const { tree } = require(`../../src/core/render/tpl`);
 
 // Suite
 // -----------------------------------------------------------------------------

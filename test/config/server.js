@@ -59,7 +59,6 @@ function startServer(options = {}, cb = Function.prototype) {
         },
       },
     },
-    startPath: '/docs',
     ui: false,
   };
 
@@ -96,6 +95,7 @@ if (hasStartArg) {
     open: true,
     port: serverConfig.port + 1,
     directory: true,
+    startPath: '/docs',
   });
 }
 // Display friendly message about manually starting a server instance
@@ -104,22 +104,8 @@ else if (require.main === module) {
 }
 
 module.exports = {
-  globals: {
-    get BLANK_URL() {
-      return `${this.TEST_HOST}/_blank.html`;
-    },
-    get DOCS_URL() {
-      return `${this.TEST_HOST}/docs`;
-    },
-    get LIB_URL() {
-      return `${this.TEST_HOST}/lib`;
-    },
-    get NODE_MODULES_URL() {
-      return `${this.TEST_HOST}/node_modules`;
-    },
-    TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
-  },
   start: startServer,
   startAsync: startServerAsync,
   stop: stopServer,
+  TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
 };
