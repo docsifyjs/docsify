@@ -101,6 +101,62 @@
             '/': 'Search',
           },
         },
+        vueComponents: {
+          'button-counter': {
+            template: `
+            <button @click="count += 1">
+              You clicked me {{ count }} times
+            </button>
+          `,
+            data() {
+              return {
+                count: 0,
+              };
+            },
+          },
+        },
+        vueGlobalOptions: {
+          data() {
+            return {
+              count: 0,
+              message: 'Hello, World!',
+              // Fake API response
+              images: [
+                { title: 'Image 1', url: 'https://picsum.photos/150?random=1' },
+                { title: 'Image 2', url: 'https://picsum.photos/150?random=2' },
+                { title: 'Image 3', url: 'https://picsum.photos/150?random=3' },
+              ],
+            };
+          },
+          computed: {
+            timeOfDay() {
+              const date = new Date();
+              const hours = date.getHours();
+
+              if (hours < 12) {
+                return 'morning';
+              } else if (hours < 18) {
+                return 'afternoon';
+              } else {
+                return 'evening';
+              }
+            },
+          },
+          methods: {
+            hello: function() {
+              alert(this.message);
+            },
+          },
+        },
+        vueMounts: {
+          '#counter': {
+            data() {
+              return {
+                count: 0,
+              };
+            },
+          },
+        },
         plugins: [
           function(hook, vm) {
             hook.beforeEach(function(html) {
@@ -163,5 +219,6 @@
       })();
     </script>
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> -->
   </body>
 </html>
