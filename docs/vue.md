@@ -193,7 +193,7 @@ Good {{ timeOfDay }}!
 
 ## Global options
 
-Use `vueGlobalOptions` to specify options for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
+Use `vueGlobalOptions` to specify [Vue options](https://vuejs.org/v2/api/#Options-Data) for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
 ```js
 window.$docsify = {
@@ -237,7 +237,7 @@ Changes made to one counter affect the both counters. This is because both insta
 
 ## Mounts
 
-Use `vueMounts` to specify DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
+Use `vueMounts` to specify DOM elements to mount as [Vue instances](https://vuejs.org/v2/guide/instance.html) and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -269,7 +269,7 @@ window.$docsify = {
 
 ## Components
 
-Use `vueComponents` to register Vue components using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
+Use `vueComponents` to create and register global [Vue components](https://vuejs.org/v2/guide/components.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -327,11 +327,20 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 
 ## Technical Notes
 
-- Docsify processes Vue content in the following order:
+- Docsify processes Vue content in the following order on each page load:
   1. Execute markdown `<script>`
-  1. Register `vueComponents`
-  1. Mount DOM elements via `vueMounts`
-  1. Process unmounted Vue content using `vueGlobalOptions`
+  1. Register global `vueComponents`
+  1. Mount `vueMounts`
+  1. Auto-mount unmounted `vueComponents`
+  1. Auto-mount unmounted Vue template syntax using `vueGlobalOptions`
+- When auto-mounting Vue content, docsify will mount each top-level element in your markdown that contains template syntax or a component. For example, in the following HTML the top-level `<p>`, `<my-component />`, and `<div>` elements will be mounted.
+  ```html
+  <p>{{ foo }}</p>
+  <my-component />
+  <div>
+    <span>{{ bar }}</span>
+    <some-other-component />
+  </div>
+  ```
 - Docsify will not mount an existing Vue instance or an element that contains an existing Vue instance.
-- Docsify will automatically destroy/unmount all Vue instances it creates before new page content is loaded.
-- When processing `vueGlobalOptions`, docsify parses the child elements within the main content area (`#main`) and mounts the element if it contains Vue content. Docsify does not parse each individual node within the main content area.
+- Docsify will automatically destroy/unmount all Vue instances it creates before each page load.
