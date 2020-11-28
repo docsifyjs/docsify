@@ -121,6 +121,12 @@ Only when you both set the `routerMode: 'history'` and `externalLinkTarget: '_se
 ![logo](https://docsify.js.org/_media/icon.svg ':id=someCssId')
 ```
 
+### Lazy Loading
+
+```md
+![logo](https://docsify.js.org/_media/icon.svg ':loading=lazy')
+```
+
 ## Customise ID for headings
 
 ```md
