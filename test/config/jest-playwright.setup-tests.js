@@ -41,7 +41,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await global.jestPlaywright.resetPage();
+  await global.jestPlaywright.resetContext();
 
   // Goto URL ()
   // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
