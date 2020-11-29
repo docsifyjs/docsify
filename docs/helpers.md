@@ -123,7 +123,7 @@ Only when you both set the `routerMode: 'history'` and `externalLinkTarget: '_se
 
 ### Lazy Loading
 
-See the loading field of MDN's [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#Browser_compatibility) table for details of browser support. If the browser does not support lazy-loading then the attribute will be ignored and images will load immediately, as normal.
+See the `loading` field of MDN's [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#Browser_compatibility) table for details of browser support. If the browser does not support lazy-loading then the attribute will be ignored and images will load immediately, as normal.
 
 ```md
 ![logo](https://docsify.js.org/_media/icon.svg ':loading=lazy')
