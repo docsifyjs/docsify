@@ -131,6 +131,10 @@ export function genIndex(path, content = '', router, depth) {
   return index;
 }
 
+export function ignoreDiacriticalMarks(keyword) {
+  return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 /**
  * @param {String} query Search query
  * @returns {Array} Array of results
@@ -160,14 +164,21 @@ export function search(query) {
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
-          keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
+          ignoreDiacriticalMarks(keyword).replace(
+            /[|\\{}()[\]^$+*?.]/g,
+            '\\$&'
+          ),
           'gi'
         );
         let indexTitle = -1;
         let indexContent = -1;
 
-        indexTitle = postTitle ? postTitle.search(regEx) : -1;
-        indexContent = postContent ? postContent.search(regEx) : -1;
+        indexTitle = postTitle
+          ? ignoreDiacriticalMarks(postTitle).search(regEx)
+          : -1;
+        indexContent = postContent
+          ? ignoreDiacriticalMarks(postContent).search(regEx)
+          : -1;
 
         if (indexTitle >= 0 || indexContent >= 0) {
           matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
@@ -187,7 +198,7 @@ export function search(query) {
 
           const matchContent =
             '...' +
-            escapeHtml(postContent)
+            escapeHtml(ignoreDiacriticalMarks(postContent))
               .substring(start, end)
               .replace(
                 regEx,
@@ -201,7 +212,7 @@ export function search(query) {
 
       if (matchesScore > 0) {
         const matchingPost = {
-          title: escapeHtml(postTitle),
+          title: escapeHtml(ignoreDiacriticalMarks(postTitle)),
           content: postContent ? resultStr : '',
           url: postUrl,
           score: matchesScore,
