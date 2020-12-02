@@ -132,7 +132,10 @@ export function genIndex(path, content = '', router, depth) {
 }
 
 export function ignoreDiacriticalMarks(keyword) {
-  return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (keyword && keyword.normalize) {
+    return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  return keyword;
 }
 
 /**

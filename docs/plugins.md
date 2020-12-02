@@ -62,6 +62,12 @@ By default, the hyperlink on the current page is recognized and the content is s
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 ```
 
+The search ignores diacritical marks by default, but is not supported by IE. If you need support, please load this `ponyfill`
+
+```html
+<script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
+```
+
 ## Google Analytics
 
 Install the plugin and configure the track id.
