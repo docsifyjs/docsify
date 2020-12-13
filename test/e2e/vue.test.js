@@ -170,7 +170,9 @@ describe('Vue.js Compatibility', function() {
         await docsifyInit(docsifyInitConfig);
         await expect(page).toEqualText('#vuefor', '12345');
         await expect(page).toEqualText('#vuecomponent', '0');
-        expect(await page.innerText('#vueglobaloptions p')).toBe('');
+        await expect(page).toEqualText('#vueglobaloptions p', '', {
+          state: 'attached',
+        });
         await expect(page).toEqualText('#vuemounts p', 'vuemounts');
         await expect(page).toEqualText('#vuescript p', 'vuescript');
       });
