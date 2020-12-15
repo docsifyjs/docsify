@@ -159,6 +159,8 @@ export function search(query) {
     const post = data[i];
     let matchesScore = 0;
     let resultStr = '';
+    let handlePostTitle = '';
+    let handlePostContent = '';
     const postTitle = post.title && post.title.trim();
     const postContent = post.body && post.body.trim();
     const postUrl = post.slug || '';
@@ -167,7 +169,7 @@ export function search(query) {
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
-          ignoreDiacriticalMarks(keyword).replace(
+          escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
             /[|\\{}()[\]^$+*?.]/g,
             '\\$&'
           ),
@@ -175,13 +177,15 @@ export function search(query) {
         );
         let indexTitle = -1;
         let indexContent = -1;
+        handlePostTitle = postTitle
+          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
+          : postTitle;
+        handlePostContent = postContent
+          ? escapeHtml(ignoreDiacriticalMarks(postContent))
+          : postContent;
 
-        indexTitle = postTitle
-          ? ignoreDiacriticalMarks(postTitle).search(regEx)
-          : -1;
-        indexContent = postContent
-          ? ignoreDiacriticalMarks(postContent).search(regEx)
-          : -1;
+        indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
+        indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
         if (indexTitle >= 0 || indexContent >= 0) {
           matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
@@ -201,7 +205,7 @@ export function search(query) {
 
           const matchContent =
             '...' +
-            escapeHtml(ignoreDiacriticalMarks(postContent))
+            handlePostContent
               .substring(start, end)
               .replace(
                 regEx,
@@ -215,7 +219,7 @@ export function search(query) {
 
       if (matchesScore > 0) {
         const matchingPost = {
-          title: escapeHtml(ignoreDiacriticalMarks(postTitle)),
+          title: handlePostTitle,
           content: postContent ? resultStr : '',
           url: postUrl,
           score: matchesScore,
