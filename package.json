@@ -54,7 +54,7 @@
     "*.js": "eslint --fix"
   },
   "dependencies": {
-    "dompurify": "^2.2.2",
+    "dompurify": "^2.2.3",
     "marked": "^1.2.4",
     "medium-zoom": "^1.0.6",
     "opencollective-postinstall": "^2.0.2",
