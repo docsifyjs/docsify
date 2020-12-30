@@ -97,8 +97,7 @@ If you want, you can show a loading dialog before docsify starts to render your 
 <div id="app">Please wait...</div>
 ```
 
-By default, the `id` attribute of the main container is "app".
-If you want to use a different id, you must also set the `data-app` attribute, and [configure](configuration.md#el) the `el` parameter accordingly:
+By default, the `id` attribute of the main container is `app`. If you want to use a different id, you must also set the `data-app` attribute, and [configure](configuration.md#el) the `el` parameter accordingly:
 
 ```html
 <!-- index.html -->
