@@ -83,8 +83,11 @@ If you prefer to lock docsify to a specific version, specify the full version af
 
 If you installed python on your system, you can easily use it to run a static server to preview your site.
 
-```bash
+```python2
 cd docs && python -m SimpleHTTPServer 3000
+```
+```python3
+cd docs && python -m http.server 3000
 ```
 
 ## Loading dialog
