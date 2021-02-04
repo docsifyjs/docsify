@@ -26,6 +26,14 @@
 <body>
   <div id="app"></div>
   <script>
+    // Set html "lang" attribute based on URL
+    var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
+
+    if (lang) {
+      document.documentElement.setAttribute('lang', lang[1]);
+    }
+
+    // Docsify configuration
     window.$docsify = {
       alias: {
         '.*?/awesome': 'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
