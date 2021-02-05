@@ -41,7 +41,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await global.jestPlaywright.resetPage();
+  await global.jestPlaywright.resetContext();
 
   // Goto URL ()
   // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
@@ -50,5 +50,5 @@ beforeEach(async () => {
   // will cause operations that require the window location to be a valid URL
   // to fail (e.g. AJAX requests). To avoid these issues, this hook ensures
   // that each tests begins by a blank HTML page.
-  await page.goto(BLANK_URL);
+  await page.goto(`${TEST_HOST}/_blank.html`);
 });
