@@ -105,4 +105,23 @@ describe('Search Plugin Tests', function() {
     await page.fill('input[type=search]', 'test');
     await expect(page).toEqualText('.results-panel h2', 'Test Page');
   });
+
+  test('search ignore diacritical marks', async () => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          # Qué es
+
+          docsify genera su sitio web de documentación sobre la marcha. A diferencia de GitBook, no genera archivos estáticos html. En cambio, carga y analiza de forma inteligente sus archivos de Markdown y los muestra como sitio web. Todo lo que necesita hacer es crear un index.html para comenzar y desplegarlo en GitHub Pages.
+        `,
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+    await docsifyInit(docsifyInitConfig);
+    await page.fill('input[type=search]', 'documentacion');
+    await expect(page).toEqualText('.results-panel h2', 'Que es');
+    await page.click('.clear-button');
+    await page.fill('input[type=search]', 'estáticos');
+    await expect(page).toEqualText('.results-panel h2', 'Que es');
+  });
 });
