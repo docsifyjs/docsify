@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import tinydate from 'tinydate';
-import DOMPurify from 'dompurify';
 import * as dom from '../util/dom';
 import cssVars from '../util/polyfill/css-vars';
 import { callHook } from '../init/lifecycle';
@@ -330,7 +329,6 @@ export function renderMixin(proto) {
           },
           tokens => {
             html = this.compiler.compile(tokens);
-            html = this.isRemoteUrl ? DOMPurify.sanitize(html) : html;
             callback();
             next();
           }
