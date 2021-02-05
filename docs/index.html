@@ -56,6 +56,14 @@
   <body>
     <div id="app">Loading ...</div>
     <script>
+      // Set html "lang" attribute based on URL
+      var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
+
+      if (lang) {
+        document.documentElement.setAttribute('lang', lang[1]);
+      }
+
+      // Docsify configuration
       window.$docsify = {
         alias: {
           '.*?/awesome':
@@ -63,16 +71,14 @@
           '.*?/changelog':
             'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
           '/.*/_navbar.md': '/_navbar.md',
-          '/zh-cn/(.*)':
-            'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
+          '/es/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
           '/de-de/(.*)':
             'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
           '/ru-ru/(.*)':
             'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
-          '/es/(.*)':
-            'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
-          '/write-a-plugin':
-            'https://raw.githubusercontent.com/docsifyjs/docsify/master/docs/write-a-plugin.md',
+          '/zh-cn/(.*)':
+            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
         },
         auto2top: true,
         coverpage: true,
@@ -90,13 +96,17 @@
         name: 'docsify',
         search: {
           noData: {
+            '/es/': '¡No hay resultados!',
             '/de-de/': 'Keine Ergebnisse!',
+            '/ru-ru/': 'Никаких результатов!',
             '/zh-cn/': '没有结果!',
             '/': 'No results!',
           },
           paths: 'auto',
           placeholder: {
+            '/es/': 'Buscar',
             '/de-de/': 'Suche',
+            '/ru-ru/': 'Поиск',
             '/zh-cn/': '搜索',
             '/': 'Search',
           },
