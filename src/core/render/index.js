@@ -330,7 +330,9 @@ export function renderMixin(proto) {
           },
           tokens => {
             html = this.compiler.compile(tokens);
-            html = this.isRemoteUrl ? DOMPurify.sanitize(html) : html;
+            html = this.isRemoteUrl
+              ? DOMPurify.sanitize(html, { ADD_TAGS: ['script'] })
+              : html;
             callback();
             next();
           }
