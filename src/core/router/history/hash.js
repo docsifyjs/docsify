@@ -1,17 +1,12 @@
 import { noop } from '../../util/core';
 import { on } from '../../util/dom';
-import { parseQuery, cleanPath, replaceSlug } from '../util';
+import { parseQuery, cleanPath, replaceSlug, endsWith } from '../util';
 import { History } from './base';
 
 function replaceHash(path) {
   const i = location.href.indexOf('#');
   location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path);
 }
-
-function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
-
 export class HashHistory extends History {
   constructor(config) {
     super(config);
