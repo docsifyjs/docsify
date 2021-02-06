@@ -8,6 +8,10 @@ function replaceHash(path) {
   location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path);
 }
 
+function endsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
 export class HashHistory extends History {
   constructor(config) {
     super(config);
@@ -23,7 +27,7 @@ export class HashHistory extends History {
     // prevents the `/index.html` part of the URI from being
     // remove during routing.
     // See here: https://github.com/docsifyjs/docsify/pull/1372
-    const basePath = path.endsWith('.html')
+    const basePath = endsWith(path, '.html')
       ? path + '#/' + base
       : path + '/' + base;
     return /^(\/|https?:)/g.test(base) ? base : cleanPath(basePath);
