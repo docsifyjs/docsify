@@ -1,13 +1,12 @@
 import { noop } from '../../util/core';
 import { on } from '../../util/dom';
-import { parseQuery, cleanPath, replaceSlug } from '../util';
+import { parseQuery, cleanPath, replaceSlug, endsWith } from '../util';
 import { History } from './base';
 
 function replaceHash(path) {
   const i = location.href.indexOf('#');
   location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path);
 }
-
 export class HashHistory extends History {
   constructor(config) {
     super(config);
@@ -18,7 +17,15 @@ export class HashHistory extends History {
     const path = window.location.pathname || '';
     const base = this.config.basePath;
 
-    return /^(\/|https?:)/g.test(base) ? base : cleanPath(path + '/' + base);
+    // This handles the case where Docsify is served off an
+    // explicit file path, i.e.`/base/index.html#/blah`. This
+    // prevents the `/index.html` part of the URI from being
+    // remove during routing.
+    // See here: https://github.com/docsifyjs/docsify/pull/1372
+    const basePath = endsWith(path, '.html')
+      ? path + '#/' + base
+      : path + '/' + base;
+    return /^(\/|https?:)/g.test(base) ? base : cleanPath(basePath);
   }
 
   getCurrentPath() {
