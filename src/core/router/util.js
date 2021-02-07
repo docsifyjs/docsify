@@ -102,7 +102,7 @@ export const resolvePath = cached(path => {
 function normaliseFragment(path) {
   return path
     .split('/')
-    .filter(p => !p.includes('#'))
+    .filter(p => p.indexOf('#') === -1)
     .join('/');
 }
 
