@@ -26,7 +26,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             // Resolves relative links to absolute
             text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, x => {
               const linkBeginIndex = x.indexOf('(');
-              if (x.substring(linkBeginIndex).startsWith('(.')) {
+              if (x.slice(linkBeginIndex, linkBeginIndex + 2) === '(.') {
                 return (
                   x.substring(0, linkBeginIndex) +
                   `(${window.location.protocol}//${window.location.host}${path}/` +

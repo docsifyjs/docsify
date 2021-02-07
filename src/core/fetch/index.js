@@ -73,7 +73,7 @@ export function fetchMixin(proto) {
       case 'object':
         key = Object.keys(notFoundPage)
           .sort((a, b) => b.length - a.length)
-          .find(k => path.match(new RegExp('^' + k)));
+          .filter(k => path.match(new RegExp('^' + k)))[0];
 
         path404 = (key && notFoundPage[key]) || defaultPath;
         break;
