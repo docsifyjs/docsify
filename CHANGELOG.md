@@ -1,3 +1,48 @@
+# [4.12.0](https://github.com/docsifyjs/docsify/compare/v4.11.6...v4.12.0) (2021-02-08)
+
+
+### Bug Fixes
+
+* add missing argument for highlighting code ([#1365](https://github.com/docsifyjs/docsify/issues/1365)) ([f35bf99](https://github.com/docsifyjs/docsify/commit/f35bf99d9c762774e328b30347707e62eb8e6f63))
+* Can't search homepage content ([#1391](https://github.com/docsifyjs/docsify/issues/1391)) ([25bc9b7](https://github.com/docsifyjs/docsify/commit/25bc9b7eb7e878a6a50ed5f91d33d6a75f9811b0))
+* Cannot read property 'startsWith' of undefined ([#1358](https://github.com/docsifyjs/docsify/issues/1358)) ([9351729](https://github.com/docsifyjs/docsify/commit/9351729634b52db0e7e241bed7784fbcd5c39fe0))
+* Cannot read property level of undefined ([#1357](https://github.com/docsifyjs/docsify/issues/1357)) ([4807e58](https://github.com/docsifyjs/docsify/commit/4807e58cb994de83f063cb82d2b4a695f29378c8))
+* cannot search list content ([#1361](https://github.com/docsifyjs/docsify/issues/1361)) ([8d17dcb](https://github.com/docsifyjs/docsify/commit/8d17dcbe68048d654e62adb01a3925e39a8e0c44))
+* duplicate search content when `/README` or `/` exists in the sidebar ([#1403](https://github.com/docsifyjs/docsify/issues/1403)) ([7c3bf98](https://github.com/docsifyjs/docsify/commit/7c3bf98df869188d5956ed1a331f7048b6eba441))
+* package.json & package-lock.json to reduce vulnerabilities ([#1419](https://github.com/docsifyjs/docsify/issues/1419)) ([69b6907](https://github.com/docsifyjs/docsify/commit/69b6907c864dbcdf1fe5c75f51a80e6ae6ec279d))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1389](https://github.com/docsifyjs/docsify/issues/1389)) ([62cd35e](https://github.com/docsifyjs/docsify/commit/62cd35ee8345270aab7a48bc761db007d54a0f48))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1418](https://github.com/docsifyjs/docsify/issues/1418)) ([58fbca0](https://github.com/docsifyjs/docsify/commit/58fbca00ebd12f636c213d386761df9ebfb2bd4c))
+* Prevent loading remote content via URL hash ([#1489](https://github.com/docsifyjs/docsify/issues/1489)) ([14ce7f3](https://github.com/docsifyjs/docsify/commit/14ce7f3d862ac79fc7d9d316cb2e057d50e1b506)), closes [#1477](https://github.com/docsifyjs/docsify/issues/1477) [#1126](https://github.com/docsifyjs/docsify/issues/1126)
+* search on homepage test ([#1398](https://github.com/docsifyjs/docsify/issues/1398)) ([ee550d0](https://github.com/docsifyjs/docsify/commit/ee550d0c51f222851854c7cd7e9e6f76e26eb6f4))
+* search titles containing ignored characters ([#1395](https://github.com/docsifyjs/docsify/issues/1395)) ([a2ebb21](https://github.com/docsifyjs/docsify/commit/a2ebb2192ac73211a8924111d736df9574abf61b))
+* sidebar active class and expand don't work as expect when use "space" in markdown filename ([#1454](https://github.com/docsifyjs/docsify/issues/1454)) ([dcf5a64](https://github.com/docsifyjs/docsify/commit/dcf5a644eb6a2eef65fb940f3407c12828a679bc)), closes [#1032](https://github.com/docsifyjs/docsify/issues/1032)
+* sidebar horizontal scroll bar ([#1362](https://github.com/docsifyjs/docsify/issues/1362)) ([b480822](https://github.com/docsifyjs/docsify/commit/b480822286c66b478e5a7a9b2c82a10b99c69121))
+* sidebar title error ([#1360](https://github.com/docsifyjs/docsify/issues/1360)) ([2100fc3](https://github.com/docsifyjs/docsify/commit/2100fc318b009c6e448e48ffff6a693f1988916c))
+* slugs are still broken when headings contain html ([#1443](https://github.com/docsifyjs/docsify/issues/1443)) ([76c5e68](https://github.com/docsifyjs/docsify/commit/76c5e685d75ee6df9acc0a7cf92d5daa138c3240))
+* the sidebar links to another site. ([#1336](https://github.com/docsifyjs/docsify/issues/1336)) ([c9d4f7a](https://github.com/docsifyjs/docsify/commit/c9d4f7abc94a2cbc4bb558013775df380c1c8376))
+* title error when sidebar link exists with html tag ([#1404](https://github.com/docsifyjs/docsify/issues/1404)) ([8ccc202](https://github.com/docsifyjs/docsify/commit/8ccc20225104376af2e5df6757c4dbd58c0e758e)), closes [#1408](https://github.com/docsifyjs/docsify/issues/1408)
+* Unable to navigate on server without default index support ([#1372](https://github.com/docsifyjs/docsify/issues/1372)) ([759ffac](https://github.com/docsifyjs/docsify/commit/759ffac992b19dbb05b92114ec5620d3bb180d0d))
+* upgrade debug from 4.1.1 to 4.3.0 ([#1390](https://github.com/docsifyjs/docsify/issues/1390)) ([ae45b32](https://github.com/docsifyjs/docsify/commit/ae45b3201ba03303a2feb5a347b18fda818a569a))
+* upgrade debug from 4.3.0 to 4.3.1 ([#1446](https://github.com/docsifyjs/docsify/issues/1446)) ([bc3350f](https://github.com/docsifyjs/docsify/commit/bc3350f6e6bfe670c95569b4e9c51321f5c7dbb9))
+* upgrade debug from 4.3.1 to 4.3.2 ([#1463](https://github.com/docsifyjs/docsify/issues/1463)) ([df21153](https://github.com/docsifyjs/docsify/commit/df21153ab5e841ad89707e07c68a04873a2f3fe8))
+* upgrade docsify from 4.11.4 to 4.11.6 ([#1373](https://github.com/docsifyjs/docsify/issues/1373)) ([c2d12ed](https://github.com/docsifyjs/docsify/commit/c2d12ed27fe86b0c5cd690b4d8a22bf06d2a90b9))
+* upgrade dompurify from 2.0.17 to 2.1.0 ([#1397](https://github.com/docsifyjs/docsify/issues/1397)) ([1863d8e](https://github.com/docsifyjs/docsify/commit/1863d8edb70da234bf7f211986ba71706351682f))
+* upgrade dompurify from 2.1.0 to 2.1.1 ([#1402](https://github.com/docsifyjs/docsify/issues/1402)) ([8cf9fd8](https://github.com/docsifyjs/docsify/commit/8cf9fd8150bd67709c68d8dfe4dc881624583ac8))
+* upgrade dompurify from 2.2.2 to 2.2.3 ([#1457](https://github.com/docsifyjs/docsify/issues/1457)) ([720d909](https://github.com/docsifyjs/docsify/commit/720d9091c8e571d6c891426983f54d9c94739182))
+* upgrade dompurify from 2.2.2 to 2.2.6 ([#1483](https://github.com/docsifyjs/docsify/issues/1483)) ([eee9507](https://github.com/docsifyjs/docsify/commit/eee9507d435459ae8e68e1112bb58a63b2f58530))
+* upgrade dompurify from 2.2.3 to 2.2.6 ([#1482](https://github.com/docsifyjs/docsify/issues/1482)) ([7adad57](https://github.com/docsifyjs/docsify/commit/7adad57df1b7efa469b0cde37f788c36dc27cf8b))
+* upgrade marked from 1.2.4 to 1.2.9 ([#1486](https://github.com/docsifyjs/docsify/issues/1486)) ([716a7fa](https://github.com/docsifyjs/docsify/commit/716a7fa777a1eee66964977e1d4405cff3275c53))
+* upgrade prismjs from 1.21.0 to 1.22.0 ([#1415](https://github.com/docsifyjs/docsify/issues/1415)) ([0806f48](https://github.com/docsifyjs/docsify/commit/0806f48531b6cb5e6a395c12ab88f0b59281bbf8))
+* upgrade prismjs from 1.22.0 to 1.23.0 ([#1481](https://github.com/docsifyjs/docsify/issues/1481)) ([5f29cde](https://github.com/docsifyjs/docsify/commit/5f29cde84c7b74d70c34e3f1f43c479f1bba670d))
+* Use legacy-compatible methods for IE11 ([#1495](https://github.com/docsifyjs/docsify/issues/1495)) ([06cbebf](https://github.com/docsifyjs/docsify/commit/06cbebfc0d34726f4a7102a7dc9020520f3a7f86))
+
+
+### Features
+
+* search ignore diacritical marks ([#1434](https://github.com/docsifyjs/docsify/issues/1434)) ([8968a74](https://github.com/docsifyjs/docsify/commit/8968a744cea5910057ba59ef690316722a35b341))
+
+
+
 ## [4.11.6](https://github.com/docsifyjs/docsify/compare/v4.11.5...v4.11.6) (2020-08-22)
 
 
