@@ -40,6 +40,8 @@
 ### Features
 
 * search ignore diacritical marks ([#1434](https://github.com/docsifyjs/docsify/issues/1434)) ([8968a74](https://github.com/docsifyjs/docsify/commit/8968a744cea5910057ba59ef690316722a35b341))
+* Add Jest + Playwright Testing ([#1276](https://github.com/docsifyjs/docsify/issues/1276))
+* Add Vue components, mount options, global options, and v3 support ([#1409](https://github.com/docsifyjs/docsify/issues/1409))
 
 
 
