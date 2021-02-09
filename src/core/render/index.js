@@ -7,7 +7,7 @@ import { callHook } from '../init/lifecycle';
 import { getAndActive, sticky } from '../event/sidebar';
 import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
-import { isPrimitive } from '../util/core';
+import { isPrimitive, merge } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
@@ -116,10 +116,10 @@ function renderMain(html) {
 
     // vueMounts
     vueMountData.push(
-      ...Object.entries(docsifyConfig.vueMounts || {})
-        .map(([cssSelector, vueConfig]) => [
+      ...Object.keys(docsifyConfig.vueMounts || {})
+        .map(cssSelector => [
           dom.find(markdownElm, cssSelector),
-          vueConfig,
+          docsifyConfig.vueMounts[cssSelector],
         ])
         .filter(([elm, vueConfig]) => elm)
     );
@@ -169,10 +169,7 @@ function renderMain(html) {
           })
           .map(elm => {
             // Clone global configuration
-            const vueConfig = Object.assign(
-              {},
-              docsifyConfig.vueGlobalOptions || {}
-            );
+            const vueConfig = merge({}, docsifyConfig.vueGlobalOptions || {});
 
             // Replace vueGlobalOptions data() return value with shared data object.
             // This provides a global store for all Vue instances that receive
