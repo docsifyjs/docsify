@@ -114,12 +114,9 @@
         },
         vueComponents: {
           'button-counter': {
-            template: `
-            <button @click="count += 1">
-              You clicked me {{ count }} times
-            </button>
-          `,
-            data() {
+            template:
+              '<button @click="count += 1">You clicked me {{ count }} times</button>',
+            data: function() {
               return {
                 count: 0,
               };
@@ -127,7 +124,7 @@
           },
         },
         vueGlobalOptions: {
-          data() {
+          data: function() {
             return {
               count: 0,
               message: 'Hello, World!',
@@ -140,7 +137,7 @@
             };
           },
           computed: {
-            timeOfDay() {
+            timeOfDay: function() {
               const date = new Date();
               const hours = date.getHours();
 
@@ -161,7 +158,7 @@
         },
         vueMounts: {
           '#counter': {
-            data() {
+            data: function() {
               return {
                 count: 0,
               };
@@ -197,7 +194,10 @@
                 if (vm.route.path === '/') {
                   return html;
                 }
-                return `${html}<br/> <i>Vercel</i> has given us a Pro account <br/> <a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="_media/vercel_logo.svg" alt="Vercel" width="100" height="64"></a>`;
+                return (
+                  html +
+                  '<br/> <i>Vercel</i> has given us a Pro account <br/> <a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="_media/vercel_logo.svg" alt="Vercel" width="100" height="64"></a>'
+                );
               });
           },
         ],
