@@ -219,13 +219,8 @@
 
         // Public site only
         if (/docsify/.test(location.host)) {
-          ((window.gitter = {}).chat = {}).options = {
-            room: 'docsifyjs/Lobby',
-          };
-
           loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js');
           loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js');
-          loadJS('//sidecar.gitter.im/dist/sidecar.v1.js', 'async defer');
         }
       })();
     </script>
