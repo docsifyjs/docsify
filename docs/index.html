@@ -55,6 +55,7 @@
 
   <body>
     <div id="app">Loading ...</div>
+    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1/index.js"></script>
     <script>
       // Set html "lang" attribute based on URL
       var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
@@ -165,6 +166,7 @@
           },
         },
         plugins: [
+          DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
           function(hook, vm) {
             hook.beforeEach(function(html) {
               if (/githubusercontent\.com/.test(vm.route.file)) {
@@ -207,7 +209,6 @@
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1/index.min.js"></script>
     <script>
       (function() {
         function loadJS(src, attrs) {
@@ -218,13 +219,8 @@
 
         // Public site only
         if (/docsify/.test(location.host)) {
-          ((window.gitter = {}).chat = {}).options = {
-            room: 'docsifyjs/Lobby',
-          };
-
           loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js');
           loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js');
-          loadJS('//sidecar.gitter.im/dist/sidecar.v1.js', 'async defer');
         }
       })();
     </script>
