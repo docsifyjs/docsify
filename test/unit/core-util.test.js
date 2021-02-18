@@ -20,7 +20,7 @@ describe('core/util', () => {
     });
 
     test('non external local url with three ///', () => {
-      const result = isExternal(`//${location.host}/docsify/demo.md`);
+      const result = isExternal(`///${location.host}/docsify/demo.md`);
 
       expect(result).toBeFalsy();
     });
