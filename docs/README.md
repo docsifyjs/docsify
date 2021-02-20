@@ -35,4 +35,4 @@ Users and the development team are usually in the [Discord server](https://disco
 
 _Vercel_ has given us a Pro account.
 
-<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="_media/vercel_logo.svg" width="100px"></a>
+<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="https://cdn.jsdelivr.net/gh/docsifyjs/docsify/docs/_media/vercel_logo.svg" width="100px"></a>
