@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { callHook } from '../init/lifecycle';
 import { getParentPath, stringifyQuery } from '../router/util';
-import { noop } from '../util/core';
+import { noop, isExternal } from '../util/core';
 import { getAndActive } from '../event/sidebar';
 import { get } from './ajax';
 
@@ -18,32 +18,6 @@ function loadNested(path, qs, file, next, vm, first) {
     false,
     vm.config.requestHeaders
   ).then(next, _ => loadNested(path, qs, file, next, vm));
-}
-
-function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
-  if (
-    typeof match[1] === 'string' &&
-    match[1].length > 0 &&
-    match[1].toLowerCase() !== location.protocol
-  ) {
-    return true;
-  }
-  if (
-    typeof match[2] === 'string' &&
-    match[2].length > 0 &&
-    match[2].replace(
-      new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
-      ),
-      ''
-    ) !== location.host
-  ) {
-    return true;
-  }
-  return false;
 }
 
 export function fetchMixin(proto) {
