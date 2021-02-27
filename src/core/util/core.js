@@ -66,3 +66,35 @@ export function noop() {}
 export function isFn(obj) {
   return typeof obj === 'function';
 }
+
+/**
+ * Check if url is external
+ * @param {String} string  url
+ * @returns {Boolean} True if the passed-in url is external
+ */
+export function isExternal(url) {
+  let match = url.match(
+    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+  );
+
+  if (
+    typeof match[1] === 'string' &&
+    match[1].length > 0 &&
+    match[1].toLowerCase() !== location.protocol
+  ) {
+    return true;
+  }
+  if (
+    typeof match[2] === 'string' &&
+    match[2].length > 0 &&
+    match[2].replace(
+      new RegExp(
+        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
+      ),
+      ''
+    ) !== location.host
+  ) {
+    return true;
+  }
+  return false;
+}
