@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Docs Site coverpage renders and is unchanged 1`] = `
-"<section class=\\"cover show\\" style=\\"background: linear-gradient(to left bottom, hsl(127, 100%, 85%) 0%,hsl(127, 100%, 85%) 100%)\\"><div class=\\"mask\\"></div><div class=\\"cover-main\\"><p><img src=\\"http://127.0.0.1:3001/_media/icon.svg\\" data-origin=\\"_media/icon.svg\\" alt=\\"logo\\"></p><h1 id=\\"docsify-4120\\"><a href=\\"#/?id=docsify-4120\\" data-id=\\"docsify-4120\\" class=\\"anchor\\"><span>docsify <small>4.12.0</small></span></a></h1><blockquote>
+"<section class=\\"cover show\\" style=\\"background: linear-gradient(to left bottom, hsl(127, 100%, 85%) 0%,hsl(127, 100%, 85%) 100%)\\"><div class=\\"mask\\"></div><div class=\\"cover-main\\"><p><img src=\\"http://127.0.0.1:3001/_media/icon.svg\\" data-origin=\\"_media/icon.svg\\" alt=\\"logo\\"></p><h1 id=\\"docsify-4121\\"><a href=\\"#/?id=docsify-4121\\" data-id=\\"docsify-4121\\" class=\\"anchor\\"><span>docsify <small>4.12.1</small></span></a></h1><blockquote>
 <p>A magical documentation site generator.</p></blockquote>
 <ul><li>Simple and lightweight</li><li>No statically built html files</li><li>Multiple themes</li></ul><p><a href=\\"https://github.com/docsifyjs/docsify/\\" target=\\"_blank\\" rel=\\"noopener\\">GitHub</a>
 <a href=\\"#/?id=docsify\\">Getting Started</a></p></div></section>"

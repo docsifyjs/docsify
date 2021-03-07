@@ -14,6 +14,12 @@
 * Support search when there is no title ([#1519](https://github.com/docsifyjs/docsify/issues/1519)) ([bc37268](https://github.com/docsifyjs/docsify/commit/bc3726853fb2d1f9241927ea0317970ab0c8a2f2))
 
 
+### Chore
+
+- Fix missing carbon ([#1501](https://github.com/docsifyjs/docsify/issues/1501))
+- Change Gitter to Discord throughout project ([#1507](https://github.com/docsifyjs/docsify/issues/1507))
+- Add test cases on isExternal ([#1515](https://github.com/docsifyjs/docsify/issues/1515))
+
 
 # [4.12.0](https://github.com/docsifyjs/docsify/compare/v4.11.6...v4.12.0) (2021-02-08)
 
