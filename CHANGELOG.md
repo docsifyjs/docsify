@@ -1,3 +1,20 @@
+## [4.12.1](https://github.com/docsifyjs/docsify/compare/v4.12.0...v4.12.1) (2021-03-07)
+
+
+### Bug Fixes
+
+* isExternal check with malformed URL + tests ([#1510](https://github.com/docsifyjs/docsify/issues/1510)) ([ff2a66f](https://github.com/docsifyjs/docsify/commit/ff2a66f12752471277fe81a64ad6c4b2c08111fe)), closes [#1477](https://github.com/docsifyjs/docsify/issues/1477) [#1126](https://github.com/docsifyjs/docsify/issues/1126) [#1489](https://github.com/docsifyjs/docsify/issues/1489)
+* Replace ES6 usage for IE11 compatibility ([#1500](https://github.com/docsifyjs/docsify/issues/1500)) ([a0f61b2](https://github.com/docsifyjs/docsify/commit/a0f61b2af72cb888ea5b635021a5c9da6beb7ac5))
+* theme switcher in IE11 ([#1502](https://github.com/docsifyjs/docsify/issues/1502)) ([8cda078](https://github.com/docsifyjs/docsify/commit/8cda07891afeb1ea6e198d2a600f205357ab4b89))
+* Upgrade docsify from 4.11.6 to 4.12.0 ([#1518](https://github.com/docsifyjs/docsify/issues/1518)) ([47cd86c](https://github.com/docsifyjs/docsify/commit/47cd86c8f196a241fc23720e3addfe95d4c973cd))
+
+
+### Features
+
+* Support search when there is no title ([#1519](https://github.com/docsifyjs/docsify/issues/1519)) ([bc37268](https://github.com/docsifyjs/docsify/commit/bc3726853fb2d1f9241927ea0317970ab0c8a2f2))
+
+
+
 # [4.12.0](https://github.com/docsifyjs/docsify/compare/v4.11.6...v4.12.0) (2021-02-08)
 
 
