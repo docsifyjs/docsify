@@ -137,8 +137,8 @@ function doSearch(value) {
     $panel.innerHTML = '';
 
     if (options.hideOtherSidebarContent) {
-      $sidebarNav.classList.remove('hide');
-      $appName.classList.remove('hide');
+      $sidebarNav && $sidebarNav.classList.remove('hide');
+      $appName && $appName.classList.remove('hide');
     }
 
     return;
