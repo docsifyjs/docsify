@@ -160,8 +160,8 @@ function doSearch(value) {
   $clearBtn.classList.add('show');
   $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
   if (options.hideOtherSidebarContent) {
-    $sidebarNav.classList.add('hide');
-    $appName.classList.add('hide');
+    $sidebarNav && $sidebarNav.classList.add('hide');
+    $appName && $appName.classList.add('hide');
   }
 }
 
