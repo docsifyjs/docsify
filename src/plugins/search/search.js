@@ -85,7 +85,7 @@ export function genIndex(path, content = '', router, depth) {
   let slug;
   let title = '';
 
-  tokens.forEach(token => {
+  tokens.forEach(function(token, tokenIndex) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
@@ -106,6 +106,15 @@ export function genIndex(path, content = '', router, depth) {
 
       index[slug] = { slug, title: title, body: '' };
     } else {
+      if (tokenIndex === 0) {
+        slug = router.toURL(path);
+        index[slug] = {
+          slug,
+          title: path !== '/' ? path.slice(1) : 'Home Page',
+          body: token.text || '',
+        };
+      }
+
       if (!slug) {
         return;
       }
