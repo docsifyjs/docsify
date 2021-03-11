@@ -124,4 +124,36 @@ describe('Search Plugin Tests', function() {
     await page.fill('input[type=search]', 'estáticos');
     await expect(page).toEqualText('.results-panel h2', 'Que es');
   });
+
+  test('search when there is no title', async () => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          This is some description. We assume autoHeader added the # Title. A long paragraph.
+        `,
+        sidebar: `
+          - [Changelog](changelog)
+        `,
+      },
+      routes: {
+        '/changelog.md': `
+          feat: Support search when there is no title
+
+          ## Changelog Title
+
+          hello, this is a changelog
+        `,
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+    await docsifyInit(docsifyInitConfig);
+    await page.fill('input[type=search]', 'paragraph');
+    await expect(page).toEqualText('.results-panel h2', 'Home Page');
+    await page.click('.clear-button');
+    await page.fill('input[type=search]', 'Support');
+    await expect(page).toEqualText('.results-panel h2', 'changelog');
+    await page.click('.clear-button');
+    await page.fill('input[type=search]', 'hello');
+    await expect(page).toEqualText('.results-panel h2', 'Changelog Title');
+  });
 });
