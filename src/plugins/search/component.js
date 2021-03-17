@@ -137,8 +137,8 @@ function doSearch(value) {
     $panel.innerHTML = '';
 
     if (options.hideOtherSidebarContent) {
-      $sidebarNav.classList.remove('hide');
-      $appName.classList.remove('hide');
+      $sidebarNav && $sidebarNav.classList.remove('hide');
+      $appName && $appName.classList.remove('hide');
     }
 
     return;
@@ -160,8 +160,8 @@ function doSearch(value) {
   $clearBtn.classList.add('show');
   $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
   if (options.hideOtherSidebarContent) {
-    $sidebarNav.classList.add('hide');
-    $appName.classList.add('hide');
+    $sidebarNav && $sidebarNav.classList.add('hide');
+    $appName && $appName.classList.add('hide');
   }
 }
 
