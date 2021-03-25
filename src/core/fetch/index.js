@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { callHook } from '../init/lifecycle';
 import { getParentPath, stringifyQuery } from '../router/util';
-import { noop } from '../util/core';
+import { noop, isExternal } from '../util/core';
 import { getAndActive } from '../event/sidebar';
 import { get } from './ajax';
 
@@ -18,32 +18,6 @@ function loadNested(path, qs, file, next, vm, first) {
     false,
     vm.config.requestHeaders
   ).then(next, _ => loadNested(path, qs, file, next, vm));
-}
-
-function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/\/([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
-  if (
-    typeof match[1] === 'string' &&
-    match[1].length > 0 &&
-    match[1].toLowerCase() !== location.protocol
-  ) {
-    return true;
-  }
-  if (
-    typeof match[2] === 'string' &&
-    match[2].length > 0 &&
-    match[2].replace(
-      new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
-      ),
-      ''
-    ) !== location.host
-  ) {
-    return true;
-  }
-  return false;
 }
 
 export function fetchMixin(proto) {
@@ -73,7 +47,7 @@ export function fetchMixin(proto) {
       case 'object':
         key = Object.keys(notFoundPage)
           .sort((a, b) => b.length - a.length)
-          .find(k => path.match(new RegExp('^' + k)));
+          .filter(k => path.match(new RegExp('^' + k)))[0];
 
         path404 = (key && notFoundPage[key]) || defaultPath;
         break;
@@ -102,41 +76,50 @@ export function fetchMixin(proto) {
   };
 
   proto._fetch = function(cb = noop) {
-    const { path, query } = this.route;
-    const qs = stringifyQuery(query, ['id']);
-    const { loadNavbar, requestHeaders, loadSidebar } = this.config;
-    // Abort last request
+    const { query } = this.route;
+    let { path } = this.route;
 
-    const file = this.router.getFile(path);
-    const req = request(file + qs, true, requestHeaders);
+    // Prevent loading remote content via URL hash
+    // Ex: https://foo.com/#//bar.com/file.md
+    if (isExternal(path)) {
+      history.replaceState(null, '', '#');
+      this.router.normalize();
+    } else {
+      const qs = stringifyQuery(query, ['id']);
+      const { loadNavbar, requestHeaders, loadSidebar } = this.config;
+      // Abort last request
 
-    this.isRemoteUrl = isExternal(file);
-    // Current page is html
-    this.isHTML = /\.html$/g.test(file);
+      const file = this.router.getFile(path);
+      const req = request(file + qs, true, requestHeaders);
 
-    // Load main content
-    req.then(
-      (text, opt) =>
-        this._renderMain(
-          text,
-          opt,
-          this._loadSideAndNav(path, qs, loadSidebar, cb)
-        ),
-      _ => {
-        this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
-      }
-    );
+      this.isRemoteUrl = isExternal(file);
+      // Current page is html
+      this.isHTML = /\.html$/g.test(file);
 
-    // Load nav
-    loadNavbar &&
-      loadNested(
-        path,
-        qs,
-        loadNavbar,
-        text => this._renderNav(text),
-        this,
-        true
+      // Load main content
+      req.then(
+        (text, opt) =>
+          this._renderMain(
+            text,
+            opt,
+            this._loadSideAndNav(path, qs, loadSidebar, cb)
+          ),
+        _ => {
+          this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
+        }
       );
+
+      // Load nav
+      loadNavbar &&
+        loadNested(
+          path,
+          qs,
+          loadNavbar,
+          text => this._renderNav(text),
+          this,
+          true
+        );
+    }
   };
 
   proto._fetchCover = function() {

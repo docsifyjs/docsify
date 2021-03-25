@@ -37,9 +37,11 @@ export function waitForFunction(fn, arg, options = {}) {
       timeElapsed += settings.delay;
 
       if (timeElapsed >= settings.timeout) {
-        reject(
-          `waitForFunction() did not return a truthy value\n\n${fn.toString()}\n\n`
-        );
+        const msg = `waitForFunction did not return a truthy value (${
+          settings.timeout
+        } ms): ${fn.toString()}\n`;
+
+        reject(msg);
       }
     }, settings.delay);
   });
@@ -71,9 +73,9 @@ export function waitForSelector(cssSelector, options = {}) {
       timeElapsed += settings.delay;
 
       if (timeElapsed >= settings.timeout) {
-        reject(
-          `waitForSelector() was unable to find CSS selector ${cssSelector}`
-        );
+        const msg = `waitForSelector did not match CSS selector '${cssSelector}' (${settings.timeout} ms)`;
+
+        reject(msg);
       }
     }, settings.delay);
   });
@@ -94,20 +96,31 @@ export function waitForText(cssSelector, text, options = {}) {
   };
 
   return new Promise((resolve, reject) => {
+    let timeElapsed = 0;
+
     waitForSelector(cssSelector, settings)
       .then(elm => {
-        const isMatch = elm.textContent.includes(text);
+        const int = setInterval(() => {
+          const isMatch = elm.textContent.includes(text);
 
-        if (isMatch) {
-          resolve(elm);
-        } else {
-          reject(
-            `waitForText() did not find "${text}" in CSS selector ${cssSelector}`
-          );
-        }
+          if (isMatch) {
+            clearInterval(int);
+            resolve(true);
+          }
+
+          timeElapsed += settings.delay;
+
+          if (timeElapsed >= settings.timeout) {
+            const msg = `waitForText did not find '${text}' in CSS selector '${cssSelector}' (${settings.timeout} ms): '${elm.textContent}'`;
+
+            reject(msg);
+          }
+        }, settings.delay);
       })
       .catch(() => {
-        reject(`waitForText() was unable to find CSS selector ${cssSelector}`);
+        const msg = `waitForText did not match CSS selector '${cssSelector}' (${settings.timeout} ms)`;
+
+        reject(msg);
       });
   });
 }

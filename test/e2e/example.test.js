@@ -92,14 +92,14 @@ describe(`Example Tests`, function() {
   test('manual docsify site using playwright methods', async () => {
     // Goto URL
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagegotourl-options
-    await page.goto(BLANK_URL);
+    await page.goto(`${TEST_HOST}/_blank.html`);
 
     // Set docsify configuration
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
     await page.evaluate(() => {
       window.$docsify = {
         el: '#app',
-        basePath: '/docs',
+        basePath: '/docs/',
         themeColor: 'red',
       };
     });
@@ -112,11 +112,11 @@ describe(`Example Tests`, function() {
 
     // Inject docsify theme (vue.css)
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddstyletagoptions
-    await page.addStyleTag({ url: `${LIB_URL}/themes/vue.css` });
+    await page.addStyleTag({ url: '/lib/themes/vue.css' });
 
     // Inject docsify.js
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageaddscripttagoptions
-    await page.addScriptTag({ url: `${LIB_URL}/docsify.js` });
+    await page.addScriptTag({ url: '/lib/docsify.js' });
 
     // Wait for docsify to initialize
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagewaitforselectorselector-options
@@ -182,12 +182,12 @@ describe(`Example Tests`, function() {
         `,
       },
       routes: {
-        '/test.md': `
+        'test.md': `
           # Test Page
 
           This is a custom route.
         `,
-        '/data-test-scripturls.js': `
+        'data-test-scripturls.js': `
           document.body.setAttribute('data-test-scripturls', 'pass');
         `,
       },
@@ -196,7 +196,7 @@ describe(`Example Tests`, function() {
       `,
       scriptURLs: [
         // docsifyInit() route
-        '/data-test-scripturls.js',
+        'data-test-scripturls.js',
         // Server route
         '/lib/plugins/search.min.js',
       ],
