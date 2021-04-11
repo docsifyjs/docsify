@@ -88,11 +88,11 @@ When using the HTML5 router, you need to set up redirect rules that redirect all
 /*    /index.html   200
 ```
 
-## ZEIT Now
+## Vercel
 
-1. Install [Now CLI](https://zeit.co/download), `npm i -g now`
+1. Install [Vercel CLI](https://vercel.com/download), `npm i -g vercel`
 2. Change directory to your docsify website, for example `cd docs`
-3. Deploy with a single command, `now` 
+3. Deploy with a single command, `vercel`
 
 ## AWS Amplify
 
