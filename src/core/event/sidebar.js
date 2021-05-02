@@ -21,9 +21,11 @@ export function btn(el) {
     toggle();
   });
 
+  // use content instead of dom.body to avoid sidebar closing while clicking among catalog items
+  let content = document.querySelector('section.content');
   isMobile &&
     dom.on(
-      dom.body,
+      content,
       'click',
       _ => dom.body.classList.contains('close') && toggle()
     );
