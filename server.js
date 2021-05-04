@@ -1,7 +1,9 @@
 import liveServer from 'live-server';
+import { qualifyURL } from './packages/docsify-server-renderer/src/utils';
 
 const isSSR = !!process.env.SSR;
 const middleware = [];
+const port = 3000;
 
 main();
 
@@ -10,7 +12,7 @@ async function main() {
     // Using JSDom here because the server relies on a small subset of DOM APIs.
     // The URL used here serves no purpose other than to give JSDOM an HTTP
     // URL to operate under (it probably can be anything).
-    initJSDOM('', { url: 'https://127.0.0.1:3000' });
+    initJSDOM('', { url: 'http://127.0.0.1:' + port });
 
     const { Renderer, getServerHTMLTemplate } = await import(
       './packages/docsify-server-renderer/index'
@@ -21,7 +23,9 @@ async function main() {
       config: {
         name: 'docsify',
         repo: 'docsifyjs/docsify',
-        basePath: 'https://docsify.js.org/',
+        // Do not use URLs for SSR mode. Specify only an absolute or relative file path.
+        // basePath: 'https://docsify.js.org/',
+        basePath: '/docs', // TODO if not set while in SSR mode, code tries to operate on an undefined value. Set a default.
         loadNavbar: true,
         loadSidebar: true,
         subMaxLevel: 3,
@@ -35,16 +39,25 @@ async function main() {
       },
     });
 
-    middleware.push(function (req, res, next) {
-      if (/\.(css|js)$/.test(req.url)) {
-        return next();
+    middleware.push(function(req, res, next) {
+      const url = new URL(qualifyURL(req.url));
+
+      // Only handle markdown files or folders.
+      if (/(\.md|\/[^.]*)$/.test(url.pathname)) {
+        // ^ See the related getFileName() function.
+        renderer.renderToString(req.url).then(html => res.end(html));
+        return;
       }
-      renderer.renderToString(req.url).then((html) => res.end(html));
+
+      // TODO there *must* be edge cases. Add an option to force certain files?
+      console.log('Skipping markdown handling of file ' + req.url);
+
+      return next();
     });
   }
 
   const params = {
-    port: 3000,
+    port,
     watch: ['lib', 'docs', 'themes'],
     middleware,
   };

@@ -58,6 +58,7 @@ export const getParentPath = cached(path => {
 });
 
 export const cleanPath = cached(path => {
+  // turn '////foo' into '/foo' and 'foo//bar' into 'foo/bar'
   return path.replace(/^\/+/, '/').replace(/([^:])\/{2,}/g, '$1/');
 });
 

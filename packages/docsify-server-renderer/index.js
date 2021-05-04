@@ -168,8 +168,21 @@ export default class Renderer {
     try {
       if (isAbsolutePath(filePath)) {
         const res = await fetch(filePath);
+
         if (!res.ok) {
-          throw Error();
+          this.lock = this.lock || 0;
+
+          if (++this.lock > 10) {
+            this.lock = 0;
+            return;
+          }
+
+          const fileName = basename(filePath);
+          const result = await this._loadFile(
+            resolvePathname(`../${fileName}`, filePath)
+          );
+
+          return result;
         }
 
         content = await res.text();
@@ -181,18 +194,14 @@ export default class Renderer {
 
       return content;
     } catch (e) {
-      this.lock = this.lock || 0;
-      if (++this.lock > 10) {
-        this.lock = 0;
-        return;
-      }
-
-      const fileName = basename(filePath);
-      const result = await this._loadFile(
-        resolvePathname(`../${fileName}`, filePath)
+      console.trace(
+        `ERROR: Encountered an error loading file ${filePath}. See the error after this one for more details.`
       );
 
-      return result;
+      // Don't fail on optional files, but still log the error for reference.
+      if (['_sidebar.md', '_navbar.md'].some(f => filePath.includes(f)))
+        console.error(e);
+      else throw e;
     }
   }
 }
