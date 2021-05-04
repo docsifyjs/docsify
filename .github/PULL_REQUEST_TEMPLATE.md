@@ -1,47 +1,65 @@
-<!-- Please use English language -->
-<!-- Please don't delete this template -->
+<!--
+  PULL REQUEST TEMPLATE
+  ---
+  Please use English language
+  Please don't delete this template
+  ---
+  Update "[ ]" to "[x]" to check a box in any list below.
+  ---
+  To avoid wasting your time, it's best to open a **feature request issue** first and wait for approval before working on it.
+-->
 
-<!-- PULL REQUEST TEMPLATE -->
-<!-- (Update "[ ]" to "[x]" to check a box) -->
+## **Summary**
 
-**Summary**
+<!--
+ THIS IS REQUIRED! Please describe what the change does and why it should be merged.
+-->
 
-**What kind of change does this PR introduce?** (check at least one)
+<!--
+  If changing the UI in any way, please provide the a **before/after** screenshot:
+-->
 
-- [ ] Bugfix
-- [ ] Feature
-- [ ] Code style update
-- [ ] Refactor
-- [ ] Docs
-- [ ] Build-related changes
-- [ ] Repo settings
-- [ ] Other, please describe:
+## **What kind of change does this PR introduce?**
 
-If changing the UI of default theme, please provide the **before/after** screenshot:
+<!--
+  Copy/paste one of the following options:
+-->
 
-**Does this PR introduce a breaking change?** (check one)
+<!--
+  Bugfix
+  Feature
+  Code style update
+  Refactor
+  Docs
+  Build-related changes
+  Repo settings
+  Other
+-->
+
+<!--
+  If you chose Other, please describe.
+-->
+
+## **For any code change,**
+
+- [ ] Related documentation has been updated if needed
+- [ ] Related tests have been updated or tests have been added
+
+## **Does this PR introduce a breaking change?** (check one)
 
 - [ ] Yes
 - [ ] No
 
 If yes, please describe the impact and migration path for existing applications:
 
-**The PR fulfills these requirements:**
+## **Related issue, if any:**
 
-- [ ] When resolving a specific issue, it's referenced in the PR's title (e.g. `fix #xxx[,#xxx]`, where "xxx" is the issue number)
+<!-- Paste issue's link or number hashtag here. -->
 
-You have tested in the following browsers: (Providing a detailed version will be better.)
+## **Tested in the following browsers:**
 
 - [ ] Chrome
 - [ ] Firefox
 - [ ] Safari
 - [ ] Edge
 - [ ] IE
-
-If adding a **new feature**, the PR's description includes:
-
-- [ ] A convincing reason for adding this feature
-- [ ] Related documents have been updated
-- [ ] Related tests have been updated
-
-To avoid wasting your time, it's best to open a **feature request issue** first and wait for approval before working on it.

@@ -9,7 +9,7 @@ describe('Example Tests', function () {
   test('Docsify /docs/ site using docsifyInit()', async () => {
     await docsifyInit({
       config: {
-        basePath: `${TEST_HOST}/docs`,
+        basePath: '/docs/',
       },
       // _logHTML: true,
     });
@@ -50,12 +50,12 @@ describe('Example Tests', function () {
         `,
       },
       routes: {
-        '/test.md': `
+        'test.md': `
           # Test Page
 
           This is a custom route.
         `,
-        '/data-test-scripturls.js': `
+        'data-test-scripturls.js': `
           document.body.setAttribute('data-test-scripturls', 'pass');
         `,
       },
@@ -64,7 +64,7 @@ describe('Example Tests', function () {
       `,
       scriptURLs: [
         // docsifyInit() route
-        '/data-test-scripturls.js',
+        'data-test-scripturls.js',
         // Server route
         '/lib/plugins/search.min.js',
       ],

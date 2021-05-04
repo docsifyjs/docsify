@@ -1,8 +1,8 @@
-// Borrowed from https://j11y.io/snippets/getting-a-fully-qualified-url.
 /**
  * @param {string} url
  * @returns {string}
  */
+// See https://j11y.io/snippets/getting-a-fully-qualified-url.
 export function qualifyURL(url) {
   const img = document.createElement('img');
   img.src = url; // set string url

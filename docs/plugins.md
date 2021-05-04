@@ -62,6 +62,12 @@ By default, the hyperlink on the current page is recognized and the content is s
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 ```
 
+This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café"). Legacy browsers like IE11 require the following [String.normalize()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) polyfill to ignore diacritical marks:
+
+```html
+<script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
+```
+
 ## Google Analytics
 
 Install the plugin and configure the track id.
@@ -180,6 +186,8 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
+
+Click [here](https://github.com/imyelo/docsify-pagination#readme) to get more information.
 
 ## Tabs
 

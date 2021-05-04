@@ -5,10 +5,14 @@ import stripIndent from 'common-tags/lib/stripIndent';
 import mock, { proxy } from 'xhr-mock';
 import { waitForSelector } from './wait-for';
 
-const docsifyPATH = `${LIB_PATH}/docsify.js`; // JSDOM
-const docsifyURL = `${LIB_URL}/docsify.js`; // Playwright
-const isJSDOM = 'window' in globalThis;
-const isPlaywright = 'page' in globalThis;
+import axios from 'axios';
+import prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent';
+
+const docsifyPATH = '../../lib/docsify.js'; // JSDOM
+const docsifyURL = '/lib/docsify.js'; // Playwright
+const isJSDOM = 'window' in global;
+const isPlaywright = 'page' in global;
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -29,8 +33,9 @@ const isPlaywright = 'page' in globalThis;
  * @param {String} [options.testURL] URL to set as window.location.href
  * @param {String} [options.waitForSelector='#main'] Element to wait for before returning promsie
  * @param {String} [options._debug] initiate debugger after site is created
- * @param {Boolean|Object} [options._logHTML] Logs HTML to console after initialization
+ * @param {Boolean|Object|String} [options._logHTML] Logs HTML to console after initialization. Accepts CSS selector.
  * @param {Boolean} [options._logHTML.format=true] Formats HTML output
+ * @param {String} [options._logHTML.selector='html'] CSS selector(s) to match and log HTML for
  * @returns {Promise}
  */
 async function docsifyInit(options = {}) {
@@ -62,7 +67,7 @@ async function docsifyInit(options = {}) {
     style: '',
     styleURLs: [],
     testURL: `${TEST_HOST}/docsify-init.html`,
-    waitForSelector: '#main',
+    waitForSelector: '#main > *',
   };
   const settings = {
     ...defaults,
@@ -76,15 +81,29 @@ async function docsifyInit(options = {}) {
         loadSidebar: Boolean(settings.markdown.sidebar),
       };
 
+      const updateBasePath = config => {
+        if (config.basePath) {
+          config.basePath = new URL(config.basePath, TEST_HOST).href;
+        }
+      };
+
       // Config as function
       if (typeof options.config === 'function') {
         return function (vm) {
-          return { ...sharedConfig, ...options.config(vm) };
+          const config = { ...sharedConfig, ...options.config(vm) };
+
+          updateBasePath(config);
+
+          return config;
         };
       }
       // Config as object
       else {
-        return { ...sharedConfig, ...options.config };
+        const config = { ...sharedConfig, ...options.config };
+
+        updateBasePath(config);
+
+        return config;
       }
     },
     get markdown() {
@@ -100,10 +119,10 @@ async function docsifyInit(options = {}) {
     get routes() {
       const helperRoutes = {
         [settings.testURL]: stripIndent`${settings.html}`,
-        ['/README.md']: settings.markdown.homepage,
-        ['/_coverpage.md']: settings.markdown.coverpage,
-        ['/_navbar.md']: settings.markdown.navbar,
-        ['/_sidebar.md']: settings.markdown.sidebar,
+        ['README.md']: settings.markdown.homepage,
+        ['_coverpage.md']: settings.markdown.coverpage,
+        ['_navbar.md']: settings.markdown.navbar,
+        ['_sidebar.md']: settings.markdown.sidebar,
       };
 
       const finalRoutes = Object.fromEntries(
@@ -115,7 +134,7 @@ async function docsifyInit(options = {}) {
           .filter(([url, responseText]) => url && responseText)
           .map(([url, responseText]) => [
             // Convert relative to absolute URL
-            new URL(url, TEST_HOST).href,
+            new URL(url, settings.config.basePath || TEST_HOST).href,
             // Strip indentation from responseText
             stripIndent`${responseText}`,
           ])
@@ -196,9 +215,21 @@ async function docsifyInit(options = {}) {
   if (isJSDOM) {
     window.$docsify = settings.config;
   } else if (isPlaywright) {
+    // Convert config functions to strings
+    const configString = JSON.stringify(settings.config, (key, val) =>
+      typeof val === 'function' ? `__FN__${val.toString()}` : val
+    );
+
     await page.evaluate(config => {
-      window.$docsify = config;
-    }, settings.config);
+      // Restore config functions from strings
+      const configObj = JSON.parse(config, (key, val) =>
+        /^__FN__/.test(val)
+          ? new Function(`return ${val.split('__FN__')[1]}`)()
+          : val
+      );
+
+      window.$docsify = configObj;
+    }, configString);
   }
 
   // Style URLs
@@ -229,7 +260,7 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      // require(docsifyPATH);
+      // CHECK
       await import(docsifyPATH);
     }
   } else if (isPlaywright) {
@@ -285,16 +316,42 @@ async function docsifyInit(options = {}) {
 
   // Log HTML to console
   if (settings._logHTML) {
-    const html = isJSDOM
-      ? document.documentElement.innerHTML
-      : await page.content();
-    const output =
-      settings._logHTML.format === false
-        ? html
-        : prettier.format(html, { parser: 'html' });
+    const selector =
+      typeof settings._logHTML === 'string'
+        ? settings._logHTML
+        : settings._logHTML.selector;
 
-    // eslint-disable-next-line no-console
-    console.log(output);
+    let htmlArr = [];
+
+    if (selector) {
+      if (isJSDOM) {
+        htmlArr = [...document.querySelectorAll(selector)].map(
+          elm => elm.outerHTML
+        );
+      } else {
+        htmlArr = await page.$$eval(selector, elms =>
+          elms.map(e => e.outerHTML)
+        );
+      }
+    } else {
+      htmlArr = [
+        isJSDOM ? document.documentElement.outerHTML : await page.content(),
+      ];
+    }
+
+    if (htmlArr.length) {
+      htmlArr.forEach(html => {
+        if (settings._logHTML.format !== false) {
+          html = prettier.format(html, { parser: 'html' });
+        }
+
+        // eslint-disable-next-line no-console
+        console.log(html);
+      });
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(`docsify-init(): unable to match selector '${selector}'`);
+    }
   }
 
   // Debug

@@ -11,7 +11,7 @@ const serverConfig = {
   port: 3001,
 };
 
-function startServer(options = {}, cb = Function.prototype) {
+export function startServer(options = {}, cb = Function.prototype) {
   const defaults = {
     ...serverConfig,
     middleware: [
@@ -62,7 +62,6 @@ function startServer(options = {}, cb = Function.prototype) {
         },
       },
     },
-    startPath: '/docs',
     ui: false,
   };
 
@@ -79,7 +78,7 @@ function startServer(options = {}, cb = Function.prototype) {
   );
 }
 
-async function startServerAsync() {
+export async function startServerAsync() {
   await new Promise(resolve => {
     startServer({}, () => {
       console.log('\n');
@@ -88,7 +87,7 @@ async function startServerAsync() {
   });
 }
 
-function stopServer() {
+export function stopServer() {
   browserSync.exit();
 }
 
@@ -101,6 +100,7 @@ if (hasStartArg) {
     open: true,
     port: serverConfig.port + 1,
     directory: true,
+    startPath: '/docs',
   });
 }
 // Display friendly message about manually starting a server instance
@@ -108,23 +108,4 @@ else if (isTopLevelModule) {
   console.info('Use the --start argument to manually start server instance');
 }
 
-export default {
-  globals: {
-    get BLANK_URL() {
-      return `${this.TEST_HOST}/_blank.html`;
-    },
-    get DOCS_URL() {
-      return `${this.TEST_HOST}/docs`;
-    },
-    get LIB_URL() {
-      return `${this.TEST_HOST}/lib`;
-    },
-    get NODE_MODULES_URL() {
-      return `${this.TEST_HOST}/node_modules`;
-    },
-    TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
-  },
-  start: startServer,
-  startAsync: startServerAsync,
-  stop: stopServer,
-};
+export const TEST_HOST = `http://${serverConfig.host}:${serverConfig.port}`;

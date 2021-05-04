@@ -110,7 +110,9 @@ export default class Renderer {
       this._renderHtml('cover', await this._render(coverFile), 'cover');
     }
 
-    const html = this.isRemoteUrl ? DOMPurify.sanitize(this.html) : this.html;
+    const html = this.isRemoteUrl
+      ? DOMPurify.sanitize(this.html, { ADD_TAGS: ['script'] })
+      : this.html;
     this.html = this.template;
     return html;
   }

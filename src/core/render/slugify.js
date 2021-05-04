@@ -15,7 +15,7 @@ export function slugify(str) {
   let slug = str
     .trim()
     .replace(/[A-Z]+/g, lower)
-    .replace(/<[^>\d]+>/g, '')
+    .replace(/<[^>]+>/g, '')
     .replace(re, '')
     .replace(/\s/g, '-')
     .replace(/-+/g, '-')

@@ -1,9 +1,4 @@
-import _fs from 'fs';
-import path from 'path';
-import { jest } from '@jest/globals';
 import docsifyInit from '../helpers/docsify-init';
-
-const fs = _fs.promises;
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -16,14 +11,13 @@ describe('Docs Site', function () {
     const mathSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
 
     await docsifyInit({
+      config: {
+        coverpage: 'docs/_coverpage.md',
+      },
       markdown: {
         homepage: '# Hello World',
-        coverpage: await fs.readFile(
-          path.resolve(DOCS_PATH, '_coverpage.md'),
-          'utf8'
-        ),
       },
-      // _logHTML: true,
+      waitForSelector: '.cover-main > *',
     });
 
     const coverpageElm = document.querySelector('section.cover');
@@ -36,14 +30,13 @@ describe('Docs Site', function () {
 
   test('sidebar renders and is unchanged', async () => {
     await docsifyInit({
+      config: {
+        loadSidebar: 'docs/_sidebar.md',
+      },
       markdown: {
         homepage: '# Hello World',
-        sidebar: await fs.readFile(
-          path.resolve(DOCS_PATH, '_sidebar.md'),
-          'utf8'
-        ),
       },
-      // _logHTML: true,
+      waitForSelector: '.sidebar-nav > ul',
     });
 
     const sidebarElm = document.querySelector('.sidebar');
@@ -55,14 +48,13 @@ describe('Docs Site', function () {
 
   test('navbar renders and is unchanged', async () => {
     await docsifyInit({
+      config: {
+        loadNavbar: 'docs/_navbar.md',
+      },
       markdown: {
         homepage: '# Hello World',
-        navbar: await fs.readFile(
-          path.resolve(DOCS_PATH, '_navbar.md'),
-          'utf8'
-        ),
       },
-      // _logHTML: true,
+      waitForSelector: '.app-nav > ul',
     });
 
     const navbarElm = document.querySelector('nav.app-nav');

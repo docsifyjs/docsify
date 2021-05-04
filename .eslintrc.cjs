@@ -8,10 +8,10 @@ const importSync = name => promiseSync(import(name));
 
 // Look, no await needed here!
 const jestConfig = importSync('./jest.config.js').default;
-const testGlobals = {};
+const jestGlobals = {};
 
 for (const key of Object.keys(jestConfig.globals)) {
-  testGlobals[key] = 'readonly';
+  jestGlobals[key] = 'readonly';
 }
 
 module.exports = {
@@ -82,7 +82,7 @@ module.exports = {
     {
       files: ['test/**/*.js', '**/*.test.js'],
       extends: ['plugin:jest/recommended', 'plugin:jest/style'],
-      globals: testGlobals,
+      globals: jestGlobals,
     },
     {
       files: ['test/e2e/**/*.test.js'],

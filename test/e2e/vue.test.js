@@ -1,141 +1,206 @@
+import stripIndent from 'common-tags/lib/stripIndent';
 import docsifyInit from '../helpers/docsify-init';
 
-describe('Vue.js Rendering', function () {
-  const vueURLs = [
-    `${NODE_MODULES_URL}/vue2/dist/vue.js`,
-    `${NODE_MODULES_URL}/vue3/dist/vue.global.js`,
-  ];
+const vueURLs = [
+  '/node_modules/vue2/dist/vue.js',
+  '/node_modules/vue3/dist/vue.global.js',
+];
 
-  // Tests
-  // ---------------------------------------------------------------------------
-  test(`ignores Vue content when window.Vue is not present`, async () => {
-    await docsifyInit({
-      markdown: {
-        homepage: `
-          <div id="test">test<span v-for="i in 5">{{ i }}</span></div>
-        `,
-      },
-    });
-
-    await page.evaluate(() => {
-      return 'Vue' in window === false;
-    });
-    await expect(page).toEqualText('#test', 'test{{ i }}');
-  });
-
-  describe('Basic rendering', function () {
-    for (const vueURL of vueURLs) {
-      const vueVersion = vueURL.match(/vue(\d+)/)[1]; // vue2|vue3
-
-      for (const executeScript of ['unspecified', true, false]) {
-        test(`handles Vue v${vueVersion}.x basic rendering when executeScript is ${executeScript}`, async () => {
-          const docsifyInitConfig = {
-            markdown: {
-              homepage: `
-                <div id="test">test<span v-for="i in 5">{{ i }}</span></div>
-              `,
+describe('Vue.js Compatibility', function () {
+  function getSharedConfig() {
+    const config = {
+      config: {
+        vueComponents: {
+          'button-counter': {
+            template: `
+              <button @click="counter++">{{ counter }}</button>
+            `,
+            data: function () {
+              return {
+                counter: 0,
+              };
             },
-            scriptURLs: vueURL,
-          };
-
-          if (executeScript !== 'unspecified') {
-            docsifyInitConfig.config = {
-              executeScript,
+          },
+        },
+        vueGlobalOptions: {
+          data: function () {
+            return {
+              counter: 0,
+              msg: 'vueglobaloptions',
             };
-          }
-
-          await docsifyInit(docsifyInitConfig);
-
-          await expect(page).toEqualText('#test', 'test12345');
-        });
-      }
-    }
-  });
-
-  describe('Advanced usage', function () {
-    const testData = {
-      vue2: {
-        markdown: `
-          <div id="test">
-            <button v-on:click="counter += 1">+</button>
-            <span>{{ counter }}<span>
-          </div>
-
-          <script>
-            new Vue({
-              el: '#test',
-              data() {
-                return {
-                  counter: 0
-                }
-              },
-            });
-          </script>
-        `,
+          },
+        },
+        vueMounts: {
+          '#vuemounts': {
+            data: function () {
+              return {
+                counter: 0,
+                msg: 'vuemounts',
+              };
+            },
+          },
+        },
       },
-      vue3: {
-        markdown: `
-          <div id="test">
-            <button v-on:click="counter += 1">+</button>
+      markdown: {
+        homepage: stripIndent`
+          <div id="vuefor"><span v-for="i in 5">{{ i }}</span></div>
+
+          <button-counter id="vuecomponent">---</button-counter>
+
+          <div id="vueglobaloptions">
+            <p v-text="msg">---</p>
+            <button @click="counter += 1">+</button>
+            <span>{{ counter }}<span>
+          </div>
+
+          <div id="vuemounts">
+            <p v-text="msg">---</p>
+            <button @click="counter += 1">+</button>
+            <span>{{ counter }}<span>
+          </div>
+
+          <div id="vuescript">
+            <p v-text="msg">---</p>
+            <button @click="counter += 1">+</button>
             <span>{{ counter }}<span>
           </div>
 
           <script>
-            Vue.createApp({
+            const vueConfig = {
               data() {
                 return {
-                  counter: 0
+                  counter: 0,
+                  msg: 'vuescript'
                 }
               },
-            }).mount('#test');
+            }
+            const vueMountElm = '#vuescript';
+            const vueVersion = Number(window.Vue.version.charAt(0));
+
+            if (vueVersion === 2) {
+              new Vue(vueConfig).$mount(vueMountElm);
+            }
+            else if (vueVersion === 3) {
+              Vue.createApp(vueConfig).mount(vueMountElm);
+            }
           </script>
         `,
       },
     };
 
-    for (const vueURL of vueURLs) {
-      const vueVersion = vueURL.match(/vue(\d+)/)[1]; // vue2|vue3
-      const vueData = testData[`vue${vueVersion}`];
+    return config;
+  }
 
-      for (const executeScript of ['unspecified', true]) {
-        test(`handles Vue v${vueVersion}.x advanced usage when executeScript is ${executeScript}`, async () => {
-          const docsifyInitConfig = {
-            markdown: {
-              homepage: vueData.markdown,
-            },
-            scriptURLs: vueURL,
-          };
+  // Tests
+  // ---------------------------------------------------------------------------
+  for (const vueURL of vueURLs) {
+    const vueVersion = Number(vueURL.match(/vue(\d+)/)[1]); // 2|3
 
-          if (executeScript !== 'unspecified') {
-            docsifyInitConfig.config = {
-              executeScript,
-            };
-          }
+    describe(`Vue v${vueVersion}`, function () {
+      for (const executeScript of [true, undefined]) {
+        test(`renders content when executeScript is ${executeScript}`, async () => {
+          const docsifyInitConfig = getSharedConfig();
+
+          docsifyInitConfig.config.executeScript = executeScript;
+          docsifyInitConfig.scriptURLs = vueURL;
 
           await docsifyInit(docsifyInitConfig);
 
-          await expect(page).toEqualText('#test span', '0');
-          await page.click('#test button');
-          await expect(page).toEqualText('#test span', '1');
+          // Static
+          await expect(page).toEqualText('#vuefor', '12345');
+          await expect(page).toEqualText('#vuecomponent', '0');
+          await expect(page).toEqualText(
+            '#vueglobaloptions p',
+            'vueglobaloptions'
+          );
+          await expect(page).toEqualText('#vueglobaloptions span', '0');
+          await expect(page).toEqualText('#vuemounts p', 'vuemounts');
+          await expect(page).toEqualText('#vuemounts span', '0');
+          await expect(page).toEqualText('#vuescript p', 'vuescript');
+          await expect(page).toEqualText('#vuescript span', '0');
+
+          // Reactive
+          await page.click('#vuecomponent');
+          await expect(page).toEqualText('#vuecomponent', '1');
+          await page.click('#vueglobaloptions button');
+          await expect(page).toEqualText('#vueglobaloptions span', '1');
+          await page.click('#vuemounts button');
+          await expect(page).toEqualText('#vuemounts span', '1');
+          await page.click('#vuescript button');
+          await expect(page).toEqualText('#vuescript span', '1');
         });
       }
 
-      test(`handles Vue v${vueVersion}.x advanced usage when executeScript is false`, async () => {
-        const docsifyInitConfig = {
-          config: {
-            executeScript: false,
-          },
-          markdown: {
-            homepage: vueData.markdown,
-          },
-          scriptURLs: vueURL,
-        };
+      test(`ignores content when Vue is not present`, async () => {
+        const docsifyInitConfig = getSharedConfig();
 
         await docsifyInit(docsifyInitConfig);
-
-        const textContent = await page.textContent('#test span');
-        expect(textContent).toBe('');
+        await page.evaluate(() => {
+          return 'Vue' in window === false;
+        });
+        await expect(page).toEqualText('#vuefor', '{{ i }}');
+        await expect(page).toEqualText('#vuecomponent', '---');
+        await expect(page).toEqualText('#vueglobaloptions p', '---');
+        await expect(page).toEqualText('#vuemounts p', '---');
+        await expect(page).toEqualText('#vuescript p', '---');
       });
-    }
-  });
+
+      test(`ignores content when vueComponents, vueMounts, and vueGlobalOptions are undefined`, async () => {
+        const docsifyInitConfig = getSharedConfig();
+
+        docsifyInitConfig.config.vueComponents = undefined;
+        docsifyInitConfig.config.vueGlobalOptions = undefined;
+        docsifyInitConfig.config.vueMounts = undefined;
+        docsifyInitConfig.scriptURLs = vueURL;
+
+        await docsifyInit(docsifyInitConfig);
+        await expect(page).toEqualText('#vuefor', '{{ i }}');
+        await expect(page).toEqualText('#vuecomponent', '---');
+        await expect(page).toEqualText('#vueglobaloptions p', '---');
+        await expect(page).toEqualText('#vuemounts p', '---');
+        await expect(page).toEqualText('#vuescript p', 'vuescript');
+      });
+
+      test(`ignores content when vueGlobalOptions is undefined`, async () => {
+        const docsifyInitConfig = getSharedConfig();
+
+        docsifyInitConfig.config.vueGlobalOptions = undefined;
+        docsifyInitConfig.scriptURLs = vueURL;
+
+        await docsifyInit(docsifyInitConfig);
+        await expect(page).toEqualText('#vuefor', '12345');
+        await expect(page).toEqualText('#vuecomponent', '0');
+        expect(await page.innerText('#vueglobaloptions p')).toBe('');
+        await expect(page).toEqualText('#vuemounts p', 'vuemounts');
+        await expect(page).toEqualText('#vuescript p', 'vuescript');
+      });
+
+      test(`ignores content when vueMounts is undefined`, async () => {
+        const docsifyInitConfig = getSharedConfig();
+
+        docsifyInitConfig.config.vueMounts['#vuemounts'] = undefined;
+        docsifyInitConfig.scriptURLs = vueURL;
+
+        await docsifyInit(docsifyInitConfig);
+        await expect(page).toEqualText('#vuefor', '12345');
+        await expect(page).toEqualText('#vuecomponent', '0');
+        await expect(page).toEqualText(
+          '#vueglobaloptions p',
+          'vueglobaloptions'
+        );
+        await expect(page).toEqualText('#vuemounts p', 'vueglobaloptions');
+        await expect(page).toEqualText('#vuescript p', 'vuescript');
+      });
+
+      test(`ignores <script> when executeScript is false`, async () => {
+        const docsifyInitConfig = getSharedConfig();
+
+        docsifyInitConfig.config.executeScript = false;
+        docsifyInitConfig.scriptURLs = vueURL;
+
+        await docsifyInit(docsifyInitConfig);
+        await expect(page).toEqualText('#vuescript p', 'vueglobaloptions');
+      });
+    });
+  }
 });
