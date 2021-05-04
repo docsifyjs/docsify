@@ -21,7 +21,7 @@ export function initLifecycle(vm) {
 export function callHook(vm, hookName, data, next = noop) {
   const queue = vm._hooks[hookName];
 
-  const step = function(index) {
+  const step = function (index) {
     const hookFn = queue[index];
 
     if (index >= queue.length) {

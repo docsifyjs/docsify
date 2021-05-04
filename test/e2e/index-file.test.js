@@ -1,6 +1,6 @@
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init';
 
-describe(`Index file hosting`, function() {
+describe(`Index file hosting`, function () {
   const sharedOptions = {
     config: {
       basePath: `${TEST_HOST}/docs/index.html#/`,

@@ -1,8 +1,6 @@
-const { removeAtag } = require('../../src/core/render/utils');
-
-const { tree } = require(`../../src/core/render/tpl`);
-
-const { slugify } = require(`../../src/core/render/slugify`);
+import { removeAtag } from '../../src/core/render/utils';
+import { tree } from `../../src/core/render/tpl`;
+import { slugify } from `../../src/core/render/slugify`;
 
 // Suite
 // -----------------------------------------------------------------------------

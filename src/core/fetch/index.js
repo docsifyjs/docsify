@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { callHook } from '../init/lifecycle';
 import { getParentPath, stringifyQuery } from '../router/util';
-import { noop, isExternal } from '../util/core';
+import { noop } from '../util/core';
 import { getAndActive } from '../event/sidebar';
+import { isExternal } from '../../../packages/docsify-server-renderer/src/utils';
 import { get } from './ajax';
 
 function loadNested(path, qs, file, next, vm, first) {
@@ -59,7 +60,7 @@ export function fetchMixin(proto) {
     return path404;
   };
 
-  proto._loadSideAndNav = function(path, qs, loadSidebar, cb) {
+  proto._loadSideAndNav = function (path, qs, loadSidebar, cb) {
     return () => {
       if (!loadSidebar) {
         return cb();
@@ -75,7 +76,7 @@ export function fetchMixin(proto) {
     };
   };
 
-  proto._fetch = function(cb = noop) {
+  proto._fetch = function (cb = noop) {
     const { query } = this.route;
     let { path } = this.route;
 
@@ -122,7 +123,7 @@ export function fetchMixin(proto) {
     }
   };
 
-  proto._fetchCover = function() {
+  proto._fetchCover = function () {
     const { coverpage, requestHeaders } = this.config;
     const query = this.route.query;
     const root = getParentPath(this.route.path);
@@ -158,7 +159,7 @@ export function fetchMixin(proto) {
     }
   };
 
-  proto.$fetch = function(
+  proto.$fetch = function (
     cb = noop,
     $resetEvents = this.$resetEvents.bind(this)
   ) {
@@ -179,7 +180,7 @@ export function fetchMixin(proto) {
     }
   };
 
-  proto._fetchFallbackPage = function(path, qs, cb = noop) {
+  proto._fetchFallbackPage = function (path, qs, cb = noop) {
     const { requestHeaders, fallbackLanguages, loadSidebar } = this.config;
 
     if (!fallbackLanguages) {
@@ -218,7 +219,7 @@ export function fetchMixin(proto) {
    * @returns {Boolean} True if the requested page is not found
    * @private
    */
-  proto._fetch404 = function(path, qs, cb = noop) {
+  proto._fetch404 = function (path, qs, cb = noop) {
     const { loadSidebar, requestHeaders, notFoundPage } = this.config;
 
     const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb);

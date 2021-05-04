@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import tinydate from 'tinydate';
 import DOMPurify from 'dompurify';
+import tinydate from 'tinydate';
 import * as dom from '../util/dom';
 import cssVars from '../util/polyfill/css-vars';
 import { callHook } from '../init/lifecycle';
@@ -9,6 +9,7 @@ import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
 import { isPrimitive, merge } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
+import { isExternal } from '../../../packages/docsify-server-renderer/src/utils';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
@@ -175,7 +176,7 @@ function renderMain(html) {
             // This provides a global store for all Vue instances that receive
             // vueGlobalOptions as their configuration.
             if (vueGlobalData) {
-              vueConfig.data = function() {
+              vueConfig.data = function () {
                 return vueGlobalData;
               };
             }
@@ -240,14 +241,14 @@ function renderNameLink(vm) {
 }
 
 export function renderMixin(proto) {
-  proto._renderTo = function(el, content, replace) {
+  proto._renderTo = function (el, content, replace) {
     const node = dom.getNode(el);
     if (node) {
       node[replace ? 'outerHTML' : 'innerHTML'] = content;
     }
   };
 
-  proto._renderSidebar = function(text) {
+  proto._renderSidebar = function (text) {
     const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
 
     if (hideSidebar) {
@@ -277,7 +278,7 @@ export function renderMixin(proto) {
     this._bindEventOnRendered(activeEl);
   };
 
-  proto._bindEventOnRendered = function(activeEl) {
+  proto._bindEventOnRendered = function (activeEl) {
     const { autoHeader } = this.config;
 
     scrollActiveSidebar(this.router);
@@ -293,14 +294,14 @@ export function renderMixin(proto) {
     }
   };
 
-  proto._renderNav = function(text) {
+  proto._renderNav = function (text) {
     text && this._renderTo('nav', this.compiler.compile(text));
     if (this.config.loadNavbar) {
       getAndActive(this.router, 'nav');
     }
   };
 
-  proto._renderMain = function(text, opt = {}, next) {
+  proto._renderMain = function (text, opt = {}, next) {
     if (!text) {
       return renderMain.call(this, text);
     }
@@ -340,7 +341,7 @@ export function renderMixin(proto) {
     });
   };
 
-  proto._renderCover = function(text, coverOnly) {
+  proto._renderCover = function (text, coverOnly) {
     const el = dom.getNode('.cover');
 
     dom.toggleClass(
@@ -384,7 +385,7 @@ export function renderMixin(proto) {
     sticky();
   };
 
-  proto._updateRender = function() {
+  proto._updateRender = function () {
     // Render name link
     renderNameLink(this);
   };
@@ -418,10 +419,9 @@ export function initRender(vm) {
 
     if (config.logo) {
       const isBase64 = /^data:image/.test(config.logo);
-      const isExternal = /(?:http[s]?:)?\/\//.test(config.logo);
       const isRelative = /^\./.test(config.logo);
 
-      if (!isBase64 && !isExternal && !isRelative) {
+      if (!isBase64 && !isExternal(config.logo) && !isRelative) {
         config.logo = getPath(vm.router.getBasePath(), config.logo);
       }
     }

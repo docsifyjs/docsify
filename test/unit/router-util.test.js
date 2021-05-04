@@ -1,4 +1,4 @@
-const { resolvePath } = require('../../src/core/util');
+import { resolvePath } from '../../src/core/util';
 
 // Suite
 // -----------------------------------------------------------------------------

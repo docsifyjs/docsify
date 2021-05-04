@@ -1,3 +1,5 @@
+/* global globalThis */
+
 import mock from 'xhr-mock';
 
 const sideEffects = {
@@ -36,7 +38,7 @@ beforeAll(async () => {
     sideEffects[obj].keys.push('addEventListener');
 
     // Replace addEventListener with mock
-    global[obj].addEventListener = addEventListenerSpy;
+    globalThis[obj].addEventListener = addEventListenerSpy;
   });
 });
 
@@ -62,14 +64,14 @@ beforeEach(async () => {
     // Listeners
     while (refs.length) {
       const { type, listener, options } = refs.pop();
-      global[obj].removeEventListener(type, listener, options);
+      globalThis[obj].removeEventListener(type, listener, options);
     }
 
     // Keys
-    Object.keys(global[obj])
+    Object.keys(globalThis[obj])
       .filter(key => !sideEffects[obj].keys.includes(key))
       .forEach(key => {
-        delete global[obj][key];
+        delete globalThis[obj][key];
       });
   });
 

@@ -1,3 +1,19 @@
+const deasync = require('deasync'); // powerful magic
+
+const promiseSync = deasync((promise, cb) => {
+  promise.then(result => cb(null, result)).catch(error => cb(error));
+});
+
+const importSync = name => promiseSync(import(name));
+
+// Look, no await needed here!
+const jestConfig = importSync('./jest.config.js').default;
+const jestGlobals = {};
+
+for (const key of Object.keys(jestConfig.globals)) {
+  jestGlobals[key] = 'readonly';
+}
+
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -39,6 +55,7 @@ module.exports = {
     'no-var': ['error'],
     'no-void': ['error'],
     'no-with': ['error'],
+    'no-prototype-builtins': 'off',
     radix: ['error'],
     'spaced-comment': ['error', 'always'],
     strict: ['error', 'global'],
@@ -60,4 +77,16 @@ module.exports = {
     $docsify: 'writable',
     dom: 'writable',
   },
+
+  overrides: [
+    {
+      files: ['test/**/*.js', '**/*.test.js'],
+      extends: ['plugin:jest/recommended', 'plugin:jest/style'],
+      globals: jestGlobals,
+    },
+    {
+      files: ['test/e2e/**/*.test.js'],
+      extends: ['plugin:jest-playwright/recommended'],
+    },
+  ],
 };

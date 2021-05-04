@@ -1,10 +1,13 @@
-/* global jestPlaywright page */
+/* global jestPlaywright page globalThis */
+import axios from 'axios';
+import * as prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent';
 import mock, { proxy } from 'xhr-mock';
 import { waitForSelector } from './wait-for';
 
-const axios = require('axios');
-const prettier = require('prettier');
-const stripIndent = require('common-tags/lib/stripIndent');
+import axios from 'axios';
+import prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent';
 
 const docsifyPATH = '../../lib/docsify.js'; // JSDOM
 const docsifyURL = '/lib/docsify.js'; // Playwright
@@ -86,7 +89,7 @@ async function docsifyInit(options = {}) {
 
       // Config as function
       if (typeof options.config === 'function') {
-        return function(vm) {
+        return function (vm) {
           const config = { ...sharedConfig, ...options.config(vm) };
 
           updateBasePath(config);
@@ -257,7 +260,8 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      require(docsifyPATH);
+      // CHECK
+      await import(docsifyPATH);
     }
   } else if (isPlaywright) {
     for (const url of settings.scriptURLs) {
@@ -363,4 +367,4 @@ async function docsifyInit(options = {}) {
   return Promise.resolve();
 }
 
-module.exports = docsifyInit;
+export default docsifyInit;

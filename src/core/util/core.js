@@ -6,7 +6,7 @@
 
 export function cached(fn) {
   const cache = Object.create(null);
-  return function(str) {
+  return function (str) {
     const key = isPrimitive(str) ? str : JSON.stringify(str);
     const hit = cache[key];
     return hit || (cache[key] = fn(str));
@@ -29,7 +29,7 @@ export const hasOwn = Object.prototype.hasOwnProperty;
  */
 export const merge =
   Object.assign ||
-  function(to) {
+  function (to) {
     for (let i = 1; i < arguments.length; i++) {
       const from = Object(arguments[i]);
 
@@ -65,36 +65,4 @@ export function noop() {}
  */
 export function isFn(obj) {
   return typeof obj === 'function';
-}
-
-/**
- * Check if url is external
- * @param {String} string  url
- * @returns {Boolean} True if the passed-in url is external
- */
-export function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
-
-  if (
-    typeof match[1] === 'string' &&
-    match[1].length > 0 &&
-    match[1].toLowerCase() !== location.protocol
-  ) {
-    return true;
-  }
-  if (
-    typeof match[2] === 'string' &&
-    match[2].length > 0 &&
-    match[2].replace(
-      new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
-      ),
-      ''
-    ) !== location.host
-  ) {
-    return true;
-  }
-  return false;
 }

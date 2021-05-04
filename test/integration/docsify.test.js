@@ -1,8 +1,9 @@
-const docsifyInit = require('../helpers/docsify-init');
+import { jest } from '@jest/globals';
+import docsifyInit from '../helpers/docsify-init';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Docsify', function() {
+describe('Docsify', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('allows $docsify configuration to be a function', async () => {
@@ -28,7 +29,7 @@ describe('Docsify', function() {
 
       return {
         plugins: [
-          function(hook, vm2) {
+          function (hook, vm2) {
             expect(vm1).toEqual(vm2);
 
             expect(hook.init).toBeInstanceOf(Function);

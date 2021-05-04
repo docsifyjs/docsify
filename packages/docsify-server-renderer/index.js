@@ -9,35 +9,13 @@ import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
 import * as tpl from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
+import { getServerHTMLTemplate } from './template';
+import { isExternal } from './src/utils';
+
+export { getServerHTMLTemplate };
 
 function cwd(...args) {
   return resolve(process.cwd(), ...args);
-}
-
-function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/\/([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
-  if (
-    typeof match[1] === 'string' &&
-    match[1].length > 0 &&
-    match[1].toLowerCase() !== location.protocol
-  ) {
-    return true;
-  }
-  if (
-    typeof match[2] === 'string' &&
-    match[2].length > 0 &&
-    match[2].replace(
-      new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
-      ),
-      ''
-    ) !== location.host
-  ) {
-    return true;
-  }
-  return false;
 }
 
 function mainTpl(config) {
@@ -59,12 +37,11 @@ function mainTpl(config) {
 }
 
 export default class Renderer {
-  constructor({ template, config, cache }) {
+  constructor({ template, config }) {
     this.html = template;
     this.config = config = Object.assign({}, config, {
       routerMode: 'history',
     });
-    this.cache = cache;
 
     this.router = new AbstractHistory(config);
     this.compiler = new Compiler(config, this.router);
@@ -85,6 +62,15 @@ export default class Renderer {
     return isAbsolutePath(file) ? file : cwd(`./${file}`);
   }
 
+  // CONTINUE:
+  //   - looking for why navbar renders "undefined" in linux
+  //   - split SSR tests and ESM improvements into two PRs (in that order)
+  //   - rebase on John's Vue stuff
+
+  /**
+   * @param {string} url
+   * @returns {Promise<string>}
+   */
   async renderToString(url) {
     this.url = url = this.router.parse(url).path;
     this.isRemoteUrl = isExternal(this.url);
@@ -102,6 +88,7 @@ export default class Renderer {
     if (loadNavbar) {
       const name = loadNavbar === true ? '_navbar.md' : loadNavbar;
       const navbarFile = this._getPath(resolve(url, `./${name}`));
+      console.log(navbarFile);
       this._renderHtml('navbar', await this._render(navbarFile, 'navbar'));
     }
 
@@ -181,8 +168,21 @@ export default class Renderer {
     try {
       if (isAbsolutePath(filePath)) {
         const res = await fetch(filePath);
+
         if (!res.ok) {
-          throw Error();
+          this.lock = this.lock || 0;
+
+          if (++this.lock > 10) {
+            this.lock = 0;
+            return;
+          }
+
+          const fileName = basename(filePath);
+          const result = await this._loadFile(
+            resolvePathname(`../${fileName}`, filePath)
+          );
+
+          return result;
         }
 
         content = await res.text();
@@ -194,20 +194,18 @@ export default class Renderer {
 
       return content;
     } catch (e) {
-      this.lock = this.lock || 0;
-      if (++this.lock > 10) {
-        this.lock = 0;
-        return;
-      }
-
-      const fileName = basename(filePath);
-      const result = await this._loadFile(
-        resolvePathname(`../${fileName}`, filePath)
+      console.trace(
+        `ERROR: Encountered an error loading file ${filePath}. See the error after this one for more details.`
       );
 
-      return result;
+      // Don't fail on optional files, but still log the error for reference.
+      if (['_sidebar.md', '_navbar.md'].some(f => filePath.includes(f)))
+        console.error(e);
+      else throw e;
     }
   }
 }
+
+export { Renderer };
 
 Renderer.version = '__VERSION__';

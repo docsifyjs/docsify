@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const AllGithubEmoji = {
-  '100': 'unicode/1f4af',
-  '1234': 'unicode/1f522',
+  100: 'unicode/1f4af',
+  1234: 'unicode/1f522',
   '+1': 'unicode/1f44d',
   '-1': 'unicode/1f44e',
   '1st_place_medal': 'unicode/1f947',
@@ -1804,7 +1804,7 @@ const AllGithubEmoji = {
 
 // Emoji from GitHub API
 // https://api.github.com/emojis
-window.emojify = function(match, $1) {
+window.emojify = function (match, $1) {
   return AllGithubEmoji.hasOwnProperty($1) === false
     ? match
     : '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/' +

@@ -2,9 +2,9 @@
  * Fork https://github.com/egoist/docute/blob/master/src/utils/front-matter.js
  */
 /* eslint-disable */
-import parser from './yaml'
+import parser from './yaml';
 
-var optionalByteOrderMark = '\\ufeff?'
+var optionalByteOrderMark = '\\ufeff?';
 var pattern =
   '^(' +
   optionalByteOrderMark +
@@ -13,43 +13,43 @@ var pattern =
   '(?:\\2|\\.\\.\\.)' +
   '$' +
   '' +
-  '(?:\\n)?)'
+  '(?:\\n)?)';
 // NOTE: If this pattern uses the 'g' flag the `regex` variable definition will
 // need to be moved down into the functions that use it.
-var regex = new RegExp(pattern, 'm')
+var regex = new RegExp(pattern, 'm');
 
 function extractor(string) {
-  string = string || ''
+  string = string || '';
 
-  var lines = string.split(/(\r?\n)/)
+  var lines = string.split(/(\r?\n)/);
   if (lines[0] && /= yaml =|---/.test(lines[0])) {
-    return parse(string)
+    return parse(string);
   } else {
-    return { attributes: {}, body: string }
+    return { attributes: {}, body: string };
   }
 }
 
 function parse(string) {
-  var match = regex.exec(string)
+  var match = regex.exec(string);
 
   if (!match) {
     return {
       attributes: {},
-      body: string
-    }
+      body: string,
+    };
   }
 
-  var yaml = match[match.length - 1].replace(/^\s+|\s+$/g, '')
-  var attributes = parser(yaml) || {}
-  var body = string.replace(match[0], '')
+  var yaml = match[match.length - 1].replace(/^\s+|\s+$/g, '');
+  var attributes = parser(yaml) || {};
+  var body = string.replace(match[0], '');
 
-  return { attributes: attributes, body: body, frontmatter: yaml }
+  return { attributes: attributes, body: body, frontmatter: yaml };
 }
 
 function test(string) {
-  string = string || ''
+  string = string || '';
 
-  return regex.test(string)
+  return regex.test(string);
 }
 
-export default extractor
+export default extractor;

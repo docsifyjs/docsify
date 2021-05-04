@@ -1,55 +1,79 @@
-const liveServer = require('live-server')
-const isSSR = !!process.env.SSR
-const middleware = []
+import liveServer from 'live-server';
+import { qualifyURL } from './packages/docsify-server-renderer/src/utils';
 
-if (isSSR) {
-  const Renderer = require('./packages/docsify-server-renderer/build.js')
-  const renderer = new Renderer({
-    template: `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>docsify</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="/themes/vue.css" title="vue">
-  </head>
-  <body>
-    <!--inject-app-->
-    <!--inject-config-->
-  <script src="/lib/docsify.js"></script>
-  </body>
-  </html>`,
-    config: {
-      name: 'docsify',
-      repo: 'docsifyjs/docsify',
-      basePath: 'https://docsify.js.org/',
-      loadNavbar: true,
-      loadSidebar: true,
-      subMaxLevel: 3,
-      auto2top: true,
-      alias: {
-        '/de-de/changelog': '/changelog',
-        '/zh-cn/changelog': '/changelog',
-        '/changelog':
-          'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG'
+const isSSR = !!process.env.SSR;
+const middleware = [];
+const port = 3000;
+
+main();
+
+async function main() {
+  if (isSSR) {
+    // Using JSDom here because the server relies on a small subset of DOM APIs.
+    // The URL used here serves no purpose other than to give JSDOM an HTTP
+    // URL to operate under (it probably can be anything).
+    initJSDOM('', { url: 'http://127.0.0.1:' + port });
+
+    const { Renderer, getServerHTMLTemplate } = await import(
+      './packages/docsify-server-renderer/index'
+    );
+
+    const renderer = new Renderer({
+      template: getServerHTMLTemplate(),
+      config: {
+        name: 'docsify',
+        repo: 'docsifyjs/docsify',
+        // Do not use URLs for SSR mode. Specify only an absolute or relative file path.
+        // basePath: 'https://docsify.js.org/',
+        basePath: '/docs', // TODO if not set while in SSR mode, code tries to operate on an undefined value. Set a default.
+        loadNavbar: true,
+        loadSidebar: true,
+        subMaxLevel: 3,
+        auto2top: true,
+        alias: {
+          '/de-de/changelog': '/changelog',
+          '/zh-cn/changelog': '/changelog',
+          '/changelog':
+            'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+        },
+      },
+    });
+
+    middleware.push(function(req, res, next) {
+      const url = new URL(qualifyURL(req.url));
+
+      // Only handle markdown files or folders.
+      if (/(\.md|\/[^.]*)$/.test(url.pathname)) {
+        // ^ See the related getFileName() function.
+        renderer.renderToString(req.url).then(html => res.end(html));
+        return;
       }
-    },
-    path: './'
-  })
 
-  middleware.push(function(req, res, next) {
-    if (/\.(css|js)$/.test(req.url)) {
-      return next()
-    }
-    renderer.renderToString(req.url).then(html => res.end(html))
-  })
+      // TODO there *must* be edge cases. Add an option to force certain files?
+      console.log('Skipping markdown handling of file ' + req.url);
+
+      return next();
+    });
+  }
+
+  const params = {
+    port,
+    watch: ['lib', 'docs', 'themes'],
+    middleware,
+  };
+
+  liveServer.start(params);
 }
 
-const params = {
-  port: 3000,
-  watch: ['lib', 'docs', 'themes'],
-  middleware
-}
+async function initJSDOM(markup, options) {
+  const { JSDOM } = (await import('jsdom')).default;
+  const dom = new JSDOM(markup, options);
 
-liveServer.start(params)
+  global.window = dom.window;
+  global.document = dom.window.document;
+  global.navigator = dom.window.navigator;
+  global.location = dom.window.location;
+  global.XMLHttpRequest = dom.window.XMLHttpRequest;
+
+  return dom;
+}

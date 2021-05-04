@@ -13,7 +13,7 @@ export function parseQuery(query) {
   }
 
   // Simple parse
-  query.split('&').forEach(function(param) {
+  query.split('&').forEach(function (param) {
     const parts = param.replace(/\+/g, ' ').split('=');
 
     res[parts[0]] = parts[1] && decode(parts[1]);
@@ -58,6 +58,7 @@ export const getParentPath = cached(path => {
 });
 
 export const cleanPath = cached(path => {
+  // turn '////foo' into '/foo' and 'foo//bar' into 'foo/bar'
   return path.replace(/^\/+/, '/').replace(/([^:])\/{2,}/g, '$1/');
 });
 

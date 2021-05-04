@@ -1,6 +1,6 @@
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init';
 
-describe(`Security`, function() {
+describe(`Security`, function () {
   const sharedOptions = {
     markdown: {
       homepage: '# Hello World',
@@ -10,7 +10,7 @@ describe(`Security`, function() {
     },
   };
 
-  describe(`Cross Site Scripting (XSS)`, function() {
+  describe(`Cross Site Scripting (XSS)`, function () {
     const slashStrings = ['//', '///'];
 
     for (const slashString of slashStrings) {

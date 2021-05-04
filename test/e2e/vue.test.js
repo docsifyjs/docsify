@@ -1,12 +1,12 @@
-const stripIndent = require('common-tags/lib/stripIndent');
-const docsifyInit = require('../helpers/docsify-init');
+import stripIndent from 'common-tags/lib/stripIndent';
+import docsifyInit from '../helpers/docsify-init';
 
 const vueURLs = [
   '/node_modules/vue2/dist/vue.js',
   '/node_modules/vue3/dist/vue.global.js',
 ];
 
-describe('Vue.js Compatibility', function() {
+describe('Vue.js Compatibility', function () {
   function getSharedConfig() {
     const config = {
       config: {
@@ -15,7 +15,7 @@ describe('Vue.js Compatibility', function() {
             template: `
               <button @click="counter++">{{ counter }}</button>
             `,
-            data: function() {
+            data: function () {
               return {
                 counter: 0,
               };
@@ -23,7 +23,7 @@ describe('Vue.js Compatibility', function() {
           },
         },
         vueGlobalOptions: {
-          data: function() {
+          data: function () {
             return {
               counter: 0,
               msg: 'vueglobaloptions',
@@ -32,7 +32,7 @@ describe('Vue.js Compatibility', function() {
         },
         vueMounts: {
           '#vuemounts': {
-            data: function() {
+            data: function () {
               return {
                 counter: 0,
                 msg: 'vuemounts',
@@ -96,7 +96,7 @@ describe('Vue.js Compatibility', function() {
   for (const vueURL of vueURLs) {
     const vueVersion = Number(vueURL.match(/vue(\d+)/)[1]); // 2|3
 
-    describe(`Vue v${vueVersion}`, function() {
+    describe(`Vue v${vueVersion}`, function () {
       for (const executeScript of [true, undefined]) {
         test(`renders content when executeScript is ${executeScript}`, async () => {
           const docsifyInitConfig = getSharedConfig();

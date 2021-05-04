@@ -106,8 +106,8 @@ module.exports = {
 You can run `docsify start` directly on your Node server, or write your own server app with `docsify-server-renderer`.
 
 ```js
-var Renderer = require('docsify-server-renderer')
-var readFileSync = require('fs').readFileSync
+import Renderer from 'docsify-server-renderer'
+import {readFileSync} from 'fs'
 
 // init
 var renderer = new Renderer({
