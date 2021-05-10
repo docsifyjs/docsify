@@ -18,9 +18,15 @@ window.$docsify = {
         return content;
       });
 
+      hook.tokenizedEach(function(tokens, next) {
+        // Invoked each time after parsing the Markdown file, but before rendering the result HTML.
+        // ...
+        next(content);
+      });
+
       hook.afterEach(function(html, next) {
-        // Invoked each time after the Markdown file is parsed.
-        // beforeEach and afterEach support asynchronous。
+        // Invoked each time after the Markdown file is parsed and the result HTML is generated.
+        // beforeEach, tokenizedEach and afterEach support asynchronous。
         // ...
         // call `next(html)` when task is done.
         next(html);

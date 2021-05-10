@@ -33,6 +33,7 @@ describe('Docsify', function() {
 
             expect(hook.init).toBeInstanceOf(Function);
             expect(hook.beforeEach).toBeInstanceOf(Function);
+            expect(hook.tokenizedEach).toBeInstanceOf(Function);
             expect(hook.afterEach).toBeInstanceOf(Function);
             expect(hook.doneEach).toBeInstanceOf(Function);
             expect(hook.mounted).toBeInstanceOf(Function);
