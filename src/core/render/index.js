@@ -328,12 +328,14 @@ export function renderMixin(proto) {
             raw: result,
           },
           tokens => {
-            html = this.compiler.compile(tokens);
-            html = this.isRemoteUrl
-              ? DOMPurify.sanitize(html, { ADD_TAGS: ['script'] })
-              : html;
-            callback();
-            next();
+            callHook(this, 'tokenizedEach', tokens, updatedTokens => {
+              html = this.compiler.compile(updatedTokens);
+              html = this.isRemoteUrl
+                ? DOMPurify.sanitize(html, { ADD_TAGS: ['script'] })
+                : html;
+              callback();
+              next();
+            });
           }
         );
       }

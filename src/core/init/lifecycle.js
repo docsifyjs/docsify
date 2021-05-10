@@ -5,6 +5,7 @@ export function initLifecycle(vm) {
     'init',
     'mounted',
     'beforeEach',
+    'tokenizedEach',
     'afterEach',
     'doneEach',
     'ready',
