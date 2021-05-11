@@ -326,9 +326,11 @@ export function renderMixin(proto) {
           {
             compiler: this.compiler,
             raw: result,
+            beforeEmbed: (tokens, done) =>
+              callHook(this, 'beforeEmbed', tokens, done),
           },
           tokens => {
-            callHook(this, 'tokenizedEach', tokens, updatedTokens => {
+            callHook(this, 'afterEmbed', tokens, updatedTokens => {
               html = this.compiler.compile(updatedTokens);
               html = this.isRemoteUrl
                 ? DOMPurify.sanitize(html, { ADD_TAGS: ['script'] })
