@@ -62,11 +62,6 @@ export default class Renderer {
     return isAbsolutePath(file) ? file : cwd(`./${file}`);
   }
 
-  // CONTINUE:
-  //   - looking for why navbar renders "undefined" in linux
-  //   - split SSR tests and ESM improvements into two PRs (in that order)
-  //   - rebase on John's Vue stuff
-
   /**
    * @param {string} url
    * @returns {Promise<string>}
@@ -167,6 +162,7 @@ export default class Renderer {
     let content;
     try {
       if (isAbsolutePath(filePath)) {
+        console.log('ABSOLUTE PATH:', filePath);
         const res = await fetch(filePath);
 
         if (!res.ok) {
@@ -188,6 +184,7 @@ export default class Renderer {
         content = await res.text();
         this.lock = 0;
       } else {
+        console.log('RELATIVE PATH:', filePath);
         content = await readFileSync(filePath, 'utf8');
         this.lock = 0;
       }
