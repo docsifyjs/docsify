@@ -22,8 +22,8 @@
   ],
   "scripts": {
     "bootstrap": "npm i && lerna bootstrap --no-ci",
-    "serve": "npm run _node -- server",
-    "serve:ssr": "cross-env SSR=1 npm run _node -- server",
+    "serve": "npm run _node -- server.js",
+    "serve:ssr": "cross-env SSR=1 npm run _node -- server.js",
     "dev": "run-p serve watch:*",
     "dev:ssr": "run-p serve:ssr watch:*",
     "lint": "npm run _eslint -- .",

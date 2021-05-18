@@ -86,10 +86,11 @@ export function fetchMixin(proto) {
       history.replaceState(null, '', '#');
       this.router.normalize();
     } else {
-      const qs = stringifyQuery(query, ['id']);
-      const { loadNavbar, requestHeaders, loadSidebar } = this.config;
-      // Abort last request
+      const { loadNavbar, requestHeaders, loadSidebar, hasSSR } = this.config;
 
+      if (hasSSR) query['hasSSR'] = 'true';
+
+      const qs = stringifyQuery(query, ['id']);
       const file = this.router.getFile(path);
       const req = request(file + qs, true, requestHeaders);
 
@@ -161,6 +162,7 @@ export function fetchMixin(proto) {
 
   proto.$fetch = function (
     cb = noop,
+    // The function that performs scroll after loading a page.
     $resetEvents = this.$resetEvents.bind(this)
   ) {
     const done = () => {
@@ -174,7 +176,9 @@ export function fetchMixin(proto) {
       done();
     } else {
       this._fetch(() => {
+        // Scroll to the target item of the page, or to the top.
         $resetEvents();
+
         done();
       });
     }

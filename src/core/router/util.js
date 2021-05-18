@@ -32,7 +32,7 @@ export function stringifyQuery(obj, ignores = []) {
 
     qs.push(
       obj[key]
-        ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
+        ? `${encode(key)}=${encode(obj[key])}` // .toLowerCase() // Do not lowercase the values, query params are case-sensitive!
         : encode(key)
     );
   }

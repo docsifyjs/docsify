@@ -191,14 +191,24 @@ export default class Renderer {
 
       return content;
     } catch (e) {
-      console.trace(
-        `ERROR: Encountered an error loading file ${filePath}. See the error after this one for more details.`
-      );
-
       // Don't fail on optional files, but still log the error for reference.
-      if (['_sidebar.md', '_navbar.md'].some(f => filePath.includes(f)))
+      if (['_sidebar.md', '_navbar.md'].some(f => filePath.includes(f))) {
+        console.trace(
+          `
+            NOTE: Skipping loading of ${filePath}. This most likely means
+            skipping handling of a non-existent nested sidebar or navbar file.
+            The next error may be harmless, but is still logged in case there is
+            a problem:
+          `
+            .split('\n')
+            .map(s => s.trim())
+            .join(' ')
+        );
         console.error(e);
-      else throw e;
+        console.error(e.stack);
+      } else {
+        throw e;
+      }
     }
   }
 }

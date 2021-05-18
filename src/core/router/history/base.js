@@ -22,11 +22,15 @@ function getAlias(path, alias, last) {
 }
 
 function getFileName(path, ext) {
-  return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-    ? path
-    : /\/$/g.test(path)
-    ? `${path}README${ext}`
-    : `${path}${ext}`;
+  // convert ".foo" to "foo"
+  ext = ext.replace(/^\./, '');
+
+  const endsWithExt = new RegExp(`\\.(${ext}|html)$`, 'g').test(path);
+  if (endsWithExt) return path;
+
+  const isFolder = /\/$/g.test(path);
+  if (isFolder) return `${path}README.${ext}`;
+  else return `${path}.${ext}`;
 }
 
 export class History {
@@ -40,7 +44,7 @@ export class History {
 
   getFile(path = this.getCurrentPath(), isRelative) {
     const { config } = this;
-    const base = this.getBasePath();
+    const base = config.basePath;
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
 
     path = config.alias ? getAlias(path, config.alias) : path;

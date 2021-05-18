@@ -3,7 +3,9 @@ import { body, on } from '../util/dom';
 import * as sidebar from './sidebar';
 import { scrollIntoView, scroll2Top } from './scroll';
 
+// TODO: rename this to something like scrollOnNavMixin
 export function eventMixin(proto) {
+  // TODO: rename this to something like $performScroll
   proto.$resetEvents = function (source) {
     const { auto2top } = this.config;
 
@@ -28,10 +30,13 @@ export function eventMixin(proto) {
   };
 }
 
+// TODO: rename everything with a name that does not match what it does.
 export function initEvent(vm) {
   // Bind toggle button
+  // TODO sidebar expand/collapse functionality does not belong with scroll behavior. Move it somewhere else.
   sidebar.btn('button.sidebar-toggle', vm.router);
   sidebar.collapse('.sidebar', vm.router);
+
   // Bind sticky effect
   if (vm.config.coverpage) {
     !isMobile && on('scroll', sidebar.sticky);
