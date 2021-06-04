@@ -178,7 +178,7 @@ export function search(query) {
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
-          ignoreDiacriticalMarks(keyword).replace(
+          escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
             /[|\\{}()[\]^$+*?.]/g,
             '\\$&'
           ),
@@ -187,10 +187,10 @@ export function search(query) {
         let indexTitle = -1;
         let indexContent = -1;
         handlePostTitle = postTitle
-          ? ignoreDiacriticalMarks(postTitle)
+          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
           : postTitle;
         handlePostContent = postContent
-          ? ignoreDiacriticalMarks(postContent)
+          ? escapeHtml(ignoreDiacriticalMarks(postContent))
           : postContent;
 
         indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;

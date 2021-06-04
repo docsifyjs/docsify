@@ -187,6 +187,8 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
 
+Click [here](https://github.com/imyelo/docsify-pagination#readme) to get more information.
+
 ## Tabs
 
 A docsify.js plugin for displaying tabbed content from markdown.
