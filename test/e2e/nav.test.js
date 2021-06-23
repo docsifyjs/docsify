@@ -27,13 +27,12 @@ describe(`Navbar tests`, function() {
     };
 
     await docsifyInit(docsifyInitConfig);
-    await expect(page).toHaveText(
-      '#mynav',
-      '<li><a href="#/foo" title="Foo">Foo</a></li>'
-    );
-    await expect(page).toHaveText(
-      '#mynav',
-      '<li><a href="#/bar" title="Bar">Bar</a></li>'
-    );
+
+    // Check that our custom <nav> element contains nav links
+    let navHTML;
+    navHTML = await page.$eval('#mynav', el => el.innerHTML);
+    expect(navHTML).toMatch('<li><a href="#/foo" title="Foo">Foo</a></li>');
+    navHTML = await page.$eval('#mynav', el => el.innerHTML);
+    expect(navHTML).toMatch('<li><a href="#/bar" title="Bar">Bar</a></li>');
   });
 });
