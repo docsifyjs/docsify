@@ -1,4 +1,7 @@
-const { removeAtag } = require('../../src/core/render/utils');
+const {
+  removeAtag,
+  getAndRemoveConfig,
+} = require('../../src/core/render/utils');
 
 const { tree } = require(`../../src/core/render/tpl`);
 
@@ -14,6 +17,46 @@ describe('core/render/utils', () => {
       const result = removeAtag('<a href="www.example.com">content</a>');
 
       expect(result).toEqual('content');
+    });
+  });
+
+  // getAndRemoveConfig()
+  // ---------------------------------------------------------------------------
+  describe('getAndRemoveConfig()', () => {
+    test('parse simple config', () => {
+      const result = getAndRemoveConfig(
+        `[filename](_media/example.md ':include')`
+      );
+
+      expect(result).toMatchObject({
+        config: {},
+        str: `[filename](_media/example.md ':include')`,
+      });
+    });
+
+    test('parse config with arguments', () => {
+      const result = getAndRemoveConfig(
+        `[filename](_media/example.md ':include :foo=bar :baz test')`
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          foo: 'bar',
+          baz: true,
+        },
+        str: `[filename](_media/example.md ':include test')`,
+      });
+    });
+
+    test('parse config with double quotes', () => {
+      const result = getAndRemoveConfig(
+        `[filename](_media/example.md ":include")`
+      );
+
+      expect(result).toMatchObject({
+        config: {},
+        str: `[filename](_media/example.md ":include")`,
+      });
     });
   });
 });
