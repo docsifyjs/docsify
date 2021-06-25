@@ -16,7 +16,7 @@ Then the content of `example.md` will be displayed directly here;
 
 You can check the original content for [example.md](_media/example.md ':ignore').
 
-Normally, this will compiled into a link, but in docsify, if you add `:include` it will be embedded.
+Normally, this will compiled into a link, but in docsify, if you add `:include` it will be embedded. You can use single or double quotation marks around as you like.
 
 External links can be used too - just replace the target. If you want to use a gist URL, see [Embed a gist](#embed-a-gist) section.
 
