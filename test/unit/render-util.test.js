@@ -58,6 +58,37 @@ describe('core/render/utils', () => {
         str: `[filename](_media/example.md ":include")`,
       });
     });
+
+    test('dont parse quotes without colon', () => {
+      const result = getAndRemoveConfig(
+        `[filename](_media/example.md 'include')`
+      );
+
+      expect(result).toMatchObject({
+        config: {},
+        str: `[filename](_media/example.md 'include')`,
+      });
+    });
+
+    test('dont parse with different quotes', () => {
+      const result = getAndRemoveConfig(
+        `[filename](_media/example.md ":include')`
+      );
+
+      expect(result).toMatchObject({
+        config: {},
+        str: `[filename](_media/example.md ":include')`,
+      });
+    });
+
+    test('parse headings without quotes', () => {
+      const result = getAndRemoveConfig('### Hello, world! :id=hello-world');
+
+      expect(result).toMatchObject({
+        config: { id: 'hello-world' },
+        str: '### Hello, world!',
+      });
+    });
   });
 });
 
