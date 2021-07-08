@@ -59,13 +59,13 @@ describe('core/render/utils', () => {
       });
     });
 
-    test('dont parse quotes without colon', () => {
+    test('parse quotes without first colon', () => {
       const result = getAndRemoveConfig(
-        `[filename](_media/example.md 'include')`
+        `[filename](_media/example.md 'include :foo=bar')`
       );
 
       expect(result).toMatchObject({
-        config: {},
+        config: { foo: 'bar' },
         str: `[filename](_media/example.md 'include')`,
       });
     });
