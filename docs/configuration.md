@@ -48,7 +48,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `null`
 
-Configure the repository url, or a string of `username/repo` can add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
+Configure the repository url, or a string of `username/repo`, to add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
 
 ```js
 window.$docsify = {
@@ -273,7 +273,7 @@ window.$docsify = {
 
 - Type: `String`
 
-Website logo as it appears in the sidebar. You can resize it by using CSS.
+Website logo as it appears in the sidebar. You can resize it using CSS.
 
 ```js
 window.$docsify = {
@@ -350,7 +350,7 @@ window.$docsify = {
 
 - Type: `String`
 
-Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in old browser.
+Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in older browsers.
 
 ```js
 window.$docsify = {
@@ -380,7 +380,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. See [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -393,7 +393,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-Execute the script on the page. Only parse the first script tag([demo](themes)). If Vue is present, it is turned on by default.
+Execute the script on the page. Only parse the first script tag ([demo](themes)). If Vue is present, it is turned on by default.
 
 ```js
 window.$docsify = {
@@ -423,7 +423,7 @@ window.$docsify = {
 };
 ```
 
-?> If this options is `false` but you don't want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
+?> If this option is `false` but you don't want to emojify some specific colons, [refer to this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
 
 ## mergeNavbar
 
@@ -510,8 +510,8 @@ window.$docsify = {
 
 - type: `Array`
 
-When `routerMode: 'history'`, you may face the cross-origin issues, See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
-In Markdown content, there is a simple way to solve it, see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
+When `routerMode: 'history'`, you may face cross-origin issues. See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
+In Markdown content, there is a simple way to solve it: see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
 
 ```js
 window.$docsify = {
@@ -583,7 +583,7 @@ window.$docsify = {
 
 - type: `Array<string>`
 
-List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given local.
+List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given locale.
 
 Example:
 
@@ -628,14 +628,14 @@ window.$docsify = {
 };
 ```
 
-> Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+> Note: The options for fallbackLanguages don't work with the `notFoundPage` options.
 
 ## topMargin
 
 - type: `Number`
 - default: `0`
 
-Adds a space on top when scrolling content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
 
 ```js
 window.$docsify = {
