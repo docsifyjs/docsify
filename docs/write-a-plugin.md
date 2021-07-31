@@ -49,7 +49,7 @@ window.$docsify = {
 
 #### footer
 
-Add footer component in each pages.
+Add a footer component to each page.
 
 ```js
 window.$docsify = {
