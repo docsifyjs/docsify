@@ -1,6 +1,6 @@
 # Cover
 
-Activate the cover feature by setting `coverpage` to **true**, compare [coverpage configuration](configuration.md#coverpage).
+Activate the cover feature by setting `coverpage` to **true**. See [coverpage configuration](configuration.md#coverpage).
 
 ## Basic usage
 

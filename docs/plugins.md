@@ -123,7 +123,7 @@ Exclude the special image
 
 ## Edit on github
 
-Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 ## Demo code with instant preview and jsfiddle integration
 
