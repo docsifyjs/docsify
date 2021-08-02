@@ -123,7 +123,7 @@ Exclude the special image
 
 ## Edit on github
 
-Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 ## Demo code with instant preview and jsfiddle integration
 
@@ -138,7 +138,7 @@ When readers expand the demo box, the source code and description are shown ther
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
@@ -186,6 +186,8 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
+
+Click [here](https://github.com/imyelo/docsify-pagination#readme) to get more information.
 
 ## Tabs
 
