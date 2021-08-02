@@ -2,11 +2,11 @@
 
 [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) (PWA) are experiences that combine the best of the web with the best of apps. We can enhance our website with service workers to work **offline** or on low-quality networks.
 
-It is also very easy to use it.
+It is also very easy to use.
 
 ## Create serviceWorker
 
-Create a `sw.js` file in your documents root directory and copy the following code:
+Create a `sw.js` file in your project's root directory and copy the following code:
 
 *sw.js*
 
@@ -98,7 +98,7 @@ self.addEventListener('fetch', event => {
 
 ## Register
 
-Now, register it in your `index.html`. It only works on some modern browsers, so we need to judge:
+Now, register it in your `index.html`. It only works on some modern browsers, so we need to check:
 
 *index.html*
 
@@ -112,4 +112,4 @@ Now, register it in your `index.html`. It only works on some modern browsers, so
 
 ## Enjoy it
 
-Release your website and start experiencing magical offline feature. :ghost: You can turn off Wi-Fi and refresh the current site to experience it.
+Release your website and start experiencing the magical offline feature. :ghost: You can turn off Wi-Fi and refresh the current site to experience it.

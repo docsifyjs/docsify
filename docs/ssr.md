@@ -16,7 +16,7 @@ Install `now` and `docsify-cli` in your project.
 npm i now docsify-cli -D
 ```
 
-Edit `package.json`. If the documentation in `./docs` subdirectory.
+Edit `package.json`. The below assumes the documentation is in the `./docs` subdirectory.
 
 ```json
 {
@@ -42,7 +42,7 @@ Edit `package.json`. If the documentation in `./docs` subdirectory.
 
 !> The `basePath` just like webpack `publicPath`. We can use local or remote files.
 
-We can preview in the local to see if it works.
+We can preview the local site to see if it works.
 
 ```bash
 npm start
@@ -56,11 +56,11 @@ Publish it!
 now -p
 ```
 
-Now, You have a support for SSR the docs site.
+Now, you have support for SSR.
 
 ## Custom template
 
-You can provide a template for entire page's HTML. such as
+You can provide a template for an entire page's HTML, such as
 
 ```html
 <!DOCTYPE html>

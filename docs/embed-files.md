@@ -10,13 +10,13 @@ For example, here is an embedded Markdown file. You only need to do this:
 [filename](_media/example.md ':include')
 ```
 
-Then the content of `example.md` will be displayed directly here;
+Then the content of `example.md` will be displayed directly here:
 
 [filename](_media/example.md ':include')
 
 You can check the original content for [example.md](_media/example.md ':ignore').
 
-Normally, this will compiled into a link, but in docsify, if you add `:include` it will be embedded.
+Normally, this will be compiled into a link, but in docsify, if you add `:include` it will be embedded. You can use single or double quotation marks around as you like.
 
 External links can be used too - just replace the target. If you want to use a gist URL, see [Embed a gist](#embed-a-gist) section.
 
@@ -73,7 +73,7 @@ Example:
 
 If you embed the file as `iframe`, `audio` and `video`, then you may need to set the attributes of these tags.
 
-?> Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want add more attributes, the `controls` attribute need to be added manually if need be.  
+?> Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want add more attributes, the `controls` attribute need to be added manually if need be.
 ```md
 [filename](_media/example.mp4 ':include :type=video controls width=100%')
 ```

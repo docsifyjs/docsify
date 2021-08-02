@@ -25,7 +25,7 @@ docs/zh-cn/guide.md   => http://domain.com/#/zh-cn/guide
 
 ## Sidebar
 
-In order to have sidebar, then you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/master/docs/_sidebar.md) for an example):
+In order to have a sidebar, you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/master/docs/_sidebar.md) for an example):
 
 First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#loadsidebar).
 
@@ -65,7 +65,7 @@ Example file structure:
 
 ## Nested Sidebars
 
-You may want the sidebar to update with only navigation to reflect the current directory. This can be done by adding a `_sidebar.md` file to each folder.
+You may want the sidebar to update after navigation to reflect the current directory. This can be done by adding a `_sidebar.md` file to each folder.
 
 `_sidebar.md` is loaded from each level directory. If the current directory doesn't have `_sidebar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`, the `_sidebar.md` will be loaded from `/guide/_sidebar.md`.
 

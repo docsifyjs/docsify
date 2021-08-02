@@ -2,7 +2,7 @@
 
 docsify extends Markdown syntax to make your documents more readable.
 
-> Note: For the special code syntax cases, you'd better put them within a code backticks to avoid any conflicting from configurations or emojis.
+> Note: For the special code syntax cases, it's better to put them within code backticks to avoid any conflict from configurations or emojis.
 
 ## Important content
 
@@ -30,13 +30,13 @@ are rendered as:
 
 ## Ignore to compile link
 
-Some time we will put some other relative path to the link, you have to need to tell docsify you don't need to compile this link. For example
+Sometimes we will use some other relative path for the link, and we have to tell docsify that we don't need to compile this link. For example:
 
 ```md
 [link](/demo/)
 ```
 
-It will be compiled to `<a href="/#/demo/">link</a>` and will be loaded `/demo/README.md`. Maybe you want to jump to `/demo/index.html`.
+It will be compiled to `<a href="/#/demo/">link</a>` and will load `/demo/README.md`. Maybe you want to jump to `/demo/index.html`.
 
 Now you can do that
 
@@ -44,7 +44,7 @@ Now you can do that
 [link](/demo/ ':ignore')
 ```
 
-You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set title for link.
+You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set the title for the link.
 
 ```md
 [link](/demo/ ':ignore title')
@@ -67,13 +67,13 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set ti
 
 ## Cross-Origin link
 
-Only when you both set the `routerMode: 'history'` and `externalLinkTarget: '_self'`, you need add this configuration for those Cross-Origin links.
+Only when you set both the `routerMode: 'history'` and `externalLinkTarget: '_self'`, you need to add this configuration for those Cross-Origin links.
 
 ```md
 [example.com](https://example.com/ ':crossorgin')
 ```
 
-## Github Task Lists
+## GitHub Task Lists
 
 ```md
 - [ ] foo
@@ -150,7 +150,7 @@ This is useful for rendering markdown content in the details element.
 
 </details>
 
-Or markdown content can be wrapped in html tag.
+Markdown content can also be wrapped in html tags.
 
 ```markdown
 <div style='color: red'>
