@@ -109,7 +109,7 @@ export class Compiler {
         return html;
       })(text);
 
-      const curFileName = this.router.parse().file;
+      const curFileName = this.router.parse(router.getCurrentPath()).file;
 
       if (isCached) {
         this.toc = this.cacheTOC[curFileName];
