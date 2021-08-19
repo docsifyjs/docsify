@@ -51,3 +51,13 @@ function getAdder(int $x): int
     return 123;
 }
 ```
+
+## Highlighting Dynamic Content
+Code blocks [dynamically created from javascript](https://docsify.js.org/#/configuration?id=executescript) can be highlighted using the method `Prism.highlightElement` like so:
+
+```javascript
+var code = document.createElement("code");
+code.innerHTML = "echo 'Hello World!'"
+code.setAttribute("class", "lang-bash");
+Prism.highlightElement(code);
+```
