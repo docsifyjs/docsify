@@ -57,7 +57,7 @@ Code blocks [dynamically created from javascript](https://docsify.js.org/#/confi
 
 ```javascript
 var code = document.createElement("code");
-code.innerHTML = "echo 'Hello World!'"
-code.setAttribute("class", "lang-bash");
+code.innerHTML = "console.log('Hello World!')";
+code.setAttribute("class", "lang-javascript");
 Prism.highlightElement(code);
 ```
