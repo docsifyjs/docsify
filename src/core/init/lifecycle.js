@@ -11,36 +11,42 @@ export function initLifecycle(vm) {
   ];
 
   vm._hooks = {};
-  vm._lifecycle = {};
+  vm._hooksApi = {};
   hooks.forEach(hook => {
     const arr = (vm._hooks[hook] = []);
-    vm._lifecycle[hook] = fn => arr.push(fn);
+    vm._hooksApi[hook] = fn => arr.push(fn);
   });
 }
 
-export function callHook(vm, hookName, data, next = noop) {
+export function callHook(vm, hookName, markdownOrHtml, next = noop) {
   const queue = vm._hooks[hookName];
 
-  const step = function (index) {
+  const runNextHook = function(index) {
     const hookFn = queue[index];
 
     if (index >= queue.length) {
-      next(data);
+      next(markdownOrHtml);
     } else if (typeof hookFn === 'function') {
       if (hookFn.length === 2) {
-        hookFn(data, result => {
-          data = result;
-          step(index + 1);
-        });
+        const doneCallback = result => {
+          markdownOrHtml = result;
+          runNextHook(index + 1);
+        };
+
+        hookFn(markdownOrHtml, doneCallback);
       } else {
-        const result = hookFn(data);
-        data = result === undefined ? data : result;
-        step(index + 1);
+        const result = hookFn(markdownOrHtml);
+        markdownOrHtml = result === undefined ? markdownOrHtml : result;
+        runNextHook(index + 1);
       }
     } else {
-      step(index + 1);
+      console.warn(
+        'Skipping hook that was not a function (all plugin hooks should be functions). The hook was: ',
+        hookFn
+      );
+      runNextHook(index + 1);
     }
   };
 
-  step(0);
+  runNextHook(0);
 }

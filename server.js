@@ -133,7 +133,7 @@ async function main() {
                 plugins: [
                   DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
                   function (hook, vm) {
-                    hook.beforeEach(function (html) {
+                    hook.beforeEach(function (markdown) {
                       if (/githubusercontent\\.com/.test(vm.route.file)) {
                         url = vm.route.file
                           .replace('raw.githubusercontent.com', 'github.com')
@@ -150,7 +150,7 @@ async function main() {
                       var editHtml = '[:memo: Edit Document](' + url + ')\\n';
                       return (
                         editHtml +
-                        html +
+                        markdown +
                         '\\n\\n----\\n\\n' +
                         '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
                       );
