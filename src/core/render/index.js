@@ -278,6 +278,7 @@ export function renderMixin(proto) {
     this._bindEventOnRendered(activeEl);
   };
 
+  // FIXME why is scroll behavior here? Also see the comments in eventMixin
   proto._bindEventOnRendered = function (activeEl) {
     const { autoHeader } = this.config;
 

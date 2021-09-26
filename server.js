@@ -156,6 +156,39 @@ async function main() {
                       );
                     });
                   },
+                  function(hook, vm) {
+                    hook.init(() => {
+                      console.log('----------- plugin init')
+                    })
+
+                    hook.beforeEach((markdown, done) => {
+                      console.log('----------- plugin beforeEach start')
+                      setTimeout(() => {
+                        console.log('----------- plugin beforeEach end')
+                        done(markdown)
+                      }, 500)
+                    })
+
+                    hook.afterEach((html, done) => {
+                      console.log('----------- plugin afterEach start')
+                      setTimeout(() => {
+                        console.log('----------- plugin afterEach end')
+                        done(html)
+                      }, 500)
+                    })
+
+                    hook.doneEach(() => {
+                      console.log('----------- plugin doneEach')
+                    })
+
+                    hook.mounted(() => {
+                      console.log('----------- plugin mounted')
+                    })
+
+                    hook.ready(() => {
+                      console.log('----------- plugin ready')
+                    })
+                  }
                 ],
               };
             </script>

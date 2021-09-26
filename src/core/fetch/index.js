@@ -173,15 +173,27 @@ export function fetchMixin(proto) {
     const onlyCover = this._fetchCover();
 
     if (onlyCover) {
+      // FIXME This is super confusing. At this point, doneEach will be called, but
+      // the cover hasn't been rendered yet.
+      // TODO: Wait for cover to be fetched...
       done();
     } else {
       this._fetch(() => {
         // Scroll to the target item of the page, or to the top.
         $resetEvents();
 
+        // FIXME This also has a problem similar to the onlyCover branch in the
+        // previous FIXME: it waits for main content to be fetched, but not for
+        // navbar to be fetched, so doneEach can be called before things are
+        // *done* being fetched.
         done();
       });
     }
+
+    // FIXME: What is doneEach even for? The documentation says "Invoked each
+    // time after the data is fully loaded". The way it is being used here is
+    // confusing because at this point *something* may have been loaded, or
+    // nothing may have been loaded.
   };
 
   proto._fetchFallbackPage = function (path, qs, cb = noop) {
@@ -247,6 +259,7 @@ export function initFetch(vm) {
 
   // Server-Side Rendering
   if (vm.rendered) {
+    console.log('--------------------- Hmmmmmmmmmmmmmmmmmmmmmmmmm? 1');
     const activeEl = getAndActive(vm.router, '.sidebar-nav', true, true);
     if (loadSidebar && activeEl) {
       activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
@@ -257,6 +270,7 @@ export function initFetch(vm) {
     callHook(vm, 'doneEach');
     callHook(vm, 'ready');
   } else {
+    console.log('--------------------- Hmmmmmmmmmmmmmmmmmmmmmmmmm? 2');
     vm.$fetch(_ => callHook(vm, 'ready'));
   }
 }
