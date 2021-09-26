@@ -7,7 +7,7 @@ function install(hook) {
     div.id = 'gitalk-container';
     const main = dom.getNode('#main');
     div.style = `width: ${main.clientWidth}px; margin: 0 auto 20px;`;
-    dom.appendTo(dom.find('.content'), div);
+    dom.find('.content').append(div);
   });
 
   hook.doneEach(_ => {

@@ -17,7 +17,7 @@ function install(hook, vm) {
     script.async = true;
     script.src = `https://${disqus}.disqus.com/embed.js`;
     script.setAttribute('data-timestamp', Number(new Date()));
-    dom.appendTo(dom.body, script);
+    dom.body.append(script);
   });
 
   hook.mounted(_ => {
@@ -25,7 +25,7 @@ function install(hook, vm) {
     div.id = 'disqus_thread';
     const main = dom.getNode('#main');
     div.style = `width: ${main.clientWidth}px; margin: 0 auto 20px;`;
-    dom.appendTo(dom.find('.content'), div);
+    dom.find('.content').append(div);
 
     // eslint-disable-next-line
     window.disqus_config = function () {

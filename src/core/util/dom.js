@@ -64,6 +64,8 @@ export function create(node, tpl) {
   return node;
 }
 
+// This is unused, and there is no reason to keep it.
+// TODO remove this the next breaking release.
 export function appendTo(target, el) {
   return target.appendChild(el);
 }
@@ -99,7 +101,7 @@ export function toggleClass(el, type, val) {
 }
 
 export function style(content) {
-  appendTo(head, create('style', content));
+  head.append(create('style', content));
 }
 
 /**

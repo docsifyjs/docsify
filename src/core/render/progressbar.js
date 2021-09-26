@@ -10,7 +10,7 @@ function init() {
   const div = dom.create('div');
 
   div.classList.add('progress');
-  dom.appendTo(dom.body, div);
+  document.body.append(div);
   barEl = div;
 }
 
