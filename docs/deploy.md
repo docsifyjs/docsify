@@ -116,9 +116,12 @@ When using the HTML5 router, you need to set up redirect rules that redirect all
 version: 0.1
 frontend:
   phases:
+    preBuild:
+      commands:
+        - npm ci
     build:
-      commands: 
-        - echo "Nothing to build"
+      commands:
+        - npm run build
   artifacts:
     baseDirectory: /docs
     files:
