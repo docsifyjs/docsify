@@ -4,22 +4,22 @@ Similar to [GitBook](https://www.gitbook.com), you can deploy files to GitHub Pa
 
 ## GitHub Pages
 
-There're three places to populate your docs for your Github repository:
+There are three places to populate your docs for your GitHub repository:
 
 - `docs/` folder
 - master branch
 - gh-pages branch
 
-It is recommended that you save your files to the `./docs` subfolder of the `master` branch of your repository. Then select `master branch /docs folder` as your Github Pages source in your repositories' settings page.
+It is recommended that you save your files to the `./docs` subfolder of the `master` branch of your repository. Then select `master branch /docs folder` as your GitHub Pages source in your repository's settings page.
 
-![github pages](_images/deploy-github-pages.png)
+![GitHub Pages](_images/deploy-github-pages.png)
 
 !> You can also save files in the root directory and select `master branch`.
 You'll need to place a `.nojekyll` file in the deploy location (such as `/docs` or the gh-pages branch)
 
 ## GitLab Pages
 
-If you are deploying your master branch, include `.gitlab-ci.yml` with the following script:
+If you are deploying your master branch, create a `.gitlab-ci.yml` with the following script:
 
 ?> The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
 
@@ -43,9 +43,9 @@ pages:
 
 !> You'll need to install the Firebase CLI using `npm i -g firebase-tools` after signing into the [Firebase Console](https://console.firebase.google.com) using a Google Account.
 
-Using Terminal determine and navigate to the directory for your Firebase Project - this could be `~/Projects/Docs` etc. From there, run `firebase init`, choosing `Hosting` from the menu (use **space** to select, **arrow keys** to change options and **enter** to confirm). Follow the setup instructions.
+Using a terminal, determine and navigate to the directory for your Firebase Project. This could be `~/Projects/Docs`, etc. From there, run `firebase init` and choose `Hosting` from the menu (use **space** to select, **arrow keys** to change options and **enter** to confirm). Follow the setup instructions.
 
-You should have your `firebase.json` file looking similar to this (I changed the deployment directory from `public` to `site`):
+Your `firebase.json` file should look similar to this (I changed the deployment directory from `public` to `site`):
 
 ```json
 {
@@ -56,11 +56,11 @@ You should have your `firebase.json` file looking similar to this (I changed the
 }
 ```
 
-Once finished, build the starting template by running `docsify init ./site` (replacing site with the deployment directory you determined when running `firebase init` - public by default). Add/edit the documentation, then run `firebase deploy` from the base project directory.
+Once finished, build the starting template by running `docsify init ./site` (replacing site with the deployment directory you determined when running `firebase init` - public by default). Add/edit the documentation, then run `firebase deploy` from the root project directory.
 
 ## VPS
 
-Try following nginx config.
+Use the following nginx config.
 
 ```nginx
 server {
@@ -78,21 +78,21 @@ server {
 
 1.  Login to your [Netlify](https://www.netlify.com/) account.
 2.  In the [dashboard](https://app.netlify.com/) page, click **New site from Git**.
-3.  Choose a repository where you store your docs, leave the **Build Command** area blank, fill in the Publish directory area with the directory of your `index.html`, for example it should be docs if you populated it at `docs/index.html`.
+3.  Choose a repository where you store your docs, leave the **Build Command** area blank, and fill in the Publish directory area with the directory of your `index.html`. For example, it should be docs if you populated it at `docs/index.html`.
 
 ### HTML5 router
 
-When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`, it's pretty simple when you're using Netlify, create a file named `_redirects` in the docs directory, add this snippet to the file and you're all set:
+When using the HTML5 router, you need to set up redirect rules that redirect all requests to your `index.html`. It's pretty simple when you're using Netlify. Just create a file named `_redirects` in the docs directory, add this snippet to the file, and you're all set:
 
 ```sh
 /*    /index.html   200
 ```
 
-## ZEIT Now
+## Vercel
 
-1. Install [Now CLI](https://zeit.co/download), `npm i -g now`
+1. Install [Vercel CLI](https://vercel.com/download), `npm i -g vercel`
 2. Change directory to your docsify website, for example `cd docs`
-3. Deploy with a single command, `now` 
+3. Deploy with a single command, `vercel`
 
 ## AWS Amplify
 
@@ -131,20 +131,20 @@ frontend:
 
 ```
 
-6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using. 
+6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using.
 
 | Source address | Target address | Type          |
 |----------------|----------------|---------------|
 | /<*>.md        | /<*>.md        | 200 (Rewrite) |
 | /<*>.png       | /<*>.png       | 200 (Rewrite) |
-| /<*>           | /index.html    | 200 (Rewrite) |        
+| /<*>           | /index.html    | 200 (Rewrite) |
 
 
 ## Docker
 
-- Create docsify files 
+- Create docsify files
 
-  You need prepare the initial files instead of making in container.  
+  You need prepare the initial files instead of making them inside the container.
   See the [Quickstart](https://docsify.js.org/#/quickstart) section for instructions on how to create these files manually or using [docsify-cli](https://github.com/docsifyjs/docsify-cli).
 
     ```sh
@@ -152,7 +152,7 @@ frontend:
     README.md
     ```
 
-- Create dockerfile
+- Create Dockerfile
 
   ```Dockerfile
     FROM node:latest
@@ -161,10 +161,10 @@ frontend:
     RUN npm install -g docsify-cli@latest
     EXPOSE 3000/tcp
     ENTRYPOINT docsify serve .
-  
+
   ```
 
-  So, current directory structure should be this: 
+  The current directory structure should be this:
 
   ```sh
    index.html
@@ -181,6 +181,6 @@ frontend:
 - Run docker image
 
   ```sh
-  docker run -itp 3000:3000 --name=docsify -v $(pwd):/docs docsify/demo 
+  docker run -itp 3000:3000 --name=docsify -v $(pwd):/docs docsify/demo
   ```
 
