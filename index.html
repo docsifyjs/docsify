@@ -77,7 +77,6 @@
           },
           pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn']
         },
-        formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
           function(hook, vm) {
@@ -99,8 +98,6 @@
               return (
                 editHtml +
                 html +
-                '\n----\n' +
-                'Last modified {docsify-updated}' +
                 '\n\n----\n\n' +
                 '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
               );
