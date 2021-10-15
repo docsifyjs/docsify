@@ -18,7 +18,7 @@
     "debug": "^4.3.2",
     "docsify": "^4.12.1",
     "dompurify": "^2.3.2",
-    "node-fetch": "^2.6.2",
+    "node-fetch": "^2.6.4",
     "resolve-pathname": "^3.0.0"
   }
 }
