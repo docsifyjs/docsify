@@ -301,8 +301,8 @@ window.$docsify = {
 
   // For each route
   nameLink: {
-    '/zh-cn/': '/zh-cn/',
-    '/': '/',
+    '/zh-cn/': '#/zh-cn/',
+    '/': '#/',
   },
 };
 ```
