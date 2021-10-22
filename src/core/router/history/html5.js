@@ -24,7 +24,7 @@ export class HTML5History extends History {
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
-      if (el.tagName === 'A' && !/_blank/.test(el.target)) {
+      if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
         e.preventDefault();
         const url = el.href;
         // solve history.pushState cross-origin issue
