@@ -7,13 +7,12 @@ import { callHook } from '../init/lifecycle';
 import { getAndActive, sticky } from '../event/sidebar';
 import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
-import { isPrimitive, merge } from '../util/core';
+import { isPrimitive } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
 import { prerenderEmbed } from './embed';
-
-let vueGlobalData;
+import * as vue from './vue';
 
 function executeScript() {
   const script = dom
@@ -45,35 +44,14 @@ function formatUpdated(html, updated, fn) {
 function renderMain(html) {
   const docsifyConfig = this.config;
   const markdownElm = dom.find('.markdown-section');
-  const vueVersion =
-    'Vue' in window &&
-    window.Vue.version &&
-    Number(window.Vue.version.charAt(0));
-
-  const isMountedVue = elm => {
-    const isVue2 = Boolean(elm.__vue__ && elm.__vue__._isVue);
-    const isVue3 = Boolean(elm._vnode && elm._vnode.__v_skip);
-
-    return isVue2 || isVue3;
-  };
 
   if (!html) {
     html = '<h1>404 - Not found</h1>';
   }
 
+  // Unmount vue
   if ('Vue' in window) {
-    const mountedElms = dom
-      .findAll('.markdown-section > *')
-      .filter(elm => isMountedVue(elm));
-
-    // Destroy/unmount existing Vue instances
-    for (const mountedElm of mountedElms) {
-      if (vueVersion === 2) {
-        mountedElm.__vue__.$destroy();
-      } else if (vueVersion === 3) {
-        mountedElm.__vue_app__.unmount();
-      }
-    }
+    vue.unmountVueInst(markdownElm, '.markdown-section > *');
   }
 
   this._renderTo(markdownElm, html);
@@ -89,130 +67,9 @@ function renderMain(html) {
     executeScript();
   }
 
-  // Handle Vue content not mounted by markdown <script>
+  // Mount vue
   if ('Vue' in window) {
-    const vueMountData = [];
-    const vueComponentNames = Object.keys(docsifyConfig.vueComponents || {});
-
-    // Register global vueComponents
-    if (vueVersion === 2 && vueComponentNames.length) {
-      vueComponentNames.forEach(name => {
-        const isNotRegistered = !window.Vue.options.components[name];
-
-        if (isNotRegistered) {
-          window.Vue.component(name, docsifyConfig.vueComponents[name]);
-        }
-      });
-    }
-
-    // Store global data() return value as shared data object
-    if (
-      !vueGlobalData &&
-      docsifyConfig.vueGlobalOptions &&
-      typeof docsifyConfig.vueGlobalOptions.data === 'function'
-    ) {
-      vueGlobalData = docsifyConfig.vueGlobalOptions.data();
-    }
-
-    // vueMounts
-    vueMountData.push(
-      ...Object.keys(docsifyConfig.vueMounts || {})
-        .map(cssSelector => [
-          dom.find(markdownElm, cssSelector),
-          docsifyConfig.vueMounts[cssSelector],
-        ])
-        .filter(([elm, vueConfig]) => elm)
-    );
-
-    // Template syntax, vueComponents, vueGlobalOptions
-    const reHasBraces = /{{2}[^{}]*}{2}/;
-    // Matches Vue full and shorthand syntax as attributes in HTML tags.
-    //
-    // Full syntax examples:
-    // v-foo, v-foo[bar], v-foo-bar, v-foo:bar-baz.prop
-    //
-    // Shorthand syntax examples:
-    // @foo, @foo.bar, @foo.bar.baz, @[foo], :foo, :[foo]
-    //
-    // Markup examples:
-    // <div v-html>{{ html }}</div>
-    // <div v-text="msg"></div>
-    // <div v-bind:text-content.prop="text">
-    // <button v-on:click="doThis"></button>
-    // <button v-on:click.once="doThis"></button>
-    // <button v-on:[event]="doThis"></button>
-    // <button @click.stop.prevent="doThis">
-    // <a :href="url">
-    // <a :[key]="url">
-    const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
-
-    vueMountData.push(
-      ...dom
-        .findAll('.markdown-section > *')
-        // Remove duplicates
-        .filter(elm => !vueMountData.some(([e, c]) => e === elm))
-        // Detect Vue content
-        .filter(elm => {
-          const isVueMount =
-            // is a component
-            elm.tagName.toLowerCase() in (docsifyConfig.vueComponents || {}) ||
-            // has a component(s)
-            elm.querySelector(vueComponentNames.join(',') || null) ||
-            // has curly braces
-            reHasBraces.test(elm.outerHTML) ||
-            // has content directive
-            reHasDirective.test(elm.outerHTML);
-
-          return isVueMount;
-        })
-        .map(elm => {
-          // Clone global configuration
-          const vueConfig = merge({}, docsifyConfig.vueGlobalOptions || {});
-
-          // Replace vueGlobalOptions data() return value with shared data object.
-          // This provides a global store for all Vue instances that receive
-          // vueGlobalOptions as their configuration.
-          if (vueGlobalData) {
-            vueConfig.data = function() {
-              return vueGlobalData;
-            };
-          }
-
-          return [elm, vueConfig];
-        })
-    );
-
-    // Mount
-    for (const [mountElm, vueConfig] of vueMountData) {
-      const isVueAttr = 'data-isvue';
-      const isSkipElm =
-        // Is an invalid tag
-        mountElm.matches('pre, script') ||
-        // Is a mounted instance
-        isMountedVue(mountElm) ||
-        // Has mounted instance(s)
-        mountElm.querySelector(`[${isVueAttr}]`);
-
-      if (!isSkipElm) {
-        mountElm.setAttribute(isVueAttr, '');
-
-        if (vueVersion === 2) {
-          vueConfig.el = undefined;
-          new window.Vue(vueConfig).$mount(mountElm);
-        } else if (vueVersion === 3) {
-          const app = window.Vue.createApp(vueConfig);
-
-          // Register global vueComponents
-          vueComponentNames.forEach(name => {
-            const config = docsifyConfig.vueComponents[name];
-
-            app.component(name, config);
-          });
-
-          app.mount(mountElm);
-        }
-      }
-    }
+    vue.mountVueInst(docsifyConfig, markdownElm, '.markdown-section > *');
   }
 }
 
@@ -246,6 +103,7 @@ export function renderMixin(proto) {
 
   proto._renderSidebar = function(text) {
     const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
+    const sidebarElm = dom.find('.sidebar-nav');
 
     if (hideSidebar) {
       // FIXME : better styling solution
@@ -260,6 +118,11 @@ export function renderMixin(proto) {
       return null;
     }
 
+    // Unmount vue
+    if ('Vue' in window) {
+      vue.unmountVueInst(sidebarElm, '.sidebar-nav > *');
+    }
+
     this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
     const activeEl = getAndActive(this.router, '.sidebar-nav', true, true);
     if (loadSidebar && activeEl) {
@@ -268,6 +131,10 @@ export function renderMixin(proto) {
     } else {
       // Reset toc
       this.compiler.subSidebar();
+    }
+    // Mount vue
+    if ('Vue' in window) {
+      vue.mountVueInst(this.config, sidebarElm, '.sidebar-nav > *');
     }
 
     // Bind event
