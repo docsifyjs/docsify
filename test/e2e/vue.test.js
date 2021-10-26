@@ -154,7 +154,7 @@ describe('Vue.js Compatibility', function() {
         docsifyInitConfig.scriptURLs = vueURL;
 
         await docsifyInit(docsifyInitConfig);
-        await expect(page).toEqualText('#vuefor', '{{ i }}');
+        await expect(page).toEqualText('#vuefor', '12345');
         await expect(page).toEqualText('#vuecomponent', '---');
         await expect(page).toEqualText('#vueglobaloptions p', '---');
         await expect(page).toEqualText('#vuemounts p', '---');
