@@ -38,7 +38,7 @@ export function unmountVueInst(el, node) {
   if ('Vue' in window) {
     const mountedElms = (node
       ? dom.findAll(el, node)
-      : dom.findAll(node)
+      : dom.findAll(el)
     ).filter(elm => isMountedVue(elm));
 
     // Destroy/unmount existing Vue instances
@@ -81,14 +81,16 @@ export function mountVueInst(docsifyConfig, el, node) {
   }
 
   // vueMounts
-  vueMountData.push(
-    ...Object.keys(docsifyConfig.vueMounts || {})
-      .map(cssSelector => [
-        dom.find(el, cssSelector),
-        docsifyConfig.vueMounts[cssSelector],
-      ])
-      .filter(([elm /* , vueConfig*/]) => elm)
-  );
+  if (docsifyConfig.vueMounts.length) {
+    vueMountData.push(
+      ...Object.keys(docsifyConfig.vueMounts || {})
+        .map(cssSelector => [
+          dom.find(el, cssSelector),
+          docsifyConfig.vueMounts[cssSelector],
+        ])
+        .filter(([elm]) => elm)
+    );
+  }
 
   // Template syntax, vueComponents, vueGlobalOptions
   const reHasBraces = /{{2}[^{}]*}{2}/;
@@ -111,19 +113,20 @@ export function mountVueInst(docsifyConfig, el, node) {
   // <a :href="url">
   // <a :[key]="url">
   const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
+  const joinedVueComponentNames = vueComponentNames.join(',') || null;
 
   vueMountData.push(
     ...dom
-      .findAll(node)
+      .findAll(el, node)
       // Remove duplicates
       .filter(elm => !vueMountData.some(([e]) => e === elm))
       // Detect Vue content
       .filter(elm => {
         const isVueMount =
           // is a component
-          elm.tagName.toLowerCase() in (docsifyConfig.vueComponents || {}) ||
+          // elm.tagName.toLowerCase() in (docsifyConfig.vueComponents || {}) ||
           // has a component(s)
-          elm.querySelector(vueComponentNames.join(',') || null) ||
+          elm.querySelector(joinedVueComponentNames) ||
           // has curly braces
           reHasBraces.test(elm.outerHTML) ||
           // has content directive
