@@ -81,16 +81,14 @@ export function mountVueInst(docsifyConfig, el, node) {
   }
 
   // vueMounts
-  if (docsifyConfig.vueMounts.length) {
-    vueMountData.push(
-      ...Object.keys(docsifyConfig.vueMounts || {})
-        .map(cssSelector => [
-          dom.find(el, cssSelector),
-          docsifyConfig.vueMounts[cssSelector],
-        ])
-        .filter(([elm]) => elm)
-    );
-  }
+  vueMountData.push(
+    ...Object.keys(docsifyConfig.vueMounts || {})
+      .map(cssSelector => [
+        dom.find(el, cssSelector),
+        docsifyConfig.vueMounts[cssSelector],
+      ])
+      .filter(([elm]) => elm)
+  );
 
   // Template syntax, vueComponents, vueGlobalOptions
   const reHasBraces = /{{2}[^{}]*}{2}/;
@@ -113,7 +111,6 @@ export function mountVueInst(docsifyConfig, el, node) {
   // <a :href="url">
   // <a :[key]="url">
   const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
-  const joinedVueComponentNames = vueComponentNames.join(',') || null;
 
   vueMountData.push(
     ...dom
@@ -124,9 +121,9 @@ export function mountVueInst(docsifyConfig, el, node) {
       .filter(elm => {
         const isVueMount =
           // is a component
-          // elm.tagName.toLowerCase() in (docsifyConfig.vueComponents || {}) ||
+          elm.tagName.toLowerCase() in (docsifyConfig.vueComponents || {}) ||
           // has a component(s)
-          elm.querySelector(joinedVueComponentNames) ||
+          elm.querySelector(vueComponentNames.join(',') || null) ||
           // has curly braces
           reHasBraces.test(elm.outerHTML) ||
           // has content directive
