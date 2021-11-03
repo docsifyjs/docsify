@@ -72,10 +72,20 @@ export function isFn(obj) {
  * @param {String} string  url
  * @returns {Boolean} True if the passed-in url is external
  */
-export function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
-  );
+export function isExternal(url, basePath) {
+  const regExp = /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/;
+  let match = url.match(regExp);
+
+  if (basePath) {
+    const matchWithBasePath = basePath.match(regExp);
+    if (
+      match && matchWithBasePath &&
+      match[1] === matchWithBasePath[1] &&
+      match[2] === matchWithBasePath[2]
+    ) {
+      return false;
+    }
+  }
 
   if (
     typeof match[1] === 'string' &&
