@@ -59,6 +59,13 @@
         maxLevel: 4,
         subMaxLevel: 2,
         name: 'docsify',
+        nameLink: {
+          '/es/': '#/es/',
+          '/de-de/': '#/de-de/',
+          '/ru-ru/': '#/ru-ru/',
+          '/zh-cn/': '#/zh-cn/',
+          '/': '#/',
+        },
         search: {
           noData: {
             '/es/': '¡No hay resultados!',
@@ -91,7 +98,7 @@
                   .replace('@master', '/blob/master');
               } else {
                 url =
-                  'https://github.com/docsifyjs/docsify/blob/master/docs/' +
+                  'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
                   vm.route.file;
               }
               var editHtml = '[:memo: Edit Document](' + url + ')\n';
