@@ -76,12 +76,13 @@ export function fetchMixin(proto) {
   };
 
   proto._fetch = function(cb = noop) {
+    const { basePath } = this.config;
     const { query } = this.route;
     let { path } = this.route;
 
     // Prevent loading remote content via URL hash
     // Ex: https://foo.com/#//bar.com/file.md
-    if (isExternal(path)) {
+    if (isExternal(path, basePath)) {
       history.replaceState(null, '', '#');
       this.router.normalize();
     } else {
@@ -92,7 +93,7 @@ export function fetchMixin(proto) {
       const file = this.router.getFile(path);
       const req = request(file + qs, true, requestHeaders);
 
-      this.isRemoteUrl = isExternal(file);
+      this.isRemoteUrl = isExternal(file, basePath);
       // Current page is html
       this.isHTML = /\.html$/g.test(file);
 
