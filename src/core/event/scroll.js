@@ -147,7 +147,7 @@ export function scrollIntoView(path, id) {
     return;
   }
   const topMargin = config().topMargin;
-  const section = dom.find('#' + id);
+  const section = dom.find(`[id='${id}']`);
   section && scrollTo(section, topMargin);
 
   const li = nav[getNavKey(path, id)];
