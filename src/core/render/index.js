@@ -329,8 +329,9 @@ export function renderMixin(proto) {
           },
           tokens => {
             html = this.compiler.compile(tokens);
+            // add "target" attribute to DOMPurify white list to handle external links
             html = this.isRemoteUrl
-              ? DOMPurify.sanitize(html, { ADD_TAGS: ['script'] })
+              ? DOMPurify.sanitize(html, { ADD_ATTR: ['target'], ADD_TAGS: ['script'] })
               : html;
             callback();
             next();
