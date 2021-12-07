@@ -85,7 +85,7 @@ export function genIndex(path, content = '', router, depth) {
   let slug;
   let title = '';
 
-  tokens.forEach(token => {
+  tokens.forEach(function(token, tokenIndex) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
@@ -106,6 +106,15 @@ export function genIndex(path, content = '', router, depth) {
 
       index[slug] = { slug, title: title, body: '' };
     } else {
+      if (tokenIndex === 0) {
+        slug = router.toURL(path);
+        index[slug] = {
+          slug,
+          title: path !== '/' ? path.slice(1) : 'Home Page',
+          body: token.text || '',
+        };
+      }
+
       if (!slug) {
         return;
       }
@@ -131,6 +140,13 @@ export function genIndex(path, content = '', router, depth) {
   return index;
 }
 
+export function ignoreDiacriticalMarks(keyword) {
+  if (keyword && keyword.normalize) {
+    return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  return keyword;
+}
+
 /**
  * @param {String} query Search query
  * @returns {Array} Array of results
@@ -152,6 +168,8 @@ export function search(query) {
     const post = data[i];
     let matchesScore = 0;
     let resultStr = '';
+    let handlePostTitle = '';
+    let handlePostContent = '';
     const postTitle = post.title && post.title.trim();
     const postContent = post.body && post.body.trim();
     const postUrl = post.slug || '';
@@ -160,14 +178,23 @@ export function search(query) {
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
-          keyword.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
+          escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
+            /[|\\{}()[\]^$+*?.]/g,
+            '\\$&'
+          ),
           'gi'
         );
         let indexTitle = -1;
         let indexContent = -1;
+        handlePostTitle = postTitle
+          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
+          : postTitle;
+        handlePostContent = postContent
+          ? escapeHtml(ignoreDiacriticalMarks(postContent))
+          : postContent;
 
-        indexTitle = postTitle ? postTitle.search(regEx) : -1;
-        indexContent = postContent ? postContent.search(regEx) : -1;
+        indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
+        indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
         if (indexTitle >= 0 || indexContent >= 0) {
           matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
@@ -187,7 +214,7 @@ export function search(query) {
 
           const matchContent =
             '...' +
-            escapeHtml(postContent)
+            handlePostContent
               .substring(start, end)
               .replace(
                 regEx,
@@ -201,7 +228,7 @@ export function search(query) {
 
       if (matchesScore > 0) {
         const matchingPost = {
-          title: escapeHtml(postTitle),
+          title: handlePostTitle,
           content: postContent ? resultStr : '',
           url: postUrl,
           score: matchesScore,
@@ -227,8 +254,9 @@ export function init(config, vm) {
 
     if (Array.isArray(config.pathNamespaces)) {
       namespaceSuffix =
-        config.pathNamespaces.find(prefix => path.startsWith(prefix)) ||
-        namespaceSuffix;
+        config.pathNamespaces.filter(
+          prefix => path.slice(0, prefix.length) === prefix
+        )[0] || namespaceSuffix;
     } else if (config.pathNamespaces instanceof RegExp) {
       const matches = path.match(config.pathNamespaces);
 

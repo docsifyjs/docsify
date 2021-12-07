@@ -49,7 +49,7 @@ window.$docsify = {
 
 #### footer
 
-Add footer component in each pages.
+Add a footer component to each page.
 
 ```js
 window.$docsify = {
@@ -75,6 +75,8 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
+  // The date template pattern
+  formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
   plugins: [
     function(hook, vm) {
       hook.beforeEach(function(html) {
@@ -87,7 +89,7 @@ window.$docsify = {
           editHtml +
           html +
           '\n----\n' +
-          'Last modified {docsify-updated} ' +
+          'Last modified {docsify-updated}' +
           editHtml
         );
       });
@@ -108,4 +110,5 @@ Current version: <span id='tip-version'>loading</span>
 
 <script>
 document.getElementById('tip-version').innerText = Docsify.version
+document.getElementsByClassName("lang-js")[2].innerHTML = document.getElementsByClassName("lang-js")[2].innerHTML.replace(/Last modified .*'/,"Last modified {docsify-updated<span>}'</span>")
 </script>

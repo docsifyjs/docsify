@@ -7,7 +7,7 @@ import { callHook } from '../init/lifecycle';
 import { getAndActive, sticky } from '../event/sidebar';
 import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
-import { isPrimitive } from '../util/core';
+import { isPrimitive, merge } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
@@ -116,10 +116,10 @@ function renderMain(html) {
 
     // vueMounts
     vueMountData.push(
-      ...Object.entries(docsifyConfig.vueMounts || {})
-        .map(([cssSelector, vueConfig]) => [
+      ...Object.keys(docsifyConfig.vueMounts || {})
+        .map(cssSelector => [
           dom.find(markdownElm, cssSelector),
-          vueConfig,
+          docsifyConfig.vueMounts[cssSelector],
         ])
         .filter(([elm, vueConfig]) => elm)
     );
@@ -169,10 +169,7 @@ function renderMain(html) {
           })
           .map(elm => {
             // Clone global configuration
-            const vueConfig = Object.assign(
-              {},
-              docsifyConfig.vueGlobalOptions || {}
-            );
+            const vueConfig = merge({}, docsifyConfig.vueGlobalOptions || {});
 
             // Replace vueGlobalOptions data() return value with shared data object.
             // This provides a global store for all Vue instances that receive
@@ -255,8 +252,10 @@ export function renderMixin(proto) {
 
     if (hideSidebar) {
       // FIXME : better styling solution
-      document.querySelector('aside.sidebar').remove();
-      document.querySelector('button.sidebar-toggle').remove();
+      [
+        document.querySelector('aside.sidebar'),
+        document.querySelector('button.sidebar-toggle'),
+      ].forEach(node => node.parentNode.removeChild(node));
       document.querySelector('section.content').style.right = 'unset';
       document.querySelector('section.content').style.left = 'unset';
       document.querySelector('section.content').style.position = 'relative';
@@ -332,7 +331,7 @@ export function renderMixin(proto) {
             html = this.compiler.compile(tokens);
             // add "target" attribute to DOMPurify white list to handle external links
             html = this.isRemoteUrl
-              ? DOMPurify.sanitize(html, { ADD_ATTR: ['target'] })
+              ? DOMPurify.sanitize(html, { ADD_ATTR: ['target'], ADD_TAGS: ['script'] })
               : html;
             callback();
             next();

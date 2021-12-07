@@ -31,7 +31,7 @@ jobs:
         run: npm run test:unit -- -ci --runInBand
       - name: integration tests
         run: npm run test:integration -- -ci --runInBand
-      - uses: microsoft/playwright-github-action@v1.3.0
+      - uses: microsoft/playwright-github-action@v1
       - name: e2e tests
         run: npm run test:e2e -- --ci --runInBand
       - name: Upload artifacts (diff output)
