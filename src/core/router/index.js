@@ -4,44 +4,64 @@ import { noop } from '../util/core';
 import { HashHistory } from './history/hash';
 import { HTML5History } from './history/html5';
 
-export function routerMixin(proto) {
-  proto.route = {};
-}
+/**
+ * @typedef {{
+ *   path?: string
+ * }} Route
+ */
 
+/** @type {Route} */
 let lastRoute = {};
 
-function updateRender(vm) {
-  vm.router.normalize();
-  vm.route = vm.router.parse();
-  dom.body.setAttribute('data-page', vm.route.file);
-}
+/** @typedef {import('../Docsify').Constructor} Constructor */
 
-export function initRouter(vm) {
-  const config = vm.config;
-  const mode = config.routerMode || 'hash';
-  let router;
+/**
+ * @template {!Constructor} T
+ * @param {T} Base - The class to extend
+ */
+export function Router(Base) {
+  return class Router extends Base {
+    /** @param {any[]} args */
+    constructor(...args) {
+      super(...args);
 
-  if (mode === 'history' && supportsPushState) {
-    router = new HTML5History(config);
-  } else {
-    router = new HashHistory(config);
-  }
-
-  vm.router = router;
-  updateRender(vm);
-  lastRoute = vm.route;
-
-  // eslint-disable-next-line no-unused-vars
-  router.onchange(params => {
-    updateRender(vm);
-    vm._updateRender();
-
-    if (lastRoute.path === vm.route.path) {
-      vm.$resetEvents(params.source);
-      return;
+      this.route = {};
     }
 
-    vm.$fetch(noop, vm.$resetEvents.bind(vm, params.source));
-    lastRoute = vm.route;
-  });
+    updateRender() {
+      this.router.normalize();
+      this.route = this.router.parse();
+      dom.body.setAttribute('data-page', this.route.file);
+    }
+
+    initRouter() {
+      const config = this.config;
+      const mode = config.routerMode || 'hash';
+      let router;
+
+      if (mode === 'history' && supportsPushState) {
+        router = new HTML5History(config);
+      } else {
+        router = new HashHistory(config);
+      }
+
+      this.router = router;
+      this.updateRender();
+      lastRoute = this.route;
+
+      // eslint-disable-next-line no-unused-vars
+      router.onchange(params => {
+        this.updateRender();
+        this._updateRender();
+
+        if (lastRoute.path === this.route.path) {
+          this.$resetEvents(params.source);
+          return;
+        }
+
+        this.$fetch(noop, this.$resetEvents.bind(this, params.source));
+        lastRoute = this.route;
+      });
+    }
+  };
 }
