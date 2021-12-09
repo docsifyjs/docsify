@@ -46,6 +46,7 @@
     "postinstall": "opencollective-postinstall",
     "docker:build": "docker build -f Dockerfile -t docsify-test:local .",
     "docker:clean": "docker rmi docsify-test:local",
+    "docker:rebuild": "npm run docker:clean && npm run docker:build",
     "docker:test": "docker run --rm -it --ipc=host docsify-test:local test",
     "docker:test:e2e": "docker run --rm -it --ipc=host docsify-test:local test:e2e",
     "docker:test:integration": "docker run --rm -it --ipc=host ddocsify-test:local test:integration",
