@@ -1,3 +1,4 @@
+// eslint doesn't support ESM config yet
 module.exports = {
   root: true,
   parser: 'babel-eslint',
