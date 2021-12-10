@@ -36,6 +36,7 @@ export class HashHistory extends History {
     return index === -1 ? '' : href.slice(index + 1);
   }
 
+  /** @param {((params: {source: TODO}) => void)} [cb] */
   onchange(cb = noop) {
     // The hashchange event does not tell us if it originated from
     // a clicked link or by moving back/forward in the history;
@@ -100,3 +101,5 @@ export class HashHistory extends History {
     return '#' + super.toURL(path, params, currentRoute);
   }
 }
+
+/** @typedef {any} TODO */
