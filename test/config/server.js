@@ -1,5 +1,10 @@
-const browserSync = require('browser-sync').create();
-const path = require('path');
+import { create } from 'browser-sync';
+import path from 'path';
+import isMain from 'es-main';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const browserSync = create();
 
 const hasStartArg = process.argv.includes('--start');
 
@@ -7,6 +12,8 @@ const serverConfig = {
   host: '127.0.0.1',
   port: 3001,
 };
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function startServer(options = {}, cb = Function.prototype) {
   const defaults = {
@@ -99,13 +106,14 @@ if (hasStartArg) {
   });
 }
 // Display friendly message about manually starting a server instance
-else if (require.main === module) {
+else if (isMain(import.meta)) {
   console.info('Use --start argument to manually start server instance');
 }
 
-module.exports = {
-  start: startServer,
-  startAsync: startServerAsync,
-  stop: stopServer,
-  TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
+export {
+  startServer as start,
+  startServerAsync as startAsync,
+  stopServer as stop,
 };
+
+export const TEST_HOST = `http://${serverConfig.host}:${serverConfig.port}`;

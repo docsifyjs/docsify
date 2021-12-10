@@ -1,4 +1,4 @@
-import { hasOwn } from '../util/core';
+import { hasOwn } from '../util/core.js';
 
 let cache = {};
 const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g;

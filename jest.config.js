@@ -1,17 +1,20 @@
-const { TEST_HOST } = require('./test/config/server.js');
+import { TEST_HOST } from './test/config/server.js';
 
 const sharedConfig = {
   errorOnDeprecated: true,
   globals: {
+    // TODO avoid globals.
     TEST_HOST,
   },
   globalSetup: './test/config/jest.setup.js',
   globalTeardown: './test/config/jest.teardown.js',
   resetModules: true,
   restoreMocks: true,
+  testEnvironment: 'jsdom',
 };
 
-module.exports = {
+export default {
+  transform: {},
   // Adding globals to config root for easier importing into .eslint.js, but
   // as of Jest 26.4.2 these globals need to be added to each project config
   // as well.
@@ -33,29 +36,30 @@ module.exports = {
       testMatch: ['<rootDir>/test/integration/*.test.js'],
       testURL: `${TEST_HOST}/_blank.html`,
     },
-    // E2E Tests (Jest + Playwright)
-    {
-      ...sharedConfig,
-      displayName: 'e2e',
-      preset: 'jest-playwright-preset',
-      setupFilesAfterEnv: [
-        '<rootDir>/test/config/jest-playwright.setup-tests.js',
-      ],
-      testEnvironmentOptions: {
-        'jest-playwright': {
-          // prettier-ignore
-          browsers: [
-            'chromium',
-            'firefox',
-            'webkit',
-          ],
-          launchOptions: {
-            // headless: false,
-            // devtools: true,
-          },
-        },
-      },
-      testMatch: ['<rootDir>/test/e2e/*.test.js'],
-    },
+    // E2E Tests (Playwright)
+    // WIP, porting to official playwright test runner
+    // {
+    //   ...sharedConfig,
+    //   displayName: 'e2e',
+    //   preset: 'jest-playwright-preset',
+    //   setupFilesAfterEnv: [
+    //     '<rootDir>/test/config/jest-playwright.setup-tests.js',
+    //   ],
+    //   testEnvironmentOptions: {
+    //     'jest-playwright': {
+    //       // prettier-ignore
+    //       browsers: [
+    //         'chromium',
+    //         'firefox',
+    //         'webkit',
+    //       ],
+    //       launchOptions: {
+    //         // headless: false,
+    //         // devtools: true,
+    //       },
+    //     },
+    //   },
+    //   testMatch: ['<rootDir>/test/e2e/*.test.js'],
+    // },
   ],
 };

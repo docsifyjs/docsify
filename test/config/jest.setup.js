@@ -1,5 +1,5 @@
-const server = require('./server.js');
+import * as server from './server.js';
 
-module.exports = async () => {
+export default async () => {
   await server.startAsync();
 };

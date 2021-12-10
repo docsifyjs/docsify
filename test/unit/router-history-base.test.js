@@ -1,4 +1,4 @@
-const { History } = require('../../src/core/router/history/base');
+import { History } from '../../src/core/router/history/base.js';
 
 class MockHistory extends History {
   parse(path) {

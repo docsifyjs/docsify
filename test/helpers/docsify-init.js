@@ -1,21 +1,23 @@
 /* global jestPlaywright page */
-import mock, { proxy } from 'xhr-mock';
-import { waitForSelector } from './wait-for';
+import _mock, { proxy } from 'xhr-mock';
+import { waitForSelector } from './wait-for.js';
+import { TEST_HOST } from '../config/server.js';
 
-const axios = require('axios');
-const prettier = require('prettier');
-const stripIndent = require('common-tags/lib/stripIndent');
+import axios from 'axios';
+import prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent/index.js';
 
+const mock = _mock.default;
 const docsifyPATH = '../../lib/docsify.js'; // JSDOM
 const docsifyURL = '/lib/docsify.js'; // Playwright
 const isJSDOM = 'window' in global;
-const isPlaywright = 'page' in global;
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
  *
  * @param {Object} options options object
  * @param {Function|Object} [options.config] docsify configuration (merged with default)
+ * @param {Object} [options.page] The playwright page to use.
  * @param {String} [options.html] HTML content to use for docsify `index.html` page
  * @param {Object} [options.markdown] Docsify markdown content
  * @param {String} [options.markdown.coverpage] coverpage markdown
@@ -36,6 +38,9 @@ const isPlaywright = 'page' in global;
  * @returns {Promise}
  */
 async function docsifyInit(options = {}) {
+  const isPlaywright = !!options.page;
+  const page = options.page;
+
   const defaults = {
     config: {
       basePath: TEST_HOST,
@@ -257,7 +262,7 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      require(docsifyPATH);
+      await import(docsifyPATH);
     }
   } else if (isPlaywright) {
     for (const url of settings.scriptURLs) {
@@ -363,4 +368,4 @@ async function docsifyInit(options = {}) {
   return Promise.resolve();
 }
 
-module.exports = docsifyInit;
+export default docsifyInit;

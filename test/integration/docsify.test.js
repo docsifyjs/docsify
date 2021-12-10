@@ -1,4 +1,5 @@
-const docsifyInit = require('../helpers/docsify-init');
+import { jest } from '@jest/globals';
+import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------

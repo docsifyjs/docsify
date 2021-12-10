@@ -1,4 +1,4 @@
-const { isExternal } = require('../../src/core/util');
+import { isExternal } from '../../src/core/util/index.js';
 
 // Core util
 // -----------------------------------------------------------------------------
