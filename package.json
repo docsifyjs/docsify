@@ -7,6 +7,7 @@
     "email": "cinwell.li@gmail.com",
     "url": "https://github.com/QingWei-Li"
   },
+  "type": "module",
   "homepage": "https://docsify.js.org",
   "license": "MIT",
   "repository": {

@@ -1,9 +1,10 @@
-const liveServer = require('live-server')
+import liveServer from 'live-server'
+
 const isSSR = !!process.env.SSR
 const middleware = []
 
 if (isSSR) {
-  const Renderer = require('./packages/docsify-server-renderer/build.js')
+  const Renderer = await import('./packages/docsify-server-renderer/build.js')
   const renderer = new Renderer({
     template: `
   <!DOCTYPE html>
