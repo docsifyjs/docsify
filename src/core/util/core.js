@@ -6,7 +6,7 @@
 
 export function cached(fn) {
   const cache = Object.create(null);
-  return function(str) {
+  return function (str) {
     const key = isPrimitive(str) ? str : JSON.stringify(str);
     const hit = cache[key];
     return hit || (cache[key] = fn(str));
@@ -16,8 +16,8 @@ export function cached(fn) {
 /**
  * Hyphenate a camelCase string.
  */
-export const hyphenate = cached(str => {
-  return str.replace(/([A-Z])/g, m => '-' + m.toLowerCase());
+export const hyphenate = cached((str) => {
+  return str.replace(/([A-Z])/g, (m) => '-' + m.toLowerCase());
 });
 
 export const hasOwn = Object.prototype.hasOwnProperty;
@@ -29,7 +29,7 @@ export const hasOwn = Object.prototype.hasOwnProperty;
  */
 export const merge =
   Object.assign ||
-  function(to) {
+  function (to) {
     for (let i = 1; i < arguments.length; i++) {
       const from = Object(arguments[i]);
 

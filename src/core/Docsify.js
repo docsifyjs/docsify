@@ -30,7 +30,7 @@ export class Docsify extends Fetch(Events(Render(Router(Lifecycle(Object))))) {
   initPlugin() {
     []
       .concat(this.config.plugins)
-      .forEach(fn => isFn(fn) && fn(this._lifecycle, this));
+      .forEach((fn) => isFn(fn) && fn(this._lifecycle, this));
   }
 }
 

@@ -2,7 +2,7 @@ import initGlobalAPI from '../../src/core/global-api.js';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Global APIs', function() {
+describe('Global APIs', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('APIs are available', () => {

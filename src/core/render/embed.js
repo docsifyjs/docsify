@@ -15,8 +15,8 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
 
   while ((token = embedTokens[step++])) {
     // eslint-disable-next-line no-shadow
-    const next = (function(token) {
-      return text => {
+    const next = (function (token) {
+      return (text) => {
         let embedToken;
         if (text) {
           if (token.embed.type === 'markdown') {
@@ -24,7 +24,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             path.pop();
             path = path.join('/');
             // Resolves relative links to absolute
-            text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, x => {
+            text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, (x) => {
               const linkBeginIndex = x.indexOf('(');
               if (x.slice(linkBeginIndex, linkBeginIndex + 2) === '(.') {
                 return (
@@ -134,7 +134,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
       // iterate through the array of previously inserted tokens
       // to determine where the current embedded tokens should be inserted
       let index = token.index;
-      moves.forEach(pos => {
+      moves.forEach((pos) => {
         if (index > pos.start) {
           index += pos.length;
         }

@@ -9,7 +9,7 @@ const matchesSelector =
 function install(hook) {
   let zoom;
 
-  hook.doneEach(_ => {
+  hook.doneEach((_) => {
     let elms = Array.apply(
       null,
       document.querySelectorAll(
@@ -17,7 +17,7 @@ function install(hook) {
       )
     );
 
-    elms = elms.filter(elm => matchesSelector.call(elm, 'a img') === false);
+    elms = elms.filter((elm) => matchesSelector.call(elm, 'a img') === false);
 
     if (zoom) {
       zoom.detach();

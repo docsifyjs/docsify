@@ -99,7 +99,7 @@ export function waitForText(cssSelector, text, options = {}) {
     let timeElapsed = 0;
 
     waitForSelector(cssSelector, settings)
-      .then(elm => {
+      .then((elm) => {
         const int = setInterval(() => {
           const isMatch = elm.textContent.includes(text);
 

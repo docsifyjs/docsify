@@ -13,14 +13,14 @@ const cache = {};
  */
 export function get(url, hasBar = false, headers = {}) {
   const xhr = new XMLHttpRequest();
-  const on = function() {
+  const on = function () {
     xhr.addEventListener.apply(xhr, arguments);
   };
 
   const cached = cache[url];
 
   if (cached) {
-    return { then: cb => cb(cached.content, cached.opt), abort: noop };
+    return { then: (cb) => cb(cached.content, cached.opt), abort: noop };
   }
 
   xhr.open('GET', url);
@@ -33,10 +33,10 @@ export function get(url, hasBar = false, headers = {}) {
   xhr.send();
 
   return {
-    then: function(success, error = noop) {
+    then: function (success, error = noop) {
       if (hasBar) {
         const id = setInterval(
-          _ =>
+          (_) =>
             progressbar({
               step: Math.floor(Math.random() * 5 + 1),
             }),
@@ -44,7 +44,7 @@ export function get(url, hasBar = false, headers = {}) {
         );
 
         on('progress', progressbar);
-        on('loadend', evt => {
+        on('loadend', (evt) => {
           progressbar(evt);
           clearInterval(id);
         });
@@ -66,6 +66,6 @@ export function get(url, hasBar = false, headers = {}) {
         }
       });
     },
-    abort: _ => xhr.readyState !== 4 && xhr.abort(),
+    abort: (_) => xhr.readyState !== 4 && xhr.abort(),
   };
 }

@@ -3,11 +3,11 @@ import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Docsify', function() {
+describe('Docsify', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('allows $docsify configuration to be a function', async () => {
-    const testConfig = jest.fn(vm => {
+    const testConfig = jest.fn((vm) => {
       expect(vm).toBeInstanceOf(Object);
       expect(vm.constructor.name).toEqual('Docsify');
       expect(vm.$fetch).toBeInstanceOf(Function);
@@ -24,12 +24,12 @@ describe('Docsify', function() {
   });
 
   test('provides the hooks and vm API to plugins', async () => {
-    const testConfig = jest.fn(vm => {
+    const testConfig = jest.fn((vm) => {
       const vm1 = vm;
 
       return {
         plugins: [
-          function(hook, vm2) {
+          function (hook, vm2) {
             expect(vm1).toEqual(vm2);
 
             expect(hook.init).toBeInstanceOf(Function);

@@ -3,7 +3,7 @@ import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('render', function() {
+describe('render', function () {
   // Setup & Teardown
   // -------------------------------------------------------------------------
   beforeEach(async () => {
@@ -32,8 +32,8 @@ describe('render', function() {
 
   // Lists
   // ---------------------------------------------------------------------------
-  describe('lists', function() {
-    test('as unordered task list', async function() {
+  describe('lists', function () {
+    test('as unordered task list', async function () {
       const output = window.marked(stripIndent`
         - [x] Task 1
         - [ ] Task 2
@@ -45,7 +45,7 @@ describe('render', function() {
       );
     });
 
-    test('as ordered task list', async function() {
+    test('as ordered task list', async function () {
       const output = window.marked(stripIndent`
         1. [ ] Task 1
         2. [x] Task 2
@@ -56,7 +56,7 @@ describe('render', function() {
       );
     });
 
-    test('normal unordered', async function() {
+    test('normal unordered', async function () {
       const output = window.marked(stripIndent`
         - [linktext](link)
         - just text
@@ -67,7 +67,7 @@ describe('render', function() {
       );
     });
 
-    test('unordered with custom start', async function() {
+    test('unordered with custom start', async function () {
       const output = window.marked(stripIndent`
         1. first
         2. second
@@ -82,7 +82,7 @@ describe('render', function() {
       );
     });
 
-    test('nested', async function() {
+    test('nested', async function () {
       const output = window.marked(stripIndent`
         - 1
         - 2
@@ -99,8 +99,8 @@ describe('render', function() {
 
   // Images
   // ---------------------------------------------------------------------------
-  describe('images', function() {
-    test('regular', async function() {
+  describe('images', function () {
+    test('regular', async function () {
       const output = window.marked('![alt text](http://imageUrl)');
 
       expect(output).toMatchInlineSnapshot(
@@ -108,7 +108,7 @@ describe('render', function() {
       );
     });
 
-    test('class', async function() {
+    test('class', async function () {
       const output = window.marked(
         "![alt text](http://imageUrl ':class=someCssClass')"
       );
@@ -118,7 +118,7 @@ describe('render', function() {
       );
     });
 
-    test('id', async function() {
+    test('id', async function () {
       const output = window.marked(
         "![alt text](http://imageUrl ':id=someCssID')"
       );
@@ -128,7 +128,7 @@ describe('render', function() {
       );
     });
 
-    test('no-zoom', async function() {
+    test('no-zoom', async function () {
       const output = window.marked("![alt text](http://imageUrl ':no-zoom')");
 
       expect(output).toMatchInlineSnapshot(
@@ -136,8 +136,8 @@ describe('render', function() {
       );
     });
 
-    describe('size', function() {
-      test('width and height', async function() {
+    describe('size', function () {
+      test('width and height', async function () {
         const output = window.marked(
           "![alt text](http://imageUrl ':size=WIDTHxHEIGHT')"
         );
@@ -147,7 +147,7 @@ describe('render', function() {
         );
       });
 
-      test('width', async function() {
+      test('width', async function () {
         const output = window.marked("![alt text](http://imageUrl ':size=50')");
 
         expect(output).toMatchInlineSnapshot(
@@ -159,8 +159,8 @@ describe('render', function() {
 
   // Headings
   // ---------------------------------------------------------------------------
-  describe('headings', function() {
-    test('h1', async function() {
+  describe('headings', function () {
+    test('h1', async function () {
       const output = window.marked('# h1 tag');
 
       expect(output).toMatchInlineSnapshot(
@@ -168,7 +168,7 @@ describe('render', function() {
       );
     });
 
-    test('h2', async function() {
+    test('h2', async function () {
       const output = window.marked('## h2 tag');
 
       expect(output).toMatchInlineSnapshot(
@@ -176,7 +176,7 @@ describe('render', function() {
       );
     });
 
-    test('h3', async function() {
+    test('h3', async function () {
       const output = window.marked('### h3 tag');
 
       expect(output).toMatchInlineSnapshot(
@@ -184,7 +184,7 @@ describe('render', function() {
       );
     });
 
-    test('h4', async function() {
+    test('h4', async function () {
       const output = window.marked('#### h4 tag');
 
       expect(output).toMatchInlineSnapshot(
@@ -192,7 +192,7 @@ describe('render', function() {
       );
     });
 
-    test('h5', async function() {
+    test('h5', async function () {
       const output = window.marked('##### h5 tag');
 
       expect(output).toMatchInlineSnapshot(
@@ -200,7 +200,7 @@ describe('render', function() {
       );
     });
 
-    test('h6', async function() {
+    test('h6', async function () {
       const output = window.marked('###### h6 tag');
 
       expect(output).toMatchInlineSnapshot(
@@ -209,8 +209,8 @@ describe('render', function() {
     });
   });
 
-  describe('link', function() {
-    test('regular', async function() {
+  describe('link', function () {
+    test('regular', async function () {
       const output = window.marked('[alt text](http://url)');
 
       expect(output).toMatchInlineSnapshot(
@@ -218,7 +218,7 @@ describe('render', function() {
       );
     });
 
-    test('linkrel', async function() {
+    test('linkrel', async function () {
       // const { docsify } = await init('default', {
       //   externalLinkTarget: '_blank',
       //   externalLinkRel: 'noopener',
@@ -230,7 +230,7 @@ describe('render', function() {
       );
     });
 
-    test('disabled', async function() {
+    test('disabled', async function () {
       const output = window.marked("[alt text](http://url ':disabled')");
 
       expect(output).toMatchInlineSnapshot(
@@ -238,7 +238,7 @@ describe('render', function() {
       );
     });
 
-    test('target', async function() {
+    test('target', async function () {
       const output = window.marked("[alt text](http://url ':target=_self')");
 
       expect(output).toMatchInlineSnapshot(
@@ -246,7 +246,7 @@ describe('render', function() {
       );
     });
 
-    test('class', async function() {
+    test('class', async function () {
       const output = window.marked(
         "[alt text](http://url ':class=someCssClass')"
       );
@@ -256,7 +256,7 @@ describe('render', function() {
       );
     });
 
-    test('id', async function() {
+    test('id', async function () {
       const output = window.marked("[alt text](http://url ':id=someCssID')");
 
       expect(output).toMatchInlineSnapshot(

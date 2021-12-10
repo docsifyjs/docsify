@@ -2,7 +2,7 @@
 function install(hook) {
   const dom = Docsify.dom;
 
-  hook.mounted(_ => {
+  hook.mounted((_) => {
     const div = dom.create('div');
     div.id = 'gitalk-container';
     const main = dom.getNode('#main');
@@ -10,7 +10,7 @@ function install(hook) {
     dom.appendTo(dom.find('.content'), div);
   });
 
-  hook.doneEach(_ => {
+  hook.doneEach((_) => {
     const el = document.getElementById('gitalk-container');
     while (el.hasChildNodes()) {
       el.removeChild(el.firstChild);

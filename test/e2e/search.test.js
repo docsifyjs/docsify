@@ -2,7 +2,7 @@ const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Search Plugin Tests', function() {
+describe('Search Plugin Tests', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('search readme', async () => {
@@ -99,7 +99,7 @@ describe('Search Plugin Tests', function() {
     await docsifyInit(docsifyInitConfig);
     await page.fill('input[type=search]', 'hello');
     await expect(page).toHaveSelector('.matching-post');
-    expect(await page.$$eval('.matching-post', elms => elms.length)).toBe(1);
+    expect(await page.$$eval('.matching-post', (elms) => elms.length)).toBe(1);
     await expect(page).toEqualText('.results-panel h2', 'Hello World');
     await page.click('.clear-button');
     await page.fill('input[type=search]', 'test');

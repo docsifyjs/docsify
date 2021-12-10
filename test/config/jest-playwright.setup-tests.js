@@ -1,4 +1,4 @@
-/* global browserName page */
+/* global browserName page TEST_HOST */
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 
 // Lifecycle Hooks

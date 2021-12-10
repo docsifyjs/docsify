@@ -44,7 +44,7 @@ export class HashHistory extends History {
     // to be able to tell these two scenarios apart
     let navigating = false;
 
-    on('click', e => {
+    on('click', (e) => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
       if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
@@ -52,7 +52,7 @@ export class HashHistory extends History {
       }
     });
 
-    on('hashchange', e => {
+    on('hashchange', (e) => {
       const source = navigating ? 'navigate' : 'history';
       navigating = false;
       cb({ event: e, source });

@@ -17,7 +17,7 @@ function init() {
 /**
  * Render progress bar
  */
-export default function({ loaded, total, step }) {
+export default function ({ loaded, total, step }) {
   let num;
 
   !barEl && init();
@@ -35,7 +35,7 @@ export default function({ loaded, total, step }) {
   if (num >= 95) {
     clearTimeout(timeId);
     // eslint-disable-next-line no-unused-vars
-    timeId = setTimeout(_ => {
+    timeId = setTimeout((_) => {
       barEl.style.opacity = 0;
       barEl.style.width = '0%';
     }, 200);

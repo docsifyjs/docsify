@@ -153,10 +153,10 @@ export default class Renderer {
         html = this.compiler.cover(html);
         break;
       case 'main':
-        tokens = await new Promise(r => {
+        tokens = await new Promise((r) => {
           prerenderEmbed(
             {
-              fetch: url => this._loadFile(this._getPath(url)),
+              fetch: (url) => this._loadFile(this._getPath(url)),
               compiler: this.compiler,
               raw: html,
             },

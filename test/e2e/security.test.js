@@ -1,6 +1,6 @@
 const docsifyInit = require('../helpers/docsify-init');
 
-describe(`Security`, function() {
+describe(`Security`, function () {
   const sharedOptions = {
     markdown: {
       homepage: '# Hello World',
@@ -10,7 +10,7 @@ describe(`Security`, function() {
     },
   };
 
-  describe(`Cross Site Scripting (XSS)`, function() {
+  describe(`Cross Site Scripting (XSS)`, function () {
     const slashStrings = ['//', '///'];
 
     for (const slashString of slashStrings) {
@@ -21,7 +21,7 @@ describe(`Security`, function() {
         await expect(page).toHaveText('#main', 'Hello World');
         await page.evaluate(() => (location.hash = '#/test'));
         await expect(page).toHaveText('#main', 'Test Page');
-        await page.evaluate(newHash => {
+        await page.evaluate((newHash) => {
           location.hash = newHash;
         }, hash);
         await expect(page).toHaveText('#main', 'Hello World');

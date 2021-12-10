@@ -3,7 +3,7 @@ import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Docs Site', function() {
+describe('Docs Site', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('coverpage renders and is unchanged', async () => {

@@ -8,7 +8,7 @@ function handleExternalScript() {
     if (script && script.src) {
       const newScript = document.createElement('script');
 
-      Array.prototype.slice.call(script.attributes).forEach(attribute => {
+      Array.prototype.slice.call(script.attributes).forEach((attribute) => {
         newScript[attribute.name] = attribute.value;
       });
 
@@ -18,7 +18,7 @@ function handleExternalScript() {
   }
 }
 
-const install = function(hook) {
+const install = function (hook) {
   hook.doneEach(handleExternalScript);
 };
 

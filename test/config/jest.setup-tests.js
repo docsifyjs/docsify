@@ -23,7 +23,7 @@ const sideEffects = {
 // -----------------------------------------------------------------------------
 beforeAll(async () => {
   // Spy addEventListener
-  ['document', 'window'].forEach(obj => {
+  ['document', 'window'].forEach((obj) => {
     const fn = sideEffects[obj].addEventListener.fn;
     const refs = sideEffects[obj].addEventListener.refs;
 
@@ -50,7 +50,7 @@ beforeEach(async () => {
   const rootElm = document.documentElement;
 
   // Remove attributes on root element
-  [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
+  [...rootElm.attributes].forEach((attr) => rootElm.removeAttribute(attr.name));
 
   // Remove elements (faster than setting innerHTML)
   while (rootElm.firstChild) {
@@ -58,7 +58,7 @@ beforeEach(async () => {
   }
 
   // Remove global listeners and keys
-  ['document', 'window'].forEach(obj => {
+  ['document', 'window'].forEach((obj) => {
     const refs = sideEffects[obj].addEventListener.refs;
 
     // Listeners
@@ -69,8 +69,8 @@ beforeEach(async () => {
 
     // Keys
     Object.keys(global[obj])
-      .filter(key => !sideEffects[obj].keys.includes(key))
-      .forEach(key => {
+      .filter((key) => !sideEffects[obj].keys.includes(key))
+      .forEach((key) => {
         delete global[obj][key];
       });
   });

@@ -5,10 +5,10 @@ import * as getTimeOfDayModule from './fixtures/get-time-of-day.js';
 
 // Suite
 // -----------------------------------------------------------------------------
-describe(`Example Tests`, function() {
+describe(`Example Tests`, function () {
   // Tests
   // ---------------------------------------------------------------------------
-  describe('Jest & JSDOM basics', function() {
+  describe('Jest & JSDOM basics', function () {
     test('dom manipulation (jsdom)', () => {
       const testText = 'This is a test';
       const testHTML = `<h1>Test</h1><p>${testText}</p>`;
@@ -65,7 +65,7 @@ describe(`Example Tests`, function() {
   //   });
   // });
 
-  describe('Mocks & Spys', function() {
+  describe('Mocks & Spys', function () {
     // TODO not able to mock native ES Modules yet, https://github.com/facebook/jest/issues/10025
     test.skip('mock import dependency using jest.fn()', async () => {
       const testModule = { ...(await import('./fixtures/get-time-of-day.js')) };

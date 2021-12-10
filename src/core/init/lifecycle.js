@@ -21,23 +21,23 @@ export function Lifecycle(Base) {
       this._hooks = {};
       this._lifecycle = {};
 
-      hooks.forEach(hook => {
+      hooks.forEach((hook) => {
         const arr = (this._hooks[hook] = []);
-        this._lifecycle[hook] = fn => arr.push(fn);
+        this._lifecycle[hook] = (fn) => arr.push(fn);
       });
     }
 
     callHook(hookName, data, next = noop) {
       const queue = this._hooks[hookName];
 
-      const step = function(index) {
+      const step = function (index) {
         const hookFn = queue[index];
 
         if (index >= queue.length) {
           next(data);
         } else if (typeof hookFn === 'function') {
           if (hookFn.length === 2) {
-            hookFn(data, result => {
+            hookFn(data, (result) => {
               data = result;
               step(index + 1);
             });

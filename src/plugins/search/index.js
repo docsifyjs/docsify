@@ -13,7 +13,7 @@ const CONFIG = {
   pathNamespaces: undefined,
 };
 
-const install = function(hook, vm) {
+const install = function (hook, vm) {
   const { util } = Docsify;
   const opts = vm.config.search || CONFIG;
 
@@ -33,11 +33,11 @@ const install = function(hook, vm) {
 
   const isAuto = CONFIG.paths === 'auto';
 
-  hook.mounted(_ => {
+  hook.mounted((_) => {
     initComponent(CONFIG, vm);
     !isAuto && initSearch(CONFIG, vm);
   });
-  hook.doneEach(_ => {
+  hook.doneEach((_) => {
     updateComponent(CONFIG, vm);
     isAuto && initSearch(CONFIG, vm);
   });

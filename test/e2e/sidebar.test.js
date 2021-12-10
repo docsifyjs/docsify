@@ -2,7 +2,7 @@ const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Sidebar Tests', function() {
+describe('Sidebar Tests', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('Active Test', async () => {

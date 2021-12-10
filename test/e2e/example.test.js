@@ -1,10 +1,12 @@
+/* global TEST_HOST */
+
 // Modules, constants, and variables
 // -----------------------------------------------------------------------------
 const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
-describe(`Example Tests`, function() {
+describe(`Example Tests`, function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('dom manipulation', async () => {
@@ -17,7 +19,7 @@ describe(`Example Tests`, function() {
 
     // Add class to <body> element and test
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevalselector-pagefunction-arg
-    await page.$eval('body', elm => elm.classList.add('foo'));
+    await page.$eval('body', (elm) => elm.classList.add('foo'));
     expect(await page.getAttribute('body', 'class')).toEqual('foo');
 
     // Test using helper methods from expect-playright (via jest-playwright)
@@ -58,7 +60,7 @@ describe(`Example Tests`, function() {
     // Get result of script executed in browser context
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevaluatepagefunction-arg
     const scriptResult = await page.evaluate(
-      numbers => {
+      (numbers) => {
         const result = numbers.reduce(
           (accumulator, currentValue) => accumulator + currentValue
         );
@@ -106,7 +108,7 @@ describe(`Example Tests`, function() {
 
     // Add docsify target element
     // https://playwright.dev/#path=docs%2Fapi.md&q=pageevalselector-pagefunction-arg
-    await page.$eval('body', elm => {
+    await page.$eval('body', (elm) => {
       elm.innerHTML = '<div id="app"></div>';
     });
 
@@ -240,9 +242,9 @@ describe(`Example Tests`, function() {
 
     // Verify docsifyInitConfig.script was added to the DOM
     expect(
-      await page.evaluate(scriptText => {
+      await page.evaluate((scriptText) => {
         return [...document.querySelectorAll('script')].some(
-          elm => elm.textContent.replace(/\s+/g, '') === scriptText
+          (elm) => elm.textContent.replace(/\s+/g, '') === scriptText
         );
       }, docsifyInitConfig.script.replace(/\s+/g, ''))
     ).toBe(true);
@@ -262,9 +264,9 @@ describe(`Example Tests`, function() {
 
     // Verify docsifyInitConfig.style was added to the DOM
     expect(
-      await page.evaluate(styleText => {
+      await page.evaluate((styleText) => {
         return [...document.querySelectorAll('style')].some(
-          elm => elm.textContent.replace(/\s+/g, '') === styleText
+          (elm) => elm.textContent.replace(/\s+/g, '') === styleText
         );
       }, docsifyInitConfig.style.replace(/\s+/g, ''))
     ).toBe(true);

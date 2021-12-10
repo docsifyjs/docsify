@@ -1,7 +1,7 @@
 import { helper as helperTpl } from '../tpl';
 
 export const paragraphCompiler = ({ renderer }) =>
-  (renderer.paragraph = text => {
+  (renderer.paragraph = (text) => {
     let result;
     if (/^!&gt;/.test(text)) {
       result = helperTpl('tip', text);
