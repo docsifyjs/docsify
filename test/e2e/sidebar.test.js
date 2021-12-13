@@ -56,8 +56,8 @@ describe('Sidebar Tests', function() {
     expect(page.url()).toMatch(/\/test-foo$/);
 
     await page.click('a[href="#/test.foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test .');
     expect(page.url()).toMatch(/\/test.foo$/);
+    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test .');
 
     await page.click('a[href="#/test>foo"]');
     await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test >');

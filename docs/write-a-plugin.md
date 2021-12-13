@@ -75,6 +75,8 @@ window.$docsify = {
 
 ```js
 window.$docsify = {
+  // The date template pattern
+  formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
   plugins: [
     function(hook, vm) {
       hook.beforeEach(function(html) {
