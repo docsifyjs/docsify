@@ -29,7 +29,9 @@ export function Fetch(Base) {
   let last;
 
   const abort = () => last && last.abort && last.abort();
+
   const request = (url, hasbar, requestHeaders) => {
+    // Abort last request
     abort();
     last = get(url, true, requestHeaders);
     return last;
@@ -81,7 +83,7 @@ export function Fetch(Base) {
       };
     }
 
-    _fetch(cb = noop) {
+    _fetch(cb = noop, onlyCover = false) {
       const { query } = this.route;
       let { path } = this.route;
 
@@ -92,40 +94,66 @@ export function Fetch(Base) {
         this.router.normalize();
       } else {
         const qs = stringifyQuery(query, ['id']);
-        const { loadNavbar, requestHeaders, loadSidebar } = this.config;
-        // Abort last request
 
-        const file = this.router.getFile(path);
-        const req = request(file + qs, true, requestHeaders);
+        const actions = [];
 
-        this.isRemoteUrl = isExternal(file);
-        // Current page is html
-        this.isHTML = /\.html$/g.test(file);
+        if (!onlyCover) {
+          let resolve;
+          const promise = new Promise(res => (resolve = res));
+          actions.push(promise);
 
-        // Load main content
-        req.then(
-          (text, opt) =>
-            this._renderMain(
-              text,
-              opt,
-              this._loadSideAndNav(path, qs, loadSidebar, cb)
-            ),
-          _ => {
-            this._fetchFallbackPage(path, qs, cb) ||
-              this._fetch404(file, qs, cb);
-          }
-        );
+          const { requestHeaders, loadSidebar } = this.config;
+
+          const file = this.router.getFile(path);
+          const req = request(file + qs, true, requestHeaders);
+
+          this.isRemoteUrl = isExternal(file);
+          // Current page is html
+          this.isHTML = /\.html$/g.test(file);
+
+          // Load main content
+          req.then(
+            (text, opt) =>
+              this._renderMain(
+                text,
+                opt,
+                this._loadSideAndNav(path, qs, loadSidebar, resolve)
+              ),
+            _ => {
+              this._fetchFallbackPage(path, qs, resolve) ||
+                this._fetch404(file, qs, resolve);
+            }
+          );
+        }
+
+        const { loadNavbar, loadNavbarOnCover } = this.config;
 
         // Load nav
-        loadNavbar &&
+        while (loadNavbar) {
+          // If we're on the cover page, don't load the navbar if loadNavbarOnCover is false.
+          if (onlyCover && !loadNavbarOnCover) break; // eslint-disable-line
+
+          let resolve;
+          const promise = new Promise(res => (resolve = res));
+          actions.push(promise);
+
           loadNested(
             path,
             qs,
             loadNavbar,
-            text => this._renderNav(text),
+            text => {
+              this._renderNav(text);
+              resolve();
+            },
             this,
             true
           );
+
+          break;
+        }
+
+        // Wait for all actions to finish before calling the callback.
+        Promise.all(actions).then(cb);
       }
     }
 
@@ -173,14 +201,10 @@ export function Fetch(Base) {
 
       const onlyCover = this._fetchCover();
 
-      if (onlyCover) {
+      this._fetch(() => {
+        $resetEvents();
         done();
-      } else {
-        this._fetch(() => {
-          $resetEvents();
-          done();
-        });
-      }
+      }, onlyCover);
     }
 
     _fetchFallbackPage(path, qs, cb = noop) {
