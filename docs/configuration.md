@@ -16,7 +16,7 @@ The config can also be defined as a function, in which case the first argument i
 
 ```html
 <script>
-  window.$docsify = function(vm) {
+  window.$docsify = function (vm) {
     return {
       markdown: {
         renderer: {
@@ -85,6 +85,22 @@ window.$docsify = {
 
   // load from nav.md
   loadNavbar: 'nav.md',
+};
+```
+
+## onlyCoverNavbar
+
+- Type: `Boolean`
+- Default: `false`
+
+By default the cover page will not show the navbar when
+[`onlyCover`](./configuration.md#onlycover) is `true`. Set `onlyCoverNavbar`
+to `true` to always show the nav bar.
+
+```js
+window.$docsify = {
+  onlyCover: true,
+  onlyCoverNavbar: true,
 };
 ```
 
@@ -319,14 +335,14 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function() {
+      link: function () {
         // ...
       },
     },
   },
 
   // function
-  markdown: function(marked, renderer) {
+  markdown: function (marked, renderer) {
     // ...
     return marked;
   },
@@ -435,7 +451,7 @@ See https://github.com/lukeed/tinydate#patterns
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function(time) {
+  formatUpdated: function (time) {
     // ...
 
     return time;
@@ -522,13 +538,15 @@ window.$docsify = {
 
 - type: `Boolean`
 
-Only coverpage is loaded when visiting the home page.
+Only coverpage is loaded when visiting the home page. Users will have to click a link to visit other pages instead of scrolling down.
 
 ```js
 window.$docsify = {
   onlyCover: false,
 };
 ```
+
+By default, the nav bar is not loaded on the cover page. See the [`onlyCoverNavbar`](./configuration.md#onlycovernavbar) option.
 
 ## requestHeaders
 

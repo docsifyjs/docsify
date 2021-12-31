@@ -6,7 +6,7 @@ import cssVars from '../util/polyfill/css-vars';
 import { getAndActive, sticky } from '../event/sidebar';
 import { getPath, isAbsolutePath } from '../router/util';
 import { isMobile, inBrowser } from '../util/env';
-import { isPrimitive, merge } from '../util/core';
+import { isPrimitive, merge, noop } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
 import * as tpl from './tpl';
