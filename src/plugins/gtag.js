@@ -12,10 +12,14 @@ function init(id) {
   appendScript(id);
 
   window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function () { dataLayer.push(arguments); }
+  window.gtag =
+    window.gtag ||
+    function() {
+      window.dataLayer.push(arguments);
+    };
 
-  gtag('js', new Date());
-  gtag('config', id);
+  window.gtag('js', new Date());
+  window.gtag('config', id);
 }
 
 function collect() {
@@ -27,11 +31,11 @@ function collect() {
   window.gtag('event', 'page_view', {
     page_title: document.title,
     page_location: location.href,
-    page_path: location.pathname
-  })
+    page_path: location.pathname,
+  });
 }
 
-const install = function (hook) {
+const install = function(hook) {
   if (!$docsify.ga) {
     console.error('[Docsify] ga is required.');
     return;

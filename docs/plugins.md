@@ -89,6 +89,28 @@ Configure by `data-ga`.
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 
+## Google Universal Analytics (gtag.js)
+
+Usage is same as `Google Analytics`.
+
+```html
+<script>
+  window.$docsify = {
+    ga: 'UA-XXXXX-Y'
+  }
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
+```
+
+Configure by `data-ga`.
+
+```html
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
+```
+
+
 ## emoji
 
 The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
