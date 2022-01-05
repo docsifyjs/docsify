@@ -32,14 +32,24 @@ The config can also be defined as a function, in which case the first argument i
 
 ## el
 
-- Type: `String`
-- Default: `#app`
+- Type: `String | HTMLElement`
+- Default: `"#app"`
 
 The DOM element to be mounted on initialization. It can be a CSS selector string or an actual [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement).
 
 ```js
 window.$docsify = {
   el: '#app',
+};
+```
+
+or
+
+```js
+const someElement = document.querySelector('#someElement');
+
+window.$docsify = {
+  el: someElement,
 };
 ```
 

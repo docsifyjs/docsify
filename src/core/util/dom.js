@@ -29,15 +29,30 @@ export const head = inBrowser && $.head;
 
 /**
  * Find elements
- * @param {String|Element} el The root element where to perform the search from
- * @param {Element} node The query
- * @returns {Element} The found DOM element
+ * @param {String|Element} elOrQuery The query to use on document, or the root element on which to use a query.
+ * @param {Element} query The query to use on elOrQuery if elOrQuery is an element.
+ * @returns {Element} If elOrQuery is an element and query is not provided, elOrQuery is returned. Otherwise, the found DOM element is returned.
  * @example
  * find('nav') => document.querySelector('nav')
  * find(nav, 'a') => nav.querySelector('a')
  */
-export function find(el, node) {
-  return node ? el.querySelector(node) : $.querySelector(el);
+export function find(elOrQuery, query) {
+  let root;
+
+  // f.e. dom.find('#foo') or dom.find(el)
+  if (arguments.length === 1) {
+    if (elOrQuery instanceof Element) {
+      return elOrQuery;
+    }
+    root = $;
+    query = elOrQuery;
+  }
+  // f.e. dom.find(el, "#foo")
+  else if (arguments.length === 2) {
+    root = elOrQuery;
+  }
+
+  return root.querySelector(query);
 }
 
 /**
