@@ -1,3 +1,30 @@
+## [4.12.2](https://github.com/docsifyjs/docsify/compare/v4.12.1...v4.12.2) (2022-01-06)
+
+
+### Bug Fixes
+
+* Add escapeHtml for search ([#1551](https://github.com/docsifyjs/docsify/issues/1551)) ([c24f7f6](https://github.com/docsifyjs/docsify/commit/c24f7f6f0b87a87f6dd3755f69eb0969ebb029c9))
+* allow also " inside of an embed ([ec16e4a](https://github.com/docsifyjs/docsify/commit/ec16e4a9d5718ac4f4c25bb3dcaea3b7551372e0))
+* buble theme missing generic fallback font ([#1568](https://github.com/docsifyjs/docsify/issues/1568)) ([37d9f0e](https://github.com/docsifyjs/docsify/commit/37d9f0e1214276e93b2a11ed87390aafa1bdbcec))
+* Cannot read property 'classList' of null ([#1527](https://github.com/docsifyjs/docsify/issues/1527)) ([d6df2b8](https://github.com/docsifyjs/docsify/commit/d6df2b85a99371bb9a87402a10dd515bb734182e)), closes [/github.com/docsifyjs/docsify/pull/1527#issuecomment-793455105](https://github.com//github.com/docsifyjs/docsify/pull/1527/issues/issuecomment-793455105)
+* Cannot read property 'tagName' of null ([#1655](https://github.com/docsifyjs/docsify/issues/1655)) ([c3cdadc](https://github.com/docsifyjs/docsify/commit/c3cdadc37137edcd9e219359973902d2fc8b66ff)), closes [#1154](https://github.com/docsifyjs/docsify/issues/1154) [/github.com/docsifyjs/docsify/blob/develop/src/core/router/history/html5.js#L25-L27](https://github.com//github.com/docsifyjs/docsify/blob/develop/src/core/router/history/html5.js/issues/L25-L27) [/github.com/docsifyjs/docsify/blob/develop/src/core/router/history/hash.js#L47-L49](https://github.com//github.com/docsifyjs/docsify/blob/develop/src/core/router/history/hash.js/issues/L47-L49)
+* upgrade debug from 4.3.2 to 4.3.3 ([#1692](https://github.com/docsifyjs/docsify/issues/1692)) ([40e7749](https://github.com/docsifyjs/docsify/commit/40e77490c68b4143c75dfaebcd0b7f640581306b))
+* Upgrade docsify from 4.12.0 to 4.12.1 ([#1544](https://github.com/docsifyjs/docsify/issues/1544)) ([d607f6d](https://github.com/docsifyjs/docsify/commit/d607f6d71c35b50f586806a832f65061f5e3427e))
+* upgrade dompurify from 2.2.6 to 2.2.7 ([#1552](https://github.com/docsifyjs/docsify/issues/1552)) ([407e4d4](https://github.com/docsifyjs/docsify/commit/407e4d4f3de78bebd639a3fdae751f8045728e57))
+* Upgrade dompurify from 2.2.6 to 2.2.7 ([#1553](https://github.com/docsifyjs/docsify/issues/1553)) ([93c48f3](https://github.com/docsifyjs/docsify/commit/93c48f3d615d95dba550a0e95df6b545d68c3593))
+* upgrade dompurify from 2.2.7 to 2.2.8 ([#1577](https://github.com/docsifyjs/docsify/issues/1577)) ([0dd44cc](https://github.com/docsifyjs/docsify/commit/0dd44cc828cc54f7c3b776d45b32925b66cae499))
+* upgrade dompurify from 2.2.7 to 2.3.0 ([#1619](https://github.com/docsifyjs/docsify/issues/1619)) ([66303fe](https://github.com/docsifyjs/docsify/commit/66303fec4c7115621e556ad742cfac9d19f26bd9))
+* upgrade dompurify from 2.2.8 to 2.2.9 ([#1600](https://github.com/docsifyjs/docsify/issues/1600)) ([baf5a8a](https://github.com/docsifyjs/docsify/commit/baf5a8a4962656d8be8f714283064d2ea10c7e14))
+* upgrade dompurify from 2.2.9 to 2.3.0 ([#1616](https://github.com/docsifyjs/docsify/issues/1616)) ([b07fa3c](https://github.com/docsifyjs/docsify/commit/b07fa3cc8323e63dd7b105c7e29b2e1914f5c117))
+* upgrade dompurify from 2.3.0 to 2.3.1 ([#1635](https://github.com/docsifyjs/docsify/issues/1635)) ([5ac8237](https://github.com/docsifyjs/docsify/commit/5ac8237cc76e19ca2b373a1a1da6eb4a4da6d8b2))
+* upgrade dompurify from 2.3.1 to 2.3.2 ([#1647](https://github.com/docsifyjs/docsify/issues/1647)) ([ff6acfa](https://github.com/docsifyjs/docsify/commit/ff6acfa7623a7db8b00d62c51a9c3037215c4888))
+* upgrade node-fetch from 2.6.1 to 2.6.2 ([#1641](https://github.com/docsifyjs/docsify/issues/1641)) ([6ee1c14](https://github.com/docsifyjs/docsify/commit/6ee1c142769a6442aa8c1523ab215106707fa7fc))
+* upgrade node-fetch from 2.6.2 to 2.6.4 ([#1649](https://github.com/docsifyjs/docsify/issues/1649)) ([6f81034](https://github.com/docsifyjs/docsify/commit/6f81034ba6a7a6b64ccf1acd2d1fc73761f70a63))
+* upgrade node-fetch from 2.6.4 to 2.6.5 ([#1654](https://github.com/docsifyjs/docsify/issues/1654)) ([d16e657](https://github.com/docsifyjs/docsify/commit/d16e657f708777e8377d8e158b50b4010623282d))
+* upgrade node-fetch from 2.6.5 to 2.6.6 ([#1668](https://github.com/docsifyjs/docsify/issues/1668)) ([cefe3f8](https://github.com/docsifyjs/docsify/commit/cefe3f87e697a6c54a74d601df2eeb331fcd8933))
+
+
+
 ## [4.12.1](https://github.com/docsifyjs/docsify/compare/v4.12.0...v4.12.1) (2021-03-07)
 
 
