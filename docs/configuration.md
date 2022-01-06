@@ -301,8 +301,8 @@ window.$docsify = {
 
   // For each route
   nameLink: {
-    '/zh-cn/': '/zh-cn/',
-    '/': '/',
+    '/zh-cn/': '#/zh-cn/',
+    '/': '#/',
   },
 };
 ```
@@ -508,9 +508,9 @@ window.$docsify = {
 
 ## noCompileLinks
 
-- type: `Array`
+- type: `Array<string>`
 
-Sometimes we do not want docsify to handle our links. See [#203](https://github.com/docsifyjs/docsify/issues/203)
+Sometimes we do not want docsify to handle our links. See [#203](https://github.com/docsifyjs/docsify/issues/203). We can skip compiling of certain links by specifying an array of strings. Each string is converted into to a regular expression (`RegExp`) and the _whole_ href of a link is matched against it.
 
 ```js
 window.$docsify = {
