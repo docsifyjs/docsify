@@ -15,10 +15,10 @@
     "test": "echo 'hello'"
   },
   "dependencies": {
-    "debug": "^4.3.2",
+    "debug": "^4.3.3",
     "docsify": "^4.12.1",
     "dompurify": "^2.3.2",
-    "node-fetch": "^2.6.5",
+    "node-fetch": "^2.6.6",
     "resolve-pathname": "^3.0.0"
   }
 }
