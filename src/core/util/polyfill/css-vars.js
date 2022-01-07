@@ -28,7 +28,7 @@ export default function(color) {
       }
 
       get(href).then(res => {
-        const style = <style innerHTML={res}></style>;
+        const style = <style>{res}</style>;
 
         dom.head.appendChild(style);
         replaceVar(style, color);

@@ -137,14 +137,10 @@ export function markdownParagraph(className, content) {
 
 export function theme(color) {
   return (
-    <style
-      innerHTML={
-        /* css */ `
-          :root {
-            --theme-color: ${color};
-          }
-        `
+    <style>{/* css */ `
+      :root {
+        --theme-color: ${color};
       }
-    ></style>
+    `}</style>
   );
 }

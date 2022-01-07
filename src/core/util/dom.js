@@ -101,7 +101,7 @@ export function toggleClass(el, type, val) {
 }
 
 export function style(content) {
-  appendTo(head, <style innerHTML={content}></style>);
+  appendTo(head, <style>{content}</style>);
 }
 
 /**
