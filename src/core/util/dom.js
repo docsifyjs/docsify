@@ -55,6 +55,8 @@ export function findAll(el, node) {
   );
 }
 
+// This is no longer used in Docsify core, but it is exported and some
+// plugins still use it (f.e. the search plugin).
 export function create(node, tpl) {
   node = $.createElement(node);
   if (tpl) {
@@ -99,7 +101,7 @@ export function toggleClass(el, type, val) {
 }
 
 export function style(content) {
-  appendTo(head, create('style', content));
+  appendTo(head, <style innerHTML={content}></style>);
 }
 
 /**

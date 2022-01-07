@@ -1,9 +1,9 @@
 const rollup = require('rollup')
-const buble = require('rollup-plugin-buble')
-const commonjs = require('rollup-plugin-commonjs')
-const nodeResolve = require('rollup-plugin-node-resolve')
-const { uglify } = require('rollup-plugin-uglify')
-const replace = require('rollup-plugin-replace')
+const babel = require('@rollup/plugin-babel').default
+const commonjs = require('@rollup/plugin-commonjs')
+const nodeResolve = require('@rollup/plugin-node-resolve').default
+const { terser: uglify } = require('rollup-plugin-terser')
+const replace = require('@rollup/plugin-replace')
 const isProd = process.env.NODE_ENV === 'production'
 const version = process.env.VERSION || require('../package.json').version
 const chokidar = require('chokidar')
@@ -22,10 +22,10 @@ async function build(opts) {
     .rollup({
       input: opts.input,
       plugins: (opts.plugins || []).concat([
-        buble({
-          transforms: {
-            dangerousForOf: true
-          }}),
+        babel({
+          babelHelpers: "bundled",
+          presets: ['babel-preset-solid']
+        }),
         commonjs(),
         nodeResolve(),
         replace({
@@ -49,10 +49,12 @@ async function build(opts) {
 
       console.log(dest)
       return bundle.write({
-        format: 'iife',
-        output: opts.globalName ? {name: opts.globalName} : {},
-        file: dest,
-        strict: false
+        output: {
+          format: 'iife',
+          name: opts.globalName, 
+          file: dest,
+          strict: false
+        },
       })
     })
 }

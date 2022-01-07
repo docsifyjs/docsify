@@ -249,7 +249,11 @@ export function Render(Base) {
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
-        node[replace ? 'outerHTML' : 'innerHTML'] = content;
+        if (typeof content === 'string') {
+          node[replace ? 'outerHTML' : 'innerHTML'] = content;
+        } else if (Array.isArray(content)) {
+          node[replace ? 'replaceWith' : 'append'](...content.flat(Infinity));
+        }
       }
     }
 
@@ -293,7 +297,7 @@ export function Render(Base) {
         const firstNode = main.children[0];
         if (firstNode && firstNode.tagName !== 'H1') {
           const h1 = this.compiler.header(activeEl.innerText, 1);
-          const wrapper = dom.create('div', h1);
+          const wrapper = <div>{h1}</div>;
           dom.before(main, wrapper.children[0]);
         }
       }
@@ -410,19 +414,19 @@ export function Render(Base) {
       }
 
       const id = config.el || '#app';
-      const navEl = dom.find('nav') || dom.create('nav');
+      const navEl = dom.find('nav') || <nav />;
 
       const el = dom.find(id);
-      let html = '';
+      let html = [];
       let navAppendToTarget = dom.body;
 
       if (el) {
         if (config.repo) {
-          html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
+          html.push(tpl.corner(config.repo, config.cornerExternalLinkTarge));
         }
 
         if (config.coverpage) {
-          html += tpl.cover();
+          html.push(tpl.cover());
         }
 
         if (config.logo) {
@@ -435,7 +439,7 @@ export function Render(Base) {
           }
         }
 
-        html += tpl.main(config);
+        html.push(tpl.main(config));
         // Render main app
         this._renderTo(el, html, true);
       } else {
@@ -458,9 +462,7 @@ export function Render(Base) {
       }
 
       if (config.themeColor) {
-        dom.$.head.appendChild(
-          dom.create('div', tpl.theme(config.themeColor)).firstElementChild
-        );
+        dom.$.head.appendChild(tpl.theme(config.themeColor));
         // Polyfll
         cssVars(config.themeColor);
       }

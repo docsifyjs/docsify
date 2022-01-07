@@ -8,6 +8,8 @@ function replaceVar(block, color) {
   );
 }
 
+// TODO Do we need this? Every browser has CSS vars nowadays. Is this even being used?
+
 export default function(color) {
   // Variable support
   if (window.CSS && window.CSS.supports && window.CSS.supports('(--v:red)')) {
@@ -26,7 +28,7 @@ export default function(color) {
       }
 
       get(href).then(res => {
-        const style = dom.create('style', res);
+        const style = <style innerHTML={res}></style>;
 
         dom.head.appendChild(style);
         replaceVar(style, color);

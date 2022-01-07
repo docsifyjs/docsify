@@ -7,9 +7,8 @@ let timeId;
  * Init progress component
  */
 function init() {
-  const div = dom.create('div');
+  const div = <div class="progress" />;
 
-  div.classList.add('progress');
   dom.appendTo(dom.body, div);
   barEl = div;
 }

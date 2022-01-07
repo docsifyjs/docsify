@@ -1,7 +1,7 @@
 var rollup = require('rollup')
-var buble = require('rollup-plugin-buble')
+var babel = require('@rollup/plugin-babel').default
 var async = require('rollup-plugin-async')
-var replace = require('rollup-plugin-replace')
+var replace = require('@rollup/plugin-replace')
 
 rollup
   .rollup({
@@ -12,11 +12,10 @@ rollup
         __VERSION__: process.env.VERSION || require('../package.json').version,
         'process.env.SSR': true
       }),
-      buble({
-        transforms: {
-          generator: false
-        }
-      })
+      babel({
+        babelHelpers: "bundled",
+        presets: ['babel-preset-solid']
+      }),
     ],
     onwarn: function () {}
   })
