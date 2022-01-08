@@ -20,6 +20,7 @@ module.exports = {
     // Unit Tests (Jest)
     {
       ...sharedConfig,
+      preset: 'solid-jest/preset/browser',
       displayName: 'unit',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/unit/*.test.js'],
@@ -28,6 +29,7 @@ module.exports = {
     // Integration Tests (Jest)
     {
       ...sharedConfig,
+      preset: 'solid-jest/preset/browser',
       displayName: 'integration',
       setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
       testMatch: ['<rootDir>/test/integration/*.test.js'],

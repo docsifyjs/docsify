@@ -97,12 +97,19 @@ export function cover() {
     `hsl(${Math.floor(Math.random() * 255) + SL}) 0%,` +
     `hsl(${Math.floor(Math.random() * 255) + SL}) 100%)`;
 
-  return (
+  const el = (
     <section class="cover show" style={`background: ${bgc}`}>
       <div class="mask"></div>
       <div class="cover-main" innerHTML={'<!--cover-->'}></div>
     </section>
   );
+
+  // Bug with Jest/jsdom: at this point, the styles exist, Docsify works
+  // and this log will show the background value. But only during Jest tests, the
+  // bakground value is empty. This is why the snapshot
+  // console.log('cover style?', el.style.background);
+
+  return el;
 }
 
 /**

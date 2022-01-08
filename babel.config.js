@@ -1,12 +1,6 @@
 module.exports = {
   presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          node: 'current',
-        },
-      },
-    ],
+    ['babel-preset-solid', { generate: 'dom', hydratable: true }],
+    ['@babel/preset-env', { targets: { node: 'current' } }],
   ],
 };

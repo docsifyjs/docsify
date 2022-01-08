@@ -41,21 +41,18 @@ function isExternal(url) {
 }
 
 function mainTpl(config) {
-  let html = `<nav class="app-nav${
-    config.repo ? '' : ' no-badge'
-  }"><!--navbar--></nav>`;
+  return (
+    <>
+      <nav
+        class={`app-nav${config.repo ? '' : ' no-badge'}`}
+        innerHTML={'<!--navbar-->'}
+      ></nav>
 
-  if (config.repo) {
-    html += tpl.corner(config.repo);
-  }
-
-  if (config.coverpage) {
-    html += tpl.cover();
-  }
-
-  html += tpl.main(config);
-
-  return html;
+      {config.repo && tpl.corner(config.repo)}
+      {config.coverpage && tpl.cover()}
+      {tpl.main(config)}
+    </>
+  );
 }
 
 export default class Renderer {

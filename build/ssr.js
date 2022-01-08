@@ -1,13 +1,11 @@
 var rollup = require('rollup')
 var babel = require('@rollup/plugin-babel').default
-var async = require('rollup-plugin-async')
 var replace = require('@rollup/plugin-replace')
 
 rollup
   .rollup({
     input: 'packages/docsify-server-renderer/index.js',
     plugins: [
-      async(),
       replace({
         __VERSION__: process.env.VERSION || require('../package.json').version,
         'process.env.SSR': true

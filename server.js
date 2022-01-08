@@ -1,3 +1,7 @@
+// TODO Replace live-server with something that doesn't use `@latest` for all of
+// its dependencies (because it means it any npm install can install a breaking
+// change and things like this happen:
+// https://github.com/Marak/colors.js/issues/285)
 const liveServer = require('live-server')
 const isSSR = !!process.env.SSR
 const middleware = []
