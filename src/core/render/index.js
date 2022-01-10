@@ -9,7 +9,7 @@ import { isMobile, inBrowser } from '../util/env';
 import { isPrimitive, merge } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
-import * as tpl from './tpl';
+import { GithubCorner, Cover, Main, Theme } from './tpl';
 import { prerenderEmbed } from './embed';
 
 let vueGlobalData;
@@ -422,11 +422,17 @@ export function Render(Base) {
 
       if (el) {
         if (config.repo) {
-          html.push(tpl.corner(config.repo, config.cornerExternalLinkTarge));
+          html.push(
+            <GithubCorner
+              githubUrl={config.repo}
+              cornerExternalLinkTarget={config.cornerExternalLinkTarget}
+            />
+          );
         }
 
         if (config.coverpage) {
-          html.push(tpl.cover());
+          // eslint-disable-next-line new-cap
+          html.push(<Cover />);
         }
 
         if (config.logo) {
@@ -439,7 +445,9 @@ export function Render(Base) {
           }
         }
 
-        html.push(tpl.main(config));
+        // eslint-disable-next-line new-cap
+        html.push(<Main {...config} />);
+
         // Render main app
         this._renderTo(el, html, true);
       } else {
@@ -462,7 +470,7 @@ export function Render(Base) {
       }
 
       if (config.themeColor) {
-        dom.$.head.appendChild(tpl.theme(config.themeColor));
+        dom.$.head.appendChild(<Theme color={config.themeColor} />);
         // Polyfll
         cssVars(config.themeColor);
       }

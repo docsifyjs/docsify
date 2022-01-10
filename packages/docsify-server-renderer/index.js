@@ -7,7 +7,8 @@ import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
-import * as tpl from '../../src/core/render/tpl';
+// eslint-disable-next-line
+import { GithubCorner, Cover, Main } from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
 
 function cwd(...args) {
@@ -47,10 +48,14 @@ function mainTpl(config) {
         class={`app-nav${config.repo ? '' : ' no-badge'}`}
         innerHTML={'<!--navbar-->'}
       ></nav>
-
-      {config.repo && tpl.corner(config.repo)}
-      {config.coverpage && tpl.cover()}
-      {tpl.main(config)}
+      {config.repo && (
+        <GithubCorner
+          githubUrl={config.repo}
+          cornerExternalLinkTarget={config.cornerExternalLinkTarge}
+        />
+      )}
+      {config.coverpage && <Cover />}
+      <Main {...config} />
     </>
   );
 }

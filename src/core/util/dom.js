@@ -5,9 +5,9 @@ const cacheNode = {};
 
 /**
  * Get Node
- * @param  {String|Element} el A DOM element
- * @param  {Boolean} noCache Flag to use or not use the cache
- * @return {Element} The found node element
+ * @param  {string|Element} el A DOM element
+ * @param  {boolean} noCache Flag to use or not use the cache
+ * @returns {Element|null} The found node element
  */
 export function getNode(el, noCache = false) {
   if (typeof el === 'string') {

@@ -1,26 +1,27 @@
+import { createMemo } from 'solid-js';
 /**
  * Render github corner
- * @param  {Object} data URL for the View Source on Github link
- * @param {String} cornerExternalLinkTarge value of the target attribute of the link
- * @return {String} SVG element as string
+ * @param {Object} props
+ * @param  {string} props.githubUrl URL for the View Source on Github link
+ * @param {string=} props.cornerExternalLinkTarget value of the target attribute of the link
  */
-export function corner(data, cornerExternalLinkTarge) {
-  if (!data) {
-    return '';
-  }
+export function GithubCorner(props) {
+  const processedUrl = createMemo(() => {
+    let result = props.githubUrl;
 
-  if (!/\/\//.test(data)) {
-    data = 'https://github.com/' + data;
-  }
+    if (!/\/\//.test(result)) {
+      result = 'https://github.com/' + result;
+    }
 
-  data = data.replace(/^git\+/, '');
-  // Double check
-  cornerExternalLinkTarge = cornerExternalLinkTarge || '_blank';
+    result = result.replace(/^git\+/, '');
+
+    return result;
+  });
 
   return (
     <a
-      href={data}
-      target={cornerExternalLinkTarge}
+      href={processedUrl()}
+      target={props.cornerExternalLinkTarget || '_blank'}
       class="github-corner"
       aria-label="View source on Github"
     >
@@ -45,9 +46,8 @@ export function corner(data, cornerExternalLinkTarge) {
 /**
  * Renders main content
  * @param {Object} config Configuration object
- * @returns {String} HTML of the main content
  */
-export function main(config) {
+export function Main(config) {
   const name = config.name ? config.name : '';
 
   const aside = (
@@ -90,7 +90,7 @@ export function main(config) {
  * Cover Page
  * @returns {String} Cover page
  */
-export function cover() {
+export function Cover() {
   const SL = ', 100%, 85%';
   const bgc =
     'linear-gradient(to left bottom, ' +
@@ -104,9 +104,9 @@ export function cover() {
     </section>
   );
 
-  // Bug with Jest/jsdom: at this point, the styles exist, Docsify works
-  // and this log will show the background value. But only during Jest tests, the
-  // bakground value is empty. This is why the snapshot
+  // JEST_JSDOM_BUG: At this point, the styles exist, Docsify works and this log
+  // will show the background value. But only during Jest tests, the bakground
+  // value is empty.
   // console.log('cover style?', el.style.background);
 
   return el;
@@ -142,11 +142,12 @@ export function markdownParagraph(className, content) {
   return `<p class="${className}">${content.slice(5).trim()}</p>`;
 }
 
-export function theme(color) {
+/** @param {{color: string}} props */
+export function Theme(props) {
   return (
     <style>{/* css */ `
       :root {
-        --theme-color: ${color};
+        --theme-color: ${props.color};
       }
     `}</style>
   );
