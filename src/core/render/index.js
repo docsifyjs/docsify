@@ -295,7 +295,7 @@ export function renderMixin(proto) {
 
   proto._renderNav = function(text) {
     text &&
-      this._renderTo(this.config.nav_el || 'nav', this.compiler.compile(text));
+      this._renderTo(this.config.navEl || 'nav', this.compiler.compile(text));
     if (this.config.loadNavbar) {
       getAndActive(this.router, 'nav');
     }
@@ -401,10 +401,9 @@ export function initRender(vm) {
     window.__current_docsify_compiler__ = vm.compiler;
   }
 
-  const id = config.el || '#app';
-  const navEl = dom.find(config.nav_el || 'nav') || dom.create('nav');
+  const el = dom.find(config.el || '#app');
+  const navEl = dom.find(config.navEl || 'nav') || dom.create('nav');
 
-  const el = dom.find(id);
   let html = '';
   let navAppendToTarget = dom.body;
 
@@ -445,7 +444,7 @@ export function initRender(vm) {
   }
 
   // Add nav
-  if (config.loadNavbar && !config.nav_el) {
+  if (config.loadNavbar && !config.navEl) {
     dom.before(navAppendToTarget, navEl);
   }
 

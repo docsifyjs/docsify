@@ -88,7 +88,7 @@ window.$docsify = {
 };
 ```
 
-## nav_el
+## navEl
 
 - Type: `String`
 - Default: `null`
