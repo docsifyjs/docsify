@@ -103,7 +103,7 @@ export class Compiler {
           html = compile.parser(text);
         }
 
-        html = config.noEmoji ? html : emojify(html);
+        html = emojify(html);
         slugify.clear();
 
         return html;

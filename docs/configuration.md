@@ -398,20 +398,6 @@ window.$docsify = {
 
 Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin.
 
-## noEmoji
-
-- type: `Boolean`
-
-Disabled emoji parse.
-
-```js
-window.$docsify = {
-  noEmoji: true,
-};
-```
-
-?> If this option is `false` but you don't want to emojify some specific colons, [refer to this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
-
 ## mergeNavbar
 
 - type: `Boolean`

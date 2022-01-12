@@ -91,13 +91,18 @@ Configure by `data-ga`.
 
 ## emoji
 
-The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
+Emoji parsing is disabled by default.
+To enable emoji parsing, you need to add the following plugin.
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
 ```
 
-?> If you don't want to parse to emoji, you can use __colon_<span>_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
+Only [Github emojis](https://gist.github.com/rxaviers/7360908) are searched and replaced.
+
+Code blocks are not parsed, thus :100: won't be rendered here: `:100:`.
+
+?> If you don't want a specific emoji to be parsed, you can replace a colon by __colon_<span>_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
 
 ## External Script
 
