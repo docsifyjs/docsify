@@ -433,7 +433,7 @@ export function initRender(vm) {
     vm.rendered = true;
   }
 
-  if (config.mergeNavbar && isMobile) {
+  if (config.mergeNavbar && isMobile && !config.navEl) {
     navAppendToTarget = dom.find('.sidebar');
   } else {
     navEl.classList.add('app-nav');
