@@ -300,11 +300,11 @@ export function Render(Base) {
     }
 
     _renderNav(text) {
-      text && this._renderTo('nav', this.compiler.compile(text));
+      text &&
+        this._renderTo(this.config.navEl || 'nav', this.compiler.compile(text));
       if (this.config.loadNavbar) {
-        getAndActive(this.router, 'nav');
+        getAndActive(this.router, this.config.navEl || 'nav');
       }
-
     }
 
     _renderMain(text, opt = {}, next) {
@@ -413,7 +413,6 @@ export function Render(Base) {
       const el = dom.find(config.el || '#app');
       const navEl = dom.find(config.navEl || 'nav') || dom.create('nav');
 
-      const el = dom.find(id);
       let html = '';
       let navAppendToTarget = dom.body;
 
@@ -421,7 +420,6 @@ export function Render(Base) {
         if (config.repo) {
           html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
         }
-
 
         if (config.coverpage) {
           html += tpl.cover();
@@ -443,7 +441,6 @@ export function Render(Base) {
       } else {
         this.rendered = true;
       }
-
 
       if (config.mergeNavbar && isMobile && !config.navEl) {
         navAppendToTarget = dom.find('.sidebar');
