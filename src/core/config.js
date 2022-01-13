@@ -2,6 +2,7 @@ import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 
 const currentScript = document.currentScript;
 
+/** @param {import('./Docsify').Docsify} vm */
 export default function(vm) {
   const config = merge(
     {

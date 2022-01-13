@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.12.1",
+  "version": "4.12.2",
   "description": "A magical documentation generator.",
   "author": {
     "name": "qingwei-li",
@@ -28,6 +28,7 @@
     "lint": "eslint .",
     "fixlint": "eslint . --fix",
     "test": "jest",
+    "build:test": "npm run build && npm test",
     "test:e2e": "jest --selectProjects e2e",
     "test:integration": "jest --selectProjects integration",
     "test:unit": "jest --selectProjects unit",
@@ -43,7 +44,16 @@
     "prepare": "npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
-    "postinstall": "opencollective-postinstall"
+    "postinstall": "opencollective-postinstall",
+    "docker:build": "docker build -f Dockerfile -t docsify-test:local .",
+    "docker:clean": "docker rmi docsify-test:local",
+    "docker:rebuild": "npm run docker:clean && npm run docker:build",
+    "docker:test": "npm run docker:cli -- test",
+    "docker:build:test": "npm run docker:cli -- build:test",
+    "docker:test:e2e": "npm run docker:cli -- test:e2e",
+    "docker:test:integration": "npm run docker:cli -- test:integration",
+    "docker:test:unit": "npm run docker:cli -- test:unit",
+    "docker:cli": "docker run --rm -it --ipc=host --mount type=bind,source=$(pwd)/test,target=/app/test docsify-test:local"
   },
   "husky": {
     "hooks": {
@@ -54,7 +64,7 @@
     "*.js": "eslint --fix"
   },
   "dependencies": {
-    "dompurify": "^2.3.0",
+    "dompurify": "^2.3.1",
     "marked": "^1.2.9",
     "medium-zoom": "^1.0.6",
     "opencollective-postinstall": "^2.0.2",
