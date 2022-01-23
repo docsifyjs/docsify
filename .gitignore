@@ -8,3 +8,7 @@ themes/
 
 # exceptions
 !.gitkeep
+
+# libraries don't need lock files, only apps do.
+package-lock.json
+yarn.lock

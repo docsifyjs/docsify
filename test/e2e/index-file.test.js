@@ -15,14 +15,15 @@ describe(`Index file hosting`, function() {
       '#main',
       'A magical documentation site generator'
     );
-    expect(page.url()).toMatch(/index\.html#\/$/);
+    expect(page.url()).toMatch(sharedOptions.testURL);
   });
 
   test('should use index file links in sidebar from index file hosting', async () => {
-    await docsifyInit(sharedOptions);
+    const onceRendered = await docsifyInit(sharedOptions);
 
     await page.click('a[href="#/quickstart"]');
+    await onceRendered();
     await expect(page).toHaveText('#main', 'Quick start');
-    expect(page.url()).toMatch(/index\.html#\/quickstart$/);
+    expect(page.url()).toMatch(sharedOptions.testURL + 'quickstart');
   });
 });
