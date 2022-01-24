@@ -8,20 +8,20 @@ To get started, add Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) 
 
 ```html
 <!-- Production -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 
 <!-- Development -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 ```
 
 #### Vue 3.x
 
 ```html
 <!-- Production -->
-<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.prod.js"></script>
 
 <!-- Development -->
-<script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
 ```
 
 ## Template syntax

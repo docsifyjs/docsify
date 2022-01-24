@@ -25,9 +25,7 @@ Edit `package.json`. The below assumes the documentation is in the `./docs` subd
     "start": "docsify start . -c ssr.config.js",
     "deploy": "now -p"
   },
-  "files": [
-    "docs"
-  ],
+  "files": ["docs"],
   "docsify": {
     "config": {
       "basePath": "https://docsify.js.org/",
@@ -65,27 +63,35 @@ You can provide a template for an entire page's HTML, such as
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>docsify</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" title="vue">
-</head>
-<body>
-  <!--inject-app-->
-  <!--inject-config-->
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-nginx.min.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>docsify</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@4.12.2/themes/vue.css"
+      title="vue"
+    />
+  </head>
+  <body>
+    <!--inject-app-->
+    <!--inject-config-->
+    <script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/search.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-bash.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-markdown.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-nginx.min.js"></script>
+  </body>
 </html>
 ```
 
 The template should contain these comments for rendered app content.
- - `<!--inject-app-->`
- - `<!--inject-config-->`
+
+- `<!--inject-app-->`
+- `<!--inject-config-->`
 
 ## Configuration
 
@@ -96,9 +102,9 @@ module.exports = {
   template: './ssr.html',
   maxAge: 60 * 60 * 1000, // lru-cache config
   config: {
-   // docsify config
-  }
-}
+    // docsify config
+  },
+};
 ```
 
 ## Deploy for your VPS
@@ -106,19 +112,20 @@ module.exports = {
 You can run `docsify start` directly on your Node server, or write your own server app with `docsify-server-renderer`.
 
 ```js
-var Renderer = require('docsify-server-renderer')
-var readFileSync = require('fs').readFileSync
+var Renderer = require('docsify-server-renderer');
+var readFileSync = require('fs').readFileSync;
 
 // init
 var renderer = new Renderer({
   template: readFileSync('./docs/index.template.html', 'utf-8'),
   config: {
     name: 'docsify',
-    repo: 'docsifyjs/docsify'
-  }
-})
+    repo: 'docsifyjs/docsify',
+  },
+});
 
-renderer.renderToString(url)
+renderer
+  .renderToString(url)
   .then(html => {})
-  .catch(err => {})
+  .catch(err => {});
 ```
