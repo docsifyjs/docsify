@@ -7,7 +7,8 @@ import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
-import * as tpl from '../../src/core/render/tpl';
+// eslint-disable-next-line
+import { GithubCorner, Cover, Main } from '../../src/core/render/tpl';
 import { prerenderEmbed } from '../../src/core/render/embed';
 
 function cwd(...args) {
@@ -41,21 +42,22 @@ function isExternal(url) {
 }
 
 function mainTpl(config) {
-  let html = `<nav class="app-nav${
-    config.repo ? '' : ' no-badge'
-  }"><!--navbar--></nav>`;
-
-  if (config.repo) {
-    html += tpl.corner(config.repo);
-  }
-
-  if (config.coverpage) {
-    html += tpl.cover();
-  }
-
-  html += tpl.main(config);
-
-  return html;
+  return (
+    <>
+      <nav
+        class={`app-nav${config.repo ? '' : ' no-badge'}`}
+        innerHTML={'<!--navbar-->'}
+      ></nav>
+      {config.repo && (
+        <GithubCorner
+          githubUrl={config.repo}
+          cornerExternalLinkTarget={config.cornerExternalLinkTarge}
+        />
+      )}
+      {config.coverpage && <Cover />}
+      <Main {...config} />
+    </>
+  );
 }
 
 export default class Renderer {

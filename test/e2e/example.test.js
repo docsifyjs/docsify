@@ -26,7 +26,7 @@ describe(`Example Tests`, function() {
     await expect(page).toHaveText('body', 'Test');
     await expect(page).toHaveSelector('p');
     await expect(page).toEqualText('p', testText);
-    await expect(page).not.toHaveSelector('table', { timeout: 1 });
+    await expect(page).not.toHaveSelector('table', { timeout: 15000 });
 
     // Test using standard jest + playwrite methods
     // https://playwright.dev/#path=docs%2Fapi.md&q=pagetextcontentselector-options
@@ -78,13 +78,16 @@ describe(`Example Tests`, function() {
       );
     }
 
-    const functionResult = await page.evaluate(`
+    // This one requires the code to be wrapped in an IIFE or else there's a
+    // regression between playwright v1.8 and v1.17 that causes an error,
+    // https://github.com/microsoft/playwright/issues/10819
+    const functionResult = await page.evaluate(`(() => {
       ${add.toString()}
 
       const result = add(1, 2, 3);
 
-      Promise.resolve(result);
-    `);
+      return Promise.resolve(result);
+    })()`);
 
     expect(functionResult).toBe(6);
   });

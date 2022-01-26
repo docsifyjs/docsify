@@ -1,22 +1,19 @@
 var rollup = require('rollup')
-var buble = require('rollup-plugin-buble')
-var async = require('rollup-plugin-async')
-var replace = require('rollup-plugin-replace')
+var babel = require('@rollup/plugin-babel').default
+var replace = require('@rollup/plugin-replace')
 
 rollup
   .rollup({
     input: 'packages/docsify-server-renderer/index.js',
     plugins: [
-      async(),
       replace({
         __VERSION__: process.env.VERSION || require('../package.json').version,
         'process.env.SSR': true
       }),
-      buble({
-        transforms: {
-          generator: false
-        }
-      })
+      babel({
+        babelHelpers: "bundled",
+        presets: ['babel-preset-solid']
+      }),
     ],
     onwarn: function () {}
   })

@@ -2,6 +2,8 @@
 import mock, { proxy } from 'xhr-mock';
 import { waitForSelector } from './wait-for';
 
+// TODO use browser.newPage() instead of re-using the same page every time?
+
 const axios = require('axios');
 const prettier = require('prettier');
 const stripIndent = require('common-tags/lib/stripIndent');
@@ -10,6 +12,12 @@ const docsifyPATH = '../../lib/docsify.js'; // JSDOM
 const docsifyURL = '/lib/docsify.js'; // Playwright
 const isJSDOM = 'window' in global;
 const isPlaywright = 'page' in global;
+
+jest.setTimeout(35_000);
+if (isPlaywright) {
+  page.setDefaultNavigationTimeout(30_000);
+  page.setDefaultTimeout(30_000);
+}
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -33,13 +41,37 @@ const isPlaywright = 'page' in global;
  * @param {Boolean|Object|String} [options._logHTML] Logs HTML to console after initialization. Accepts CSS selector.
  * @param {Boolean} [options._logHTML.format=true] Formats HTML output
  * @param {String} [options._logHTML.selector='html'] CSS selector(s) to match and log HTML for
- * @returns {Promise}
+ * @returns {Promise<() => Promise<void>>}
  */
 async function docsifyInit(options = {}) {
   const defaults = {
     config: {
       basePath: TEST_HOST,
       el: '#app',
+      plugins: [
+        /**
+         * This plugin increments a `data-render-count="N"` attribute on the
+         * `<body>` element after each markdown page render. F.e.
+         * `data-render-count="1"`, `data-render-count="2"`, etc.
+         *
+         * The very first render from calling docsifyInit() will result in a
+         * value of 1. Each following render (f.e. from clicking a link) will
+         * increment once rendering of the new page is finished.
+         *
+         * We do this so that we can easily wait for a render to finish before
+         * testing the state of the render result, or else we'll have flaky
+         * tests (a "race condition").
+         */
+        function RenderCountPlugin(hook) {
+          hook.init(() => {
+            document.body.dataset.renderCount = 0;
+          });
+
+          hook.doneEach(() => {
+            document.body.dataset.renderCount++;
+          });
+        },
+      ],
     },
     html: `
       <!DOCTYPE html>
@@ -87,7 +119,15 @@ async function docsifyInit(options = {}) {
       // Config as function
       if (typeof options.config === 'function') {
         return function(vm) {
-          const config = { ...sharedConfig, ...options.config(vm) };
+          const outsideConfig = options.config(vm);
+          const config = {
+            ...sharedConfig,
+            ...outsideConfig,
+            plugins: [
+              ...sharedConfig.plugins,
+              ...(outsideConfig?.plugins ?? []),
+            ],
+          };
 
           updateBasePath(config);
 
@@ -96,7 +136,12 @@ async function docsifyInit(options = {}) {
       }
       // Config as object
       else {
-        const config = { ...sharedConfig, ...options.config };
+        const outsideConfig = options.config;
+        const config = {
+          ...sharedConfig,
+          ...outsideConfig,
+          plugins: [...sharedConfig.plugins, ...(outsideConfig?.plugins ?? [])],
+        };
 
         updateBasePath(config);
 
@@ -360,7 +405,59 @@ async function docsifyInit(options = {}) {
     }
   }
 
-  return Promise.resolve();
+  // We must use a separate renderCount variable outside of the
+  // RenderCountPlugin, because the plugin runs in scope of the Playwright
+  // browser context, not in scope of this file. We can't read
+  // `document.body.renderCount` directly here.
+  let renderCount = 0;
+
+  /**
+   * Call this function to wait for the render to finish any time you perform an
+   * action that changes Docsify's route and causes a new markdown page to
+   * render.
+   *
+   * This is needed only for e2e tests that run in playwright (so far, at least).
+   *
+   * We use page.waitForSelector here to wait for each render or else there is a
+   * race condition where we will try to observe the state of the page between
+   * clicking a link and when the new content is actually updated.
+   */
+  async function onceRendered() {
+    // This function is only for playwright tests.
+    if (isJSDOM) {
+      return;
+    }
+
+    // Initial case: For the first render, there is a bug
+    // (https://github.com/docsifyjs/docsify/issues/1732) that sometimes causes
+    // doneEach to render twice.
+    if (renderCount === 0) {
+      renderCount = await Promise.race([
+        page.waitForSelector(`body[data-render-count="1"]`).then(() => 1),
+        page.waitForSelector(`body[data-render-count="2"]`).then(() => 2),
+      ]);
+    }
+    // Successive cases after first render: doneEach fires once like
+    // normal (so far).
+    else {
+      renderCount++;
+      try {
+        await page.waitForSelector(`body[data-render-count="${renderCount}"]`);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(
+          'Render counting failed because doneEach fired an unexpected number of times (more than once). If this happens, please note this in issue https://github.com/docsifyjs/docsify/issues/1732'
+        );
+      }
+    }
+  }
+
+  // Wait for the initial render.
+  await onceRendered();
+
+  // Now all tests need to call this any time they change Docsify navagtion
+  // (f.e. clicking a link) to wait for render.
+  return onceRendered;
 }
 
 module.exports = docsifyInit;

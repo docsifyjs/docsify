@@ -17,7 +17,12 @@ describe('Docs Site', function() {
       markdown: {
         homepage: '# Hello World',
       },
-      waitForSelector: '.cover-main > *',
+
+      // JEST_JSDOM_BUG: because the style attribute will be empty in jsdom
+      // (although it works fine in a real browser), we can't wait for the style
+      // attribute selector.
+      // waitForSelector: '.cover.show[style*="background"]',
+      waitForSelector: '.cover.show',
     });
 
     const coverpageElm = document.querySelector('section.cover');
@@ -25,6 +30,12 @@ describe('Docs Site', function() {
     // Test snapshots
     expect(mathSpy).toHaveBeenCalled();
     expect(coverpageElm).not.toBeNull();
+
+    // JEST_JSDOM_BUG These tests don't work because the values show up as empty
+    // strings, although in a regular browser things work fine.
+    // expect(coverpageElm.style.background).toContain('linear-gradient');
+    // expect(coverpageElm.getAttribute('style')).toContain('linear-gradient');
+
     expect(coverpageElm.outerHTML).toMatchSnapshot();
   });
 

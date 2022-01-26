@@ -5,9 +5,9 @@ const cacheNode = {};
 
 /**
  * Get Node
- * @param  {String|Element} el A DOM element
- * @param  {Boolean} noCache Flag to use or not use the cache
- * @return {Element} The found node element
+ * @param  {string|Element} el A DOM element
+ * @param  {boolean} noCache Flag to use or not use the cache
+ * @returns {Element|null} The found node element
  */
 export function getNode(el, noCache = false) {
   if (typeof el === 'string') {
@@ -55,6 +55,8 @@ export function findAll(el, node) {
   );
 }
 
+// This is no longer used in Docsify core, but it is exported and some
+// plugins still use it (f.e. the search plugin).
 export function create(node, tpl) {
   node = $.createElement(node);
   if (tpl) {
@@ -99,7 +101,7 @@ export function toggleClass(el, type, val) {
 }
 
 export function style(content) {
-  appendTo(head, create('style', content));
+  appendTo(head, <style>{content}</style>);
 }
 
 /**

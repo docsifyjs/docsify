@@ -118,7 +118,7 @@
             '/zh-cn/': '搜索',
             '/': 'Search',
           },
-          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn']
+          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
         },
         vueComponents: {
           'button-counter': {
@@ -207,6 +207,31 @@
                   '<br/> <i>Vercel</i> has given us a Pro account <br/> <a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="https://cdn.jsdelivr.net/gh/docsifyjs/docsify/docs/_media/vercel_logo.svg" alt="Vercel" width="100" height="64"></a>'
                 );
               });
+          },
+
+          /**
+           * Docsify tests rely on this plugin.
+           *
+           * This plugin increments a `data-render-count="N"` attribute on the
+           * `<body>` element after each markdown page render. F.e.
+           * `data-render-count="1"`, `data-render-count="2"`, etc.
+           *
+           * The very first render from calling docsifyInit() will result in a
+           * value of 1. Each following render (f.e. from clicking a link) will
+           * increment once rendering of the new page is finished.
+           *
+           * We do this so that we can easily wait for a render to finish before
+           * testing the state of the render result, or else we'll have flaky
+           * tests (a "race condition").
+           */
+          function RenderCountPlugin(hook) {
+            hook.init(() => {
+              document.body.dataset.renderCount = 0;
+            });
+
+            hook.doneEach(() => {
+              document.body.dataset.renderCount++;
+            });
           },
         ],
       };

@@ -9,7 +9,7 @@ import { isMobile, inBrowser } from '../util/env';
 import { isPrimitive, merge } from '../util/core';
 import { scrollActiveSidebar } from '../event/scroll';
 import { Compiler } from './compiler';
-import * as tpl from './tpl';
+import { GithubCorner, Cover, Main, Theme } from './tpl';
 import { prerenderEmbed } from './embed';
 
 let vueGlobalData;
@@ -249,7 +249,11 @@ export function Render(Base) {
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
-        node[replace ? 'outerHTML' : 'innerHTML'] = content;
+        if (typeof content === 'string') {
+          node[replace ? 'outerHTML' : 'innerHTML'] = content;
+        } else if (Array.isArray(content)) {
+          node[replace ? 'replaceWith' : 'append'](...content.flat(Infinity));
+        }
       }
     }
 
@@ -293,7 +297,7 @@ export function Render(Base) {
         const firstNode = main.children[0];
         if (firstNode && firstNode.tagName !== 'H1') {
           const h1 = this.compiler.header(activeEl.innerText, 1);
-          const wrapper = dom.create('div', h1);
+          const wrapper = <div>{h1}</div>;
           dom.before(main, wrapper.children[0]);
         }
       }
@@ -410,19 +414,25 @@ export function Render(Base) {
       }
 
       const id = config.el || '#app';
-      const navEl = dom.find('nav') || dom.create('nav');
+      const navEl = dom.find('nav') || <nav />;
 
       const el = dom.find(id);
-      let html = '';
+      let html = [];
       let navAppendToTarget = dom.body;
 
       if (el) {
         if (config.repo) {
-          html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
+          html.push(
+            <GithubCorner
+              githubUrl={config.repo}
+              cornerExternalLinkTarget={config.cornerExternalLinkTarget}
+            />
+          );
         }
 
         if (config.coverpage) {
-          html += tpl.cover();
+          // eslint-disable-next-line new-cap
+          html.push(<Cover />);
         }
 
         if (config.logo) {
@@ -435,7 +445,9 @@ export function Render(Base) {
           }
         }
 
-        html += tpl.main(config);
+        // eslint-disable-next-line new-cap
+        html.push(<Main {...config} />);
+
         // Render main app
         this._renderTo(el, html, true);
       } else {
@@ -458,9 +470,7 @@ export function Render(Base) {
       }
 
       if (config.themeColor) {
-        dom.$.head.appendChild(
-          dom.create('div', tpl.theme(config.themeColor)).firstElementChild
-        );
+        dom.$.head.appendChild(<Theme color={config.themeColor} />);
         // Polyfll
         cssVars(config.themeColor);
       }

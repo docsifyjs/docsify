@@ -39,32 +39,39 @@ describe('Sidebar Tests', function() {
       },
     };
 
-    await docsifyInit(docsifyInitConfig);
+    const onceRendered = await docsifyInit(docsifyInitConfig);
+
     await page.click('a[href="#/test%20space"]');
-    await expect(page).toEqualText(
+    await onceRendered();
+    await expect(page).toMatchText(
       '.sidebar-nav li[class=active]',
       'Test Space'
     );
     expect(page.url()).toMatch(/\/test%20space$/);
 
     await page.click('a[href="#/test_foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test _');
+    await onceRendered();
+    await expect(page).toMatchText('.sidebar-nav li[class=active]', 'Test _');
     expect(page.url()).toMatch(/\/test_foo$/);
 
     await page.click('a[href="#/test-foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test -');
+    await onceRendered();
+    await expect(page).toMatchText('.sidebar-nav li[class=active]', 'Test -');
     expect(page.url()).toMatch(/\/test-foo$/);
 
     await page.click('a[href="#/test.foo"]');
+    await onceRendered();
+    await expect(page).toMatchText('.sidebar-nav li[class=active]', 'Test .');
     expect(page.url()).toMatch(/\/test.foo$/);
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test .');
 
     await page.click('a[href="#/test>foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test >');
+    await onceRendered();
+    await expect(page).toMatchText('.sidebar-nav li[class=active]', 'Test >');
     expect(page.url()).toMatch(/\/test%3Efoo$/);
 
     await page.click('a[href="#/test"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test');
+    await onceRendered();
+    await expect(page).toMatchText('.sidebar-nav li[class=active]', 'Test');
     expect(page.url()).toMatch(/\/test$/);
   });
 });
