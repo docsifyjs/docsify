@@ -1,10 +1,17 @@
 # Server-Side Rendering
 
-See https://docsify.now.sh
+!> :construction: SSR support is experimental and incomplete. We are working on it. Plugins and
+some features of Docsify will not work in SSR mode yet. :construction:
 
-Repo in https://github.com/docsifyjs/docsify-ssr-demo
+<!--
+This link is dead.
+See https://docsify.now.sh
+-->
+
+Sample repo at https://github.com/docsifyjs/docsify-ssr-demo
 
 ## Why SSR?
+
 - Better SEO
 - Feeling cool
 

@@ -46,7 +46,7 @@
 - Multiple themes
 - Useful plugin API
 - Compatible with IE11
-- Support SSR ([example](https://github.com/docsifyjs/docsify-ssr-demo))
+- Experimental SSR support ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 - Support embedded files
 
 ## Quick start
