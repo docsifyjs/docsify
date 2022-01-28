@@ -11,12 +11,9 @@ jobs:
     timeout-minutes: 60
     runs-on: ${{ matrix.os }}
     strategy:
-      # fail-fast: false
       matrix:
-        # node-version: [14.x, 16.x]
-        node-version: [16.x]
-        # os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
-        os: ['ubuntu-latest']
+        node-version: [14.x, 16.x]
+        os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
