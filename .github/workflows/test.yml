@@ -11,10 +11,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      # fail-fast: false
       matrix:
-        node-version: [14.x, 16.x]
-        os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
+        # node-version: [14.x, 16.x]
+        node-version: [16.x]
+        # os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
+        os: ['ubuntu-latest']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -27,11 +29,15 @@ jobs:
         run: npm run test:unit -- -ci --runInBand
       - name: Integration Tests (Jest)
         run: npm run test:integration -- -ci --runInBand
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       - name: E2E Tests (Playwright)
         run: npm run test:e2e
       - name: Upload artifacts (diff output)
         uses: actions/upload-artifact@v2
-        if: failure()
+        if: always()
         with:
           name: ${{ matrix.os }}-${{ matrix.node-version }}-diff-output
-          path: _playwright-results
+          path: |
+            _playwright-results/
+            _playwright-report/
