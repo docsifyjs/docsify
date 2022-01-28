@@ -27,25 +27,25 @@ describe('router/history/base', () => {
     test('toURL', () => {
       const url = history.toURL('guide.md', {}, '/zh-ch/');
 
-      expect(url).toEqual('/zh-ch/guide');
+      expect(url).toBe('/zh-ch/guide');
     });
 
     test('toURL with double dot', () => {
       const url = history.toURL('../README.md', {}, '/zh-ch/');
 
-      expect(url).toEqual('/README');
+      expect(url).toBe('/README');
     });
 
     test('toURL child path', () => {
       const url = history.toURL('config/example.md', {}, '/zh-ch/');
 
-      expect(url).toEqual('/zh-ch/config/example');
+      expect(url).toBe('/zh-ch/config/example');
     });
 
     test('toURL absolute path', () => {
       const url = history.toURL('/README', {}, '/zh-ch/');
 
-      expect(url).toEqual('/README');
+      expect(url).toBe('/README');
     });
   });
 
@@ -63,7 +63,7 @@ describe('router/history/base', () => {
     test('toURL', () => {
       const url = history.toURL('README', {}, '/zh-ch/');
 
-      expect(url).toEqual('/README');
+      expect(url).toBe('/README');
     });
   });
 });

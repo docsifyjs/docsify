@@ -1,10 +1,10 @@
-import { waitForFunction, waitForText } from '../helpers/wait-for';
+const { waitForFunction, waitForText } = require('../helpers/wait-for');
 
 const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Example Tests', function() {
+describe('Example Tests', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('Docsify /docs/ site using docsifyInit()', async () => {
@@ -16,7 +16,7 @@ describe('Example Tests', function() {
     });
 
     // Verify config options
-    expect(typeof window.$docsify).toEqual('object');
+    expect(typeof window.$docsify).toBe('object');
 
     // Verify options.markdown content was rendered
     expect(document.querySelector('#main').textContent).toContain(
@@ -83,7 +83,7 @@ describe('Example Tests', function() {
     });
 
     // Verify config options
-    expect(typeof window.$docsify).toEqual('object');
+    expect(typeof window.$docsify).toBe('object');
     expect(window.$docsify).toHaveProperty('themeColor', 'red');
     expect(document.querySelector('.app-name').textContent).toContain(
       'Docsify Name'

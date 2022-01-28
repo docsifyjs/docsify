@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['plugin:jest-playwright/recommended'],
+  extends: ['plugin:playwright/playwright-test'],
 };

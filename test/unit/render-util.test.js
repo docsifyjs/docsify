@@ -16,7 +16,7 @@ describe('core/render/utils', () => {
     test('removeAtag from a link', () => {
       const result = removeAtag('<a href="www.example.com">content</a>');
 
-      expect(result).toEqual('content');
+      expect(result).toBe('content');
     });
   });
 
@@ -82,7 +82,7 @@ describe('core/render/tpl', () => {
       },
     ]);
 
-    expect(result).toEqual(
+    expect(result).toBe(
       `<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li></ul>`
     );
   });
@@ -96,7 +96,7 @@ describe('core/render/slugify', () => {
     const result2 = slugify(
       `Another <span style="font-size: 1.2em" class="foo bar baz">broken <span class="aaa">example</span></span>`
     );
-    expect(result).toEqual(`bla-bla-bla-`);
-    expect(result2).toEqual(`another-broken-example`);
+    expect(result).toBe(`bla-bla-bla-`);
+    expect(result2).toBe(`another-broken-example`);
   });
 });
