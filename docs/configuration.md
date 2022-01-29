@@ -88,19 +88,19 @@ window.$docsify = {
 };
 ```
 
-## onlyCoverNavbar
+## loadNavbarOnCover
 
 - Type: `Boolean`
 - Default: `false`
 
 By default the cover page will not show the navbar when
-[`onlyCover`](./configuration.md#onlycover) is `true`. Set `onlyCoverNavbar`
+[`onlyCover`](./configuration.md#onlycover) is `true`. Set `loadNavbarOnCover`
 to `true` to always show the nav bar.
 
 ```js
 window.$docsify = {
   onlyCover: true,
-  onlyCoverNavbar: true,
+  loadNavbarOnCover: true,
 };
 ```
 
@@ -546,7 +546,7 @@ window.$docsify = {
 };
 ```
 
-By default, the nav bar is not loaded on the cover page. See the [`onlyCoverNavbar`](./configuration.md#onlycovernavbar) option.
+By default, the nav bar is not shown on the cover page. Control this with the [`loadNavbarOnCover`](./configuration.md#loadnavbaroncover) option.
 
 ## requestHeaders
 
