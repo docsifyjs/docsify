@@ -1,7 +1,6 @@
 .DS_Store
 .idea
 *.log
-__diff_output__
 _playwright-report
 _playwright-results
 lib
