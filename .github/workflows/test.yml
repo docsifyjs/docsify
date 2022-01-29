@@ -33,6 +33,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm i --ignore-scripts
       - name: Lint
         run: npm run lint
 
@@ -49,6 +52,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - name: Bootstrap
         run: npm run bootstrap
       - name: Unit Tests (Jest)
