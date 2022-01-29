@@ -34,8 +34,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Install dependencies
-        run: npm i --ignore-scripts
       - name: Lint
         run: npm run lint
 
