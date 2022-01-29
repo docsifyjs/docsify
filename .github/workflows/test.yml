@@ -7,12 +7,41 @@ on:
     branches: [master, develop]
 
 jobs:
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install
+
+  lint:
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Lint
+        run: npm run lint
+
   test:
-    timeout-minutes: 60
+    needs: install
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16]
         os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
     steps:
       - uses: actions/checkout@v2
