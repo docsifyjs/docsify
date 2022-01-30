@@ -45,9 +45,9 @@ jobs:
       - name: Build
         run: npm run build
       - name: Unit Tests
-        run: npm run test:unit -- --ci --runInBand,
+        run: npm run test:unit -- --ci --runInBand
       - name: Integration Tests
-        run: npm run test:integration -- --ci --runInBand,
+        run: npm run test:integration -- --ci --runInBand
 
   test-playwright:
     runs-on: ubuntu-latest
