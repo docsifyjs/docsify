@@ -58,7 +58,7 @@ function getTableData(token) {
   if (!token.text && token.type === 'table') {
     token.cells.unshift(token.header);
     token.text = token.cells
-      .map(function(rows) {
+      .map(function (rows) {
         return rows.join(' | ');
       })
       .join(' |\n ');
@@ -85,7 +85,7 @@ export function genIndex(path, content = '', router, depth) {
   let slug;
   let title = '';
 
-  tokens.forEach(function(token, tokenIndex) {
+  tokens.forEach(function (token, tokenIndex) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 

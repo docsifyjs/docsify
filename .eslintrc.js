@@ -38,7 +38,12 @@ module.exports = {
     'no-return-assign': ['error'],
     'no-self-compare': ['error'],
     'no-shadow-restricted-names': ['error'],
-    'no-shadow': ['warn'],
+    'no-shadow': [
+      'error',
+      {
+        allow: ['Events', 'Fetch', 'Lifecycle', 'Render', 'Router'],
+      },
+    ],
     'no-unused-vars': ['error', { args: 'none' }],
     'no-useless-call': ['error'],
     'no-useless-escape': ['warn'],

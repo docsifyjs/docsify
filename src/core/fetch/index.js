@@ -152,11 +152,9 @@ export function Fetch(Base) {
         if (path) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
-          get(
-            path + stringifyQuery(query, ['id']),
-            false,
-            requestHeaders
-          ).then(text => this._renderCover(text, coverOnly));
+          get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
+            text => this._renderCover(text, coverOnly)
+          );
         } else {
           this._renderCover(null, coverOnly);
         }
