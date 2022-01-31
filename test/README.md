@@ -14,7 +14,7 @@
 
 ## Global Variables
 
-- `TEST_HOST`: Test server ip:port
+- `process.env.TEST_HOST`: Test server ip:port
 
 ## CLI commands
 

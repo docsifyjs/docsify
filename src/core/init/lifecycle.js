@@ -30,7 +30,7 @@ export function Lifecycle(Base) {
     callHook(hookName, data, next = noop) {
       const queue = this._hooks[hookName];
 
-      const step = function(index) {
+      const step = function (index) {
         const hookFn = queue[index];
 
         if (index >= queue.length) {

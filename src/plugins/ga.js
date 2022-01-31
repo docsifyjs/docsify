@@ -11,7 +11,7 @@ function init(id) {
   appendScript();
   window.ga =
     window.ga ||
-    function() {
+    function () {
       (window.ga.q = window.ga.q || []).push(arguments);
     };
 
@@ -28,7 +28,7 @@ function collect() {
   window.ga('send', 'pageview');
 }
 
-const install = function(hook) {
+const install = function (hook) {
   if (!$docsify.ga) {
     console.error('[Docsify] ga is required.');
     return;
