@@ -1,3 +1,5 @@
+/* global afterEach, beforeAll, beforeEach */
+
 import mock from 'xhr-mock';
 
 const sideEffects = {

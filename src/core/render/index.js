@@ -174,7 +174,7 @@ function renderMain(html) {
             // This provides a global store for all Vue instances that receive
             // vueGlobalOptions as their configuration.
             if (vueGlobalData) {
-              vueConfig.data = function() {
+              vueConfig.data = function () {
                 return vueGlobalData;
               };
             }

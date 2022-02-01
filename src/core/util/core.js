@@ -6,7 +6,7 @@
 
 export function cached(fn) {
   const cache = Object.create(null);
-  return function(str) {
+  return function (str) {
     const key = isPrimitive(str) ? str : JSON.stringify(str);
     const hit = cache[key];
     return hit || (cache[key] = fn(str));
@@ -29,7 +29,7 @@ export const hasOwn = Object.prototype.hasOwnProperty;
  */
 export const merge =
   Object.assign ||
-  function(to) {
+  function (to) {
     for (let i = 1; i < arguments.length; i++) {
       const from = Object(arguments[i]);
 
