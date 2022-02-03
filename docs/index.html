@@ -118,13 +118,13 @@
             '/zh-cn/': '搜索',
             '/': 'Search',
           },
-          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn']
+          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
         },
         vueComponents: {
           'button-counter': {
             template:
               '<button @click="count += 1">You clicked me {{ count }} times</button>',
-            data: function() {
+            data: function () {
               return {
                 count: 0,
               };
@@ -132,7 +132,7 @@
           },
         },
         vueGlobalOptions: {
-          data: function() {
+          data: function () {
             return {
               count: 0,
               message: 'Hello, World!',
@@ -145,7 +145,7 @@
             };
           },
           computed: {
-            timeOfDay: function() {
+            timeOfDay: function () {
               const date = new Date();
               const hours = date.getHours();
 
@@ -159,14 +159,14 @@
             },
           },
           methods: {
-            hello: function() {
+            hello: function () {
               alert(this.message);
             },
           },
         },
         vueMounts: {
           '#counter': {
-            data: function() {
+            data: function () {
               return {
                 count: 0,
               };
@@ -175,8 +175,8 @@
         },
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
-          function(hook, vm) {
-            hook.beforeEach(function(html) {
+          function (hook, vm) {
+            hook.beforeEach(function (html) {
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
@@ -198,7 +198,7 @@
                 '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
               );
             }),
-              hook.afterEach(function(html) {
+              hook.afterEach(function (html) {
                 if (vm.route.path === '/') {
                   return html;
                 }
