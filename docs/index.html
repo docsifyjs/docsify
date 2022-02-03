@@ -218,19 +218,15 @@
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
     <script>
-      (function() {
-        function loadJS(src, attrs) {
-          document.write(
-            '<script src="' + src + '" ' + (attrs || '') + '><\/script>'
-          );
-        }
-
-        // Public site only
-        if (/docsify/.test(location.host)) {
-          loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js');
-          loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js');
-        }
-      })();
+      // Public site only
+      if (/docsify/.test(location.host)) {
+        document.write(
+          '<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"><\/script>'
+        );
+        document.write(
+          '<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"><\/script>'
+        );
+      }
     </script>
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
     <!-- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> -->
