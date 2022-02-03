@@ -1,11 +1,11 @@
 .DS_Store
 .idea
 *.log
-_playwright-report
-_playwright-results
-lib
-node_modules
-themes
+/_playwright-report
+/_playwright-results
+/lib
+/node_modules
+/themes
 
 # exceptions
 !.gitkeep
