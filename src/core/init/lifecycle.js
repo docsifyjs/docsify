@@ -36,26 +36,29 @@ export function Lifecycle(Base) {
         if (index >= queue.length) {
           next(data);
         } else if (typeof hookFn === 'function') {
-          const errTitle = `Docsify plugin error (${hookName})`;
+          const errTitle = `Docsify plugin ${
+            hookFn.name ? '"' + hookFn.name + '"' : ''
+          } error (${hookName})`;
 
           if (hookFn.length === 2) {
             try {
               hookFn(data, result => {
                 data = result;
-                step(index + 1);
               });
             } catch (err) {
               console.error(errTitle, err);
             }
+            step(index + 1);
           } else {
-            try {
-              const result = hookFn(data);
+            let result;
 
-              data = result === undefined ? data : data;
+            try {
+              result = hookFn(data);
             } catch (err) {
               console.error(errTitle, err);
             }
 
+            data = result || data;
             step(index + 1);
           }
         } else {
