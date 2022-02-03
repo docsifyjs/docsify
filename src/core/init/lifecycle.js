@@ -42,12 +42,11 @@ export function Lifecycle(Base) {
             try {
               hookFn(data, result => {
                 data = result;
+                step(index + 1);
               });
             } catch (err) {
               console.error(errTitle, err);
             }
-
-            step(index + 1);
           } else {
             try {
               const result = hookFn(data);
