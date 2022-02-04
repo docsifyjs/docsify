@@ -1892,7 +1892,7 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
         .concat('&#xFE0E;');
       result = `<span class="emoji">${emojiUnicode}</span>`;
     } else {
-      result = `<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/${emojiMatch}.png" alt="${1}">`;
+      result = `<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/${emojiMatch}.png" alt="${$1}">`;
     }
   }
 
