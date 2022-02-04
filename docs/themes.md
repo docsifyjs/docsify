@@ -4,10 +4,10 @@ There is a handful of themes available, both official and community-made. Copy [
 
 <!-- prettier-ignore-start -->
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/themes/vue.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/themes/buble.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/themes/dark.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/themes/pure.css" />
 ```
 <!-- prettier-ignore-end -->
 
@@ -17,10 +17,10 @@ There is a handful of themes available, both official and community-made. Copy [
 ```html
 <!-- compressed -->
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/buble.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dark.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/pure.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/vue.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/buble.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/dark.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/pure.css" />
 ```
 <!-- prettier-ignore-end -->
 

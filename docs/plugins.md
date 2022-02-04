@@ -9,11 +9,11 @@ By default, the hyperlink on the current page is recognized and the content is s
   window.$docsify = {
     search: 'auto', // default
 
-    search : [
-      '/',            // => /README.md
-      '/guide',       // => /guide.md
+    search: [
+      '/', // => /README.md
+      '/guide', // => /guide.md
       '/get-started', // => /get-started.md
-      '/zh-cn/',      // => /zh-cn/README.md
+      '/zh-cn/', // => /zh-cn/README.md
     ],
 
     // complete configuration parameters
@@ -25,7 +25,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Localization
       placeholder: {
         '/zh-cn/': '搜索',
-        '/': 'Type to search'
+        '/': 'Type to search',
       },
 
       noData: 'No Results!',
@@ -33,7 +33,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Localization
       noData: {
         '/zh-cn/': '找不到结果',
-        '/': 'No Results'
+        '/': 'No Results',
       },
 
       // Headline depth, 1 - 6
@@ -54,12 +54,12 @@ By default, the hyperlink on the current page is recognized and the content is s
 
       // You can provide a regexp to match prefixes. In this case,
       // the matching substring will be used to identify the index
-      pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/
-    }
-  }
+      pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/,
+    },
+  };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/search.min.js"></script>
 ```
 
 This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café"). Legacy browsers like IE11 require the following [String.normalize()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) polyfill to ignore diacritical marks:
@@ -75,18 +75,21 @@ Install the plugin and configure the track id.
 ```html
 <script>
   window.$docsify = {
-    ga: 'UA-XXXXX-Y'
-  }
+    ga: 'UA-XXXXX-Y',
+  };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/ga.min.js"></script>
 ```
 
 Configure by `data-ga`.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script
+  src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"
+  data-ga="UA-XXXXX-Y"
+></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/ga.min.js"></script>
 ```
 
 ## emoji
@@ -94,17 +97,17 @@ Configure by `data-ga`.
 The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/emoji.min.js"></script>
 ```
 
-?> If you don't want to parse to emoji, you can use __colon_<span>_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
+?> If you don't want to parse to emoji, you can use \__colon_<span>\_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
 
 ## External Script
 
 If the script on the page is an external one (imports a js file via `src` attribute), you'll need this plugin to make it work.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/external-script.min.js"></script>
 ```
 
 ## Zoom image
@@ -112,13 +115,13 @@ If the script on the page is an external one (imports a js file via `src` attrib
 Medium's image zoom. Based on [medium-zoom](https://github.com/francoischalifour/medium-zoom).
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/zoom-image.min.js"></script>
 ```
 
 Exclude the special image
 
 ```markdown
-![](image.png ":no-zoom")
+![](image.png ':no-zoom')
 ```
 
 ## Edit on github
@@ -138,10 +141,10 @@ When readers expand the demo box, the source code and description are shown ther
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2.1.1/dist/docsify-copy-code.min.js"></script>
 ```
 
-See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
+See [docsify-copy-code's repo](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
 
 ## Disqus
 
@@ -150,10 +153,10 @@ Disqus comments. https://disqus.com/
 ```html
 <script>
   window.$docsify = {
-    disqus: 'shortname'
-  }
+    disqus: 'shortname',
+  };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/disqus.min.js"></script>
 ```
 
 ## Gitalk
@@ -161,20 +164,25 @@ Disqus comments. https://disqus.com/
 [Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
 
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
 
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
 <script>
   const gitalk = new Gitalk({
     clientID: 'Github Application Client ID',
     clientSecret: 'Github Application Client Secret',
     repo: 'Github repo',
     owner: 'Github repo owner',
-    admin: ['Github repo collaborators, only these guys can initialize github issues'],
+    admin: [
+      'Github repo collaborators, only these guys can initialize github issues',
+    ],
     // facebook-like distraction free mode
-    distractionFreeMode: false
-  })
+    distractionFreeMode: false,
+  });
 </script>
 ```
 
@@ -183,8 +191,8 @@ Disqus comments. https://disqus.com/
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-pagination@2.6.2/dist/docsify-pagination.min.js"></script>
 ```
 
 Click [here](https://github.com/imyelo/docsify-pagination#readme) to get more information.

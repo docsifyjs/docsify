@@ -20,24 +20,24 @@
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
+      href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/vue.css"
       title="vue"
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css"
+      href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/dark.css"
       title="dark"
       disabled
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/buble.css"
+      href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/buble.css"
       title="buble"
       disabled
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/pure.css"
+      href="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/themes/pure.css"
       title="pure"
       disabled
     />
@@ -55,7 +55,7 @@
 
   <body>
     <div id="app">Loading ...</div>
-    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1/index.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1.0.7/index.js"></script>
     <script>
       // Set html "lang" attribute based on URL
       var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
@@ -118,7 +118,7 @@
             '/zh-cn/': '搜索',
             '/': 'Search',
           },
-          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn']
+          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
         },
         vueComponents: {
           'button-counter': {
@@ -211,12 +211,12 @@
         ],
       };
     </script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-bash.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-markdown.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-nginx.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-php.min.js"></script>
     <script>
       (function() {
         function loadJS(src, attrs) {
@@ -227,12 +227,14 @@
 
         // Public site only
         if (/docsify/.test(location.host)) {
-          loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js');
-          loadJS('//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js');
+          loadJS('//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/ga.min.js');
+          loadJS(
+            '//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/matomo.min.js'
+          );
         }
       })();
     </script>
-    <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
-    <!-- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.prod.js"></script> -->
   </body>
 </html>

@@ -27,17 +27,17 @@ Alternatively, you can create a custom markdown-based navigation file by setting
 
 <script>
   window.$docsify = {
-    loadNavbar: true
-  }
+    loadNavbar: true,
+  };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"></script>
 ```
 
 ```markdown
 <!-- _navbar.md -->
 
-* [En](/)
-* [chinese](/zh-cn/)
+- [En](/)
+- [chinese](/zh-cn/)
 ```
 
 !> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
@@ -51,19 +51,19 @@ You can create sub-lists by indenting items that are under a certain parent.
 ```markdown
 <!-- _navbar.md -->
 
-* Getting started
+- Getting started
 
-  * [Quick start](quickstart.md)
-  * [Writing more pages](more-pages.md)
-  * [Custom navbar](custom-navbar.md)
-  * [Cover page](cover.md)
+  - [Quick start](quickstart.md)
+  - [Writing more pages](more-pages.md)
+  - [Custom navbar](custom-navbar.md)
+  - [Cover page](cover.md)
 
-* Configuration
-  * [Configuration](configuration.md)
-  * [Themes](themes.md)
-  * [Using plugins](plugins.md)
-  * [Markdown configuration](markdown.md)
-  * [Language highlight](language-highlight.md)
+- Configuration
+  - [Configuration](configuration.md)
+  - [Themes](themes.md)
+  - [Using plugins](plugins.md)
+  - [Markdown configuration](markdown.md)
+  - [Language highlight](language-highlight.md)
 ```
 
 renders as
@@ -80,10 +80,10 @@ If you use the [emoji plugin](plugins#emoji):
 <script>
   window.$docsify = {
     // ...
-  }
+  };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@4.12.2/lib/plugins/emoji.min.js"></script>
 ```
 
 you could, for example, use flag emojis in your custom navbar Markdown file:
@@ -91,6 +91,6 @@ you could, for example, use flag emojis in your custom navbar Markdown file:
 ```markdown
 <!-- _navbar.md -->
 
-* [:us:, :uk:](/)
-* [:cn:](/zh-cn/)
+- [:us:, :uk:](/)
+- [:cn:](/zh-cn/)
 ```

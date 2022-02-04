@@ -9,10 +9,10 @@ window.$docsify = {
     renderer: {
       link: function() {
         // ...
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
 
 ?> Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
@@ -24,17 +24,16 @@ window.$docsify = {
   markdown: function(marked, renderer) {
     // ...
 
-    return marked
-  }
-}
+    return marked;
+  },
+};
 ```
 
 ## Supports mermaid
 
 ```js
-// Import mermaid
-//  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-//  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+// First include mermaid in your page with:
+//   <script src="//cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js"></script>
 
 var num = 0;
 mermaid.initialize({ startOnLoad: false });
@@ -43,14 +42,16 @@ window.$docsify = {
   markdown: {
     renderer: {
       code: function(code, lang) {
-        if (lang === "mermaid") {
+        if (lang === 'mermaid') {
           return (
-            '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+            '<div class="mermaid">' +
+            mermaid.render('mermaid-svg-' + num++, code) +
+            '</div>'
           );
         }
         return this.origin.code.apply(this, arguments);
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
