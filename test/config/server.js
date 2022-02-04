@@ -2,10 +2,9 @@ const browserSync = require('browser-sync').create();
 const path = require('path');
 
 const hasStartArg = process.argv.includes('--start');
-
 const serverConfig = {
-  host: '127.0.0.1',
-  port: 3001,
+  hostname: '127.0.0.1',
+  port: hasStartArg ? 3002 : 3001,
 };
 
 function startServer(options = {}, cb = Function.prototype) {
@@ -14,7 +13,7 @@ function startServer(options = {}, cb = Function.prototype) {
     middleware: [
       {
         route: '/_blank.html',
-        handle: function(req, res, next) {
+        handle: function (req, res, next) {
           res.setHeader('Content-Type', 'text/html');
           res.end('');
           next();
@@ -26,7 +25,8 @@ function startServer(options = {}, cb = Function.prototype) {
     rewriteRules: [
       // Replace docsify-related CDN URLs with local paths
       {
-        match: /(https?:)?\/\/cdn\.jsdelivr\.net\/npm\/docsify(@\d?\.?\d?\.?\d)?\/lib\//g,
+        match:
+          /(https?:)?\/\/cdn\.jsdelivr\.net\/npm\/docsify(@\d?\.?\d?\.?\d)?\/lib\//g,
         replace: '/lib/',
       },
     ],
@@ -42,7 +42,7 @@ function startServer(options = {}, cb = Function.prototype) {
     snippetOptions: {
       rule: {
         match: /<\/body>/i,
-        fn: function(snippet, match) {
+        fn: function (snippet, match) {
           // Override changelog alias to load local changelog (see routes)
           const injectJS = `
             <script>
@@ -64,6 +64,10 @@ function startServer(options = {}, cb = Function.prototype) {
 
   console.log('\n');
 
+  // Set TEST_HOST environment variable
+  process.env.TEST_HOST = `http://${serverConfig.hostname}:${serverConfig.port}`;
+
+  // Start server
   browserSync.init(
     // Config
     {
@@ -93,7 +97,7 @@ function stopServer() {
 if (hasStartArg) {
   startServer({
     open: true,
-    port: serverConfig.port + 1,
+    port: serverConfig.port,
     directory: true,
     startPath: '/docs',
   });
@@ -107,5 +111,5 @@ module.exports = {
   start: startServer,
   startAsync: startServerAsync,
   stop: stopServer,
-  TEST_HOST: `http://${serverConfig.host}:${serverConfig.port}`,
+  TEST_HOST: `http://${serverConfig.hostname}:${serverConfig.port}`,
 };

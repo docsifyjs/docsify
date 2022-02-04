@@ -7,7 +7,7 @@ export const isMobile = inBrowser && document.body.clientWidth <= 600;
  */
 export const supportsPushState =
   inBrowser &&
-  (function() {
+  (function () {
     // Borrowed wholesale from https://github.com/defunkt/jquery-pjax
     return (
       window.history &&
