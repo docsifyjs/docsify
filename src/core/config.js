@@ -21,6 +21,7 @@ export default function (vm) {
       nameLink: window.location.pathname,
       autoHeader: false,
       executeScript: null,
+      nativeEmoji: true,
       noEmoji: false,
       ga: '',
       ext: '.md',
