@@ -5,50 +5,32 @@ const docsifyInit = require('../helpers/docsify-init');
 describe('Emoji', function () {
   // Tests
   // ---------------------------------------------------------------------------
-  const sharedConfig = {
-    markdown: {
-      homepage: `
-        hh:mm
+  const emojiMarkdown = `
+    :smile:
 
-        hh:mm:
+    :smile::smile:
 
-        hh:mm:ss
+    :smile: :smile:
 
-        :mm:s
+    :smile::smile::smile:
 
-        Namespace::SubNameSpace
+    :smile: :smile: :smile:
 
-        Namespace::SubNameSpace::Class
+    text:smile:
 
-        2014-12-29T16:11:20+00:00
+    :smile:text
 
-        2020-12-03T15:05:57+00:00 (extended)
+    text:smile:text
+  `;
 
-        2020-12-03T15:05:57Z (extended)
-
-        :01:
-
-        :smile:
-
-        1:smile:
-
-        :smile:1
-
-        1:smile:1
-
-        :smile::smile::smile:
-
-        :smile: :smile: :smile:
-      `,
-    },
-  };
-
-  test('Native emoji', async () => {
+  test('Renders native emoji characters (nativeEmoji:true)', async () => {
     await docsifyInit({
       config: {
         nativeEmoji: true,
       },
-      ...sharedConfig,
+      markdown: {
+        homepage: emojiMarkdown,
+      },
       // _logHTML: true,
     });
 
@@ -57,12 +39,14 @@ describe('Emoji', function () {
     expect(mainElm.innerHTML).toMatchSnapshot();
   });
 
-  test('Fallback emoji (images)', async () => {
+  test('Renders GitHub emoji images (nativeEmoji:false)', async () => {
     await docsifyInit({
       config: {
         nativeEmoji: false,
       },
-      ...sharedConfig,
+      markdown: {
+        homepage: emojiMarkdown,
+      },
       // _logHTML: true,
     });
 
@@ -71,12 +55,75 @@ describe('Emoji', function () {
     expect(mainElm.innerHTML).toMatchSnapshot();
   });
 
-  test('No emoji', async () => {
+  test('Ignores all emoji shorthand codes (noEmoji:true)', async () => {
     await docsifyInit({
       config: {
         noEmoji: true,
       },
-      ...sharedConfig,
+      markdown: {
+        homepage: emojiMarkdown,
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores unmatched emoji shorthand codes', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          hh:mm
+
+          hh:mm:ss
+
+          Namespace::SubNameSpace
+
+          Namespace::SubNameSpace::Class
+
+          2014-12-29T16:11:20+00:00
+        `,
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores emoji shorthand codes in comments', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: 'Text <!-- :foo: :100: -->',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores emoji shorthand codes in code, pre, script, and template tags', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          <pre>:100:</pre>
+
+          <code>:100:</code>
+
+          <script>
+            var test = ':100:';
+          </script>
+
+          <template>
+            <p>:100</p>
+          </template>
+        `,
+      },
       // _logHTML: true,
     });
 

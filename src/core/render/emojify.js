@@ -1900,12 +1900,20 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
 }
 
 export function emojify(text, useNativeEmoji) {
-  return text
-    .replace(/<(pre|template|code)[^>]*?>[\s\S]+?<\/(pre|template|code)>/g, m =>
-      m.replace(/:/g, '__colon__')
-    )
-    .replace(/:([\w\-+]+?):/g, (m, $1) =>
-      replaceEmojiShorthand(m, $1, useNativeEmoji)
-    )
-    .replace(/__colon__/g, ':');
+  return (
+    text
+      // Mark colons in tags
+      .replace(
+        /<(code|pre|script|template)[^>]*?>[\s\S]+?<\/(code|pre|script|template)>/g,
+        m => m.replace(/:/g, '__colon__')
+      )
+      // Mark colons in comments
+      .replace(/<!--[\s\S]+?-->/g, m => m.replace(/:/g, '__colon__'))
+      // Replace emoji shorthand codes
+      .replace(/:([\w\-+]+?):/g, (m, $1) =>
+        replaceEmojiShorthand(m, $1, useNativeEmoji)
+      )
+      // Restore colons in tags and comments
+      .replace(/__colon__/g, ':')
+  );
 }
