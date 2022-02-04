@@ -1884,7 +1884,6 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
 
   if (emojiMatch) {
     if (useNativeEmoji) {
-      console.log({ emojiMatch });
       const emojiUnicode = emojiMatch
         .replace('unicode/', '')
         .split('-')
