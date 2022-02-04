@@ -16,7 +16,7 @@ The config can also be defined as a function, in which case the first argument i
 
 ```html
 <script>
-  window.$docsify = function(vm) {
+  window.$docsify = function (vm) {
     return {
       markdown: {
         renderer: {
@@ -319,14 +319,14 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function() {
+      link: function () {
         // ...
       },
     },
   },
 
   // function
-  markdown: function(marked, renderer) {
+  markdown: function (marked, renderer) {
     // ...
     return marked;
   },
@@ -398,11 +398,53 @@ window.$docsify = {
 
 Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin.
 
+## nativeEmoji
+
+- type: `Boolean`
+- default: `false`
+
+Render emoji shorthand codes using platform-native emoji characters instead of GitHub style emoji images.
+
+```js
+window.$docsify = {
+  nativeEmoji: true,
+};
+```
+
+```markdown
+:smile:
+:partying_face:
+:joy:
+:+1:
+:-1:
+```
+
+When `true`:
+
+<output data-lang="output">
+  <span class="emoji">😄︎</span>
+  <span class="emoji">🥳︎</span>
+  <span class="emoji">😂︎</span>
+  <span class="emoji">👍︎</span>
+  <span class="emoji">👎︎</span>
+</output>
+
+When `false`:
+
+<output data-lang="output">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" alt="smile">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f973.png" alt="partying_face">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f602.png" alt="joy">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" alt="+1">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
+</output>
+
 ## noEmoji
 
 - type: `Boolean`
+- default: `false`
 
-Disabled emoji parse.
+Disabled emoji parsing and render all emoji shorthand as text.
 
 ```js
 window.$docsify = {
@@ -410,7 +452,21 @@ window.$docsify = {
 };
 ```
 
-?> If this option is `false` but you don't want to emojify some specific colons, [refer to this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
+To render individual shorthand codes as text, replace the surrounding `:` characters with the `&colon;` HTML entity.
+
+```markdown
+:100:
+
+&colon;100&colon;
+```
+
+<output data-lang="output">
+
+:100:
+
+&colon;100&colon;
+
+</output>
 
 ## mergeNavbar
 
@@ -435,7 +491,7 @@ See https://github.com/lukeed/tinydate#patterns
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function(time) {
+  formatUpdated: function (time) {
     // ...
 
     return time;
