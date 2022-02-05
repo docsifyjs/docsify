@@ -89,15 +89,9 @@ Configure by `data-ga`.
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 
-## emoji
+## Emoji
 
-The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
-
-```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
-```
-
-?> If you don't want to parse to emoji, you can use __colon_<span>_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
+!> This plugin has been deprecated. Docsify is able to render all GitHub-style emoji without the use of this plugin as of v4.13.
 
 ## External Script
 
