@@ -30,6 +30,7 @@ span.emoji
   vertical-align middle
 
 .progress
+  background-color $color-primary
   background-color var(--theme-color, $color-primary)
   height 2px
   left 0px
@@ -41,9 +42,11 @@ span.emoji
   z-index 999999
 
 .search a:hover
+  color $color-primary
   color var(--theme-color, $color-primary)
 
 .search .search-keyword
+  color $color-primary
   color var(--theme-color, $color-primary)
   font-style normal
   font-weight bold
@@ -112,10 +115,13 @@ li input[type='checkbox']
     transition color 0.3s
 
     &:hover
+      color $color-primary
       color var(--theme-color, $color-primary)
 
     &.active
+      border-bottom 2px solid $color-primary
       border-bottom 2px solid var(--theme-color, $color-primary)
+      color $color-primary
       color var(--theme-color, $color-primary)
 
   /* navbar dropdown */
@@ -176,6 +182,7 @@ li input[type='checkbox']
 
   svg
     color $color-bg
+    fill $color-primary
     fill var(--theme-color, $color-primary)
     height 80px
     width 80px
@@ -288,6 +295,7 @@ main.hidden
     opacity 0.4
 
   span
+    background-color $color-primary
     background-color var(--theme-color, $color-primary)
     display block
     margin-bottom 4px

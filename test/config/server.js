@@ -44,18 +44,26 @@ function startServer(options = {}, cb = Function.prototype) {
         match: /<\/body>/i,
         fn: function (snippet, match) {
           // Override changelog alias to load local changelog (see routes)
-          const injectJS = `
+          const newSnippet = `
+            ${snippet.replace(/<script[^>]*/, '$& type="text/plain"')}
             <script>
-              // Fix /docs site configuration during tests
               (function() {
-                const aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
+                var aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
+                var isIE = /*@cc_on!@*/false || !!document.documentMode;
 
+                // Fix /docs site configuration during tests
                 aliasConfig['.*?/changelog'] = '/changelog.md';
+
+                // Enable BrowserSync snippet for non-IE browsers
+                if (!isIE) {
+                  document.querySelector('#__bs_script__').removeAttribute('type');
+                }
               })();
             </script>
+            ${match}
           `;
 
-          return injectJS + snippet + match;
+          return newSnippet;
         },
       },
     },
