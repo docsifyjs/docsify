@@ -43,7 +43,6 @@
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE11
 - Experimental SSR support ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 - Support embedded files
 
