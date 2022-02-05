@@ -6,9 +6,10 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
   let result = m;
 
   if (emojiMatch) {
-    if (useNativeEmoji) {
+    if (useNativeEmoji && /unicode/.test(emojiMatch)) {
       const emojiUnicode = emojiMatch
         .replace('unicode/', '')
+        .replace(/\.png.*/, '')
         .split('-')
         .map(u => `&#x${u};`)
         .join('')
