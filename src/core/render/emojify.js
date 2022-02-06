@@ -12,7 +12,9 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
         .replace(/\.png.*/, '')
         .split('-')
         .map(u => `&#x${u};`)
-        .join('')
+        // Separate multi-character emoji with zero width joiner sequence (ZWJ)
+        // Hat tip: https://about.gitlab.com/blog/2018/05/30/journey-in-native-unicode-emoji/#emoji-made-up-of-multiple-characters
+        .join('&zwj;')
         .concat('&#xFE0E;');
       result = `<span class="emoji">${emojiUnicode}</span>`;
     } else {
