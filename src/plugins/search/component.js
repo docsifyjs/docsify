@@ -154,6 +154,9 @@ function doSearch(value) {
 
   let html = '';
   matchs.forEach(post => {
+    if ($docsify.routerMode=='history') {
+      post.url = post.url.replace('#', '')
+    }
     html += `<div class="matching-post">
 <a href="${post.url}">
 <h2>${post.title}</h2>
