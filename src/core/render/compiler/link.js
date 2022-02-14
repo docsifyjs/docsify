@@ -28,6 +28,12 @@ export const linkCompiler = ({
       }
 
       href = router.toURL(href, null, router.getCurrentPath());
+
+      if (config.target) {
+        attrs.push(
+          href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`
+        );
+      }
     } else {
       if (!isAbsolutePath(href) && href.slice(0, 2) === './') {
         href =
