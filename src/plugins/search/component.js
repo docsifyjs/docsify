@@ -38,11 +38,6 @@ function style() {
   border: 1px solid transparent;
 }
 
-.search input:focus {
-  box-shadow: 0 0 5px var(--theme-color, #42b983);
-  border: 1px solid var(--theme-color, #42b983);
-}
-
 .search input::-webkit-search-decoration,
 .search input::-webkit-search-cancel-button,
 .search input {
@@ -179,12 +174,12 @@ function bindEvents() {
   let timeId;
 
   /**
-    Prevent to Fold sidebar.
+      Prevent to Fold sidebar.
 
-    When searching on the mobile end,
-    the sidebar is collapsed when you click the INPUT box,
-    making it impossible to search.
-   */
+      When searching on the mobile end,
+      the sidebar is collapsed when you click the INPUT box,
+      making it impossible to search.
+     */
   Docsify.dom.on(
     $search,
     'click',
