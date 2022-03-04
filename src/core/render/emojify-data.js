@@ -1,4 +1,4 @@
-export const emojifyData = {
+export default {
   baseURL: 'https://github.githubassets.com/images/icons/emoji/',
   data: {
     100: 'unicode/1f4af.png?v8',

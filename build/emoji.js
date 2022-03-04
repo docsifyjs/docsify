@@ -67,11 +67,7 @@ function writeEmojiJS(emojiData) {
   const emojiJS =
     fs.existsSync(filePaths.emojiJS) &&
     fs.readFileSync(filePaths.emojiJS, 'utf8');
-  const newEmojiJS = `export const emojifyData = ${JSON.stringify(
-    emojiData,
-    {},
-    2
-  )}`;
+  const newEmojiJS = `export default ${JSON.stringify(emojiData, {}, 2)}`;
 
   if (!emojiJS || emojiJS !== newEmojiJS) {
     fs.writeFileSync(filePaths.emojiJS, newEmojiJS);

@@ -1,7 +1,7 @@
-import { emojifyData } from './emojify-data.js';
+import emojiData from './emojify-data.js';
 
 function replaceEmojiShorthand(m, $1, useNativeEmoji) {
-  const emojiMatch = emojifyData.data[$1];
+  const emojiMatch = emojiData.data[$1];
 
   let result = m;
 
@@ -18,7 +18,7 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
         .concat('&#xFE0E;');
       result = `<span class="emoji">${emojiUnicode}</span>`;
     } else {
-      result = `<img src="${emojifyData.baseURL}${emojiMatch}.png" alt="${$1}" class="emoji" loading="lazy">`;
+      result = `<img src="${emojiData.baseURL}${emojiMatch}.png" alt="${$1}" class="emoji" loading="lazy">`;
     }
   }
 
