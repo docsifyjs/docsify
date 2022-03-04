@@ -1,5 +1,4 @@
 {
-  "installCommand": false,
   "sandboxes": ["2d17z"],
   "packages": [".", "packages/docsify-server-renderer"],
   "node": "16"
