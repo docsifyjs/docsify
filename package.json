@@ -20,7 +20,7 @@
     "themes"
   ],
   "scripts": {
-    "bootstrap": "npm i && lerna bootstrap && npm run build:ssr",
+    "bootstrap": "npm ci && lerna bootstrap && npm run build:ssr",
     "build:cover": "node build/cover.js",
     "build:css:min": "mkdirp lib/themes && npm run css -- -o lib/themes && node build/mincss.js",
     "build:css": "mkdirp themes && npm run css -- -o themes",
