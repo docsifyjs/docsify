@@ -403,7 +403,7 @@ Note that if you are running an external script, e.g. an embedded jsfiddle demo,
 - type: `Boolean`
 - default: `false`
 
-Render emoji shorthand codes using platform-native emoji characters instead of GitHub style emoji images.
+Render emoji shorthand codes using GitHub-style emoji images or platform-native emoji characters.
 
 ```js
 window.$docsify = {
@@ -419,7 +419,17 @@ window.$docsify = {
 :-1:
 ```
 
-When `true`:
+GitHub-style images when `false`:
+
+<output data-lang="output">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" alt="smile">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f973.png" alt="partying_face">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f602.png" alt="joy">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" alt="+1">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
+</output>
+
+Platform-native characters when `true`:
 
 <output data-lang="output">
   <span class="emoji">😄︎</span>
@@ -429,14 +439,16 @@ When `true`:
   <span class="emoji">👎︎</span>
 </output>
 
-When `false`:
+To render shorthand codes as text, replace `:` characters with the `&colon;` HTML entity.
+
+```markdown
+&colon;100&colon;
+```
 
 <output data-lang="output">
-  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" alt="smile">
-  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f973.png" alt="partying_face">
-  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f602.png" alt="joy">
-  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" alt="+1">
-  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
+
+&colon;100&colon;
+
 </output>
 
 ## noEmoji
@@ -452,7 +464,17 @@ window.$docsify = {
 };
 ```
 
-To render individual shorthand codes as text, replace the surrounding `:` characters with the `&colon;` HTML entity.
+```markdown
+:100:
+```
+
+<output data-lang="output">
+
+&colon;100&colon;
+
+</output>
+
+To disable emoji parsing of individual shorthand codes, replace `:` characters with the `&colon;` HTML entity.
 
 ```markdown
 :100:
