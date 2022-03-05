@@ -93,7 +93,13 @@ Configure by `data-ga`.
 
 ## Emoji
 
-!> This plugin has been deprecated. Docsify is able to render all GitHub-style emoji without the use of this plugin as of v4.13.
+Renders a larger collection of emoji shorthand codes. Without this plugin, Docsify is able to render only a limited number of emoji shorthand codes.
+
+!> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
+
+```html
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+```
 
 ## External Script
 
