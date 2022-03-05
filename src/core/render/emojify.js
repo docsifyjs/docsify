@@ -36,7 +36,7 @@ export function emojify(text, useNativeEmoji) {
       // Mark colons in comments
       .replace(/<!--[\s\S]+?-->/g, m => m.replace(/:/g, '__colon__'))
       // Replace emoji shorthand codes
-      .replace(/:([\w\-+]+?):/g, (m, $1) =>
+      .replace(/:([a-z0-9_\-+]+?):/g, (m, $1) =>
         replaceEmojiShorthand(m, $1, useNativeEmoji)
       )
       // Restore colons in tags and comments
