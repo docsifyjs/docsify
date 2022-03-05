@@ -1,4 +1,4 @@
-import emojiData from '../core/render/emojify-data';
+import emojiData from '../core/render/emoji-data.js';
 
 // Deprecation notice
 if (window && window.console) {
@@ -6,13 +6,8 @@ if (window && window.console) {
 }
 
 // Emoji from GitHub API
-// https://api.github.com/emojis
 window.emojify = function (match, $1) {
-  return Object.prototype.hasOwnProperty.call(emojiData, $1) === false
+  return Object.prototype.hasOwnProperty.call(emojiData.data, $1) === false
     ? match
-    : '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/' +
-        emojiData[$1] +
-        '.png" alt="' +
-        $1 +
-        '" />';
+    : `<img src="${emojiData.baseURL}${emojiData.data[$1]}" alt="${$1}" class="emoji" />`;
 };

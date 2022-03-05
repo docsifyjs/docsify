@@ -1,4 +1,4 @@
-import emojiData from './emojify-data.js';
+import emojiData from './emoji-data.js';
 
 function replaceEmojiShorthand(m, $1, useNativeEmoji) {
   const emojiMatch = emojiData.data[$1];
