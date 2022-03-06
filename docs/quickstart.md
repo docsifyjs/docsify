@@ -18,9 +18,9 @@ docsify init ./docs
 
 After the `init` is complete, you can see the file list in the `./docs` subdirectory.
 
-* `index.html` as the entry file
-* `README.md` as the home page
-* `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
+- `index.html` as the entry file
+- `README.md` as the home page
+- `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
 
 You can easily update the documentation in `./docs/README.md`, of course you can add [more pages](more-pages.md).
 
@@ -43,21 +43,24 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
 
 <!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css" />
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      //...
-    }
-  </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-</body>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css"
+    />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      window.$docsify = {
+        //...
+      };
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  </body>
 </html>
 ```
 
@@ -75,17 +78,21 @@ Specifying a major version in the URL (`@4`) will allow your site will receive n
 If you prefer to lock docsify to a specific version, specify the full version after the `@` symbol in the URL. This is the safest way to ensure your site will look and behave the same way regardless of any changes made to future versions of docsify.
 
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4.11.4/themes/vue.css">
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@4.11.4/themes/vue.css"
+/>
 <script src="//cdn.jsdelivr.net/npm/docsify@4.11.4"></script>
 ```
 
 ### Manually preview your site
 
-If you installed python on your system, you can easily use it to run a static server to preview your site.
+If you have Python installed on your system, you can easily use it to run a static server to preview your site.
 
 ```python2
 cd docs && python -m SimpleHTTPServer 3000
 ```
+
 ```python3
 cd docs && python -m http.server 3000
 ```
@@ -107,11 +114,11 @@ You should set the `data-app` attribute if you changed `el`:
 
 <div data-app id="main">Please wait...</div>
 
-  <script>
-    window.$docsify = {
-      el: '#main'
-    }
-  </script>
+<script>
+  window.$docsify = {
+    el: '#main',
+  };
+</script>
 ```
 
 Compare [el configuration](configuration.md#el).

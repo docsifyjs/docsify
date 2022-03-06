@@ -2,7 +2,8 @@ import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 
 const currentScript = document.currentScript;
 
-export default function(vm) {
+/** @param {import('./Docsify').Docsify} vm */
+export default function (vm) {
   const config = merge(
     {
       el: '#app',
@@ -20,6 +21,7 @@ export default function(vm) {
       nameLink: window.location.pathname,
       autoHeader: false,
       executeScript: null,
+      nativeEmoji: false,
       noEmoji: false,
       ga: '',
       ext: '.md',

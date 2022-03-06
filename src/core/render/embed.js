@@ -15,7 +15,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
 
   while ((token = embedTokens[step++])) {
     // eslint-disable-next-line no-shadow
-    const next = (function(token) {
+    const next = (function (token) {
       return text => {
         let embedToken;
         if (text) {
@@ -26,7 +26,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             // Resolves relative links to absolute
             text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, x => {
               const linkBeginIndex = x.indexOf('(');
-              if (x.substring(linkBeginIndex).startsWith('(.')) {
+              if (x.slice(linkBeginIndex, linkBeginIndex + 2) === '(.') {
                 return (
                   x.substring(0, linkBeginIndex) +
                   `(${window.location.protocol}//${window.location.host}${path}/` +

@@ -33,9 +33,8 @@ function style() {
   outline: none;
   border: none;
   width: 100%;
-  padding: 0 7px;
-  line-height: 36px;
-  font-size: 14px;
+  padding: 0.6em 7px;
+  font-size: inherit;
   border: 1px solid transparent;
 }
 
@@ -51,6 +50,13 @@ function style() {
   -moz-appearance: none;
   appearance: none;
 }
+
+.search input::-ms-clear {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
 .search .clear-button {
   cursor: pointer;
   width: 36px;
@@ -137,8 +143,8 @@ function doSearch(value) {
     $panel.innerHTML = '';
 
     if (options.hideOtherSidebarContent) {
-      $sidebarNav.classList.remove('hide');
-      $appName.classList.remove('hide');
+      $sidebarNav && $sidebarNav.classList.remove('hide');
+      $appName && $appName.classList.remove('hide');
     }
 
     return;
@@ -160,8 +166,8 @@ function doSearch(value) {
   $clearBtn.classList.add('show');
   $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
   if (options.hideOtherSidebarContent) {
-    $sidebarNav.classList.add('hide');
-    $appName.classList.add('hide');
+    $sidebarNav && $sidebarNav.classList.add('hide');
+    $appName && $appName.classList.add('hide');
   }
 }
 

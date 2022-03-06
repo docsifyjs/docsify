@@ -4,12 +4,13 @@
 
 By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
 
+<!-- prettier-ignore -->
 ```html
 <script>
   window.$docsify = {
     search: 'auto', // default
 
-    search : [
+    search: [
       '/',            // => /README.md
       '/guide',       // => /guide.md
       '/get-started', // => /get-started.md
@@ -25,7 +26,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Localization
       placeholder: {
         '/zh-cn/': '搜索',
-        '/': 'Type to search'
+        '/': 'Type to search',
       },
 
       noData: 'No Results!',
@@ -33,7 +34,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Localization
       noData: {
         '/zh-cn/': '找不到结果',
-        '/': 'No Results'
+        '/': 'No Results',
       },
 
       // Headline depth, 1 - 6
@@ -54,12 +55,18 @@ By default, the hyperlink on the current page is recognized and the content is s
 
       // You can provide a regexp to match prefixes. In this case,
       // the matching substring will be used to identify the index
-      pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/
-    }
-  }
+      pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/,
+    },
+  };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+```
+
+This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café"). Legacy browsers like IE11 require the following [String.normalize()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) polyfill to ignore diacritical marks:
+
+```html
+<script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
 ```
 
 ## Google Analytics
@@ -69,8 +76,8 @@ Install the plugin and configure the track id.
 ```html
 <script>
   window.$docsify = {
-    ga: 'UA-XXXXX-Y'
-  }
+    ga: 'UA-XXXXX-Y',
+  };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
@@ -78,20 +85,21 @@ Install the plugin and configure the track id.
 
 Configure by `data-ga`.
 
+<!-- prettier-ignore -->
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 
-## emoji
+## Emoji
 
-The default is to support parsing emoji. For example `:100:` will be parsed to :100:. But it is not precise because there is no matching non-emoji string. If you need to correctly parse the emoji string, you need install this plugin.
+Renders a larger collection of emoji shorthand codes. Without this plugin, Docsify is able to render only a limited number of emoji shorthand codes.
+
+!> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
 ```
-
-?> If you don't want to parse to emoji, you can use __colon_<span>_</span> or `&#58;`. If you need to use in the title, we recommend using `&#58;`. For example, `&#58;100:`
 
 ## External Script
 
@@ -112,12 +120,12 @@ Medium's image zoom. Based on [medium-zoom](https://github.com/francoischalifour
 Exclude the special image
 
 ```markdown
-![](image.png ":no-zoom")
+![](image.png ':no-zoom')
 ```
 
 ## Edit on github
 
-Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), check [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 ## Demo code with instant preview and jsfiddle integration
 
@@ -132,7 +140,7 @@ When readers expand the demo box, the source code and description are shown ther
 Add a simple `Click to copy` button to all preformatted code blocks to effortlessly allow users to copy example code from your docs. Provided by [@jperasmus](https://github.com/jperasmus)
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
 ```
 
 See [here](https://github.com/jperasmus/docsify-copy-code/blob/master/README.md) for more details.
@@ -144,8 +152,8 @@ Disqus comments. https://disqus.com/
 ```html
 <script>
   window.$docsify = {
-    disqus: 'shortname'
-  }
+    disqus: 'shortname',
+  };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
 ```
@@ -155,7 +163,7 @@ Disqus comments. https://disqus.com/
 [Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
 
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css" />
 
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
@@ -165,10 +173,12 @@ Disqus comments. https://disqus.com/
     clientSecret: 'Github Application Client Secret',
     repo: 'Github repo',
     owner: 'Github repo owner',
-    admin: ['Github repo collaborators, only these guys can initialize github issues'],
+    admin: [
+      'Github repo collaborators, only these guys can initialize github issues',
+    ],
     // facebook-like distraction free mode
-    distractionFreeMode: false
-  })
+    distractionFreeMode: false,
+  });
 </script>
 ```
 
@@ -180,6 +190,8 @@ Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
+
+Click [here](https://github.com/imyelo/docsify-pagination#readme) to get more information.
 
 ## Tabs
 

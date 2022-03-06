@@ -1,46 +1,57 @@
 import { noop } from '../util/core';
 
-export function initLifecycle(vm) {
-  const hooks = [
-    'init',
-    'mounted',
-    'beforeEach',
-    'afterEach',
-    'doneEach',
-    'ready',
-  ];
+/** @typedef {import('../Docsify').Constructor} Constructor */
 
-  vm._hooks = {};
-  vm._lifecycle = {};
-  hooks.forEach(hook => {
-    const arr = (vm._hooks[hook] = []);
-    vm._lifecycle[hook] = fn => arr.push(fn);
-  });
-}
+/**
+ * @template {!Constructor} T
+ * @param {T} Base - The class to extend
+ */
+export function Lifecycle(Base) {
+  return class Lifecycle extends Base {
+    initLifecycle() {
+      const hooks = [
+        'init',
+        'mounted',
+        'beforeEach',
+        'afterEach',
+        'doneEach',
+        'ready',
+      ];
 
-export function callHook(vm, hookName, data, next = noop) {
-  const queue = vm._hooks[hookName];
+      this._hooks = {};
+      this._lifecycle = {};
 
-  const step = function(index) {
-    const hookFn = queue[index];
+      hooks.forEach(hook => {
+        const arr = (this._hooks[hook] = []);
+        this._lifecycle[hook] = fn => arr.push(fn);
+      });
+    }
 
-    if (index >= queue.length) {
-      next(data);
-    } else if (typeof hookFn === 'function') {
-      if (hookFn.length === 2) {
-        hookFn(data, result => {
-          data = result;
+    callHook(hookName, data, next = noop) {
+      const queue = this._hooks[hookName];
+
+      const step = function (index) {
+        const hookFn = queue[index];
+
+        if (index >= queue.length) {
+          next(data);
+        } else if (typeof hookFn === 'function') {
+          if (hookFn.length === 2) {
+            hookFn(data, result => {
+              data = result;
+              step(index + 1);
+            });
+          } else {
+            const result = hookFn(data);
+            data = result === undefined ? data : result;
+            step(index + 1);
+          }
+        } else {
           step(index + 1);
-        });
-      } else {
-        const result = hookFn(data);
-        data = result === undefined ? data : result;
-        step(index + 1);
-      }
-    } else {
-      step(index + 1);
+        }
+      };
+
+      step(0);
     }
   };
-
-  step(0);
 }

@@ -40,6 +40,7 @@ $sidebar-width = 16rem
   font-weight 600
 
 .markdown-section a
+  color $color-primary
   color var(--theme-color, $color-primary)
 
 .markdown-section p, .markdown-section ul, .markdown-section ol
@@ -83,6 +84,7 @@ $sidebar-width = 16rem
   margin 0
 
 .markdown-section blockquote
+  border-left 4px solid $color-primary
   border-left 4px solid var(--theme-color, $color-primary)
   color #858585
   margin 2em 0
@@ -101,14 +103,14 @@ $sidebar-width = 16rem
 .markdown-section code
   background-color #f9f9f9
   border-radius 3px
-  font-family Inconsolata
+  font-family Inconsolata, monospace
   padding 0.2em 0.4rem
   white-space nowrap
 
 .markdown-section pre
   background-color #f9f9f9
   border-left 2px solid #eee
-  font-family Inconsolata
+  font-family Inconsolata, monospace
   font-size 16px
   margin 0 0 1em 0
   padding 8px
@@ -159,7 +161,7 @@ $sidebar-width = 16rem
   background-color #f8f8f8
   border-radius 2px
   display block
-  font-family Inconsolata
+  font-family Inconsolata, monospace
   line-height 1.1rem
   max-width inherit
   overflow inherit

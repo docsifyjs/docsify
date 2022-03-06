@@ -16,7 +16,7 @@ The config can also be defined as a function, in which case the first argument i
 
 ```html
 <script>
-  window.$docsify = function(vm) {
+  window.$docsify = function (vm) {
     return {
       markdown: {
         renderer: {
@@ -48,7 +48,7 @@ window.$docsify = {
 - Type: `String`
 - Default: `null`
 
-Configure the repository url, or a string of `username/repo` can add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
+Configure the repository url, or a string of `username/repo`, to add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
 
 ```js
 window.$docsify = {
@@ -260,7 +260,7 @@ window.$docsify = {
 
 - Type: `String`
 
-Website logo as it appears in the sidebar. You can resize it by using CSS.
+Website logo as it appears in the sidebar. You can resize it using CSS.
 
 ```js
 window.$docsify = {
@@ -301,8 +301,8 @@ window.$docsify = {
 
   // For each route
   nameLink: {
-    '/zh-cn/': '/zh-cn/',
-    '/': '/',
+    '/zh-cn/': '#/zh-cn/',
+    '/': '#/',
   },
 };
 ```
@@ -319,14 +319,14 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function() {
+      link: function () {
         // ...
       },
     },
   },
 
   // function
-  markdown: function(marked, renderer) {
+  markdown: function (marked, renderer) {
     // ...
     return marked;
   },
@@ -337,7 +337,7 @@ window.$docsify = {
 
 - Type: `String`
 
-Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in old browser.
+Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in older browsers.
 
 ```js
 window.$docsify = {
@@ -354,7 +354,7 @@ Set the route alias. You can freely manage routing rules. Supports RegExp.
 ```js
 window.$docsify = {
   alias: {
-    '/foo/(+*)': '/bar/$1', // supports regexp
+    '/foo/(.*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
       'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
@@ -367,7 +367,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. Compare [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. See [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -380,7 +380,7 @@ window.$docsify = {
 
 - type: `Boolean`
 
-Execute the script on the page. Only parse the first script tag([demo](themes)). If Vue is present, it is turned on by default.
+Execute the script on the page. Only parse the first script tag ([demo](themes)). If Vue is present, it is turned on by default.
 
 ```js
 window.$docsify = {
@@ -398,11 +398,65 @@ window.$docsify = {
 
 Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin.
 
+## nativeEmoji
+
+- type: `Boolean`
+- default: `false`
+
+Render emoji shorthand codes using GitHub-style emoji images or platform-native emoji characters.
+
+```js
+window.$docsify = {
+  nativeEmoji: true,
+};
+```
+
+```markdown
+:smile:
+:partying_face:
+:joy:
+:+1:
+:-1:
+```
+
+GitHub-style images when `false`:
+
+<output data-lang="output">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" alt="smile">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f973.png" alt="partying_face">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f602.png" alt="joy">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" alt="+1">
+  <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
+</output>
+
+Platform-native characters when `true`:
+
+<output data-lang="output">
+  <span class="emoji">😄︎</span>
+  <span class="emoji">🥳︎</span>
+  <span class="emoji">😂︎</span>
+  <span class="emoji">👍︎</span>
+  <span class="emoji">👎︎</span>
+</output>
+
+To render shorthand codes as text, replace `:` characters with the `&colon;` HTML entity.
+
+```markdown
+&colon;100&colon;
+```
+
+<output data-lang="output">
+
+&colon;100&colon;
+
+</output>
+
 ## noEmoji
 
 - type: `Boolean`
+- default: `false`
 
-Disabled emoji parse.
+Disabled emoji parsing and render all emoji shorthand as text.
 
 ```js
 window.$docsify = {
@@ -410,7 +464,31 @@ window.$docsify = {
 };
 ```
 
-?> If this options is `false` but you don't want to emojify some specific colons , [Refer this](https://github.com/docsifyjs/docsify/issues/742#issuecomment-586313143)
+```markdown
+:100:
+```
+
+<output data-lang="output">
+
+&colon;100&colon;
+
+</output>
+
+To disable emoji parsing of individual shorthand codes, replace `:` characters with the `&colon;` HTML entity.
+
+```markdown
+:100:
+
+&colon;100&colon;
+```
+
+<output data-lang="output">
+
+:100:
+
+&colon;100&colon;
+
+</output>
 
 ## mergeNavbar
 
@@ -435,7 +513,7 @@ See https://github.com/lukeed/tinydate#patterns
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function(time) {
+  formatUpdated: function (time) {
     // ...
 
     return time;
@@ -497,8 +575,8 @@ window.$docsify = {
 
 - type: `Array`
 
-When `routerMode: 'history'`, you may face the cross-origin issues, See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
-In Markdown content, there is a simple way to solve it, see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
+When `routerMode: 'history'`, you may face cross-origin issues. See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
+In Markdown content, there is a simple way to solve it: see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
 
 ```js
 window.$docsify = {
@@ -508,9 +586,9 @@ window.$docsify = {
 
 ## noCompileLinks
 
-- type: `Array`
+- type: `Array<string>`
 
-Sometimes we do not want docsify to handle our links. See [#203](https://github.com/docsifyjs/docsify/issues/203)
+Sometimes we do not want docsify to handle our links. See [#203](https://github.com/docsifyjs/docsify/issues/203). We can skip compiling of certain links by specifying an array of strings. Each string is converted into to a regular expression (`RegExp`) and the _whole_ href of a link is matched against it.
 
 ```js
 window.$docsify = {
@@ -570,7 +648,7 @@ window.$docsify = {
 
 - type: `Array<string>`
 
-List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given local.
+List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given locale.
 
 Example:
 
@@ -615,14 +693,14 @@ window.$docsify = {
 };
 ```
 
-> Note: The options with fallbackLanguages didn't work with the `notFoundPage` options.
+> Note: The options for fallbackLanguages don't work with the `notFoundPage` options.
 
 ## topMargin
 
 - type: `Number`
 - default: `0`
 
-Adds a space on top when scrolling content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
 
 ```js
 window.$docsify = {
