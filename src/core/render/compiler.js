@@ -104,7 +104,7 @@ export class Compiler {
           html = compile.parser(text);
         }
 
-        html = config.noEmoji ? html : emojify(html);
+        html = config.noEmoji ? html : emojify(html, config.nativeEmoji);
         slugify.clear();
 
         return html;

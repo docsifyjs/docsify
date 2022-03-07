@@ -24,6 +24,7 @@
     "build:cover": "node build/cover.js",
     "build:css:min": "mkdirp lib/themes && npm run css -- -o lib/themes && node build/mincss.js",
     "build:css": "mkdirp themes && npm run css -- -o themes",
+    "build:emoji": "node ./build/emoji.js && eslint ./src/core/render/emojify-data.js --fix --quiet",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
     "build:ssr": "node build/ssr.js",
     "build:test": "npm run build && npm test",
@@ -68,7 +69,7 @@
     "marked": "^1.2.9",
     "medium-zoom": "^1.0.6",
     "opencollective-postinstall": "^2.0.2",
-    "prismjs": "^1.23.0",
+    "prismjs": "^1.27.0",
     "strip-indent": "^3.0.0",
     "tinydate": "^1.3.0",
     "tweezer.js": "^1.4.0"
