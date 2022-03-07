@@ -9,7 +9,7 @@ const filePaths = {
     'src',
     'core',
     'render',
-    'emojify-data.js'
+    'emoji-data.js'
   ),
 };
 
