@@ -3,7 +3,6 @@ import { resolve, basename } from 'path';
 import resolvePathname from 'resolve-pathname';
 import fetch from 'node-fetch';
 import debug from 'debug';
-import DOMPurify from 'dompurify';
 import { AbstractHistory } from '../../src/core/router/history/abstract';
 import { Compiler } from '../../src/core/render/compiler';
 import { isAbsolutePath } from '../../src/core/router/util';
@@ -123,10 +122,10 @@ export default class Renderer {
       this._renderHtml('cover', await this._render(coverFile), 'cover');
     }
 
-    const html = this.isRemoteUrl
-      ? DOMPurify.sanitize(this.html, { ADD_TAGS: ['script'] })
-      : this.html;
+    const html = this.html;
+
     this.html = this.template;
+
     return html;
   }
 

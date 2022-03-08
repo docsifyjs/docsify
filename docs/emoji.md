@@ -4,7 +4,7 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));">
 
-<!-- START: auto-generated emoji markdown (do not edit between these comments) -->
+<!-- START: Auto-generated content (/build/emoji.js) -->
 
 :100: `:100:`
 
@@ -3754,6 +3754,6 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 
 :zzz: `:zzz:`
 
-<!-- END: auto-generated emoji markdown -->
+<!-- END: Auto-generated content (/build/emoji.js) -->
 
 </div>
