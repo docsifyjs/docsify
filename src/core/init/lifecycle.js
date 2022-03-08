@@ -36,7 +36,7 @@ export function Lifecycle(Base) {
         if (index >= queue.length) {
           next(data);
         } else if (typeof hookFn === 'function') {
-          const errTitle = `Docsify plugin error (${hookName})`;
+          const errTitle = 'Docsify plugin error';
 
           if (hookFn.length === 2) {
             try {
