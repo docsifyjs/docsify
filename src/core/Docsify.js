@@ -28,9 +28,14 @@ export class Docsify extends Fetch(Events(Render(Router(Lifecycle(Object))))) {
   }
 
   initPlugin() {
-    []
-      .concat(this.config.plugins)
-      .forEach(fn => isFn(fn) && fn(this._lifecycle, this));
+    [].concat(this.config.plugins).forEach(fn => {
+      try {
+        isFn(fn) && fn(this._lifecycle, this);
+      } catch (err) {
+        const errTitle = 'Docsify plugin error';
+        console.error(errTitle, err);
+      }
+    });
   }
 }
 
