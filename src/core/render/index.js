@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import tinydate from 'tinydate';
-import DOMPurify from 'dompurify';
 import * as dom from '../util/dom';
 import cssVars from '../util/polyfill/css-vars';
 import { getAndActive, sticky } from '../event/sidebar';
@@ -339,9 +338,6 @@ export function Render(Base) {
             },
             tokens => {
               html = this.compiler.compile(tokens);
-              html = this.isRemoteUrl
-                ? DOMPurify.sanitize(html, { ADD_TAGS: ['script'] })
-                : html;
               callback();
               next();
             }
