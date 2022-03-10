@@ -29,6 +29,7 @@ export function Lifecycle(Base) {
 
     callHook(hookName, data, next = noop) {
       const queue = this._hooks[hookName];
+      const catchPluginErrors = this.config.catchPluginErrors;
 
       const step = function (index) {
         const hookFn = queue[index];
@@ -44,7 +45,11 @@ export function Lifecycle(Base) {
                 data = result;
               });
             } catch (err) {
-              console.error(errTitle, err);
+              if (catchPluginErrors) {
+                console.error(errTitle, err);
+              } else {
+                throw err;
+              }
             }
 
             step(index + 1);
@@ -54,7 +59,11 @@ export function Lifecycle(Base) {
 
               data = result === undefined ? data : data;
             } catch (err) {
-              console.error(errTitle, err);
+              if (catchPluginErrors) {
+                console.error(errTitle, err);
+              } else {
+                throw err;
+              }
             }
 
             step(index + 1);

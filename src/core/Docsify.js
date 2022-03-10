@@ -32,8 +32,12 @@ export class Docsify extends Fetch(Events(Render(Router(Lifecycle(Object))))) {
       try {
         isFn(fn) && fn(this._lifecycle, this);
       } catch (err) {
-        const errTitle = 'Docsify plugin error';
-        console.error(errTitle, err);
+        if (this.config.catchPluginErrors) {
+          const errTitle = 'Docsify plugin error';
+          console.error(errTitle, err);
+        } else {
+          throw err;
+        }
       }
     });
   }

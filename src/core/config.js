@@ -37,6 +37,7 @@ export default function (vm) {
       crossOriginLinks: [],
       relativePath: false,
       topMargin: 0,
+      catchPluginErrors: true,
     },
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)
