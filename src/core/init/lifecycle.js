@@ -58,7 +58,7 @@ export function Lifecycle(Base) {
             try {
               const result = hookFn(data);
 
-              data = result === undefined ? data : data;
+              data = result === undefined ? data : result;
               step(index + 1);
             } catch (err) {
               if (catchPluginErrors) {
