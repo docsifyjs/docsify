@@ -32,7 +32,8 @@ Alternatively, a plugin can be stored in a separate file and "installed" using a
   };
 
   // Add plugin to docsify's plugin array
-  $docsify.plugins = [].concat(myPlugin, $docsify.plugins);
+  $docsify = $docsify || {};
+  $docsify.plugins = [].concat(myPlugin, $docsify.plugins || []);
 })();
 ```
 
@@ -45,7 +46,7 @@ Below is a plugin template with placeholders for all available lifecycle hooks.
 1. Add your plugin logic
 1. Remove unused lifecycle hooks
 1. Save the file as `docsify-plugin-[name].js`
-1. Load your plugin using a standard `<script>` tag _after_ docsify.js
+1. Load your plugin using a standard `<script>` tag
 
 ```js
 (function () {
@@ -60,16 +61,16 @@ Below is a plugin template with placeholders for all available lifecycle hooks.
       // ...
     });
 
-    // Invoked on each page load before new markdown is transformed to HTML
-    // Call next(markdown) for asynchronous tasks
-    hook.beforeEach(function (markdown, next) {
+    // Invoked on each page load before new markdown is transformed to HTML.
+    // See beforeEach() documentation for asynchronous tasks.
+    hook.beforeEach(function (markdown) {
       // ...
       return markdown;
     });
 
-    // Invoked on each page load after new markdown has been transformed to HTML
-    // Call next(html) for asynchronous tasks
-    hook.afterEach(function (html, next) {
+    // Invoked on each page load after new markdown has been transformed to HTML.
+    // See afterEach() documentation for asynchronous tasks.
+    hook.afterEach(function (html) {
       // ...
       return html;
     });
@@ -86,7 +87,8 @@ Below is a plugin template with placeholders for all available lifecycle hooks.
   };
 
   // Add plugin to docsify's plugin array
-  $docsify.plugins = [].concat(myPlugin, $docsify.plugins);
+  $docsify = $docsify || {};
+  $docsify.plugins = [].concat(myPlugin, $docsify.plugins || []);
 })();
 ```
 
