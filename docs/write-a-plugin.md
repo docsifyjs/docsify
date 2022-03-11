@@ -127,18 +127,20 @@ hook.beforeEach(function (markdown) {
 });
 ```
 
-This lifecycle hook also support asynchronous tasks. Use a `try/catch/finally` block to prevent plugin errors from affecting docsify other plugins.
+For asynchronous tasks, the hook function accepts a `next` callback as a second argument. Call this function with the final `markdown` value when ready. To prevent errors from affecting docsify and other plugins, wrap async code in a `try/catch/finally` block.
 
 ```js
-// Asynchronous
 hook.beforeEach(function (markdown, next) {
-  try {
-    // ...
-  } catch (err) {
-    // ...
-  } finally {
-    next(markdown);
-  }
+  // Asynchronous task (example)
+  setTimeout(function () {
+    try {
+      // ...
+    } catch (err) {
+      // ...
+    } finally {
+      next(markdown);
+    }
+  }, 1000);
 });
 ```
 
@@ -153,18 +155,20 @@ hook.afterEach(function (html) {
 });
 ```
 
-This lifecycle hook also support asynchronous tasks. Use a `try/catch/finally` block to prevent plugin errors from affecting docsify other plugins.
+For asynchronous tasks, the hook function accepts a `next` callback as a second argument. Call this function with the final `html` value when ready. To prevent errors from affecting docsify and other plugins, wrap async code in a `try/catch/finally` block.
 
 ```js
-// Asynchronous
 hook.afterEach(function (html, next) {
-  try {
-    // ...
-  } catch (err) {
-    // ...
-  } finally {
-    next(html);
-  }
+  // Asynchronous task (example)
+  setTimeout(function () {
+    try {
+      // ...
+    } catch (err) {
+      // ...
+    } finally {
+      next(markdown);
+    }
+  }, 1000);
 });
 ```
 
