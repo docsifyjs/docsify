@@ -94,12 +94,6 @@ Below is a plugin template with placeholders for all available lifecycle hooks.
 
 Lifecycle hooks are provided via the `hook` argument passed to the plugin function.
 
-```js
-var myPlugin = function (hook, vm) {
-  // ...
-};
-```
-
 ### init()
 
 Invoked one time when docsify script is initialized
