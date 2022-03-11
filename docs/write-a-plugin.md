@@ -1,85 +1,238 @@
 # Write a plugin
 
-A plugin is simply a function that takes `hook` as an argument. The hook supports handling of asynchronous tasks.
+A docsify plugin is a function with the ability to execute custom JavaScript code at various stages of Docsify's lifecycle.
 
-## Full configuration
+## Setup
+
+Docsify plugins can be added directly to the `plugins` array.
 
 ```js
 window.$docsify = {
   plugins: [
-    function(hook, vm) {
-      hook.init(function() {
-        // Called when the script starts running, only trigger once, no arguments,
-      });
-
-      hook.beforeEach(function(content) {
-        // Invoked each time before parsing the Markdown file.
-        // ...
-        return content;
-      });
-
-      hook.afterEach(function(html, next) {
-        // Invoked each time after the Markdown file is parsed.
-        // beforeEach and afterEach support asynchronous。
-        // ...
-        // call `next(html)` when task is done.
-        next(html);
-      });
-
-      hook.doneEach(function() {
-        // Invoked each time after the data is fully loaded, no arguments,
-        // ...
-      });
-
-      hook.mounted(function() {
-        // Called after initial completion. Only trigger once, no arguments.
-      });
-
-      hook.ready(function() {
-        // Called after initial completion, no arguments.
-      });
-    }
-  ]
+    function myPlugin1(hook, vm) {
+      // ...
+    },
+    function myPlugin2(hook, vm) {
+      // ...
+    },
+  ],
 };
 ```
 
-!> You can get internal methods through `window.Docsify`. Get the current instance through the second argument.
+Alternatively, a plugin can be stored in a separate file and "installed" using a standard `<script>` tag.
 
-## Example
+```html
+<script src="path/to/docsify-plugin-myplugin.js"></script>
+```
 
-#### footer
+```js
+(function () {
+  var myPlugin = function (hook, vm) {
+    // ...
+  };
 
-Add a footer component to each page.
+  // Add plugin to docsify's plugin array
+  $docsify.plugins = [].concat(myPlugin, $docsify.plugins);
+})();
+```
+
+## Template
+
+Below is a plugin template with placeholders for all available lifecycle hooks.
+
+1. Copy the template
+1. Modify the `myPlugin` name as appropriate
+1. Add your plugin logic
+1. Remove unused lifecycle hooks
+1. Save the file as `docsify-plugin-[name].js`
+1. Load your plugin using a standard `<script>` tag _after_ docsify.js
+
+```js
+(function () {
+  var myPlugin = function (hook, vm) {
+    // Invoked one time when docsify script is initialized
+    hook.init(function () {
+      // ...
+    });
+
+    // Invoked one time when the docsify instance has mounted on the DOM
+    hook.mounted(function () {
+      // ...
+    });
+
+    // Invoked on each page load before new markdown is transformed to HTML
+    // Call next(markdown) for asynchronous tasks
+    hook.beforeEach(function (markdown, next) {
+      // ...
+      return markdown;
+    });
+
+    // Invoked on each page load after new markdown has been transformed to HTML
+    // Call next(html) for asynchronous tasks
+    hook.afterEach(function (html, next) {
+      // ...
+      return html;
+    });
+
+    // Invoked on each page load after new HTML has been appended to the DOM
+    hook.doneEach(function () {
+      // ...
+    });
+
+    // Invoked one time after rendering the initial page
+    hook.ready(function () {
+      // ...
+    });
+  };
+
+  // Add plugin to docsify's plugin array
+  $docsify.plugins = [].concat(myPlugin, $docsify.plugins);
+})();
+```
+
+## Lifecycle Hooks
+
+Lifecycle hooks are provided via the `hook` argument passed to the plugin function.
+
+```js
+var myPlugin = function (hook, vm) {
+  // ...
+};
+```
+
+### init()
+
+Invoked one time when docsify script is initialized
+
+```js
+hook.init(function () {
+  // ...
+});
+```
+
+### mounted()
+
+Invoked one time when the docsify instance has mounted on the DOM
+
+```js
+hook.mounted(function () {
+  // ...
+});
+```
+
+### beforeEach()
+
+Invoked on each page load before new markdown is transformed to HTML
+
+```js
+hook.beforeEach(function (markdown) {
+  // ...
+  return markdown;
+});
+```
+
+This lifecycle hook also support asynchronous tasks. Use a `try/catch/finally` block to prevent plugin errors from affecting docsify other plugins.
+
+```js
+// Asynchronous
+hook.beforeEach(function (markdown, next) {
+  try {
+    // ...
+  } catch (err) {
+    // ...
+  } finally {
+    next(markdown);
+  }
+});
+```
+
+### afterEach()
+
+Invoked on each page load after new markdown has been transformed to HTML
+
+```js
+hook.afterEach(function (html) {
+  // ...
+  return html;
+});
+```
+
+This lifecycle hook also support asynchronous tasks. Use a `try/catch/finally` block to prevent plugin errors from affecting docsify other plugins.
+
+```js
+// Asynchronous
+hook.afterEach(function (html, next) {
+  try {
+    // ...
+  } catch (err) {
+    // ...
+  } finally {
+    next(html);
+  }
+});
+```
+
+### doneEach()
+
+Invoked on each page load after new HTML has been appended to the DOM
+
+```js
+hook.doneEach(function () {
+  // ...
+});
+```
+
+### ready()
+
+Invoked one time after rendering the initial page
+
+```js
+hook.ready(function () {
+  // ...
+});
+```
+
+## Tips
+
+- Access Docsify methods and properties using `window.Docsify`
+- Access the current Docsify instance using the `vm` argument
+- Developers who prefer using a debugger can set the [`catchPluginErrors`](configuration#catchpluginerrors) configuration option to `false` to allow their debugger to pause JavaScript execution on error
+- Be sure to test your plugin on all supported platforms and with related configuration options (if applicable) before publishing
+
+## Examples
+
+#### Page Footer
 
 ```js
 window.$docsify = {
   plugins: [
-    function(hook) {
+    function pageFooter(hook, vm) {
       var footer = [
         '<hr/>',
         '<footer>',
         '<span><a href="https://github.com/QingWei-Li">cinwell</a> &copy;2017.</span>',
         '<span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>',
-        '</footer>'
+        '</footer>',
       ].join('');
 
-      hook.afterEach(function(html) {
+      hook.afterEach(function (html) {
         return html + footer;
       });
-    }
-  ]
+    },
+  ],
 };
 ```
 
-### Edit Button
+### Edit Button (GitHub)
 
 ```js
 window.$docsify = {
-  // The date template pattern
-  formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
   plugins: [
-    function(hook, vm) {
-      hook.beforeEach(function(html) {
+    function editButton(hook, vm) {
+      // The date template pattern
+      $docsify.formatUpdated = '{YYYY}/{MM}/{DD} {HH}:{mm}';
+
+      hook.beforeEach(function (html) {
         var url =
           'https://github.com/docsifyjs/docsify/blob/master/docs/' +
           vm.route.file;
@@ -93,22 +246,7 @@ window.$docsify = {
           editHtml
         );
       });
-    }
-  ]
+    },
+  ],
 };
 ```
-
-## Tips
-
-### Get docsify version
-
-```
-console.log(window.Docsify.version)
-```
-
-Current version: <span id='tip-version'>loading</span>
-
-<script>
-document.getElementById('tip-version').innerText = Docsify.version
-document.getElementsByClassName("lang-js")[2].innerHTML = document.getElementsByClassName("lang-js")[2].innerHTML.replace(/Last modified .*'/,"Last modified {docsify-updated<span>}'</span>")
-</script>
