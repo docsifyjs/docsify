@@ -21,10 +21,6 @@ window.$docsify = {
 
 Alternatively, a plugin can be stored in a separate file and "installed" using a standard `<script>` tag.
 
-```html
-<script src="path/to/docsify-plugin-myplugin.js"></script>
-```
-
 ```js
 (function () {
   var myPlugin = function (hook, vm) {
@@ -35,6 +31,10 @@ Alternatively, a plugin can be stored in a separate file and "installed" using a
   $docsify = $docsify || {};
   $docsify.plugins = [].concat(myPlugin, $docsify.plugins || []);
 })();
+```
+
+```html
+<script src="docsify-plugin-myplugin.js"></script>
 ```
 
 ## Template
@@ -62,14 +62,14 @@ Below is a plugin template with placeholders for all available lifecycle hooks.
     });
 
     // Invoked on each page load before new markdown is transformed to HTML.
-    // See beforeEach() documentation for asynchronous tasks.
+    // Supports asynchronous tasks (see beforeEach documentation for details).
     hook.beforeEach(function (markdown) {
       // ...
       return markdown;
     });
 
     // Invoked on each page load after new markdown has been transformed to HTML.
-    // See afterEach() documentation for asynchronous tasks.
+    // Supports asynchronous tasks (see afterEach documentation for details).
     hook.afterEach(function (html) {
       // ...
       return html;
@@ -131,16 +131,13 @@ For asynchronous tasks, the hook function accepts a `next` callback as a second 
 
 ```js
 hook.beforeEach(function (markdown, next) {
-  // Asynchronous task (example)
-  setTimeout(function () {
-    try {
-      // ...
-    } catch (err) {
-      // ...
-    } finally {
-      next(markdown);
-    }
-  }, 1000);
+  try {
+    // Async task(s)...
+  } catch (err) {
+    // ...
+  } finally {
+    next(markdown);
+  }
 });
 ```
 
@@ -159,16 +156,13 @@ For asynchronous tasks, the hook function accepts a `next` callback as a second 
 
 ```js
 hook.afterEach(function (html, next) {
-  // Asynchronous task (example)
-  setTimeout(function () {
-    try {
-      // ...
-    } catch (err) {
-      // ...
-    } finally {
-      next(markdown);
-    }
-  }, 1000);
+  try {
+    // Async task(s)...
+  } catch (err) {
+    // ...
+  } finally {
+    next(markdown);
+  }
 });
 ```
 
