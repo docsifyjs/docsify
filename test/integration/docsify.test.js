@@ -2,13 +2,13 @@ const docsifyInit = require('../helpers/docsify-init');
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Docsify', function() {
+describe('Docsify', function () {
   // Tests
   // ---------------------------------------------------------------------------
   test('allows $docsify configuration to be a function', async () => {
     const testConfig = jest.fn(vm => {
       expect(vm).toBeInstanceOf(Object);
-      expect(vm.constructor.name).toEqual('Docsify');
+      expect(vm.constructor.name).toBe('Docsify');
       expect(vm.$fetch).toBeInstanceOf(Function);
       expect(vm.$resetEvents).toBeInstanceOf(Function);
       expect(vm.route).toBeInstanceOf(Object);
@@ -18,7 +18,7 @@ describe('Docsify', function() {
       config: testConfig,
     });
 
-    expect(typeof Docsify).toEqual('object');
+    expect(typeof Docsify).toBe('object');
     expect(testConfig).toHaveBeenCalled();
   });
 
@@ -28,7 +28,7 @@ describe('Docsify', function() {
 
       return {
         plugins: [
-          function(hook, vm2) {
+          function (hook, vm2) {
             expect(vm1).toEqual(vm2);
 
             expect(hook.init).toBeInstanceOf(Function);
@@ -46,7 +46,7 @@ describe('Docsify', function() {
       config: testConfig,
     });
 
-    expect(typeof Docsify).toEqual('object');
+    expect(typeof Docsify).toBe('object');
     expect(testConfig).toHaveBeenCalled();
   });
 });

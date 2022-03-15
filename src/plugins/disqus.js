@@ -39,7 +39,7 @@ function install(hook, vm) {
     if (typeof window.DISQUS !== 'undefined') {
       window.DISQUS.reset({
         reload: true,
-        config: function() {
+        config: function () {
           this.page.url = location.origin + '/-' + vm.route.path;
           this.page.identifier = vm.route.path;
           this.page.title = document.title;

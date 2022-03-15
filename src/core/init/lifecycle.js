@@ -29,22 +29,46 @@ export function Lifecycle(Base) {
 
     callHook(hookName, data, next = noop) {
       const queue = this._hooks[hookName];
+      const catchPluginErrors = this.config.catchPluginErrors;
 
-      const step = function(index) {
+      const step = function (index) {
         const hookFn = queue[index];
 
         if (index >= queue.length) {
           next(data);
         } else if (typeof hookFn === 'function') {
+          const errTitle = 'Docsify plugin error';
+
           if (hookFn.length === 2) {
-            hookFn(data, result => {
-              data = result;
+            try {
+              hookFn(data, result => {
+                data = result;
+                step(index + 1);
+              });
+            } catch (err) {
+              if (catchPluginErrors) {
+                console.error(errTitle, err);
+              } else {
+                throw err;
+              }
+
               step(index + 1);
-            });
+            }
           } else {
-            const result = hookFn(data);
-            data = result === undefined ? data : result;
-            step(index + 1);
+            try {
+              const result = hookFn(data);
+
+              data = result === undefined ? data : result;
+              step(index + 1);
+            } catch (err) {
+              if (catchPluginErrors) {
+                console.error(errTitle, err);
+              } else {
+                throw err;
+              }
+
+              step(index + 1);
+            }
           }
         } else {
           step(index + 1);

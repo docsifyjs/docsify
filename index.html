@@ -23,7 +23,7 @@
 
   <body>
     <div id="app"></div>
-    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1/index.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
     <script>
       // Set html "lang" attribute based on URL
       var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
@@ -82,12 +82,12 @@
             '/zh-cn/': '搜索',
             '/': 'Search',
           },
-          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn']
+          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
         },
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
-          function(hook, vm) {
-            hook.beforeEach(function(html) {
+          function (hook, vm) {
+            hook.beforeEach(function (html) {
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
@@ -115,7 +115,6 @@
     </script>
     <script src="/lib/docsify.js"></script>
     <script src="/lib/plugins/search.js"></script>
-    <script src="/lib/plugins/emoji.js"></script>
     <script src="/lib/plugins/front-matter.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-markdown.min.js"></script>

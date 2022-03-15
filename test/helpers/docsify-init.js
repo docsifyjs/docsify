@@ -1,15 +1,14 @@
-/* global jestPlaywright page */
-import mock, { proxy } from 'xhr-mock';
-import { waitForSelector } from './wait-for';
+/* globals page */
 
 const axios = require('axios');
+const mock = require('xhr-mock').default;
 const prettier = require('prettier');
 const stripIndent = require('common-tags/lib/stripIndent');
+const { proxy } = require('xhr-mock');
+const { waitForSelector } = require('./wait-for');
 
 const docsifyPATH = '../../lib/docsify.js'; // JSDOM
 const docsifyURL = '/lib/docsify.js'; // Playwright
-const isJSDOM = 'window' in global;
-const isPlaywright = 'page' in global;
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -28,17 +27,19 @@ const isPlaywright = 'page' in global;
  * @param {String} [options.style] CSS to inject via <style> tag
  * @param {String|String[]} [options.styleURLs=['/lib/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
  * @param {String} [options.testURL] URL to set as window.location.href
- * @param {String} [options.waitForSelector='#main'] Element to wait for before returning promsie
- * @param {String} [options._debug] initiate debugger after site is created
+ * @param {String} [options.waitForSelector='#main'] Element to wait for before returning promise
  * @param {Boolean|Object|String} [options._logHTML] Logs HTML to console after initialization. Accepts CSS selector.
  * @param {Boolean} [options._logHTML.format=true] Formats HTML output
  * @param {String} [options._logHTML.selector='html'] CSS selector(s) to match and log HTML for
  * @returns {Promise}
  */
 async function docsifyInit(options = {}) {
+  const isJSDOM = 'window' in global;
+  const isPlaywright = 'page' in global;
+
   const defaults = {
     config: {
-      basePath: TEST_HOST,
+      basePath: process.env.TEST_HOST,
       el: '#app',
     },
     html: `
@@ -63,7 +64,7 @@ async function docsifyInit(options = {}) {
     scriptURLs: [],
     style: '',
     styleURLs: [],
-    testURL: `${TEST_HOST}/docsify-init.html`,
+    testURL: `${process.env.TEST_HOST}/docsify-init.html`,
     waitForSelector: '#main > *',
   };
   const settings = {
@@ -80,13 +81,16 @@ async function docsifyInit(options = {}) {
 
       const updateBasePath = config => {
         if (config.basePath) {
-          config.basePath = new URL(config.basePath, TEST_HOST).href;
+          config.basePath = new URL(
+            config.basePath,
+            process.env.TEST_HOST
+          ).href;
         }
       };
 
       // Config as function
       if (typeof options.config === 'function') {
-        return function(vm) {
+        return function (vm) {
           const config = { ...sharedConfig, ...options.config(vm) };
 
           updateBasePath(config);
@@ -131,7 +135,8 @@ async function docsifyInit(options = {}) {
           .filter(([url, responseText]) => url && responseText)
           .map(([url, responseText]) => [
             // Convert relative to absolute URL
-            new URL(url, settings.config.basePath || TEST_HOST).href,
+            new URL(url, settings.config.basePath || process.env.TEST_HOST)
+              .href,
             // Strip indentation from responseText
             stripIndent`${responseText}`,
           ])
@@ -143,11 +148,11 @@ async function docsifyInit(options = {}) {
     scriptURLs: []
       .concat(options.scriptURLs || '')
       .filter(url => url)
-      .map(url => new URL(url, TEST_HOST).href),
+      .map(url => new URL(url, process.env.TEST_HOST).href),
     styleURLs: []
       .concat(options.styleURLs || '')
       .filter(url => url)
-      .map(url => new URL(url, TEST_HOST).href),
+      .map(url => new URL(url, process.env.TEST_HOST).href),
   };
 
   // Routes
@@ -325,7 +330,7 @@ async function docsifyInit(options = {}) {
           elm => elm.outerHTML
         );
       } else {
-        htmlArr = await page.$$eval(selector, elms =>
+        htmlArr = await page.evaluateAll(selector, elms =>
           elms.map(e => e.outerHTML)
         );
       }
@@ -347,16 +352,6 @@ async function docsifyInit(options = {}) {
     } else {
       // eslint-disable-next-line no-console
       console.warn(`docsify-init(): unable to match selector '${selector}'`);
-    }
-  }
-
-  // Debug
-  if (settings._debug) {
-    if (isJSDOM) {
-      // eslint-disable-next-line no-debugger
-      debugger;
-    } else if (isPlaywright) {
-      await jestPlaywright.debug();
     }
   }
 

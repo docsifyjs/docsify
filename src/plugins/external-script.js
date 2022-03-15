@@ -18,7 +18,7 @@ function handleExternalScript() {
   }
 }
 
-const install = function(hook) {
+const install = function (hook) {
   hook.doneEach(handleExternalScript);
 };
 

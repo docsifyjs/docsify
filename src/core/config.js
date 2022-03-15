@@ -3,7 +3,7 @@ import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
 const currentScript = document.currentScript;
 
 /** @param {import('./Docsify').Docsify} vm */
-export default function(vm) {
+export default function (vm) {
   const config = merge(
     {
       el: '#app',
@@ -21,6 +21,7 @@ export default function(vm) {
       nameLink: window.location.pathname,
       autoHeader: false,
       executeScript: null,
+      nativeEmoji: false,
       noEmoji: false,
       ga: '',
       ext: '.md',
@@ -36,6 +37,7 @@ export default function(vm) {
       crossOriginLinks: [],
       relativePath: false,
       topMargin: 0,
+      catchPluginErrors: true,
     },
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)

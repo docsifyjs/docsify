@@ -11,7 +11,7 @@ const defaults = {
  * @param {Object} options optional parameters
  * @returns {Promise} promise which resolves to function result
  */
-export function waitForFunction(fn, arg, options = {}) {
+function waitForFunction(fn, arg, options = {}) {
   const settings = {
     ...defaults,
     ...options,
@@ -54,7 +54,7 @@ export function waitForFunction(fn, arg, options = {}) {
  * @param {Object} options optional parameters
  * @returns {Promise} promise which resolves to first matching element
  */
-export function waitForSelector(cssSelector, options = {}) {
+function waitForSelector(cssSelector, options = {}) {
   const settings = {
     ...defaults,
     ...options,
@@ -89,7 +89,7 @@ export function waitForSelector(cssSelector, options = {}) {
  * @param {Object} options optional parameters
  * @returns {Promise} promise which resolves to first matching element that contains specified text
  */
-export function waitForText(cssSelector, text, options = {}) {
+function waitForText(cssSelector, text, options = {}) {
   const settings = {
     ...defaults,
     ...options,
@@ -124,3 +124,9 @@ export function waitForText(cssSelector, text, options = {}) {
       });
   });
 }
+
+module.exports = {
+  waitForFunction,
+  waitForSelector,
+  waitForText,
+};

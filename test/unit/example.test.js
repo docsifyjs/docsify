@@ -1,13 +1,18 @@
+//
 import { greet } from './fixtures/greet.js';
 import { getTimeOfDay } from './fixtures/get-time-of-day.js';
 import * as getTimeOfDayModule from './fixtures/get-time-of-day.js';
 
+// const greet = require('./fixtures/greet');
+// const getTimeOfDay = require('./fixtures/get-time-of-day');
+// const getTimeOfDayModule = { getTimeOfDay: getTimeOfDay };
+
 // Suite
 // -----------------------------------------------------------------------------
-describe(`Example Tests`, function() {
+describe(`Example Tests`, function () {
   // Tests
   // ---------------------------------------------------------------------------
-  describe('Jest & JSDOM basics', function() {
+  describe('Jest & JSDOM basics', function () {
     test('dom manipulation (jsdom)', () => {
       const testText = 'This is a test';
       const testHTML = `<h1>Test</h1><p>${testText}</p>`;
@@ -19,7 +24,7 @@ describe(`Example Tests`, function() {
       document.body.classList.add('foo');
 
       // Test HTML
-      expect(document.body.getAttribute('class')).toEqual('foo');
+      expect(document.body.getAttribute('class')).toBe('foo');
       expect(document.body.textContent).toMatch(/Test/);
       expect(document.querySelectorAll('p')).toHaveLength(1);
       expect(document.querySelector('p').textContent).toBe(testText);
@@ -48,11 +53,11 @@ describe(`Example Tests`, function() {
     });
   });
 
-  describe('Fake Timers', function() {
+  describe('Fake Timers', function () {
     test('data & time', () => {
       const fakeDate = new Date().setHours(1);
 
-      jest.useFakeTimers('modern');
+      jest.useFakeTimers();
       jest.setSystemTime(fakeDate);
 
       const timeOfDay = getTimeOfDay();
@@ -61,7 +66,7 @@ describe(`Example Tests`, function() {
     });
   });
 
-  describe('Mocks & Spys', function() {
+  describe('Mocks & Spies', function () {
     test('mock import/require dependency using jest.fn()', () => {
       const testModule = require('./fixtures/get-time-of-day.js');
       const { greet: testGreet } = require('./fixtures/greet.js');
@@ -97,9 +102,9 @@ describe(`Example Tests`, function() {
       // Replace Math.random() implementation to return fixed value
       jest.spyOn(Math, 'random').mockImplementation(() => 0.1);
 
-      expect(Math.random()).toEqual(0.1);
-      expect(Math.random()).toEqual(0.1);
-      expect(Math.random()).toEqual(0.1);
+      expect(Math.random()).toBe(0.1);
+      expect(Math.random()).toBe(0.1);
+      expect(Math.random()).toBe(0.1);
     });
 
     test('spy on import/require dependency using jest.spyOn()', () => {

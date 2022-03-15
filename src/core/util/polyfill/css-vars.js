@@ -8,7 +8,7 @@ function replaceVar(block, color) {
   );
 }
 
-export default function(color) {
+export default function (color) {
   // Variable support
   if (window.CSS && window.CSS.supports && window.CSS.supports('(--v:red)')) {
     return;
