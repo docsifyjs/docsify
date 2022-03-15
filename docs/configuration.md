@@ -365,7 +365,7 @@ window.$docsify = {
 
 ## autoHeader
 
-- type: `Boolean`
+- Type: `Boolean`
 
 If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. See [#78](https://github.com/docsifyjs/docsify/issues/78).
 
@@ -378,7 +378,7 @@ window.$docsify = {
 
 ## executeScript
 
-- type: `Boolean`
+- Type: `Boolean`
 
 Execute the script on the page. Only parse the first script tag ([demo](themes)). If Vue is present, it is turned on by default.
 
@@ -400,8 +400,8 @@ Note that if you are running an external script, e.g. an embedded jsfiddle demo,
 
 ## nativeEmoji
 
-- type: `Boolean`
-- default: `false`
+- Type: `Boolean`
+- Default: `false`
 
 Render emoji shorthand codes using GitHub-style emoji images or platform-native emoji characters.
 
@@ -453,8 +453,8 @@ To render shorthand codes as text, replace `:` characters with the `&colon;` HTM
 
 ## noEmoji
 
-- type: `Boolean`
-- default: `false`
+- Type: `Boolean`
+- Default: `false`
 
 Disabled emoji parsing and render all emoji shorthand as text.
 
@@ -492,7 +492,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 
 ## mergeNavbar
 
-- type: `Boolean`
+- Type: `Boolean`
 
 Navbar will be merged with the sidebar on smaller screens.
 
@@ -504,7 +504,7 @@ window.$docsify = {
 
 ## formatUpdated
 
-- type: `String|Function`
+- Type: `String|Function`
 
 We can display the file update date through **{docsify-updated<span>}</span>** variable. And format it by `formatUpdated`.
 See https://github.com/lukeed/tinydate#patterns
@@ -523,8 +523,8 @@ window.$docsify = {
 
 ## externalLinkTarget
 
-- type: `String`
-- default: `_blank`
+- Type: `String`
+- Default: `_blank`
 
 Target to open external links inside the markdown. Default `'_blank'` (new window/tab)
 
@@ -536,8 +536,8 @@ window.$docsify = {
 
 ## cornerExternalLinkTarget
 
-- type:`String`
-- default:`_blank`
+- Type:`String`
+- Default:`_blank`
 
 Target to open external link at the top right corner. Default `'_blank'` (new window/tab)
 
@@ -549,8 +549,8 @@ window.$docsify = {
 
 ## externalLinkRel
 
-- type: `String`
-- default: `noopener`
+- Type: `String`
+- Default: `noopener`
 
 Default `'noopener'` (no opener) prevents the newly opened external page (when [externalLinkTarget](#externallinktarget) is `'_blank'`) from having the ability to control our page. No `rel` is set when it's not `'_blank'`. See [this post](https://mathiasbynens.github.io/rel-noopener/) for more information about why you may want to use this option.
 
@@ -562,8 +562,8 @@ window.$docsify = {
 
 ## routerMode
 
-- type: `String`
-- default: `hash`
+- Type: `String`
+- Default: `hash`
 
 ```js
 window.$docsify = {
@@ -573,7 +573,7 @@ window.$docsify = {
 
 ## crossOriginLinks
 
-- type: `Array`
+- Type: `Array`
 
 When `routerMode: 'history'`, you may face cross-origin issues. See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
 In Markdown content, there is a simple way to solve it: see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
@@ -586,7 +586,7 @@ window.$docsify = {
 
 ## noCompileLinks
 
-- type: `Array<string>`
+- Type: `Array<string>`
 
 Sometimes we do not want docsify to handle our links. See [#203](https://github.com/docsifyjs/docsify/issues/203). We can skip compiling of certain links by specifying an array of strings. Each string is converted into to a regular expression (`RegExp`) and the _whole_ href of a link is matched against it.
 
@@ -598,7 +598,7 @@ window.$docsify = {
 
 ## onlyCover
 
-- type: `Boolean`
+- Type: `Boolean`
 
 Only coverpage is loaded when visiting the home page.
 
@@ -610,7 +610,7 @@ window.$docsify = {
 
 ## requestHeaders
 
-- type: `Object`
+- Type: `Object`
 
 Set the request resource headers.
 
@@ -634,7 +634,7 @@ window.$docsify = {
 
 ## ext
 
-- type: `String`
+- Type: `String`
 
 Request file extension.
 
@@ -646,7 +646,7 @@ window.$docsify = {
 
 ## fallbackLanguages
 
-- type: `Array<string>`
+- Type: `Array<string>`
 
 List of languages that will fallback to the default language when a page is requested and it doesn't exist for the given locale.
 
@@ -664,7 +664,7 @@ window.$docsify = {
 
 ## notFoundPage
 
-- type: `Boolean` | `String` | `Object`
+- Type: `Boolean` | `String` | `Object`
 
 Load the `_404.md` file:
 
@@ -697,8 +697,8 @@ window.$docsify = {
 
 ## topMargin
 
-- type: `Number`
-- default: `0`
+- Type: `Number`
+- Default: `0`
 
 Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
 
@@ -710,7 +710,7 @@ window.$docsify = {
 
 ## vueComponents
 
-- type: `Object`
+- Type: `Object`
 
 Creates and registers global [Vue components](https://vuejs.org/v2/guide/components.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
@@ -743,7 +743,7 @@ window.$docsify = {
 
 ## vueGlobalOptions
 
-- type: `Object`
+- Type: `Object`
 
 Specifies [Vue options](https://vuejs.org/v2/api/#Options-Data) for use with Vue content not explicitly mounted with [vueMounts](#mounting-dom-elements), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
@@ -777,7 +777,7 @@ window.$docsify = {
 
 ## vueMounts
 
-- type: `Object`
+- Type: `Object`
 
 Specifies DOM elements to mount as [Vue instances](https://vuejs.org/v2/guide/instance.html) and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
@@ -808,3 +808,10 @@ window.$docsify = {
   {{ count }}
   <button @click="count += 1">+</button>
 </output>
+
+## catchPluginErrors
+
+- Type: `Boolean`
+- Default: `true`
+
+Determines if Docsify should handle uncaught _synchronous_ plugin errors automatically. This can prevent plugin errors from affecting docsify's ability to properly render live site content.
