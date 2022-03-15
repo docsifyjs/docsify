@@ -29,7 +29,7 @@
 
 ## Links
 
-- [`develop` branch preview](https://docsifyjs.netlify.com/)
+- [`develop` branch preview](https://docsify-preview.vercel.app/)
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/docsifyjs/docsify-cli)
 - CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
