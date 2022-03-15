@@ -14,7 +14,7 @@ function init(id) {
   window.dataLayer = window.dataLayer || [];
   window.gtag =
     window.gtag ||
-    function() {
+    function () {
       window.dataLayer.push(arguments);
     };
 
@@ -35,7 +35,7 @@ function collect() {
   });
 }
 
-const install = function(hook) {
+const install = function (hook) {
   if (!$docsify.ga) {
     console.error('[Docsify] ga is required.');
     return;
