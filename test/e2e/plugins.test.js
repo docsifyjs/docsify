@@ -9,7 +9,7 @@ test.describe('Plugins', () => {
       'mounted',
       'beforeEach-async',
       'beforeEach',
-      // 'afterEach-async',
+      'afterEach-async',
       'afterEach',
       'doneEach',
       'ready',
@@ -41,13 +41,12 @@ test.describe('Plugins', () => {
               return markdown;
             });
 
-            // FIXME: https://github.com/docsifyjs/docsify/issues/449
-            // hook.afterEach(function (html, next) {
-            //   setTimeout(function () {
-            //     console.log('afterEach-async');
-            //     next(html);
-            //   }, 100);
-            // });
+            hook.afterEach(function (html, next) {
+              setTimeout(function () {
+                console.log('afterEach-async');
+                next(html);
+              }, 100);
+            });
 
             hook.afterEach(function (html) {
               console.log('afterEach');
