@@ -29,7 +29,7 @@ export const linkCompiler = ({
 
       href = router.toURL(href, null, router.getCurrentPath());
     } else {
-      if (!isAbsolutePath(href) && href.startsWith('./')) {
+      if (!isAbsolutePath(href) && href.slice(0, 2) === './') {
         href =
           document.URL.replace(/\/(?!.*\/).*/, '/').replace('#/./', '') + href;
       }

@@ -36,6 +36,7 @@ body
 
   ul li.active > a
     border-right 2px solid
+    color $color-primary
     color var(--theme-color, $color-primary)
     font-weight 600
 
@@ -52,9 +53,10 @@ body
   font-weight 600
 
 .markdown-section a
+  color $color-primary
   color var(--theme-color, $color-primary)
   font-weight 600
-  
+
   &:hover
       text-decoration underline
 
@@ -91,6 +93,7 @@ body
   padding-left 1.5rem
 
 .markdown-section blockquote
+  border-left 4px solid $color-primary
   border-left 4px solid var(--theme-color, $color-primary)
   color #858585
   margin 2em 0
@@ -111,10 +114,12 @@ body
   border-radius 2px
   color #e96900
   font-family 'Roboto Mono', Monaco, courier, monospace
-  font-size 0.8rem
   margin 0 2px
   padding 3px 5px
   white-space pre-wrap
+
+.markdown-section > :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) code
+  font-size 0.8rem
 
 .markdown-section pre
   -moz-osx-font-smoothing initial
@@ -148,6 +153,7 @@ body
   color #2973b7
 
 .token.string
+  color $color-primary
   color var(--theme-color, $color-primary)
 
 .token.selector
@@ -160,6 +166,7 @@ body
   color #22a2c9
 
 .token.attr-value, .token.control, .token.directive, .token.unit
+  color $color-primary
   color var(--theme-color, $color-primary)
 
 .token.keyword, .token.function
