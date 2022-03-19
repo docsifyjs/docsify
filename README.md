@@ -29,7 +29,7 @@
 
 ## Links
 
-- [`develop` branch preview](https://docsifyjs.netlify.com/)
+- [`develop` branch preview](https://docsify-preview.vercel.app/)
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/docsifyjs/docsify-cli)
 - CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
@@ -126,4 +126,4 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 _Vercel_ has given us a Pro account.
 
-<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="docs/_media/vercel_logo.svg" width="100px"></a>
+<a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank"><img src="docs/_media/vercel_logo.svg" width="100px"></a>
