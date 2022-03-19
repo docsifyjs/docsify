@@ -4,7 +4,7 @@ A docsify plugin is a function with the ability to execute custom JavaScript cod
 
 ## Setup
 
-Docsify plugins can be added directly to the `plugins` array.
+Docsify plugins can be added directly to the `plugins` array:
 
 ```js
 window.$docsify = {
@@ -19,7 +19,7 @@ window.$docsify = {
 };
 ```
 
-Alternatively, a plugin can be stored in a separate file and "installed" using a standard `<script>` tag.
+Alternatively, a plugin can be stored in a separate file and "installed" using a standard `<script>` tag:
 
 ```js
 (function () {
@@ -98,7 +98,7 @@ Lifecycle hooks are provided via the `hook` argument passed to the plugin functi
 
 ### init()
 
-Invoked one time when docsify script is initialized
+Invoked one time when docsify script is initialized.
 
 ```js
 hook.init(function () {
@@ -108,7 +108,7 @@ hook.init(function () {
 
 ### mounted()
 
-Invoked one time when the docsify instance has mounted on the DOM
+Invoked one time when the docsify instance has mounted on the DOM.
 
 ```js
 hook.mounted(function () {
@@ -118,7 +118,7 @@ hook.mounted(function () {
 
 ### beforeEach()
 
-Invoked on each page load before new markdown is transformed to HTML
+Invoked on each page load before new markdown is transformed to HTML.
 
 ```js
 hook.beforeEach(function (markdown) {
@@ -143,7 +143,7 @@ hook.beforeEach(function (markdown, next) {
 
 ### afterEach()
 
-Invoked on each page load after new markdown has been transformed to HTML
+Invoked on each page load after new markdown has been transformed to HTML.
 
 ```js
 hook.afterEach(function (html) {
@@ -161,14 +161,14 @@ hook.afterEach(function (html, next) {
   } catch (err) {
     // ...
   } finally {
-    next(markdown);
+    next(html);
   }
 });
 ```
 
 ### doneEach()
 
-Invoked on each page load after new HTML has been appended to the DOM
+Invoked on each page load after new HTML has been appended to the DOM.
 
 ```js
 hook.doneEach(function () {
@@ -178,7 +178,7 @@ hook.doneEach(function () {
 
 ### ready()
 
-Invoked one time after rendering the initial page
+Invoked one time after rendering the initial page.
 
 ```js
 hook.ready(function () {
