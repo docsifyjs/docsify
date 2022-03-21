@@ -30,9 +30,7 @@ export const linkCompiler = ({
       href = router.toURL(href, null, router.getCurrentPath());
 
       if (config.target) {
-        attrs.push(
-          href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`
-        );
+        href.indexOf('mailto:') !== 0 && attrs.push(`target="${linkTarget}"`);
       }
     } else {
       if (!isAbsolutePath(href) && href.slice(0, 2) === './') {
