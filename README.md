@@ -124,4 +124,4 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 ## Special Thanks
 
-<a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank" title="Vercel has given us a Pro account"><img src="docs/_media/powered-by-vercel.svg" width="100px"></a>
+<a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank" title="Vercel has given us a Pro account"><img src="docs/_media/powered-by-vercel.svg" alt="Vercel"></a>
