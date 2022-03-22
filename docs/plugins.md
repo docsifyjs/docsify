@@ -203,4 +203,4 @@ Provided by [@jhildenbiddle](https://github.com/jhildenbiddle/docsify-tabs).
 
 ## More plugins
 
-See [awesome-docsify](awesome?id=plugins)
+See [awesome-docsify](https://github.com/docsifyjs/awesome-docsify/blob/master/README.md#plugins)
