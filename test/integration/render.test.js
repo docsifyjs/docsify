@@ -248,7 +248,6 @@ describe('render', function () {
 
     test('target for relative path', async function () {
       const output = window.marked("[alt text](/url ':target=_blank')");
-      console.log(output);
 
       expect(output).toMatchInlineSnapshot(
         `"<p><a href=\\"#/url\\" target=\\"_blank\\">alt text</a></p>"`
