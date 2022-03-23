@@ -124,6 +124,4 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 ## Special Thanks
 
-_Vercel_ has given us a Pro account.
-
-<a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank" title="Vercel has given us a Pro account"><img src="docs/_media/powered-by-vercel.svg" alt="Vercel"></a>
+A preview of Docsify's PR and develop branch is <a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank">powered by <img src="docs/_media/vercel_logo.svg" alt="Vercel" width="100px"></a>
