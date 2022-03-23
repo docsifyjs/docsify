@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Emoji Ignores all emoji shorthand codes (noEmoji:true) 1`] = `"<p>:smile:</p><p>:smile::smile:</p><p>:smile: :smile:</p><p>:smile::smile::smile:</p><p>:smile: :smile: :smile:</p><p>text:smile:</p><p>:smile:text</p><p>text:smile:text</p>"`;
+
+exports[`Emoji Ignores emoji shorthand codes in code, pre, script, and template tags 1`] = `
+"<pre>:100:</pre>
+
+<p><code>:100:</code></p><script>
+  var test = ':100:';
+</script>
+
+<template>
+  <p>:100</p>
+</template>"
+`;
+
+exports[`Emoji Ignores emoji shorthand codes in comments 1`] = `"<p>Text <!-- :foo: :100: --></p>"`;
+
+exports[`Emoji Ignores unmatched emoji shorthand codes 1`] = `"<p>hh:mm</p><p>hh:mm:ss</p><p>Namespace::SubNameSpace</p><p>Namespace::SubNameSpace::Class</p><p>2014-12-29T16:11:20+00:00</p>"`;
+
+exports[`Emoji Renders GitHub emoji images (nativeEmoji:false) 1`] = `"<p><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"></p><p><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"></p><p><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"> <img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"></p><p><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"></p><p><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"> <img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"> <img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"></p><p>text<img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\"></p><p><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\">text</p><p>text<img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8.png\\" alt=\\"smile\\" class=\\"emoji\\" loading=\\"lazy\\">text</p>"`;
+
+exports[`Emoji Renders native emoji characters (nativeEmoji:true) 1`] = `"<p><span class=\\"emoji\\">😄︎</span></p><p><span class=\\"emoji\\">😄︎</span><span class=\\"emoji\\">😄︎</span></p><p><span class=\\"emoji\\">😄︎</span> <span class=\\"emoji\\">😄︎</span></p><p><span class=\\"emoji\\">😄︎</span><span class=\\"emoji\\">😄︎</span><span class=\\"emoji\\">😄︎</span></p><p><span class=\\"emoji\\">😄︎</span> <span class=\\"emoji\\">😄︎</span> <span class=\\"emoji\\">😄︎</span></p><p>text<span class=\\"emoji\\">😄︎</span></p><p><span class=\\"emoji\\">😄︎</span>text</p><p>text<span class=\\"emoji\\">😄︎</span>text</p>"`;
