@@ -299,9 +299,13 @@ export function Render(Base) {
     }
 
     _renderNav(text) {
-      text && this._renderTo('nav', this.compiler.compile(text));
+      text &&
+        this._renderTo(
+          'nav.app-nav, main > aside.sidebar > nav',
+          this.compiler.compile(text)
+        );
       if (this.config.loadNavbar) {
-        getAndActive(this.router, 'nav');
+        getAndActive(this.router, 'nav.app-nav, main > aside.sidebar > nav');
       }
     }
 
@@ -405,11 +409,8 @@ export function Render(Base) {
       }
 
       const id = config.el || '#app';
-      const navEl = dom.find('nav') || dom.create('nav');
-
       const el = dom.find(id);
       let html = '';
-      let navAppendToTarget = dom.body;
 
       if (el) {
         if (config.repo) {
@@ -437,19 +438,24 @@ export function Render(Base) {
         this.rendered = true;
       }
 
-      if (config.mergeNavbar && isMobile) {
-        navAppendToTarget = dom.find('.sidebar');
-      } else {
-        navEl.classList.add('app-nav');
-
-        if (!config.repo) {
-          navEl.classList.add('no-badge');
-        }
-      }
-
       // Add nav
       if (config.loadNavbar) {
-        dom.before(navAppendToTarget, navEl);
+        const isMergedMobileNav = config.mergeNavbar && isMobile;
+        const navAppendToTarget = isMergedMobileNav
+          ? dom.find('.sidebar')
+          : dom.find('section.cover, main');
+        const navEl =
+          dom.find('nav.app-nav, main > aside.sidebar > nav') ||
+          dom.create('nav');
+
+        !isMergedMobileNav && navEl.classList.add('app-nav');
+        !config.repo && navEl.classList.add('no-badge');
+
+        if (isMergedMobileNav) {
+          dom.before(navAppendToTarget, navEl);
+        } else {
+          navAppendToTarget.parentNode.insertBefore(navEl, navAppendToTarget);
+        }
       }
 
       if (config.themeColor) {

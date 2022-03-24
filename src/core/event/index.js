@@ -30,7 +30,10 @@ export function Events(Base) {
       })();
 
       if (this.config.loadNavbar) {
-        sidebar.getAndActive(this.router, 'nav');
+        sidebar.getAndActive(
+          this.router,
+          'nav.app-nav, main > aside.sidebar > nav'
+        );
       }
     }
 
