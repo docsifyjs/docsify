@@ -148,12 +148,19 @@ frontend:
     index.html
     README.md
     ```
+- move them to `docs` folder
+
+    ```sh
+    docs/index.html
+    docs/README.md
+    ```
 
 - Create Dockerfile
 
   ```Dockerfile
     FROM node:latest
     LABEL description="A demo Dockerfile for build Docsify."
+    COPY docs /docs
     WORKDIR /docs
     RUN npm install -g docsify-cli@latest
     EXPOSE 3000/tcp
@@ -164,8 +171,8 @@ frontend:
   The current directory structure should be this:
 
   ```sh
-   index.html
-   README.md
+   docs/index.html
+   docs/README.md
    Dockerfile
   ```
 
