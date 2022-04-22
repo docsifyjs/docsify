@@ -35,7 +35,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
     }
 
     if (!isAbsolutePath(href)) {
-      url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
+      url = getPath(contentBase, router.toURL(href, null, router.getCurrentPath()));
     }
 
     if (attrs.length > 0) {
