@@ -78,6 +78,16 @@ Install the plugin and configure the track id.
   window.$docsify = {
     ga: 'UA-XXXXX-Y',
   };
+  
+  // or multi gtag
+  window.$docsify = {
+    ga: [
+      'G-XXXXXXXX', // Google Analytics 4 (GA4)
+      'UA-XXXXXXXX', // Google Universal Analytics (GA3)
+      'AW-XXXXXXXX', // Google Ads
+      'DC-XXXXXXXX' // Floodlight
+    ],
+  };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
@@ -89,27 +99,6 @@ Configure by `data-ga`.
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
-```
-
-## Google Universal Analytics (gtag.js)
-
-Usage is same as `Google Analytics`.
-
-```html
-<script>
-  window.$docsify = {
-    ga: 'UA-XXXXX-Y'
-  }
-</script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
-```
-
-Configure by `data-ga`.
-
-```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
 ```
 
 ## Emoji
