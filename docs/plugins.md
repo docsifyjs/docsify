@@ -79,7 +79,7 @@ Install the plugin and configure the track id.
     ga: 'UA-XXXXX-Y',
   };
   
-  // or multi gtag
+  // or multi gtag, the first element of the array must be a global site gtag id, each page should have only one global site tag instance. 
   window.$docsify = {
     ga: [
       'G-XXXXXXXX', // Google Analytics 4 (GA4)
