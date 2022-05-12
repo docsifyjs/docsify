@@ -125,3 +125,4 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 ## Special Thanks
 
 A preview of Docsify's PR and develop branch is <a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank">Powered by <img src="https://cdn.jsdelivr.net/gh/docsifyjs/docsify/docs/_media/vercel_logo.svg" alt="Vercel" width="133px"></a>
+
