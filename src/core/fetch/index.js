@@ -96,13 +96,32 @@ export function Fetch(Base) {
         // Abort last request
 
         const file = this.router.getFile(path);
-        const req = request(file + qs, true, requestHeaders);
 
         this.isRemoteUrl = isExternal(file);
         // Current page is html
         this.isHTML = /\.html$/g.test(file);
 
         // Load main content
+        const req = Promise.resolve()
+          .then(() => {
+            if (!this.isRemoteUrl) {
+              return this.matchVirtualRoute(file);
+            } else {
+              return null;
+            }
+          })
+          .then(text => {
+            if (typeof text === 'string') {
+              return {
+                then(fn) {
+                  fn(text, {});
+                },
+              };
+            } else {
+              return request(file + qs, true, requestHeaders);
+            }
+          });
+
         req.then(
           (text, opt) =>
             this._renderMain(
