@@ -1,3 +1,5 @@
+import { makeExactMatcher } from './match-utils';
+
 /** @typedef {import('../Docsify').Constructor} Constructor */
 
 /** @typedef {Record<string, string | VirtualRouteHandler>} VirtualRoutesMap */
@@ -18,7 +20,7 @@ export function VirtualRoutes(Base) {
     }
 
     /**
-     * Attempts to match the given path with a virtual route
+     * Attempts to match the given path with a virtual route.
      * @param {string} path
      * @returns {Promise<string | null>} resolves to string if route was matched, otherwise null
      */
@@ -26,29 +28,52 @@ export function VirtualRoutes(Base) {
       const virtualRoutes = this.routes();
 
       const virtualRoutePaths = Object.keys(virtualRoutes);
-      const matchedVirtualRoutePath = virtualRoutePaths.find(route =>
-        path.match(route)
-      );
 
-      if (!matchedVirtualRoutePath) {
-        return null;
+      /**
+       * This is a tail recursion that resolves to the first properly matched route, to itself or to null.
+       * Used because async\await is not supported, so for loops over promises are out of the question...
+       * @returns {Promise<string | null>}
+       */
+      function asyncMatchNextRoute() {
+        const virtualRoutePath = virtualRoutePaths.shift();
+        if (!virtualRoutePath) {
+          return Promise.resolve(null);
+        }
+
+        const matcher = makeExactMatcher(virtualRoutePath);
+        const matched = path.match(matcher);
+
+        if (!matched) {
+          return Promise.resolve().then(asyncMatchNextRoute);
+        }
+
+        const virtualRouteContentOrFn = virtualRoutes[virtualRoutePath];
+
+        if (typeof virtualRouteContentOrFn === 'string') {
+          const contents = virtualRouteContentOrFn.replace(
+            /\$(\d+)/g,
+            (_, index) => matched[parseInt(index, 10)]
+          );
+
+          return Promise.resolve(contents);
+        } else if (typeof virtualRouteContentOrFn === 'function') {
+          return Promise.resolve()
+            .then(() => virtualRouteContentOrFn(path, matched))
+            .then(contents => {
+              if (typeof contents === 'string') {
+                return contents;
+              } else if (contents === false) {
+                return null;
+              } else {
+                return asyncMatchNextRoute();
+              }
+            });
+        } else {
+          return Promise.resolve().then(asyncMatchNextRoute);
+        }
       }
 
-      const match = path.match(matchedVirtualRoutePath);
-      const virtualRouteContentOrFn = virtualRoutes[matchedVirtualRoutePath];
-
-      if (typeof virtualRouteContentOrFn === 'string') {
-        return virtualRouteContentOrFn.replace(
-          /\$(\d+)/g,
-          (_, index) => match[parseInt(index, 10)]
-        );
-      }
-
-      if (typeof virtualRouteContentOrFn === 'function') {
-        return virtualRouteContentOrFn(path, match);
-      }
-
-      return null;
+      return asyncMatchNextRoute();
     }
   };
 }
