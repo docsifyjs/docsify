@@ -23,16 +23,26 @@ export function VirtualRoutes(Base) {
      * @returns {Promise<string | null>} resolves to string if route was matched, otherwise null
      */
     matchVirtualRoute(path) {
-      const routes = this.routes();
+      const virtualRoutes = this.routes();
 
-      for (const route of Object.keys(routes)) {
-        const match = path.match(route);
-        if (!match) {
-          continue;
-        }
+      const virtualRoutePaths = Object.keys(virtualRoutes);
+      const matchedVirtualRoutePath = virtualRoutePaths.find(route =>
+        path.match(route)
+      );
 
-        const virtualRoute = routes[route];
-        return virtualRoute;
+      if (!matchedVirtualRoutePath) {
+        return null;
+      }
+
+      const virtualRouteContentOrFn = virtualRoutes[matchedVirtualRoutePath];
+
+      if (typeof virtualRouteContentOrFn === 'string') {
+        return virtualRouteContentOrFn;
+      }
+
+      if (typeof virtualRouteContentOrFn === 'function') {
+        const match = path.match(matchedVirtualRoutePath);
+        return virtualRouteContentOrFn(path, match);
       }
 
       return null;
