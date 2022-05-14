@@ -34,14 +34,17 @@ export function VirtualRoutes(Base) {
         return null;
       }
 
+      const match = path.match(matchedVirtualRoutePath);
       const virtualRouteContentOrFn = virtualRoutes[matchedVirtualRoutePath];
 
       if (typeof virtualRouteContentOrFn === 'string') {
-        return virtualRouteContentOrFn;
+        return virtualRouteContentOrFn.replace(
+          /\$(\d+)/g,
+          (_, index) => match[parseInt(index, 10)]
+        );
       }
 
       if (typeof virtualRouteContentOrFn === 'function') {
-        const match = path.match(matchedVirtualRoutePath);
         return virtualRouteContentOrFn(path, match);
       }
 

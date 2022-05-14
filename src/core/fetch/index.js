@@ -105,7 +105,7 @@ export function Fetch(Base) {
         const req = Promise.resolve()
           .then(() => {
             if (!this.isRemoteUrl) {
-              return this.matchVirtualRoute(file);
+              return this.matchVirtualRoute(path);
             } else {
               return null;
             }
