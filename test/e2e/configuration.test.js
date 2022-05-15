@@ -37,11 +37,25 @@ test.describe('Configuration options', () => {
     await expect(mainElm).toContainText('beforeEach');
   });
 
-  test('catchPluginErrors:false (throws uncaught errors)', async ({ page }) => {
+  test('catchPluginErrors:false (throws uncaught errors)', async ({
+    page,
+    browserName,
+  }) => {
     let consoleMsg, errorMsg;
 
     page.on('console', msg => (consoleMsg = msg.text()));
     page.on('pageerror', err => (errorMsg = err.message));
+
+    // firefox has some funky behavior with unhandled promise rejections. see related issue on playwright: https://github.com/microsoft/playwright/issues/14165
+    if (browserName === 'firefox') {
+      page.on('domcontentloaded', () =>
+        page.evaluate(() =>
+          window.addEventListener('unhandledrejection', err => {
+            throw err.reason;
+          })
+        )
+      );
+    }
 
     await docsifyInit({
       config: {
