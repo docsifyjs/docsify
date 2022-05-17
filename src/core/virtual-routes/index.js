@@ -1,4 +1,5 @@
-import { makeExactMatcher } from './match-utils';
+import { makeExactMatcher } from './exact-match';
+import { createNextFunction } from './next';
 
 /** @typedef {import('../Docsify').Constructor} Constructor */
 
@@ -53,7 +54,15 @@ export function VirtualRoutes(Base) {
           return Promise.resolve(virtualRouteContentOrFn);
         } else if (typeof virtualRouteContentOrFn === 'function') {
           return Promise.resolve()
-            .then(() => virtualRouteContentOrFn(path, matched))
+            .then(() => {
+              if (virtualRouteContentOrFn.length <= 2) {
+                return virtualRouteContentOrFn(path, matched);
+              } else {
+                const [resultPromise, next] = createNextFunction();
+                virtualRouteContentOrFn(path, matched, next);
+                return resultPromise;
+              }
+            })
             .then(contents => {
               if (typeof contents === 'string') {
                 return contents;
