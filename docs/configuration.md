@@ -680,6 +680,88 @@ window.$docsify = {
 };
 ```
 
+## routes
+
+- Type: `Object`
+
+Define "virtual" routes that can provide content dynamically. A route is a map between the expected path, to either a string or a function. If the mapped value is a string, it is treated as markdown and parsed accordingly. If it is a function, it is expected to return markdown content.
+
+A route function receives up to three parameters:
+1. `route` - the path of the route that was requested (e.g. `/bar/shalom`)
+2. `matched` - the `RegExpMatchArray` that was matched by the route (e.g. for `/bar/(.+)`, you get `['/bar/shalom', 'shalom']`)
+3. `next` - this is a callback that you may call when your route function is async
+
+```js
+window.$docsify = {
+  routes: {
+    // Basic match w/ return string
+    '/foo': '# Custom Markdown',
+
+    // RegEx match w/ synchronous function
+    '/bar/(.*)': function(route, matched) {
+      console.log(`Route match: ${matched[0]}`);
+      return '# Custom Markdown';
+    },
+
+    // RegEx match w/ asynchronous function
+    '/baz/(.*)': function(route, matched, next) {
+      console.log(`Route match: ${matched[0]}`);
+      next('# Custom Markdown');
+    }
+  }
+}
+```
+
+Other than strings, route functions can return a falsy value (`null` \ `undefined`) to indicate that they ignore the current request:
+
+```js
+window.$docsify = {
+  routes: {
+    // accepts everything other than dogs
+    '/pets/(.+)': function(route, matched) {
+      if (matched[0] === 'dogs') {
+        return null;
+      } else {
+        return 'I like all pets but dogs';
+      }
+    }
+
+    // accepts everything other than cats
+    '/pets/(.*)': async function(route, matched, next) {
+      if (matched[0] === 'cats') {
+        next();
+      } else {
+        next('I like all pets but cats');
+      }
+    }
+  }
+}
+```
+
+Finally, if you have a specific path that has a real markdown file (and therefore should not be matched by your route), you can opt it out by returning an explicit `false` value:
+
+```js
+window.$docsify = {
+  routes: {
+    // if you look up /pets/cats, docsify will skip all routes and look for "pets/cats.md"
+    '/pets/cats': function(route, matched) {
+      return false;
+    }
+
+    // if you look up /pets/dogs, docsify will skip all routes and look for "pets/dogs.md"
+    '/pets/dogs': async function(route, matched, next) {
+      next(false);
+    }
+
+    // but any other pet should generate dynamic content right here
+    '/pets/(.+)': function(route, matched) {
+      const pet = matched[0];
+      return `your pet is ${pet} (but not a dog nor a cat)`;
+    }
+  }
+}
+```
+
 ## subMaxLevel
 
 - Type: `Number`
