@@ -50,12 +50,7 @@ export function VirtualRoutes(Base) {
         const virtualRouteContentOrFn = virtualRoutes[virtualRoutePath];
 
         if (typeof virtualRouteContentOrFn === 'string') {
-          const contents = virtualRouteContentOrFn.replace(
-            /\$(\d+)/g,
-            (_, index) => matched[parseInt(index, 10)]
-          );
-
-          return Promise.resolve(contents);
+          return Promise.resolve(virtualRouteContentOrFn);
         } else if (typeof virtualRouteContentOrFn === 'function') {
           return Promise.resolve()
             .then(() => virtualRouteContentOrFn(path, matched))

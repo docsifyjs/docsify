@@ -2,298 +2,282 @@ const docsifyInit = require('../helpers/docsify-init');
 const { navigateToRoute } = require('../helpers/navigate');
 const { test, expect } = require('./fixtures/docsify-init-fixture');
 
-test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
-  test.describe('Different Types of Virtual Routes', () => {
-    test('rendering virtual routes specified as string', async ({ page }) => {
-      const routes = {
-        '/my-awesome-route': '# My Awesome Route',
-      };
+test.describe.only(
+  'Virtual Routes - Generate Dynamic Content via Config',
+  () => {
+    test.describe('Different Types of Virtual Routes', () => {
+      test('rendering virtual routes specified as string', async ({ page }) => {
+        const routes = {
+          '/my-awesome-route': '# My Awesome Route',
+        };
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
+
+        await navigateToRoute(page, '/my-awesome-route');
+
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('My Awesome Route');
       });
 
-      await navigateToRoute(page, '/my-awesome-route');
+      test('rendering virtual routes specified as functions', async ({
+        page,
+      }) => {
+        const routes = {
+          '/my-awesome-function-route': function () {
+            return '# My Awesome Function Route';
+          },
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('My Awesome Route');
-    });
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
 
-    test('rendering virtual routes specified as functions', async ({
-      page,
-    }) => {
-      const routes = {
-        '/my-awesome-function-route': function () {
-          return '# My Awesome Function Route';
-        },
-      };
+        await navigateToRoute(page, '/my-awesome-function-route');
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('My Awesome Function Route');
       });
 
-      await navigateToRoute(page, '/my-awesome-function-route');
+      test('rendering virtual routes specified as async functions', async ({
+        page,
+      }) => {
+        const routes = {
+          '/my-awesome-async-function-route': async function () {
+            return '# My Awesome Function Route';
+          },
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('My Awesome Function Route');
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
+
+        await navigateToRoute(page, '/my-awesome-async-function-route');
+
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('My Awesome Function Route');
+      });
     });
 
-    test('rendering virtual routes specified as async functions', async ({
-      page,
-    }) => {
-      const routes = {
-        '/my-awesome-async-function-route': async function () {
-          return '# My Awesome Function Route';
-        },
-      };
+    test.describe('Routes with Regex Matches', () => {
+      test('rendering virtual routes with regex matches', async ({ page }) => {
+        const routes = {
+          '/items/(.*)': '# Item Page',
+        };
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
+
+        await navigateToRoute(page, '/items/banana');
+
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Item Page');
       });
 
-      await navigateToRoute(page, '/my-awesome-async-function-route');
+      test('virtual route functions should get the route as first parameter', async ({
+        page,
+      }) => {
+        const routes = {
+          '/pets/(.*)': function (route) {
+            return `# Route: /pets/dog`;
+          },
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('My Awesome Function Route');
-    });
-  });
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
 
-  test.describe('Routes with Regex Matches', () => {
-    test('rendering virtual routes with regex matches', async ({ page }) => {
-      const routes = {
-        '/items/(.*)': '# Item Page',
-      };
+        await navigateToRoute(page, '/pets/dog');
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Route: /pets/dog');
       });
 
-      await navigateToRoute(page, '/items/banana');
+      test('virtual route functions should get the matched array as second parameter', async ({
+        page,
+      }) => {
+        const routes = {
+          '/pets/(.*)': function (_, matched) {
+            return `# Pets Page (${matched[1]})`;
+          },
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Item Page');
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
+
+        await navigateToRoute(page, '/pets/cat');
+
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Pets Page (cat)');
+      });
     });
 
-    test('formatting regex matches into string virtual routes', async ({
-      page,
-    }) => {
-      const routes = {
-        '/items/(.*)': '# Item Page ($1)',
-      };
+    test.describe('Route Matching Specifics', () => {
+      test('routes should be exact match if no regex was passed', async ({
+        page,
+      }) => {
+        const routes = {
+          '/my': '# Incorrect Route - only prefix',
+          '/route': '# Incorrect Route - only postfix',
+          '/my/route': '# Correct Route',
+        };
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
+
+        await navigateToRoute(page, '/my/route');
+
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Correct Route');
       });
 
-      await navigateToRoute(page, '/items/apple');
+      test('if there are two routes that match, the first one should be taken', async ({
+        page,
+      }) => {
+        const routes = {
+          '/multiple/(.+)': '# First Match',
+          '/multiple/(.*)': '# Second Match',
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Item Page (apple)');
-    });
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
 
-    test('virtual route functions should get the route as first parameter', async ({
-      page,
-    }) => {
-      const routes = {
-        '/pets/(.*)': function (route) {
-          return `# Route: /pets/dog`;
-        },
-      };
+        await navigateToRoute(page, '/multiple/matches');
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('First Match');
       });
 
-      await navigateToRoute(page, '/pets/dog');
+      test('prefer virtual route over a real file, if a virtual route exists', async ({
+        page,
+      }) => {
+        const routes = {
+          '/': '# Virtual Homepage',
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Route: /pets/dog');
-    });
+        await docsifyInit({
+          markdown: {
+            homepage: '# Real File Homepage',
+          },
+          config: {
+            routes,
+          },
+        });
 
-    test('virtual route functions should get the matched array as second parameter', async ({
-      page,
-    }) => {
-      const routes = {
-        '/pets/(.*)': function (_, matched) {
-          return `# Pets Page (${matched[1]})`;
-        },
-      };
-
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Virtual Homepage');
       });
 
-      await navigateToRoute(page, '/pets/cat');
+      test('fallback to default routing if no route was matched', async ({
+        page,
+      }) => {
+        const routes = {
+          '/a': '# A',
+          '/b': '# B',
+          '/c': '# C',
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Pets Page (cat)');
-    });
-  });
+        await docsifyInit({
+          markdown: {
+            homepage: '# Real File Homepage',
+          },
+          config: {
+            routes,
+          },
+        });
 
-  test.describe('Route Matching Specifics', () => {
-    test('routes should be exact match if no regex was passed', async ({
-      page,
-    }) => {
-      const routes = {
-        '/my': '# Incorrect Route - only prefix',
-        '/route': '# Incorrect Route - only postfix',
-        '/my/route': '# Correct Route',
-      };
+        await navigateToRoute(page, '/d');
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        const mainElm = page.locator('#main');
+        await expect(mainElm).toContainText('404 - Not found');
       });
 
-      await navigateToRoute(page, '/my/route');
+      test('skip routes that returned a falsy value that is not a boolean', async ({
+        page,
+      }) => {
+        const routes = {
+          '/multiple/(.+)': () => null,
+          '/multiple/(.*)': () => undefined,
+          '/multiple/.+': () => 0,
+          '/multiple/.*': () => '# Last Match',
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Correct Route');
-    });
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
 
-    test('if there are two routes that match, the first one should be taken', async ({
-      page,
-    }) => {
-      const routes = {
-        '/multiple/(.+)': '# First Match',
-        '/multiple/(.*)': '# Second Match',
-      };
+        await navigateToRoute(page, '/multiple/matches');
 
-      await docsifyInit({
-        config: {
-          routes,
-        },
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Last Match');
       });
 
-      await navigateToRoute(page, '/multiple/matches');
+      test('abort virtual routes and not try the next one, if any matched route returned an explicit "false" boolean', async ({
+        page,
+      }) => {
+        const routes = {
+          '/multiple/(.+)': () => false,
+          '/multiple/(.*)': () => "# You Shouldn't See Me",
+        };
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('First Match');
-    });
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
 
-    test('prefer virtual route over a real file, if a virtual route exists', async ({
-      page,
-    }) => {
-      const routes = {
-        '/': '# Virtual Homepage',
-      };
+        await navigateToRoute(page, '/multiple/matches');
 
-      await docsifyInit({
-        markdown: {
-          homepage: '# Real File Homepage',
-        },
-        config: {
-          routes,
-        },
+        const mainElm = page.locator('#main');
+        await expect(mainElm).toContainText('404 - Not found');
       });
 
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Virtual Homepage');
-    });
+      test('skip routes that are not a valid string or function', async ({
+        page,
+      }) => {
+        const routes = {
+          '/multiple/(.+)': 123,
+          '/multiple/(.*)': false,
+          '/multiple/.+': null,
+          '/multiple/..+': [],
+          '/multiple/..*': {},
+          '/multiple/.*': '# Last Match',
+        };
 
-    test('fallback to default routing if no route was matched', async ({
-      page,
-    }) => {
-      const routes = {
-        '/a': '# A',
-        '/b': '# B',
-        '/c': '# C',
-      };
+        await docsifyInit({
+          config: {
+            routes,
+          },
+        });
 
-      await docsifyInit({
-        markdown: {
-          homepage: '# Real File Homepage',
-        },
-        config: {
-          routes,
-        },
+        await navigateToRoute(page, '/multiple/matches');
+
+        const titleElm = page.locator('#main h1');
+        await expect(titleElm).toContainText('Last Match');
       });
-
-      await navigateToRoute(page, '/d');
-
-      const mainElm = page.locator('#main');
-      await expect(mainElm).toContainText('404 - Not found');
     });
-
-    test('skip routes that returned a falsy value that is not a boolean', async ({
-      page,
-    }) => {
-      const routes = {
-        '/multiple/(.+)': () => null,
-        '/multiple/(.*)': () => undefined,
-        '/multiple/.+': () => 0,
-        '/multiple/.*': () => '# Last Match',
-      };
-
-      await docsifyInit({
-        config: {
-          routes,
-        },
-      });
-
-      await navigateToRoute(page, '/multiple/matches');
-
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Last Match');
-    });
-
-    test('abort virtual routes and not try the next one, if any matched route returned an explicit "false" boolean', async ({
-      page,
-    }) => {
-      const routes = {
-        '/multiple/(.+)': () => false,
-        '/multiple/(.*)': () => "# You Shouldn't See Me",
-      };
-
-      await docsifyInit({
-        config: {
-          routes,
-        },
-      });
-
-      await navigateToRoute(page, '/multiple/matches');
-
-      const mainElm = page.locator('#main');
-      await expect(mainElm).toContainText('404 - Not found');
-    });
-
-    test('skip routes that are not a valid string or function', async ({
-      page,
-    }) => {
-      const routes = {
-        '/multiple/(.+)': 123,
-        '/multiple/(.*)': false,
-        '/multiple/.+': null,
-        '/multiple/..+': [],
-        '/multiple/..*': {},
-        '/multiple/.*': '# Last Match',
-      };
-
-      await docsifyInit({
-        config: {
-          routes,
-        },
-      });
-
-      await navigateToRoute(page, '/multiple/matches');
-
-      const titleElm = page.locator('#main h1');
-      await expect(titleElm).toContainText('Last Match');
-    });
-  });
-});
+  }
+);
