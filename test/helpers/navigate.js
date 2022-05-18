@@ -12,6 +12,8 @@ async function navigateToRoute(page, route, { routerMode = 'hash' } = {}) {
   } else {
     await page.evaluate(r => window.history.pushState({ key: r }, '', r));
   }
+
+  await page.waitForLoadState('networkidle');
 }
 
 module.exports.navigateToRoute = navigateToRoute;
