@@ -1,17 +1,21 @@
+/** @typedef {((value: any) => void) => void} OnNext */
 /** @typedef {(value: any) => void} NextFunction */
 
 /**
- * Creates a pair of a function and a promise.
- * When the function is called, the promise is resolved with the value that was passed to the function.
- * @returns {[Promise, NextFunction]}
+ * Creates a pair of a function and an event emitter.
+ * When the function is called, the event emitter calls the given callback with the value that was passed to the function.
+ * @returns {[NextFunction, OnNext]}
  */
 export function createNextFunction() {
-  let resolvePromise;
-  const promise = new Promise(res => (resolvePromise = res));
+  let storedCb = () => null;
 
   function next(value) {
-    resolvePromise(value);
+    storedCb(value);
   }
 
-  return [promise, next];
+  function onNext(cb) {
+    storedCb = cb;
+  }
+
+  return [next, onNext];
 }

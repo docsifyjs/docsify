@@ -22,62 +22,72 @@ export function VirtualRoutes(Base) {
 
     /**
      * Attempts to match the given path with a virtual route.
-     * @param {string} path
+     * @param {string} path the path of the route to match
      * @returns {Promise<string | null>} resolves to string if route was matched, otherwise null
      */
     matchVirtualRoute(path) {
       const virtualRoutes = this.routes();
-
       const virtualRoutePaths = Object.keys(virtualRoutes);
 
+      let done = () => null;
+
       /**
-       * This is a tail recursion that resolves to the first properly matched route, to itself or to null.
-       * Used because async\await is not supported, so for loops over promises are out of the question...
-       * @returns {Promise<string | null>}
+       * This is a tail recursion that iterates over all the available routes.
+       * It can result in one of two ways:
+       * 1. Call itself (essentially reviewing the next route)
+       * 2. Call the "done" callback with the result (either the contents, or "null" if no match was found)
        */
       function asyncMatchNextRoute() {
         const virtualRoutePath = virtualRoutePaths.shift();
         if (!virtualRoutePath) {
-          return Promise.resolve(null);
+          return done(null);
         }
 
         const matcher = makeExactMatcher(virtualRoutePath);
         const matched = path.match(matcher);
 
         if (!matched) {
-          return Promise.resolve().then(asyncMatchNextRoute);
+          return asyncMatchNextRoute();
         }
 
         const virtualRouteContentOrFn = virtualRoutes[virtualRoutePath];
 
         if (typeof virtualRouteContentOrFn === 'string') {
-          return Promise.resolve(virtualRouteContentOrFn);
-        } else if (typeof virtualRouteContentOrFn === 'function') {
-          return Promise.resolve()
-            .then(() => {
-              if (virtualRouteContentOrFn.length <= 2) {
-                return virtualRouteContentOrFn(path, matched);
-              } else {
-                const [resultPromise, next] = createNextFunction();
-                virtualRouteContentOrFn(path, matched, next);
-                return resultPromise;
-              }
-            })
-            .then(contents => {
-              if (typeof contents === 'string') {
-                return contents;
-              } else if (contents === false) {
-                return null;
-              } else {
-                return asyncMatchNextRoute();
-              }
-            });
-        } else {
-          return Promise.resolve().then(asyncMatchNextRoute);
+          const contents = virtualRouteContentOrFn;
+          return done(contents);
         }
+
+        if (typeof virtualRouteContentOrFn === 'function') {
+          const fn = virtualRouteContentOrFn;
+
+          const [next, onNext] = createNextFunction();
+          onNext(contents => {
+            if (typeof contents === 'string') {
+              return done(contents);
+            } else if (contents === false) {
+              return done(null);
+            } else {
+              return asyncMatchNextRoute();
+            }
+          });
+
+          if (fn.length <= 2) {
+            const returnedValue = fn(path, matched);
+            return next(returnedValue);
+          } else {
+            return fn(path, matched, next);
+          }
+        }
+
+        return asyncMatchNextRoute();
       }
 
-      return asyncMatchNextRoute();
+      return {
+        then: function (cb) {
+          done = cb;
+          asyncMatchNextRoute();
+        },
+      };
     }
   };
 }
