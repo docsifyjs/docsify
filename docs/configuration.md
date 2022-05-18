@@ -48,6 +48,8 @@ window.$docsify = {
 };
 ```
 
+Do note that order matters! If a route can be matched by multiple aliases, the one you declared first takes precedence.
+
 ## auto2top
 
 - Type: `Boolean`
