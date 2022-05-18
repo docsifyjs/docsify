@@ -750,7 +750,7 @@ window.$docsify = {
 }
 ```
 
-Do note that order matters! Routes are matched the same order that you declare them, so in cases where you have overlapping routes, you might want to list the more specific ones first:
+Do note that order matters! Routes are matched the same order you declare them in, which means that in cases where you have overlapping routes, you might want to list the more specific ones first:
 
 ```js
 window.$docsify = {
