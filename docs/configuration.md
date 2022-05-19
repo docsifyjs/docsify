@@ -35,6 +35,7 @@ The config can also be defined as a function, in which case the first argument i
 - Type: `Object`
 
 Set the route alias. You can freely manage routing rules. Supports RegExp.
+Do note that order matters! If a route can be matched by multiple aliases, the one you declared first takes precedence.
 
 ```js
 window.$docsify = {
@@ -47,8 +48,6 @@ window.$docsify = {
   },
 };
 ```
-
-Do note that order matters! If a route can be matched by multiple aliases, the one you declared first takes precedence.
 
 ## auto2top
 
@@ -693,6 +692,8 @@ A route function receives up to three parameters:
 2. `matched` - the [`RegExpMatchArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) that was matched by the route (e.g. for `/bar/(.+)`, you get `['/bar/baz', 'baz']`)
 3. `next` - this is a callback that you may call when your route function is async
 
+Do note that order matters! Routes are matched the same order you declare them in, which means that in cases where you have overlapping routes, you might want to list the more specific ones first.
+
 ```js
 window.$docsify = {
   routes: {
@@ -749,26 +750,6 @@ window.$docsify = {
   }
 }
 ```
-
-Do note that order matters! Routes are matched the same order you declare them in, which means that in cases where you have overlapping routes, you might want to list the more specific ones first:
-
-```js
-window.$docsify = {
-  routes: {
-    // if you look up /pets/cats, this route is always matched first
-    '/pets/cats': function(route, matched) {
-      return 'This is a special page for cats!';
-    }
-
-    // and this route will match every other pet, but never cats, since it is the second route to be declared
-    '/pets/(.+)': function(route, matched) {
-      const pet = matched[0];
-      return `your pet is ${pet} (but not a cat, so it doesn't get its own route!)`;
-    }
-  }
-}
-```
-
 
 Finally, if you have a specific path that has a real markdown file (and therefore should not be matched by your route), you can opt it out by returning an explicit `false` value:
 
