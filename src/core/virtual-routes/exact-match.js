@@ -4,12 +4,11 @@
  * @returns {string}
  */
 export function makeExactMatcher(matcher) {
-  const matcherWithBeginningOfInput = matcher.startsWith('^')
-    ? matcher
-    : `^${matcher}`;
+  const matcherWithBeginningOfInput =
+    matcher.slice(0, 1) === '^' ? matcher : `^${matcher}`;
 
   const matcherWithBeginningAndEndOfInput =
-    matcherWithBeginningOfInput.endsWith('$')
+    matcherWithBeginningOfInput.slice(-1) === '$'
       ? matcherWithBeginningOfInput
       : `${matcherWithBeginningOfInput}$`;
 
