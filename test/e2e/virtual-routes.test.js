@@ -1,6 +1,16 @@
 const docsifyInit = require('../helpers/docsify-init');
 const { test, expect } = require('./fixtures/docsify-init-fixture');
 
+/**
+ * Navigate to a specific route in the site
+ * @param {import('playwright-core').Page} page the playwright page instance from the test
+ * @param {string} route the route you want to navigate to
+ */
+async function navigateToRoute(page, route) {
+  await page.evaluate(r => (window.location.hash = r), route);
+  await page.waitForLoadState('networkidle');
+}
+
 test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
   test.describe('Different Types of Virtual Routes', () => {
     test('rendering virtual routes specified as string', async ({ page }) => {
@@ -281,13 +291,3 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
     });
   });
 });
-
-/**
- * Navigate to a specific route in the site
- * @param {import('playwright-core').Page} page the playwright page instance from the test
- * @param {string} route the route you want to navigate to
- */
-async function navigateToRoute(page, route) {
-  await page.evaluate(r => (window.location.hash = r), route);
-  await page.waitForLoadState('networkidle');
-}
