@@ -707,13 +707,14 @@ window.$docsify = {
 
     // RegEx match w/ asynchronous function
     '/baz/(.*)': function(route, matched, next) {
-       try {
-        // Async task(s)...
-      } catch (err) {
-        // ...
-      } finally {
-        next('# Custom Markdown');
-      }
+       // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
+      fetch('/api/users?id=12345')
+        .then(function(response) {
+          next('# Custom Markdown');
+        })
+        .catch(function(err) {
+          // Handle error...
+        });
     }
   }
 }
@@ -738,13 +739,8 @@ window.$docsify = {
       if (matched[0] === 'cats') {
         next();
       } else {
-        try {
-          // Async task(s)...
-        } catch (err) {
-          // ...
-        } finally {
-          next('I like all pets but cats');
-        }
+        // Async task(s)...
+        next('I like all pets but cats');
       }
     }
   }
