@@ -35,6 +35,7 @@ The config can also be defined as a function, in which case the first argument i
 - Type: `Object`
 
 Set the route alias. You can freely manage routing rules. Supports RegExp.
+Do note that order matters! If a route can be matched by multiple aliases, the one you declared first takes precedence.
 
 ```js
 window.$docsify = {
@@ -678,6 +679,91 @@ window.$docsify = {
 window.$docsify = {
   routerMode: 'history', // default: 'hash'
 };
+```
+
+## routes
+
+- Type: `Object`
+
+Define "virtual" routes that can provide content dynamically. A route is a map between the expected path, to either a string or a function. If the mapped value is a string, it is treated as markdown and parsed accordingly. If it is a function, it is expected to return markdown content.
+
+A route function receives up to three parameters:
+1. `route` - the path of the route that was requested (e.g. `/bar/baz`)
+2. `matched` - the [`RegExpMatchArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) that was matched by the route (e.g. for `/bar/(.+)`, you get `['/bar/baz', 'baz']`)
+3. `next` - this is a callback that you may call when your route function is async
+
+Do note that order matters! Routes are matched the same order you declare them in, which means that in cases where you have overlapping routes, you might want to list the more specific ones first.
+
+```js
+window.$docsify = {
+  routes: {
+    // Basic match w/ return string
+    '/foo': '# Custom Markdown',
+
+    // RegEx match w/ synchronous function
+    '/bar/(.*)': function(route, matched) {
+      return '# Custom Markdown';
+    },
+
+    // RegEx match w/ asynchronous function
+    '/baz/(.*)': function(route, matched, next) {
+       // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
+      fetch('/api/users?id=12345')
+        .then(function(response) {
+          next('# Custom Markdown');
+        })
+        .catch(function(err) {
+          // Handle error...
+        });
+    }
+  }
+}
+```
+
+Other than strings, route functions can return a falsy value (`null` \ `undefined`) to indicate that they ignore the current request:
+
+```js
+window.$docsify = {
+  routes: {
+    // accepts everything other than dogs (synchronous)
+    '/pets/(.+)': function(route, matched) {
+      if (matched[0] === 'dogs') {
+        return null;
+      } else {
+        return 'I like all pets but dogs';
+      }
+    }
+
+    // accepts everything other than cats (asynchronous)
+    '/pets/(.*)': function(route, matched, next) {
+      if (matched[0] === 'cats') {
+        next();
+      } else {
+        // Async task(s)...
+        next('I like all pets but cats');
+      }
+    }
+  }
+}
+```
+
+Finally, if you have a specific path that has a real markdown file (and therefore should not be matched by your route), you can opt it out by returning an explicit `false` value:
+
+```js
+window.$docsify = {
+  routes: {
+    // if you look up /pets/cats, docsify will skip all routes and look for "pets/cats.md"
+    '/pets/cats': function(route, matched) {
+      return false;
+    }
+
+    // but any other pet should generate dynamic content right here
+    '/pets/(.+)': function(route, matched) {
+      const pet = matched[0];
+      return `your pet is ${pet} (but not a cat)`;
+    }
+  }
+}
 ```
 
 ## subMaxLevel

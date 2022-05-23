@@ -2,6 +2,7 @@ import { Router } from './router/index.js';
 import { Render } from './render/index.js';
 import { Fetch } from './fetch/index.js';
 import { Events } from './event/index.js';
+import { VirtualRoutes } from './virtual-routes/index.js';
 import initGlobalAPI from './global-api.js';
 
 import config from './config.js';
@@ -11,7 +12,10 @@ import { Lifecycle } from './init/lifecycle';
 /** @typedef {new (...args: any[]) => any} Constructor */
 
 // eslint-disable-next-line new-cap
-export class Docsify extends Fetch(Events(Render(Router(Lifecycle(Object))))) {
+export class Docsify extends Fetch(
+  // eslint-disable-next-line new-cap
+  Events(Render(VirtualRoutes(Router(Lifecycle(Object)))))
+) {
   constructor() {
     super();
 
