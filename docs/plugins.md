@@ -78,14 +78,14 @@ Install the plugin and configure the track id.
   window.$docsify = {
     ga: 'UA-XXXXX-Y',
   };
-  
-  // or multi gtag, the first element of the array must be a global site gtag id, each page should have only one global site tag instance. 
+
+  // or multi gtag, first tag at the beginning of G- from the array is global site gtag, each page should have only one global site tag instance.
   window.$docsify = {
     ga: [
       'G-XXXXXXXX', // Google Analytics 4 (GA4)
       'UA-XXXXXXXX', // Google Universal Analytics (GA3)
       'AW-XXXXXXXX', // Google Ads
-      'DC-XXXXXXXX' // Floodlight
+      'DC-XXXXXXXX', // Floodlight
     ],
   };
 </script>
@@ -93,7 +93,7 @@ Install the plugin and configure the track id.
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 
-Configure by `data-ga`.
+Configure by `data-ga`, only support single gtag.
 
 <!-- prettier-ignore -->
 ```html
