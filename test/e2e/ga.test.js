@@ -1,4 +1,5 @@
 // Modules, constants, and variables
+// npm run test:e2e ga.test.js
 // -----------------------------------------------------------------------------
 const docsifyInit = require('../helpers/docsify-init');
 const { test, expect } = require('./fixtures/docsify-init-fixture');

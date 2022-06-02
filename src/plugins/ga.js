@@ -1,9 +1,6 @@
 /* eslint-disable no-console */
 // From https://github.com/egoist/vue-ga/blob/master/src/index.js
 
-// prefix of global site tag
-const GLOBAL_SITE_TAG_PREFIX = 'G-';
-
 function appendScript(id) {
   const script = document.createElement('script');
   script.async = true;
@@ -34,24 +31,15 @@ function initAdditionalTag(id) {
 
 function init(ids) {
   if (Array.isArray(ids)) {
-    // default get the first id
-    let globalSiteTag = ids[0];
-    let globalSiteTagArr = ids.filter(
-      id => id.indexOf(GLOBAL_SITE_TAG_PREFIX) === 0
-    );
-    if (globalSiteTagArr.length !== 0) {
-      globalSiteTag = globalSiteTagArr[0];
-    }
-
-    // initialized global site tag id
-    initGlobalSiteTag(globalSiteTag);
+    // set the first id to be a global site tag
+    initGlobalSiteTag(ids[0]);
 
     // the rest ids
-    ids
-      .filter(id => id !== globalSiteTag)
-      .forEach((id, index) => {
+    ids.forEach((id, index) => {
+      if (index > 0) {
         initAdditionalTag(id);
-      });
+      }
+    });
   } else {
     initGlobalSiteTag(ids);
   }
