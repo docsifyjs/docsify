@@ -10,7 +10,7 @@ export default function (vm) {
       autoHeader: false,
       basePath: '',
       catchPluginErrors: true,
-      cornerExternalLinkTargett: '_blank',
+      cornerExternalLinkTarget: '_blank',
       coverpage: '',
       crossOriginLinks: [],
       el: '#app',
