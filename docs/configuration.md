@@ -102,7 +102,7 @@ window.$docsify = {
 
 Determines if Docsify should handle uncaught _synchronous_ plugin errors automatically. This can prevent plugin errors from affecting docsify's ability to properly render live site content.
 
-## cornerExternalLinkTarget
+## cornerExternalLinkTargett
 
 - Type: `String`
 - Default: `'_blank'`
@@ -111,7 +111,7 @@ Target to open external link at the top right corner. Default `'_blank'` (new wi
 
 ```js
 window.$docsify = {
-  cornerExternalLinkTarget: '_self', // default: '_blank'
+  cornerExternalLinkTargett: '_self', // default: '_blank'
 };
 ```
 
