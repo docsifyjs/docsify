@@ -13,7 +13,7 @@ const CONFIG = {
   pathNamespaces: undefined,
 };
 
-const install = function (hook, vm) {
+const search1 = (hook, vm) => {
   const { util } = Docsify;
   const opts = vm.config.search || CONFIG;
 
@@ -43,4 +43,4 @@ const install = function (hook, vm) {
   });
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+$docsify.plugins = [].concat(search1, $docsify.plugins);

@@ -87,7 +87,7 @@
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
           function (hook, vm) {
-            hook.beforeEach(function (html) {
+            let demo = (html, matchedPluginHooks =[]) => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
@@ -101,7 +101,14 @@
                   'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
                   vm.route.file;
               }
+             
               var editHtml = '[:memo: Edit Document](' + url + ')\n';
+              // matchedPluginHooks[0](editHtml)
+              matchedPluginHooks.forEach(hook=>{
+                if(typeof hook === 'function'){
+                  hook(html, 10086)
+                }
+              })
               return (
                 editHtml +
                 html +
@@ -109,7 +116,15 @@
                 '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>\n\n' +
                 '<a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank" title="Vercel has given us a Pro account"><img src="/docs/_media/powered-by-vercel.svg" alt="Vercel" width="150"></a>'
               );
-            });
+            }
+            demo.enableDocsifyPluginHook=true
+            demo.pluginMeta = {
+              name:"koy"
+            }
+            hook.beforeEach( 
+              demo
+            
+            );
           },
         ],
       };
