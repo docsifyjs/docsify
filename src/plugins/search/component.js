@@ -150,7 +150,14 @@ function doSearch(value) {
     return;
   }
 
-  const matchs = search(value);
+  let matchs = search(value);
+
+  if (
+    options.resultPreHanlder &&
+    typeof options.resultPreHanlder === 'function'
+  ) {
+    matchs = options.resultPreHanlder(matchs);
+  }
 
   let html = '';
   matchs.forEach(post => {

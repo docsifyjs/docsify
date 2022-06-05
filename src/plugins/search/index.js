@@ -11,6 +11,7 @@ const CONFIG = {
   hideOtherSidebarContent: false,
   namespace: undefined,
   pathNamespaces: undefined,
+  resultPreHanlder: undefined,
 };
 
 const install = function (hook, vm) {
@@ -29,6 +30,7 @@ const install = function (hook, vm) {
       opts.hideOtherSidebarContent || CONFIG.hideOtherSidebarContent;
     CONFIG.namespace = opts.namespace || CONFIG.namespace;
     CONFIG.pathNamespaces = opts.pathNamespaces || CONFIG.pathNamespaces;
+    CONFIG.resultPreHanlder = opts.resultPreHanlder || CONFIG.resultPreHanlder;
   }
 
   const isAuto = CONFIG.paths === 'auto';
