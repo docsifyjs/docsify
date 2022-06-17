@@ -413,7 +413,7 @@ export function Render(Base) {
 
       if (el) {
         if (config.repo) {
-          html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
+          html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
         }
 
         if (config.coverpage) {
