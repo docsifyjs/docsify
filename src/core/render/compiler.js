@@ -231,8 +231,8 @@ export class Compiler {
 
       const slug = slugify(config.id || str);
       const url = router.toURL(router.getCurrentPath(), { id: slug });
-      nextToc.label = removeAtag(config.sidebar || str);
       nextToc.title = removeAtag(str);
+      nextToc.label = config.sidebar || nextToc.title;
       nextToc.slug = url;
       _self.toc.push(nextToc);
 
