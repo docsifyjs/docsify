@@ -23,16 +23,21 @@ export function getAndRemoveConfig(str = '') {
 
   if (str) {
     str = str
+      .replace(
+        /(?:^|\s):([\w-]+:?)=?([\w-%]+|"(?:[^"\\]|\\.)*")?/g,
+        (m, key, value) => {
+          if (key.indexOf(':') === -1) {
+            config[key] =
+              (value && value.replace(/&quot;/g, '').replace(/(^"|"$)/g, '')) ||
+              true;
+            return '';
+          }
+
+          return m;
+        }
+      )
       .replace(/^('|")/, '')
       .replace(/('|")$/, '')
-      .replace(/(?:^|\s):([\w-]+:?)=?([\w-%]+)?/g, (m, key, value) => {
-        if (key.indexOf(':') === -1) {
-          config[key] = (value && value.replace(/&quot;/g, '')) || true;
-          return '';
-        }
-
-        return m;
-      })
       .trim();
   }
 
