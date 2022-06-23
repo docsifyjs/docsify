@@ -58,6 +58,19 @@ describe('core/render/utils', () => {
         str: `[filename](_media/example.md ":include")`,
       });
     });
+
+    test('parse config with quoted string arguments', () => {
+      const result = getAndRemoveConfig(
+        `[filename](_media/example.md ':include :foo="bar :baz test"')`
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          foo: 'bar :baz test',
+        },
+        str: `[filename](_media/example.md ':include')`,
+      });
+    });
   });
 });
 
@@ -68,22 +81,32 @@ describe('core/render/tpl', () => {
         level: 2,
         slug: '#/cover?id=basic-usage',
         title: '<span style="color:red">Basic usage</span>',
+        label: '<span style="color:red">Basic usage</span>',
       },
       {
         level: 2,
         slug: '#/cover?id=custom-background',
         title: 'Custom background',
+        label: 'Custom background',
       },
       {
         level: 2,
         slug: '#/cover?id=test',
         title:
           '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
+        label:
+          '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
+      },
+      {
+        level: 2,
+        slug: '#/cover?id=different-title-and-label',
+        title: 'Long title string',
+        label: 'Short string',
       },
     ]);
 
     expect(result).toBe(
-      `<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li></ul>`
+      `<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li><li><a class="section-link" href="#/cover?id=different-title-and-label" title="Long title string">Short string</a></li></ul>`
     );
   });
 });
