@@ -28,8 +28,7 @@ export function getAndRemoveConfig(str = '') {
         (m, key, value) => {
           if (key.indexOf(':') === -1) {
             config[key] =
-              (value && value.replace(/&quot;/g, '').replace(/(^"|"$)/g, '')) ||
-              true;
+              (value && value.replace(/(^"|&quot;|"$)/g, '')) || true;
             return '';
           }
 
