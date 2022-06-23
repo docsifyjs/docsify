@@ -127,7 +127,7 @@ Only when you set both the `routerMode: 'history'` and `externalLinkTarget: '_se
 ### Hello, world! :id=hello-world
 ```
 
-## Customise item name for sidebar
+## Customise the title for the sidebar items :sidebar="Customise title for sidebar"
 
 ```md
 ### How would I write a "hello, world" example? :sidebar="Hello, world?"
