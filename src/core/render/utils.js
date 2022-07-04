@@ -24,11 +24,10 @@ export function getAndRemoveConfig(str = '') {
   if (str) {
     str = str
       .replace(
-        /(?:^|\s):([\w-]+:?)=?([\w-%]+|"(?:[^"\\]|\\.)*")?/g,
+        /(?:^|\s):([\w-]+:?)=?([\w-%]+|&quot;(?:[^"\\]|\\.)*&quot;)?/g,
         (m, key, value) => {
           if (key.indexOf(':') === -1) {
-            config[key] =
-              (value && value.replace(/(^"|&quot;|"$)/g, '')) || true;
+            config[key] = (value && value.replace(/&quot;/g, '')) || true;
             return '';
           }
 
