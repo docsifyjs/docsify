@@ -1,5 +1,5 @@
 import { noop } from '../../util/core';
-import { on } from '../../util/dom';
+import { on, find } from '../../util/dom';
 import { parseQuery, getPath } from '../util';
 import { History } from './base';
 
@@ -20,22 +20,28 @@ export class HTML5History extends History {
     return (path || '/') + window.location.search + window.location.hash;
   }
 
-  onchange(cb = noop) {
-    on('click', e => {
-      const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
+  onchange(cb = noop, docWrapperEl) {
+    // For backward compatibility, since not all doc has the doc wrapper el
+    on(
+      docWrapperEl ? docWrapperEl : window,
+      'click',
+      e => {
+        const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
-      if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
-        e.preventDefault();
-        const url = el.href;
-        // solve history.pushState cross-origin issue
-        if (this.config.crossOriginLinks.indexOf(url) !== -1) {
-          window.open(url, '_self');
-        } else {
-          window.history.pushState({ key: url }, '', url);
+        if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
+          e.preventDefault();
+          const url = el.href;
+          // solve history.pushState cross-origin issue
+          if (this.config.crossOriginLinks.indexOf(url) !== -1) {
+            window.open(url, '_self');
+          } else {
+            window.history.pushState({ key: url }, '', url);
+          }
+          cb({ event: e, source: 'navigate' });
         }
-        cb({ event: e, source: 'navigate' });
-      }
-    });
+      },
+      find(this.config.docWrapperEl)
+    );
 
     on('popstate', e => {
       cb({ event: e, source: 'history' });
