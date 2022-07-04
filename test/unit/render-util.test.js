@@ -81,27 +81,26 @@ describe('core/render/tpl', () => {
         level: 2,
         slug: '#/cover?id=basic-usage',
         title: '<span style="color:red">Basic usage</span>',
-        label: '<span style="color:red">Basic usage</span>',
+        text: '<span style="color:red">Basic usage</span>',
       },
       {
         level: 2,
         slug: '#/cover?id=custom-background',
         title: 'Custom background',
-        label: 'Custom background',
+        text: 'Custom background',
       },
       {
         level: 2,
         slug: '#/cover?id=test',
         title:
           '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
-        label:
-          '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
+        text: '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
       },
       {
         level: 2,
         slug: '#/cover?id=different-title-and-label',
         title: 'Long title string',
-        label: 'Short string',
+        text: 'Short string',
       },
     ]);
 
