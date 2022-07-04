@@ -23,19 +23,20 @@ export function getAndRemoveConfig(str = '') {
 
   if (str) {
     str = str
+      .replace(/&quot;/g, '"')
       .replace(
-        /(?:^|\s):([\w-]+:?)=?([\w-%]+|&quot;(?:[^"\\]|\\.)*&quot;)?/g,
+        /(?:^|\s):([\w-]+:?)=?([\w-%]+|"[^"]*")?/g, // Note: because the provided `str` argument has been html-escaped, with backslashes stripped, we cannot support escaped characters in quoted strings :-(
         (m, key, value) => {
           if (key.indexOf(':') === -1) {
-            config[key] = (value && value.replace(/&quot;/g, '')) || true;
+            config[key] = (value && value.replace(/"/g, '')) || true;
             return '';
           }
 
           return m;
         }
       )
-      .replace(/^('|")/, '')
-      .replace(/('|")$/, '')
+      .replace(/^('|")|('|")$/g, '')
+      .replace(/"/g, '&quot;')
       .trim();
   }
 
