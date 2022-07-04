@@ -61,7 +61,7 @@ describe('core/render/utils', () => {
 
     test('parse config with quoted string arguments', () => {
       const result = getAndRemoveConfig(
-        `[filename](_media/example.md ':include :foo="bar :baz test"')`
+        `[filename](_media/example.md ':include :foo=&quot;bar :baz test&quot;')`
       );
 
       expect(result).toMatchObject({
