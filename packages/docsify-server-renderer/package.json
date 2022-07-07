@@ -1,5 +1,5 @@
 {
-  "name": "docsify-server-renderer",
+  "name": "@developerportalsg/docsify-server-renderer",
   "version": "4.12.2",
   "description": "docsify server renderer",
   "author": {
