@@ -14,6 +14,7 @@ export default function (vm) {
       coverpage: '',
       crossOriginLinks: [],
       el: '#app',
+      docWrapperEl: '.doc-wrapper',
       executeScript: null,
       ext: '.md',
       externalLinkRel: 'noopener',
