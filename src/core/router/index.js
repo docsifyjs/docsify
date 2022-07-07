@@ -61,7 +61,7 @@ export function Router(Base) {
 
         this.$fetch(noop, this.$resetEvents.bind(this, params.source));
         lastRoute = this.route;
-      });
+      }, dom.find(this.config.docWrapperEl));
     }
   };
 }
