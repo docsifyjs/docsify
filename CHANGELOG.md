@@ -1,3 +1,12 @@
+## [4.12.4](https://github.com/docsifyjs/docsify/compare/v4.12.3...v4.12.4) (2022-07-07)
+
+
+### Bug Fixes
+
+* docsify doc wrapper element not found ([4153a4a](https://github.com/docsifyjs/docsify/commit/4153a4a20ea82927931a5acf2f6cda27a19a0a57))
+
+
+
 ## [4.12.3](https://github.com/docsifyjs/docsify/compare/v4.12.2...v4.12.3) (2022-07-07)
 
 
