@@ -12,7 +12,7 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
-  # Removing test script as non - availibity of tests. Will Add it once tests are completed 
+  # Removing test script as non - availibity of tests. Will Add it once tests are completed
 
   # npm run test
 
@@ -23,9 +23,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   cd packages/docsify-server-renderer
   npm version $VERSION
   if [[ -z $RELEASE_TAG ]]; then
-    npm publish
+    npm publish --access public
   else
-    npm publish --tag $RELEASE_TAG
+    npm publish --tag $RELEASE_TAG --access public
   fi
   cd -
 
@@ -45,8 +45,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   git push origin refs/tags/v$VERSION
   git push
   if [[ -z $RELEASE_TAG ]]; then
-    npm publish
+    npm publish --access public
   else
-    npm publish --tag $RELEASE_TAG
+    npm publish --tag $RELEASE_TAG --access public
   fi
 fi
