@@ -1,3 +1,25 @@
+## [4.12.3](https://github.com/docsifyjs/docsify/compare/v4.12.2...v4.12.3) (2022-07-07)
+
+
+### Bug Fixes
+
+* Add a doc wrapper el to scope the event listener to the doc itself instead on the full window by default ([8d5624d](https://github.com/docsifyjs/docsify/commit/8d5624db96de2b524643bf3baf63e52af6add2d2))
+* cornerExternalLinkTarget config. ([#1814](https://github.com/docsifyjs/docsify/issues/1814)) ([54cc5f9](https://github.com/docsifyjs/docsify/commit/54cc5f939b9499ae56604f589eef4e3f1c13cdc5))
+* correctly fix missing +1, -1 ([#1722](https://github.com/docsifyjs/docsify/issues/1722)) ([719dcbe](https://github.com/docsifyjs/docsify/commit/719dcbea5cb0c8b0835f8e9fc473b094feecb7ec))
+* Coverpage when content > viewport height ([#1744](https://github.com/docsifyjs/docsify/issues/1744)) ([301b516](https://github.com/docsifyjs/docsify/commit/301b5169613e95765eda335a4b21d0f9f9cbbbfd)), closes [#381](https://github.com/docsifyjs/docsify/issues/381)
+* Legacy bugs (styles, site plugin error, and dev server error) ([#1743](https://github.com/docsifyjs/docsify/issues/1743)) ([fa6df6d](https://github.com/docsifyjs/docsify/commit/fa6df6d58487ec294e22be04ac159dfb5745bd66))
+* package.json & package-lock.json to reduce vulnerabilities ([#1756](https://github.com/docsifyjs/docsify/issues/1756)) ([2dc5b12](https://github.com/docsifyjs/docsify/commit/2dc5b12b715e3ad1922a6401e3fd9837a99ef9c0))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1715](https://github.com/docsifyjs/docsify/issues/1715)) ([c1227b2](https://github.com/docsifyjs/docsify/commit/c1227b22cb8a3fb6c362ca8ac109082ab2251cc3))
+
+
+### Features
+
+* Emoji build ([#1766](https://github.com/docsifyjs/docsify/issues/1766)) ([ba5ee26](https://github.com/docsifyjs/docsify/commit/ba5ee26f00e957b58173f96b1901f6ffd3d8e5f5))
+* Native emoji w/ image-based fallbacks and improved parsing ([#1746](https://github.com/docsifyjs/docsify/issues/1746)) ([35002c9](https://github.com/docsifyjs/docsify/commit/35002c92b762f0d12e51582d7de7914fa380596a)), closes [#779](https://github.com/docsifyjs/docsify/issues/779)
+* Plugin error handling ([#1742](https://github.com/docsifyjs/docsify/issues/1742)) ([63b2535](https://github.com/docsifyjs/docsify/commit/63b2535a45a98945ec897277f4fbddec2ddba887))
+
+
+
 ## [4.12.2](https://github.com/docsifyjs/docsify/compare/v4.12.1...v4.12.2) (2022-01-06)
 
 
