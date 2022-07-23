@@ -94,6 +94,7 @@ export function genIndex(path, content = '', router, depth) {
       } else {
         slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
       }
+      slug = location.pathname + slug;
 
       if (str) {
         title = str
@@ -130,9 +131,7 @@ export function genIndex(path, content = '', router, depth) {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body = index[slug].body
-          ? index[slug].body + token.text
-          : token.text;
+        index[slug].body = token.text || '';
       }
     }
   });
