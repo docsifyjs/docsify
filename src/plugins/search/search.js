@@ -277,9 +277,9 @@ export function init(config, vm) {
 
   const isExpired = localStorage.getItem(expireKey) < Date.now();
 
-  INDEXS = JSON.parse(localStorage.getItem(indexKey));
+  INDEXS = isExpired ? null : JSON.parse(localStorage.getItem(indexKey));
 
-  if (isExpired || !INDEXS) {
+  if (!INDEXS) {
     INDEXS = {};
   } else if (!isAuto) {
     return;
