@@ -275,11 +275,11 @@ export function init(config, vm) {
   const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
   const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
 
+  const isExpired = localStorage.getItem(expireKey) < Date.now();
+
   INDEXS = JSON.parse(localStorage.getItem(indexKey));
 
-  const isExpired = !INDEXS || localStorage.getItem(expireKey) < Date.now();
-
-  if (isExpired) {
+  if (isExpired || !INDEXS) {
     INDEXS = {};
   } else if (!isAuto) {
     return;
