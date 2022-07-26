@@ -1,3 +1,12 @@
+## [4.12.5](https://github.com/docsifyjs/docsify/compare/v4.12.4...v4.12.5) (2022-07-26)
+
+
+### Bug Fixes
+
+* Enable history mode to add namelink to its path ([157bb4c](https://github.com/docsifyjs/docsify/commit/157bb4c3f631da8035fcde784de2cb5978a4de52))
+
+
+
 ## [4.12.4](https://github.com/docsifyjs/docsify/compare/v4.12.3...v4.12.4) (2022-07-07)
 
 
