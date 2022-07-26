@@ -45,7 +45,10 @@ export class History {
 
     path = config.alias ? getAlias(path, config.alias) : path;
     path = getFileName(path, ext);
-    path = path === `/README${ext}` ? config.homepage || path : path;
+    path =
+      path === cleanPath(config.nameLink + '/README' + ext)
+        ? cleanPath([config.nameLink, config.homepage].join('/')) || path
+        : path;
     path = isAbsolutePath(path) ? path : getPath(base, path);
 
     if (isRelative) {
