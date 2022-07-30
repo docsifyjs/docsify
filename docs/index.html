@@ -197,16 +197,7 @@
                 '\n\n----\n\n' +
                 '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
               );
-            }),
-              hook.afterEach(function (html) {
-                if (vm.route.path === '/') {
-                  return html;
-                }
-                return (
-                  html +
-                  '<br/> <i>Vercel</i> has given us a Pro account <br/> <a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="https://cdn.jsdelivr.net/gh/docsifyjs/docsify/docs/_media/vercel_logo.svg" alt="Vercel" width="100" height="64"></a>'
-                );
-              });
+            })
           },
         ],
       };

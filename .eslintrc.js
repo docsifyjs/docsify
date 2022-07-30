@@ -41,7 +41,14 @@ module.exports = {
     'no-shadow': [
       'error',
       {
-        allow: ['Events', 'Fetch', 'Lifecycle', 'Render', 'Router'],
+        allow: [
+          'Events',
+          'Fetch',
+          'Lifecycle',
+          'Render',
+          'Router',
+          'VirtualRoutes',
+        ],
       },
     ],
     'no-unused-vars': ['error', { args: 'none' }],

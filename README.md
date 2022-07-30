@@ -70,7 +70,7 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 ### Online one-click setup for Contributing
 
-You can use Gitpod(A free online VS Code-like IDE) for contributing. With single click it'll launch a workspace and automatically:
+You can use Gitpod (a free online VS Code-like IDE) for contributing. With a single click it'll launch a workspace and automatically:
 
 - clone the docsify repo.
 - install the dependencies.
@@ -124,6 +124,4 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 ## Special Thanks
 
-_Vercel_ has given us a Pro account.
-
-<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="docs/_media/vercel_logo.svg" width="100px"></a>
+A preview of Docsify's PR and develop branch is <a href="https://vercel.com/?utm_source=docsifyjs&utm_campaign=oss" target="_blank">Powered by <img src="https://cdn.jsdelivr.net/gh/docsifyjs/docsify/docs/_media/vercel_logo.svg" alt="Vercel" width="133px"></a>

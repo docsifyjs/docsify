@@ -30,9 +30,3 @@ Please consider donating if you think docsify is helpful to you or that my work 
 ## Community
 
 Users and the development team are usually in the [Discord server](https://discord.gg/3NwKFyR).
-
-## Special Thanks
-
-_Vercel_ has given us a Pro account.
-
-<a href="https://vercel.com/?utm_source=docsifyjsdocs" target="_blank"><img src="https://cdn.jsdelivr.net/gh/docsifyjs/docsify/docs/_media/vercel_logo.svg" width="100px"></a>
