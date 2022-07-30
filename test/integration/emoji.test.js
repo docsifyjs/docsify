@@ -121,6 +121,19 @@ describe('Emoji', function () {
     expect(mainElm.innerHTML).toMatchSnapshot();
   });
 
+  test('Ignores emoji shorthand codes in URIs while handling anchor content', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: 'Achor tags [:100:](http://docsify.js.org/:100:/)',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
   test('Ignores emoji shorthand codes in code, pre, script, and template tags', async () => {
     await docsifyInit({
       markdown: {
