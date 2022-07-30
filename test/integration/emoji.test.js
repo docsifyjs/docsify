@@ -107,6 +107,20 @@ describe('Emoji', function () {
     expect(mainElm.innerHTML).toMatchSnapshot();
   });
 
+  test('Ignores emoji shorthand codes in URIs', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage:
+          'Url https://docsify.js.org/:foo:/ http://docsify.js.org/:100:/ ftp://docsify.js.org/:smile:/',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
   test('Ignores emoji shorthand codes in code, pre, script, and template tags', async () => {
     await docsifyInit({
       markdown: {
