@@ -1,3 +1,13 @@
+## [4.12.6](https://github.com/docsifyjs/docsify/compare/v4.12.5...v4.12.6) (2022-08-01)
+
+
+### Bug Fixes
+
+* Allow default behaviour of disabled link in history mode instead of overriding it ([a1a5150](https://github.com/docsifyjs/docsify/commit/a1a51500ea816d7e3ee6612c4fa6359ba161172a))
+* Cater to basePath in history mode to retrieve the right file ([bbd323d](https://github.com/docsifyjs/docsify/commit/bbd323d0b54223f7a5dbb2ce902176e9c6780e65))
+
+
+
 ## [4.12.5](https://github.com/docsifyjs/docsify/compare/v4.12.4...v4.12.5) (2022-07-26)
 
 
