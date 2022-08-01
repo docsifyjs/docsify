@@ -25,7 +25,12 @@ export class HTML5History extends History {
       // For backward compatibility, since not all doc has a doc wrapper element
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
-      if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
+      if (
+        el &&
+        el.tagName === 'A' &&
+        !/_blank/.test(el.target) &&
+        !el.title.includes(':disabled')
+      ) {
         e.preventDefault();
         const url = el.href;
         // solve history.pushState cross-origin issue
