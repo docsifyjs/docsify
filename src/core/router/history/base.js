@@ -10,6 +10,7 @@ import { noop, merge } from '../../util/core';
 
 const cached = {};
 
+// eslint-disable-next-line no-unused-vars
 function getAlias(path, alias, last) {
   const match = Object.keys(alias).filter(key => {
     const re = cached[key] || (cached[key] = new RegExp(`^${key}$`));
@@ -43,13 +44,20 @@ export class History {
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
 
-    path = config.alias ? getAlias(path, config.alias) : path;
+    path =
+      config.routerMode === 'history'
+        ? path.replace(config.nameLink, '/')
+        : path;
     path = getFileName(path, ext);
     path =
       path === cleanPath(config.nameLink + '/README' + ext)
         ? cleanPath([config.nameLink, config.homepage].join('/')) || path
         : path;
-    path = isAbsolutePath(path) ? path : getPath(base, path);
+    path = isAbsolutePath(path)
+      ? path
+      : config.routerMode === 'history'
+      ? cleanPath([config.nameLink, base, path].join('/'))
+      : getPath(base, path);
 
     if (isRelative) {
       path = path.replace(new RegExp(`^${base}`), '');
