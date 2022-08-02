@@ -73,7 +73,7 @@ async function buildCore() {
       build({
         input: 'src/core/index.js',
         output: 'docsify.min.js',
-        // plugins: [uglify()]
+        plugins: [uglify()],
       })
     );
   }
@@ -108,7 +108,7 @@ async function buildAllPlugin() {
         build({
           input: 'src/plugins/' + item.input,
           output: 'plugins/' + item.name + '.min.js',
-          // plugins: [uglify()]
+          plugins: [uglify()],
         })
       );
     });
