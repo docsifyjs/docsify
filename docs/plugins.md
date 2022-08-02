@@ -71,18 +71,42 @@ This plugin ignores diacritical marks when performing a full text search (e.g., 
 
 ## Google Analytics
 
+> Google's Universal Analytics service will no longer process new data in standard properties beginning July 1, 2023. Prepare now by setting up and switching over to a Google Analytics 4 property and docsify's gtag.js plugin.
+
+Install the plugin and configure the track id.
+
+```html
+<script>
+  window.$docsify = {
+    ga: 'UA-XXXXX-Y',
+  };
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+```
+
+Configure by `data-ga`.
+
+<!-- prettier-ignore -->
+```html
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+```
+
+## Google Analytics 4 (GA4)
+
 Install the plugin and configure the track id.
 
 ```html
 <script>
   // Single ID
   window.$docsify = {
-    ga: 'UA-XXXXX-Y',
+    gtag: 'UA-XXXXX-Y',
   };
 
   // Multiple IDs
   window.$docsify = {
-    ga: [
+    gtag: [
       'G-XXXXXXXX', // Google Analytics 4 (GA4)
       'UA-XXXXXXXX', // Google Universal Analytics (GA3)
       'AW-XXXXXXXX', // Google Ads
@@ -91,15 +115,7 @@ Install the plugin and configure the track id.
   };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
-```
-
-Configure by `data-ga`, only support single gtag.
-
-<!-- prettier-ignore -->
-```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
 ```
 
 ## Emoji
