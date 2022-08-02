@@ -134,6 +134,32 @@ describe('Emoji', function () {
     expect(mainElm.innerHTML).toMatchSnapshot();
   });
 
+  test('Ignores emoji shorthand codes in html attributes', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `<a href="http://domain.com/:smile:/"> <img src='http://domain.com/:smile:/file.png'> <script src=http://domain.com/:smile:/file.js></script>`,
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores emoji shorthand codes in style url() values', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `<style>@import url(http://domain.com/:smile/file.css);</style>`,
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
   test('Ignores emoji shorthand codes in code, pre, script, and template tags', async () => {
     await docsifyInit({
       markdown: {
