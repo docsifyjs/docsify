@@ -48,11 +48,9 @@ export class History {
       config.routerMode === 'history'
         ? path.replace(config.nameLink, '/')
         : path;
+    path = config.alias ? getAlias(path, config.alias) : path;
     path = getFileName(path, ext);
-    path =
-      path === cleanPath(config.nameLink + '/README' + ext)
-        ? cleanPath([config.nameLink, config.homepage].join('/')) || path
-        : path;
+    path = path === '/README' + ext ? config.homepage || path : path;
     path = isAbsolutePath(path)
       ? path
       : config.routerMode === 'history'
