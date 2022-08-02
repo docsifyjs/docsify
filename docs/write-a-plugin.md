@@ -22,6 +22,8 @@ window.$docsify = {
 Alternatively, a plugin can be stored in a separate file and "installed" using a standard `<script>` tag:
 
 ```js
+// docsify-plugin-myplugin.js
+
 (function () {
   var myPlugin = function (hook, vm) {
     // ...
@@ -29,7 +31,7 @@ Alternatively, a plugin can be stored in a separate file and "installed" using a
 
   // Add plugin to docsify's plugin array
   $docsify = $docsify || {};
-  $docsify.plugins = [].concat(myPlugin, $docsify.plugins || []);
+  $docsify.plugins = [].concat($docsify.plugins || [], myPlugin);
 })();
 ```
 
