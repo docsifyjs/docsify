@@ -67,7 +67,7 @@ describe('router/history/base', () => {
     });
   });
 
-  // alias: uri
+  // getFile test
   // ---------------------------------------------------------------------------
   describe('getFile', () => {
     // Tests
@@ -82,7 +82,7 @@ describe('router/history/base', () => {
 
       expect(file).toBe('https://foo.com/index.html');
     });
-    test('path is url, bug with parameters', () => {
+    test('path is url, but with parameters', () => {
       const file = history.getFile(
         'https://some/raw/url/README.md?token=Mytoken'
       );
