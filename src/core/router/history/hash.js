@@ -1,6 +1,7 @@
 import { noop } from '../../util/core';
 import { on } from '../../util/dom';
-import { parseQuery, cleanPath, replaceSlug, endsWith } from '../util';
+import { endsWith } from '../../util/str';
+import { parseQuery, cleanPath, replaceSlug } from '../util';
 import { History } from './base';
 
 function replaceHash(path) {
@@ -36,6 +37,7 @@ export class HashHistory extends History {
     return index === -1 ? '' : href.slice(index + 1);
   }
 
+  /** @param {((params: {source: TODO}) => void)} [cb] */
   onchange(cb = noop) {
     // The hashchange event does not tell us if it originated from
     // a clicked link or by moving back/forward in the history;
@@ -100,3 +102,5 @@ export class HashHistory extends History {
     return '#' + super.toURL(path, params, currentRoute);
   }
 }
+
+/** @typedef {any} TODO */

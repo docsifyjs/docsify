@@ -1,24 +1,28 @@
+const prettierConfig = require('./.prettierrc');
+
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  extends: [
+    'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:prettier/recommended', // Must be last
+  ],
+  parser: '@babel/eslint-parser',
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2019,
   },
+  plugins: ['prettier', 'import'],
   env: {
     browser: true,
-    node: true,
     es6: true,
+    node: true,
   },
-  plugins: ['prettier', 'import'],
-  extends: ['eslint:recommended', 'plugin:import/recommended'],
   settings: {
     'import/ignore': ['node_modules', '.json$'],
   },
   rules: {
-    'prettier/prettier': ['error'],
     camelcase: ['warn'],
-    'no-useless-escape': ['warn'],
     curly: ['error', 'all'],
     'dot-notation': ['error'],
     eqeqeq: ['error'],
@@ -33,9 +37,23 @@ module.exports = {
     'no-proto': ['error'],
     'no-return-assign': ['error'],
     'no-self-compare': ['error'],
-    'no-shadow': ['warn'],
     'no-shadow-restricted-names': ['error'],
+    'no-shadow': [
+      'error',
+      {
+        allow: [
+          'Events',
+          'Fetch',
+          'Lifecycle',
+          'Render',
+          'Router',
+          'VirtualRoutes',
+        ],
+      },
+    ],
+    'no-unused-vars': ['error', { args: 'none' }],
     'no-useless-call': ['error'],
+    'no-useless-escape': ['warn'],
     'no-var': ['error'],
     'no-void': ['error'],
     'no-with': ['error'],
@@ -46,18 +64,21 @@ module.exports = {
 
     // Import rules
     // Search way how integrate with `lerna`
-    'import/no-unresolved': 'off',
     'import/imports-first': ['error'],
     'import/newline-after-import': ['error'],
     'import/no-duplicates': ['error'],
     'import/no-mutable-exports': ['error'],
-    'import/no-named-as-default': ['error'],
     'import/no-named-as-default-member': ['error'],
+    'import/no-named-as-default': ['error'],
+    'import/no-unresolved': 'off',
     'import/order': ['warn'],
+
+    // Prettier (Must be last)
+    'prettier/prettier': ['warn', prettierConfig],
   },
   globals: {
-    Docsify: 'writable',
     $docsify: 'writable',
+    Docsify: 'writable',
     dom: 'writable',
   },
 };

@@ -1,11 +1,12 @@
 const docsifyInit = require('../helpers/docsify-init');
+const { test, expect } = require('./fixtures/docsify-init-fixture');
 
 // Suite
 // -----------------------------------------------------------------------------
-describe('Sidebar Tests', function() {
+test.describe('Sidebar Tests', () => {
   // Tests
   // ---------------------------------------------------------------------------
-  test('Active Test', async () => {
+  test('Active Test', async ({ page }) => {
     const docsifyInitConfig = {
       markdown: {
         sidebar: `
@@ -39,32 +40,32 @@ describe('Sidebar Tests', function() {
       },
     };
 
+    const activeLinkElm = page.locator('.sidebar-nav li[class=active]');
+
     await docsifyInit(docsifyInitConfig);
+
     await page.click('a[href="#/test%20space"]');
-    await expect(page).toEqualText(
-      '.sidebar-nav li[class=active]',
-      'Test Space'
-    );
+    await expect(activeLinkElm).toHaveText('Test Space');
     expect(page.url()).toMatch(/\/test%20space$/);
 
     await page.click('a[href="#/test_foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test _');
+    await expect(activeLinkElm).toHaveText('Test _');
     expect(page.url()).toMatch(/\/test_foo$/);
 
     await page.click('a[href="#/test-foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test -');
+    await expect(activeLinkElm).toHaveText('Test -');
     expect(page.url()).toMatch(/\/test-foo$/);
 
     await page.click('a[href="#/test.foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test .');
     expect(page.url()).toMatch(/\/test.foo$/);
+    await expect(activeLinkElm).toHaveText('Test .');
 
     await page.click('a[href="#/test>foo"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test >');
+    await expect(activeLinkElm).toHaveText('Test >');
     expect(page.url()).toMatch(/\/test%3Efoo$/);
 
     await page.click('a[href="#/test"]');
-    await expect(page).toEqualText('.sidebar-nav li[class=active]', 'Test');
+    await expect(activeLinkElm).toHaveText('Test');
     expect(page.url()).toMatch(/\/test$/);
   });
 });

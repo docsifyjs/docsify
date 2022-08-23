@@ -33,9 +33,8 @@ function style() {
   outline: none;
   border: none;
   width: 100%;
-  padding: 0 7px;
-  line-height: 36px;
-  font-size: 14px;
+  padding: 0.6em 7px;
+  font-size: inherit;
   border: 1px solid transparent;
 }
 
@@ -51,6 +50,13 @@ function style() {
   -moz-appearance: none;
   appearance: none;
 }
+
+.search input::-ms-clear {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
 .search .clear-button {
   cursor: pointer;
   width: 36px;

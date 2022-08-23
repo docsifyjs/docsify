@@ -28,8 +28,9 @@ const compileMedia = {
   },
   iframe(url, title) {
     return {
-      html: `<iframe src="${url}" ${title ||
-        'width=100% height=400'}></iframe>`,
+      html: `<iframe src="${url}" ${
+        title || 'width=100% height=400'
+      }></iframe>`,
     };
   },
   video(url, title) {
@@ -103,7 +104,7 @@ export class Compiler {
           html = compile.parser(text);
         }
 
-        html = config.noEmoji ? html : emojify(html);
+        html = config.noEmoji ? html : emojify(html, config.nativeEmoji);
         slugify.clear();
 
         return html;
@@ -204,7 +205,7 @@ export class Compiler {
      * @param {Number} level Type of heading (h<level> tag)
      * @returns {String} Heading element
      */
-    origin.heading = renderer.heading = function(text, level) {
+    origin.heading = renderer.heading = function (text, level) {
       let { str, config } = getAndRemoveConfig(text);
       const nextToc = { level, title: removeAtag(str) };
 

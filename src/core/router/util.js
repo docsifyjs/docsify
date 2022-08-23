@@ -13,7 +13,7 @@ export function parseQuery(query) {
   }
 
   // Simple parse
-  query.split('&').forEach(function(param) {
+  query.split('&').forEach(function (param) {
     const parts = param.replace(/\+/g, ' ').split('=');
 
     res[parts[0]] = parts[1] && decode(parts[1]);
@@ -113,7 +113,3 @@ export function getPath(...args) {
 export const replaceSlug = cached(path => {
   return path.replace('#', '?id=');
 });
-
-export function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
