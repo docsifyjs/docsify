@@ -95,6 +95,7 @@ Only when you set both the `routerMode: 'history'` and `externalLinkTarget: '_se
 
 ### Resizing
 
+
 ```md
 ![logo](https://docsify.js.org/_media/icon.svg ':size=WIDTHxHEIGHT')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
@@ -120,6 +121,19 @@ Only when you set both the `routerMode: 'history'` and `externalLinkTarget: '_se
 ```md
 ![logo](https://docsify.js.org/_media/icon.svg ':id=someCssId')
 ```
+
+### Absolute Path
+
+```md
+
+![logo](:docs/_media/icon.svg 'with :')
+![logo](//docs/_media/icon.svg 'with //')
+
+```
+
+![logo](:docs/_media/icon.svg 'with :')
+
+![logo](//docs/_media/icon.svg 'with //')
 
 ## Customise ID for headings
 

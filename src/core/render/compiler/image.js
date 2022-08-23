@@ -3,7 +3,7 @@ import { isAbsolutePath, getPath, getParentPath } from '../../router/util';
 
 export const imageCompiler = ({ renderer, contentBase, router }) =>
   (renderer.image = (href, title, text) => {
-    let url = href;
+    let url = href.replace(/^\/+|^:/, '');
     let attrs = [];
 
     const { str, config } = getAndRemoveConfig(title);
