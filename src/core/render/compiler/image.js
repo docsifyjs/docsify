@@ -34,7 +34,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
       attrs.push(`id="${config.id}"`);
     }
 
-    if (!isAbsolutePath(href)) {
+    if (!isAbsolutePath(href, config.absolute)) {
       url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
     }
 

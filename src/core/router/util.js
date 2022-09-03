@@ -40,7 +40,11 @@ export function stringifyQuery(obj, ignores = []) {
   return qs.length ? `?${qs.join('&')}` : '';
 }
 
-export const isAbsolutePath = cached(path => {
+export const isAbsolutePath = (path = '', absoluteConfig = false) => {
+  return !!absoluteConfig || absolutePath(path);
+};
+
+const absolutePath = cached(path => {
   return /(:|(\/{2}))/g.test(path);
 });
 

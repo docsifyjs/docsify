@@ -128,6 +128,14 @@ describe('render', function () {
       );
     });
 
+    test('absolute', async function () {
+      const output = window.marked("![alt text](/imageUrl ':absolute')");
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><img src=\\"/imageUrl\\" data-origin=\\"/imageUrl\\" alt=\\"alt text\\"></p>"`
+      );
+    });
+
     test('no-zoom', async function () {
       const output = window.marked("![alt text](http://imageUrl ':no-zoom')");
 
