@@ -211,14 +211,15 @@ export function search(query) {
           }
 
           const matchContent =
+            handlePostContent &&
             '...' +
-            handlePostContent
-              .substring(start, end)
-              .replace(
-                regEx,
-                word => `<em class="search-keyword">${word}</em>`
-              ) +
-            '...';
+              handlePostContent
+                .substring(start, end)
+                .replace(
+                  regEx,
+                  word => `<em class="search-keyword">${word}</em>`
+                ) +
+              '...';
 
           resultStr += matchContent;
         }
