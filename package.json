@@ -74,7 +74,8 @@
     "tweezer.js": "^1.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
+    "@babel/core": "^7.19.6",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "^7.11.5",
     "autoprefixer-stylus": "^1.0.0",
     "axios": "^0.21.1",
@@ -87,7 +88,8 @@
     "copy-dir": "^1.2.0",
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
-    "eslint": "^5.16.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^24.0.2",
     "eslint-plugin-jest-playwright": "^0.2.1",
