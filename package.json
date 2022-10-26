@@ -98,7 +98,7 @@
     "jest": "^26.4.2",
     "jest-image-snapshot": "^4.2.0",
     "jest-playwright-preset": "^1.4.1",
-    "lerna": "^3.22.1",
+    "lerna": "^6.0.1",
     "lint-staged": "^10.4.0",
     "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
