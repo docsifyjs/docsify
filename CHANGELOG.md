@@ -1,3 +1,13 @@
+# [4.13.0](https://github.com/docsifyjs/docsify/compare/v4.12.4...v4.13.0) (2022-10-26)
+
+
+### Bug Fixes
+
+* fix test. ([73ea28d](https://github.com/docsifyjs/docsify/commit/73ea28df14bdd0ed740c043ed4bc5d3beea7a56c))
+* upgrade dependencies. ([dbc4b45](https://github.com/docsifyjs/docsify/commit/dbc4b450c3a1157e81f6dc0c6b1253676a0b7c13))
+
+
+
 ## [4.12.4](https://github.com/docsifyjs/docsify/compare/v4.12.2...v4.12.4) (2022-10-26)
 
 
