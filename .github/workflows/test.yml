@@ -26,6 +26,16 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Install dependencies [server-renderer]
+        working-directory: ./packages/docsify-server-renderer
+        run: npm ci --ignore-scripts
+      - name: Build [server-renderer]
+        working-directory: ./packages/docsify-server-renderer
+        run: npm ci --ignore-scripts
+      - name: Lint [server-renderer]
+        working-directory: ./packages/docsify-server-renderer
+        run: npm run lint
+
   test-jest:
     runs-on: ${{ matrix.os }}
     strategy:
