@@ -3,16 +3,6 @@
 
 ### Bug Fixes
 
-* fix test. ([73ea28d](https://github.com/docsifyjs/docsify/commit/73ea28df14bdd0ed740c043ed4bc5d3beea7a56c))
-* upgrade dependencies. ([dbc4b45](https://github.com/docsifyjs/docsify/commit/dbc4b450c3a1157e81f6dc0c6b1253676a0b7c13))
-
-
-
-## [4.12.4](https://github.com/docsifyjs/docsify/compare/v4.12.2...v4.12.4) (2022-10-26)
-
-
-### Bug Fixes
-
 * cornerExternalLinkTarget config. ([#1814](https://github.com/docsifyjs/docsify/issues/1814)) ([54cc5f9](https://github.com/docsifyjs/docsify/commit/54cc5f939b9499ae56604f589eef4e3f1c13cdc5))
 * correctly fix missing +1, -1 ([#1722](https://github.com/docsifyjs/docsify/issues/1722)) ([719dcbe](https://github.com/docsifyjs/docsify/commit/719dcbea5cb0c8b0835f8e9fc473b094feecb7ec))
 * Coverpage when content > viewport height ([#1744](https://github.com/docsifyjs/docsify/issues/1744)) ([301b516](https://github.com/docsifyjs/docsify/commit/301b5169613e95765eda335a4b21d0f9f9cbbbfd)), closes [#381](https://github.com/docsifyjs/docsify/issues/381)
