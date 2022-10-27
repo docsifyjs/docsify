@@ -1,6 +1,7 @@
 import { noop } from '../../util/core';
 import { on } from '../../util/dom';
-import { parseQuery, cleanPath, replaceSlug, endsWith } from '../util';
+import { endsWith } from '../../util/str';
+import { parseQuery, cleanPath, replaceSlug } from '../util';
 import { History } from './base';
 
 function replaceHash(path) {

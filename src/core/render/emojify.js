@@ -35,6 +35,10 @@ export function emojify(text, useNativeEmoji) {
       )
       // Mark colons in comments
       .replace(/<!--[\s\S]+?-->/g, m => m.replace(/:/g, '__colon__'))
+      // Mark colons in URIs
+      .replace(/([a-z]{2,}:)?\/\/[^\s'">)]+/gi, m =>
+        m.replace(/:/g, '__colon__')
+      )
       // Replace emoji shorthand codes
       .replace(/:([a-z0-9_\-+]+?):/g, (m, $1) =>
         replaceEmojiShorthand(m, $1, useNativeEmoji)

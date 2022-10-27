@@ -33,6 +33,7 @@ export default function (vm) {
       notFoundPage: true,
       relativePath: false,
       repo: '',
+      routes: {},
       routerMode: 'hash',
       subMaxLevel: 0,
       themeColor: '',

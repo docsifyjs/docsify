@@ -70,7 +70,7 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 ### Online one-click setup for Contributing
 
-You can use Gitpod(A free online VS Code-like IDE) for contributing. With single click it'll launch a workspace and automatically:
+You can use Gitpod (a free online VS Code-like IDE) for contributing. With a single click it'll launch a workspace and automatically:
 
 - clone the docsify repo.
 - install the dependencies.

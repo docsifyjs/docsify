@@ -260,7 +260,9 @@ export function Render(Base) {
         [
           document.querySelector('aside.sidebar'),
           document.querySelector('button.sidebar-toggle'),
-        ].forEach(node => node.parentNode.removeChild(node));
+        ]
+          .filter(e => !!e)
+          .forEach(node => node.parentNode.removeChild(node));
         document.querySelector('section.content').style.right = 'unset';
         document.querySelector('section.content').style.left = 'unset';
         document.querySelector('section.content').style.position = 'relative';
@@ -413,7 +415,7 @@ export function Render(Base) {
 
       if (el) {
         if (config.repo) {
-          html += tpl.corner(config.repo, config.cornerExternalLinkTarge);
+          html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
         }
 
         if (config.coverpage) {

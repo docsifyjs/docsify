@@ -96,25 +96,44 @@ export function Fetch(Base) {
         // Abort last request
 
         const file = this.router.getFile(path);
-        const req = request(file + qs, true, requestHeaders);
 
         this.isRemoteUrl = isExternal(file);
         // Current page is html
         this.isHTML = /\.html$/g.test(file);
 
-        // Load main content
-        req.then(
-          (text, opt) =>
-            this._renderMain(
-              text,
-              opt,
-              this._loadSideAndNav(path, qs, loadSidebar, cb)
-            ),
-          _ => {
-            this._fetchFallbackPage(path, qs, cb) ||
-              this._fetch404(file, qs, cb);
-          }
-        );
+        // create a handler that should be called if content was fetched successfully
+        const contentFetched = (text, opt) => {
+          this._renderMain(
+            text,
+            opt,
+            this._loadSideAndNav(path, qs, loadSidebar, cb)
+          );
+        };
+
+        // and a handler that is called if content failed to fetch
+        const contentFailedToFetch = _ => {
+          this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
+        };
+
+        // attempt to fetch content from a virtual route, and fallback to fetching the actual file
+        if (!this.isRemoteUrl) {
+          this.matchVirtualRoute(path).then(contents => {
+            if (typeof contents === 'string') {
+              contentFetched(contents);
+            } else {
+              request(file + qs, true, requestHeaders).then(
+                contentFetched,
+                contentFailedToFetch
+              );
+            }
+          });
+        } else {
+          // if the requested url is not local, just fetch the file
+          request(file + qs, true, requestHeaders).then(
+            contentFetched,
+            contentFailedToFetch
+          );
+        }
 
         // Load nav
         loadNavbar &&

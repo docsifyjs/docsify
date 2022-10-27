@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { getAndRemoveConfig } from '../../core/render/utils';
+import { removeDocsifyIgnoreTag } from '../../core/util/str';
 
 let INDEXS = {};
 
@@ -89,19 +90,16 @@ export function genIndex(path, content = '', router, depth) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
+      const text = removeDocsifyIgnoreTag(token.text);
+
       if (config.id) {
         slug = router.toURL(path, { id: slugify(config.id) });
       } else {
-        slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
+        slug = router.toURL(path, { id: slugify(escapeHtml(text)) });
       }
 
       if (str) {
-        title = str
-          .replace(/<!-- {docsify-ignore} -->/, '')
-          .replace(/{docsify-ignore}/, '')
-          .replace(/<!-- {docsify-ignore-all} -->/, '')
-          .replace(/{docsify-ignore-all}/, '')
-          .trim();
+        title = removeDocsifyIgnoreTag(str);
       }
 
       index[slug] = { slug, title: title, body: '' };
@@ -213,14 +211,15 @@ export function search(query) {
           }
 
           const matchContent =
+            handlePostContent &&
             '...' +
-            handlePostContent
-              .substring(start, end)
-              .replace(
-                regEx,
-                word => `<em class="search-keyword">${word}</em>`
-              ) +
-            '...';
+              handlePostContent
+                .substring(start, end)
+                .replace(
+                  regEx,
+                  word => `<em class="search-keyword">${word}</em>`
+                ) +
+              '...';
 
           resultStr += matchContent;
         }

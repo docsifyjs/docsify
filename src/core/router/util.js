@@ -113,7 +113,3 @@ export function getPath(...args) {
 export const replaceSlug = cached(path => {
   return path.replace('#', '?id=');
 });
-
-export function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}

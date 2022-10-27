@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.12.2",
+  "version": "4.13.0",
   "description": "A magical documentation generator.",
   "author": {
     "name": "qingwei-li",
@@ -96,7 +96,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^3.1.0",
     "jest": "^27.4.7",
-    "lerna": "^3.22.1",
+    "lerna": "^5.5.1",
     "lint-staged": "^10.4.0",
     "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
