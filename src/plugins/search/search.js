@@ -100,13 +100,13 @@ export function genIndex(path, content = '', router, depth) {
 
       // fix 404
       let pathname = location.pathname;
-      while (slug.startsWith("#/../") && pathname.lastIndexOf("/") > 1) {
-        slug = "#/" + slug.substring(5);
+      while (slug.startsWith('#/../') && pathname.lastIndexOf('/') > 1) {
+        slug = '#/' + slug.substring(5);
 
-        if (pathname.endsWith("/")) {
+        if (pathname.endsWith('/')) {
           pathname = pathname.substring(0, pathname.length - 1);
         }
-        pathname = pathname.substring(0, pathname.lastIndexOf("/"));
+        pathname = pathname.substring(0, pathname.lastIndexOf('/'));
       }
       slug = pathname + slug;
 
@@ -287,9 +287,9 @@ export function init(config, vm) {
 
   const isExpired = localStorage.getItem(expireKey) < Date.now();
 
-  INDEXS = JSON.parse(localStorage.getItem(indexKey));
+  INDEXS = isExpired ? null : JSON.parse(localStorage.getItem(indexKey));
 
-  if (isExpired) {
+  if (!INDEXS) {
     INDEXS = {};
   } else if (!isAuto) {
     return;
