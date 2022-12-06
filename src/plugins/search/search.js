@@ -100,15 +100,17 @@ export function genIndex(path, content = '', router, depth) {
 
       // fix 404
       let pathname = location.pathname;
+      let flag = false;
       while (slug.startsWith('#/../') && pathname.lastIndexOf('/') > 1) {
-        slug = '#/' + slug.substring(5);
-
+        flag = true;
         if (pathname.endsWith('/')) {
           pathname = pathname.substring(0, pathname.length - 1);
         }
         pathname = pathname.substring(0, pathname.lastIndexOf('/'));
+
+        slug = '#/' + slug.substring(5);
       }
-      slug = pathname + slug;
+      slug = pathname + (flag ? '/' : '') + slug;
 
       if (str) {
         title = removeDocsifyIgnoreTag(str);
