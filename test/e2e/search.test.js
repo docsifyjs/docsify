@@ -176,4 +176,24 @@ test.describe('Search Plugin Tests', () => {
     await searchFieldElm.fill('hello');
     await expect(resultsHeadingElm).toHaveText('Changelog Title');
   });
+  test('search when there is no body', async ({ page }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          # EmptyContent
+          ---
+          ---
+        `,
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel h2');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await searchFieldElm.fill('empty');
+    await expect(resultsHeadingElm).toHaveText('EmptyContent');
+  });
 });

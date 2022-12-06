@@ -2,6 +2,10 @@
 
 exports[`Emoji Ignores all emoji shorthand codes (noEmoji:true) 1`] = `"<p>:smile:</p><p>:smile::smile:</p><p>:smile: :smile:</p><p>:smile::smile::smile:</p><p>:smile: :smile: :smile:</p><p>text:smile:</p><p>:smile:text</p><p>text:smile:text</p>"`;
 
+exports[`Emoji Ignores emoji shorthand codes in URIs 1`] = `"<p>Url <a href=\\"https://docsify.js.org/:foo:/\\" target=\\"_blank\\" rel=\\"noopener\\">https://docsify.js.org/:foo:/</a> <a href=\\"http://docsify.js.org/:100:/\\" target=\\"_blank\\" rel=\\"noopener\\">http://docsify.js.org/:100:/</a> <a href=\\"ftp://docsify.js.org/:smile:/\\" target=\\"_blank\\" rel=\\"noopener\\">ftp://docsify.js.org/:smile:/</a></p>"`;
+
+exports[`Emoji Ignores emoji shorthand codes in URIs while handling anchor content 1`] = `"<p>Achor tags <a href=\\"http://docsify.js.org/:100:/\\" target=\\"_blank\\" rel=\\"noopener\\"><img src=\\"https://github.githubassets.com/images/icons/emoji/unicode/1f4af.png?v8.png\\" alt=\\"100\\" class=\\"emoji\\" loading=\\"lazy\\"></a></p>"`;
+
 exports[`Emoji Ignores emoji shorthand codes in code, pre, script, and template tags 1`] = `
 "<pre>:100:</pre>
 
@@ -15,6 +19,10 @@ exports[`Emoji Ignores emoji shorthand codes in code, pre, script, and template 
 `;
 
 exports[`Emoji Ignores emoji shorthand codes in comments 1`] = `"<p>Text <!-- :foo: :100: --></p>"`;
+
+exports[`Emoji Ignores emoji shorthand codes in html attributes 1`] = `"<p><a href=\\"http://domain.com/:smile:/\\"> <img src=\\"http://domain.com/:smile:/file.png\\"> <script src=\\"http://domain.com/:smile:/file.js\\"></script></a></p>"`;
+
+exports[`Emoji Ignores emoji shorthand codes in style url() values 1`] = `"<style>@import url(http://domain.com/:smile/file.css);</style>"`;
 
 exports[`Emoji Ignores unmatched emoji shorthand codes 1`] = `"<p>hh:mm</p><p>hh:mm:ss</p><p>Namespace::SubNameSpace</p><p>Namespace::SubNameSpace::Class</p><p>2014-12-29T16:11:20+00:00</p>"`;
 
