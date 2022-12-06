@@ -94,7 +94,18 @@ export function genIndex(path, content = '', router, depth) {
       } else {
         slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
       }
-      slug = location.pathname + slug;
+
+      // fix 404
+      let pathname = location.pathname;
+      while (slug.startsWith("#/../") && pathname.lastIndexOf("/") > 1) {
+        slug = "#/" + slug.substring(5);
+
+        if (pathname.endsWith("/")) {
+          pathname = pathname.substring(0, pathname.length - 1);
+        }
+        pathname = pathname.substring(0, pathname.lastIndexOf("/"));
+      }
+      slug = pathname + slug;
 
       if (str) {
         title = str
