@@ -15,8 +15,8 @@
     "test": "echo 'hello'"
   },
   "dependencies": {
-    "debug": "^4.3.3",
-    "docsify": "^4.12.4",
+    "debug": "^4.3.4",
+    "docsify": "^4.13.0",
     "node-fetch": "^2.6.6",
     "resolve-pathname": "^3.0.0"
   }
