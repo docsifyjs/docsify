@@ -66,7 +66,7 @@
   },
   "dependencies": {
     "marked": "^1.2.9",
-    "medium-zoom": "^1.0.7",
+    "medium-zoom": "^1.0.8",
     "opencollective-postinstall": "^2.0.2",
     "prismjs": "^1.29.0",
     "strip-indent": "^3.0.0",
