@@ -69,7 +69,7 @@ This plugin ignores diacritical marks when performing a full text search (e.g., 
 <script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
 ```
 
-## Google Analytics
+## Google Universal Analytics (GA3)
 
 Install the plugin and configure the track id.
 
@@ -88,6 +88,28 @@ Configure by `data-ga`.
 <!-- prettier-ignore -->
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+```
+
+## Google Analytics 4 (GA4)
+
+Install the plugin and configure the gtag id.
+
+```html
+<script>
+  window.$docsify = {
+    gtag: 'G-XXXXXXXXX',
+  };
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga4.min.js"></script>
+```
+
+Configure by `data-gtag`.
+
+<!-- prettier-ignore -->
+```html
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-gtag="G-XXXXXXXXX"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
 ```
 

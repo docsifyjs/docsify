@@ -80,6 +80,7 @@ async function buildAllPlugin() {
   var plugins = [
     {name: 'search', input: 'search/index.js'},
     {name: 'ga', input: 'ga.js'},
+    {name: 'ga4', input: 'ga4.js'},
     {name: 'matomo', input: 'matomo.js'},
     {name: 'emoji', input: 'emoji.js'},
     {name: 'external-script', input: 'external-script.js'},
