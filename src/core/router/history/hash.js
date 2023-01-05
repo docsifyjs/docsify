@@ -49,7 +49,14 @@ export class HashHistory extends History {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
       if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
-        navigating = true;
+        // When click the same naigator in sidebar, it won't trigger the hashchange event, even though the content already scroll down and active other anchor.
+        // In this scenario, we do the navigating thing via the click event.
+        if (el.hash && el.hash === window.location.hash) {
+          const source = 'navigate';
+          cb({ event: e, source });
+        } else {
+          navigating = true;
+        }
       }
     });
 
