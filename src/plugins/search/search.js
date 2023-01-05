@@ -128,9 +128,7 @@ export function genIndex(path, content = '', router, depth) {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body = index[slug].body
-          ? index[slug].body + token.text
-          : token.text;
+        index[slug].body = token.text || '';
       }
     }
   });

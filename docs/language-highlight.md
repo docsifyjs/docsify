@@ -14,6 +14,8 @@ Support for [additional languages](https://prismjs.com/#supported-languages) is 
 <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
 ```
 
+!> This `<script>` tag must be placed after the docisfy `<script>` to work.
+
 To enable syntax highlighting, wrap each code block in triple backticks with the [language](https://prismjs.com/#supported-languages) specified on the first line:
 
 ````
