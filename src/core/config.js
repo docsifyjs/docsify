@@ -7,6 +7,7 @@ export default function (vm) {
   const config = merge(
     {
       auto2top: false,
+      alwaysScrollHeader: false,
       autoHeader: false,
       basePath: '',
       catchPluginErrors: true,

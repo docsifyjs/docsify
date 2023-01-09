@@ -12,12 +12,12 @@ import { scrollIntoView, scroll2Top } from './scroll';
 export function Events(Base) {
   return class Events extends Base {
     $resetEvents(source) {
-      const { auto2top } = this.config;
+      const { auto2top, alwaysScrollHeader } = this.config;
 
       (() => {
-        // Rely on the browser's scroll auto-restoration when going back or forward
+        // If alwaysScrollHeader is false (default), rely on the browser's scroll auto-restoration when going back or forward
         if (source === 'history') {
-          return;
+          alwaysScrollHeader && scrollIntoView(this.route.path, this.route.query.id);
         }
         // Scroll to ID if specified
         if (this.route.query.id) {
