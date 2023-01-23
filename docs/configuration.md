@@ -44,10 +44,15 @@ window.$docsify = {
     '/zh-cn/changelog': '/changelog',
     '/changelog':
       'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+
+    // You may need this if you use routerMode:'history'.
     '/.*/_sidebar.md': '/_sidebar.md', // See #301
   },
 };
 ```
+
+> **Note** If you change [`routerMode`](#routermode) to `'history'`, you may
+> want to configure an alias for your `_sidebar.md` and `_navbar.md` files.
 
 ## auto2top
 
@@ -706,6 +711,20 @@ it was actually sent to the server.
 TLDR: start with `hash` routing (the default). If you feel adventurous, learn
 how to configure a server, then switch to `history` mode for better experience
 without the `#` in the URL and SEO optimization.
+
+> **Note** If you use `routerMode: 'history'`, you may want to add an
+> [`alias`](#alias) to make your `_sidebar.md` and `_navbar.md` files always be
+> loaded no matter which path is being visited.
+>
+> ```js
+> window.$docsify = {
+>   routerMode: 'history',
+>   alias: {
+>     '/.*/_sidebar.md': '/_sidebar.md',
+>     '/.*/_navbar.md': '/_navbar.md',
+>   },
+> };
+> ```
 
 ## routes
 
