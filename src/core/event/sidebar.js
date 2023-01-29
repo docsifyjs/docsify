@@ -37,7 +37,7 @@ export function collapse(el) {
 
   dom.on(el, 'click', ({ target }) => {
     if (
-      target.nodeName === 'A' &&
+      (target.nodeName === 'A' || target.nodeName === 'P') &&
       target.nextSibling &&
       target.nextSibling.classList &&
       target.nextSibling.classList.contains('app-sub-sidebar')
