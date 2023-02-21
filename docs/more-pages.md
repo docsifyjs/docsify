@@ -134,4 +134,6 @@ To ignore all headers on a specific page, you can use `<!-- {docsify-ignore-all}
 This header won't appear in the sidebar table of contents.
 ```
 
-Both `{docsify-ignore}` and `{docsify-ignore-all}` will not be rendered on the page when used.
+Both `<!-- {docsify-ignore} -->` and `<!-- {docsify-ignore-all} -->` will not be rendered on the page when used.
+
+And the `{docsify-ignore}` and `{docsify-ignore-all}` can do the samething as well.
