@@ -17,7 +17,7 @@
   "dependencies": {
     "debug": "^4.3.4",
     "docsify": "^4.13.0",
-    "node-fetch": "^2.6.8",
+    "node-fetch": "^2.6.9",
     "resolve-pathname": "^3.0.0"
   }
 }
