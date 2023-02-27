@@ -119,6 +119,12 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 ### Hello, world! :id=hello-world
 ```
 
+## Customise the title for the sidebar items :sidebar="Customise title for sidebar"
+
+```md
+### How would I write a "hello, world" example? :sidebar="Hello, world?"
+```
+
 ## Markdown in html tag
 
 You need to insert a space between the html and markdown content.

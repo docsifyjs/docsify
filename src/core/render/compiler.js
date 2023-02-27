@@ -207,34 +207,32 @@ export class Compiler {
      */
     origin.heading = renderer.heading = function (text, level) {
       let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { level, title: removeAtag(str) };
+      const nextToc = { level };
 
       if (/<!-- {docsify-ignore} -->/g.test(str)) {
         str = str.replace('<!-- {docsify-ignore} -->', '');
-        nextToc.title = removeAtag(str);
         nextToc.ignoreSubHeading = true;
       }
 
       if (/{docsify-ignore}/g.test(str)) {
         str = str.replace('{docsify-ignore}', '');
-        nextToc.title = removeAtag(str);
         nextToc.ignoreSubHeading = true;
       }
 
       if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
         str = str.replace('<!-- {docsify-ignore-all} -->', '');
-        nextToc.title = removeAtag(str);
         nextToc.ignoreAllSubs = true;
       }
 
       if (/{docsify-ignore-all}/g.test(str)) {
         str = str.replace('{docsify-ignore-all}', '');
-        nextToc.title = removeAtag(str);
         nextToc.ignoreAllSubs = true;
       }
 
       const slug = slugify(config.id || str);
       const url = router.toURL(router.getCurrentPath(), { id: slug });
+      nextToc.title = removeAtag(str);
+      nextToc.text = config.sidebar || nextToc.title;
       nextToc.slug = url;
       _self.toc.push(nextToc);
 
