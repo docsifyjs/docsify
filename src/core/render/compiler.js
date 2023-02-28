@@ -272,8 +272,8 @@ export class Compiler {
 
     if (text) {
       html = this.compile(text)
-        .replaceAll('<ul >', '<ul class="app-sub-sidebar" >')
-        .replace('<ul class="app-sub-sidebar" >', '<ul >');
+        .replaceAll('<ul >', '<ul class="app-sidebar" >')
+        .replace('<ul class="app-sidebar" >', '<ul >');
     } else {
       for (let i = 0; i < toc.length; i++) {
         if (toc[i].ignoreSubHeading) {

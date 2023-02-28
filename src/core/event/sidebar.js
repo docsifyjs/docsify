@@ -40,7 +40,8 @@ export function collapse(el) {
       (target.nodeName === 'A' || target.nodeName === 'P') &&
       target.nextSibling &&
       target.nextSibling.classList &&
-      target.nextSibling.classList.contains('app-sub-sidebar')
+      (target.nextSibling.classList.contains('app-sidebar') ||
+        target.nextSibling.classList.contains('app-sub-sidebar'))
     ) {
       dom.toggleClass(target.parentNode, 'collapse');
     }
