@@ -153,19 +153,6 @@ window.$docsify = {
 };
 ```
 
-## crossOriginLinks
-
-- Type: `Array`
-
-When `routerMode: 'history'`, you may face cross-origin issues. See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
-In Markdown content, there is a simple way to solve it: see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
-
-```js
-window.$docsify = {
-  crossOriginLinks: ['https://example.com/cross-origin-link'],
-};
-```
-
 ## el
 
 - Type: `String`
@@ -701,6 +688,7 @@ window.$docsify = {
 Define "virtual" routes that can provide content dynamically. A route is a map between the expected path, to either a string or a function. If the mapped value is a string, it is treated as markdown and parsed accordingly. If it is a function, it is expected to return markdown content.
 
 A route function receives up to three parameters:
+
 1. `route` - the path of the route that was requested (e.g. `/bar/baz`)
 2. `matched` - the [`RegExpMatchArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) that was matched by the route (e.g. for `/bar/(.+)`, you get `['/bar/baz', 'baz']`)
 3. `next` - this is a callback that you may call when your route function is async
@@ -714,23 +702,23 @@ window.$docsify = {
     '/foo': '# Custom Markdown',
 
     // RegEx match w/ synchronous function
-    '/bar/(.*)': function(route, matched) {
+    '/bar/(.*)': function (route, matched) {
       return '# Custom Markdown';
     },
 
     // RegEx match w/ asynchronous function
-    '/baz/(.*)': function(route, matched, next) {
-       // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
+    '/baz/(.*)': function (route, matched, next) {
+      // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
       fetch('/api/users?id=12345')
-        .then(function(response) {
+        .then(function (response) {
           next('# Custom Markdown');
         })
-        .catch(function(err) {
+        .catch(function (err) {
           // Handle error...
         });
-    }
-  }
-}
+    },
+  },
+};
 ```
 
 Other than strings, route functions can return a falsy value (`null` \ `undefined`) to indicate that they ignore the current request:

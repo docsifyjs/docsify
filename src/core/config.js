@@ -13,7 +13,6 @@ export default function (vm) {
       catchPluginErrors: true,
       cornerExternalLinkTarget: '_blank',
       coverpage: '',
-      crossOriginLinks: [],
       el: '#app',
       executeScript: null,
       ext: '.md',
