@@ -31,7 +31,7 @@ describe('core/render/utils', () => {
         );
       expect(content).toBe('My Ignore Title');
       expect(ignoreSubHeading).toBeTruthy();
-      expect(!!ignoreAllSubs).toBeFalsy();
+      expect(ignoreAllSubs === undefined).toBeTruthy();
     });
 
     test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore-all} -->', () => {
@@ -41,7 +41,7 @@ describe('core/render/utils', () => {
         );
       expect(content).toBe('My Ignore Title');
       expect(ignoreAllSubs).toBeTruthy();
-      expect(!!ignoreSubHeading).toBeFalsy();
+      expect(ignoreSubHeading === undefined).toBeTruthy();
     });
 
     test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore}', () => {
@@ -49,7 +49,7 @@ describe('core/render/utils', () => {
         getAndRemoveDocisfyIgnorConfig('My Ignore Title{docsify-ignore}');
       expect(content).toBe('My Ignore Title');
       expect(ignoreSubHeading).toBeTruthy();
-      expect(!!ignoreAllSubs).toBeFalsy();
+      expect(ignoreAllSubs === undefined).toBeTruthy();
     });
 
     test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore-all}', () => {
