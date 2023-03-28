@@ -57,7 +57,7 @@ describe('core/render/utils', () => {
         getAndRemoveDocisfyIgnorConfig('My Ignore Title{docsify-ignore-all}');
       expect(content).toBe('My Ignore Title');
       expect(ignoreAllSubs).toBeTruthy();
-      expect(!!ignoreSubHeading).toBeFalsy();
+      expect(ignoreSubHeading === undefined).toBeTruthy();
     });
   });
 
