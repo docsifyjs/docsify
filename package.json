@@ -94,7 +94,7 @@
     "eslint-plugin-jest": "^26.0.0",
     "eslint-plugin-playwright": "^0.8.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^3.1.0",
+    "husky": "^8.0.3",
     "jest": "^27.4.7",
     "lerna": "^5.5.1",
     "lint-staged": "^10.4.0",
