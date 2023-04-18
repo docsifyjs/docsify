@@ -74,7 +74,7 @@ jobs:
       - name: E2E Tests (Playwright)
         run: npm run test:e2e
       - name: Store artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: ${{ matrix.os }}-${{ matrix.node-version }}-artifacts
