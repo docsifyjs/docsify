@@ -22,6 +22,24 @@ export function Events(Base) {
         // Scroll to ID if specified
         if (this.route.query.id) {
           scrollIntoView(this.route.path, this.route.query.id);
+          // Continuously observe for height changes in .markdown-section
+          // caused by loading images
+          const resizeObserver = new ResizeObserver(_ => {
+            scrollIntoView(this.route.path, this.route.query.id);
+          });
+          let markdownDiv = document.querySelector('.markdown-section');
+          resizeObserver.observe(markdownDiv);
+          // Stop observing when user manually scrolls
+          const userEvents = ['wheel', 'keydown', 'keyup', 'keypress'];
+          for (const event of userEvents) {
+            document.addEventListener(
+              event,
+              () => {
+                resizeObserver.unobserve(markdownDiv);
+              },
+              { once: true }
+            );
+          }
         }
         // Scroll to top if a link was clicked and auto2top is enabled
         if (source === 'navigate') {
