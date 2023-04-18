@@ -8,12 +8,10 @@ updates:
   - package-ecosystem: npm # See documentation for possible values
     directory: "/" # Location of package manifests
     open-pull-requests-limit: 10
-    versioning-strategy: lockfile-only
     schedule:
       interval: "weekly"
   - package-ecosystem: "github-actions"
     directory: "/"
     open-pull-requests-limit: 10
-    versioning-strategy: lockfile-only
     schedule:
       interval: monthly
