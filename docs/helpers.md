@@ -65,14 +65,6 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 [link](/demo ':disabled')
 ```
 
-## Cross-Origin link
-
-Only when you set both the `routerMode: 'history'` and `externalLinkTarget: '_self'`, you need to add this configuration for those Cross-Origin links.
-
-```md
-[example.com](https://example.com/ ':crossorgin')
-```
-
 ## GitHub Task Lists
 
 ```md

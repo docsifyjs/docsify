@@ -48,3 +48,34 @@ export function getAndRemoveConfig(str = '') {
 export function removeAtag(str = '') {
   return str.replace(/(<\/?a.*?>)/gi, '');
 }
+
+/**
+ * Remove the docsifyIgnore configs and return the str
+ * @param {string}   str   The string to deal with.
+ *
+ * @return {string}   str   The string after delete the docsifyIgnore configs.
+ */
+export function getAndRemoveDocisfyIgnorConfig(content = '') {
+  let ignoreAllSubs, ignoreSubHeading;
+  if (/<!-- {docsify-ignore} -->/g.test(content)) {
+    content = content.replace('<!-- {docsify-ignore} -->', '');
+    ignoreSubHeading = true;
+  }
+
+  if (/{docsify-ignore}/g.test(content)) {
+    content = content.replace('{docsify-ignore}', '');
+    ignoreSubHeading = true;
+  }
+
+  if (/<!-- {docsify-ignore-all} -->/g.test(content)) {
+    content = content.replace('<!-- {docsify-ignore-all} -->', '');
+    ignoreAllSubs = true;
+  }
+
+  if (/{docsify-ignore-all}/g.test(content)) {
+    content = content.replace('{docsify-ignore-all}', '');
+    ignoreAllSubs = true;
+  }
+
+  return { content, ignoreAllSubs, ignoreSubHeading };
+}

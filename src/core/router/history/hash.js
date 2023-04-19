@@ -1,4 +1,4 @@
-import { noop } from '../../util/core';
+import { isExternal, noop } from '../../util/core';
 import { on } from '../../util/dom';
 import { endsWith } from '../../util/str';
 import { parseQuery, cleanPath, replaceSlug } from '../util';
@@ -48,7 +48,7 @@ export class HashHistory extends History {
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
-      if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
+      if (el && el.tagName === 'A' && !isExternal(el.href)) {
         navigating = true;
       }
     });

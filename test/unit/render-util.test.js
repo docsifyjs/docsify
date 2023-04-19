@@ -1,6 +1,7 @@
 const {
   removeAtag,
   getAndRemoveConfig,
+  getAndRemoveDocisfyIgnorConfig,
 } = require('../../src/core/render/utils');
 
 const { tree } = require(`../../src/core/render/tpl`);
@@ -17,6 +18,46 @@ describe('core/render/utils', () => {
       const result = removeAtag('<a href="www.example.com">content</a>');
 
       expect(result).toBe('content');
+    });
+  });
+
+  // getAndRemoveDocisfyIgnorConfig()
+  // ---------------------------------------------------------------------------
+  describe('getAndRemoveDocisfyIgnorConfig()', () => {
+    test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore} -->', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnorConfig(
+          'My Ignore Title<!-- {docsify-ignore} -->'
+        );
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreSubHeading).toBeTruthy();
+      expect(ignoreAllSubs === undefined).toBeTruthy();
+    });
+
+    test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore-all} -->', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnorConfig(
+          'My Ignore Title<!-- {docsify-ignore-all} -->'
+        );
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreAllSubs).toBeTruthy();
+      expect(ignoreSubHeading === undefined).toBeTruthy();
+    });
+
+    test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore}', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnorConfig('My Ignore Title{docsify-ignore}');
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreSubHeading).toBeTruthy();
+      expect(ignoreAllSubs === undefined).toBeTruthy();
+    });
+
+    test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore-all}', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnorConfig('My Ignore Title{docsify-ignore-all}');
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreAllSubs).toBeTruthy();
+      expect(ignoreSubHeading === undefined).toBeTruthy();
     });
   });
 
