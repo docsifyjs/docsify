@@ -111,7 +111,7 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.4",
     "serve-handler": "^6.1.2",
-    "stylus": "^0.54.5",
+    "stylus": "^0.59.0",
     "vue2": "npm:vue@^2.6.12",
     "vue3": "npm:vue@^3.0.0",
     "xhr-mock": "^2.5.1"
