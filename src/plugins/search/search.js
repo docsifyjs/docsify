@@ -57,11 +57,9 @@ function getAllPaths(router) {
 
 function getTableData(token) {
   if (!token.text && token.type === 'table') {
-    token.cells.unshift(token.header);
-    token.text = token.cells
-      .map(function (rows) {
-        return rows.join(' | ');
-      })
+    token.rows.unshift(token.header);
+    token.text = token.rows
+      .map(columns => columns.map(r => r.text).join(' | '))
       .join(' |\n ');
   }
   return token.text;
@@ -128,9 +126,7 @@ export function genIndex(path, content = '', router, depth) {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body = index[slug].body
-          ? index[slug].body + token.text
-          : token.text;
+        index[slug].body = token.text || '';
       }
     }
   });
