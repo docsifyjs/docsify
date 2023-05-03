@@ -95,7 +95,7 @@
     "eslint-plugin-playwright": "^0.8.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.3",
-    "jest": "^27.4.7",
+    "jest": "^29.5.0",
     "lerna": "^5.5.1",
     "lint-staged": "^10.4.0",
     "live-server": "^1.2.1",
