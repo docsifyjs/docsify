@@ -7,7 +7,7 @@ const cached = {};
 function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   let token;
   let step = 0;
-  let count = 1;
+  let count = 0;
 
   if (!embedTokens.length) {
     return cb({});
@@ -73,7 +73,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
         }
 
         cb({ token, embedToken });
-        if (++count >= step) {
+        if (++count >= embedTokens.length) {
           cb({});
         }
       };
