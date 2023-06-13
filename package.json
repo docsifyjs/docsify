@@ -96,7 +96,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.3",
     "jest": "^27.4.7",
-    "lerna": "^5.5.1",
+    "lerna": "^7.0.0",
     "lint-staged": "^13.2.2",
     "live-server": "^1.2.1",
     "mkdirp": "^3.0.0",
