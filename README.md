@@ -86,10 +86,8 @@ So that you can start straight away.
 - Push to the branch: `git push origin my-new-feature`
 - Submit a pull request
 
-## Development
-
 ```bash
-npm run bootstrap && npm run dev
+npm run build:ssr && npm run dev
 ```
 
 ## Backers
