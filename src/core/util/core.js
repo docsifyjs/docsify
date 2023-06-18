@@ -96,5 +96,8 @@ export function isExternal(url) {
   ) {
     return true;
   }
+  if (/^\/\\/.test(url)) {
+    return true;
+  }
   return false;
 }
