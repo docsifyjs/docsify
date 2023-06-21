@@ -87,7 +87,7 @@ So that you can start straight away.
 - Submit a pull request
 
 ```bash
-npm run build:ssr && npm run dev
+npm install && npm run build:ssr && npm run dev
 ```
 
 ## Backers
