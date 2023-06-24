@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const liveServer = require('live-server')
 const isSSR = !!process.env.SSR
 const middleware = []
@@ -46,10 +48,30 @@ if (isSSR) {
   })
 }
 
+// emulate default behavior of GitHub Pages and other static servers that
+// serve a 404.html page when files are not found.
+middleware.push(
+  /**
+   * @param {import('http').IncomingMessage} req
+   * @param {import('http').ServerResponse} res
+   * @param {(error?: Error) => void} res
+   */
+  function (req, res, next) {
+    if (!fs.existsSync(path.resolve('.' + req.url))) {
+      console.log(res.statusCode = 404)
+    }
+    next();
+  }
+)
+
 const params = {
   port: 3000,
   watch: ['lib', 'docs', 'themes'],
-  middleware
+  middleware,
+
+  // emulate default behavior of GitHub Pages and other static servers that
+  // serve a 404.html page when files are not found.
+  file: '404.html',
 }
 
 liveServer.start(params)
