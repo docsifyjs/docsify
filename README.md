@@ -76,6 +76,10 @@ You can use Gitpod (a free online VS Code-like IDE) for contributing. With a sin
 - install the dependencies.
 - start `npm run dev`.
 
+```bash
+npm install && npm run dev
+```
+
 So that you can start straight away.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
@@ -85,12 +89,6 @@ So that you can start straight away.
 - Commit your changes: `git add . && git commit -m 'Add some feature'`
 - Push to the branch: `git push origin my-new-feature`
 - Submit a pull request
-
-## Development
-
-```bash
-npm run bootstrap && npm run dev
-```
 
 ## Backers
 
