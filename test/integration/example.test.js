@@ -1,6 +1,5 @@
-const { waitForFunction, waitForText } = require('../helpers/wait-for');
-
-const docsifyInit = require('../helpers/docsify-init');
+import { waitForFunction, waitForText } from '../helpers/wait-for.js';
+import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------

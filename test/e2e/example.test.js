@@ -1,7 +1,7 @@
 // Modules, constants, and variables
 // -----------------------------------------------------------------------------
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 // Suite
 // -----------------------------------------------------------------------------

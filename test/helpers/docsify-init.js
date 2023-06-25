@@ -1,12 +1,13 @@
 /* globals page */
+import _mock, { proxy } from 'xhr-mock';
 
-const axios = require('axios');
-const mock = require('xhr-mock').default;
-const prettier = require('prettier');
-const stripIndent = require('common-tags/lib/stripIndent');
-const { proxy } = require('xhr-mock');
-const { waitForSelector } = require('./wait-for');
+import axios from 'axios';
+import prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent/index.js';
+// import { TEST_HOST } from '../config/server.js';
+import { waitForSelector } from './wait-for.js';
 
+const mock = _mock.default;
 const docsifyPATH = '../../lib/docsify.js'; // JSDOM
 const docsifyURL = '/lib/docsify.js'; // Playwright
 
@@ -262,7 +263,8 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      require(docsifyPATH);
+      // require(docsifyPATH);
+      await import(docsifyPATH);
     }
   } else if (isPlaywright) {
     for (const url of settings.scriptURLs) {
@@ -358,4 +360,4 @@ async function docsifyInit(options = {}) {
   return Promise.resolve();
 }
 
-module.exports = docsifyInit;
+export default docsifyInit;

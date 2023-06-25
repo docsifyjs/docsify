@@ -1,5 +1,5 @@
-import { makeExactMatcher } from './exact-match';
-import { createNextFunction } from './next';
+import { makeExactMatcher } from './exact-match.js';
+import { createNextFunction } from './next.js';
 
 /** @typedef {import('../Docsify').Constructor} Constructor */
 

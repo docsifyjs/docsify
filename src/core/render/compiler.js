@@ -1,21 +1,21 @@
 import { marked } from 'marked';
-import { isAbsolutePath, getPath, getParentPath } from '../router/util';
-import { isFn, merge, cached, isPrimitive } from '../util/core';
-import { tree as treeTpl } from './tpl';
-import { genTree } from './gen-tree';
-import { slugify } from './slugify';
-import { emojify } from './emojify';
+import { isAbsolutePath, getPath, getParentPath } from '../router/util.js';
+import { isFn, merge, cached, isPrimitive } from '../util/core.js';
+import { tree as treeTpl } from './tpl.js';
+import { genTree } from './gen-tree.js';
+import { slugify } from './slugify.js';
+import { emojify } from './emojify.js';
 import {
   getAndRemoveConfig,
   removeAtag,
   getAndRemoveDocisfyIgnorConfig,
-} from './utils';
-import { imageCompiler } from './compiler/image';
-import { highlightCodeCompiler } from './compiler/code';
-import { paragraphCompiler } from './compiler/paragraph';
-import { taskListCompiler } from './compiler/taskList';
-import { taskListItemCompiler } from './compiler/taskListItem';
-import { linkCompiler } from './compiler/link';
+} from './utils.js';
+import { imageCompiler } from './compiler/image.js';
+import { highlightCodeCompiler } from './compiler/code.js';
+import { paragraphCompiler } from './compiler/paragraph.js';
+import { taskListCompiler } from './compiler/taskList.js';
+import { taskListItemCompiler } from './compiler/taskListItem.js';
+import { linkCompiler } from './compiler/link.js';
 
 const cachedLinks = {};
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { search } from './search';
+import { search } from './search.js';
 
 let NO_DATA_TEXT = '';
 let options;

@@ -1,7 +1,7 @@
-import { isExternal, noop } from '../../util/core';
-import { on } from '../../util/dom';
-import { parseQuery, getPath } from '../util';
-import { History } from './base';
+import { isExternal, noop } from '../../util/core.js';
+import { on } from '../../util/dom.js';
+import { parseQuery, getPath } from '../util.js';
+import { History } from './base.js';
 
 export class HTML5History extends History {
   constructor(config) {

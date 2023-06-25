@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { getAndRemoveConfig } from '../../core/render/utils';
-import { removeDocsifyIgnoreTag } from '../../core/util/str';
+import { getAndRemoveConfig } from '../../core/render/utils.js';
+import { removeDocsifyIgnoreTag } from '../../core/util/str.js';
 
 let INDEXS = {};
 

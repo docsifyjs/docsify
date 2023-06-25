@@ -1,4 +1,4 @@
-const { TEST_HOST } = require('./test/config/server.js');
+import { TEST_HOST } from './test/config/server.js';
 
 const sharedConfig = {
   errorOnDeprecated: true,
@@ -11,7 +11,8 @@ const sharedConfig = {
   testURL: `${TEST_HOST}/_blank.html`,
 };
 
-module.exports = {
+export default {
+  transform: {},
   projects: [
     // Unit Tests
     {

@@ -1,4 +1,4 @@
-import parser from './parser';
+import parser from './parser.js';
 
 const install = function (hook, vm) {
   // Used to remove front matter from embedded pages if installed.

@@ -5,8 +5,8 @@ import {
   cleanPath,
   replaceSlug,
   resolvePath,
-} from '../util';
-import { noop, merge } from '../../util/core';
+} from '../util.js';
+import { noop, merge } from '../../util/core.js';
 
 const cached = {};
 

@@ -1,4 +1,4 @@
-import { helper as helperTpl } from '../tpl';
+import { helper as helperTpl } from '../tpl.js';
 
 export const paragraphCompiler = ({ renderer }) =>
   (renderer.paragraph = text => {

@@ -1,4 +1,4 @@
-import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
+import { merge, hyphenate, isPrimitive, hasOwn } from './util/core.js';
 
 const currentScript = document.currentScript;
 

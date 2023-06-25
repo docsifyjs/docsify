@@ -1,5 +1,5 @@
-import * as dom from '../dom';
-import { get } from '../../fetch/ajax';
+import * as dom from '../dom.js';
+import { get } from '../../fetch/ajax.js';
 
 function replaceVar(block, color) {
   block.innerHTML = block.innerHTML.replace(

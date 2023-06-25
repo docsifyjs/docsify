@@ -1,13 +1,19 @@
-const rollup = require('rollup')
-const buble = require('rollup-plugin-buble')
-const commonjs = require('rollup-plugin-commonjs')
-const nodeResolve = require('rollup-plugin-node-resolve')
-const { uglify } = require('rollup-plugin-uglify')
-const replace = require('rollup-plugin-replace')
-const isProd = process.env.NODE_ENV === 'production'
-const version = process.env.VERSION || require('../package.json').version
-const chokidar = require('chokidar')
-const path = require('path')
+import rollup from 'rollup';
+import buble from 'rollup-plugin-buble';
+import commonjs from 'rollup-plugin-commonjs';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import { uglify } from 'rollup-plugin-uglify';
+import replace from 'rollup-plugin-replace';
+import chokidar from 'chokidar';
+import path from 'path';
+import { relative } from './util.js';
+import { promises as fs } from 'fs';
+
+const pkgPath = relative(import.meta, '..', 'package.json');
+const pkgString = (await fs.readFile(pkgPath)).toString();
+const pkg = JSON.parse(pkgString);
+const isProd = process.env.NODE_ENV === 'production';
+const version = process.env.VERSION || pkg.version;
 
 /**
  * @param {{

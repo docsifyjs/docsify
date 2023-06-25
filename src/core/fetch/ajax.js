@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import progressbar from '../render/progressbar';
-import { noop, hasOwn } from '../util/core';
+import progressbar from '../render/progressbar.js';
+import { noop, hasOwn } from '../util/core.js';
 
 const cache = {};
 
