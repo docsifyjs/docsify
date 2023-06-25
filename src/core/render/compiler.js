@@ -149,7 +149,7 @@ export class Compiler {
     if (config.include) {
       if (!isAbsolutePath(href)) {
         href = getPath(
-          process.env.SSR ? '' : this.contentBase,
+          this.contentBase,
           getParentPath(this.router.getCurrentPath()),
           href
         );

@@ -80,11 +80,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
     })(token);
 
     if (token.embed.url) {
-      if (process.env.SSR) {
-        fetch(token.embed.url).then(next);
-      } else {
-        get(token.embed.url).then(next);
-      }
+      get(token.embed.url).then(next);
     } else {
       next(token.embed.html);
     }
