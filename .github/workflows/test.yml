@@ -26,10 +26,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Verify dependencies [server-renderer]
-        working-directory: ./packages/docsify-server-renderer
-        run: npm ci --ignore-scripts
-
   test-jest:
     runs-on: ${{ matrix.os }}
     strategy:
