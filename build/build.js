@@ -1,9 +1,8 @@
-import rollup from 'rollup';
-import buble from 'rollup-plugin-buble';
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import { uglify } from 'rollup-plugin-uglify';
-import replace from 'rollup-plugin-replace';
+import * as rollup from 'rollup';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import uglify from '@rollup/plugin-terser';
+import replace from '@rollup/plugin-replace';
 import chokidar from 'chokidar';
 import path from 'path';
 import { relative } from './util.js';
@@ -28,10 +27,6 @@ async function build(opts) {
     .rollup({
       input: opts.input,
       plugins: (opts.plugins || []).concat([
-        buble({
-          transforms: {
-            dangerousForOf: true
-          }}),
         commonjs(),
         nodeResolve(),
         replace({
