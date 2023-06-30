@@ -1,11 +1,7 @@
 import { waitForFunction, waitForText } from '../helpers/wait-for.js';
 import docsifyInit from '../helpers/docsify-init.js';
 
-// Suite
-// -----------------------------------------------------------------------------
-describe('Example Tests', function () {
-  // Tests
-  // ---------------------------------------------------------------------------
+describe('Creating a Docsify site (integration tests in Jest)', function () {
   test('Docsify /docs/ site using docsifyInit()', async () => {
     await docsifyInit({
       config: {
