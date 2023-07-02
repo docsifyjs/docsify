@@ -13,9 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/docsifyjs/docsify.git"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "main": "lib/docsify.js",
   "unpkg": "lib/docsify.min.js",
   "files": [
@@ -28,11 +25,9 @@
     "build:css": "mkdirp themes && npm run css -- -o themes",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
-    "build:ssr": "node build/ssr.js",
     "build:test": "npm run build && npm test",
-    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:ssr build:cover build:emoji",
+    "build": "rimraf lib themes && run-s build:js build:css build:css:min build:cover build:emoji",
     "css": "node build/css",
-    "dev:ssr": "run-p serve:ssr watch:*",
     "dev": "run-p serve watch:*",
     "docker:build:test": "npm run docker:cli -- build:test",
     "docker:build": "docker build -f Dockerfile -t docsify-test:local .",
@@ -49,7 +44,6 @@
     "prepare": "npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
-    "serve:ssr": "cross-env SSR=1 node server",
     "serve": "node server",
     "test:e2e": "playwright test",
     "test:integration": "jest --selectProjects integration",
@@ -98,7 +92,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.3",
     "jest": "^27.4.7",
-    "lerna": "^7.0.2",
     "lint-staged": "^13.2.2",
     "live-server": "^1.2.1",
     "mkdirp": "^3.0.0",

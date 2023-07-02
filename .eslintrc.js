@@ -63,7 +63,6 @@ module.exports = {
     yoda: ['error', 'never'],
 
     // Import rules
-    // Search way how integrate with `lerna`
     'import/imports-first': ['error'],
     'import/newline-after-import': ['error'],
     'import/no-duplicates': ['error'],

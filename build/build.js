@@ -30,7 +30,6 @@ async function build(opts) {
         nodeResolve(),
         replace({
           __VERSION__: version,
-          'process.env.SSR': false
         })
       ]),
       onwarn: function (message) {
