@@ -263,7 +263,6 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      // require(docsifyPATH);
       await import(docsifyPATH);
     }
   } else if (isPlaywright) {

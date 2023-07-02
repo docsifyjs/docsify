@@ -90,7 +90,7 @@
     "browser-sync": "^2.26.12",
     "chokidar": "^3.4.2",
     "common-tags": "^1.8.0",
-    "conventional-changelog-cli": "^2.1.0",
+    "conventional-changelog-cli": "^3.0.0",
     "copy-dir": "^1.2.0",
     "cross-env": "^7.0.3",
     "cssnano": "^4.1.10",
