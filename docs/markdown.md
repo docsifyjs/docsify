@@ -7,7 +7,7 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function() {
+      link() {
         // ...
       }
     }
@@ -21,7 +21,7 @@ You can completely customize the parsing rules.
 
 ```js
 window.$docsify = {
-  markdown: function(marked, renderer) {
+  markdown(marked, renderer) {
     // ...
 
     return marked
@@ -36,17 +36,17 @@ window.$docsify = {
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 //  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
-var num = 0;
+let num = 0;
 mermaid.initialize({ startOnLoad: false });
 
 window.$docsify = {
   markdown: {
     renderer: {
-      code: function(code, lang) {
+      code(code, lang) {
         if (lang === "mermaid") {
-          return (
-            '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
-          );
+          return /* html */ `
+            <div class="mermaid">${mermaid.render('mermaid-svg-' + num++, code)}</div>
+          `;
         }
         return this.origin.code.apply(this, arguments);
       }

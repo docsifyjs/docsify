@@ -43,9 +43,7 @@ function highlight(path) {
   const top = ((doc && doc.scrollTop) || document.body.scrollTop) - coverHeight;
   let last;
 
-  for (let i = 0, len = anchors.length; i < len; i += 1) {
-    const node = anchors[i];
-
+  for (const node of anchors) {
     if (node.offsetTop > top) {
       if (!last) {
         last = node;
@@ -103,8 +101,7 @@ export function scrollActiveSidebar(router) {
     lis = dom.findAll(sidebar, 'li');
   }
 
-  for (let i = 0, len = lis.length; i < len; i += 1) {
-    const li = lis[i];
+  for (const li of lis) {
     const a = li.querySelector('a');
     if (!a) {
       continue;

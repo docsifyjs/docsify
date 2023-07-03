@@ -26,14 +26,15 @@ async function build(opts) {
   await rollup
     .rollup({
       input: opts.input,
-      plugins: (opts.plugins || []).concat([
+      plugins: [
+        ...(opts.plugins || []),
         commonjs(),
         nodeResolve(),
         replace({
           __VERSION__: version,
         })
-      ]),
-      onwarn: function (message) {
+      ],
+      onwarn(message) {
         if (message.code === 'UNRESOLVED_IMPORT') {
           throw new Error(
             `Could not resolve module ` +
@@ -44,8 +45,8 @@ async function build(opts) {
         }
       }
     })
-    .then(function (bundle) {
-      var dest = 'lib/' + (opts.output || opts.input)
+    .then(bundle => {
+      const dest = 'lib/' + (opts.output || opts.input)
 
       console.log(dest)
       return bundle.write({
@@ -77,7 +78,7 @@ async function buildCore() {
 }
 
 async function buildAllPlugin() {
-  var plugins = [
+  const plugins = [
     {name: 'search', input: 'search/index.js'},
     {name: 'ga', input: 'ga.js'},
     {name: 'gtag', input: 'gtag.js'},

@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
-import cssVars from '../util/polyfill/css-vars.js';
 import { getAndActive, sticky } from '../event/sidebar.js';
 import { getPath, isAbsolutePath } from '../router/util.js';
 import { isMobile, inBrowser } from '../util/env.js';
-import { isPrimitive, merge } from '../util/core.js';
+import { isPrimitive } from '../util/core.js';
 import { scrollActiveSidebar } from '../event/scroll.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
@@ -56,7 +55,7 @@ function renderMain(html) {
   };
 
   if (!html) {
-    html = '<h1>404 - Not found</h1>';
+    html = /* html */ `<h1>404 - Not found</h1>`;
   }
 
   if ('Vue' in window) {
@@ -167,15 +166,14 @@ function renderMain(html) {
           })
           .map(elm => {
             // Clone global configuration
-            const vueConfig = merge({}, docsifyConfig.vueGlobalOptions || {});
-
+            const vueConfig = {
+              ...docsifyConfig.vueGlobalOptions,
+            };
             // Replace vueGlobalOptions data() return value with shared data object.
             // This provides a global store for all Vue instances that receive
             // vueGlobalOptions as their configuration.
             if (vueGlobalData) {
-              vueConfig.data = function () {
-                return vueGlobalData;
-              };
+              vueConfig.data = () => vueGlobalData;
             }
 
             return [elm, vueConfig];
@@ -458,8 +456,6 @@ export function Render(Base) {
         dom.$.head.appendChild(
           dom.create('div', tpl.theme(config.themeColor)).firstElementChild
         );
-        // Polyfll
-        cssVars(config.themeColor);
       }
 
       this._updateRender();

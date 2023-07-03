@@ -1,4 +1,3 @@
-import { supportsPushState } from '../util/env.js';
 import * as dom from '../util/dom.js';
 import { noop } from '../util/core.js';
 import { HashHistory } from './history/hash.js';
@@ -39,7 +38,7 @@ export function Router(Base) {
       const mode = config.routerMode || 'hash';
       let router;
 
-      if (mode === 'history' && supportsPushState) {
+      if (mode === 'history') {
         router = new HTML5History(config);
       } else {
         router = new HashHistory(config);

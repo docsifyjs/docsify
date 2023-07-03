@@ -16,7 +16,7 @@ function loadNested(path, qs, file, next, vm, first) {
     vm.router.getFile(path + file) + qs,
     false,
     vm.config.requestHeaders
-  ).then(next, _ => loadNested(path, qs, file, next, vm));
+  ).then(next, _error => loadNested(path, qs, file, next, vm));
 }
 
 /** @typedef {import('../Docsify').Constructor} Constructor */
@@ -29,7 +29,7 @@ export function Fetch(Base) {
   let last;
 
   const abort = () => last && last.abort && last.abort();
-  const request = (url, hasbar, requestHeaders) => {
+  const request = (url, requestHeaders) => {
     abort();
     last = get(url, true, requestHeaders);
     return last;
@@ -111,7 +111,7 @@ export function Fetch(Base) {
         };
 
         // and a handler that is called if content failed to fetch
-        const contentFailedToFetch = _ => {
+        const contentFailedToFetch = _error => {
           this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
         };
 
@@ -121,7 +121,7 @@ export function Fetch(Base) {
             if (typeof contents === 'string') {
               contentFetched(contents);
             } else {
-              request(file + qs, true, requestHeaders).then(
+              request(file + qs, requestHeaders).then(
                 contentFetched,
                 contentFailedToFetch
               );
@@ -129,7 +129,7 @@ export function Fetch(Base) {
           });
         } else {
           // if the requested url is not local, just fetch the file
-          request(file + qs, true, requestHeaders).then(
+          request(file + qs, requestHeaders).then(
             contentFetched,
             contentFailedToFetch
           );
@@ -216,7 +216,7 @@ export function Fetch(Base) {
       const newPath = this.router.getFile(
         path.replace(new RegExp(`^/${local}`), '')
       );
-      const req = request(newPath + qs, true, requestHeaders);
+      const req = request(newPath + qs, requestHeaders);
 
       req.then(
         (text, opt) =>
@@ -225,7 +225,7 @@ export function Fetch(Base) {
             opt,
             this._loadSideAndNav(path, qs, loadSidebar, cb)
           ),
-        () => this._fetch404(path, qs, cb)
+        _error => this._fetch404(path, qs, cb)
       );
 
       return true;
@@ -246,9 +246,9 @@ export function Fetch(Base) {
       if (notFoundPage) {
         const path404 = get404Path(path, this.config);
 
-        request(this.router.getFile(path404), true, requestHeaders).then(
+        request(this.router.getFile(path404), requestHeaders).then(
           (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
-          () => this._renderMain(null, {}, fnLoadSideAndNav)
+          _error => this._renderMain(null, {}, fnLoadSideAndNav)
         );
         return true;
       }

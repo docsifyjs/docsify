@@ -101,9 +101,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       page,
     }) => {
       const routes = {
-        '/pets/(.*)': function (route) {
-          return `# Route: /pets/dog`;
-        },
+        '/pets/(.*)': route => `# Route: /pets/dog`,
       };
 
       await docsifyInit({
@@ -122,7 +120,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       page,
     }) => {
       const routes = {
-        '/pets/(.*)': function (_, matched) {
+        '/pets/(.*)'(_, matched) {
           return `# Pets Page (${matched[1]})`;
         },
       };

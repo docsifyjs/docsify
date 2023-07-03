@@ -1,6 +1,5 @@
 import stripIndent from 'strip-indent';
 import { get } from '../fetch/ajax.js';
-import { merge } from '../util/core.js';
 
 const cached = {};
 
@@ -14,70 +13,72 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   }
 
   while ((token = embedTokens[step++])) {
-    // eslint-disable-next-line no-shadow
-    const next = (function (token) {
-      return text => {
-        let embedToken;
-        if (text) {
-          if (token.embed.type === 'markdown') {
-            let path = token.embed.url.split('/');
-            path.pop();
-            path = path.join('/');
-            // Resolves relative links to absolute
-            text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, x => {
-              const linkBeginIndex = x.indexOf('(');
-              if (x.slice(linkBeginIndex, linkBeginIndex + 2) === '(.') {
-                return (
-                  x.substring(0, linkBeginIndex) +
-                  `(${window.location.protocol}//${window.location.host}${path}/` +
-                  x.substring(linkBeginIndex + 1, x.length - 1) +
-                  ')'
-                );
-              }
-              return x;
-            });
+    const currentToken = token;
 
-            // This may contain YAML front matter and will need to be stripped.
-            const frontMatterInstalled =
-              ($docsify.frontMatter || {}).installed || false;
-            if (frontMatterInstalled === true) {
-              text = $docsify.frontMatter.parseMarkdown(text);
-            }
-
-            embedToken = compile.lexer(text);
-          } else if (token.embed.type === 'code') {
-            if (token.embed.fragment) {
-              const fragment = token.embed.fragment;
-              const pattern = new RegExp(
-                `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`
+    const next = text => {
+      let embedToken;
+      if (text) {
+        if (currentToken.embed.type === 'markdown') {
+          let path = currentToken.embed.url.split('/');
+          path.pop();
+          path = path.join('/');
+          // Resolves relative links to absolute
+          text = text.replace(/\[([^[\]]+)\]\(([^)]+)\)/g, x => {
+            const linkBeginIndex = x.indexOf('(');
+            if (x.slice(linkBeginIndex, linkBeginIndex + 2) === '(.') {
+              return (
+                x.substring(0, linkBeginIndex) +
+                `(${window.location.protocol}//${window.location.host}${path}/` +
+                x.substring(linkBeginIndex + 1, x.length - 1) +
+                ')'
               );
-              text = stripIndent((text.match(pattern) || [])[1] || '').trim();
             }
+            return x;
+          });
 
-            embedToken = compile.lexer(
-              '```' +
-                token.embed.lang +
-                '\n' +
-                text.replace(/`/g, '@DOCSIFY_QM@') +
-                '\n```\n'
-            );
-          } else if (token.embed.type === 'mermaid') {
-            embedToken = [
-              { type: 'html', text: `<div class="mermaid">\n${text}\n</div>` },
-            ];
-            embedToken.links = {};
-          } else {
-            embedToken = [{ type: 'html', text }];
-            embedToken.links = {};
+          // This may contain YAML front matter and will need to be stripped.
+          const frontMatterInstalled =
+            ($docsify.frontMatter || {}).installed || false;
+          if (frontMatterInstalled === true) {
+            text = $docsify.frontMatter.parseMarkdown(text);
           }
-        }
 
-        cb({ token, embedToken });
-        if (++count >= embedTokens.length) {
-          cb({});
+          embedToken = compile.lexer(text);
+        } else if (currentToken.embed.type === 'code') {
+          if (currentToken.embed.fragment) {
+            const fragment = currentToken.embed.fragment;
+            const pattern = new RegExp(
+              `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`
+            );
+            text = stripIndent((text.match(pattern) || [])[1] || '').trim();
+          }
+
+          embedToken = compile.lexer(
+            '```' +
+              currentToken.embed.lang +
+              '\n' +
+              text.replace(/`/g, '@DOCSIFY_QM@') +
+              '\n```\n'
+          );
+        } else if (currentToken.embed.type === 'mermaid') {
+          embedToken = [
+            {
+              type: 'html',
+              text: /* html */ `<div class="mermaid">\n${text}\n</div>`,
+            },
+          ];
+          embedToken.links = {};
+        } else {
+          embedToken = [{ type: 'html', text }];
+          embedToken.links = {};
         }
-      };
-    })(token);
+      }
+
+      cb({ token: currentToken, embedToken });
+      if (++count >= embedTokens.length) {
+        cb({});
+      }
+    };
 
     if (token.embed.url) {
       get(token.embed.url).then(next);
@@ -136,7 +137,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
         }
       });
 
-      merge(links, embedToken.links);
+      Object.assign(links, embedToken.links);
 
       tokens = tokens
         .slice(0, index)

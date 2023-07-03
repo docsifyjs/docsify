@@ -11,17 +11,16 @@ fs.readdir(relative('../src/themes'), (err, files) => {
     }
     files.map(async (file) => {
         if (/\.styl/g.test(file)) {
-            var stylusCMD;
             const stylusBin = ['node_modules', 'stylus', 'bin', 'stylus'].join(path.sep)
-            var cmdargs = [
+            let cmdargs = [
                 stylusBin,
                 `src/themes/${file}`,
                 '-u',
                 'autoprefixer-stylus'
             ]
-            cmdargs = cmdargs.concat(args)
+            cmdargs = [...cmdargs, ...args]
 
-            stylusCMD = spawn('node', cmdargs, { shell: true })
+            const stylusCMD = spawn('node', cmdargs, { shell: true })
 
             stylusCMD.stdout.on('data', (data) => {
                 console.log(`[Stylus Build ] stdout: ${data}`);

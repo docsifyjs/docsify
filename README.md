@@ -46,7 +46,6 @@
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE11
 - Support embedded files
 
 ## Quick start

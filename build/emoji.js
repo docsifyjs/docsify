@@ -93,17 +93,15 @@ function writeEmojiJS(emojiData) {
   }
 }
 
-(async () => {
-  console.info('Build emoji');
+console.info('Build emoji');
 
-  try {
-    const emojiData = await getEmojiData();
+try {
+  const emojiData = await getEmojiData();
 
-    if (emojiData) {
-      writeEmojiPage(emojiData);
-      writeEmojiJS(emojiData);
-    }
-  } catch (err) {
-    console.warn(`- Error: ${err.message}`);
+  if (emojiData) {
+    writeEmojiPage(emojiData);
+    writeEmojiJS(emojiData);
   }
-})();
+} catch (err) {
+  console.warn(`- Error: ${err.message}`);
+}

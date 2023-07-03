@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>docsify</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="/themes/vue.css" title="vue" />
     <link rel="stylesheet" href="/themes/dark.css" title="dark" disabled />
@@ -27,7 +26,7 @@
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
     <script>
       // Set html "lang" attribute based on URL
-      var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
+      const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
 
       if (lang) {
         document.documentElement.setAttribute('lang', lang[1]);
@@ -88,7 +87,7 @@
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
           function (hook, vm) {
-            hook.beforeEach(function (html) {
+            hook.beforeEach(html => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
@@ -102,7 +101,7 @@
                   'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
                   vm.route.file;
               }
-              var editHtml = '[:memo: Edit Document](' + url + ')\n';
+              const editHtml = '[:memo: Edit Document](' + url + ')\n';
               return (
                 editHtml +
                 html +

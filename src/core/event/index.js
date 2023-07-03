@@ -14,11 +14,8 @@ export function Events(Base) {
     $resetEvents(source) {
       const { auto2top } = this.config;
 
-      (() => {
-        // Rely on the browser's scroll auto-restoration when going back or forward
-        if (source === 'history') {
-          return;
-        }
+      // If 'history', rely on the browser's scroll auto-restoration when going back or forward
+      if (source !== 'history') {
         // Scroll to ID if specified
         if (this.route.query.id) {
           scrollIntoView(this.route.path, this.route.query.id);
@@ -27,7 +24,7 @@ export function Events(Base) {
         if (source === 'navigate') {
           auto2top && scroll2Top(auto2top);
         }
-      })();
+      }
 
       if (this.config.loadNavbar) {
         sidebar.getAndActive(this.router, 'nav');

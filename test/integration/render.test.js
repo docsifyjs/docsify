@@ -104,7 +104,7 @@ describe('render', function () {
       const output = window.marked('![alt text](http://imageUrl)');
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\"></p>"`
+        `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\"  /></p>"`
       );
     });
 

@@ -1,6 +1,7 @@
 import { create } from 'browser-sync';
 import path from 'path';
 import url from 'url';
+import { noop } from '../../src/core/util/core.js';
 
 const browserSync = create();
 
@@ -15,13 +16,13 @@ const __dirname = path.dirname(__filename);
 
 export const TEST_HOST = `http://${serverConfig.hostname}:${serverConfig.port}`;
 
-function startServer(options = {}, cb = Function.prototype) {
+function startServer(options = {}, cb = noop) {
   const defaults = {
     ...serverConfig,
     middleware: [
       {
         route: '/_blank.html',
-        handle: function (req, res, next) {
+        handle(req, res, next) {
           res.setHeader('Content-Type', 'text/html');
           res.end('');
           next();
@@ -50,23 +51,20 @@ function startServer(options = {}, cb = Function.prototype) {
     snippetOptions: {
       rule: {
         match: /<\/body>/i,
-        fn: function (snippet, match) {
+        fn(snippet, match) {
           // Override changelog alias to load local changelog (see routes)
-          const newSnippet = `
+          const newSnippet = /* html */ `
             ${snippet.replace(/<script[^>]*/, '$& type="text/plain"')}
             <script>
-              (function() {
-                var aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
-                var isIE = /*@cc_on!@*/false || !!document.documentMode;
+              {
+                const aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
 
                 // Fix /docs site configuration during tests
                 aliasConfig['.*?/changelog'] = '/changelog.md';
 
-                // Enable BrowserSync snippet for non-IE browsers
-                if (!isIE) {
-                  document.querySelector('#__bs_script__').removeAttribute('type');
-                }
-              })();
+                // Enable BrowserSync snippet
+                document.querySelector('#__bs_script__').removeAttribute('type');
+              }
             </script>
             ${match}
           `;

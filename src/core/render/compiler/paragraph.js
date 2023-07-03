@@ -8,7 +8,7 @@ export const paragraphCompiler = ({ renderer }) =>
     } else if (/^\?&gt;/.test(text)) {
       result = helperTpl('warn', text);
     } else {
-      result = `<p>${text}</p>`;
+      result = /* html */ `<p>${text}</p>`;
     }
 
     return result;
