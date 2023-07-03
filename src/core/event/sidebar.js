@@ -38,9 +38,9 @@ export function collapse(el) {
   dom.on(el, 'click', ({ target }) => {
     if (
       target.nodeName === 'A' &&
-      target.nextSibling &&
-      target.nextSibling.classList &&
-      target.nextSibling.classList.contains('app-sub-sidebar')
+      target.nextElementSibling &&
+      target.nextElementSibling.classList &&
+      target.nextElementSibling.classList.contains('app-sub-sidebar')
     ) {
       dom.toggleClass(target.parentNode, 'collapse');
     }
