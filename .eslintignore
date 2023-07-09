@@ -4,6 +4,5 @@ build
 docs
 lib
 node_modules
-packages/docsify-server-renderer/build.js
 server.js
 themes

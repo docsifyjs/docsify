@@ -12,22 +12,11 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
-  # Removing test script as non - availibity of tests. Will Add it once tests are completed 
-
-  # npm run test
-
   # build
   VERSION=$VERSION npm run build
 
-  # update packages
-  cd packages/docsify-server-renderer
-  npm version $VERSION
-  if [[ -z $RELEASE_TAG ]]; then
-    npm publish
-  else
-    npm publish --tag $RELEASE_TAG
-  fi
-  cd -
+  # TODO
+  # npm test
 
   # commit
   git add -A

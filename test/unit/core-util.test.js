@@ -59,5 +59,17 @@ describe('core/util', () => {
 
       expect(result).toBeTruthy();
     });
+
+    test('external url with one \\', () => {
+      const result = isExternal('/\\example.github.io/docsify/demo.md');
+
+      expect(result).toBeTruthy();
+    });
+
+    test('external url with two \\', () => {
+      const result = isExternal('/\\\\example.github.io/docsify/demo.md');
+
+      expect(result).toBeTruthy();
+    });
   });
 });

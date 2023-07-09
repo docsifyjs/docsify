@@ -147,7 +147,9 @@ export function scrollIntoView(path, id) {
     return;
   }
   const topMargin = config().topMargin;
-  const section = dom.find('#' + id);
+  // Use [id='1234'] instead of #id to handle special cases such as reserved characters and pure number id
+  // https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document
+  const section = dom.find("[id='" + id + "']");
   section && scrollTo(section, topMargin);
 
   const li = nav[getNavKey(path, id)];

@@ -44,7 +44,6 @@
 - Multiple themes
 - Useful plugin API
 - Compatible with IE11
-- Experimental SSR support ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 - Support embedded files
 
 ## Quick start
@@ -68,29 +67,7 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 ## Contributing
 
-### Online one-click setup for Contributing
-
-You can use Gitpod (a free online VS Code-like IDE) for contributing. With a single click it'll launch a workspace and automatically:
-
-- clone the docsify repo.
-- install the dependencies.
-- start `npm run dev`.
-
-So that you can start straight away.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
-
-- Fork it!
-- Create your feature branch: `git checkout -b my-new-feature`
-- Commit your changes: `git add . && git commit -m 'Add some feature'`
-- Push to the branch: `git push origin my-new-feature`
-- Submit a pull request
-
-## Development
-
-```bash
-npm run bootstrap && npm run dev
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Backers
 

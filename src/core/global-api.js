@@ -1,5 +1,5 @@
 import prism from 'prismjs';
-import marked from 'marked';
+import { marked } from 'marked';
 import * as util from './util';
 import * as dom from './util/dom';
 import { Compiler } from './render/compiler';

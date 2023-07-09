@@ -30,7 +30,6 @@ async function build(opts) {
         nodeResolve(),
         replace({
           __VERSION__: version,
-          'process.env.SSR': false
         })
       ]),
       onwarn: function (message) {
@@ -80,6 +79,7 @@ async function buildAllPlugin() {
   var plugins = [
     {name: 'search', input: 'search/index.js'},
     {name: 'ga', input: 'ga.js'},
+    {name: 'gtag', input: 'gtag.js'},
     {name: 'matomo', input: 'matomo.js'},
     {name: 'emoji', input: 'emoji.js'},
     {name: 'external-script', input: 'external-script.js'},

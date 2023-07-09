@@ -1,11 +1,15 @@
-import marked from 'marked';
+import { marked } from 'marked';
 import { isAbsolutePath, getPath, getParentPath } from '../router/util';
 import { isFn, merge, cached, isPrimitive } from '../util/core';
 import { tree as treeTpl } from './tpl';
 import { genTree } from './gen-tree';
 import { slugify } from './slugify';
 import { emojify } from './emojify';
-import { getAndRemoveConfig, removeAtag } from './utils';
+import {
+  getAndRemoveConfig,
+  removeAtag,
+  getAndRemoveDocisfyIgnorConfig,
+} from './utils';
 import { imageCompiler } from './compiler/image';
 import { highlightCodeCompiler } from './compiler/code';
 import { paragraphCompiler } from './compiler/paragraph';
@@ -145,7 +149,7 @@ export class Compiler {
     if (config.include) {
       if (!isAbsolutePath(href)) {
         href = getPath(
-          process.env.SSR ? '' : this.contentBase,
+          this.contentBase,
           getParentPath(this.router.getCurrentPath()),
           href
         );
@@ -207,32 +211,15 @@ export class Compiler {
      */
     origin.heading = renderer.heading = function (text, level) {
       let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { level, title: removeAtag(str) };
+      const nextToc = { level, title: str };
 
-      if (/<!-- {docsify-ignore} -->/g.test(str)) {
-        str = str.replace('<!-- {docsify-ignore} -->', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreSubHeading = true;
-      }
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnorConfig(str);
+      str = content.trim();
 
-      if (/{docsify-ignore}/g.test(str)) {
-        str = str.replace('{docsify-ignore}', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreSubHeading = true;
-      }
-
-      if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
-        str = str.replace('<!-- {docsify-ignore-all} -->', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreAllSubs = true;
-      }
-
-      if (/{docsify-ignore-all}/g.test(str)) {
-        str = str.replace('{docsify-ignore-all}', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreAllSubs = true;
-      }
-
+      nextToc.title = removeAtag(str);
+      nextToc.ignoreAllSubs = ignoreAllSubs;
+      nextToc.ignoreSubHeading = ignoreSubHeading;
       const slug = slugify(config.id || str);
       const url = router.toURL(router.getCurrentPath(), { id: slug });
       nextToc.slug = url;
