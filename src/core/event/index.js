@@ -32,6 +32,9 @@ export function Events(Base) {
       if (this.config.loadNavbar) {
         sidebar.getAndActive(this.router, 'nav');
       }
+      if (this.config.loadSidebar) {
+        sidebar.getAndActive(this.router, '.sidebar-nav', true, true);
+      }
     }
 
     initEvent() {
