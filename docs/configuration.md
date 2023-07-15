@@ -62,6 +62,19 @@ window.$docsify = {
 };
 ```
 
+## alwaysScrollHeader
+
+- Type: `Boolean`
+- Default: `false`
+
+Always scrolls to ID/header when specified in route. By default, page will use browser's scroll auto-restoration.
+
+```js
+window.$docsify = {
+  alwaysScrollHeader: true,
+};
+```
+
 ## autoHeader
 
 - Type: `Boolean`
