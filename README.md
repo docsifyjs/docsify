@@ -64,8 +64,10 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 | Project                                          | Description                              |
 | ------------------------------------------------ | ---------------------------------------- |
-| [docute](https://github.com/egoist/docute)       | 📜 Effortlessly documentation done right |
-| [docpress](https://github.com/docpress/docpress) | Documentation website generator          |
+| [Docusaurus](https://docusaurus.io) | Docusaurus makes it easy to maintain Open Source documentation websites |
+| [GitBook](https://www.gitbook.com) | Where technical teams document |
+| [MkDocs](https://www.mkdocs.org) | Project documentation with Markdown |
+| [VuePress](https://vuepress.vuejs.org) | Vue-powered Static Site Generator |
 
 ## Contributing
 
