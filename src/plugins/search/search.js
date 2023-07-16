@@ -84,7 +84,7 @@ export function genIndex(path, content = '', router, depth) {
   let slug;
   let title = '';
 
-  tokens.forEach(function (token, tokenIndex) {
+  tokens.forEach((token, tokenIndex) => {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
@@ -149,17 +149,19 @@ export function search(query) {
   const matchingResults = [];
   let data = [];
   Object.keys(INDEXS).forEach(key => {
-    data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]));
+    data = [
+      ...data,
+      ...Object.keys(INDEXS[key]).map(page => INDEXS[key][page]),
+    ];
   });
 
   query = query.trim();
   let keywords = query.split(/[\s\-，\\/]+/);
   if (keywords.length !== 1) {
-    keywords = [].concat(query, keywords);
+    keywords = [query, ...keywords];
   }
 
-  for (let i = 0; i < data.length; i++) {
-    const post = data[i];
+  for (const post of data) {
     let matchesScore = 0;
     let resultStr = '';
     let handlePostTitle = '';
@@ -213,7 +215,7 @@ export function search(query) {
                 .substring(start, end)
                 .replace(
                   regEx,
-                  word => `<em class="search-keyword">${word}</em>`
+                  word => /* html */ `<em class="search-keyword">${word}</em>`
                 ) +
               '...';
 

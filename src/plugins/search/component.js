@@ -111,7 +111,8 @@ function style() {
 }
 
 function tpl(defaultValue = '') {
-  const html = `<div class="input-wrap">
+  const html = /* html */ `
+    <div class="input-wrap">
       <input type="search" value="${defaultValue}" aria-label="Search text" />
       <div class="clear-button">
         <svg width="26" height="24">
@@ -122,7 +123,7 @@ function tpl(defaultValue = '') {
       </div>
     </div>
     <div class="results-panel"></div>
-    </div>`;
+  `;
   const el = Docsify.dom.create('div', html);
   const aside = Docsify.dom.find('aside');
 
@@ -154,17 +155,19 @@ function doSearch(value) {
 
   let html = '';
   matchs.forEach(post => {
-    html += `<div class="matching-post">
-<a href="${post.url}">
-<h2>${post.title}</h2>
-<p>${post.content}</p>
-</a>
-</div>`;
+    html += /* html */ `
+      <div class="matching-post">
+        <a href="${post.url}">
+          <h2>${post.title}</h2>
+          <p>${post.content}</p>
+        </a>
+      </div>
+    `;
   });
 
   $panel.classList.add('show');
   $clearBtn.classList.add('show');
-  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
+  $panel.innerHTML = html || /* html */ `<p class="empty">${NO_DATA_TEXT}</p>`;
   if (options.hideOtherSidebarContent) {
     $sidebarNav && $sidebarNav.classList.add('hide');
     $appName && $appName.classList.add('hide');

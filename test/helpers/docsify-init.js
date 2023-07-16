@@ -225,11 +225,29 @@ async function docsifyInit(options = {}) {
 
     await page.evaluate(config => {
       // Restore config functions from strings
-      const configObj = JSON.parse(config, (key, val) =>
-        /^__FN__/.test(val)
-          ? new Function(`return ${val.split('__FN__')[1]}`)()
-          : val
-      );
+      const configObj = JSON.parse(config, (key, val) => {
+        if (/^__FN__/.test(val)) {
+          let source = val.split('__FN__')[1];
+
+          // f.e. `foo() {}` or `'bar!?'() {}` without the `function ` prefix
+          const isConcise =
+            !source.includes('function') && !source.includes('=>');
+
+          if (isConcise) {
+            source = `{ ${source} }`;
+          } else {
+            source = `{ _: ${source} }`;
+          }
+
+          return new Function(/* js */ `
+            const o = ${source}
+            const keys = Object.keys(o)
+            return o[keys[0]]
+          `)();
+        } else {
+          return val;
+        }
+      });
 
       window.$docsify = configObj;
     }, configString);

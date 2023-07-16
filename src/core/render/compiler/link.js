@@ -60,5 +60,5 @@ export const linkCompiler = ({
       attrs.push(`title="${title}"`);
     }
 
-    return `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
+    return /* html */ `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
   });

@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* global gitalk */
 function install(hook) {
   const dom = Docsify.dom;
 
@@ -16,9 +16,9 @@ function install(hook) {
       el.removeChild(el.firstChild);
     }
 
-    // eslint-disable-next-line
     gitalk.render('gitalk-container');
   });
 }
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

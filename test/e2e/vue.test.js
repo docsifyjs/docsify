@@ -24,16 +24,14 @@ test.describe('Vue.js Compatibility', () => {
           },
         },
         vueGlobalOptions: {
-          data: function () {
-            return {
-              counter: 0,
-              msg: 'vueglobaloptions',
-            };
-          },
+          data: () => ({
+            counter: 0,
+            msg: 'vueglobaloptions',
+          }),
         },
         vueMounts: {
           '#vuemounts': {
-            data: function () {
+            data() {
               return {
                 counter: 0,
                 msg: 'vuemounts',

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // From ./ga.js
 
 function appendScript(id) {
@@ -69,4 +68,5 @@ const install = function (hook) {
   hook.beforeEach(collect);
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

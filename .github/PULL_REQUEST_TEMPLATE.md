@@ -62,4 +62,3 @@ If yes, please describe the impact and migration path for existing applications:
 - [ ] Firefox
 - [ ] Safari
 - [ ] Edge
-- [ ] IE

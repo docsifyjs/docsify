@@ -1,7 +1,13 @@
+// @ts-check
 /* eslint-disable no-unused-vars */
 import progressbar from '../render/progressbar.js';
-import { noop, hasOwn } from '../util/core.js';
+import { noop } from '../util/core.js';
 
+/** @typedef {{updatedAt: string}} CacheOpt */
+
+/** @typedef {{content: string, opt: CacheOpt}} CacheItem */
+
+/** @type {Record<string, CacheItem>} */
 const cache = {};
 
 /**
@@ -9,14 +15,13 @@ const cache = {};
  * @param {string} url Resource URL
  * @param {boolean} [hasBar=false] Has progress bar
  * @param {String[]} headers Array of headers
- * @return {Promise} Promise response
+ * @return A Promise-like response with error callback (error callback is not Promise-like)
  */
+// TODO update to using fetch() + Streams API instead of XMLHttpRequest. See an
+// example of download progress calculation using fetch() here:
+// https://streams.spec.whatwg.org/demos/
 export function get(url, hasBar = false, headers = {}) {
   const xhr = new XMLHttpRequest();
-  const on = function () {
-    xhr.addEventListener.apply(xhr, arguments);
-  };
-
   const cached = cache[url];
 
   if (cached) {
@@ -24,16 +29,18 @@ export function get(url, hasBar = false, headers = {}) {
   }
 
   xhr.open('GET', url);
-  for (const i in headers) {
-    if (hasOwn.call(headers, i)) {
-      xhr.setRequestHeader(i, headers[i]);
-    }
+  for (const i of Object.keys(headers)) {
+    xhr.setRequestHeader(i, headers[i]);
   }
 
   xhr.send();
 
   return {
-    then: function (success, error = noop) {
+    /**
+     * @param {(text: string, opt: CacheOpt) => void} success
+     * @param {(event: ProgressEvent<XMLHttpRequestEventTarget>) => void} error
+     */
+    then(success, error = noop) {
       if (hasBar) {
         const id = setInterval(
           _ =>
@@ -43,22 +50,27 @@ export function get(url, hasBar = false, headers = {}) {
           500
         );
 
-        on('progress', progressbar);
-        on('loadend', evt => {
+        xhr.addEventListener('progress', progressbar);
+        xhr.addEventListener('loadend', evt => {
           progressbar(evt);
           clearInterval(id);
         });
       }
 
-      on('error', error);
-      on('load', ({ target }) => {
+      xhr.addEventListener('error', error);
+      xhr.addEventListener('load', event => {
+        const target = /** @type {XMLHttpRequest} */ (event.target);
         if (target.status >= 400) {
-          error(target);
+          error(event);
         } else {
+          if (typeof target.response !== 'string') {
+            throw new TypeError('Unsupported content type.');
+          }
+
           const result = (cache[url] = {
             content: target.response,
             opt: {
-              updatedAt: xhr.getResponseHeader('last-modified'),
+              updatedAt: xhr.getResponseHeader('last-modified') ?? '',
             },
           });
 

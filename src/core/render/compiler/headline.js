@@ -23,5 +23,5 @@ export const headingCompiler = ({ renderer, router, _self }) =>
     nextToc.slug = url;
     _self.toc.push(nextToc);
 
-    return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
+    return /* html */ `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
   });

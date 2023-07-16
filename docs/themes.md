@@ -50,13 +50,13 @@ If you have any ideas or would like to develop a new theme, you are welcome to s
 </style>
 
 <script>
-  var preview = Docsify.dom.find('.demo-theme-preview');
-  var themes = Docsify.dom.findAll('[rel="stylesheet"]');
+  const preview = Docsify.dom.find('.demo-theme-preview');
+  const themes = Docsify.dom.findAll('[rel="stylesheet"]');
 
   preview.onclick = function (e) {
-    var title = e.target.getAttribute('data-theme');
+    const title = e.target.getAttribute('data-theme');
 
-    themes.forEach(function (theme) {
+    themes.forEach(theme => {
       theme.disabled = theme.title !== title;
     });
   };

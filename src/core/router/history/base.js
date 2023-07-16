@@ -6,7 +6,7 @@ import {
   replaceSlug,
   resolvePath,
 } from '../util.js';
-import { noop, merge } from '../../util/core.js';
+import { noop } from '../../util/core.js';
 
 const cached = {};
 
@@ -69,7 +69,7 @@ export class History {
     const local = currentRoute && path[0] === '#';
     const route = this.parse(replaceSlug(path));
 
-    route.query = merge({}, route.query, params);
+    route.query = { ...route.query, ...params };
     path = route.path + stringifyQuery(route.query);
     path = path.replace(/\.md(\?)|\.md$/, '$1');
 

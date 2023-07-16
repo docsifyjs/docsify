@@ -1,21 +1,17 @@
-import { startsWith, endsWith } from '../util/str.js';
-
 /**
  * Adds beginning of input (^) and end of input ($) assertions if needed into a regex string
  * @param {string} matcher the string to match
  * @returns {string}
  */
 export function makeExactMatcher(matcher) {
-  const matcherWithBeginningOfInput = startsWith(matcher, '^')
+  const matcherWithBeginningOfInput = matcher.startsWith('^')
     ? matcher
     : `^${matcher}`;
 
-  const matcherWithBeginningAndEndOfInput = endsWith(
-    matcherWithBeginningOfInput,
-    '$'
-  )
-    ? matcherWithBeginningOfInput
-    : `${matcherWithBeginningOfInput}$`;
+  const matcherWithBeginningAndEndOfInput =
+    matcherWithBeginningOfInput.endsWith('$')
+      ? matcherWithBeginningOfInput
+      : `${matcherWithBeginningOfInput}$`;
 
   return matcherWithBeginningAndEndOfInput;
 }

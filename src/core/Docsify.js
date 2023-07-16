@@ -32,7 +32,7 @@ export class Docsify extends Fetch(
   }
 
   initPlugin() {
-    [].concat(this.config.plugins).forEach(fn => {
+    this.config.plugins.forEach(fn => {
       try {
         isFn(fn) && fn(this._lifecycle, this);
       } catch (err) {

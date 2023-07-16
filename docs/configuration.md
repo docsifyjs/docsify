@@ -249,7 +249,7 @@ See https://github.com/lukeed/tinydate#patterns
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function (time) {
+  formatUpdated(time) {
     // ...
 
     return time;
@@ -346,14 +346,14 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function () {
+      link() {
         // ...
       },
     },
   },
 
   // function
-  markdown: function (marked, renderer) {
+  markdown(marked, renderer) {
     // ...
     return marked;
   },
@@ -747,18 +747,17 @@ window.$docsify = {
     '/foo': '# Custom Markdown',
 
     // RegEx match w/ synchronous function
-    '/bar/(.*)': function (route, matched) {
+    '/bar/(.*)'(route, matched) {
       return '# Custom Markdown';
     },
 
     // RegEx match w/ asynchronous function
-    '/baz/(.*)': function (route, matched, next) {
-      // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
+    '/baz/(.*)'(route, matched, next) {
       fetch('/api/users?id=12345')
-        .then(function (response) {
+        .then(response => {
           next('# Custom Markdown');
         })
-        .catch(function (err) {
+        .catch(err => {
           // Handle error...
         });
     },
@@ -772,7 +771,7 @@ Other than strings, route functions can return a falsy value (`null` \ `undefine
 window.$docsify = {
   routes: {
     // accepts everything other than dogs (synchronous)
-    '/pets/(.+)': function(route, matched) {
+    '/pets/(.+)'(route, matched) {
       if (matched[0] === 'dogs') {
         return null;
       } else {
@@ -781,7 +780,7 @@ window.$docsify = {
     }
 
     // accepts everything other than cats (asynchronous)
-    '/pets/(.*)': function(route, matched, next) {
+    '/pets/(.*)'(route, matched, next) {
       if (matched[0] === 'cats') {
         next();
       } else {
@@ -799,12 +798,12 @@ Finally, if you have a specific path that has a real markdown file (and therefor
 window.$docsify = {
   routes: {
     // if you look up /pets/cats, docsify will skip all routes and look for "pets/cats.md"
-    '/pets/cats': function(route, matched) {
+    '/pets/cats'(route, matched) {
       return false;
     }
 
     // but any other pet should generate dynamic content right here
-    '/pets/(.+)': function(route, matched) {
+    '/pets/(.+)'(route, matched) {
       const pet = matched[0];
       return `your pet is ${pet} (but not a cat)`;
     }
@@ -835,11 +834,19 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor
+## themeColor (_deprecated_)
+
+> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
+>
+> <style>
+>   :root {
+>     --theme-color: deeppink;
+>   }
+> </style>
 
 - Type: `String`
 
-Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in older browsers.
+Customize the theme color.
 
 ```js
 window.$docsify = {

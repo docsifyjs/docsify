@@ -83,7 +83,7 @@ export function VirtualRoutes(Base) {
       }
 
       return {
-        then: function (cb) {
+        then(cb) {
           done = cb;
           asyncMatchNextRoute();
         },

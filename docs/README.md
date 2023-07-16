@@ -16,7 +16,6 @@ See the [Quick start](quickstart.md) guide for more details.
 - Multiple themes
 - Useful plugin API
 - Emoji support
-- Compatible with IE11
 
 ## Examples
 
