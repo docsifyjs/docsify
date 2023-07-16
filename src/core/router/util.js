@@ -1,4 +1,4 @@
-import { cached } from '../util/core';
+import { cached } from '../util/core.js';
 
 const decode = decodeURIComponent;
 const encode = encodeURIComponent;

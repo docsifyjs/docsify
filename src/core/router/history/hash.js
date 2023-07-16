@@ -1,8 +1,8 @@
-import { isExternal, noop } from '../../util/core';
-import { on } from '../../util/dom';
-import { endsWith } from '../../util/str';
-import { parseQuery, cleanPath, replaceSlug } from '../util';
-import { History } from './base';
+import { isExternal, noop } from '../../util/core.js';
+import { on } from '../../util/dom.js';
+import { endsWith } from '../../util/str.js';
+import { parseQuery, cleanPath, replaceSlug } from '../util.js';
+import { History } from './base.js';
 
 function replaceHash(path) {
   const i = location.href.indexOf('#');

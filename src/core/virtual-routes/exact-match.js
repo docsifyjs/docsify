@@ -1,4 +1,4 @@
-import { startsWith, endsWith } from '../util/str';
+import { startsWith, endsWith } from '../util/str.js';
 
 /**
  * Adds beginning of input (^) and end of input ($) assertions if needed into a regex string

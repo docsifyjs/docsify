@@ -1,13 +1,13 @@
 import stripIndent from 'strip-indent';
-import { get } from '../fetch/ajax';
-import { merge } from '../util/core';
+import { get } from '../fetch/ajax.js';
+import { merge } from '../util/core.js';
 
 const cached = {};
 
 function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   let token;
   let step = 0;
-  let count = 1;
+  let count = 0;
 
   if (!embedTokens.length) {
     return cb({});
@@ -73,18 +73,14 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
         }
 
         cb({ token, embedToken });
-        if (++count >= step) {
+        if (++count >= embedTokens.length) {
           cb({});
         }
       };
     })(token);
 
     if (token.embed.url) {
-      if (process.env.SSR) {
-        fetch(token.embed.url).then(next);
-      } else {
-        get(token.embed.url).then(next);
-      }
+      get(token.embed.url).then(next);
     } else {
       next(token.embed.html);
     }

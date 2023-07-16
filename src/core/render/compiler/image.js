@@ -1,5 +1,5 @@
-import { getAndRemoveConfig } from '../utils';
-import { isAbsolutePath, getPath, getParentPath } from '../../router/util';
+import { getAndRemoveConfig } from '../utils.js';
+import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
 
 export const imageCompiler = ({ renderer, contentBase, router }) =>
   (renderer.image = (href, title, text) => {

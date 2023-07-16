@@ -1,11 +1,19 @@
-const browserSync = require('browser-sync').create();
-const path = require('path');
+import { create } from 'browser-sync';
+import path from 'path';
+import url from 'url';
+
+const browserSync = create();
 
 const hasStartArg = process.argv.includes('--start');
 const serverConfig = {
   hostname: '127.0.0.1',
   port: hasStartArg ? 3002 : 3001,
 };
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const TEST_HOST = `http://${serverConfig.hostname}:${serverConfig.port}`;
 
 function startServer(options = {}, cb = Function.prototype) {
   const defaults = {
@@ -73,7 +81,7 @@ function startServer(options = {}, cb = Function.prototype) {
   console.log('\n');
 
   // Set TEST_HOST environment variable
-  process.env.TEST_HOST = `http://${serverConfig.hostname}:${serverConfig.port}`;
+  process.env.TEST_HOST = TEST_HOST;
 
   // Start server
   browserSync.init(
@@ -111,13 +119,20 @@ if (hasStartArg) {
   });
 }
 // Display friendly message about manually starting a server instance
-else if (require.main === module) {
+else if (isMain(import.meta)) {
   console.info('Use --start argument to manually start server instance');
 }
 
-module.exports = {
+// Replacement for CommonJS `require.main === module`. https://2ality.com/2022/07/nodejs-esm-main.html
+function isMain(meta) {
+  if (meta.url.startsWith('file:')) {
+    if (process.argv[1] === __filename) return true;
+  }
+  return false;
+}
+
+export default {
   start: startServer,
   startAsync: startServerAsync,
   stop: stopServer,
-  TEST_HOST: `http://${serverConfig.hostname}:${serverConfig.port}`,
 };

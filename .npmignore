@@ -1,5 +1,4 @@
 .eslintignore
-.eslintrc
+.eslintrc.cjs
 .github
 .gitignore
-.travis.yml

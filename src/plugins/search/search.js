@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { getAndRemoveConfig } from '../../core/render/utils';
-import { removeDocsifyIgnoreTag } from '../../core/util/str';
+import { getAndRemoveConfig } from '../../core/render/utils.js';
+import { removeDocsifyIgnoreTag } from '../../core/util/str.js';
 
 let INDEXS = {};
 
@@ -57,11 +57,9 @@ function getAllPaths(router) {
 
 function getTableData(token) {
   if (!token.text && token.type === 'table') {
-    token.cells.unshift(token.header);
-    token.text = token.cells
-      .map(function (rows) {
-        return rows.join(' | ');
-      })
+    token.rows.unshift(token.header);
+    token.text = token.rows
+      .map(columns => columns.map(r => r.text).join(' | '))
       .join(' |\n ');
   }
   return token.text;

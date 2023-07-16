@@ -1,13 +1,18 @@
-const rollup = require('rollup')
-const buble = require('rollup-plugin-buble')
-const commonjs = require('rollup-plugin-commonjs')
-const nodeResolve = require('rollup-plugin-node-resolve')
-const { uglify } = require('rollup-plugin-uglify')
-const replace = require('rollup-plugin-replace')
-const isProd = process.env.NODE_ENV === 'production'
-const version = process.env.VERSION || require('../package.json').version
-const chokidar = require('chokidar')
-const path = require('path')
+import * as rollup from 'rollup';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import uglify from '@rollup/plugin-terser';
+import replace from '@rollup/plugin-replace';
+import chokidar from 'chokidar';
+import path from 'path';
+import { relative } from './util.js';
+import { promises as fs } from 'fs';
+
+const pkgPath = relative(import.meta, '..', 'package.json');
+const pkgString = (await fs.readFile(pkgPath)).toString();
+const pkg = JSON.parse(pkgString);
+const isProd = process.env.NODE_ENV === 'production';
+const version = process.env.VERSION || pkg.version;
 
 /**
  * @param {{
@@ -22,15 +27,10 @@ async function build(opts) {
     .rollup({
       input: opts.input,
       plugins: (opts.plugins || []).concat([
-        buble({
-          transforms: {
-            dangerousForOf: true
-          }}),
         commonjs(),
         nodeResolve(),
         replace({
           __VERSION__: version,
-          'process.env.SSR': false
         })
       ]),
       onwarn: function (message) {
@@ -80,6 +80,7 @@ async function buildAllPlugin() {
   var plugins = [
     {name: 'search', input: 'search/index.js'},
     {name: 'ga', input: 'ga.js'},
+    {name: 'gtag', input: 'gtag.js'},
     {name: 'matomo', input: 'matomo.js'},
     {name: 'emoji', input: 'emoji.js'},
     {name: 'external-script', input: 'external-script.js'},

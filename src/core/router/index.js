@@ -1,8 +1,8 @@
-import { supportsPushState } from '../util/env';
-import * as dom from '../util/dom';
-import { noop } from '../util/core';
-import { HashHistory } from './history/hash';
-import { HTML5History } from './history/html5';
+import { supportsPushState } from '../util/env.js';
+import * as dom from '../util/dom.js';
+import { noop } from '../util/core.js';
+import { HashHistory } from './history/hash.js';
+import { HTML5History } from './history/html5.js';
 
 /**
  * @typedef {{

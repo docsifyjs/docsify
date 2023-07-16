@@ -1,7 +1,7 @@
-import { isMobile } from '../util/env';
-import { body, on } from '../util/dom';
-import * as sidebar from './sidebar';
-import { scrollIntoView, scroll2Top } from './scroll';
+import { isMobile } from '../util/env.js';
+import { body, on } from '../util/dom.js';
+import * as sidebar from './sidebar.js';
+import { scrollIntoView, scroll2Top } from './scroll.js';
 
 /** @typedef {import('../Docsify').Constructor} Constructor */
 

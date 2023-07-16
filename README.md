@@ -32,7 +32,10 @@
 - [`develop` branch preview](https://docsify-preview.vercel.app/)
 - [Documentation](https://docsify.js.org)
 - [CLI](https://github.com/docsifyjs/docsify-cli)
-- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
+- CDN:
+  - [UNPKG](https://unpkg.com/docsify/)
+  - [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/)
+  - [cdnjs](https://cdnjs.com/libraries/docsify)
 - [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
 - [Community chat](https://discord.gg/3NwKFyR)
 
@@ -44,7 +47,6 @@
 - Multiple themes
 - Useful plugin API
 - Compatible with IE11
-- Experimental SSR support ([example](https://github.com/docsifyjs/docsify-ssr-demo))
 - Support embedded files
 
 ## Quick start
@@ -63,34 +65,14 @@ Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
 
 | Project                                          | Description                              |
 | ------------------------------------------------ | ---------------------------------------- |
-| [docute](https://github.com/egoist/docute)       | 📜 Effortlessly documentation done right |
-| [docpress](https://github.com/docpress/docpress) | Documentation website generator          |
+| [Docusaurus](https://docusaurus.io) | Docusaurus makes it easy to maintain Open Source documentation websites |
+| [GitBook](https://www.gitbook.com) | Where technical teams document |
+| [MkDocs](https://www.mkdocs.org) | Project documentation with Markdown |
+| [VuePress](https://vuepress.vuejs.org) | Vue-powered Static Site Generator |
 
 ## Contributing
 
-### Online one-click setup for Contributing
-
-You can use Gitpod (a free online VS Code-like IDE) for contributing. With a single click it'll launch a workspace and automatically:
-
-- clone the docsify repo.
-- install the dependencies.
-- start `npm run dev`.
-
-So that you can start straight away.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
-
-- Fork it!
-- Create your feature branch: `git checkout -b my-new-feature`
-- Commit your changes: `git add . && git commit -m 'Add some feature'`
-- Push to the branch: `git push origin my-new-feature`
-- Submit a pull request
-
-## Development
-
-```bash
-npm run bootstrap && npm run dev
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Backers
 

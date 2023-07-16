@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { isMobile } from '../util/env';
-import * as dom from '../util/dom';
+import { isMobile } from '../util/env.js';
+import * as dom from '../util/dom.js';
 
 const title = dom.$.title;
 /**

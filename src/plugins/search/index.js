@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { init as initComponent, update as updateComponent } from './component';
-import { init as initSearch } from './search';
+import {
+  init as initComponent,
+  update as updateComponent,
+} from './component.js';
+import { init as initSearch } from './search.js';
 
 const CONFIG = {
   placeholder: 'Type to search',

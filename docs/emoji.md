@@ -34,6 +34,8 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 
 :accept: `:accept:`
 
+:accessibility: `:accessibility:`
+
 :accordion: `:accordion:`
 
 :adhesive_bandage: `:adhesive_bandage:`
@@ -920,6 +922,8 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 
 :department_store: `:department_store:`
 
+:dependabot: `:dependabot:`
+
 :derelict_house: `:derelict_house:`
 
 :desert: `:desert:`
@@ -1237,6 +1241,8 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 :fish_cake: `:fish_cake:`
 
 :fishing_pole_and_fish: `:fishing_pole_and_fish:`
+
+:fishsticks: `:fishsticks:`
 
 :fist: `:fist:`
 

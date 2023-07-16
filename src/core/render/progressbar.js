@@ -1,4 +1,4 @@
-import * as dom from '../util/dom';
+import * as dom from '../util/dom.js';
 
 let barEl;
 let timeId;
