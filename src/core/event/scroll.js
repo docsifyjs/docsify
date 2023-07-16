@@ -1,8 +1,8 @@
 import Tweezer from 'tweezer.js';
-import { isMobile } from '../util/env';
-import * as dom from '../util/dom';
-import { removeParams } from '../router/util';
-import config from '../config';
+import { isMobile } from '../util/env.js';
+import * as dom from '../util/dom.js';
+import { removeParams } from '../router/util.js';
+import config from '../config.js';
 
 const nav = {};
 let hoverOver = false;

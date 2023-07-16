@@ -1,5 +1,5 @@
-import { documentReady } from './util/dom';
-import { Docsify } from './Docsify';
+import { documentReady } from './util/dom.js';
+import { Docsify } from './Docsify.js';
 
 /**
  * Run Docsify

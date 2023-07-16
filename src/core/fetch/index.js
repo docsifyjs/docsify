@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { getParentPath, stringifyQuery } from '../router/util';
-import { noop, isExternal } from '../util/core';
-import { getAndActive } from '../event/sidebar';
-import { get } from './ajax';
+import { getParentPath, stringifyQuery } from '../router/util.js';
+import { noop, isExternal } from '../util/core.js';
+import { getAndActive } from '../event/sidebar.js';
+import { get } from './ajax.js';
 
 function loadNested(path, qs, file, next, vm, first) {
   path = first ? path : path.replace(/\/$/, '');

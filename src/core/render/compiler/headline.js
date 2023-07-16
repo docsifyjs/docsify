@@ -2,8 +2,8 @@ import {
   getAndRemoveConfig,
   removeAtag,
   getAndRemoveDocisfyIgnorConfig,
-} from '../utils';
-import { slugify } from './slugify';
+} from '../utils.js';
+import { slugify } from './slugify.js';
 
 export const headingCompiler = ({ renderer, router, _self }) =>
   (renderer.code = (text, level) => {

@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import tinydate from 'tinydate';
-import * as dom from '../util/dom';
-import cssVars from '../util/polyfill/css-vars';
-import { getAndActive, sticky } from '../event/sidebar';
-import { getPath, isAbsolutePath } from '../router/util';
-import { isMobile, inBrowser } from '../util/env';
-import { isPrimitive, merge } from '../util/core';
-import { scrollActiveSidebar } from '../event/scroll';
-import { Compiler } from './compiler';
-import * as tpl from './tpl';
-import { prerenderEmbed } from './embed';
+import * as dom from '../util/dom.js';
+import cssVars from '../util/polyfill/css-vars.js';
+import { getAndActive, sticky } from '../event/sidebar.js';
+import { getPath, isAbsolutePath } from '../router/util.js';
+import { isMobile, inBrowser } from '../util/env.js';
+import { isPrimitive, merge } from '../util/core.js';
+import { scrollActiveSidebar } from '../event/scroll.js';
+import { Compiler } from './compiler.js';
+import * as tpl from './tpl.js';
+import { prerenderEmbed } from './embed.js';
 
 let vueGlobalData;
 

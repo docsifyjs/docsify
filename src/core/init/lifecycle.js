@@ -1,4 +1,4 @@
-import { noop } from '../util/core';
+import { noop } from '../util/core.js';
 
 /** @typedef {import('../Docsify').Constructor} Constructor */
 

@@ -6,8 +6,8 @@ import { VirtualRoutes } from './virtual-routes/index.js';
 import initGlobalAPI from './global-api.js';
 
 import config from './config.js';
-import { isFn } from './util/core';
-import { Lifecycle } from './init/lifecycle';
+import { isFn } from './util/core.js';
+import { Lifecycle } from './init/lifecycle.js';
 
 /** @typedef {new (...args: any[]) => any} Constructor */
 

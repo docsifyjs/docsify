@@ -1,10 +1,10 @@
-const liveServer = require('live-server')
-const middleware = []
+import liveServer from 'live-server';
+const middleware = [];
 
 const params = {
   port: 3000,
   watch: ['lib', 'docs', 'themes'],
-  middleware
-}
+  middleware,
+};
 
-liveServer.start(params)
+liveServer.start(params);

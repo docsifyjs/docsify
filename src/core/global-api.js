@@ -1,10 +1,10 @@
 import prism from 'prismjs';
 import { marked } from 'marked';
-import * as util from './util';
-import * as dom from './util/dom';
-import { Compiler } from './render/compiler';
-import { slugify } from './render/slugify';
-import { get } from './fetch/ajax';
+import * as util from './util/index.js';
+import * as dom from './util/dom.js';
+import { Compiler } from './render/compiler.js';
+import { slugify } from './render/slugify.js';
+import { get } from './fetch/ajax.js';
 
 // TODO This is deprecated, kept for backwards compatibility. Remove in next
 // major release. We'll tell people to get everything from the DOCSIFY global

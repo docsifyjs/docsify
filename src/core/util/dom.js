@@ -1,5 +1,5 @@
-import { isFn } from '../util/core';
-import { inBrowser } from './env';
+import { isFn } from '../util/core.js';
+import { inBrowser } from './env.js';
 
 const cacheNode = {};
 
