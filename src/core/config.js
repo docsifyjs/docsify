@@ -3,7 +3,7 @@ import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;
 
-/** @param {import('./Docsify').Docsify} vm */
+/** @param {import('./Docsify.js').Docsify} vm */
 export default function (vm) {
   const config = Object.assign(
     {

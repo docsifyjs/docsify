@@ -3,7 +3,6 @@ import { Render } from './render/index.js';
 import { Fetch } from './fetch/index.js';
 import { Events } from './event/index.js';
 import { VirtualRoutes } from './virtual-routes/index.js';
-import initGlobalAPI from './global-api.js';
 
 import config from './config.js';
 import { isFn } from './util/core.js';
@@ -16,10 +15,10 @@ export class Docsify extends Fetch(
   // eslint-disable-next-line new-cap
   Events(Render(VirtualRoutes(Router(Lifecycle(Object)))))
 ) {
+  config = config(this);
+
   constructor() {
     super();
-
-    this.config = config(this);
 
     this.initLifecycle(); // Init hooks
     this.initPlugin(); // Install plugins
@@ -46,8 +45,3 @@ export class Docsify extends Fetch(
     });
   }
 }
-
-/**
- * Global API
- */
-initGlobalAPI();

@@ -1,5 +1,5 @@
 import stripIndent from 'strip-indent';
-import { get } from '../fetch/ajax.js';
+import { get } from '../util/ajax.js';
 
 const cached = {};
 

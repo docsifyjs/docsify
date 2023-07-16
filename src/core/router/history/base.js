@@ -8,30 +8,35 @@ import {
 } from '../util.js';
 import { noop } from '../../util/core.js';
 
-const cached = {};
-
-function getAlias(path, alias, last) {
-  const match = Object.keys(alias).filter(key => {
-    const re = cached[key] || (cached[key] = new RegExp(`^${key}$`));
-    return re.test(path) && path !== last;
-  })[0];
-
-  return match
-    ? getAlias(path.replace(cached[match], alias[match]), alias, path)
-    : path;
-}
-
-function getFileName(path, ext) {
-  return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-    ? path
-    : /\/$/g.test(path)
-    ? `${path}README${ext}`
-    : `${path}${ext}`;
-}
-
 export class History {
+  #cached = {};
+
   constructor(config) {
     this.config = config;
+  }
+
+  #getAlias(path, alias, last) {
+    const match = Object.keys(alias).filter(key => {
+      const re =
+        this.#cached[key] || (this.#cached[key] = new RegExp(`^${key}$`));
+      return re.test(path) && path !== last;
+    })[0];
+
+    return match
+      ? this.#getAlias(
+          path.replace(this.#cached[match], alias[match]),
+          alias,
+          path
+        )
+      : path;
+  }
+
+  #getFileName(path, ext) {
+    return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
+      ? path
+      : /\/$/g.test(path)
+      ? `${path}README${ext}`
+      : `${path}${ext}`;
   }
 
   getBasePath() {
@@ -43,8 +48,8 @@ export class History {
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
 
-    path = config.alias ? getAlias(path, config.alias) : path;
-    path = getFileName(path, ext);
+    path = config.alias ? this.#getAlias(path, config.alias) : path;
+    path = this.#getFileName(path, ext);
     path = path === `/README${ext}` ? config.homepage || path : path;
     path = isAbsolutePath(path) ? path : getPath(base, path);
 

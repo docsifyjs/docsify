@@ -8,7 +8,7 @@ import { emojify } from './emojify.js';
 import {
   getAndRemoveConfig,
   removeAtag,
-  getAndRemoveDocisfyIgnorConfig,
+  getAndRemoveDocisfyIgnoreConfig,
 } from './utils.js';
 import { imageCompiler } from './compiler/image.js';
 import { highlightCodeCompiler } from './compiler/code.js';
@@ -214,7 +214,7 @@ export class Compiler {
       const nextToc = { level, title: str };
 
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnorConfig(str);
+        getAndRemoveDocisfyIgnoreConfig(str);
       str = content.trim();
 
       nextToc.title = removeAtag(str);

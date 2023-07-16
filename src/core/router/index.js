@@ -12,7 +12,7 @@ import { HTML5History } from './history/html5.js';
 /** @type {Route} */
 let lastRoute = {};
 
-/** @typedef {import('../Docsify').Constructor} Constructor */
+/** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /**
  * @template {!Constructor} T
@@ -20,12 +20,7 @@ let lastRoute = {};
  */
 export function Router(Base) {
   return class Router extends Base {
-    /** @param {any[]} args */
-    constructor(...args) {
-      super(...args);
-
-      this.route = {};
-    }
+    route = {};
 
     updateRender() {
       this.router.normalize();
