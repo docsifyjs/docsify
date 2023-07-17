@@ -27,17 +27,7 @@
   </a>
 </p>
 
-## Links
-
-- [`develop` branch preview](https://docsify-preview.vercel.app/)
-- [Documentation](https://docsify.js.org)
-- [CLI](https://github.com/docsifyjs/docsify-cli)
-- CDN:
-  - [UNPKG](https://unpkg.com/docsify/)
-  - [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/)
-  - [cdnjs](https://cdnjs.com/libraries/docsify)
-- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
-- [Community chat](https://discord.gg/3NwKFyR)
+Docsify turns one or more Markdown files into a Website, with no build process required.  
 
 ## Features
 
@@ -46,28 +36,35 @@
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
+- Compatible with IE11
 - Support embedded files
 
-## Quick start
+## Quick Start
 
-Look at [this tutorial](https://docsify.js.org/#/quickstart)
+Get going fast by using GitHub Pages with this ready-to-use [Docsify Template](https://github.com/docsifyjs/docsify-template), review the [quick start tutorial](https://docsify.js.org/#/quickstart) or jump right into a CodeSandbox example site with the button below.
 
 [![Edit 307qqv236](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
 
 ## Showcase
 
-These projects are using docsify to generate their sites. Pull requests welcome :blush:
+A large collection of showcase projects are included in [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase).
 
-Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
+## Links
 
-## Similar projects
+- [Documentation](https://docsify.js.org)
+- [Docsify CLI (Command Line Interface)](https://github.com/docsifyjs/docsify-cli)
+- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
+- [`develop` branch preview](https://docsify-preview.vercel.app/)
+- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
+- [Community chat](https://discord.gg/3NwKFyR)
+
+## Similar Projects
 
 | Project                                          | Description                              |
 | ------------------------------------------------ | ---------------------------------------- |
 | [Docusaurus](https://docusaurus.io) | Docusaurus makes it easy to maintain Open Source documentation websites |
-| [GitBook](https://www.gitbook.com) | Where technical teams document |
 | [MkDocs](https://www.mkdocs.org) | Project documentation with Markdown |
-| [VuePress](https://vuepress.vuejs.org) | Vue-powered Static Site Generator |
+| [VitePress](https://vitepress.dev/) | Vite & Vue Powered Static Site Generator |
 
 ## Contributing
 
