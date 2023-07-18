@@ -36,7 +36,6 @@ Docsify turns one or more Markdown files into a Website, with no build process r
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE11
 - Support embedded files
 
 ## Quick Start
