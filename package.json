@@ -86,7 +86,7 @@
     "@types/eslint": "^8.40.2",
     "autoprefixer-stylus": "^1.0.0",
     "axios": "^0.21.1",
-    "babel-jest": "^27.4.6",
+    "babel-jest": "^29.6.2",
     "browser-sync": "^2.26.12",
     "chokidar": "^3.4.2",
     "common-tags": "^1.8.0",
