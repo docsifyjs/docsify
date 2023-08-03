@@ -838,11 +838,13 @@ For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
 > **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
 >
-> <style>
->   :root {
->     --theme-color: deeppink;
->   }
-> </style>
+```html
+<style>
+   :root {
+     --theme-color: deeppink;
+   }
+</style>
+```
 
 - Type: `String`
 
