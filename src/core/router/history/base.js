@@ -26,7 +26,9 @@ function getFileName(path, ext) {
     ? path
     : /\/$/g.test(path)
     ? `${path}README${ext}`
-    : `${path}${ext}`;
+    : path.indexOf('?') === -1
+    ? `${path}${ext}`
+    : path;
 }
 
 export class History {
