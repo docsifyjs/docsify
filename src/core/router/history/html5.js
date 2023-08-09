@@ -4,10 +4,7 @@ import { parseQuery, getPath } from '../util.js';
 import { History } from './base.js';
 
 export class HTML5History extends History {
-  constructor(config) {
-    super(config);
-    this.mode = 'history';
-  }
+  mode = 'history';
 
   getCurrentPath() {
     const base = this.getBasePath();

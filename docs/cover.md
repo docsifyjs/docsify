@@ -11,8 +11,8 @@ Set `coverpage` to **true**, and create a `_coverpage.md`:
 
 <script>
   window.$docsify = {
-    coverpage: true
-  }
+    coverpage: true,
+  };
 </script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
@@ -81,7 +81,7 @@ Now, you can set
 
 ```js
 window.$docsify = {
-  coverpage: ['/', '/zh-cn/']
+  coverpage: ['/', '/zh-cn/'],
 };
 ```
 
@@ -91,7 +91,7 @@ Or a special file name
 window.$docsify = {
   coverpage: {
     '/': 'cover.md',
-    '/zh-cn/': 'cover.md'
-  }
+    '/zh-cn/': 'cover.md',
+  },
 };
 ```

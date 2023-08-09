@@ -1,0 +1,6 @@
+CHANGELOG.md
+HISTORY.md
+lib/
+themes/
+_playwright-*/
+emoji-data.*

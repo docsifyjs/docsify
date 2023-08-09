@@ -27,7 +27,7 @@
   </a>
 </p>
 
-Docsify turns one or more Markdown files into a Website, with no build process required.  
+Docsify turns one or more Markdown files into a Website, with no build process required.
 
 ## Features
 
@@ -56,14 +56,6 @@ A large collection of showcase projects are included in [awesome-docsify](https:
 - [`develop` branch preview](https://docsify-preview.vercel.app/)
 - [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
 - [Community chat](https://discord.gg/3NwKFyR)
-
-## Similar Projects
-
-| Project                                          | Description                              |
-| ------------------------------------------------ | ---------------------------------------- |
-| [Docusaurus](https://docusaurus.io) | Docusaurus makes it easy to maintain Open Source documentation websites |
-| [MkDocs](https://www.mkdocs.org) | Project documentation with Markdown |
-| [VitePress](https://vitepress.dev/) | Vite & Vue Powered Static Site Generator |
 
 ## Contributing
 

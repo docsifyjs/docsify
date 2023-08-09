@@ -7,11 +7,9 @@ function replaceHash(path) {
   const i = location.href.indexOf('#');
   location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path);
 }
+
 export class HashHistory extends History {
-  constructor(config) {
-    super(config);
-    this.mode = 'hash';
-  }
+  mode = 'hash';
 
   getBasePath() {
     const path = window.location.pathname || '';

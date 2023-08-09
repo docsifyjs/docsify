@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { getAndRemoveConfig } from '../../core/render/utils.js';
-import { removeDocsifyIgnoreTag } from '../../core/util/str.js';
+import {
+  getAndRemoveConfig,
+  getAndRemoveDocisfyIgnoreConfig,
+} from '../../core/render/utils.js';
 
 let INDEXS = {};
 
@@ -88,7 +90,7 @@ export function genIndex(path, content = '', router, depth) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = removeDocsifyIgnoreTag(token.text);
+      const text = getAndRemoveDocisfyIgnoreConfig(token.text).content;
 
       if (config.id) {
         slug = router.toURL(path, { id: slugify(config.id) });
@@ -97,7 +99,7 @@ export function genIndex(path, content = '', router, depth) {
       }
 
       if (str) {
-        title = removeDocsifyIgnoreTag(str);
+        title = getAndRemoveDocisfyIgnoreConfig(str).content;
       }
 
       index[slug] = { slug, title: title, body: '' };

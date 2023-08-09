@@ -1,7 +1,7 @@
 // @ts-check
 /* eslint-disable no-unused-vars */
 import progressbar from '../render/progressbar.js';
-import { noop } from '../util/core.js';
+import { noop } from './core.js';
 
 /** @typedef {{updatedAt: string}} CacheOpt */
 

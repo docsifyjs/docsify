@@ -1,7 +1,7 @@
 import {
   removeAtag,
   getAndRemoveConfig,
-  getAndRemoveDocisfyIgnorConfig,
+  getAndRemoveDocisfyIgnoreConfig,
 } from '../../src/core/render/utils.js';
 import { tree } from '../../src/core/render/tpl.js';
 import { slugify } from '../../src/core/render/slugify.js';
@@ -24,7 +24,7 @@ describe('core/render/utils', () => {
   describe('getAndRemoveDocisfyIgnorConfig()', () => {
     test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore} -->', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnorConfig(
+        getAndRemoveDocisfyIgnoreConfig(
           'My Ignore Title<!-- {docsify-ignore} -->'
         );
       expect(content).toBe('My Ignore Title');
@@ -34,7 +34,7 @@ describe('core/render/utils', () => {
 
     test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore-all} -->', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnorConfig(
+        getAndRemoveDocisfyIgnoreConfig(
           'My Ignore Title<!-- {docsify-ignore-all} -->'
         );
       expect(content).toBe('My Ignore Title');
@@ -44,7 +44,7 @@ describe('core/render/utils', () => {
 
     test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore}', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnorConfig('My Ignore Title{docsify-ignore}');
+        getAndRemoveDocisfyIgnoreConfig('My Ignore Title{docsify-ignore}');
       expect(content).toBe('My Ignore Title');
       expect(ignoreSubHeading).toBeTruthy();
       expect(ignoreAllSubs === undefined).toBeTruthy();
@@ -52,7 +52,7 @@ describe('core/render/utils', () => {
 
     test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore-all}', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnorConfig('My Ignore Title{docsify-ignore-all}');
+        getAndRemoveDocisfyIgnoreConfig('My Ignore Title{docsify-ignore-all}');
       expect(content).toBe('My Ignore Title');
       expect(ignoreAllSubs).toBeTruthy();
       expect(ignoreSubHeading === undefined).toBeTruthy();
