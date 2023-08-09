@@ -9,10 +9,10 @@ window.$docsify = {
     renderer: {
       link() {
         // ...
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
 
 ?> Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
@@ -24,9 +24,9 @@ window.$docsify = {
   markdown(marked, renderer) {
     // ...
 
-    return marked
-  }
-}
+    return marked;
+  },
+};
 ```
 
 ## Supports mermaid
@@ -43,14 +43,17 @@ window.$docsify = {
   markdown: {
     renderer: {
       code(code, lang) {
-        if (lang === "mermaid") {
+        if (lang === 'mermaid') {
           return /* html */ `
-            <div class="mermaid">${mermaid.render('mermaid-svg-' + num++, code)}</div>
+            <div class="mermaid">${mermaid.render(
+              'mermaid-svg-' + num++,
+              code
+            )}</div>
           `;
         }
         return this.origin.code.apply(this, arguments);
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
