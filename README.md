@@ -69,7 +69,7 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 ## Sponsors
 
-Thx for supporting this project！:heart: [[Become a sponsor](https://opencollective.com/docsify)]
+Thank you for supporting this project！:heart: [[Become a sponsor](https://opencollective.com/docsify)]
 
 <img src="https://opencollective.com/docsify/sponsors.svg?width=890" />
 
