@@ -103,7 +103,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "globals": "^13.20.0",
     "husky": "^8.0.3",
-    "jest": "^27.4.7",
+    "jest": "^29.6.4",
     "lint-staged": "^13.2.2",
     "live-server": "^1.2.1",
     "mkdirp": "^3.0.0",
