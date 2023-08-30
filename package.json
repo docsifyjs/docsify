@@ -86,7 +86,7 @@
     "@rollup/plugin-terser": "^0.4.3",
     "@types/eslint": "^8.40.2",
     "autoprefixer-stylus": "^1.0.0",
-    "axios": "^0.21.1",
+    "axios": "^1.5.0",
     "babel-jest": "^27.4.6",
     "browser-sync": "^2.26.12",
     "chokidar": "^3.4.2",
