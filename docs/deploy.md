@@ -139,7 +139,7 @@ frontend:
 
 - Create docsify files
 
-  You need prepare the initial files instead of making them inside the container.
+  You need to prepare the initial files instead of making them inside the container.
   See the [Quickstart](https://docsify.js.org/#/quickstart) section for instructions on how to create these files manually or using [docsify-cli](https://github.com/docsifyjs/docsify-cli).
 
   ```sh
