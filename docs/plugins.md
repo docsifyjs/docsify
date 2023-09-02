@@ -49,7 +49,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Use different indexes for path prefixes (namespaces).
       // NOTE: Only works in 'auto' mode.
       //
-      // When initialiazing an index, we look for the first path from the sidebar.
+      // When initializing an index, we look for the first path from the sidebar.
       // If it matches the prefix from the list, we switch to the corresponding index.
       pathNamespaces: ['/zh-cn', '/ru-ru', '/ru-ru/v1'],
 
