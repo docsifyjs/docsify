@@ -73,7 +73,7 @@ Example:
 
 If you embed the file as `iframe`, `audio` and `video`, then you may need to set the attributes of these tags.
 
-?> Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want add more attributes, the `controls` attribute need to be added manually if need be.
+?> Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want to add more attributes, the `controls` attribute need to be added manually if need be.
 
 ```md
 [filename](_media/example.mp4 ':include :type=video controls width=100%')
