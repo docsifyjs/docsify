@@ -233,7 +233,7 @@ Notice the behavior when multiple global counters are rendered:
   </p>
 </output>
 
-Changes made to one counter affect the both counters. This is because both instances reference the same global `count` value. Now, navigate to a new page and return to this section to see how changes made to global data persist between page loads.
+Changes made to one counter affect both counters. This is because both instances reference the same global `count` value. Now, navigate to a new page and return to this section to see how changes made to global data persist between page loads.
 
 ## Mounts
 
@@ -302,7 +302,7 @@ window.$docsify = {
 
 ## Markdown script
 
-Vue content can mounted using a `<script>` tag in your markdown pages.
+Vue content can be mounted using a `<script>` tag in your markdown pages.
 
 !> Only the first `<script>` tag in a markdown file is executed. If you wish to mount multiple Vue instances using a script tag, all instances must be mounted within the first script tag in your markdown.
 
