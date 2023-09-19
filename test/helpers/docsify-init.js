@@ -1,12 +1,13 @@
 /* globals page */
+import _mock, { proxy } from 'xhr-mock';
 
-const axios = require('axios');
-const mock = require('xhr-mock').default;
-const prettier = require('prettier');
-const stripIndent = require('common-tags/lib/stripIndent');
-const { proxy } = require('xhr-mock');
-const { waitForSelector } = require('./wait-for');
+import axios from 'axios';
+import prettier from 'prettier';
+import stripIndent from 'common-tags/lib/stripIndent/index.js';
+// import { TEST_HOST } from '../config/server.js';
+import { waitForSelector } from './wait-for.js';
 
+const mock = _mock.default;
 const docsifyPATH = '../../lib/docsify.js'; // JSDOM
 const docsifyURL = '/lib/docsify.js'; // Playwright
 
@@ -224,11 +225,29 @@ async function docsifyInit(options = {}) {
 
     await page.evaluate(config => {
       // Restore config functions from strings
-      const configObj = JSON.parse(config, (key, val) =>
-        /^__FN__/.test(val)
-          ? new Function(`return ${val.split('__FN__')[1]}`)()
-          : val
-      );
+      const configObj = JSON.parse(config, (key, val) => {
+        if (/^__FN__/.test(val)) {
+          let source = val.split('__FN__')[1];
+
+          // f.e. `foo() {}` or `'bar!?'() {}` without the `function ` prefix
+          const isConcise =
+            !source.includes('function') && !source.includes('=>');
+
+          if (isConcise) {
+            source = `{ ${source} }`;
+          } else {
+            source = `{ _: ${source} }`;
+          }
+
+          return new Function(/* js */ `
+            const o = ${source}
+            const keys = Object.keys(o)
+            return o[keys[0]]
+          `)();
+        } else {
+          return val;
+        }
+      });
 
       window.$docsify = configObj;
     }, configString);
@@ -262,7 +281,7 @@ async function docsifyInit(options = {}) {
     const isDocsifyLoaded = 'Docsify' in window;
 
     if (!isDocsifyLoaded) {
-      require(docsifyPATH);
+      await import(docsifyPATH);
     }
   } else if (isPlaywright) {
     for (const url of settings.scriptURLs) {
@@ -358,4 +377,4 @@ async function docsifyInit(options = {}) {
   return Promise.resolve();
 }
 
-module.exports = docsifyInit;
+export default docsifyInit;

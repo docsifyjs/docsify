@@ -44,10 +44,15 @@ window.$docsify = {
     '/zh-cn/changelog': '/changelog',
     '/changelog':
       'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+
+    // You may need this if you use routerMode:'history'.
     '/.*/_sidebar.md': '/_sidebar.md', // See #301
   },
 };
 ```
+
+> **Note** If you change [`routerMode`](#routermode) to `'history'`, you may
+> want to configure an alias for your `_sidebar.md` and `_navbar.md` files.
 
 ## auto2top
 
@@ -244,7 +249,7 @@ See https://github.com/lukeed/tinydate#patterns
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function (time) {
+  formatUpdated(time) {
     // ...
 
     return time;
@@ -341,14 +346,14 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function () {
+      link() {
         // ...
       },
     },
   },
 
   // function
-  markdown: function (marked, renderer) {
+  markdown(marked, renderer) {
     // ...
     return marked;
   },
@@ -659,6 +664,8 @@ window.$docsify = {
 
 ## routerMode
 
+Configure the URL format that the paths of your site will use.
+
 - Type: `String`
 - Default: `'hash'`
 
@@ -667,6 +674,57 @@ window.$docsify = {
   routerMode: 'history', // default: 'hash'
 };
 ```
+
+For statically-deployed sites (f.e. on GitHub Pages) hash-based routing is
+simpler to set up. For websites that can re-write URLs, the history-based format
+is better (especially for search-engine optimization, hash-based routing is not
+so search-engine friendly)
+
+Hash-based routing means all URL paths will be prefixed with `/#/` in the
+address bar. This is a trick that allows the site to load `/index.html`, then it
+uses the path that follows the `#` to determine what markdown files to load. For
+example, a complete hash-based URL may look like this:
+`https://example.com/#/path/to/page`. The browser will actually load
+`https://example.com` (assuming your static server serves
+`index.html` by default, as most do), and then the Docsify JavaScript code will
+look at the `/#/...` and determine the markdown file to load and render.
+Additionally, when clicking on a link, the Docsify router will change the
+content after the hash dynamically. The value of `location.pathname` will still be
+`/` no matter what. The parts of a hash path are _not_ sent to the server when
+visiting such a URL in a browser.
+
+On the other hand, history-based routing means the Docsify JavaScript will use
+the [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
+to dynamically change the URL without using a `#`. This means that all URLs will
+be considered "real" by search engines, and the full path will be sent to the
+server when visiting the URL in your browser. For example, a URL may look like
+`https://example.com/path/to/page`. The browser will try to load that full URL
+directly from the server, not just `https://example.com`. The upside of this is
+that these types of URLs are much more friendly for search engines, and can be
+indexed (yay!). The downside, however, is that your server, or the place where
+you host your site files, has to be able to handle these URLs. Various static
+website hosting services allow "rewrite rules" to be configured, such that a
+server can be configured to always send back `/index.html` no matter what path
+is visited. The value of `location.pathname` will show `/path/to/page`, because
+it was actually sent to the server.
+
+TLDR: start with `hash` routing (the default). If you feel adventurous, learn
+how to configure a server, then switch to `history` mode for better experience
+without the `#` in the URL and SEO optimization.
+
+> **Note** If you use `routerMode: 'history'`, you may want to add an
+> [`alias`](#alias) to make your `_sidebar.md` and `_navbar.md` files always be
+> loaded no matter which path is being visited.
+>
+> ```js
+> window.$docsify = {
+>   routerMode: 'history',
+>   alias: {
+>     '/.*/_sidebar.md': '/_sidebar.md',
+>     '/.*/_navbar.md': '/_navbar.md',
+>   },
+> };
+> ```
 
 ## routes
 
@@ -689,18 +747,17 @@ window.$docsify = {
     '/foo': '# Custom Markdown',
 
     // RegEx match w/ synchronous function
-    '/bar/(.*)': function (route, matched) {
+    '/bar/(.*)'(route, matched) {
       return '# Custom Markdown';
     },
 
     // RegEx match w/ asynchronous function
-    '/baz/(.*)': function (route, matched, next) {
-      // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
+    '/baz/(.*)'(route, matched, next) {
       fetch('/api/users?id=12345')
-        .then(function (response) {
+        .then(response => {
           next('# Custom Markdown');
         })
-        .catch(function (err) {
+        .catch(err => {
           // Handle error...
         });
     },
@@ -714,7 +771,7 @@ Other than strings, route functions can return a falsy value (`null` \ `undefine
 window.$docsify = {
   routes: {
     // accepts everything other than dogs (synchronous)
-    '/pets/(.+)': function(route, matched) {
+    '/pets/(.+)'(route, matched) {
       if (matched[0] === 'dogs') {
         return null;
       } else {
@@ -723,7 +780,7 @@ window.$docsify = {
     }
 
     // accepts everything other than cats (asynchronous)
-    '/pets/(.*)': function(route, matched, next) {
+    '/pets/(.*)'(route, matched, next) {
       if (matched[0] === 'cats') {
         next();
       } else {
@@ -741,12 +798,12 @@ Finally, if you have a specific path that has a real markdown file (and therefor
 window.$docsify = {
   routes: {
     // if you look up /pets/cats, docsify will skip all routes and look for "pets/cats.md"
-    '/pets/cats': function(route, matched) {
+    '/pets/cats'(route, matched) {
       return false;
     }
 
     // but any other pet should generate dynamic content right here
-    '/pets/(.+)': function(route, matched) {
+    '/pets/(.+)'(route, matched) {
       const pet = matched[0];
       return `your pet is ${pet} (but not a cat)`;
     }
@@ -777,11 +834,21 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor
+## themeColor (_deprecated_)
+
+> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
+>
+> ```html
+> <style>
+>   :root {
+>     --theme-color: deeppink;
+>   }
+> </style>
+> ```
 
 - Type: `String`
 
-Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in older browsers.
+Customize the theme color.
 
 ```js
 window.$docsify = {

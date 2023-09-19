@@ -125,8 +125,4 @@ function waitForText(cssSelector, text, options = {}) {
   });
 }
 
-module.exports = {
-  waitForFunction,
-  waitForSelector,
-  waitForText,
-};
+export { waitForFunction, waitForSelector, waitForText };

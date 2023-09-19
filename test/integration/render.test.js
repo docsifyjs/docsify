@@ -1,5 +1,5 @@
-const stripIndent = require('common-tags/lib/stripIndent');
-const docsifyInit = require('../helpers/docsify-init');
+import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ describe('render', function () {
       const output = window.marked('![alt text](http://imageUrl)');
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\"></p>"`
+        `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\"  /></p>"`
       );
     });
 

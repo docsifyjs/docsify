@@ -1,5 +1,5 @@
-import { getAndRemoveConfig } from '../utils';
-import { isAbsolutePath } from '../../router/util';
+import { getAndRemoveConfig } from '../utils.js';
+import { isAbsolutePath } from '../../router/util.js';
 
 export const linkCompiler = ({
   renderer,
@@ -60,5 +60,5 @@ export const linkCompiler = ({
       attrs.push(`title="${title}"`);
     }
 
-    return `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
+    return /* html */ `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
   });

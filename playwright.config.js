@@ -1,4 +1,4 @@
-const { devices } = require('@playwright/test');
+import { devices } from '@playwright/test';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -61,4 +61,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+export default config;

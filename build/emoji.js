@@ -1,6 +1,6 @@
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
 
 const filePaths = {
   emojiMarkdown: path.resolve(process.cwd(), 'docs', 'emoji.md'),
@@ -93,17 +93,15 @@ function writeEmojiJS(emojiData) {
   }
 }
 
-(async () => {
-  console.info('Build emoji');
+console.info('Build emoji');
 
-  try {
-    const emojiData = await getEmojiData();
+try {
+  const emojiData = await getEmojiData();
 
-    if (emojiData) {
-      writeEmojiPage(emojiData);
-      writeEmojiJS(emojiData);
-    }
-  } catch (err) {
-    console.warn(`- Error: ${err.message}`);
+  if (emojiData) {
+    writeEmojiPage(emojiData);
+    writeEmojiJS(emojiData);
   }
-})();
+} catch (err) {
+  console.warn(`- Error: ${err.message}`);
+}

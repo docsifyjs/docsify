@@ -1,5 +1,5 @@
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 /**
  * Navigate to a specific route in the site
@@ -8,6 +8,8 @@ const { test, expect } = require('./fixtures/docsify-init-fixture');
  */
 async function navigateToRoute(page, route) {
   await page.evaluate(r => (window.location.hash = r), route);
+  // TODO: playwright eslint now recommends not using networkidle
+  // eslint-disable-next-line
   await page.waitForLoadState('networkidle');
 }
 
@@ -99,9 +101,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       page,
     }) => {
       const routes = {
-        '/pets/(.*)': function (route) {
-          return `# Route: /pets/dog`;
-        },
+        '/pets/(.*)': route => `# Route: /pets/dog`,
       };
 
       await docsifyInit({
@@ -120,7 +120,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       page,
     }) => {
       const routes = {
-        '/pets/(.*)': function (_, matched) {
+        '/pets/(.*)'(_, matched) {
           return `# Pets Page (${matched[1]})`;
         },
       };

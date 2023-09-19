@@ -1,21 +1,21 @@
 import { marked } from 'marked';
-import { isAbsolutePath, getPath, getParentPath } from '../router/util';
-import { isFn, merge, cached, isPrimitive } from '../util/core';
-import { tree as treeTpl } from './tpl';
-import { genTree } from './gen-tree';
-import { slugify } from './slugify';
-import { emojify } from './emojify';
+import { isAbsolutePath, getPath, getParentPath } from '../router/util.js';
+import { isFn, cached, isPrimitive } from '../util/core.js';
+import { tree as treeTpl } from './tpl.js';
+import { genTree } from './gen-tree.js';
+import { slugify } from './slugify.js';
+import { emojify } from './emojify.js';
 import {
   getAndRemoveConfig,
   removeAtag,
-  getAndRemoveDocisfyIgnorConfig,
-} from './utils';
-import { imageCompiler } from './compiler/image';
-import { highlightCodeCompiler } from './compiler/code';
-import { paragraphCompiler } from './compiler/paragraph';
-import { taskListCompiler } from './compiler/taskList';
-import { taskListItemCompiler } from './compiler/taskListItem';
-import { linkCompiler } from './compiler/link';
+  getAndRemoveDocisfyIgnoreConfig,
+} from './utils.js';
+import { imageCompiler } from './compiler/image.js';
+import { highlightCodeCompiler } from './compiler/code.js';
+import { paragraphCompiler } from './compiler/paragraph.js';
+import { taskListCompiler } from './compiler/taskList.js';
+import { taskListItemCompiler } from './compiler/taskListItem.js';
+import { linkCompiler } from './compiler/link.js';
 
 const cachedLinks = {};
 
@@ -83,8 +83,8 @@ export class Compiler {
       compile = mdConf(marked, renderer);
     } else {
       marked.setOptions(
-        merge(mdConf, {
-          renderer: merge(renderer, mdConf.renderer),
+        Object.assign(mdConf, {
+          renderer: Object.assign(renderer, mdConf.renderer),
         })
       );
       compile = marked;
@@ -93,7 +93,8 @@ export class Compiler {
     this._marked = compile;
     this.compile = text => {
       let isCached = true;
-      // eslint-disable-next-line no-unused-vars
+
+      // FIXME: this is not cached.
       const result = cached(_ => {
         isCached = false;
         let html = '';
@@ -186,8 +187,7 @@ export class Compiler {
   _matchNotCompileLink(link) {
     const links = this.config.noCompileLinks || [];
 
-    for (let i = 0; i < links.length; i++) {
-      const n = links[i];
+    for (const n of links) {
       const re = cachedLinks[n] || (cachedLinks[n] = new RegExp(`^${n}$`));
 
       if (re.test(link)) {
@@ -214,7 +214,7 @@ export class Compiler {
       const nextToc = { level, title: str };
 
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnorConfig(str);
+        getAndRemoveDocisfyIgnoreConfig(str);
       str = content.trim();
 
       nextToc.title = removeAtag(str);
@@ -278,7 +278,7 @@ export class Compiler {
       }
 
       const tree = this.cacheTree[currentPath] || genTree(toc, level);
-      html = treeTpl(tree, '<ul>{inner}</ul>');
+      html = treeTpl(tree, /* html */ `<ul>{inner}</ul>`);
       this.cacheTree[currentPath] = tree;
     }
 

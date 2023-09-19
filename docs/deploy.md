@@ -96,14 +96,14 @@ When using the HTML5 router, you need to set up redirect rules that redirect all
 
 ## AWS Amplify
 
-1. Set the routerMode in the Docsify project `index.html` to *history* mode.
+1. Set the routerMode in the Docsify project `index.html` to _history_ mode.
 
 ```html
 <script>
-    window.$docsify = {
-      loadSidebar: true,
-      routerMode: 'history'
-    }
+  window.$docsify = {
+    loadSidebar: true,
+    routerMode: 'history',
+  };
 </script>
 ```
 
@@ -125,17 +125,15 @@ frontend:
       - '**/*'
   cache:
     paths: []
-
 ```
 
 6. Add the following Redirect rules in their displayed order. Note that the second record is a PNG image where you can change it with any image format you are using.
 
 | Source address | Target address | Type          |
-|----------------|----------------|---------------|
-| /<*>.md        | /<*>.md        | 200 (Rewrite) |
-| /<*>.png       | /<*>.png       | 200 (Rewrite) |
-| /<*>           | /index.html    | 200 (Rewrite) |
-
+| -------------- | -------------- | ------------- |
+| /<\*>.md       | /<\*>.md       | 200 (Rewrite) |
+| /<\*>.png      | /<\*>.png      | 200 (Rewrite) |
+| /<\*>          | /index.html    | 200 (Rewrite) |
 
 ## Docker
 
@@ -144,10 +142,10 @@ frontend:
   You need prepare the initial files instead of making them inside the container.
   See the [Quickstart](https://docsify.js.org/#/quickstart) section for instructions on how to create these files manually or using [docsify-cli](https://github.com/docsifyjs/docsify-cli).
 
-    ```sh
-    index.html
-    README.md
-    ```
+  ```sh
+  index.html
+  README.md
+  ```
 
 - Create Dockerfile
 
@@ -180,4 +178,3 @@ frontend:
   ```sh
   docker run -itp 3000:3000 --name=docsify -v $(pwd):/docs docsify/demo
   ```
-

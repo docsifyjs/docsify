@@ -1,5 +1,5 @@
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Plugins', () => {
   test('Hook order', async ({ page }) => {
@@ -21,43 +21,43 @@ test.describe('Plugins', () => {
       config: {
         plugins: [
           function (hook, vm) {
-            hook.init(function () {
+            hook.init(() => {
               console.log('init');
             });
 
-            hook.mounted(function () {
+            hook.mounted(() => {
               console.log('mounted');
             });
 
-            hook.beforeEach(function (markdown, next) {
-              setTimeout(function () {
+            hook.beforeEach((markdown, next) => {
+              setTimeout(() => {
                 console.log('beforeEach-async');
                 next(markdown);
               }, 100);
             });
 
-            hook.beforeEach(function (markdown) {
+            hook.beforeEach(markdown => {
               console.log('beforeEach');
               return markdown;
             });
 
-            hook.afterEach(function (html, next) {
-              setTimeout(function () {
+            hook.afterEach((html, next) => {
+              setTimeout(() => {
                 console.log('afterEach-async');
                 next(html);
               }, 100);
             });
 
-            hook.afterEach(function (html) {
+            hook.afterEach(html => {
               console.log('afterEach');
               return html;
             });
 
-            hook.doneEach(function () {
+            hook.doneEach(() => {
               console.log('doneEach');
             });
 
-            hook.ready(function () {
+            hook.ready(() => {
               console.log('ready');
             });
           },
@@ -77,7 +77,7 @@ test.describe('Plugins', () => {
       config: {
         plugins: [
           function (hook, vm) {
-            hook.beforeEach(function (markdown) {
+            hook.beforeEach(markdown => {
               return 'beforeEach';
             });
           },
@@ -94,8 +94,8 @@ test.describe('Plugins', () => {
       config: {
         plugins: [
           function (hook, vm) {
-            hook.beforeEach(function (markdown, next) {
-              setTimeout(function () {
+            hook.beforeEach((markdown, next) => {
+              setTimeout(() => {
                 next('beforeEach');
               }, 100);
             });
@@ -116,7 +116,7 @@ test.describe('Plugins', () => {
       config: {
         plugins: [
           function (hook, vm) {
-            hook.afterEach(function (html) {
+            hook.afterEach(html => {
               return '<p>afterEach</p>';
             });
           },
@@ -136,8 +136,8 @@ test.describe('Plugins', () => {
       config: {
         plugins: [
           function (hook, vm) {
-            hook.afterEach(function (html, next) {
-              setTimeout(function () {
+            hook.afterEach((html, next) => {
+              setTimeout(() => {
                 next('<p>afterEach</p>');
               }, 100);
             });

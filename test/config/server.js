@@ -1,5 +1,9 @@
-const browserSync = require('browser-sync').create();
-const path = require('path');
+import { create } from 'browser-sync';
+import path from 'path';
+import url from 'url';
+import { noop } from '../../src/core/util/core.js';
+
+const browserSync = create();
 
 const hasStartArg = process.argv.includes('--start');
 const serverConfig = {
@@ -7,13 +11,18 @@ const serverConfig = {
   port: hasStartArg ? 3002 : 3001,
 };
 
-function startServer(options = {}, cb = Function.prototype) {
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const TEST_HOST = `http://${serverConfig.hostname}:${serverConfig.port}`;
+
+function startServer(options = {}, cb = noop) {
   const defaults = {
     ...serverConfig,
     middleware: [
       {
         route: '/_blank.html',
-        handle: function (req, res, next) {
+        handle(req, res, next) {
           res.setHeader('Content-Type', 'text/html');
           res.end('');
           next();
@@ -42,23 +51,20 @@ function startServer(options = {}, cb = Function.prototype) {
     snippetOptions: {
       rule: {
         match: /<\/body>/i,
-        fn: function (snippet, match) {
+        fn(snippet, match) {
           // Override changelog alias to load local changelog (see routes)
-          const newSnippet = `
+          const newSnippet = /* html */ `
             ${snippet.replace(/<script[^>]*/, '$& type="text/plain"')}
             <script>
-              (function() {
-                var aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
-                var isIE = /*@cc_on!@*/false || !!document.documentMode;
+              {
+                const aliasConfig = (window && window.$docsify && window.$docsify.alias) || {};
 
                 // Fix /docs site configuration during tests
                 aliasConfig['.*?/changelog'] = '/changelog.md';
 
-                // Enable BrowserSync snippet for non-IE browsers
-                if (!isIE) {
-                  document.querySelector('#__bs_script__').removeAttribute('type');
-                }
-              })();
+                // Enable BrowserSync snippet
+                document.querySelector('#__bs_script__').removeAttribute('type');
+              }
             </script>
             ${match}
           `;
@@ -73,7 +79,7 @@ function startServer(options = {}, cb = Function.prototype) {
   console.log('\n');
 
   // Set TEST_HOST environment variable
-  process.env.TEST_HOST = `http://${serverConfig.hostname}:${serverConfig.port}`;
+  process.env.TEST_HOST = TEST_HOST;
 
   // Start server
   browserSync.init(
@@ -111,13 +117,20 @@ if (hasStartArg) {
   });
 }
 // Display friendly message about manually starting a server instance
-else if (require.main === module) {
+else if (isMain(import.meta)) {
   console.info('Use --start argument to manually start server instance');
 }
 
-module.exports = {
+// Replacement for CommonJS `require.main === module`. https://2ality.com/2022/07/nodejs-esm-main.html
+function isMain(meta) {
+  if (meta.url.startsWith('file:')) {
+    if (process.argv[1] === __filename) return true;
+  }
+  return false;
+}
+
+export default {
   start: startServer,
   startAsync: startServerAsync,
   stop: stopServer,
-  TEST_HOST: `http://${serverConfig.hostname}:${serverConfig.port}`,
 };

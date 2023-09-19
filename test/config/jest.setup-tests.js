@@ -1,6 +1,8 @@
 /* global afterEach, beforeAll, beforeEach */
 
-import mock from 'xhr-mock';
+import _mock from 'xhr-mock';
+
+const mock = _mock.default;
 
 const sideEffects = {
   document: {

@@ -1,5 +1,6 @@
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+/* global fail */
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Configuration options', () => {
   test('catchPluginErrors:true (handles uncaught errors)', async ({ page }) => {
@@ -14,10 +15,9 @@ test.describe('Configuration options', () => {
         plugins: [
           function (hook, vm) {
             hook.init(function () {
-              // eslint-disable-next-line no-undef
               fail();
             });
-            hook.beforeEach(function (markdown) {
+            hook.beforeEach(markdown => {
               return `${markdown}\n\nbeforeEach`;
             });
           },
@@ -49,7 +49,6 @@ test.describe('Configuration options', () => {
         plugins: [
           function (hook, vm) {
             hook.ready(function () {
-              // eslint-disable-next-line no-undef
               fail();
             });
           },

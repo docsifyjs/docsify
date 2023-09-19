@@ -1,9 +1,9 @@
 import {
   getAndRemoveConfig,
   removeAtag,
-  getAndRemoveDocisfyIgnorConfig,
-} from '../utils';
-import { slugify } from './slugify';
+  getAndRemoveDocisfyIgnoreConfig,
+} from '../utils.js';
+import { slugify } from './slugify.js';
 
 export const headingCompiler = ({ renderer, router, _self }) =>
   (renderer.code = (text, level) => {
@@ -11,7 +11,7 @@ export const headingCompiler = ({ renderer, router, _self }) =>
     const nextToc = { level, title: str };
 
     const { content, ignoreAllSubs, ignoreSubHeading } =
-      getAndRemoveDocisfyIgnorConfig(str);
+      getAndRemoveDocisfyIgnoreConfig(str);
     str = content.trim();
 
     nextToc.title = removeAtag(str);
@@ -23,5 +23,5 @@ export const headingCompiler = ({ renderer, router, _self }) =>
     nextToc.slug = url;
     _self.toc.push(nextToc);
 
-    return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
+    return /* html */ `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
   });

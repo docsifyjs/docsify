@@ -1,6 +1,6 @@
-import { noop } from '../util/core';
+import { noop } from '../util/core.js';
 
-/** @typedef {import('../Docsify').Constructor} Constructor */
+/** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /**
  * @template {!Constructor} T
@@ -8,6 +8,9 @@ import { noop } from '../util/core';
  */
 export function Lifecycle(Base) {
   return class Lifecycle extends Base {
+    _hooks = {};
+    _lifecycle = {};
+
     initLifecycle() {
       const hooks = [
         'init',
@@ -17,9 +20,6 @@ export function Lifecycle(Base) {
         'doneEach',
         'ready',
       ];
-
-      this._hooks = {};
-      this._lifecycle = {};
 
       hooks.forEach(hook => {
         const arr = (this._hooks[hook] = []);

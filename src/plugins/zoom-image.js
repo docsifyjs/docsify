@@ -1,23 +1,16 @@
-/* eslint-disable no-unused-vars */
 import mediumZoom from 'medium-zoom';
-
-const matchesSelector =
-  Element.prototype.matches ||
-  Element.prototype.webkitMatchesSelector ||
-  Element.prototype.msMatchesSelector;
 
 function install(hook) {
   let zoom;
 
   hook.doneEach(_ => {
-    let elms = Array.apply(
-      null,
+    let elms = Array.from(
       document.querySelectorAll(
         '.markdown-section img:not(.emoji):not([data-no-zoom])'
       )
     );
 
-    elms = elms.filter(elm => matchesSelector.call(elm, 'a img') === false);
+    elms = elms.filter(elm => !elm.matches('a img'));
 
     if (zoom) {
       zoom.detach();
@@ -27,4 +20,5 @@ function install(hook) {
   });
 }
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

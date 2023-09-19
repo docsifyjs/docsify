@@ -27,14 +27,7 @@
   </a>
 </p>
 
-## Links
-
-- [`develop` branch preview](https://docsify-preview.vercel.app/)
-- [Documentation](https://docsify.js.org)
-- [CLI](https://github.com/docsifyjs/docsify-cli)
-- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
-- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
-- [Community chat](https://discord.gg/3NwKFyR)
+Docsify turns one or more Markdown files into a Website, with no build process required.
 
 ## Features
 
@@ -43,29 +36,26 @@
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Compatible with IE11
 - Support embedded files
 
-## Quick start
+## Quick Start
 
-Look at [this tutorial](https://docsify.js.org/#/quickstart)
+Get going fast by using a static web server or GitHub Pages with this ready-to-use [Docsify Template](https://github.com/docsifyjs/docsify-template), review the [quick start tutorial](https://docsify.js.org/#/quickstart) or jump right into a CodeSandbox example site with the button below.
 
 [![Edit 307qqv236](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
 
 ## Showcase
 
-These projects are using docsify to generate their sites. Pull requests welcome :blush:
+A large collection of showcase projects are included in [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase).
 
-Move to [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase)
+## Links
 
-## Similar projects
-
-| Project                                          | Description                              |
-| ------------------------------------------------ | ---------------------------------------- |
-| [Docusaurus](https://docusaurus.io) | Docusaurus makes it easy to maintain Open Source documentation websites |
-| [GitBook](https://www.gitbook.com) | Where technical teams document |
-| [MkDocs](https://www.mkdocs.org) | Project documentation with Markdown |
-| [VuePress](https://vuepress.vuejs.org) | Vue-powered Static Site Generator |
+- [Documentation](https://docsify.js.org)
+- [Docsify CLI (Command Line Interface)](https://github.com/docsifyjs/docsify-cli)
+- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
+- [`develop` branch preview](https://docsify-preview.vercel.app/)
+- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
+- [Community chat](https://discord.gg/3NwKFyR)
 
 ## Contributing
 
@@ -79,18 +69,9 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 ## Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/docsify#silver-sponsors)]
+Thank you for supporting this project！:heart: [[Become a sponsor](https://opencollective.com/docsify)]
 
-<a href="https://opencollective.com/docsify/silver-sponsors/0/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/0/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/1/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/1/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/2/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/2/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/3/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/3/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/4/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/4/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/5/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/5/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/6/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/6/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/7/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/7/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/8/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/8/avatar.svg"></a>
-<a href="https://opencollective.com/docsify/silver-sponsors/9/website" target="_blank"><img src="https://opencollective.com/docsify/silver-sponsors/9/avatar.svg"></a>
+<img src="https://opencollective.com/docsify/sponsors.svg?width=890" />
 
 ## Contributors
 

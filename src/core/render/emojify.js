@@ -16,9 +16,9 @@ function replaceEmojiShorthand(m, $1, useNativeEmoji) {
         // Hat tip: https://about.gitlab.com/blog/2018/05/30/journey-in-native-unicode-emoji/#emoji-made-up-of-multiple-characters
         .join('&zwj;')
         .concat('&#xFE0E;');
-      result = `<span class="emoji">${emojiUnicode}</span>`;
+      result = /* html */ `<span class="emoji">${emojiUnicode}</span>`;
     } else {
-      result = `<img src="${emojiData.baseURL}${emojiMatch}.png" alt="${$1}" class="emoji" loading="lazy">`;
+      result = /* html */ `<img src="${emojiData.baseURL}${emojiMatch}.png" alt="${$1}" class="emoji" loading="lazy">`;
     }
   }
 

@@ -1,4 +1,4 @@
-import * as dom from '../util/dom';
+import * as dom from '../util/dom.js';
 
 let barEl;
 let timeId;
@@ -16,13 +16,15 @@ function init() {
 
 /**
  * Render progress bar
+ * @param {{step: number, loaded?: undefined, total?: undefined} | {step?: undefined, loaded: number, total: number}} info
  */
-export default function ({ loaded, total, step }) {
+export default function (info) {
+  const { loaded, total, step } = info;
   let num;
 
   !barEl && init();
 
-  if (step) {
+  if (typeof step !== 'undefined') {
     num = parseInt(barEl.style.width || 0, 10) + step;
     num = num > 80 ? 80 : num;
   } else {

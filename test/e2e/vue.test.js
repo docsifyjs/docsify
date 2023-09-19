@@ -1,6 +1,6 @@
-const stripIndent = require('common-tags/lib/stripIndent');
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 const vueURLs = [
   '/node_modules/vue2/dist/vue.js',
@@ -24,16 +24,14 @@ test.describe('Vue.js Compatibility', () => {
           },
         },
         vueGlobalOptions: {
-          data: function () {
-            return {
-              counter: 0,
-              msg: 'vueglobaloptions',
-            };
-          },
+          data: () => ({
+            counter: 0,
+            msg: 'vueglobaloptions',
+          }),
         },
         vueMounts: {
           '#vuemounts': {
-            data: function () {
+            data() {
               return {
                 counter: 0,
                 msg: 'vuemounts',
@@ -179,6 +177,7 @@ test.describe('Vue.js Compatibility', () => {
         await expect(page.locator('#vuefor')).toHaveText('12345');
         await expect(page.locator('#vuecomponent')).toHaveText('0');
         await expect(page.locator('#vuecomponent')).toHaveText('0');
+        // eslint-disable-next-line playwright/prefer-web-first-assertions
         expect(await page.locator('#vueglobaloptions p').innerText()).toBe('');
         await expect(page.locator('#vuemounts p')).toHaveText('vuemounts');
         await expect(page.locator('#vuescript p')).toHaveText('vuescript');
