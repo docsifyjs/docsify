@@ -53,7 +53,20 @@ export function Events(Base) {
     #enableScrollEvent = true;
     #coverHeight = 0;
 
-    #scrollTo(el, offset = 0) {
+    #delayScrollInterval;
+    async #scrollTo(el, offset = 0) {
+      if (document.readyState !== 'complete') {
+        clearInterval(this.#delayScrollInterval);
+        await new Promise(resolve => {
+          this.#delayScrollInterval = setInterval(() => {
+            if (document.readyState === 'complete') {
+              clearInterval(this.#delayScrollInterval);
+              resolve();
+            }
+          }, 100);
+        });
+      }
+
       if (this.#scroller) {
         this.#scroller.stop();
       }
