@@ -50,33 +50,47 @@ export function Events(Base) {
     #hoverOver = false;
     #enableScrollEvent = true;
     #coverHeight = 0;
-
-    #scrollTo(el) {
+    #delayScrollInterval;
+    async #scrollTo(el) {
       this.#enableScrollEvent = false;
+
+      if (document.readyState !== 'complete') {
+        clearInterval(this.#delayScrollInterval);
+        await new Promise(resolve => {
+          this.#delayScrollInterval = setInterval(() => {
+            if (document.readyState === 'complete') {
+              clearInterval(this.#delayScrollInterval);
+              resolve();
+            }
+          }, 100);
+        });
+      }
+
       el.scrollIntoView({ behavior: 'smooth' });
 
       // Determine when scrolling has stopped
       let prevTop;
-      const intervalId = setInterval(() => {
+      const completeIntervalId = setInterval(() => {
         const top = el.getBoundingClientRect().top;
         if (top === prevTop) {
-          clearInterval(intervalId);
+          console.log('clearing');
+          clearInterval(completeIntervalId);
           this.#enableScrollEvent = true;
         }
         prevTop = top;
       }, 500);
     }
 
-    #interval;
+    #delayHighlightInterval;
     async #highlight(path) {
       let delayed = false;
       if (!this.#enableScrollEvent) {
         delayed = true;
-        clearInterval(this.#interval);
+        clearInterval(this.#delayHighlightInterval);
         await new Promise(resolve => {
-          this.#interval = setInterval(() => {
+          this.#delayHighlightInterval = setInterval(() => {
             if (this.#enableScrollEvent) {
-              clearInterval(this.#interval);
+              clearInterval(this.#delayHighlightInterval);
               resolve();
             }
           }, 100);
