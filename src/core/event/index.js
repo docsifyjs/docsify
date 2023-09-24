@@ -1,8 +1,8 @@
-import { isMobile } from '../util/env.js';
-import { body, on } from '../util/dom.js';
-import * as dom from '../util/dom.js';
-import { removeParams } from '../router/util.js';
 import config from '../config.js';
+import { removeParams } from '../router/util.js';
+import * as dom from '../util/dom.js';
+import { body, on } from '../util/dom.js';
+import { isMobile } from '../util/env.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -17,13 +17,13 @@ export function Events(Base) {
 
       // If 'history', rely on the browser's scroll auto-restoration when going back or forward
       if (source !== 'history') {
-        // Scroll to ID if specified
-        if (this.route.query.id) {
-          this.#scrollIntoView(this.route.path, this.route.query.id);
-        }
         // Scroll to top if a link was clicked and auto2top is enabled
         if (source === 'navigate') {
           auto2top && this.#scroll2Top(auto2top);
+        }
+        // Scroll to ID if specified
+        if (this.route.query.id) {
+          this.#scrollIntoView(this.route.path, this.route.query.id);
         }
       }
 
