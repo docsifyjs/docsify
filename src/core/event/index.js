@@ -54,7 +54,7 @@ export function Events(Base) {
     #coverHeight = 0;
 
     #delayScrollInterval;
-    async #scrollTo(el, offset = 0) {
+    async #scrollTo(el, path, offset = 0) {
       if (document.readyState !== 'complete') {
         clearInterval(this.#delayScrollInterval);
         await new Promise(resolve => {
@@ -80,15 +80,17 @@ export function Events(Base) {
           offset,
         duration: 500,
       })
-        .on('tick', v => window.scrollTo(0, v))
+        .on('tick', v => window.scrollTo(0, path, v))
         .on('done', () => {
           this.#enableScrollEvent = true;
           this.#scroller = null;
+          el.scrollIntoView({ behavior: 'smooth' });
+          this.#highlight(path, true);
         })
         .begin();
     }
 
-    #highlight(path) {
+    #highlight(path, scroll = false) {
       if (!this.#enableScrollEvent) {
         return;
       }
@@ -120,7 +122,7 @@ export function Events(Base) {
 
       const li = this.#nav[this.#getNavKey(path, last.getAttribute('data-id'))];
 
-      if (!li || li === active) {
+      if (!li || (li === active && !scroll)) {
         return;
       }
 
@@ -206,7 +208,7 @@ export function Events(Base) {
       // Use [id='1234'] instead of #id to handle special cases such as reserved characters and pure number id
       // https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document
       const section = dom.find("[id='" + id + "']");
-      section && this.#scrollTo(section, topMargin);
+      section && this.#scrollTo(section, path, topMargin);
 
       const li = this.#nav[this.#getNavKey(path, id)];
       const sidebar = dom.getNode('.sidebar');
