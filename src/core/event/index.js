@@ -1,4 +1,3 @@
-import Tweezer from 'tweezer.js';
 import { isMobile } from '../util/env.js';
 import { body, on } from '../util/dom.js';
 import * as dom from '../util/dom.js';
@@ -49,40 +48,43 @@ export function Events(Base) {
     #nav = {};
 
     #hoverOver = false;
-    #scroller = null;
     #enableScrollEvent = true;
     #coverHeight = 0;
 
-    #scrollTo(el, offset = 0) {
-      if (this.#scroller) {
-        this.#scroller.stop();
-      }
-
+    #scrollTo(el) {
       this.#enableScrollEvent = false;
-      this.#scroller = new Tweezer({
-        start: window.pageYOffset,
-        end:
-          Math.round(el.getBoundingClientRect().top) +
-          window.pageYOffset -
-          offset,
-        duration: 500,
-      })
-        .on('tick', v => window.scrollTo(0, v))
-        .on('done', () => {
+      el.scrollIntoView({ behavior: 'smooth' });
+
+      // Determine when scrolling has stopped
+      let prevTop;
+      const intervalId = setInterval(() => {
+        const top = el.getBoundingClientRect().top;
+        if (top === prevTop) {
+          clearInterval(intervalId);
           this.#enableScrollEvent = true;
-          this.#scroller = null;
-        })
-        .begin();
+        }
+        prevTop = top;
+      }, 500);
     }
 
-    #highlight(path) {
+    #interval;
+    async #highlight(path) {
+      let delayed = false;
       if (!this.#enableScrollEvent) {
-        return;
+        delayed = true;
+        clearInterval(this.#interval);
+        await new Promise(resolve => {
+          this.#interval = setInterval(() => {
+            if (this.#enableScrollEvent) {
+              clearInterval(this.#interval);
+              resolve();
+            }
+          }, 100);
+        });
       }
 
       const sidebar = dom.getNode('.sidebar');
       const anchors = dom.findAll('.anchor');
-      const wrap = dom.find(sidebar, '.sidebar-nav');
       let active = dom.find(sidebar, 'li.active');
       const doc = document.documentElement;
       const top =
@@ -107,7 +109,7 @@ export function Events(Base) {
 
       const li = this.#nav[this.#getNavKey(path, last.getAttribute('data-id'))];
 
-      if (!li || li === active) {
+      if (!li || (li === active && !delayed)) {
         return;
       }
 
@@ -116,20 +118,8 @@ export function Events(Base) {
       active = li;
 
       // Scroll into view
-      // https://github.com/vuejs/vuejs.org/blob/master/themes/vue/source/js/common.js#L282-L297
       if (!this.#hoverOver && dom.body.classList.contains('sticky')) {
-        const height = sidebar.clientHeight;
-        const curOffset = 0;
-        const cur = active.offsetTop + active.clientHeight + 40;
-        const isInView =
-          active.offsetTop >= wrap.scrollTop && cur <= wrap.scrollTop + height;
-        const notThan = cur - curOffset < height;
-
-        sidebar.scrollTop = isInView
-          ? wrap.scrollTop
-          : notThan
-          ? curOffset
-          : cur - height;
+        active.scrollIntoView();
       }
     }
 
