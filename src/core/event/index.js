@@ -80,7 +80,7 @@ export function Events(Base) {
           offset,
         duration: 500,
       })
-        .on('tick', v => window.scrollTo(0, path, v))
+        .on('tick', v => window.scrollTo(0, v))
         .on('done', () => {
           this.#enableScrollEvent = true;
           this.#scroller = null;
