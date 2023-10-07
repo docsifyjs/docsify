@@ -18,14 +18,20 @@ export function Events(Base) {
 
       // If 'history', rely on the browser's scroll auto-restoration when going back or forward
       if (source !== 'history') {
+        let focusEl;
+
         // Scroll to ID if specified
         if (this.route.query.id) {
-          this.#scrollIntoView(this.route.path, this.route.query.id);
+          focusEl = dom.find(`#${this.route.query.id}`);
+          this.#scrollIntoView(this.route.path, this.route.query.id, true);
         }
         // Scroll to top if a link was clicked and auto2top is enabled
-        if (source === 'navigate') {
+        else if (source === 'navigate') {
+          focusEl = dom.find('.content');
           auto2top && this.#scroll2Top(auto2top);
         }
+
+        focusEl && focusEl.focus();
       }
 
       if (this.config.loadNavbar) {
