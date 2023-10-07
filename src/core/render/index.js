@@ -242,6 +242,26 @@ export function Render(Base) {
         el.setAttribute('href', nameLink[match]);
       }
     }
+
+    #renderSkipLink(vm) {
+      const { skipLink } = vm.config;
+
+      if (skipLink !== false) {
+        const el = dom.getNode('#skip-to-content');
+        const text =
+          typeof skipLink === 'string'
+            ? skipLink
+            : skipLink?.[vm.route.path] || 'Skip to main content';
+
+        if (el) {
+          el.innerHTML = text;
+        } else {
+          const html = `<button id="skip-to-content">${text}</button>`;
+          dom.body.insertAdjacentHTML('afterbegin', html);
+        }
+      }
+    }
+
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
@@ -396,6 +416,9 @@ export function Render(Base) {
     _updateRender() {
       // Render name link
       this.#renderNameLink(this);
+
+      // Render skip link
+      this.#renderSkipLink(this);
     }
 
     initRender() {
@@ -413,8 +436,6 @@ export function Render(Base) {
 
       if (el) {
         let html = '';
-
-        html += tpl.skipLink();
 
         if (config.repo) {
           html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
@@ -450,8 +471,7 @@ export function Render(Base) {
         if (isMergedSidebar) {
           dom.find('.sidebar').prepend(navEl);
         } else {
-          dom.find('#skip-to-content').after(navEl);
-
+          dom.body.prepend(navEl);
           navEl.classList.add('app-nav');
           navEl.classList.toggle('no-badge', !config.repo);
         }

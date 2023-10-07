@@ -122,15 +122,3 @@ export function helper(className, content) {
 export function theme(color) {
   return /* html */ `<style>:root{--theme-color: ${color};}</style>`;
 }
-
-/**
- * Renders skip link
- * @returns {String} HTML of the skip link
- */
-export function skipLink() {
-  return /* html */ `
-    <button id="skip-to-content">
-      Skip to main content
-    </button>
-  `;
-}
