@@ -34,9 +34,13 @@ export function Events(Base) {
     }
 
     initEvent() {
+      // Bind skip link
+      this.#skipLink('#skip-to-content');
+
       // Bind toggle button
       this.#btn('button.sidebar-toggle', this.router);
       this.#collapse('.sidebar', this.router);
+
       // Bind sticky effect
       if (this.config.coverpage) {
         !isMobile && on('scroll', this.__sticky);
@@ -52,6 +56,22 @@ export function Events(Base) {
     #scroller = null;
     #enableScrollEvent = true;
     #coverHeight = 0;
+
+    #skipLink(el) {
+      el = dom.getNode(el);
+
+      if (el === null || el === undefined) {
+        return;
+      }
+
+      dom.on(el, 'click', evt => {
+        const target = dom.getNode('.content');
+
+        evt.preventDefault();
+        target && target.focus();
+        this.#scrollTo(target);
+      });
+    }
 
     #scrollTo(el, offset = 0) {
       if (this.#scroller) {

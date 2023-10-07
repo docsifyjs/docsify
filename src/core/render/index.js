@@ -409,13 +409,13 @@ export function Render(Base) {
       }
 
       const id = config.el || '#app';
-      const navEl = dom.find('nav') || dom.create('nav');
-
       const el = dom.find(id);
-      let html = '';
-      let navAppendToTarget = dom.body;
 
       if (el) {
+        let html = '';
+
+        html += tpl.skipLink();
+
         if (config.repo) {
           html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
         }
@@ -435,25 +435,26 @@ export function Render(Base) {
         }
 
         html += tpl.main(config);
+
         // Render main app
         this._renderTo(el, html, true);
       } else {
         this.rendered = true;
       }
 
-      if (config.mergeNavbar && isMobile) {
-        navAppendToTarget = dom.find('.sidebar');
-      } else {
-        navEl.classList.add('app-nav');
-
-        if (!config.repo) {
-          navEl.classList.add('no-badge');
-        }
-      }
-
       // Add nav
       if (config.loadNavbar) {
-        dom.before(navAppendToTarget, navEl);
+        const navEl = dom.find('nav') || dom.create('nav');
+        const isMergedSidebar = config.mergeNavbar && isMobile;
+
+        if (isMergedSidebar) {
+          dom.find('.sidebar').prepend(navEl);
+        } else {
+          dom.find('#skip-to-content').after(navEl);
+
+          navEl.classList.add('app-nav');
+          navEl.classList.toggle('no-badge', !config.repo);
+        }
       }
 
       if (config.themeColor) {
