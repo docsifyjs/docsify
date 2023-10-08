@@ -4,15 +4,13 @@ import docsifyInit from '../helpers/docsify-init.js';
 // Suite
 // -----------------------------------------------------------------------------
 describe('render', function () {
-  // Setup & Teardown
-  // -------------------------------------------------------------------------
-  beforeEach(async () => {
-    await docsifyInit();
-  });
-
   // Helpers
   // ---------------------------------------------------------------------------
   describe('helpers', () => {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
     test('important content', () => {
       const output = window.marked('!> Important content');
 
@@ -33,6 +31,10 @@ describe('render', function () {
   // Lists
   // ---------------------------------------------------------------------------
   describe('lists', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
     test('as unordered task list', async function () {
       const output = window.marked(stripIndent`
         - [x] Task 1
@@ -100,6 +102,10 @@ describe('render', function () {
   // Images
   // ---------------------------------------------------------------------------
   describe('images', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
     test('regular', async function () {
       const output = window.marked('![alt text](http://imageUrl)');
 
@@ -136,30 +142,32 @@ describe('render', function () {
       );
     });
 
-    describe('size', function () {
-      test('width and height', async function () {
-        const output = window.marked(
-          "![alt text](http://imageUrl ':size=WIDTHxHEIGHT')"
-        );
+    test('width and height', async function () {
+      const output = window.marked(
+        "![alt text](http://imageUrl ':size=WIDTHxHEIGHT')"
+      );
 
-        expect(output).toMatchInlineSnapshot(
-          `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\" width=\\"WIDTH\\" height=\\"HEIGHT\\" /></p>"`
-        );
-      });
+      expect(output).toMatchInlineSnapshot(
+        `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\" width=\\"WIDTH\\" height=\\"HEIGHT\\" /></p>"`
+      );
+    });
 
-      test('width', async function () {
-        const output = window.marked("![alt text](http://imageUrl ':size=50')");
+    test('width', async function () {
+      const output = window.marked("![alt text](http://imageUrl ':size=50')");
 
-        expect(output).toMatchInlineSnapshot(
-          `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\" width=\\"50\\" /></p>"`
-        );
-      });
+      expect(output).toMatchInlineSnapshot(
+        `"<p><img src=\\"http://imageUrl\\" data-origin=\\"http://imageUrl\\" alt=\\"alt text\\" width=\\"50\\" /></p>"`
+      );
     });
   });
 
   // Headings
   // ---------------------------------------------------------------------------
   describe('headings', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
     test('h1', async function () {
       const output = window.marked('# h1 tag');
 
@@ -209,7 +217,13 @@ describe('render', function () {
     });
   });
 
+  // Links
+  // ---------------------------------------------------------------------------
   describe('link', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
     test('regular', async function () {
       const output = window.marked('[alt text](http://url)');
 
@@ -262,6 +276,63 @@ describe('render', function () {
       expect(output).toMatchInlineSnapshot(
         `"<p><a href=\\"http://url\\" target=\\"_blank\\"  rel=\\"noopener\\" id=\\"someCssID\\">alt text</a></p>"`
       );
+    });
+  });
+
+  // Skip Link
+  // ---------------------------------------------------------------------------
+  describe('skip link', () => {
+    test('renders default skip link and label', async () => {
+      await docsifyInit();
+
+      const elm = document.getElementById('skip-to-content');
+      const expectText = 'Skip to main content';
+
+      expect(elm.textContent).toBe(expectText);
+      expect(elm.outerHTML).toMatchInlineSnapshot(
+        `"<button id=\\"skip-to-content\\">Skip to main content</button>"`
+      );
+    });
+
+    test('renders custom label from config string', async () => {
+      const expectText = 'test';
+
+      await docsifyInit({
+        config: {
+          skipLink: expectText,
+        },
+      });
+
+      const elm = document.getElementById('skip-to-content');
+
+      expect(elm.textContent).toBe(expectText);
+    });
+
+    test('renders custom label from config object', async () => {
+      const expectText = 'test';
+
+      await docsifyInit({
+        config: {
+          skipLink: {
+            '/': expectText,
+          },
+        },
+      });
+
+      const elm = document.getElementById('skip-to-content');
+
+      expect(elm.textContent).toBe(expectText);
+    });
+
+    test('does not render skip link when false', async () => {
+      await docsifyInit({
+        config: {
+          skipLink: false,
+        },
+      });
+      const elm = document.getElementById('skip-to-content') || false;
+
+      expect(elm).toBe(false);
     });
   });
 });
