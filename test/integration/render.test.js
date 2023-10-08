@@ -164,7 +164,7 @@ describe('render', function () {
       const output = window.marked('# h1 tag');
 
       expect(output).toMatchInlineSnapshot(
-        `"<h1 id=\\"h1-tag\\"><a href=\\"#/?id=h1-tag\\" data-id=\\"h1-tag\\" class=\\"anchor\\"><span>h1 tag</span></a></h1>"`
+        `"<h1 id=\\"h1-tag\\" tabindex=\\"-1\\"><a href=\\"#/?id=h1-tag\\" data-id=\\"h1-tag\\" class=\\"anchor\\"><span>h1 tag</span></a></h1>"`
       );
     });
 
@@ -172,7 +172,7 @@ describe('render', function () {
       const output = window.marked('## h2 tag');
 
       expect(output).toMatchInlineSnapshot(
-        `"<h2 id=\\"h2-tag\\"><a href=\\"#/?id=h2-tag\\" data-id=\\"h2-tag\\" class=\\"anchor\\"><span>h2 tag</span></a></h2>"`
+        `"<h2 id=\\"h2-tag\\" tabindex=\\"-1\\"><a href=\\"#/?id=h2-tag\\" data-id=\\"h2-tag\\" class=\\"anchor\\"><span>h2 tag</span></a></h2>"`
       );
     });
 
@@ -180,7 +180,7 @@ describe('render', function () {
       const output = window.marked('### h3 tag');
 
       expect(output).toMatchInlineSnapshot(
-        `"<h3 id=\\"h3-tag\\"><a href=\\"#/?id=h3-tag\\" data-id=\\"h3-tag\\" class=\\"anchor\\"><span>h3 tag</span></a></h3>"`
+        `"<h3 id=\\"h3-tag\\" tabindex=\\"-1\\"><a href=\\"#/?id=h3-tag\\" data-id=\\"h3-tag\\" class=\\"anchor\\"><span>h3 tag</span></a></h3>"`
       );
     });
 
@@ -188,7 +188,7 @@ describe('render', function () {
       const output = window.marked('#### h4 tag');
 
       expect(output).toMatchInlineSnapshot(
-        `"<h4 id=\\"h4-tag\\"><a href=\\"#/?id=h4-tag\\" data-id=\\"h4-tag\\" class=\\"anchor\\"><span>h4 tag</span></a></h4>"`
+        `"<h4 id=\\"h4-tag\\" tabindex=\\"-1\\"><a href=\\"#/?id=h4-tag\\" data-id=\\"h4-tag\\" class=\\"anchor\\"><span>h4 tag</span></a></h4>"`
       );
     });
 
@@ -196,7 +196,7 @@ describe('render', function () {
       const output = window.marked('##### h5 tag');
 
       expect(output).toMatchInlineSnapshot(
-        `"<h5 id=\\"h5-tag\\"><a href=\\"#/?id=h5-tag\\" data-id=\\"h5-tag\\" class=\\"anchor\\"><span>h5 tag</span></a></h5>"`
+        `"<h5 id=\\"h5-tag\\" tabindex=\\"-1\\"><a href=\\"#/?id=h5-tag\\" data-id=\\"h5-tag\\" class=\\"anchor\\"><span>h5 tag</span></a></h5>"`
       );
     });
 
@@ -204,7 +204,7 @@ describe('render', function () {
       const output = window.marked('###### h6 tag');
 
       expect(output).toMatchInlineSnapshot(
-        `"<h6 id=\\"h6-tag\\"><a href=\\"#/?id=h6-tag\\" data-id=\\"h6-tag\\" class=\\"anchor\\"><span>h6 tag</span></a></h6>"`
+        `"<h6 id=\\"h6-tag\\" tabindex=\\"-1\\"><a href=\\"#/?id=h6-tag\\" data-id=\\"h6-tag\\" class=\\"anchor\\"><span>h6 tag</span></a></h6>"`
       );
     });
   });
