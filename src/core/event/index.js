@@ -198,8 +198,10 @@ export function Events(Base) {
       const li = this.#nav[this.#getNavKey(path, id)];
       const sidebar = dom.getNode('.sidebar');
       const active = dom.find(sidebar, 'li.active');
-      active && active.classList.remove('active');
-      li && li.classList.add('active');
+      active?.classList.remove('active');
+      active?.removeAttribute('aria-current');
+      li?.classList.add('active');
+      li?.setAttribute('aria-current', 'page');
     }
 
     #scrollEl = dom.$.scrollingElement || dom.$.documentElement;
@@ -310,8 +312,10 @@ export function Events(Base) {
           if (hash.indexOf(href) === 0 && !target) {
             target = a;
             dom.toggleClass(node, 'add', 'active');
+            node.setAttribute('aria-current', 'page');
           } else {
             dom.toggleClass(node, 'remove', 'active');
+            node.removeAttribute('aria-current');
           }
         });
 
