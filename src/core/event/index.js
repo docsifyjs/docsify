@@ -217,7 +217,15 @@ export function Events(Base) {
      * @void
      */
     #btn(el) {
-      const toggle = _ => dom.body.classList.toggle('close');
+      const toggle = _ => {
+        dom.body.classList.toggle('close');
+
+        const isClosed = isMobile
+          ? dom.body.classList.contains('close')
+          : !dom.body.classList.contains('close');
+
+        el.setAttribute('aria-expanded', isClosed);
+      };
 
       el = dom.getNode(el);
       if (el === null || el === undefined) {

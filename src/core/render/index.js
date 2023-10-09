@@ -251,29 +251,26 @@ export function Render(Base) {
 
     _renderSidebar(text) {
       const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
+      const sidebarEl = dom.getNode('aside.sidebar');
+      const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
-        // FIXME : better styling solution
-        [
-          document.querySelector('aside.sidebar'),
-          document.querySelector('button.sidebar-toggle'),
-        ]
-          .filter(e => !!e)
-          .forEach(node => node.parentNode.removeChild(node));
-        document.querySelector('section.content').style.right = 'unset';
-        document.querySelector('section.content').style.left = 'unset';
-        document.querySelector('section.content').style.position = 'relative';
-        document.querySelector('section.content').style.width = '100%';
+        sidebarEl?.parentNode?.removeChild(sidebarEl);
+        sidebarToggleEl?.parentNode?.removeChild(sidebarToggleEl);
+
         return null;
       }
 
       this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
+      sidebarToggleEl.setAttribute('aria-expanded', !isMobile);
+
       const activeEl = this.__getAndActive(
         this.router,
         '.sidebar-nav',
         true,
         true
       );
+
       if (loadSidebar && activeEl) {
         activeEl.parentNode.innerHTML +=
           this.compiler.subSidebar(subMaxLevel) || '';
