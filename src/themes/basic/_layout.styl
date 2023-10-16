@@ -139,14 +139,13 @@ li input[type='checkbox']
       border-bottom-color #ccc
       border-radius 4px
       box-sizing border-box
-      display none
       max-height calc(100vh - 61px)
       overflow-y auto
       padding 10px 0
       position absolute
       right -15px
       text-align left
-      top 100%
+      top -100vh
       white-space nowrap
 
       li
@@ -166,8 +165,9 @@ li input[type='checkbox']
         &.active
           border-bottom 0
 
+    &:focus-within ul,
     &:hover ul
-      display block
+      top: 100%;
 
 /* github corner */
 .github-corner
