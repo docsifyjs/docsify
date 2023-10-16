@@ -43,6 +43,29 @@ export function Events(Base) {
       } else {
         body.classList.add('sticky');
       }
+      // Bind keyboard shortcuts
+      on('keydown', e => {
+        const modifiers = ['alt', 'ctrl', 'meta', 'shift'];
+
+        Object.entries(this.config.keyBindings || {}).forEach(
+          ([keyBinding, fn]) => {
+            const keys = keyBinding.split('+').map(k => k.toLowerCase().trim());
+            const isMatch = keys.every(
+              k =>
+                (modifiers.includes(k) && e[k + 'Key']) ||
+                e.key === k || // Ex: " ", "a"
+                e.code.toLowerCase() === k || // "space"
+                e.code.toLowerCase() === `key${k}` || // "keya"
+                e.keyCode === Number(k) // 32 (space), 65 (a)
+            );
+
+            if (isMatch) {
+              e.preventDefault();
+              fn(e);
+            }
+          }
+        );
+      });
     }
 
     /** @readonly */

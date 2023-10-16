@@ -21,6 +21,26 @@ export default function (vm) {
       formatUpdated: '',
       ga: '',
       homepage: 'README.md',
+      keyBindings: {
+        // Focus on main content
+        'alt+c': e => {
+          const containerElm = document.querySelector('.markdown-section');
+          const focusElm = containerElm.querySelector(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+
+          focusElm && focusElm.focus();
+        },
+        // Toggle sidebar menu
+        'alt+t': e => {
+          const toggleElm = document.querySelector('.sidebar-toggle');
+
+          if (toggleElm) {
+            toggleElm.click();
+            toggleElm.focus();
+          }
+        },
+      },
       loadNavbar: null,
       loadSidebar: null,
       maxLevel: 6,
