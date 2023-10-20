@@ -103,7 +103,7 @@ export function style(content) {
 /**
  * Fork https://github.com/bendrucker/document-ready/blob/master/index.js
  * @param {Function} callback The callbacack to be called when the page is loaded
- * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
+ * @returns {Number|void} If the page is already loaded returns the result of the setTimeout callback,
  *  otherwise it only attaches the callback to the DOMContentLoaded event
  */
 export function documentReady(callback, doc = document) {

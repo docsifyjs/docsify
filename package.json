@@ -10,7 +10,7 @@
     "url": "https://opencollective.com/docsify"
   },
   "type": "module",
-  "// The 'main' and 'unpkg' fields will remain as legacy for backwards compatbility for now. We will add deprectaion warnings to these outputs to give people time to see the warnings in their apps in a non-breaking way, and eventually we can remove the legacy stuff.": "",
+  "// The 'main' and 'unpkg' fields will remain as legacy for backwards compatibility for now. We will add deprectaion warnings to these outputs to give people time to see the warnings in their apps in a non-breaking way, and eventually we can remove the legacy stuff.": "",
   "main": "lib/docsify.js",
   "unpkg": "lib/docsify.min.js",
   "// We're using the 'exports' field as an override of the 'main' field to provide the new ESM setup. Once we remove legacy 'main', we will remove the 'exports' field and have a simple ESM setup with only a 'main' field.": "",
