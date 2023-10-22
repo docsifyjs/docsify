@@ -42,7 +42,8 @@ function writeEmojiPage(emojiData) {
   const emojiPage =
     (isExistingPage && fs.readFileSync(filePaths.emojiMarkdown, 'utf8')) ||
     `<!-- START -->\n\n<!-- END -->`;
-  const emojiRegEx = /(<!--\s*START.*-->\n)([\s\S]*)(\n<!--\s*END.*-->)/;
+  const emojiRegEx = /(<!--\s*START.*-->\r?\n)([\s\S]*)(\r?\n<!--\s*END.*-->)/;
+  //                                    ^ Note, we use \r? in case Windows converts to CRLF
   const emojiMatch = emojiPage.match(emojiRegEx);
   const emojiMarkdownStart = emojiMatch[1].trim();
   const emojiMarkdown = emojiMatch[2].trim();
