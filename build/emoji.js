@@ -95,13 +95,9 @@ function writeEmojiJS(emojiData) {
 
 console.info('Build emoji');
 
-try {
-  const emojiData = await getEmojiData();
+const emojiData = await getEmojiData();
 
-  if (emojiData) {
-    writeEmojiPage(emojiData);
-    writeEmojiJS(emojiData);
-  }
-} catch (err) {
-  console.warn(`- Error: ${err.message}`);
+if (emojiData) {
+  writeEmojiPage(emojiData);
+  writeEmojiJS(emojiData);
 }
