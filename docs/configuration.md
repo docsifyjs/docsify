@@ -819,7 +819,7 @@ window.$docsify = {
 Determines if/how the site's [skip navigation link](https://webaim.org/techniques/skipnav/) will be rendered.
 
 ```js
-// Render skip link or all routes (default)
+// Render skip link for all routes (default)
 window.$docsify = {
   skipLink: 'Skip to main content',
 };
