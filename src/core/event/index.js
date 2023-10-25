@@ -34,38 +34,80 @@ export function Events(Base) {
     }
 
     initEvent() {
+      const { coverpage, keyBindings } = this.config;
+      const keyModifiers = ['alt', 'ctrl', 'meta', 'shift'];
+
       // Bind toggle button
       this.#btn('button.sidebar-toggle', this.router);
       this.#collapse('.sidebar', this.router);
       // Bind sticky effect
-      if (this.config.coverpage) {
+      if (coverpage) {
         !isMobile && on('scroll', this.__sticky);
       } else {
         body.classList.add('sticky');
       }
       // Bind keyboard shortcuts
-      on('keydown', e => {
-        const modifiers = ['alt', 'ctrl', 'meta', 'shift'];
+      if (keyBindings && keyBindings.constructor === Object) {
+        // Prepare key binding configurations
+        Object.values(keyBindings || []).forEach(bindingConfig => {
+          const { bindings } = bindingConfig;
 
-        Object.entries(this.config.keyBindings || {}).forEach(
-          ([keyBinding, fn]) => {
-            const keys = keyBinding.split('+').map(k => k.toLowerCase().trim());
-            const isMatch = keys.every(
-              k =>
-                (modifiers.includes(k) && e[k + 'Key']) ||
-                e.key === k || // Ex: " ", "a"
-                e.code.toLowerCase() === k || // "space"
-                e.code.toLowerCase() === `key${k}` || // "keya"
-                e.keyCode === Number(k) // 32 (space), 65 (a)
-            );
-
-            if (isMatch) {
-              e.preventDefault();
-              fn(e);
-            }
+          if (!bindings) {
+            return;
           }
-        );
-      });
+
+          // Convert bindings to arrays
+          // Ex: 'alt+t' => ['alt+t']
+          bindingConfig.bindings = Array.isArray(bindings)
+            ? bindings
+            : [bindings];
+
+          // Convert key sequences to arrays
+          // Ex: ['alt+t', 'ctrl+t'] => [['alt', 't'], ['ctrl', 't']]
+          bindingConfig.bindings = bindingConfig.bindings.map(keys => {
+            if (typeof keys === 'string') {
+              keys = keys.split('+');
+            }
+
+            return Array.isArray(keys)
+              ? keys.map(k => k.toLowerCase().trim())
+              : [keys];
+          });
+        });
+
+        // Handle keyboard events
+        on('keydown', e => {
+          const isTextEntry = document.activeElement.matches('input, textarea');
+
+          if (isTextEntry) {
+            return;
+          }
+
+          const bindingConfigs = Object.values(keyBindings || []);
+          const matchingConfigs = bindingConfigs.filter(
+            ({ bindings }) =>
+              bindings &&
+              // bindings: [['alt', 't'], ['ctrl', 't']]
+              bindings.some(keys =>
+                // keys: ['alt', 't']
+                keys.every(
+                  // k: 'alt'
+                  k =>
+                    (keyModifiers.includes(k) && e[k + 'Key']) ||
+                    e.key === k || // Ex: " ", "a"
+                    e.code.toLowerCase() === k || // "space"
+                    e.code.toLowerCase() === `key${k}` || // "keya"
+                    e.keyCode === Number(k) // 32 (space), 65 (a)
+                )
+              )
+          );
+
+          matchingConfigs.forEach(({ callback }) => {
+            e.preventDefault();
+            callback(e);
+          });
+        });
+      }
     }
 
     /** @readonly */

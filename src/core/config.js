@@ -21,26 +21,6 @@ export default function (vm) {
       formatUpdated: '',
       ga: '',
       homepage: 'README.md',
-      keyBindings: {
-        // Focus on main content
-        'alt+c': e => {
-          const containerElm = document.querySelector('.markdown-section');
-          const focusElm = containerElm.querySelector(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-          );
-
-          focusElm && focusElm.focus();
-        },
-        // Toggle sidebar menu
-        'alt+t': e => {
-          const toggleElm = document.querySelector('.sidebar-toggle');
-
-          if (toggleElm) {
-            toggleElm.click();
-            toggleElm.focus();
-          }
-        },
-      },
       loadNavbar: null,
       loadSidebar: null,
       maxLevel: 6,
@@ -85,6 +65,39 @@ export default function (vm) {
       ? window.$docsify(vm)
       : window.$docsify
   );
+
+  // Merge default and user-specified key bindings
+  if (config.keyBindings !== false) {
+    config.keyBindings = Object.assign(
+      // Default
+      {
+        focusContent: {
+          bindings: "'",
+          callback(e) {
+            const containerElm = document.querySelector('.markdown-section');
+            const focusElm = containerElm.querySelector(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+
+            focusElm && focusElm.focus();
+          },
+        },
+        toggleSidebar: {
+          bindings: ['\\'],
+          callback(e) {
+            const toggleElm = document.querySelector('.sidebar-toggle');
+
+            if (toggleElm) {
+              toggleElm.click();
+              toggleElm.focus();
+            }
+          },
+        },
+      },
+      // User-specified
+      config.keyBindings
+    );
+  }
 
   const script =
     currentScript ||
