@@ -288,6 +288,70 @@ window.$docsify = {
 };
 ```
 
+## keyBindings
+
+- Type: `Boolean|Object`
+- Default: `Object` (see below)
+
+Binds one or more key combinations to a callback function. Key bindings are disabled when `false`.
+
+```js
+window.$docsify = {
+  // Disable all key bindings
+  keyBindings: false,
+};
+```
+
+### Default key bindings
+
+- <kbd>'</kbd> Focus on content area
+- <kbd>/</kbd> Focus on [search](plugins#full-text-search) field (also supports <kbd>Cmd</kbd>&nbsp;/&nbsp;<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>)
+- <kbd>\\</kbd> Toggle the sidebar menu
+
+Key bindings can be disabled individually by setting the binding configuration to `false`.
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Disable individual key bindings
+    focusContent: false,
+    focusSearch: false,
+    toggleSidebar: false,
+  },
+};
+```
+
+### Custom key bindings
+
+Key binding configurations contain the following properties:
+
+- `bindings`: A `Number`, `String`, `Array`, or `Array[]` representing one or more key combinations.
+- `callback`: A `Function` to be invoked when a corresponding key or key combination is detected.
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Custom key binding
+    myCustomBinding: {
+      bindings: 'alt+h',
+      callback(e) {
+        alert('Hello, World!');
+      },
+    },
+  },
+};
+```
+
+Key `binding` values may include [key values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key), [key codes](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code), or any of the following modifier strings: `alt`, `ctrl`, `meta`, `shift`.
+
+| Type   | Binding                          | Keys                                                                         |
+| ------ | -------------------------------- | ---------------------------------------------------------------------------- |
+| Number | `84`                             | <kbd>t</kbd>                                                                 |
+| String | `'t'`                            | <kbd>t</kbd>                                                                 |
+| String | `'alt+t'`                        | <kbd>Alt</kbd> + <kbd>t</kbd>                                                |
+| Array  | `['alt+t', 'shift+t']`           | <kbd>Alt</kbd> + <kbd>t</kbd> &nbsp;or&nbsp; <kbd>Shift</kbd> + <kbd>t</kbd> |
+| Array  | `[['alt', 't'], ['shift', 't']]` | <kbd>Alt</kbd> + <kbd>t</kbd> &nbsp;or&nbsp; <kbd>Shift</kbd> + <kbd>t</kbd> |
+
 ## loadNavbar
 
 - Type: `Boolean|String`
