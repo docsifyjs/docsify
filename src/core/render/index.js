@@ -255,8 +255,9 @@ export function Render(Base) {
       const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
-        sidebarEl?.parentNode.removeChild(sidebarEl);
-        sidebarToggleEl?.parentNode.removeChild(sidebarToggleEl);
+        dom.body.classList.add('hidesidebar');
+        sidebarEl?.remove(sidebarEl);
+        sidebarToggleEl?.remove(sidebarToggleEl);
 
         return null;
       }

@@ -317,6 +317,11 @@ body.sticky
   left $sidebar-width
   transition left 250ms ease
 
+  body.hidesidebar &
+    position relative
+    left unset
+    right unset
+
 /* markdown content found on pages */
 .markdown-section
   margin 0 auto
