@@ -77,7 +77,9 @@ export function Events(Base) {
 
         // Handle keyboard events
         on('keydown', e => {
-          const isTextEntry = document.activeElement.matches('input, textarea');
+          const isTextEntry = document.activeElement.matches(
+            'input, select, textarea'
+          );
 
           if (isTextEntry) {
             return;
