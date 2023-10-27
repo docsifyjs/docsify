@@ -27,7 +27,7 @@ export function Events(Base) {
         }
         // Scroll to top if a link was clicked and auto2top is enabled
         else if (source === 'navigate') {
-          focusEl = dom.find('.content');
+          focusEl = dom.find('#main');
           auto2top && this.#scroll2Top(auto2top);
         }
 
@@ -71,7 +71,7 @@ export function Events(Base) {
       }
 
       dom.on(el, 'click', evt => {
-        const target = dom.getNode('.content');
+        const target = dom.getNode('#main');
 
         evt.preventDefault();
         target && target.focus();

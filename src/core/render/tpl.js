@@ -58,8 +58,8 @@ export function main(config) {
 
   return /* html */ `
     <main>${aside}
-      <section class="content" tabindex="-1">
-        <article class="markdown-section" id="main"><!--main--></article>
+      <section class="content">
+        <article id="main" class="markdown-section" tabindex="-1"><!--main--></article>
       </section>
     </main>
   `;
