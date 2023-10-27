@@ -225,6 +225,10 @@ export class Compiler {
       nextToc.slug = url;
       _self.toc.push(nextToc);
 
+      // Note: tabindex="-1" allows programmatically focusing on heading
+      // elements after navigation. This is preferred over focusing on the link
+      // within the heading because it matches the focus behavior of screen
+      // readers when navigating page content.
       return `<h${level} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
     };
 
