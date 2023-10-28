@@ -248,15 +248,23 @@ export function Render(Base) {
 
       if (skipLink !== false) {
         const el = dom.getNode('#skip-to-content');
-        const text =
-          typeof skipLink === 'string'
-            ? skipLink
-            : skipLink?.[vm.route.path] || 'Skip to main content';
+
+        let skipLinkText =
+          typeof skipLink === 'string' ? skipLink : 'Skip to main content';
+
+        if (skipLink?.constructor === Object) {
+          const matchingPath = Object.keys(skipLink).find(path =>
+            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`)
+          );
+          const matchingText = matchingPath && skipLink[matchingPath];
+
+          skipLinkText = matchingText || skipLinkText;
+        }
 
         if (el) {
-          el.innerHTML = text;
+          el.innerHTML = skipLinkText;
         } else {
-          const html = `<button id="skip-to-content">${text}</button>`;
+          const html = `<button id="skip-to-content">${skipLinkText}</button>`;
           dom.body.insertAdjacentHTML('afterbegin', html);
         }
       }
