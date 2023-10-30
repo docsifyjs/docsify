@@ -14,27 +14,25 @@ import config from '../config.js';
 export function Events(Base) {
   return class Events extends Base {
     $resetEvents(source) {
-      const { auto2top } = this.config;
+      const { auto2top, loadNavbar } = this.config;
+      const { path, query } = this.route;
 
-      // If 'history', rely on the browser's scroll auto-restoration when going back or forward
+      // If navigation occurred via forward/back, rely on the browser's native
+      // focus and scroll auto-restoration behavior
       if (source !== 'history') {
-        let focusEl;
-
         // Scroll to ID if specified
-        if (this.route.query.id) {
-          focusEl = dom.find(`#${this.route.query.id}`);
-          this.#scrollIntoView(this.route.path, this.route.query.id, true);
+        if (query.id) {
+          this.#scrollIntoView(path, query.id, true);
         }
         // Scroll to top if a link was clicked and auto2top is enabled
         else if (source === 'navigate') {
-          focusEl = dom.find('#main');
           auto2top && this.#scroll2Top(auto2top);
         }
-
-        focusEl && focusEl.focus();
       }
 
-      if (this.config.loadNavbar) {
+      this.focusContent();
+
+      if (loadNavbar) {
         this.__getAndActive(this.router, 'nav');
       }
     }
@@ -99,6 +97,20 @@ export function Events(Base) {
           this.#scroller = null;
         })
         .begin();
+    }
+
+    focusContent() {
+      const { query } = this.route;
+      const focusEl = query.id
+        ? // Heading ID
+          dom.find(`#${query.id}`)
+        : // First heading
+          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+          // Content container
+          dom.find('#main');
+
+      // Move focus to content area
+      focusEl && focusEl.focus();
     }
 
     #highlight(path) {
