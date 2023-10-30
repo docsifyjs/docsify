@@ -61,7 +61,7 @@ export function Render(Base) {
       };
 
       if (!html) {
-        html = /* html */ `<h1>404 - Not found</h1>`;
+        html = this.compiler.header('404 - Not found', 1);
       }
 
       if ('Vue' in window) {
@@ -338,8 +338,10 @@ export function Render(Base) {
     }
 
     _renderMain(text, opt = {}, next) {
-      if (!text) {
-        return this.#renderMain(text);
+      if (typeof text !== 'string') {
+        this.#renderMain(text);
+        this.focusContent();
+        return;
       }
 
       this.callHook('beforeEach', text, result => {
