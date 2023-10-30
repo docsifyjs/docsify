@@ -1,5 +1,6 @@
 import stripIndent from 'common-tags/lib/stripIndent/index.js';
 import docsifyInit from '../helpers/docsify-init.js';
+import { waitForSelector, waitForText } from '../helpers/wait-for.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -309,19 +310,30 @@ describe('render', function () {
     });
 
     test('renders custom label from config object', async () => {
-      const expectText = 'test';
+      const getSkipLinkText = () =>
+        document.getElementById('skip-to-content').textContent;
 
       await docsifyInit({
         config: {
           skipLink: {
-            '/': expectText,
+            '/dir1/dir2/': 'baz',
+            '/dir1/': 'bar',
           },
         },
       });
 
-      const elm = document.getElementById('skip-to-content');
+      window.location.hash = '/dir1/dir2/';
+      await waitForText('#skip-to-content', 'baz');
+      expect(getSkipLinkText()).toBe('baz');
 
-      expect(elm.textContent).toBe(expectText);
+      window.location.hash = '/dir1/';
+      await waitForText('#skip-to-content', 'bar');
+      expect(getSkipLinkText()).toBe('bar');
+
+      // Fallback to default
+      window.location.hash = '';
+      await waitForText('#skip-to-content', 'Skip to main content');
+      expect(getSkipLinkText()).toBe('Skip to main content');
     });
 
     test('does not render skip link when false', async () => {
