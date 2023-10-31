@@ -1,6 +1,6 @@
 import stripIndent from 'common-tags/lib/stripIndent/index.js';
 import docsifyInit from '../helpers/docsify-init.js';
-import { waitForSelector, waitForText } from '../helpers/wait-for.js';
+import { waitForText } from '../helpers/wait-for.js';
 
 // Suite
 // -----------------------------------------------------------------------------
