@@ -534,7 +534,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 - Type: `Boolean` | `String` | `Object`
 - Default: `false`
 
-Display default "404 - Not found" message:
+Display default "404 - Not Found" message:
 
 ```js
 window.$docsify = {

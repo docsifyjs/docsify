@@ -61,7 +61,7 @@ export function Render(Base) {
       };
 
       if (!html) {
-        html = this.compiler.header('404 - Not found', 1);
+        html = this.compiler.header('404 - Not Found', 1);
       }
 
       if ('Vue' in window) {
