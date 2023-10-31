@@ -60,10 +60,6 @@ export function Render(Base) {
         return isVue2 || isVue3;
       };
 
-      if (!html) {
-        html = /* html */ `<h1>404 - Not found</h1>`;
-      }
-
       if ('Vue' in window) {
         const mountedElms = dom
           .findAll('.markdown-section > *')
@@ -310,8 +306,12 @@ export function Render(Base) {
     }
 
     _renderMain(text, opt = {}, next) {
-      if (!text) {
-        return this.#renderMain(text);
+      const { response } = this.route;
+
+      // Note: It is possible for the response to be undefined in envrionments
+      // where XMLHttpRequest has been modified or mocked
+      if (response && !response.ok) {
+        text = `# ${response.status} - ${response.statusText}`;
       }
 
       this.callHook('beforeEach', text, result => {
