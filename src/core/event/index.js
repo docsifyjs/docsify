@@ -17,8 +17,7 @@ export function Events(Base) {
       const { auto2top, loadNavbar } = this.config;
       const { path, query } = this.route;
 
-      // If navigation occurred via forward/back, rely on the browser's native
-      // focus and scroll auto-restoration behavior
+      // Note: Scroll position set by browser on forward/back (i.e. "history")
       if (source !== 'history') {
         // Scroll to ID if specified
         if (query.id) {
@@ -30,7 +29,10 @@ export function Events(Base) {
         }
       }
 
-      this.focusContent();
+      // Focus on the content area after navigation
+      if (source === 'navigate') {
+        this.focusContent();
+      }
 
       if (loadNavbar) {
         this.__getAndActive(this.router, 'nav');
