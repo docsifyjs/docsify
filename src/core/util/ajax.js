@@ -11,7 +11,7 @@ import { noop } from './core.js';
 const cache = {};
 
 /**
- * Ajax GET implmentation
+ * Ajax GET implementation
  * @param {string} url Resource URL
  * @param {boolean} [hasBar=false] Has progress bar
  * @param {String[]} headers Array of headers
