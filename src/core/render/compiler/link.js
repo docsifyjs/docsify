@@ -1,8 +1,12 @@
 import { getAndRemoveConfig } from '../utils.js';
-import { isAbsolutePath } from '../../router/util.js';
+import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
+
+const GET_EXTENSION_REGEXP = /(?:\.([^.]+))?$/;
+const GET_REDUNDANT_DOTS = /\/\.\//g;
 
 export const linkCompiler = ({
   renderer,
+  contentBase,
   router,
   linkTarget,
   linkRel,
@@ -18,29 +22,36 @@ export const linkCompiler = ({
         : '';
     title = str;
 
-    if (
-      !isAbsolutePath(href) &&
-      !compilerClass._matchNotCompileLink(href) &&
-      !config.ignore
-    ) {
-      if (href === compilerClass.config.homepage) {
-        href = 'README';
-      }
+    if (!config.ignore && !compilerClass._matchNotCompileLink(href)) {
+      if (!isAbsolutePath(href)) {
+        if (href === compilerClass.config.homepage) {
+          href = 'README';
+        } else {
+          const ext = GET_EXTENSION_REGEXP.exec(href)[1];
+          if (!ext || ext === 'md') {
+            href = router.toURL(href, null, router.getCurrentPath());
+          } else {
+            href = getPath(
+              contentBase,
+              getParentPath(router.getCurrentPath()),
+              href
+            );
+          }
 
-      href = router.toURL(href, null, router.getCurrentPath());
-    } else {
-      if (!isAbsolutePath(href) && href.slice(0, 2) === './') {
-        href =
-          document.URL.replace(/\/(?!.*\/).*/, '/').replace('#/./', '') + href;
+          href = href.replace(GET_REDUNDANT_DOTS, '/');
+        }
+      } else {
+        attrs.push(
+          href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`
+        );
+        attrs.push(
+          href.indexOf('mailto:') === 0
+            ? ''
+            : linkRel !== ''
+            ? ` rel="${linkRel}"`
+            : ''
+        );
       }
-      attrs.push(href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`);
-      attrs.push(
-        href.indexOf('mailto:') === 0
-          ? ''
-          : linkRel !== ''
-          ? ` rel="${linkRel}"`
-          : ''
-      );
     }
 
     if (config.disabled) {

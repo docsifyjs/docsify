@@ -263,5 +263,47 @@ describe('render', function () {
         `"<p><a href=\\"http://url\\" target=\\"_blank\\"  rel=\\"noopener\\" id=\\"someCssID\\">alt text</a></p>"`
       );
     });
+
+    test('relative link with md extension', async function () {
+      const output = window.marked('[alt text](test.md)');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href=\\"#/test\\" >alt text</a></p>"`
+      );
+    });
+
+    test('relative link with md extension starting with "./"', async function () {
+      const output = window.marked('[alt text](./test.md)');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href=\\"#/test\\" >alt text</a></p>"`
+      );
+    });
+
+    test('relative link with extension other than md', async function () {
+      const output = window.marked('[alt text](test.txt)');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href=\\"http://127.0.0.1:3001/test.txt\\" >alt text</a></p>"`
+      );
+    });
+
+    test('relative link with extension other than md starting with "./"', async function () {
+      const output = window.marked('[alt text](./test.txt)');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href=\\"http://127.0.0.1:3001/test.txt\\" >alt text</a></p>"`
+      );
+    });
+
+    test('absolute link with md extension', async function () {
+      const output = window.marked(
+        '[alt text](http://www.example.com/test.md)'
+      );
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href=\\"http://www.example.com/test.md\\" target=\\"_blank\\"  rel=\\"noopener\\">alt text</a></p>"`
+      );
+    });
   });
 });
