@@ -1,5 +1,6 @@
 import docsifyInit from '../helpers/docsify-init.js';
 import { test, expect } from './fixtures/docsify-init-fixture.js';
+import { waitForFunction } from '../helpers/wait-for.js';
 
 /**
  * Navigate to a specific route in the site
@@ -288,6 +289,51 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
 
       const titleElm = page.locator('#main h1');
       await expect(titleElm).toContainText('Last Match');
+    });
+  });
+
+  test.describe('Route Data', () => {
+    test('route data accessible to plugins', async ({ page }) => {
+      const failLink = page.locator('a[href*="fail"]');
+
+      let routeData = null;
+
+      // Store route data set via plugin hook (below)
+      page.on('console', async msg => {
+        for (const arg of msg.args()) {
+          const val = await arg.jsonValue();
+          const obj = JSON.parse(val);
+          obj.response && (routeData = obj);
+        }
+      });
+
+      await docsifyInit({
+        markdown: {
+          homepage: '[Fail](fail.md)',
+        },
+        config: {
+          plugins: [
+            function (hook, vm) {
+              hook.doneEach(html => {
+                console.log(JSON.stringify(vm.route));
+              });
+            },
+          ],
+        },
+      });
+
+      expect(routeData).toHaveProperty('response');
+      expect(routeData.response).toHaveProperty('ok', true);
+      expect(routeData.response).toHaveProperty('status', 200);
+      expect(routeData.response).toHaveProperty('statusText', 'OK');
+
+      await failLink.click();
+      await waitForFunction(() => routeData?.response?.status !== 200);
+
+      expect(routeData).toHaveProperty('response');
+      expect(routeData.response).toHaveProperty('ok', false);
+      expect(routeData.response).toHaveProperty('status', 404);
+      expect(routeData.response).toHaveProperty('statusText', 'Not Found');
     });
   });
 });
