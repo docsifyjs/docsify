@@ -80,7 +80,7 @@ export function cover() {
   `;
 
   return /* html */ `
-    <section class="cover show" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover" style="background: ${bgc}">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>
