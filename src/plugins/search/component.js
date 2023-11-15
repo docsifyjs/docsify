@@ -21,6 +21,11 @@ function style() {
   align-items: center;
 }
 
+.search .results-status:not(:empty) {
+  margin-top: 10px;
+  font-size: smaller;
+}
+
 .search .results-panel {
   display: none;
 }
@@ -122,6 +127,7 @@ function tpl(defaultValue = '') {
         </svg>
       </div>
     </div>
+    <div class="results-status" aria-live="polite"></div>
     <div class="results-panel"></div>
   `;
   const el = Docsify.dom.create('div', html);
@@ -137,12 +143,14 @@ function doSearch(value) {
   const $panel = Docsify.dom.find($search, '.results-panel');
   const $clearBtn = Docsify.dom.find($search, '.clear-button');
   const $sidebarNav = Docsify.dom.find('.sidebar-nav');
+  const $status = Docsify.dom.find('div.search .results-status');
   const $appName = Docsify.dom.find('.app-name');
 
   if (!value) {
     $panel.classList.remove('show');
     $clearBtn.classList.remove('show');
     $panel.innerHTML = '';
+    $status.textContent = '';
 
     if (options.hideOtherSidebarContent) {
       $sidebarNav && $sidebarNav.classList.remove('hide');
@@ -169,6 +177,8 @@ function doSearch(value) {
   $panel.classList.add('show');
   $clearBtn.classList.add('show');
   $panel.innerHTML = html || /* html */ `<p class="empty">${NO_DATA_TEXT}</p>`;
+  $status.textContent = `Found ${matches.length} results`;
+
   if (options.hideOtherSidebarContent) {
     $sidebarNav && $sidebarNav.classList.add('hide');
     $appName && $appName.classList.add('hide');
