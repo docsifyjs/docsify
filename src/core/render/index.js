@@ -416,6 +416,8 @@ export function Render(Base) {
       let navAppendToTarget = dom.body;
 
       if (el) {
+        navEl.setAttribute('aria-label', 'secondary');
+
         if (config.repo) {
           html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
         }
