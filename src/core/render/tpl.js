@@ -57,9 +57,9 @@ export function main(config) {
   `;
 
   return /* html */ `
-    <main>${aside}
+    <main role="presentation">${aside}
       <section class="content">
-        <article class="markdown-section" id="main"><!--main--></article>
+        <article class="markdown-section" id="main" role="main"><!--main--></article>
       </section>
     </main>
   `;
