@@ -128,6 +128,7 @@ function tpl(defaultValue = '') {
   const aside = Docsify.dom.find('aside');
 
   Docsify.dom.toggleClass(el, 'search');
+  el.setAttribute('role', 'search');
   Docsify.dom.before(aside, el);
 }
 
