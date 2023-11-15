@@ -152,12 +152,12 @@ function doSearch(value) {
     return;
   }
 
-  const matchs = search(value);
+  const matches = search(value);
 
   let html = '';
-  matchs.forEach(post => {
+  matches.forEach((post, i) => {
     html += /* html */ `
-      <div class="matching-post">
+      <div class="matching-post" aria-label="search result ${i + 1}">
         <a href="${post.url}">
           <h2>${post.title}</h2>
           <p>${post.content}</p>
