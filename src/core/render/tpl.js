@@ -42,7 +42,7 @@ export function main(config) {
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside class="sidebar">
+    <aside class="sidebar" role="none">
       ${
         config.name
           ? /* html */ `
@@ -52,7 +52,7 @@ export function main(config) {
           `
           : ''
       }
-      <div class="sidebar-nav"><!--sidebar--></div>
+      <div class="sidebar-nav" role="navigation" aria-label="primary"><!--sidebar--></div>
     </aside>
   `;
 
