@@ -308,9 +308,9 @@ export function Render(Base) {
     _renderMain(text, opt = {}, next) {
       const { response } = this.route;
 
-      // Note: It is possible for the response to be undefined in envrionments
+      // Note: It is possible for the response to be undefined in environments
       // where XMLHttpRequest has been modified or mocked
-      if (response && !response.ok) {
+      if (response && !response.ok && (!text || response.status !== 404)) {
         text = `# ${response.status} - ${response.statusText}`;
       }
 
