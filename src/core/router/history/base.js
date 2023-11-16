@@ -5,6 +5,7 @@ import {
   cleanPath,
   replaceSlug,
   resolvePath,
+  getExtension,
 } from '../util.js';
 import { noop } from '../../util/core.js';
 
@@ -32,11 +33,19 @@ export class History {
   }
 
   #getFileName(path, ext) {
-    return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-      ? path
-      : /\/$/g.test(path)
-      ? `${path}README${ext}`
-      : `${path}${ext}`;
+    const pathExt = getExtension(path);
+    const endsWithSlash = /\/$/g;
+
+    let filename;
+    if (pathExt) {
+      filename = path;
+    } else if (endsWithSlash.test(path)) {
+      filename = `${path}README${ext}`;
+    } else {
+      filename = `${path}${ext}`;
+    }
+
+    return filename;
   }
 
   getBasePath() {

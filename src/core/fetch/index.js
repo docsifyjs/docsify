@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { getParentPath, stringifyQuery } from '../router/util.js';
+import { getParentPath, stringifyQuery, getExtension } from '../router/util.js';
 import { noop, isExternal } from '../util/core.js';
 import { get } from '../util/ajax.js';
 
@@ -84,68 +84,87 @@ export function Fetch(Base) {
     _fetch(cb = noop) {
       const { query } = this.route;
       let { path } = this.route;
+      const { ext } = this.config;
 
-      // Prevent loading remote content via URL hash
-      // Ex: https://foo.com/#//bar.com/file.md
       if (isExternal(path)) {
-        history.replaceState(null, '', '#');
-        this.router.normalize();
-      } else {
-        const qs = stringifyQuery(query, ['id']);
-        const { loadNavbar, requestHeaders, loadSidebar } = this.config;
-        // Abort last request
+        // Prevent loading remote content via URL hash
+        // Ex: https://foo.com/#//bar.com/file.md
 
+        this._fetchExternal();
+      } else {
+        const pathExt = getExtension(path);
         const file = this.router.getFile(path);
 
-        this.isRemoteUrl = isExternal(file);
-        // Current page is html
-        this.isHTML = /\.html$/g.test(file);
-
-        // create a handler that should be called if content was fetched successfully
-        const contentFetched = (text, opt) => {
-          this._renderMain(
-            text,
-            opt,
-            this._loadSideAndNav(path, qs, loadSidebar, cb)
-          );
-        };
-
-        // and a handler that is called if content failed to fetch
-        const contentFailedToFetch = _error => {
-          this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
-        };
-
-        // attempt to fetch content from a virtual route, and fallback to fetching the actual file
-        if (!this.isRemoteUrl) {
-          this.matchVirtualRoute(path).then(contents => {
-            if (typeof contents === 'string') {
-              contentFetched(contents);
-            } else {
-              this.#request(file + qs, requestHeaders).then(
-                contentFetched,
-                contentFailedToFetch
-              );
-            }
-          });
+        if (pathExt && pathExt !== ext && pathExt !== '.html') {
+          this._fetchNonContent(file);
         } else {
-          // if the requested url is not local, just fetch the file
-          this.#request(file + qs, requestHeaders).then(
-            contentFetched,
-            contentFailedToFetch
-          );
+          this._fetchContent(path, query, file, cb);
         }
-
-        // Load nav
-        loadNavbar &&
-          this.#loadNested(
-            path,
-            qs,
-            loadNavbar,
-            text => this._renderNav(text),
-            this,
-            true
-          );
       }
+    }
+
+    _fetchExternal() {
+      history.replaceState(null, '', '#');
+      this.router.normalize();
+    }
+
+    _fetchContent(path, query, file, cb) {
+      const qs = stringifyQuery(query, ['id']);
+      const { loadNavbar, requestHeaders, loadSidebar } = this.config;
+      // Abort last request
+
+      this.isRemoteUrl = isExternal(file);
+      // Current page is html
+      this.isHTML = /\.html$/g.test(file);
+
+      // create a handler that should be called if content was fetched successfully
+      const contentFetched = (text, opt) => {
+        this._renderMain(
+          text,
+          opt,
+          this._loadSideAndNav(path, qs, loadSidebar, cb)
+        );
+      };
+
+      // and a handler that is called if content failed to fetch
+      const contentFailedToFetch = _error => {
+        this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
+      };
+
+      // attempt to fetch content from a virtual route, and fallback to fetching the actual file
+      if (!this.isRemoteUrl) {
+        this.matchVirtualRoute(path).then(contents => {
+          if (typeof contents === 'string') {
+            contentFetched(contents);
+          } else {
+            this.#request(file + qs, requestHeaders).then(
+              contentFetched,
+              contentFailedToFetch
+            );
+          }
+        });
+      } else {
+        // if the requested url is not local, just fetch the file
+        this.#request(file + qs, requestHeaders).then(
+          contentFetched,
+          contentFailedToFetch
+        );
+      }
+
+      // Load nav
+      loadNavbar &&
+        this.#loadNested(
+          path,
+          qs,
+          loadNavbar,
+          text => this._renderNav(text),
+          this,
+          true
+        );
+    }
+
+    _fetchNonContent(file) {
+      window.location.replace(file);
     }
 
     _fetchCover() {

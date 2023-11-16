@@ -231,6 +231,7 @@ export class Compiler {
     origin.code = highlightCodeCompiler({ renderer });
     origin.link = linkCompiler({
       renderer,
+      contentBase,
       router,
       linkTarget,
       linkRel,
