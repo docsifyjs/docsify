@@ -5,6 +5,7 @@ import {
   cleanPath,
   replaceSlug,
   resolvePath,
+  getExtension,
 } from '../util.js';
 import { noop } from '../../util/core.js';
 
@@ -32,11 +33,11 @@ export class History {
   }
 
   #getFileName(path, ext) {
-    const hasExtension = /\.\w+$/g;
+    const pathExt = getExtension(path);
     const endsWithSlash = /\/$/g;
 
     let filename;
-    if (hasExtension.test(path)) {
+    if (pathExt) {
       filename = path;
     } else if (endsWithSlash.test(path)) {
       filename = `${path}README${ext}`;

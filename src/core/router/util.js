@@ -112,3 +112,13 @@ export function getPath(...args) {
 export const replaceSlug = cached(path => {
   return path.replace('#', '?id=');
 });
+
+export function getExtension(path) {
+  const matched = path.match(/\.\w+$/);
+
+  if (!matched) {
+    return null;
+  }
+
+  return matched[0];
+}

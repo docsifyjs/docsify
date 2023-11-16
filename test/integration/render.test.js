@@ -276,7 +276,7 @@ describe('render', function () {
       const output = window.marked('[alt text](./test.md)');
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><a href=\\"#/test\\" >alt text</a></p>"`
+        `"<p><a href=\\"#/./test\\" >alt text</a></p>"`
       );
     });
 
@@ -284,7 +284,7 @@ describe('render', function () {
       const output = window.marked('[alt text](test.txt)');
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><a href=\\"http://127.0.0.1:3001/test.txt\\" >alt text</a></p>"`
+        `"<p><a href=\\"#/test.txt\\" >alt text</a></p>"`
       );
     });
 
@@ -292,7 +292,7 @@ describe('render', function () {
       const output = window.marked('[alt text](./test.txt)');
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><a href=\\"http://127.0.0.1:3001/test.txt\\" >alt text</a></p>"`
+        `"<p><a href=\\"#/./test.txt\\" >alt text</a></p>"`
       );
     });
 
