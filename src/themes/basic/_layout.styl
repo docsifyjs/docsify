@@ -251,7 +251,7 @@ main.hidden
   top 0
   bottom 0
   left 0
-  transition transform 250ms ease-out
+  transition transform 250ms ease-out, visibility 250ms
   width $sidebar-width
   z-index 20
 
@@ -438,6 +438,7 @@ body.sticky
 
 body.close
   .sidebar
+    visibility hidden
     transform translateX(- $sidebar-width)
 
   .sidebar-toggle
@@ -466,8 +467,9 @@ body.close
     overflow-x hidden
 
   .sidebar
+    visibility hidden
     left - $sidebar-width
-    transition transform 250ms ease-out
+    transition transform 250ms ease-out, visibility 250ms
 
   .content
     left 0
@@ -486,6 +488,7 @@ body.close
 
   body.close
     .sidebar
+      visibility visible
       transform translateX($sidebar-width)
 
     .sidebar-toggle
