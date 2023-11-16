@@ -32,11 +32,19 @@ export class History {
   }
 
   #getFileName(path, ext) {
-    return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-      ? path
-      : /\/$/g.test(path)
-      ? `${path}README${ext}`
-      : `${path}${ext}`;
+    const hasExtension = /\.\w+$/g;
+    const endsWithSlash = /\/$/g;
+
+    let filename;
+    if (hasExtension.test(path)) {
+      filename = path;
+    } else if (endsWithSlash.test(path)) {
+      filename = `${path}README${ext}`;
+    } else {
+      filename = `${path}${ext}`;
+    }
+
+    return filename;
   }
 
   getBasePath() {

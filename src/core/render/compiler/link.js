@@ -1,12 +1,8 @@
 import { getAndRemoveConfig } from '../utils.js';
 import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
 
-const GET_EXTENSION_REGEXP = /(?:\.([^.]+))?$/;
-const GET_REDUNDANT_DOTS = /\/\.\//g;
-
 export const linkCompiler = ({
   renderer,
-  contentBase,
   router,
   linkTarget,
   linkRel,
@@ -24,22 +20,7 @@ export const linkCompiler = ({
 
     if (!config.ignore && !compilerClass._matchNotCompileLink(href)) {
       if (!isAbsolutePath(href)) {
-        if (href === compilerClass.config.homepage) {
-          href = 'README';
-        } else {
-          const ext = GET_EXTENSION_REGEXP.exec(href)[1];
-          if (!ext || ext === 'md') {
-            href = router.toURL(href, null, router.getCurrentPath());
-          } else {
-            href = getPath(
-              contentBase,
-              getParentPath(router.getCurrentPath()),
-              href
-            );
-          }
-
-          href = href.replace(GET_REDUNDANT_DOTS, '/');
-        }
+        href = router.toURL(href, null, router.getCurrentPath());
       } else {
         attrs.push(
           href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`
