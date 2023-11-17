@@ -59,6 +59,7 @@ export class HTML5History extends History {
       path,
       file: this.getFile(path),
       query: parseQuery(query),
+      response: {},
     };
   }
 }
