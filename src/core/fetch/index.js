@@ -102,7 +102,8 @@ export function Fetch(Base) {
         this.isHTML = /\.html$/g.test(file);
 
         // create a handler that should be called if content was fetched successfully
-        const contentFetched = (text, opt) => {
+        const contentFetched = (text, opt, response) => {
+          this.route.response = response;
           this._renderMain(
             text,
             opt,
@@ -111,7 +112,8 @@ export function Fetch(Base) {
         };
 
         // and a handler that is called if content failed to fetch
-        const contentFailedToFetch = _error => {
+        const contentFailedToFetch = (_error, response) => {
+          this.route.response = response;
           this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
         };
 
