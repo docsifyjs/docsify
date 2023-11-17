@@ -4,10 +4,10 @@ import progressbar from '../render/progressbar.js';
 import { noop } from './core.js';
 
 /** @typedef {{updatedAt: string}} CacheOpt */
-
 /** @typedef {{content: string, opt: CacheOpt}} CacheItem */
-
+/** @typedef {{ok: boolean, status: number, statusText: string}} ResponseStatus */
 /** @type {Record<string, CacheItem>} */
+
 const cache = {};
 
 /**
@@ -37,10 +37,16 @@ export function get(url, hasBar = false, headers = {}) {
 
   return {
     /**
-     * @param {(text: string, opt: CacheOpt) => void} success
-     * @param {(event: ProgressEvent<XMLHttpRequestEventTarget>) => void} error
+     * @param {(text: string, opt: CacheOpt, response: ResponseStatus) => void} success
+     * @param {(event: ProgressEvent<XMLHttpRequestEventTarget>, response: ResponseStatus) => void} error
      */
     then(success, error = noop) {
+      const getResponseStatus = event => ({
+        ok: event.target.status >= 200 && event.target.status < 300,
+        status: event.target.status,
+        statusText: event.target.statusText,
+      });
+
       if (hasBar) {
         const id = setInterval(
           _ =>
@@ -57,11 +63,15 @@ export function get(url, hasBar = false, headers = {}) {
         });
       }
 
-      xhr.addEventListener('error', error);
+      xhr.addEventListener('error', event => {
+        error(event, getResponseStatus(event));
+      });
+
       xhr.addEventListener('load', event => {
         const target = /** @type {XMLHttpRequest} */ (event.target);
+
         if (target.status >= 400) {
-          error(event);
+          error(event, getResponseStatus(event));
         } else {
           if (typeof target.response !== 'string') {
             throw new TypeError('Unsupported content type.');
@@ -74,7 +84,7 @@ export function get(url, hasBar = false, headers = {}) {
             },
           });
 
-          success(result.content, result.opt);
+          success(result.content, result.opt, getResponseStatus(event));
         }
       });
     },
