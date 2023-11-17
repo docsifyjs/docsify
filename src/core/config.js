@@ -30,7 +30,7 @@ export default function (vm) {
       nativeEmoji: false,
       noCompileLinks: [],
       noEmoji: false,
-      notFoundPage: true,
+      notFoundPage: false,
       plugins: [],
       relativePath: false,
       repo: '',

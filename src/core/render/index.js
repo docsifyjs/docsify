@@ -60,10 +60,6 @@ export function Render(Base) {
         return isVue2 || isVue3;
       };
 
-      if (!html) {
-        html = this.compiler.header('404 - Not Found', 1);
-      }
-
       if ('Vue' in window) {
         const mountedElms = dom
           .findAll('.markdown-section > *')
@@ -338,10 +334,12 @@ export function Render(Base) {
     }
 
     _renderMain(text, opt = {}, next) {
-      if (typeof text !== 'string') {
-        this.#renderMain(text);
-        this.focusContent();
-        return;
+      const { response } = this.route;
+
+      // Note: It is possible for the response to be undefined in environments
+      // where XMLHttpRequest has been modified or mocked
+      if (response && !response.ok && (!text || response.status !== 404)) {
+        text = `# ${response.status} - ${response.statusText}`;
       }
 
       this.callHook('beforeEach', text, result => {

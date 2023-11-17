@@ -92,6 +92,7 @@ export class HashHistory extends History {
       path,
       file: this.getFile(path, true),
       query: parseQuery(query),
+      response: {},
     };
   }
 
