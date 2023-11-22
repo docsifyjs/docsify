@@ -29,8 +29,8 @@ export function Events(Base) {
         }
       }
 
-      // Focus on the content area after navigation
-      if (source === 'navigate') {
+      // Move focus to content
+      if (query.id || source === 'navigate') {
         this.focusContent();
       }
 
