@@ -214,7 +214,8 @@ test.describe('keyBindings', () => {
         homepage: `
           <input type="text">
           <select>
-            <option>foo</option>
+            <option value="a" selected>a</option>
+            <option value="z">z</option>
           </select>
           <textarea></textarea>
         `,
@@ -242,6 +243,7 @@ test.describe('keyBindings', () => {
 
     await selectElm.focus();
     await page.keyboard.press('z');
+    await expect(selectElm).toHaveValue('z');
     await selectElm.blur();
 
     await expect(bodyElm).not.toHaveAttribute('data-foo');
