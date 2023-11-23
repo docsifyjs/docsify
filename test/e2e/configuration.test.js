@@ -148,24 +148,6 @@ test.describe('Configuration options', () => {
 });
 
 test.describe('keyBindings', () => {
-  test('handles focusContent binding (default)', async ({ page }) => {
-    const docsifyInitConfig = {
-      markdown: {
-        homepage: `
-          <input type="text">
-        `,
-      },
-    };
-
-    const textFieldElm = page.locator('input[type="text"]');
-
-    await docsifyInit(docsifyInitConfig);
-
-    await expect(textFieldElm).not.toBeFocused();
-    await page.keyboard.press("'");
-    await expect(textFieldElm).toBeFocused();
-  });
-
   test('handles toggleSidebar binding (default)', async ({ page }) => {
     const docsifyInitConfig = {
       markdown: {

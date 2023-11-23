@@ -71,17 +71,6 @@ export default function (vm) {
     config.keyBindings = Object.assign(
       // Default
       {
-        focusContent: {
-          bindings: "'",
-          callback(e) {
-            const containerElm = document.querySelector('.markdown-section');
-            const focusElm = containerElm.querySelector(
-              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-
-            focusElm && focusElm.focus();
-          },
-        },
         toggleSidebar: {
           bindings: ['\\'],
           callback(e) {

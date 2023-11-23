@@ -304,7 +304,6 @@ window.$docsify = {
 
 ### Default key bindings
 
-- <kbd>'</kbd> Focus on content area
 - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field (also supports <kbd>Cmd</kbd>&nbsp;/&nbsp;<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>)
 - <kbd>\\</kbd> Toggle the sidebar menu
 
