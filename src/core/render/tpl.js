@@ -42,7 +42,7 @@ export function main(config) {
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside id="__sidebar" class="sidebar" role="menu" aria-labelledby="__sidebar-toggle">
+    <aside id="__sidebar" class="sidebar" role="none" aria-labelledby="__sidebar-toggle">
       ${
         config.name
           ? /* html */ `
@@ -52,14 +52,14 @@ export function main(config) {
           `
           : ''
       }
-      <div class="sidebar-nav"><!--sidebar--></div>
+      <div class="sidebar-nav" role="navigation" aria-label="primary"><!--sidebar--></div>
     </aside>
   `;
 
   return /* html */ `
-    <main>${aside}
+    <main role="presentation">${aside}
       <section class="content">
-        <article class="markdown-section" id="main"><!--main--></article>
+        <article class="markdown-section" id="main" role="main"><!--main--></article>
       </section>
     </main>
   `;
@@ -80,7 +80,7 @@ export function cover() {
   `;
 
   return /* html */ `
-    <section class="cover show" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover" style="background: ${bgc}">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>
