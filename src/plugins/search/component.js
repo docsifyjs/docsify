@@ -77,6 +77,17 @@ function style() {
   transform: scale(.5);
 }
 
+.search kbd {
+  position: absolute;
+  right: 8px;
+  margin: 0;
+}
+
+.search input:focus ~ kbd,
+.search input:not(:empty) ~ kbd {
+  display: none;
+}
+
 .search h2 {
   font-size: 17px;
   margin: 10px 0;
@@ -126,6 +137,7 @@ function tpl(defaultValue = '') {
           <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />
         </svg>
       </div>
+      <kbd title="Press / to search">/</kbd>
     </div>
     <div class="results-status" aria-live="polite"></div>
     <div class="results-panel"></div>
