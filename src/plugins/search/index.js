@@ -52,7 +52,8 @@ const install = function (hook, vm) {
           const isSidebarHidden = sidebarElm?.getBoundingClientRect().x < 0;
 
           isSidebarHidden && sidebarToggleElm?.click();
-          searchElm.focus();
+
+          setTimeout(() => searchElm?.focus(), isSidebarHidden ? 250 : 0);
         },
       };
     }
