@@ -192,16 +192,18 @@ export function Events(Base) {
       const topMargin = config().topMargin;
       // Use [id='1234'] instead of #id to handle special cases such as reserved characters and pure number id
       // https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document
-      const section = dom.find("[id='" + id + "']");
+      const section = dom.find(`[id="${id}"]`);
       section && this.#scrollTo(section, topMargin);
 
-      const li = this.#nav[this.#getNavKey(path, id)];
       const sidebar = dom.getNode('.sidebar');
-      const active = dom.find(sidebar, 'li.active');
-      active?.classList.remove('active');
-      active?.removeAttribute('aria-current');
-      li?.classList.add('active');
-      li?.setAttribute('aria-current', 'page');
+      const oldActive = dom.find(sidebar, 'li.active');
+      const oldPage = dom.find(sidebar, `[aria-current]`);
+      const newActive = this.#nav[this.#getNavKey(path, id)];
+      const newPage = dom.find(sidebar, `[href$="${path}"]`)?.parentNode;
+      oldActive?.classList.remove('active');
+      oldPage?.removeAttribute('aria-current');
+      newActive?.classList.add('active');
+      newPage?.setAttribute('aria-current', 'page');
     }
 
     #scrollEl = dom.$.scrollingElement || dom.$.documentElement;
