@@ -37,7 +37,7 @@ export function main(config) {
   const name = config.name ? config.name : '';
 
   const aside = /* html */ `
-    <button class="sidebar-toggle" aria-label="Menu">
+    <button class="sidebar-toggle" aria-label="Menu" title="Press \\ to toggle sidebar">
       <div class="sidebar-toggle-button">
         <span></span><span></span><span></span>
       </div>
