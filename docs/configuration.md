@@ -293,20 +293,22 @@ window.$docsify = {
 - Type: `Boolean|Object`
 - Default: `Object`
   - <kbd>\\</kbd> Toggle the sidebar menu
-  - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field (also supports <kbd>Cmd</kbd>&nbsp;/&nbsp;<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>)
+  - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field. Also supports <kbd>alt</kbd>&nbsp;/&nbsp;<kbd>ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>.
 
 Binds key combination(s) to a custom callback function.
 
 Key `bindings` are defined as case insensitive string values separated by `+`. Modifier key values include `alt`, `ctrl`, `meta`, and `shift`. Non-modifier key values should match the keyboard event's [key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) or [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) value.
 
-The `callback` functions receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
+The `callback` function receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
+
+!> Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
 
 ```js
 window.$docsify = {
   keyBindings: {
     // Custom key binding
     myCustomBinding: {
-      bindings: ['ctrl+a', '],
+      bindings: ['alt+a', 'shift+a'],
       callback(event) {
         alert('Hello, World!');
       },
