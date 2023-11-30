@@ -41,7 +41,7 @@ export function Events(Base) {
 
     initEvent() {
       const { coverpage, keyBindings } = this.config;
-      const keyModifiers = ['alt', 'ctrl', 'meta', 'shift'];
+      const modifierKeys = ['alt', 'ctrl', 'meta', 'shift'];
 
       // Bind skip link
       this.#skipLink('#skip-to-content');
@@ -72,16 +72,26 @@ export function Events(Base) {
             ? bindings
             : [bindings];
 
-          // Convert key sequences to arrays
-          // Ex: ['alt+t', 'ctrl+t'] => [['alt', 't'], ['ctrl', 't']]
+          // Convert key sequences to sorted arrays (modifiers first)
+          // Ex: ['alt+t', 't+ctrl'] => [['alt', 't'], ['ctrl', 't']]
           bindingConfig.bindings = bindingConfig.bindings.map(keys => {
+            const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
+
             if (typeof keys === 'string') {
               keys = keys.split('+');
             }
 
-            return Array.isArray(keys)
-              ? keys.map(k => k.toLowerCase().trim())
-              : [keys];
+            keys.forEach(key => {
+              const isModifierKey = modifierKeys.includes(key);
+              const targetArray = sortedKeys[isModifierKey ? 0 : 1];
+              const newKeyValue = key.trim().toLowerCase();
+
+              targetArray.push(newKeyValue);
+            });
+
+            sortedKeys.forEach(arr => arr.sort());
+
+            return sortedKeys.flat();
           });
         });
 
@@ -105,7 +115,7 @@ export function Events(Base) {
                 keys.every(
                   // k: 'alt'
                   k =>
-                    (keyModifiers.includes(k) && e[k + 'Key']) ||
+                    (modifierKeys.includes(k) && e[k + 'Key']) ||
                     e.key === k || // Ex: " ", "a"
                     e.code.toLowerCase() === k || // "space"
                     e.code.toLowerCase() === `key${k}` || // "keya"
