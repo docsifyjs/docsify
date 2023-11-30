@@ -476,6 +476,8 @@ export function Render(Base) {
         const navEl = dom.find('nav') || dom.create('nav');
         const isMergedSidebar = config.mergeNavbar && isMobile;
 
+        navEl.setAttribute('aria-label', 'secondary');
+
         if (isMergedSidebar) {
           dom.find('.sidebar').prepend(navEl);
         } else {
