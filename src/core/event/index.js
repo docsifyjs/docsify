@@ -232,14 +232,18 @@ export function Events(Base) {
       const topMargin = config().topMargin;
       // Use [id='1234'] instead of #id to handle special cases such as reserved characters and pure number id
       // https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document
-      const section = dom.find("[id='" + id + "']");
+      const section = dom.find(`[id="${id}"]`);
       section && this.#scrollTo(section, topMargin);
 
-      const li = this.#nav[this.#getNavKey(path, id)];
       const sidebar = dom.getNode('.sidebar');
-      const active = dom.find(sidebar, 'li.active');
-      active && active.classList.remove('active');
-      li && li.classList.add('active');
+      const oldActive = dom.find(sidebar, 'li.active');
+      const oldPage = dom.find(sidebar, `[aria-current]`);
+      const newActive = this.#nav[this.#getNavKey(path, id)];
+      const newPage = dom.find(sidebar, `[href$="${path}"]`)?.parentNode;
+      oldActive?.classList.remove('active');
+      oldPage?.removeAttribute('aria-current');
+      newActive?.classList.add('active');
+      newPage?.setAttribute('aria-current', 'page');
     }
 
     #scrollEl = dom.$.scrollingElement || dom.$.documentElement;
@@ -257,7 +261,15 @@ export function Events(Base) {
      * @void
      */
     #btn(el) {
-      const toggle = _ => dom.body.classList.toggle('close');
+      const toggle = _ => {
+        dom.body.classList.toggle('close');
+
+        const isClosed = isMobile
+          ? dom.body.classList.contains('close')
+          : !dom.body.classList.contains('close');
+
+        el.setAttribute('aria-expanded', isClosed);
+      };
 
       el = dom.getNode(el);
       if (el === null || el === undefined) {
@@ -342,8 +354,10 @@ export function Events(Base) {
           if (hash.indexOf(href) === 0 && !target) {
             target = a;
             dom.toggleClass(node, 'add', 'active');
+            node.setAttribute('aria-current', 'page');
           } else {
             dom.toggleClass(node, 'remove', 'active');
+            node.removeAttribute('aria-current');
           }
         });
 
