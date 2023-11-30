@@ -9,7 +9,7 @@ exports[`Docs Site coverpage renders and is unchanged 1`] = `
     )
   \\">
       <div class=\\"mask\\"></div>
-      <div class=\\"cover-main\\"><p><img src=\\"http://127.0.0.1:3001/_media/icon.svg\\" data-origin=\\"_media/icon.svg\\" alt=\\"logo\\"></p><h1 id=\\"docsify-4130\\"><a href=\\"#/?id=docsify-4130\\" data-id=\\"docsify-4130\\" class=\\"anchor\\"><span>docsify <small>4.13.0</small></span></a></h1><blockquote>
+      <div class=\\"cover-main\\"><p><img src=\\"http://127.0.0.1:3001/_media/icon.svg\\" data-origin=\\"_media/icon.svg\\" alt=\\"logo\\"></p><h1 id=\\"docsify-4130\\" tabindex=\\"-1\\"><a href=\\"#/?id=docsify-4130\\" data-id=\\"docsify-4130\\" class=\\"anchor\\"><span>docsify <small>4.13.0</small></span></a></h1><blockquote>
 <p>A magical documentation site generator.</p></blockquote>
 <ul><li>Simple and lightweight</li><li>No statically built html files</li><li>Multiple themes</li></ul><p><a href=\\"https://github.com/docsifyjs/docsify/\\" target=\\"_blank\\" rel=\\"noopener\\">GitHub</a>
 <a href=\\"#/?id=docsify\\">Getting Started</a></p></div>

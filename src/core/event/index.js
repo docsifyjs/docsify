@@ -14,29 +14,39 @@ import config from '../config.js';
 export function Events(Base) {
   return class Events extends Base {
     $resetEvents(source) {
-      const { auto2top } = this.config;
+      const { auto2top, loadNavbar } = this.config;
+      const { path, query } = this.route;
 
-      // If 'history', rely on the browser's scroll auto-restoration when going back or forward
+      // Note: Scroll position set by browser on forward/back (i.e. "history")
       if (source !== 'history') {
         // Scroll to ID if specified
-        if (this.route.query.id) {
-          this.#scrollIntoView(this.route.path, this.route.query.id);
+        if (query.id) {
+          this.#scrollIntoView(path, query.id, true);
         }
         // Scroll to top if a link was clicked and auto2top is enabled
-        if (source === 'navigate') {
+        else if (source === 'navigate') {
           auto2top && this.#scroll2Top(auto2top);
         }
       }
 
-      if (this.config.loadNavbar) {
+      // Move focus to content
+      if (query.id || source === 'navigate') {
+        this.focusContent();
+      }
+
+      if (loadNavbar) {
         this.__getAndActive(this.router, 'nav');
       }
     }
 
     initEvent() {
+      // Bind skip link
+      this.#skipLink('#skip-to-content');
+
       // Bind toggle button
       this.#btn('button.sidebar-toggle', this.router);
       this.#collapse('.sidebar', this.router);
+
       // Bind sticky effect
       if (this.config.coverpage) {
         !isMobile && on('scroll', this.__sticky);
@@ -52,6 +62,22 @@ export function Events(Base) {
     #scroller = null;
     #enableScrollEvent = true;
     #coverHeight = 0;
+
+    #skipLink(el) {
+      el = dom.getNode(el);
+
+      if (el === null || el === undefined) {
+        return;
+      }
+
+      dom.on(el, 'click', evt => {
+        const target = dom.getNode('#main');
+
+        evt.preventDefault();
+        target && target.focus();
+        this.#scrollTo(target);
+      });
+    }
 
     #scrollTo(el, offset = 0) {
       if (this.#scroller) {
@@ -73,6 +99,20 @@ export function Events(Base) {
           this.#scroller = null;
         })
         .begin();
+    }
+
+    focusContent() {
+      const { query } = this.route;
+      const focusEl = query.id
+        ? // Heading ID
+          dom.find(`#${query.id}`)
+        : // First heading
+          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+          // Content container
+          dom.find('#main');
+
+      // Move focus to content area
+      focusEl && focusEl.focus();
     }
 
     #highlight(path) {
