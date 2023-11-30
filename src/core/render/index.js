@@ -238,6 +238,34 @@ export function Render(Base) {
         el.setAttribute('href', nameLink[match]);
       }
     }
+
+    #renderSkipLink(vm) {
+      const { skipLink } = vm.config;
+
+      if (skipLink !== false) {
+        const el = dom.getNode('#skip-to-content');
+
+        let skipLinkText =
+          typeof skipLink === 'string' ? skipLink : 'Skip to main content';
+
+        if (skipLink?.constructor === Object) {
+          const matchingPath = Object.keys(skipLink).find(path =>
+            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`)
+          );
+          const matchingText = matchingPath && skipLink[matchingPath];
+
+          skipLinkText = matchingText || skipLinkText;
+        }
+
+        if (el) {
+          el.innerHTML = skipLinkText;
+        } else {
+          const html = `<button id="skip-to-content">${skipLinkText}</button>`;
+          dom.body.insertAdjacentHTML('afterbegin', html);
+        }
+      }
+    }
+
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
@@ -396,6 +424,9 @@ export function Render(Base) {
     _updateRender() {
       // Render name link
       this.#renderNameLink(this);
+
+      // Render skip link
+      this.#renderSkipLink(this);
     }
 
     initRender() {
@@ -409,14 +440,10 @@ export function Render(Base) {
       }
 
       const id = config.el || '#app';
-      const navEl = dom.find('nav') || dom.create('nav');
-
       const el = dom.find(id);
-      let html = '';
-      let navAppendToTarget = dom.body;
 
       if (el) {
-        navEl.setAttribute('aria-label', 'secondary');
+        let html = '';
 
         if (config.repo) {
           html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
@@ -437,25 +464,27 @@ export function Render(Base) {
         }
 
         html += tpl.main(config);
+
         // Render main app
         this._renderTo(el, html, true);
       } else {
         this.rendered = true;
       }
 
-      if (config.mergeNavbar && isMobile) {
-        navAppendToTarget = dom.find('.sidebar');
-      } else {
-        navEl.classList.add('app-nav');
-
-        if (!config.repo) {
-          navEl.classList.add('no-badge');
-        }
-      }
-
       // Add nav
       if (config.loadNavbar) {
-        dom.before(navAppendToTarget, navEl);
+        const navEl = dom.find('nav') || dom.create('nav');
+        const isMergedSidebar = config.mergeNavbar && isMobile;
+
+        navEl.setAttribute('aria-label', 'secondary');
+
+        if (isMergedSidebar) {
+          dom.find('.sidebar').prepend(navEl);
+        } else {
+          dom.body.prepend(navEl);
+          navEl.classList.add('app-nav');
+          navEl.classList.toggle('no-badge', !config.repo);
+        }
       }
 
       if (config.themeColor) {

@@ -874,6 +874,39 @@ window.$docsify = {
 }
 ```
 
+## skipLink
+
+- Type: `Boolean|String|Object`
+- Default: `'Skip to main content'`
+
+Determines if/how the site's [skip navigation link](https://webaim.org/techniques/skipnav/) will be rendered.
+
+```js
+// Render skip link for all routes (default)
+window.$docsify = {
+  skipLink: 'Skip to main content',
+};
+```
+
+```js
+// Render localized skip links based on route paths
+window.$docsify = {
+  skipLink: {
+    '/es/': 'Saltar al contenido principal',
+    '/de-de/': 'Ga naar de hoofdinhoud',
+    '/ru-ru/': 'Перейти к основному содержанию',
+    '/zh-cn/': '跳到主要内容',
+  },
+};
+```
+
+```js
+// Do not render skip link
+window.$docsify = {
+  skipLink: false,
+};
+```
+
 ## subMaxLevel
 
 - Type: `Number`
