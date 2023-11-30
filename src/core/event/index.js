@@ -118,8 +118,7 @@ export function Events(Base) {
                     (modifierKeys.includes(k) && e[k + 'Key']) ||
                     e.key === k || // Ex: " ", "a"
                     e.code.toLowerCase() === k || // "space"
-                    e.code.toLowerCase() === `key${k}` || // "keya"
-                    e.keyCode === Number(k) // 32 (space), 65 (a)
+                    e.code.toLowerCase() === `key${k}` // "keya"
                 )
               )
           );
