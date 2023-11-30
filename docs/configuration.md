@@ -291,9 +291,31 @@ window.$docsify = {
 ## keyBindings
 
 - Type: `Boolean|Object`
-- Default: `Object` (see below)
+- Default: `Object`
+  - <kbd>\\</kbd> Toggle the sidebar menu
+  - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field (also supports <kbd>Cmd</kbd>&nbsp;/&nbsp;<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>)
 
-Binds one or more key combinations to a callback function. Key bindings are disabled when `false`.
+Binds key combination(s) to a custom callback function.
+
+Key `bindings` are defined as case insensitive string values separated by `+`. Modifier key values include `alt`, `ctrl`, `meta`, and `shift`. Non-modifier key values should match the keyboard event's [key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) or [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) value.
+
+The `callback` functions receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Custom key binding
+    myCustomBinding: {
+      bindings: ['ctrl+a', '],
+      callback(event) {
+        alert('Hello, World!');
+      },
+    },
+  },
+};
+```
+
+Key bindings can be disabled entirely or individually by setting the binding configuration to `false`.
 
 ```js
 window.$docsify = {
@@ -302,54 +324,15 @@ window.$docsify = {
 };
 ```
 
-### Default key bindings
-
-- <kbd>/</kbd> Focus on [search](plugins#full-text-search) field (also supports <kbd>Cmd</kbd>&nbsp;/&nbsp;<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>)
-- <kbd>\\</kbd> Toggle the sidebar menu
-
-Key bindings can be disabled individually by setting the binding configuration to `false`.
-
 ```js
 window.$docsify = {
   keyBindings: {
     // Disable individual key bindings
-    focusContent: false,
     focusSearch: false,
     toggleSidebar: false,
   },
 };
 ```
-
-### Custom key bindings
-
-Key binding configurations contain the following properties:
-
-- `bindings`: A `Number`, `String`, `Array`, or `Array[]` representing one or more key combinations.
-- `callback`: A `Function` to be invoked when a corresponding key or key combination is detected.
-
-```js
-window.$docsify = {
-  keyBindings: {
-    // Custom key binding
-    myCustomBinding: {
-      bindings: 'alt+h',
-      callback(e) {
-        alert('Hello, World!');
-      },
-    },
-  },
-};
-```
-
-Key `binding` values may include [key values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key), [key codes](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code), or any of the following modifier strings: `alt`, `ctrl`, `meta`, `shift`.
-
-| Type   | Binding                          | Keys                                                                         |
-| ------ | -------------------------------- | ---------------------------------------------------------------------------- |
-| Number | `84`                             | <kbd>t</kbd>                                                                 |
-| String | `'t'`                            | <kbd>t</kbd>                                                                 |
-| String | `'alt+t'`                        | <kbd>Alt</kbd> + <kbd>t</kbd>                                                |
-| Array  | `['alt+t', 'shift+t']`           | <kbd>Alt</kbd> + <kbd>t</kbd> &nbsp;or&nbsp; <kbd>Shift</kbd> + <kbd>t</kbd> |
-| Array  | `[['alt', 't'], ['shift', 't']]` | <kbd>Alt</kbd> + <kbd>t</kbd> &nbsp;or&nbsp; <kbd>Shift</kbd> + <kbd>t</kbd> |
 
 ## loadNavbar
 
