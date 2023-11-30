@@ -86,6 +86,38 @@ li input[type='checkbox']
   margin 0 0.2em 0.25em 0
   vertical-align middle
 
+[tabindex="-1"]:focus
+  outline none !important
+
+/* skip link */
+#skip-to-content
+  appearance none
+  display block
+  position fixed
+  z-index 2147483647
+  top 0
+  left 50%
+  padding 0.5rem 1.5rem
+  border 0
+  border-radius: 100vw
+  background-color $color-primary
+  background-color var(--theme-color, $color-primary)
+  color $color-bg
+  color var(--theme-bg, $color-bg)
+  opacity 0
+  font-size inherit
+  text-decoration none
+  transform translate(-50%, -100%)
+  transition-property opacity, transform
+  transition-duration 0s, 0.2s
+  transition-delay 0.2s, 0s
+
+  &:focus
+    opacity 1
+    transform translate(-50%, 0.75rem)
+    transition-duration 0s, 0.2s
+    transition-delay 0s, 0s
+
 /* navbar */
 .app-nav
   margin 25px 60px 0 0
