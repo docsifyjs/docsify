@@ -37,12 +37,12 @@ export function main(config) {
   const name = config.name ? config.name : '';
 
   const aside = /* html */ `
-    <button id="__sidebar-toggle" class="sidebar-toggle" aria-label="Toggle menu" aria-controls="__sidebar" aria-haspopup="true">
+    <button class="sidebar-toggle" aria-label="Toggle primary navigation" aria-controls="__sidebar">
       <div class="sidebar-toggle-button" aria-hidden="true">
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside id="__sidebar" class="sidebar" role="none" aria-labelledby="__sidebar-toggle">
+    <aside id="__sidebar" class="sidebar" role="none">
       ${
         config.name
           ? /* html */ `
