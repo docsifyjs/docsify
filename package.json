@@ -112,7 +112,7 @@
     "rimraf": "^3.0.0",
     "rollup": "^3.25.3",
     "serve-handler": "^6.1.2",
-    "stylus": "^0.60.0",
+    "stylus": "^0.62.0",
     "vue2": "npm:vue@^2.6.12",
     "vue3": "npm:vue@^3.0.0",
     "xhr-mock": "^2.5.1"
