@@ -1,10 +1,19 @@
-import liveServer from 'live-server';
-const middleware = [];
+import { create } from 'browser-sync';
+import config from './server.config.js';
 
-const params = {
-  port: 3000,
-  watch: ['lib', 'docs', 'themes'],
-  middleware,
-};
+const bsServer = create();
+const isDev = process.argv.includes('--dev');
+const settings = config[isDev ? 'dev' : 'prod'];
 
-liveServer.start(params);
+console.log(
+  [
+    '\n',
+    'Starting',
+    isDev ? 'development' : 'standard',
+    'server',
+    `(watch: ${isDev})`,
+    '\n',
+  ].join(' ')
+);
+
+bsServer.init(settings);

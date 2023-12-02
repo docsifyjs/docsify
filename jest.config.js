@@ -1,5 +1,7 @@
-import { TEST_HOST } from './test/config/server.js';
+import serverConfig from './server.config.js';
 
+const { hostname, port } = serverConfig.test;
+const TEST_HOST = `http://${hostname}:${port}`;
 const sharedConfig = {
   errorOnDeprecated: true,
   globalSetup: './test/config/jest.setup.js',
@@ -10,6 +12,8 @@ const sharedConfig = {
   testEnvironment: 'jsdom',
   testURL: `${TEST_HOST}/_blank.html`,
 };
+
+process.env.TEST_HOST = TEST_HOST;
 
 export default {
   transform: {},
