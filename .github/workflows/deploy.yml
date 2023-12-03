@@ -24,9 +24,7 @@ jobs:
       - name: Build Lib
         run: npm run build
       - name: Add Changes of Lib
-        run: git add ./lib -f
-      - name: Check
-        run: git status
+        run: git add ./lib
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         #if: github.ref == 'refs/heads/main'
