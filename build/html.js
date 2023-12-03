@@ -14,7 +14,9 @@ function generatePreview() {
   const outPath = path.resolve(__dirname, '..');
   const outHTML = srcHTML
     // Replace CDN URLs with local paths
-    .replace(/\/\/cdn.jsdelivr.net\/npm\/docsify@4\//g, '/');
+    .replace(/\/\/cdn.jsdelivr.net\/npm\/docsify@4\//g, '/')
+    // Enable basePath to simulate /docs as root
+    .replace(/(\/\/ )(basePath:)/, '$2');
 
   fs.writeFileSync(path.resolve(outPath, file), outHTML);
 }
