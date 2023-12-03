@@ -11,14 +11,11 @@ function generatePreview() {
   const file = 'index.html';
   const srcPath = path.resolve(__dirname, '..', 'docs');
   const srcHTML = fs.readFileSync(path.resolve(srcPath, file), 'utf8');
-  const outPath = path.resolve(__dirname, '..', '.vercel', 'output', 'static');
+  const outPath = path.resolve(__dirname, '..');
   const outHTML = srcHTML
     // Replace CDN URLs with local paths
-    .replace(/\/\/cdn.jsdelivr.net\/npm\/docsify@4\//g, '/')
-    // Enable basePath to simulate /docs as root
-    .replace(/(\/\/ )(basePath:)/, '$2');
+    .replace(/\/\/cdn.jsdelivr.net\/npm\/docsify@4\//g, '/');
 
-  fs.mkdirSync(outPath, { recursive: true });
   fs.writeFileSync(path.resolve(outPath, file), outHTML);
 }
 
