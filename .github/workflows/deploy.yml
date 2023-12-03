@@ -23,6 +23,10 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Build Lib
         run: npm run build
+      - name: Rewrite gitignore
+        run: sed -i '/lib/d' .gitignore
+      - name: Check
+        run: cat .gitignore
       - name: Add Changes of Lib
         run: git add ./lib
       - name: Deploy
