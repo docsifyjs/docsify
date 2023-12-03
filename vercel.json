@@ -1,9 +1,9 @@
 {
-    "rewrites": [
-        {
-            "source": "/",
-            "destination": "./docs/index.html"
-        }
-    ],
-    "trailingSlash": true
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "./docs/index.html"
+    }
+  ],
+  "trailingSlash": false
 }
