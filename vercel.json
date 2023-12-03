@@ -3,7 +3,7 @@
     {
       "source": "/",
       "destination": "./docs/index.html",
-      "permanent": true
+      "statusCode": 302
     }
   ]
 }
