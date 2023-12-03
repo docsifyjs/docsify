@@ -17,15 +17,29 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
     />
-    <link rel="stylesheet" href="/lib/themes/vue.css" title="vue" />
-    <link rel="stylesheet" href="/lib/themes/dark.css" title="dark" disabled />
+    <link
+      rel="stylesheet"
+      href="/lib/themes/vue.css"
+      title="vue"
+    />
+    <link
+      rel="stylesheet"
+      href="/lib/themes/dark.css"
+      title="dark"
+      disabled
+    />
     <link
       rel="stylesheet"
       href="/lib/themes/buble.css"
       title="buble"
       disabled
     />
-    <link rel="stylesheet" href="/lib/themes/pure.css" title="pure" disabled />
+    <link
+      rel="stylesheet"
+      href="/lib/themes/pure.css"
+      title="pure"
+      disabled
+    />
     <link
       rel="stylesheet"
       href="/lib/themes/dolphin.css"
@@ -73,6 +87,7 @@
             'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
         },
         auto2top: true,
+        basePath: '/docs', // Required for Vercel preview deployment
         coverpage: true,
         executeScript: true,
         loadSidebar: true,
@@ -209,8 +224,12 @@
     <script>
       // Public site only
       if (/docsify/.test(location.host)) {
-        document.write('<script src="/lib/plugins/ga.min.js"><\/script>');
-        document.write('<script src="/lib/plugins/matomo.min.js"><\/script>');
+        document.write(
+          '<script src="/lib/plugins/ga.min.js"><\/script>'
+        );
+        document.write(
+          '<script src="/lib/plugins/matomo.min.js"><\/script>'
+        );
       }
     </script>
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
