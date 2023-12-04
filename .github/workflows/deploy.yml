@@ -1,4 +1,4 @@
-name: Deploy Github Page
+name: Deploy Github Pages
 
 on:
   push:
@@ -6,8 +6,6 @@ on:
       - 'main'
       - 'master'
       - 'pr-2316'
-  # Allows to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -41,13 +39,13 @@ jobs:
       #   run: git add ./lib
 
       # Option2: rewrite path
-      - name: rewirte docsify.js to import docsify.min.js
+      - name: Rewirte docsify.js to import docsify.min.js
         run: sed -i 's|\"\/lib\/docsify.js|\"\/lib\/docsify.min.js|g' ./docs/index.html
 
-      - name: rewirte all local path to CDN @4
+      - name: Rewirte all local path to CDN @4
         run: sed -i 's|\"\/lib|\"\/\/cdn.jsdelivr.net\/npm\/docsify@4\/lib|g' ./docs/index.html
 
-      - name: view rewirted index.html
+      - name: View rewirted index.html
         run: cat ./docs/index.html
 
       - name: Deploy to GithubPages
