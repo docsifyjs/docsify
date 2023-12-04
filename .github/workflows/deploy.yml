@@ -6,14 +6,21 @@ on:
       - 'main'
       - 'master'
       - 'pr-2316'
+  # Allows to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   deploy-gh:
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       # Option1: Copy /lib flow
@@ -54,5 +61,5 @@ jobs:
           force_orphan: true
           allow_empty_commit: true
           commit_message: ${{ github.event.head_commit.message }}
-          user_name: 'github-actions[gh-pages]'
+          user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
