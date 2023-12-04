@@ -3,6 +3,7 @@
 *.log
 /_playwright-report
 /_playwright-results
+/docs/preview.html
 /lib
 /node_modules
 /themes

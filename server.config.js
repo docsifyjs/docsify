@@ -14,27 +14,10 @@ const defaults = {
       match: /https?.*\/CHANGELOG.md/g,
       replace: '/CHANGELOG.md',
     },
-    {
-      // CDN defaults (w/o path)
-      // Match: Full URL
-      // Ex1: //cdn.com/package-name
-      // Ex2: http://cdn.com/package-name@1.0.0
-      // Ex3: https://cdn.com/package-name@latest
-      match: /(?:https?:)*\/\/.*cdn.*docsify[@\d.latest]*(?=["'])/g,
-      replace: '/lib/docsify.min.js',
-    },
-    {
-      // CDN paths
-      // Match: Path only
-      // Ex1: //cdn.com/package-name/path/file.js => /path/file.js
-      // Ex2: http://cdn.com/package-name@1.0.0/path/file.js => /path/file.js
-      // Ex3: https://cdn.com/package-name@latest/path/file.js => /path/file.js
-      match: /(?:https?:)*\/\/.*cdn.*docsify[@\d.latest]*\/(?:lib\/)/g,
-      replace: '/lib/',
-    },
   ],
   server: {
     baseDir: 'docs',
+    index: 'preview.html',
     routes: {
       '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
       '/lib': path.resolve(__dirname, 'lib'),
@@ -58,6 +41,10 @@ export default {
   prod: {
     ...defaults,
     port: 8080,
+    server: {
+      ...defaults.server,
+      index: 'index.html',
+    },
   },
   // Test: (watch disabled, blank page route, unique port)
   test: {
