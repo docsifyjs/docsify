@@ -16,15 +16,15 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
-      - name: install dependencies
-        run: npm ci --ignore-scripts
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
+      #     cache: 'npm'
+      # - name: install dependencies
+      #   run: npm ci --ignore-scripts
 
-      - name: build project
-        run: npm run build
+      # - name: build project
+      #   run: npm run build
 
       # - name: rewrite .gitignore to include /lib files
       #   run: sed -i '/lib/d' .gitignore
