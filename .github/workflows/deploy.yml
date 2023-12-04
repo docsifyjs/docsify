@@ -32,7 +32,7 @@ jobs:
       # - name: add /lib files
       #   run: git add ./lib
       - name: rewirte path to CDN @4
-        run: sed -i 's|\"\/lib|\"\/\\/cdn.jsdelivr.net\/npm\/docsify@4\/lib|g' /docs/index.html
+        run: sed -i 's|\"\/lib|\"\/\\/cdn.jsdelivr.net\/npm\/docsify@4\/lib|g' ./docs/index.html
 
       - name: Deploy to GithubPages
         uses: peaceiris/actions-gh-pages@v3
