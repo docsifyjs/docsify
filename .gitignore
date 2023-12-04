@@ -6,7 +6,6 @@
 /docs/preview.html
 /lib
 /node_modules
-/themes
 
 # exceptions
 !.gitkeep
