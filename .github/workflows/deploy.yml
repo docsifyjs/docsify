@@ -53,4 +53,6 @@ jobs:
           keep_files: true
           force_orphan: true
           allow_empty_commit: true
-          commit_message: PagesDeploy - ${{ github.event.head_commit.message }}
+          commit_message: ${{ github.event.head_commit.message }}
+          user_name: 'github-actions[gh-pages]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
