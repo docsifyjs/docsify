@@ -56,19 +56,22 @@
         width: auto !important;
       }
     </style>
+    <script>
+      (function () {
+        const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
+
+        // Set html "lang" attribute based on URL
+        if (lang) {
+          document.documentElement.setAttribute('lang', lang[1]);
+        }
+      })();
+    </script>
   </head>
 
   <body>
     <div id="app">Loading ...</div>
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
     <script>
-      // Set html "lang" attribute based on URL
-      const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
-
-      if (lang) {
-        document.documentElement.setAttribute('lang', lang[1]);
-      }
-
       // Docsify configuration
       window.$docsify = {
         alias: {
@@ -216,21 +219,12 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
-    <script>
-      // Public site only
-      if (/docsify/.test(location.host)) {
-        document.write(
-          '<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"><\/script>'
-        );
-        document.write(
-          '<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"><\/script>'
-        );
-      }
-    </script>
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
     <!-- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> -->
   </body>
