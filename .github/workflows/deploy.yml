@@ -26,11 +26,13 @@ jobs:
       - name: build project
         run: npm run build
 
-      - name: rewrite .gitignore to include /lib files
-        run: sed -i '/lib/d' .gitignore
+      # - name: rewrite .gitignore to include /lib files
+      #   run: sed -i '/lib/d' .gitignore
 
-      - name: add /lib files
-        run: git add ./lib
+      # - name: add /lib files
+      #   run: git add ./lib
+      - name: rewirte path to CDN @4
+        run: sed -i 's/\"\/lib/\"\/\\/cdn.jsdelivr.net\/npm\/docsify@4\/lib/g' /docs/index.html
 
       - name: Deploy to GithubPages
         uses: peaceiris/actions-gh-pages@v3
