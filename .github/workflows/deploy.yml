@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'master'
       - 'pr-2316'
 
 jobs:
@@ -40,4 +41,4 @@ jobs:
           enable_jekyll: true
           keep_files: true
           force_orphan: true
-          commit_message: Deploy Pages, commit - ${{ github.event.head_commit.message }}
+          commit_message: [PagesDeploy] - ${{ github.event.head_commit.message }}
