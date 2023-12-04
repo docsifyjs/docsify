@@ -40,5 +40,6 @@ jobs:
           publish_dir: ./
           enable_jekyll: true
           keep_files: true
+          force_orphan: true
           allow_empty_commit: true
           commit_message: PagesDeploy commit - ${{ github.event.head_commit.message }}
