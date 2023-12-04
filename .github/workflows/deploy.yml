@@ -34,8 +34,14 @@ jobs:
       #   run: git add ./lib
 
       # Option2: rewrite path
-      - name: rewirte path to CDN @4
+      - name: rewirte docsify.js to import docsify.min.js
+        run: sed -i 's|\"\/lib\/docsify.js|\"\/lib\/docsify.min.js|g' ./docs/index.html
+
+      - name: rewirte all local path to CDN @4
         run: sed -i 's|\"\/lib|\"\/\/cdn.jsdelivr.net\/npm\/docsify@4\/lib|g' ./docs/index.html
+
+      - name: view rewirted index.html
+        run: cat ./docs/index.html
 
       - name: Deploy to GithubPages
         uses: peaceiris/actions-gh-pages@v3
@@ -47,4 +53,4 @@ jobs:
           keep_files: true
           force_orphan: true
           allow_empty_commit: true
-          commit_message: PagesDeploy commit - ${{ github.event.head_commit.message }}
+          commit_message: PagesDeploy - ${{ github.event.head_commit.message }}
