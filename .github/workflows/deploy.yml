@@ -40,4 +40,4 @@ jobs:
           enable_jekyll: true
           keep_files: true
           force_orphan: true
-          commit_message: ${{ github.event.head_commit.message }}
+          commit_message: Deploy Pages, commit - ${{ github.event.head_commit.message }}
