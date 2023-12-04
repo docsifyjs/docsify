@@ -1,10 +1,12 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as url from 'node:url';
+import prettier from 'prettier';
 import stripIndent from 'common-tags/lib/stripIndent/index.js';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const prettierConfig = prettier.resolveConfig.sync(__dirname);
 
 // Preview
 // =============================================================================
@@ -27,9 +29,14 @@ function generatePreview() {
     .replace(/(<\/title>)/, ' (Preview)$1')
     // Replace CDN URLs with local paths
     .replace(/\/\/cdn.jsdelivr.net\/npm\/docsify@4\//g, '/');
+  const formattedHTML = prettier.format(outHTML, {
+    ...prettierConfig,
+    filepath: outFile,
+  });
 
   console.log(`\nBuilding ${outFile} in ${outPath}`);
-  fs.writeFileSync(path.resolve(outPath, outFile), outHTML);
+
+  fs.writeFileSync(path.resolve(outPath, outFile), formattedHTML);
 }
 
 generatePreview();
