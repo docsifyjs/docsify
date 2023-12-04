@@ -7,7 +7,7 @@ on:
       - 'pr-2316'
 
 jobs:
-  deploy:
+  deploy-gh:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -19,17 +19,19 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-      - name: Install dependencies
+      - name: install dependencies
         run: npm ci --ignore-scripts
-      - name: Build Lib
+
+      - name: build project
         run: npm run build
-      - name: Rewrite gitignore
+
+      - name: rewrite .gitignore to include /lib files
         run: sed -i '/lib/d' .gitignore
-      - name: Check
-        run: cat .gitignore
-      - name: Add Changes of Lib
+
+      - name: add /lib files
         run: git add ./lib
-      - name: Deploy
+
+      - name: Deploy to GithubPages
         uses: peaceiris/actions-gh-pages@v3
         #if: github.ref == 'refs/heads/main'
         with:
@@ -38,3 +40,4 @@ jobs:
           enable_jekyll: true
           keep_files: true
           force_orphan: true
+          commit_message: ${{ github.event.head_commit.message }}
