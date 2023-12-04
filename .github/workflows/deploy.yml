@@ -16,6 +16,7 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
+      # Option1: Copy /lib flow
       # - uses: actions/setup-node@v4
       #   with:
       #     node-version: 18
@@ -31,6 +32,8 @@ jobs:
 
       # - name: add /lib files
       #   run: git add ./lib
+
+      # Option2: rewrite path
       - name: rewirte path to CDN @4
         run: sed -i 's|\"\/lib|\"\/\/cdn.jsdelivr.net\/npm\/docsify@4\/lib|g' ./docs/index.html
 
