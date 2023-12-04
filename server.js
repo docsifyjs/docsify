@@ -1,19 +1,13 @@
 import { create } from 'browser-sync';
-import config from './server.config.js';
+import serverConfigs from './server.config.js';
 
 const bsServer = create();
-const isDev = process.argv.includes('--dev');
-const settings = config[isDev ? 'dev' : 'prod'];
+const args = process.argv.slice(2);
+const configName =
+  Object.keys(serverConfigs).find(name => args.includes(`--${name}`)) || 'prod';
+const settings = serverConfigs[configName];
 
-console.log(
-  [
-    '\n',
-    'Starting',
-    isDev ? 'development' : 'standard',
-    'server',
-    `(watch: ${isDev})`,
-    '\n',
-  ].join(' ')
-);
+// prettier-ignore
+console.log(`\nStarting ${configName} server (${settings.server.index}, watch: ${Boolean(settings.files)})\n`);
 
 bsServer.init(settings);

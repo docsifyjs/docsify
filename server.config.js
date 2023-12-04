@@ -29,7 +29,7 @@ const defaults = {
 };
 
 export default {
-  // Development (watch files and auto inject/reload on change)
+  // Development (preview, local URLs, watch enabled)
   dev: {
     ...defaults,
     files: ['CHANGELOG.md', 'docs/**/*', 'lib/**/*'],
@@ -37,7 +37,7 @@ export default {
     open: true,
     snippet: true,
   },
-  // Production (watch disabled)
+  // Production (index, CDN URLs, watch disabled)
   prod: {
     ...defaults,
     port: 8080,
@@ -46,7 +46,7 @@ export default {
       index: 'index.html',
     },
   },
-  // Test: (watch disabled, blank page route, unique port)
+  // Test (preview, local URLs, watch disabled)
   test: {
     ...defaults,
     middleware: [
