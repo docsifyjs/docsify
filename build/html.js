@@ -39,4 +39,4 @@ function generatePreview() {
   fs.writeFileSync(path.resolve(outPath, outFile), formattedHTML);
 }
 
-generatePreview();
+// generatePreview();

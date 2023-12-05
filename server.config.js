@@ -15,15 +15,15 @@ const defaults = {
       replace: '/CHANGELOG.md',
     },
   ],
-  server: {
-    baseDir: 'docs',
-    index: 'preview.html',
-    routes: {
-      '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
-      '/lib': path.resolve(__dirname, 'lib'),
-      '/node_modules': path.resolve(__dirname, 'node_modules'), // Required for automated Vue tests
-    },
-  },
+  // server: {
+  //   baseDir: 'docs',
+  //   index: 'preview.html',
+  //   routes: {
+  //     '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
+  //     '/lib': path.resolve(__dirname, 'lib'),
+  //     '/node_modules': path.resolve(__dirname, 'node_modules'), // Required for automated Vue tests
+  //   },
+  // },
   snippet: false,
   ui: false,
 };
