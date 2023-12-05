@@ -50,6 +50,10 @@ export default {
   // Test (preview, local URLs, watch disabled)
   test: {
     ...defaults,
+    server: {
+      ...defaults.server,
+      baseDir: 'docs',
+    },
     middleware: [
       // Blank page required for test environment
       {
