@@ -49,6 +49,7 @@ export default {
     port: 8080,
     server: {
       ...defaults.server,
+      baseDir: './',
       index: 'index.html',
     },
   },
