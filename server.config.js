@@ -36,6 +36,12 @@ export default {
     port: 3000,
     open: true,
     snippet: true,
+    watch: true,
+    server: {
+      ...defaults.server,
+      baseDir: './',
+      index: 'index.html',
+    },
   },
   // Production (index, CDN URLs, watch disabled)
   prod: {
