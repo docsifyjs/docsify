@@ -1,9 +1,3 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "./docs/preview.html",
-      "permanent": true
-    }
-  ]
+  "buildCommand": "npm run build:preview"
 }
