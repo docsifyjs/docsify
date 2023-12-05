@@ -16,8 +16,8 @@ const defaults = {
     },
   ],
   server: {
-    baseDir: 'docs',
-    index: 'preview.html',
+    baseDir: './',
+    index: 'index.html',
     routes: {
       '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
       '/lib': path.resolve(__dirname, 'lib'),
@@ -37,11 +37,6 @@ export default {
     open: true,
     snippet: true,
     watch: true,
-    server: {
-      ...defaults.server,
-      baseDir: './',
-      index: 'index.html',
-    },
   },
   // Production (index, CDN URLs, watch disabled)
   prod: {
@@ -49,8 +44,7 @@ export default {
     port: 8080,
     server: {
       ...defaults.server,
-      baseDir: './',
-      index: 'index.html',
+      baseDir: 'docs',
     },
   },
   // Test (preview, local URLs, watch disabled)
