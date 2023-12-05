@@ -27,7 +27,7 @@ function generatePreview() {
     // Append comment
     .replace(/(<!DOCTYPE html>)/, `${comment}\n$1`)
     // Modify title
-    .replace(/(<\/title>)/, ' (Preview123)$1')
+    .replace(/(<\/title>)/, ' (Preview)$1')
     // Replace docsify.min.js to docsify.js
     .replace(/docsify.min.js/, 'docsify.js')
     // Replace CDN URLs with local paths
