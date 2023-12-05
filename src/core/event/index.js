@@ -40,6 +40,9 @@ export function Events(Base) {
     }
 
     initEvent() {
+      const { coverpage, keyBindings } = this.config;
+      const modifierKeys = ['alt', 'ctrl', 'meta', 'shift'];
+
       // Bind skip link
       this.#skipLink('#skip-to-content');
 
@@ -48,10 +51,83 @@ export function Events(Base) {
       this.#collapse('.sidebar', this.router);
 
       // Bind sticky effect
-      if (this.config.coverpage) {
+      if (coverpage) {
         !isMobile && on('scroll', this.__sticky);
       } else {
         body.classList.add('sticky');
+      }
+      // Bind keyboard shortcuts
+      if (keyBindings && keyBindings.constructor === Object) {
+        // Prepare key binding configurations
+        Object.values(keyBindings || []).forEach(bindingConfig => {
+          const { bindings } = bindingConfig;
+
+          if (!bindings) {
+            return;
+          }
+
+          // Convert bindings to arrays
+          // Ex: 'alt+t' => ['alt+t']
+          bindingConfig.bindings = Array.isArray(bindings)
+            ? bindings
+            : [bindings];
+
+          // Convert key sequences to sorted arrays (modifiers first)
+          // Ex: ['alt+t', 't+ctrl'] => [['alt', 't'], ['ctrl', 't']]
+          bindingConfig.bindings = bindingConfig.bindings.map(keys => {
+            const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
+
+            if (typeof keys === 'string') {
+              keys = keys.split('+');
+            }
+
+            keys.forEach(key => {
+              const isModifierKey = modifierKeys.includes(key);
+              const targetArray = sortedKeys[isModifierKey ? 0 : 1];
+              const newKeyValue = key.trim().toLowerCase();
+
+              targetArray.push(newKeyValue);
+            });
+
+            sortedKeys.forEach(arr => arr.sort());
+
+            return sortedKeys.flat();
+          });
+        });
+
+        // Handle keyboard events
+        on('keydown', e => {
+          const isTextEntry = document.activeElement.matches(
+            'input, select, textarea'
+          );
+
+          if (isTextEntry) {
+            return;
+          }
+
+          const bindingConfigs = Object.values(keyBindings || []);
+          const matchingConfigs = bindingConfigs.filter(
+            ({ bindings }) =>
+              bindings &&
+              // bindings: [['alt', 't'], ['ctrl', 't']]
+              bindings.some(keys =>
+                // keys: ['alt', 't']
+                keys.every(
+                  // k: 'alt'
+                  k =>
+                    (modifierKeys.includes(k) && e[k + 'Key']) ||
+                    e.key === k || // Ex: " ", "a"
+                    e.code.toLowerCase() === k || // "space"
+                    e.code.toLowerCase() === `key${k}` // "keya"
+                )
+              )
+          );
+
+          matchingConfigs.forEach(({ callback }) => {
+            e.preventDefault();
+            callback(e);
+          });
+        });
       }
     }
 
