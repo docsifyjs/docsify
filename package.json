@@ -30,7 +30,7 @@
     "build:html": "node ./build/html.js",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
     "build:test": "npm run build && npm test",
-    "build:preview": "(mv ./docs/index.html index.html) && (sed -i 's|docsify.min.js|docsify.js|g' ./index.html) && (sed 's#//cdn.jsdelivr.net/npm/docsify@4##g' ./index.html)",
+    "build:preview": "(ls) && (mv ./docs/index.html index.html) && (sed -i 's|docsify.min.js|docsify.js|g' ./index.html) && (sed 's#//cdn.jsdelivr.net/npm/docsify@4##g' ./index.html)",
     "build": "rimraf lib themes && run-s build:js build:css build:css:min build:cover build:emoji build:html",
     "dev": "run-p serve:dev watch:*",
     "docker:build:test": "npm run docker:cli -- build:test",
