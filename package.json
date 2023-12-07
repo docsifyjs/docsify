@@ -45,7 +45,7 @@
     "lint:fix": "eslint . --fix",
     "lint": "prettier . --check && eslint .",
     "postinstall": "opencollective-postinstall",
-    "prepare": "npm run build",
+    "prepare": "sh build/husky.sh && npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
     "serve": "node server",
