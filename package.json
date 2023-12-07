@@ -57,11 +57,6 @@
     "watch:css": "npm run css -- -o themes -w",
     "watch:js": "node build/build.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.js": "eslint --fix"
   },
