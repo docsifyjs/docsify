@@ -184,6 +184,11 @@ export function Render(Base) {
             })
         );
 
+        // Not found mounts but import Vue resource
+        if (!!vueMountData.length) {
+          return;
+        }
+
         // Mount
         for (const [mountElm, vueConfig] of vueMountData) {
           const isVueAttr = 'data-isvue';
