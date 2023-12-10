@@ -185,7 +185,7 @@ export function Render(Base) {
         );
 
         // Not found mounts but import Vue resource
-        if (!!vueMountData.length === true) {
+        if (vueMountData.length === 0) {
           return;
         }
 
