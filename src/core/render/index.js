@@ -90,6 +90,7 @@ export function Render(Base) {
 
       // Handle Vue content not mounted by markdown <script>
       if ('Vue' in window) {
+        const vueGlobalOptions = docsifyConfig.vueGlobalOptions || {};
         const vueMountData = [];
         const vueComponentNames = Object.keys(
           docsifyConfig.vueComponents || {}
@@ -109,10 +110,10 @@ export function Render(Base) {
         // Store global data() return value as shared data object
         if (
           !this.#vueGlobalData &&
-          docsifyConfig.vueGlobalOptions &&
-          typeof docsifyConfig.vueGlobalOptions.data === 'function'
+          vueGlobalOptions.data &&
+          typeof vueGlobalOptions.data === 'function'
         ) {
-          this.#vueGlobalData = docsifyConfig.vueGlobalOptions.data();
+          this.#vueGlobalData = vueGlobalOptions.data();
         }
 
         // vueMounts
@@ -125,65 +126,63 @@ export function Render(Base) {
             .filter(([elm, vueConfig]) => elm)
         );
 
-        // Template syntax, vueComponents, vueGlobalOptions
-        if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
-          const reHasBraces = /{{2}[^{}]*}{2}/;
-          // Matches Vue full and shorthand syntax as attributes in HTML tags.
-          //
-          // Full syntax examples:
-          // v-foo, v-foo[bar], v-foo-bar, v-foo:bar-baz.prop
-          //
-          // Shorthand syntax examples:
-          // @foo, @foo.bar, @foo.bar.baz, @[foo], :foo, :[foo]
-          //
-          // Markup examples:
-          // <div v-html>{{ html }}</div>
-          // <div v-text="msg"></div>
-          // <div v-bind:text-content.prop="text">
-          // <button v-on:click="doThis"></button>
-          // <button v-on:click.once="doThis"></button>
-          // <button v-on:[event]="doThis"></button>
-          // <button @click.stop.prevent="doThis">
-          // <a :href="url">
-          // <a :[key]="url">
-          const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
+        // Template syntax, vueComponents, vueGlobalOptions ...
+        const reHasBraces = /{{2}[^{}]*}{2}/;
+        // Matches Vue full and shorthand syntax as attributes in HTML tags.
+        //
+        // Full syntax examples:
+        // v-foo, v-foo[bar], v-foo-bar, v-foo:bar-baz.prop
+        //
+        // Shorthand syntax examples:
+        // @foo, @foo.bar, @foo.bar.baz, @[foo], :foo, :[foo]
+        //
+        // Markup examples:
+        // <div v-html>{{ html }}</div>
+        // <div v-text="msg"></div>
+        // <div v-bind:text-content.prop="text">
+        // <button v-on:click="doThis"></button>
+        // <button v-on:click.once="doThis"></button>
+        // <button v-on:[event]="doThis"></button>
+        // <button @click.stop.prevent="doThis">
+        // <a :href="url">
+        // <a :[key]="url">
+        const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
 
-          vueMountData.push(
-            ...dom
-              .findAll('.markdown-section > *')
-              // Remove duplicates
-              .filter(elm => !vueMountData.some(([e, c]) => e === elm))
-              // Detect Vue content
-              .filter(elm => {
-                const isVueMount =
-                  // is a component
-                  elm.tagName.toLowerCase() in
-                    (docsifyConfig.vueComponents || {}) ||
-                  // has a component(s)
-                  elm.querySelector(vueComponentNames.join(',') || null) ||
-                  // has curly braces
-                  reHasBraces.test(elm.outerHTML) ||
-                  // has content directive
-                  reHasDirective.test(elm.outerHTML);
+        vueMountData.push(
+          ...dom
+            .findAll('.markdown-section > *')
+            // Remove duplicates
+            .filter(elm => !vueMountData.some(([e, c]) => e === elm))
+            // Detect Vue content
+            .filter(elm => {
+              const isVueMount =
+                // is a component
+                elm.tagName.toLowerCase() in
+                  (docsifyConfig.vueComponents || {}) ||
+                // has a component(s)
+                elm.querySelector(vueComponentNames.join(',') || null) ||
+                // has curly braces
+                reHasBraces.test(elm.outerHTML) ||
+                // has content directive
+                reHasDirective.test(elm.outerHTML);
 
-                return isVueMount;
-              })
-              .map(elm => {
-                // Clone global configuration
-                const vueConfig = {
-                  ...docsifyConfig.vueGlobalOptions,
-                };
-                // Replace vueGlobalOptions data() return value with shared data object.
-                // This provides a global store for all Vue instances that receive
-                // vueGlobalOptions as their configuration.
-                if (this.#vueGlobalData) {
-                  vueConfig.data = () => this.#vueGlobalData;
-                }
+              return isVueMount;
+            })
+            .map(elm => {
+              // Clone global configuration
+              const vueConfig = {
+                ...vueGlobalOptions,
+              };
+              // Replace vueGlobalOptions data() return value with shared data object.
+              // This provides a global store for all Vue instances that receive
+              // vueGlobalOptions as their configuration.
+              if (this.#vueGlobalData) {
+                vueConfig.data = () => this.#vueGlobalData;
+              }
 
-                return [elm, vueConfig];
-              })
-          );
-        }
+              return [elm, vueConfig];
+            })
+        );
 
         // Mount
         for (const [mountElm, vueConfig] of vueMountData) {
