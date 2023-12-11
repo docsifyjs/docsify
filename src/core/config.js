@@ -66,6 +66,28 @@ export default function (vm) {
       : window.$docsify
   );
 
+  // Merge default and user-specified key bindings
+  if (config.keyBindings !== false) {
+    config.keyBindings = Object.assign(
+      // Default
+      {
+        toggleSidebar: {
+          bindings: ['\\'],
+          callback(e) {
+            const toggleElm = document.querySelector('.sidebar-toggle');
+
+            if (toggleElm) {
+              toggleElm.click();
+              toggleElm.focus();
+            }
+          },
+        },
+      },
+      // User-specified
+      config.keyBindings
+    );
+  }
+
   const script =
     currentScript ||
     Array.from(document.getElementsByTagName('script')).filter(n =>

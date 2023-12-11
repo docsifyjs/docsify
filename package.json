@@ -80,7 +80,7 @@
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.11.5",
     "@eslint/js": "^8.43.0",
-    "@playwright/test": "^1.18.1",
+    "@playwright/test": "^1.39.0",
     "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-replace": "^5.0.2",
