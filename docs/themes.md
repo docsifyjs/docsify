@@ -65,3 +65,4 @@ If you have any ideas or would like to develop a new theme, you are welcome to s
 ## Other themes
 
 - [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/) A delightfully simple theme system for docsify.
+- [docsify-theme-darcula](https://github.com/A5yncX/docsify-theme-darcula) A docsify darcula theme.
