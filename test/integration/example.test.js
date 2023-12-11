@@ -4,9 +4,6 @@ import docsifyInit from '../helpers/docsify-init.js';
 describe('Creating a Docsify site (integration tests in Jest)', function () {
   test('Docsify /docs/ site using docsifyInit()', async () => {
     await docsifyInit({
-      config: {
-        basePath: '/docs/',
-      },
       // _logHTML: true,
     });
 

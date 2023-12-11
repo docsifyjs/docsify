@@ -1,5 +1,5 @@
-import server from './server.js';
+import { startServer } from './server.js';
 
 export default async () => {
-  await server.startAsync();
+  await startServer();
 };

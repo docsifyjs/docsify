@@ -4,7 +4,6 @@ import _mock, { proxy } from 'xhr-mock';
 import axios from 'axios';
 import prettier from 'prettier';
 import stripIndent from 'common-tags/lib/stripIndent/index.js';
-// import { TEST_HOST } from '../config/server.js';
 import { waitForSelector } from './wait-for.js';
 
 const mock = _mock.default;
