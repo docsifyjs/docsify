@@ -24,8 +24,8 @@
   ],
   "scripts": {
     "build:cover": "node build/cover.js",
-    "build:css:min": "node build/mincss.js",
-    "build:css": "mkdirp lib/themes && node build/css -o lib/themes",
+    "build:css:min": "mkdirp lib/themes && node build/css -o lib/themes && node build/mincss.js",
+    "build:css": "mkdirp themes && node build/css -o themes",
     "build:emoji": "node ./build/emoji.js",
     "build:html": "node ./build/html.js",
     "build:js": "cross-env NODE_ENV=production node build/build.js",

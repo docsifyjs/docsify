@@ -7,7 +7,7 @@ const files = fs.readdirSync(path.resolve('lib/themes'));
 files.forEach(file => {
   file = path.resolve('lib/themes', file);
   cssnano
-    .process(fs.readFileSync(file))
+    .process(fs.readFileSync(file), {from: undefined})
     .then(result => {
       fs.writeFileSync(file, result.css);
     })
