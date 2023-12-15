@@ -1,12 +1,12 @@
+import path from 'path';
+import { promises as fs } from 'fs';
 import * as rollup from 'rollup';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import uglify from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
 import chokidar from 'chokidar';
-import path from 'path';
 import { relative } from './util.js';
-import { promises as fs } from 'fs';
 
 const pkgPath = relative(import.meta, '..', 'package.json');
 const pkgString = (await fs.readFile(pkgPath)).toString();

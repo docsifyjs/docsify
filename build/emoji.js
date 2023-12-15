@@ -1,6 +1,6 @@
-import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
+import axios from 'axios';
 
 const filePaths = {
   emojiMarkdown: path.resolve(process.cwd(), 'docs', 'emoji.md'),
