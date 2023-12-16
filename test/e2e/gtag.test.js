@@ -81,10 +81,4 @@ test.describe('Gtag Plugin Tests', () => {
     // Tests
     expect($docsify.gtag).not.toEqual('');
   });
-
-  test('data-ga attribute', async ({ page }) => {
-    pageRequestListened(page);
-
-    // TODO
-  });
 });
