@@ -4,31 +4,6 @@ import * as url from 'node:url';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Rewrite rules shared with Vercel middleware.js
-export const rewriteRules = [
-  // Replace CDN URLs with local paths
-  {
-    match: /https?.*\/CHANGELOG.md/g,
-    replace: '/CHANGELOG.md',
-  },
-  {
-    // CDN versioned default
-    // Ex1: //cdn.com/package-name
-    // Ex2: http://cdn.com/package-name@1.0.0
-    // Ex3: https://cdn.com/package-name@latest
-    match: /(?:https?:)*\/\/.*cdn.*docsify[@\d.latest]*(?=["'])/g,
-    replace: '/lib/docsify.min.js',
-  },
-  {
-    // CDN paths to local paths
-    // Ex1: //cdn.com/package-name/path/file.js => /path/file.js
-    // Ex2: http://cdn.com/package-name@1.0.0/dist/file.js => /dist/file.js
-    // Ex3: https://cdn.com/package-name@latest/dist/file.js => /dist/file.js
-    match: /(?:https?:)*\/\/.*cdn.*docsify[@\d.latest]*\/(?:lib\/)/g,
-    replace: '/lib/',
-  },
-];
-
 // Production (CDN URLs, watch disabled)
 const prod = {
   hostname: '127.0.0.1',
@@ -47,7 +22,29 @@ const dev = {
   ...prod,
   files: ['CHANGELOG.md', 'docs/**/*', 'lib/**/*'],
   port: 3000,
-  rewriteRules,
+  rewriteRules: [
+    // Replace CDN URLs with local paths
+    {
+      match: /https?.*\/CHANGELOG.md/g,
+      replace: '/CHANGELOG.md',
+    },
+    {
+      // CDN versioned default
+      // Ex1: //cdn.com/package-name
+      // Ex2: http://cdn.com/package-name@1.0.0
+      // Ex3: https://cdn.com/package-name@latest
+      match: /(?:https?:)*\/\/.*cdn.*docsify[@\d.latest]*(?=["'])/g,
+      replace: '/lib/docsify.min.js',
+    },
+    {
+      // CDN paths to local paths
+      // Ex1: //cdn.com/package-name/path/file.js => /path/file.js
+      // Ex2: http://cdn.com/package-name@1.0.0/dist/file.js => /dist/file.js
+      // Ex3: https://cdn.com/package-name@latest/dist/file.js => /dist/file.js
+      match: /(?:https?:)*\/\/.*cdn.*docsify[@\d.latest]*\/(?:lib\/)/g,
+      replace: '/lib/',
+    },
+  ],
   server: {
     ...prod.server,
     routes: {

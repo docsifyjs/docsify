@@ -1,6 +1,6 @@
-import serverConfig from './server.config.js';
+import serverConfigs from './server.configs.js';
 
-const { hostname, port } = serverConfig.test;
+const { hostname, port } = serverConfigs.test;
 const TEST_HOST = `http://${hostname}:${port}`;
 const sharedConfig = {
   errorOnDeprecated: true,

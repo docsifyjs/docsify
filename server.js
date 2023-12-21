@@ -1,5 +1,5 @@
 import { create } from 'browser-sync';
-import serverConfigs from './server.config.js';
+import serverConfigs from './server.configs.js';
 
 const bsServer = create();
 const args = process.argv.slice(2);
