@@ -1,6 +1,4 @@
-import serverConfigs from './server.configs.js';
-
-const { rewriteRules } = serverConfigs.dev;
+import rewriteRules from './rewriterules.config.js';
 
 // Exports
 // =============================================================================
