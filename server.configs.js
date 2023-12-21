@@ -6,7 +6,7 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Production (CDN URLs, watch disabled)
-const prod = {
+export const prodConfig = {
   hostname: '127.0.0.1',
   notify: false,
   open: false,
@@ -19,13 +19,13 @@ const prod = {
 };
 
 // Development (local URLs, watch enabled)
-const dev = {
-  ...prod,
+export const devConfig = {
+  ...prodConfig,
   files: ['CHANGELOG.md', 'docs/**/*', 'lib/**/*'],
   port: 3000,
   rewriteRules,
   server: {
-    ...prod.server,
+    ...prodConfig.server,
     routes: {
       '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
       '/lib': path.resolve(__dirname, 'lib'),
@@ -36,11 +36,11 @@ const dev = {
 };
 
 // Test (local URLs, watch disabled)
-const test = {
-  ...dev,
+export const testConfig = {
+  ...devConfig,
   port: 4000,
   server: {
-    ...dev.server,
+    ...devConfig.server,
     middleware: [
       // Blank page required for test environment
       {
@@ -55,10 +55,4 @@ const test = {
   },
   snippet: false,
   watch: false,
-};
-
-export default {
-  dev,
-  prod,
-  test,
 };
