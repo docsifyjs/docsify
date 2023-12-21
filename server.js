@@ -8,6 +8,6 @@ const configName =
 const settings = serverConfigs[configName];
 
 // prettier-ignore
-console.log(`\nStarting ${configName} server (${settings.server.index}, watch: ${Boolean(settings.files)})\n`);
+console.log(`\nStarting ${configName} server (watch: ${Boolean(settings.files)})\n`);
 
 bsServer.init(settings);
