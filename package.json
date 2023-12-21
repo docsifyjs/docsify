@@ -54,7 +54,7 @@
     "test:integration": "npm run jest -- --selectProjects integration",
     "test:unit": "npm run jest -- --selectProjects unit",
     "test": "npm run jest && run-s test:e2e",
-    "watch:css": "npm run css -- -o themes -w",
+    "watch:css": "npm run build:css -- -w",
     "watch:js": "node build/build.js"
   },
   "husky": {
