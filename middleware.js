@@ -1,7 +1,7 @@
 // Exports
 // =============================================================================
 export const config = {
-  matcher: ['/(index.html)?'],
+  matcher: ['/preview/(index.html)?'],
 };
 
 // Rewrite rules shared with local server configurations

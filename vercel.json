@@ -5,5 +5,9 @@
       "headers": [{ "key": "x-robots-tag", "value": "noindex" }]
     }
   ],
-  "rewrites": [{ "source": "/:path*", "destination": "/docs/:path*" }]
+  "redirects": [{ "source": "/", "destination": "/preview/" }],
+  "rewrites": [
+    { "source": "/preview/CHANGELOG.md", "destination": "/CHANGELOG.md" },
+    { "source": "/preview/:path*", "destination": "/docs/:path*" }
+  ]
 }
