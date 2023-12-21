@@ -1,5 +1,5 @@
-import server from './server.js';
+import { stopServer } from './server.js';
 
 export default async config => {
-  server.stop();
+  stopServer();
 };

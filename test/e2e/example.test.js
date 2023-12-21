@@ -10,7 +10,6 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     await page.evaluate(() => {
       window.$docsify = {
         el: '#app',
-        basePath: '/docs/',
         themeColor: 'red',
       };
     });
@@ -36,9 +35,6 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
-      config: {
-        basePath: '/docs/',
-      },
       // _logHTML: true,
     });
 

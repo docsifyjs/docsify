@@ -1,10 +1,13 @@
-import liveServer from 'live-server';
-const middleware = [];
+import { create } from 'browser-sync';
+import serverConfigs from './server.config.js';
 
-const params = {
-  port: 3000,
-  watch: ['lib', 'docs', 'themes'],
-  middleware,
-};
+const bsServer = create();
+const args = process.argv.slice(2);
+const configName =
+  Object.keys(serverConfigs).find(name => args.includes(`--${name}`)) || 'prod';
+const settings = serverConfigs[configName];
 
-liveServer.start(params);
+// prettier-ignore
+console.log(`\nStarting ${configName} server (${settings.server.index}, watch: ${Boolean(settings.files)})\n`);
+
+bsServer.init(settings);
