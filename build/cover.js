@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { relative } from './util.js';
+
 const read = fs.readFileSync;
 const write = fs.writeFileSync;
 const pkgPath = relative(import.meta, '..', 'package.json');
