@@ -44,7 +44,7 @@
     "prettier": "prettier . --write",
     "lint:fix": "eslint . --fix",
     "lint": "prettier . --check && eslint .",
-    "postinstall": "opencollective-postinstall && sh build/husky.sh",
+    "postinstall": "opencollective-postinstall && npx husky install",
     "prepare": "npm run build",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
     "pub": "sh build/release.sh",
