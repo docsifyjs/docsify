@@ -1,10 +1,14 @@
-import liveServer from 'live-server';
-const middleware = [];
+import { create } from 'browser-sync';
+import { devConfig, prodConfig } from './server.configs.js';
 
-const params = {
-  port: 3000,
-  watch: ['lib', 'docs', 'themes'],
-  middleware,
-};
+const bsServer = create();
+const args = process.argv.slice(2);
+const config = args.includes('--dev') ? devConfig : prodConfig;
+const configName = config === devConfig ? 'development' : 'production';
+const isWatch = Boolean(config.files) && config.watch !== false;
+const urlType = config === devConfig ? 'local' : 'CDN';
 
-liveServer.start(params);
+// prettier-ignore
+console.log(`\nStarting ${configName} server (${urlType} URLs, watch: ${isWatch})\n`);
+
+bsServer.init(config);

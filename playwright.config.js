@@ -1,4 +1,10 @@
 import { devices } from '@playwright/test';
+import { testConfig } from './server.configs.js';
+
+const { hostname, port } = testConfig;
+const TEST_HOST = `http://${hostname}:${port}`;
+
+process.env.TEST_HOST = TEST_HOST;
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -36,7 +42,7 @@ const config = {
   // See https://playwright.dev/docs/api/class-testoptions
   use: {
     actionTimeout: 0,
-    baseURL: `${process.env.TEST_HOST}`, // Allow relative page.goto() (e.g. `await page.goto('/')`).
+    baseURL: TEST_HOST, // Allow relative page.goto() (e.g. `await page.goto('/')`).
     trace: 'on-first-retry',
   },
 

@@ -5,8 +5,9 @@
 /_playwright-results
 /lib
 /node_modules
-/themes
 /.husky/_
 
 # exceptions
 !.gitkeep
+.vercel
+
