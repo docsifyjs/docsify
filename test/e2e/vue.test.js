@@ -96,6 +96,23 @@ test.describe('Vue.js Compatibility', () => {
     const vueVersion = Number(vueURL.match(/vue(\d+)/)[1]); // 2|3
 
     test.describe(`Vue v${vueVersion}`, () => {
+      test(`Parse templates and render content when import Vue v${vueVersion} resources`, async ({
+        page,
+      }) => {
+        const docsifyInitConfig = {
+          config: {},
+          markdown: {
+            homepage: stripIndent`
+            <div id="vuefor"><span v-for="i in 5">{{ i }}</span></div>
+          `,
+          },
+        };
+
+        docsifyInitConfig.scriptURLs = vueURL;
+
+        await docsifyInit(docsifyInitConfig);
+        await expect(page.locator('#vuefor')).toHaveText('12345');
+      });
       for (const executeScript of [true, undefined]) {
         test(`renders content when executeScript is ${executeScript}`, async ({
           page,
@@ -145,24 +162,6 @@ test.describe('Vue.js Compatibility', () => {
         await expect(page.locator('#vueglobaloptions p')).toHaveText('---');
         await expect(page.locator('#vuemounts p')).toHaveText('---');
         await expect(page.locator('#vuescript p')).toHaveText('---');
-      });
-
-      test(`ignores content when vueComponents, vueMounts, and vueGlobalOptions are undefined`, async ({
-        page,
-      }) => {
-        const docsifyInitConfig = getSharedConfig();
-
-        docsifyInitConfig.config.vueComponents = undefined;
-        docsifyInitConfig.config.vueGlobalOptions = undefined;
-        docsifyInitConfig.config.vueMounts = undefined;
-        docsifyInitConfig.scriptURLs = vueURL;
-
-        await docsifyInit(docsifyInitConfig);
-        await expect(page.locator('#vuefor')).toHaveText('{{ i }}');
-        await expect(page.locator('#vuecomponent')).toHaveText('---');
-        await expect(page.locator('#vueglobaloptions p')).toHaveText('---');
-        await expect(page.locator('#vuemounts p')).toHaveText('---');
-        await expect(page.locator('#vuescript p')).toHaveText('vuescript');
       });
 
       test(`ignores content when vueGlobalOptions is undefined`, async ({
