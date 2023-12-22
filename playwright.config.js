@@ -1,7 +1,7 @@
 import { devices } from '@playwright/test';
-import serverConfig from './server.config.js';
+import { testConfig } from './server.configs.js';
 
-const { hostname, port } = serverConfig.test;
+const { hostname, port } = testConfig;
 const TEST_HOST = `http://${hostname}:${port}`;
 
 process.env.TEST_HOST = TEST_HOST;

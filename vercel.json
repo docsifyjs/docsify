@@ -1,9 +1,13 @@
 {
-  "redirects": [
+  "headers": [
     {
-      "source": "/",
-      "destination": "./docs/preview.html",
-      "permanent": true
+      "source": "/(.*)",
+      "headers": [{ "key": "x-robots-tag", "value": "noindex" }]
     }
+  ],
+  "redirects": [{ "source": "/", "destination": "/preview/" }],
+  "rewrites": [
+    { "source": "/preview/CHANGELOG.md", "destination": "/CHANGELOG.md" },
+    { "source": "/preview/:path*", "destination": "/docs/:path*" }
   ]
 }

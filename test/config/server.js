@@ -1,13 +1,13 @@
 import * as process from 'node:process';
 import { create } from 'browser-sync';
-import config from '../../server.config.js';
+import { testConfig } from '../../server.configs.js';
 
 const bsServer = create();
 
 export async function startServer() {
   // Wait for server to start
   return new Promise(resolve => {
-    const settings = config.test;
+    const settings = testConfig;
 
     console.log('\n');
 

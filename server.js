@@ -1,13 +1,14 @@
 import { create } from 'browser-sync';
-import serverConfigs from './server.config.js';
+import { devConfig, prodConfig } from './server.configs.js';
 
 const bsServer = create();
 const args = process.argv.slice(2);
-const configName =
-  Object.keys(serverConfigs).find(name => args.includes(`--${name}`)) || 'prod';
-const settings = serverConfigs[configName];
+const config = args.includes('--dev') ? devConfig : prodConfig;
+const configName = config === devConfig ? 'development' : 'production';
+const isWatch = Boolean(config.files) && config.watch !== false;
+const urlType = config === devConfig ? 'local' : 'CDN';
 
 // prettier-ignore
-console.log(`\nStarting ${configName} server (${settings.server.index}, watch: ${Boolean(settings.files)})\n`);
+console.log(`\nStarting ${configName} server (${urlType} URLs, watch: ${isWatch})\n`);
 
-bsServer.init(settings);
+bsServer.init(config);
