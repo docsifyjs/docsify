@@ -62,6 +62,7 @@
             },
             auto2top: true,
             // coverpage: true,
+            // repo: 'docsifyjs/docsify',
             executeScript: true,
             loadSidebar: true,
             loadNavbar: true,
@@ -81,6 +82,11 @@
                 '/zh-cn/': '#/zh-cn/',
                 '/': '#/',
             },
+            toc: {
+                scope: '.markdown-section',
+                headings: 'h1, h2, h3, h4',
+                <!-- title: 'Table of Contents', -->
+            },
             search: {
                 noData: {
                     '/es/': '¡No hay resultados!',
@@ -95,7 +101,7 @@
                     '/de-de/': 'Suche',
                     '/ru-ru/': 'Поиск',
                     '/zh-cn/': '搜索',
-                    '/': 'Search',
+                    '/': 'search',
                 },
                 pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
             },

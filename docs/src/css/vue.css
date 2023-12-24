@@ -366,6 +366,8 @@ main.hidden {
 .sidebar::-webkit-scrollbar {
     width: 4px;
     /* width: thin; */
+    scrollbar-color: var(--color-bg-secondary) auto;
+
 }
 
 .sidebar::-webkit-scrollbar-thumb {
@@ -374,11 +376,13 @@ main.hidden {
 }
 
 .sidebar:hover::-webkit-scrollbar-thumb {
-    background: rgba(136, 136, 136, 0.4);
+    /* background: rgba(136, 136, 136, 0.4); */
+    background: var(--color-bg-secondary);
 }
 
 .sidebar:hover::-webkit-scrollbar-track {
-    background: rgba(136, 136, 136, 0.1);
+    /* background: rgba(136, 136, 136, 0.1); */
+    background: var(--color-bg-secondary) 0.4;
 }
 
 .sidebar-toggle {
@@ -777,7 +781,8 @@ body {
 /* sidebar */
 .sidebar {
     background-color: #fff;
-    color: #364149;
+    /* color: #364149; */
+    color: var(--color-text);
 }
 
 .sidebar li {
@@ -821,7 +826,8 @@ body {
 .markdown-section h3,
 .markdown-section h4,
 .markdown-section strong {
-    color: #2c3e50;
+    /* color: #2c3e50; */
+    color: var(--color-text);
     font-weight: 600;
 }
 
@@ -864,9 +870,9 @@ body {
     margin: 1.2em 0;
 }
 
-.markdown-section p a {
+/* .markdown-section p a { */
     /* margin: 1.2em 0em; */
-}
+/* } */
 
 .markdown-section p,
 .markdown-section ul,
@@ -933,7 +939,7 @@ body {
 
 .markdown-section code {
     border-radius: 2px;
-    color: #e96900;
+    color: #F98109;
     margin: 0 2px;
     padding: 3px 5px;
     white-space: pre-wrap;
@@ -1014,7 +1020,7 @@ body {
 
 .token.boolean,
 .token.number {
-    color: #c76b29;
+    color: #D7336C;
 }
 
 .token.punctuation {
@@ -1022,7 +1028,7 @@ body {
 }
 
 .token.property {
-    color: #c08b30;
+    color: #F98109;
 }
 
 .token.tag {
@@ -1059,7 +1065,7 @@ body {
 
 .token.keyword,
 .token.function {
-    color: #e96900;
+    color: #F98109;
 }
 
 .token.statement,

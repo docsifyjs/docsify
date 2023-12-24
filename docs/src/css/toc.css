@@ -32,6 +32,8 @@
     align-self: flex-start;
     flex: 0 0 auto;
     margin: 0 10px 0 0;
+    /* overflow-y: auto; */
+
 }
 
 aside.nav.nothing {
@@ -45,6 +47,27 @@ aside.nav.nothing {
     border-left-color: rgba(0, 0, 0, 0.07);
     border-image-slice: 1;
     padding-left: 5px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    
+}
+
+.page_toc::-webkit-scrollbar {
+    width: 4px;
+    /* width: thin; */
+}
+
+.page_toc::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.page_toc:hover::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.4);
+}
+
+.page_toc:hover::-webkit-scrollbar-track {
+    background: rgba(136, 136, 136, 0.1);
 }
 
 .page_toc code {
@@ -85,6 +108,14 @@ aside.nav.nothing {
 }
 
 .page_toc ul a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    /* font-weight: bold; */
+    line-height: 1.6em;
+}
+
+.page_toc ul li ul a{
     color: var(--color-text);
     text-decoration: none;
     font-weight: 300;
