@@ -834,8 +834,10 @@ body {
 
 .markdown-section a {
     color: #D7336C;
-    color: var(--theme-color, #D7336C);
+    /* color: var(--theme-color, #D7336C); */
     font-weight: 600;
+    text-decoration: none;
+    padding: 0 2px;
 }
 
 .markdown-section h1 {
@@ -878,7 +880,7 @@ body {
 .markdown-section p,
 .markdown-section ul,
 .markdown-section ol {
-    line-height: 1.6rem;
+    line-height: 2rem;
     word-spacing: 0.05rem;
 }
 

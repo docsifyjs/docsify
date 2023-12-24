@@ -1,3 +1,7 @@
+- CS with AI
+  - [CS](cs.md)
+  - [AI](ai.md)
+
 - Getting started
 
   - [Quick start](quickstart.md)
@@ -5,7 +9,7 @@
   - [Custom navbar](custom-navbar.md)
   - [Cover page](cover.md)
 
-- Customization
+<!-- - Customization
 
   - [Configuration](configuration.md)
   - [Themes](themes.md)
@@ -13,7 +17,7 @@
   - [Write a Plugin](write-a-plugin.md)
   - [Markdown configuration](markdown.md)
   - [Language highlighting](language-highlight.md)
-  - [Emoji](emoji.md)
+  - [Emoji](emoji.md) -->
 
 - Guide
 

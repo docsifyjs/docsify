@@ -1,0 +1,14 @@
+docsify-latex span span span a {
+    color: #D7336C !important; /* Your desired color */
+    padding: 0 0px;
+}
+
+docsify-latex span span span{
+    /* color: #D7336C !important; Your desired color */
+    padding: 0px 4px;
+}
+
+docsify-latex span span span span{
+    /* color: #D7336C !important; Your desired color */
+    padding: 0px 0px;
+}

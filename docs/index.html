@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dolphin.css" title="dolphin" disabled />
     <link rel="stylesheet" href="src/css/vue.css" title="vue" />
     <link rel="stylesheet" href="src/css/toc.css" />
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" /> -->
 
     <style>
         nav.app-nav li ul {
@@ -27,6 +28,7 @@
             width: auto !important;
         }
     </style>
+
     <script>
         (function () {
             const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
@@ -74,7 +76,8 @@
                 host: '//matomo.thunderwave.de',
                 id: 6,
             },
-            name: 'docsify',
+            themeColor: '#D7336C',
+            name: 'CS with AI',
             nameLink: {
                 '/es/': '#/es/',
                 '/de-de/': '#/de-de/',
@@ -108,6 +111,21 @@
                     '/': 'search',
                 },
                 pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
+            },
+
+            latex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                customOptions: {
+                    TeX: {
+                        equationNumbers: { autoNumber: "AMS" },
+                        Macros: {
+                            diffd: "\\,\\mathrm d",
+                            diffop: "D"
+                        }
+                    }
+                },
+                overflowScroll: false
             },
             skipLink: {
                 '/es/': 'Saltar al contenido principal',
@@ -200,6 +218,8 @@
             ],
         };
     </script>
+
+
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
     <!-- <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script> -->
     <script src="src/js/search.js"></script>
@@ -218,6 +238,28 @@
     <!-- <script src="https://unpkg.com/docsify-toc@1.0.0/dist/toc.js"></script> -->
 
 
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML-full"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-latex@0"></script>
+
+    <!-- Code highlighting -->
+    <script src="//unpkg.com/prismjs/components/prism-python.min.js"></script>
+    <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+    <!-- <script src="//unpkg.com/prismjs/components/prism-latex.js"></script> -->
+
+    <!-- math -->
+    <!-- <script src="https://notebook.js.org/plugin/js/docsify-katex.js"></script> -->
+
+    <!-- Katex for Latex support -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script> -->
+
+    <!-- <script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML"></script> -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_CHTML"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"></script> -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_SVG"></script>
+    <script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_SVG"></script>
+    <script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_SVG"></script> -->
+
+    <link rel="stylesheet" href="src/css/math.css" />
 </body>
 
 </html>
