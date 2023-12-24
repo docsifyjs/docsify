@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" title="vue"/> -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css" title="dark" disabled />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/buble.css" title="buble" disabled/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/buble.css" title="buble" disabled />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/pure.css" title="pure" disabled />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dolphin.css" title="dolphin" disabled/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dolphin.css" title="dolphin" disabled />
     <link rel="stylesheet" href="src/css/vue.css" title="vue" />
     <link rel="stylesheet" href="src/css/toc.css" />
 
@@ -86,6 +86,10 @@
                 scope: '.markdown-section',
                 headings: 'h1, h2, h3, h4',
                 <!-- title: 'Table of Contents', -->
+            },
+            notFoundPage: true, // 404 页面
+            notFoundPage: {
+                '/': 'src/inc/404.md',
             },
             search: {
                 noData: {
@@ -188,7 +192,8 @@
                             editHtml +
                             html +
                             '\n\n----\n\n' +
-                            '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
+                            // '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a><hr>'
+                            '<a href="https://zacharygao.github.io/docsify/#" target="_self" style="color: inherit; font-weight: normal; text-decoration: none;">Back to Home</a><hr>'
                         );
                     });
                 },

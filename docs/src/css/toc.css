@@ -33,7 +33,7 @@
     flex: 0 0 auto;
     margin: 0 10px 0 0;
     /* overflow-y: auto; */
-
+    font-size: 17px;
 }
 
 aside.nav.nothing {

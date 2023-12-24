@@ -439,6 +439,7 @@ body.sticky .sidebar-toggle {
     padding: 0px 12%;
     position: relative;
     flex: 1 1 0%;
+    font-size: 18px;
 }
 
 .markdown-section>* {
