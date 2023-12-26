@@ -35,7 +35,7 @@ $$
 $$
 
 <!-- [![请叫我工程师](https://kexue.fm/usr/uploads/2022/06/403506617.jpeg)](https://kexue.fm/usr/uploads/2022/06/403506617.jpeg "点击查看原图") -->
-<img src="https://kexue.fm/usr/uploads/2022/06/403506617.jpeg" alt="请叫我工程师" style="width:100%;max-width:400px;align-self:center">
+<!-- <img src="https://kexue.fm/usr/uploads/2022/06/403506617.jpeg" alt="请叫我工程师" style="width:100%;max-width:400px;align-self:center"> -->
 
 我们可以将这个过程想象为“建设”，其中随机噪声$\boldsymbol{z}$是砖瓦水泥等原材料，样本数据$\boldsymbol{x}$是高楼大厦，所以生成模型就是一支用原材料建设高楼大厦的施工队。
 

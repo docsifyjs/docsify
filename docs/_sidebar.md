@@ -1,6 +1,8 @@
 - CS with AI
   - [CS](cs.md)
   - [AI](ai.md)
+  - [4039 DIS](4039DIS.md)
+  - [MIT AI](mit_AI.md)
 
 - Getting started
 

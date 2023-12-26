@@ -436,7 +436,7 @@ body.sticky .sidebar-toggle {
 .markdown-section {
     margin: 0px 0 0px 0;
     max-width: 80%;
-    padding: 0px 12%;
+    padding: 0px 16%;
     position: relative;
     flex: 1 1 0%;
     font-size: 18px;
@@ -836,7 +836,7 @@ body {
     color: #D7336C;
     /* color: var(--theme-color, #D7336C); */
     font-weight: 600;
-    text-decoration: none;
+    /* text-decoration: none; */
     padding: 0 2px;
 }
 

@@ -1,10 +1,12 @@
 docsify-latex span span span a {
-    color: #D7336C !important; /* Your desired color */
+    /* color: #D7336C !important;  */
+    color: #D7336C !important; 
     padding: 0 0px;
+    text-decoration: underline !important;
 }
 
 docsify-latex span span span{
-    /* color: #D7336C !important; Your desired color */
+    color: #D7336C !important;
     padding: 0px 4px;
 }
 
