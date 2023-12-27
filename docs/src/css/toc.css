@@ -101,7 +101,7 @@ aside.nav.nothing {
     color: var(--color-text);
     text-decoration: none;
     font-weight: 300;
-    line-height: 1.6em;
+    line-height: 1.8em;
 }
 
 .page_toc ul a:hover span {

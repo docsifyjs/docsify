@@ -809,7 +809,7 @@ body {
 }
 
 .sidebar ul li.active>a {
-    border-right: 2px solid;
+    /* border-right: 2px solid; */
     color: #D7336C;
     color: var(--theme-color, #D7336C);
     font-weight: 600;
@@ -836,7 +836,7 @@ body {
     color: #D7336C;
     /* color: var(--theme-color, #D7336C); */
     font-weight: 600;
-    /* text-decoration: none; */
+    text-decoration: none;
     padding: 0 2px;
 }
 

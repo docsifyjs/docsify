@@ -53,7 +53,18 @@ var tocClick = function (e) {
 
     if (targetElement) {
         // 滚动到目标元素
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+        // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        function scrollToElement(element) {
+            var headerOffset = 50; // 假设顶部固定元素高度为 50px
+            var elementPosition = element.getBoundingClientRect().top;
+            var offsetPosition = elementPosition + window.scrollY - headerOffset;
+        
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+        scrollToElement(targetElement);
     }
 
     // var divs = document.querySelectorAll('.page_toc .active');

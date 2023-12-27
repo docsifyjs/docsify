@@ -6,18 +6,20 @@
 
 [Crash Course: Computer Science](https://www.bilibili.com/video/BV1EW411u7th)
 
-%% 8 个小时里生动且全面地科普了关于计算机科学的方方面面：计算机的历史、计算机是如何运作的、组成计算机的各个重要模块、计算机科学中的重要思想等。 %%
+<!-- %% 8 个小时里生动且全面地科普了关于计算机科学的方方面面：计算机的历史、计算机是如何运作的、组成计算机的各个重要模块、计算机科学中的重要思想等。 %% -->
 
 ### Harvard - CS50
 
 [CS50x 2023](https://cs50.harvard.edu/x/2023/)
-[CS50](https://cs50.harvard.edu/college/2023/fall/)
-lab: [GitHub - csfive/CS50x: 🦍 Harvard CS50x Solutions](https://github.com/csfive/CS50x)
 
+[CS50](https://cs50.harvard.edu/college/2023/fall/)
+
+lab: [GitHub - csfive/CS50x: 🦍 Harvard CS50x Solutions](https://github.com/csfive/CS50x)
 
 ### Harvard - CS50-Python
 
 [CS50's Introduction to Programming with Python](https://cs50.harvard.edu/python/2022/)
+
 lab: [GitHub - csfive/CS50P: 🐢 CS50 Python Solutions](https://github.com/csfive/CS50P)
 
 ### Harvard - CS50-AI
@@ -27,8 +29,11 @@ lab: [GitHub - csfive/CS50P: 🐢 CS50 Python Solutions](https://github.com/csfi
 ### Berkley - CS61A
 
 [CS 61A Fall 2023](https://cs61a.org/)
+
 Textbook: [Composing Programs](https://www.composingprograms.com/)
+
 Textbook-cn: [Composing Programs CN](https://composingprograms.netlify.app/)
+
 lab: [GitHub - PKUFlyingPig/CS61A](https://github.com/PKUFlyingPig/CS61A)
 
 ## Missing Semester
@@ -62,11 +67,13 @@ lab: [GitHub - PKUFlyingPig/CS61A](https://github.com/PKUFlyingPig/CS61A)
 ### Stanford - CS229: Machine Learning
 
 [CS229: Machine Learning](https://cs229.stanford.edu/)
+
 lab: [GitHub - PKUFlyingPig/CS229](https://github.com/PKUFlyingPig/CS229)
 
 ### Berkley - CS189
 
 [Home | CS 189/289A](https://eecs189.org/)
+
 [CS 189/289A: Introduction to Machine Learning](https://people.eecs.berkeley.edu/~jrs/189/)
 
 
