@@ -211,12 +211,6 @@ function getIdFromUrl(url) {
     return queryParams.get('id');
 }
 
-// 用于点击事件中的 URL
-function getIdFromUrlForClick(url) {
-    var hashIndex = url.indexOf('#');
-    return hashIndex >= 0 ? url.substring(hashIndex + 1) : null;
-}
-
 // 用于滚动事件中的 URL
 function getIdFromUrlForScroll(url) {
     var urlObj = new URL(url);
@@ -226,11 +220,16 @@ function getIdFromUrlForScroll(url) {
     return queryParams.get('id');
 }
 
+var currentActiveLinkId = null; // 用于跟踪当前活动链接的 ID
+
 var updateActiveLink = function () {
     var sections = document.querySelectorAll(defaultOptions.scope + ' ' + defaultOptions.headings);
     var tocLinks = document.querySelectorAll('.page_toc a');
 
     var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+
+    var activeLinkChanged = false;
+
 
     sections.forEach(function (section) {
         var sectionTop = section.offsetTop;
@@ -238,26 +237,80 @@ var updateActiveLink = function () {
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
 
-            tocLinks.forEach(function (link) {
-                link.parentElement.classList.remove('active');
-            });
+            // tocLinks.forEach(function (link) {
+            //     link.parentElement.classList.remove('active');
+            // });
+
+            // tocLinks.forEach(function (link) {
+
+            //     var anchorId = getIdFromUrlForScroll(link.getAttribute('href'));
+
+            //     if (section.getAttribute('id') === anchorId) {
+            //         link.parentElement.classList.add('active');
+            //     }
+            // });
 
             tocLinks.forEach(function (link) {
-                // link.parentElement.classList.remove('active');
-
                 var anchorId = getIdFromUrlForScroll(link.getAttribute('href'));
-
                 if (section.getAttribute('id') === anchorId) {
+                    if (currentActiveLinkId !== anchorId) {
+                        activeLinkChanged = true;
+                        currentActiveLinkId = anchorId;
+                    }
                     link.parentElement.classList.add('active');
+                } else {
+                    link.parentElement.classList.remove('active');
                 }
             });
         }
     });
+
+    // if (activeLinkChanged) {
+    //     console.log(activeLinkChanged);
+    //     var nav = document.querySelector('.nav');
+
+    //     // 确保 .nav 元素存在
+    //     if (nav) {
+    //         var marker = document.createElement('div');
+    //         marker.classList.add('outline-marker');
+    //         nav.appendChild(marker);
+
+    //         // 更新标记位置的函数
+    //         function updateMarkerPosition() {
+    //             var activeLi = document.querySelector('.page_toc .active');
+    //             if (activeLi) {
+    //                 // var topPosition = activeLi.offsetTop;
+    //                 // var topPosition = activeLi.getBoundingClientRect().top + window.scrollY - nav.getBoundingClientRect().top;
+    //                 var topPosition = activeLi.getBoundingClientRect().top - nav.getBoundingClientRect().top;
+    //                 marker.style.top = topPosition + 'px';
+    //                 marker.style.opacity = 1;
+    //                 // console.log(topPosition);
+
+    //             } else {
+    //                 marker.style.opacity = 0.5; // 当没有活动元素时隐藏标记
+    //             }
+    //         }
+
+    //         // 添加事件监听器
+    //         document.addEventListener('scroll', updateMarkerPosition);
+    //         // document.querySelectorAll('.page_toc a').forEach(function (link) {
+    //         //     link.addEventListener('click', function () {
+    //         //         setTimeout(updateMarkerPosition, 0); // 延迟更新标记位置
+    //         //     });
+    //         // });
+
+    //         activeLinkChanged = false;
+    //     } else {
+    //         console.error('The .nav element was not found.');
+    //     }
+    // }
 };
 
 document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener('scroll', function () {
-        updateActiveLink();
+        setTimeout(updateActiveLink, 0);
+        // setTimeout(updateMarkerPosition, 0);
+
     });
 });
