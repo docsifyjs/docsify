@@ -184,19 +184,22 @@ aside.nav.nothing {
 .page_toc .active .anchor span{
     color: #D7336C !important;
     text-decoration: none;
-    font-weight: 600;
+    /* font-weight: 600; */
     opacity: 1;
     line-height: 1.6em;
 }
 
 .nav .active {
-    border-left: 2px solid;
     display: block;
-    margin-left: -15px;
     color: var(--theme-color, #D7336C) !important;
     /* text-decoration: underline; */
-    padding-left: 13px;
+    /* border-left: 2px solid; */
+    /* margin-left: -15px; */
+    /* padding-left: 13px; */
+    /* padding-left: 15px; */
     /* text-align: -webkit-match-parent; */
+    /* margin-right: -25px; */
+    /* border-right: #D7336C  4px solid; */
 }
 
 
