@@ -173,17 +173,17 @@ aside.nav.nothing {
 .page_toc .active {
     border-left: 2px solid;
     display: block;
-    /* margin-left: -12px; */
+    margin-left: -25px;
     color: var(--theme-color, #D7336C) !important;
     /* text-decoration: underline; */
-    padding-left: 10px;
+    padding-left: 23px;
     /* text-align: -webkit-match-parent; */
 }
 
-.page_toc ul li .active .anchor {
+.page_toc .active .anchor span{
     color: #D7336C !important;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: 600;
     opacity: 1;
     line-height: 1.6em;
 }
