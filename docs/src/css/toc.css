@@ -27,13 +27,14 @@
 }
 
 .nav {
-    width: var(--toc-width, 300px);
+    width: var(--toc-width, 350px);
     /* width: 18%; */
     align-self: flex-start;
     flex: 0 0 auto;
     margin: 0 10px 0 0;
     /* overflow-y: auto; */
-    font-size: 17px;
+    font-size: 14px;
+    /* padding-right: 50px; */
 }
 
 aside.nav.nothing {
@@ -47,9 +48,10 @@ aside.nav.nothing {
     border-left-color: rgba(0, 0, 0, 0.07);
     border-image-slice: 1;
     padding-left: 5px;
-    overflow-y: auto;
     scroll-behavior: smooth;
-    
+    overflow-y: auto;    /* 启用垂直方向上的滚动条 */
+    max-height: 90%;    /* 设置最大高度，例如视口高度的 90% */
+    padding-right: 50px;  
 }
 
 .page_toc::-webkit-scrollbar {
@@ -63,11 +65,11 @@ aside.nav.nothing {
 }
 
 .page_toc:hover::-webkit-scrollbar-thumb {
-    background: rgba(136, 136, 136, 0.4);
+    /* background: rgba(136, 136, 136, 0.4); */
 }
 
 .page_toc:hover::-webkit-scrollbar-track {
-    background: rgba(136, 136, 136, 0.1);
+    /* background: rgba(136, 136, 136, 0.1); */
 }
 
 .page_toc code {
@@ -110,15 +112,23 @@ aside.nav.nothing {
 .page_toc ul a {
     color: var(--color-text);
     text-decoration: none;
-    font-weight: 500;
-    /* font-weight: bold; */
+    /* font-weight: 600; */
+    font-weight: bold;
     line-height: 1.6em;
 }
 
 .page_toc ul li ul a{
     color: var(--color-text);
+    opacity: 0.7;
     text-decoration: none;
-    font-weight: 300;
+    font-weight: 400;
+    line-height: 1.6em;
+}
+
+.page_toc ul li ul .anchor{
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 400;
     line-height: 1.6em;
 }
 
@@ -161,7 +171,19 @@ aside.nav.nothing {
 }
 
 .page_toc .active {
-    border-left: 5px solid;
-    color: var(--theme-color, #D7336C);
+    border-left: 2px solid;
+    display: block;
+    /* margin-left: -12px; */
+    color: var(--theme-color, #D7336C) !important;
+    /* text-decoration: underline; */
     padding-left: 10px;
+    /* text-align: -webkit-match-parent; */
+}
+
+.page_toc ul li .active .anchor {
+    color: #D7336C !important;
+    text-decoration: none;
+    font-weight: 800;
+    opacity: 1;
+    line-height: 1.6em;
 }
