@@ -49,10 +49,11 @@
         window.$docsify = {
             alias: {
                 '.*?/awesome':
-                    'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
+                    'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/$1',
                 '.*?/changelog':
                     'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
-                '/.*/_navbar.md': '/_navbar.md',
+                '/en/(.*)': 
+                    'https://cdn.jsdelivr.net/gh/docsifyjs/docsify@master/docs/$1',
                 '/es/(.*)':
                     'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
                 '/de-de/(.*)':
@@ -79,10 +80,10 @@
             themeColor: '#D7336C',
             name: 'CS with AI',
             nameLink: {
-                '/es/': '#/es/',
-                '/de-de/': '#/de-de/',
-                '/ru-ru/': '#/ru-ru/',
-                '/zh-cn/': '#/zh-cn/',
+                '/es/': '#/',
+                '/de-de/': '#/',
+                '/ru-ru/': '#/',
+                '/zh-cn/': '#/',
                 '/': '#/',
             },
             toc: {
@@ -211,7 +212,7 @@
                             html +
                             '\n\n----\n\n' +
                             // '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a><hr>'
-                            '<a href="https://zacharygao.github.io/docsify/#" target="_self" style="color: inherit; font-weight: normal; text-decoration: none;">Back to Home</a><hr>'
+                            '<a href="#/" target="_self" style="color: inherit; font-weight: normal; text-decoration: none;">Back to Home</a><hr>'
                         );
                     });
                 },

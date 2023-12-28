@@ -101,7 +101,7 @@ aside.nav.nothing {
     color: var(--color-text);
     text-decoration: none;
     font-weight: 300;
-    line-height: 1.8em;
+    line-height: 1.6em;
 }
 
 .page_toc ul a:hover span {
@@ -113,12 +113,13 @@ aside.nav.nothing {
 .page_toc ul a {
     color: var(--color-text);
     text-decoration: none;
-    /* font-weight: 600; */
-    font-weight: bold;
+    font-weight: 600;
+    opacity: 0.7;
+    /* font-weight: bold; */
     line-height: 1.6em;
 }
 
-.page_toc ul li ul a{
+.page_toc ul li ul li ul a{
     color: var(--color-text);
     opacity: 0.7;
     text-decoration: none;
@@ -126,7 +127,7 @@ aside.nav.nothing {
     line-height: 1.6em;
 }
 
-.page_toc ul li ul .anchor{
+.page_toc ul li ul li ul .anchor{
     color: var(--color-text);
     text-decoration: none;
     font-weight: 400;

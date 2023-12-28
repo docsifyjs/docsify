@@ -1,5 +1,7 @@
 # 生成扩散模型漫谈（一）：DDPM = 拆楼 + 建楼 <!-- {docsify-ignore-all} -->
 
+> 本文转载自科学空间，原文链接见文末。
+
 说到生成模型，[VAE](https://kexue.fm/tag/vae/)、[GAN](https://kexue.fm/tag/GAN/)可谓是“如雷贯耳”，本站也有过多次分享。此外，还有一些比较小众的选择，如[flow模型](https://kexue.fm/tag/flow/)、[VQ-VAE](https://kexue.fm/archives/6760)等，也颇有人气，尤其是VQ-VAE及其变体[VQ-GAN](https://arxiv.org/abs/2012.09841)，近期已经逐渐发展到“图像的Tokenizer”的地位，用来直接调用NLP的各种预训练方法。除了这些之外，还有一个本来更小众的选择——扩散模型（Diffusion Models）——正在生成模型领域“异军突起”，当前最先进的两个文本生成图像——OpenAI的[DALL·E 2](https://arxiv.org/abs/2204.06125)和Google的[Imagen](https://arxiv.org/abs/2205.11487)，都是基于扩散模型来完成的。
 
 <!-- [![Imagen“文本-图片”的部分例子](https://kexue.fm/usr/uploads/2022/06/2782509104.jpg)](https://kexue.fm/usr/uploads/2022/06/2782509104.jpg "点击查看原图") -->
@@ -211,11 +213,11 @@ $$
 
 本文从“拆楼-建楼”的通俗类比中介绍了最新的生成扩散模型DDPM，在这个视角中，我们可以通过较为“大白话”的描述以及比较少的数学推导，来得到跟原始论文一模一样的结果。总的来说，本文说明了DDPM也可以像GAN一样找到一个形象类比，它既可以不用到VAE中的“变分”，也可以不用到GAN中的“概率散度”、“最优传输”，从这个意义上来看，DDPM甚至算得上比VAE、GAN还要简单。
 
-_**转载到请包括本文地址：**[https://kexue.fm/archives/9119](https://kexue.fm/archives/9119 "生成扩散模型漫谈（一）：DDPM = 拆楼 + 建楼")_
+---
+
+_**转载请包括本文地址：**[https://kexue.fm/archives/9119](https://kexue.fm/archives/9119 "生成扩散模型漫谈（一）：DDPM = 拆楼 + 建楼")_
 
 _**更详细的转载事宜请参考：**_[《科学空间FAQ》](https://kexue.fm/archives/6508#%E6%96%87%E7%AB%A0%E5%A6%82%E4%BD%95%E8%BD%AC%E8%BD%BD/%E5%BC%95%E7%94%A8 "《科学空间FAQ》")
-
-**如果您还有什么疑惑或建议，欢迎在下方评论区继续讨论。**
 
 **如果您觉得本文还不错，欢迎[分享](https://kexue.fm/archives/9119#share)/[打赏](https://kexue.fm/archives/9119#pay)本文。打赏并非要从中获得收益，而是希望知道科学空间获得了多少读者的真心关注。当然，如果你无视它，也不会影响你的阅读。再次表示欢迎和感谢！**
 

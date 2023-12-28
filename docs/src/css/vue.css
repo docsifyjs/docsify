@@ -193,9 +193,9 @@ li input[type='checkbox'] {
 
 .app-nav a.active {
     border-bottom: 2px solid #D7336C;
-    border-bottom: 2px solid var(--theme-color, #D7336C);
+    /* border-bottom: 2px solid var(--theme-color, #D7336C); */
     color: #D7336C;
-    color: var(--theme-color, #D7336C);
+    /* color: var(--theme-color, #D7336C); */
 }
 
 .app-nav li {
@@ -315,12 +315,17 @@ main.hidden {
 .sidebar>h1 {
     margin: 0 auto 1rem;
     font-size: 1.5rem;
-    font-weight: 300;
+    font-weight: 600;
     text-align: center;
 }
 
 .sidebar>h1 a {
     color: inherit;
+    text-decoration: none;
+}
+
+.sidebar>h1 a.active {
+    color: #D7336C;
     text-decoration: none;
 }
 
@@ -468,9 +473,14 @@ body.sticky .sidebar-toggle {
     border-collapse: collapse;
     border-spacing: 0;
     display: block;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     overflow: auto;
+    /* overflow-x:auto !important; */
+    /* overflow-x: scroll; */
+    /* overflow-y: scroll; */
     width: 100%;
+    opacity: 1;
 }
 
 .markdown-section th {
@@ -837,22 +847,30 @@ body {
     /* color: var(--theme-color, #D7336C); */
     font-weight: 600;
     text-decoration: none;
-    padding: 0 2px;
+    padding: 0 0px;
+    margin-left: 2px;
 }
 
 .markdown-section h1 {
     font-size: 2rem;
     margin: 0 0 1rem;
+    font-weight: bolder;
+    padding-bottom: 1rem;
 }
 
 .markdown-section h2 {
     font-size: 1.75rem;
-    margin: 45px 0 0.8rem;
+    margin: 50px 0 0.8rem;
+    border-left: var(--theme-color, #D7336C) 4px solid;
+    padding-left: 11px;
+    /* margin-bottom: 1rem; */
+    
 }
 
 .markdown-section h3 {
     font-size: 1.5rem;
     margin: 40px 0 0.6rem;
+    
 }
 
 .markdown-section h4 {

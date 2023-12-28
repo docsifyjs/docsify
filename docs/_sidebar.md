@@ -1,15 +1,24 @@
-- CS with AI
-  - [CS](cs.md)
-  - [AI](ai.md)
-  - [4039 DIS](4039DIS.md)
+- General
+  - [AI Roadmap](ai_map.md)
+  - [AI Modules](ai.md)
+  <!-- - [MIT AI](mit_AI.md) -->
+  <!-- - [AI Roadmap](ai_roadmap.html) -->
+
+- Universities
   - [MIT AI](mit_AI.md)
 
-- Getting started
+- UoN
+  - [4039 DIS](4039DIS.md)
+
+- Details
+  - [Diffusion Model](details/diffusion.md)
+
+<!-- - Getting started
 
   - [Quick start](quickstart.md)
   - [Writing more pages](more-pages.md)
   - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+  - [Cover page](cover.md) -->
 
 <!-- - Customization
 
@@ -30,5 +39,5 @@
   - [Offline Mode (PWA)](pwa.md)
   - [Embed Files](embed-files.md) -->
 
-- [Awesome docsify](awesome.md)
-- [Changelog](changelog.md)
+<!-- - [Awesome docsify](awesome.md) -->
+<!-- - [Changelog](changelog.md) -->

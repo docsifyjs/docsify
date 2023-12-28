@@ -4,8 +4,9 @@
 ## Programming & Software Engineering
 
 ### 6.100
-#### **6.100A Introduction to Computer Science Programming in Python**
+#### **6.100A Introduction to Computer Science Programming in Python** (formerly 6.0001)
 
+[Webpage](https://introcomp.mit.edu/fall23)  
 Prereq: None  
 U (Fall, Spring; first half of term)  
 3-0-3 units  
@@ -15,7 +16,7 @@ Introduction to computer science and programming for students with little or no 
 
 _A. Bell, J. V. Guttag_
 
-#### **6.100B Introduction to Computational Thinking and Data Science**
+#### **6.100B Introduction to Computational Thinking and Data Science** (formerly 6.0002)
 
 Prereq: [6.100A](https://catalog.mit.edu/search/?P=6.100A "6.100A") or permission of instructor  
 U (Fall, Spring; second half of term)  
@@ -26,7 +27,7 @@ Provides an introduction to using computation to understand real-world phenomena
 
 _A. Bell, J. V. Guttag_
 
-#### **6.100L Introduction to Computer Science and Programming**
+#### **6.100L Introduction to Computer Science and Programming** (formerly 6.0001, full semester version of 6.100A)
 
 Prereq: None  
 U (Fall, Spring)  
