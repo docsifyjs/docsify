@@ -11,7 +11,7 @@
   - [4039 DIS](4039DIS.md)
 
 - Details
-  - [Diffusion Model](details/diffusion.md)
+  - [Diffusion Model](diffusion.md)
 
 <!-- - Getting started
 
