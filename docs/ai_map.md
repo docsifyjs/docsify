@@ -1,5 +1,13 @@
 # Road Map
 
+```mermaid
+graph LR
+Intro --> Programming --> AI --> ML --> DL --> CV & NLP & RL
+Programming --> Algorithm
+Intro --> Command-Line --> System --> Network
+Intro --> Database --> Web
+```
+
 ## Intro
 
 | Module Name                      | Code | Provider                                               | Web                                                          | Video                                                        | Lab                                  | Year |
@@ -24,7 +32,7 @@
 | Introduction to Programming with Python                | CS50P     | Harvard  | [🔗](https://cs50.harvard.edu/python/2022/)  | [📺](https://www.youtube.com/playlist?list=PLhQjrBD2T3817j24-GogXmWqO5Q5vYy0V) | [💻](https://github.com/csfive/CS50P)                         | 2022 |
 | Introduction to Computer Science Programming in Python | 6.100A    | MIT      | [🔗](https://introcomp.mit.edu/fall23)       | [📺](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/) | [💻](https://github.com/kiraksi/MIT) | 2016 |
 | Structure and Interpretation of Computer Programs      | **CS61A** | Berkeley | [🔗](https://cs61a.org/)                     | [📺](https://www.youtube.com/@JohnDeNero/playlists)           | [💻](https://github.com/PKUFlyingPig/CS61A)                   | 2023 |
-| Programming Methodology                                | CS106A    | Stanford | [🔗](https://web.stanford.edu/class/cs106a/) | [📺](https://www.youtube.com/playlist?list=PL-h0BZdG_K4myglyF0owcVh9a0oO_arhD) (2017) |                                                              | 2023 |
+| Programming Methodology                                | CS106A    | Stanford | [🔗](https://web.stanford.edu/class/cs106a/) | [📺](https://www.youtube.com/playlist?list=PL-h0BZdG_K4myglyF0owcVh9a0oO_arhD)(2017) |                                                              | 2023 |
 | Fundamentals of Programming                            | 15-112    | CMU      | [🔗](https://www.cs.cmu.edu/~112/index.html) |                                                              | [💻](https://www.kosbie.net/cmu/spring-23/15-112/schedule.html) | 2023 |
 
 ---
@@ -54,10 +62,10 @@
 
 | Module Name                                                 | Code   | Provider | Web                                              | Video                                                        | Lab  | Year |
 | ----------------------------------------------------------- | ------ | -------- | ------------------------------------------------ | ------------------------------------------------------------ | ---- | ---- |
-| Introduction to Artificial Intelligence with Python         | CS50AI | Harvard  | [🔗](https://cs50.harvard.edu/ai/2023/)           | [📺](https://www.youtube.com/playlist?list=PLhQjrBD2T382Nz7z1AEXmioc27axa19Kv) (2020) |      | 2023 |
+| Introduction to Artificial Intelligence with Python         | CS50AI | Harvard  | [🔗](https://cs50.harvard.edu/ai/2023/)           | [📺](https://www.youtube.com/playlist?list=PLhQjrBD2T382Nz7z1AEXmioc27axa19Kv)(2020) |      | 2023 |
 | Introduction to Artificial Intelligence                     | CS188  | Berkeley | [🔗](https://inst.eecs.berkeley.edu/~cs188/fa23/) |                                                              |      | 2023 |
 | Artificial Intelligence: Representation and Problem Solving | 15-281 | CMU      | [🔗](https://www.cs.cmu.edu/~15281/)              |                                                              |      | 2023 |
-| Artificial Intelligence: Principles and Techniques          | CS221  | Stanford | [🔗](https://stanford-cs221.github.io/)           | [📺](https://www.youtube.com/playlist?list=PLoROMvodv4rO1NB9TD4iUZ3qghGEGtqNX) (2019) |      | 2023 |
+| Artificial Intelligence: Principles and Techniques          | CS221  | Stanford | [🔗](https://stanford-cs221.github.io/)           | [📺](https://www.youtube.com/playlist?list=PLoROMvodv4rO1NB9TD4iUZ3qghGEGtqNX)(2019) |      | 2023 |
 
 ---
 
@@ -65,7 +73,7 @@
 
 | Module Name                                                  | Code       | Provider | Web                                                          | Video                                                        | Lab                                        | Year |
 | ------------------------------------------------------------ | ---------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------ | ---- |
-| Machine Learning                                             | CS229      | Stanford | [🔗](https://cs229.stanford.edu/)                             | [📺](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU) (2018) | [💻](https://github.com/PKUFlyingPig/CS229) | 2023 |
+| Machine Learning                                             | CS229      | Stanford | [🔗](https://cs229.stanford.edu/)                             | [📺](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU)(2018) | [💻](https://github.com/PKUFlyingPig/CS229) | 2023 |
 | Introduction to Machine Learning | CS189/289A | Berkeley | [🔗](https://eecs189.org/) [🔗](https://people.eecs.berkeley.edu/~jrs/189/)(Spring))                                    |                                                              |                                            | 2023 |
 | Introduction to Machine Learning (After 15-281 AI)                | 10-315     | CMU      | [🔗](https://www.cs.cmu.edu/~10315/)                          |                                                              |                                            | 2023 |
 | Introduction to Machine Learning (easier)                | 10-301/601     | CMU      | [🔗](https://www.cs.cmu.edu/~hchai2/courses/10601/)(Summer)  [🔗](https://www.cs.cmu.edu/~mgormley/courses/10601/)                        |                                                              |                                            | 2023 |
@@ -77,7 +85,7 @@
 
 | Module Name                   | Code                                                         | Provider | Web                                                         | Video                                                        | Lab                                                  | Year |
 | ----------------------------- | ------------------------------------------------------------ | -------- | ----------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- | ---- |
-| Deep Learning                 | CS230                                                        | Stanford | [🔗](https://cs230.stanford.edu/)                            | [📺](https://www.youtube.com/playlist?list=PLoROMvodv4rOABXSygHTsbvUz4G_YQhOb) (2018) | [💻](https://github.com/PKUFlyingPig/CS229)           | 2023 |
+| Deep Learning                 | CS230                                                        | Stanford | [🔗](https://cs230.stanford.edu/)                            | [📺](https://www.youtube.com/playlist?list=PLoROMvodv4rOABXSygHTsbvUz4G_YQhOb)(2018) | [💻](https://github.com/PKUFlyingPig/CS229)           | 2023 |
 | Deep Neural Networks          | CS182/282A                                                   | Berkeley | [🔗](https://inst.eecs.berkeley.edu/~cs182/fa23/)            | [📺](https://www.youtube.com/playlist?list=PLnocShPlK-Fs_62EXCDykgtQFbHGLMT7U) |                                                      | 2023 |
 | Introduction to Deep Learning | 11-485/785                                                   | CMU      | [🔗](https://deeplearning.cs.cmu.edu/F23/index.html)         | [📺](https://www.youtube.com/playlist?list=PLp-0K3kfddPzCnS4CqKphh-zT3aDwybDe) |                                                      | 2023 |
 | Intermediate Deep Learning    | 10-707 / 417/617                                             | CMU      | [🔗](https://deeplearning-cmu-10707.github.io/)              |                                                              |                                                      | 2019 |
@@ -96,8 +104,8 @@
 
 | Module Name                                            | Code                 | Provider  | Web                                                          | Video                                                        | Lab                            | Year |
 | ------------------------------------------------------ | -------------------- | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------ | ---- |
-| Deep Learning for Computer Vision                      | EECS 498.008/598.008 | UMichigan | [🔗](https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/) | [📺](https://www.youtube.com/playlist?list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r) (2019) |                                | 2022 |
-| Deep Learning for Computer Vision                      | CS231n               | Stanford  | [🔗](http://cs231n.stanford.edu/)                             | [📺](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv) (2017) | [💻](https://cs231n.github.io/) | 2023 |
+| Deep Learning for Computer Vision                      | EECS 498.008/598.008 | UMichigan | [🔗](https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/) | [📺](https://www.youtube.com/playlist?list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r)(2019) |                                | 2022 |
+| Deep Learning for Computer Vision                      | CS231n               | Stanford  | [🔗](http://cs231n.stanford.edu/)                             | [📺](https://www.youtube.com/playlist?list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv)(2017) | [💻](https://cs231n.github.io/) | 2023 |
 | Intro to Computer Vision and Computational Photography | CS180/280A           | Berkeley  | [🔗](https://inst.eecs.berkeley.edu/~cs180/fa23/)             |                                                              |                                | 2023 |
 | Computer Vision                                        | CS280                | Berkeley  | [🔗](https://cs280-berkeley.github.io/)                       |                                                              |                                | 2023 |
 | Computer Vision                                        | 16-385               | CMU       | [🔗](https://www.cs.cmu.edu/~16385/)                          |                                                              |                                | 2020 |

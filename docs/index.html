@@ -52,7 +52,7 @@
                     'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/$1',
                 '.*?/changelog':
                     'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
-                '/en/(.*)': 
+                '/en/(.*)':
                     'https://cdn.jsdelivr.net/gh/docsifyjs/docsify@master/docs/$1',
                 '/es/(.*)':
                     'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
@@ -114,6 +114,14 @@
                 pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
             },
 
+            mermaidConfig: {
+                querySelector: ".mermaid"
+            },
+            mermaidZoom: {
+                minimumScale: 1,
+                maximumScale: 5,
+                zoomPannel: true
+            },
             latex: {
                 inlineMath: [['$', '$']],
                 displayMath: [['$$', '$$']],
@@ -245,6 +253,15 @@
     <!-- Code highlighting -->
     <script src="//unpkg.com/prismjs/components/prism-python.min.js"></script>
     <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({ startOnLoad: true });
+        window.mermaid = mermaid;
+    </script>
+    <script src="//unpkg.com/docsify-mermaid@2.0.1/dist/docsify-mermaid.js"></script>
+    <script src="//unpkg.com/docsify-mermaid-zoom/dist/docsify-mermaid-zoom.js"></script>
+
     <!-- <script src="//unpkg.com/prismjs/components/prism-latex.js"></script> -->
 
     <!-- math -->

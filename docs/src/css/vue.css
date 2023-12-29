@@ -447,6 +447,7 @@ body.sticky .sidebar-toggle {
     position: relative;
     flex: 1 1 0%;
     font-size: 18px;
+    opacity: 1;
 }
 
 .markdown-section>* {
