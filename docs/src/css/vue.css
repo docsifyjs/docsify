@@ -305,9 +305,7 @@ main.hidden {
     top: 0;
     bottom: 0;
     left: 0;
-    transition: transform 250ms ease-out;
-    /* width: 300px; */
-    width: 15%;
+    width: 250px;
     z-index: 20;
     /* font-size: 16px; */
 }
@@ -430,18 +428,19 @@ body.sticky .sidebar-toggle {
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 0;
-    left: 15%;
+    /* right: 0; */
+    left: 250px;
     transition: left 250ms ease;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+    margin-left: 0px;
 }
 
 .markdown-section {
-    margin: 0px 0 0px 0;
-    max-width: 80%;
-    padding: 0px 16%;
+    max-width: 60%;
+    /* max-width: 700px; */
+    /* padding: 0px 16%; */
     position: relative;
     flex: 1 1 0%;
     font-size: 18px;
@@ -558,7 +557,35 @@ body.close .sidebar-toggle {
 }
 
 body.close .content {
-    left: 10%;
+    /* left: 0rem; */
+    /* margin: 0 5%; */
+
+    /* position: relative;
+    left: 0;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.0em;
+    max-width: 90%; */
+    
+    /* left: 0; */
+    /* max-width: 100vw; */
+    position: static;
+    
+    margin: 0px auto;
+    /* width: 800px; */
+
+}
+
+body.close .markdown-section {
+    /* margin-right: 0; */
+    /* max-width: 90%; */
+    /* padding: 0px 16%; */
+    /* position: relative; */
+    /* flex: 1 1 0%; */
+    /* font-size: 18px; */
+    /* transform: translateX(-100px); */
+    transition: transform 250ms ease;
 }
 
 @media print {
@@ -571,7 +598,8 @@ body.close .content {
     }
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) { */
+@media screen and (max-width: 1300px) {
 
     .github-corner,
     .sidebar-toggle,
@@ -595,7 +623,6 @@ body.close .content {
 
     .sidebar {
         left: -300px;
-        transition: transform 250ms ease-out;
     }
 
     .content {
@@ -603,7 +630,14 @@ body.close .content {
         max-width: 100vw;
         position: static;
         padding-top: 20px;
-        transition: transform 250ms ease;
+        
+        margin: 0 auto;
+        width: 800px;
+    }
+
+    .markdown-section {
+        max-width: 100%;
+        padding: 0 15px;
     }
 
     .app-nav,
@@ -629,7 +663,7 @@ body.close .content {
     }
 
     body.close .content {
-        transform: translateX(300px);
+        /* transform: translateX(300px); */
     }
 
     body.close .app-nav,
@@ -864,13 +898,13 @@ body {
     border-left: var(--theme-color, #D7336C) 4px solid;
     padding-left: 11px;
     /* margin-bottom: 1rem; */
-    
+
 }
 
 .markdown-section h3 {
     font-size: 1.5rem;
     margin: 40px 0 0.6rem;
-    
+
 }
 
 .markdown-section h4 {
@@ -892,7 +926,7 @@ body {
 }
 
 /* .markdown-section p a { */
-    /* margin: 1.2em 0em; */
+/* margin: 1.2em 0em; */
 /* } */
 
 .markdown-section p,

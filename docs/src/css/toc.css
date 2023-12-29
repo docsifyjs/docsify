@@ -27,15 +27,17 @@
 }
 
 .nav {
-    width: var(--toc-width, 350px);
-    /* width: 18%; */
+    width: var(--toc-width, 300px);
     align-self: flex-start;
     flex: 0 0 auto;
-    margin: 0 10px 0 0;
-    /* overflow-y: auto; */
+    /* margin: 0 10px 0 10px; */
+    overflow: auto;
     font-size: 14px;
     /* padding-right: 50px; */
     position: relative;
+    /* position: sticky; */
+    /* right: 1px; */
+    max-width: 90%;
 }
 
 aside.nav.nothing {
@@ -43,16 +45,24 @@ aside.nav.nothing {
 }
 
 .page_toc {
+    /* width: var(--toc-width, 350px); */
+    max-width: 300px;
+    min-width: 200px;
+    font-size: 14px;
+
+    right: 20px;
     position: fixed;
     border-left-style: solid;
     border-left-width: 1px;
     border-left-color: rgba(0, 0, 0, 0.07);
     border-image-slice: 1;
     padding-left: 5px;
+    /* padding-right: 20px;   */
+    /* margin-left: 20px; */
+    /* margin-right: 20px; */
     scroll-behavior: smooth;
     overflow-y: auto;    /* 启用垂直方向上的滚动条 */
     max-height: 90%;    /* 设置最大高度，例如视口高度的 90% */
-    padding-right: 50px;  
 }
 
 .page_toc::-webkit-scrollbar {
@@ -147,6 +157,7 @@ aside.nav.nothing {
         border: none;
         border-bottom: 1px solid #ddd;
         font-size: 1.0em;
+        max-width: 100%;
     }
 
     .page_toc a:before {
@@ -155,7 +166,7 @@ aside.nav.nothing {
 
     .nav {
         margin: 0 auto;
-        width: 800px;
+        width: 100%;
     }
 
     .page_toc p.title {
@@ -168,7 +179,7 @@ aside.nav.nothing {
     }
 
     .markdown-section {
-        margin: 0 auto;
+        margin: 0 0;
     }
 }
 
