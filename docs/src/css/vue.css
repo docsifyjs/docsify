@@ -399,7 +399,7 @@ main.hidden {
     left: 0;
     text-align: center;
     transition: opacity 0.3s;
-    width: 284px;
+    width: 244px;
     z-index: 30;
     cursor: pointer;
 }
@@ -435,11 +435,14 @@ body.sticky .sidebar-toggle {
     flex-direction: row-reverse;
     justify-content: center;
     margin-left: 0px;
+    right: 0%;
 }
 
 .markdown-section {
-    max-width: 60%;
-    /* max-width: 700px; */
+    max-width: 50%;
+    margin: 0 auto;
+    /* width: 700px; */
+    /* left: calc(50% - 350px); */
     /* padding: 0px 16%; */
     position: relative;
     flex: 1 1 0%;
@@ -585,7 +588,7 @@ body.close .markdown-section {
     /* flex: 1 1 0%; */
     /* font-size: 18px; */
     /* transform: translateX(-100px); */
-    transition: transform 250ms ease;
+    /* transition: transform 250ms ease; */
 }
 
 @media print {
@@ -627,9 +630,9 @@ body.close .markdown-section {
 
     .content {
         left: 0;
-        max-width: 100vw;
+        max-width: 100%;
         position: static;
-        padding-top: 20px;
+        padding-top: 40px;
         
         margin: 0 auto;
         width: 800px;

@@ -24,6 +24,7 @@
     --width-card-medium: 460px;
     --width-card-wide: 800px;
     --width-content: 1080px;
+    --toc-width: 300px;
 }
 
 .nav {
@@ -46,8 +47,8 @@ aside.nav.nothing {
 
 .page_toc {
     /* width: var(--toc-width, 350px); */
-    max-width: 300px;
-    min-width: 200px;
+    width: 300px;
+    /* min-width: 200px; */
     font-size: 14px;
 
     right: 20px;
@@ -153,11 +154,11 @@ aside.nav.nothing {
         position: relative;
         left: 0;
         top: -20px;
-        padding: 10px 0;
+        padding: 10px 10px;
         border: none;
         border-bottom: 1px solid #ddd;
         font-size: 1.0em;
-        max-width: 100%;
+        width: 100%;
     }
 
     .page_toc a:before {
@@ -165,7 +166,7 @@ aside.nav.nothing {
     }
 
     .nav {
-        margin: 0 auto;
+        margin: 0 0;
         width: 100%;
     }
 
