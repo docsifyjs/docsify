@@ -88,7 +88,7 @@
     "autoprefixer-stylus": "^1.0.0",
     "axios": "^1.5.0",
     "babel-jest": "^27.4.6",
-    "browser-sync": "^2.26.12",
+    "browser-sync": "^3.0.2",
     "chokidar": "^3.4.2",
     "common-tags": "^1.8.0",
     "conventional-changelog-cli": "^3.0.0",
