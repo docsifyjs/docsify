@@ -20,13 +20,6 @@ export function btn(el) {
     e.stopPropagation();
     toggle();
   });
-
-  isMobile &&
-    dom.on(
-      dom.body,
-      'click',
-      _ => dom.body.classList.contains('close') && toggle()
-    );
 }
 
 export function collapse(el) {
