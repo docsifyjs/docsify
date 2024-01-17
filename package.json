@@ -43,7 +43,7 @@
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "lint:fix": "eslint . --fix",
     "lint": "prettier . --check && eslint .",
-    "postinstall": "opencollective-postinstall",
+    "postinstall": "opencollective-postinstall && npx husky install",
     "prepare": "npm run build",
     "prettier": "prettier . --write",
     "pub:next": "cross-env RELEASE_TAG=next sh build/release.sh",
@@ -56,11 +56,6 @@
     "test": "npm run jest && run-s test:e2e",
     "watch:css": "npm run build:css -- -w",
     "watch:js": "node build/build.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.js": "eslint --fix"
