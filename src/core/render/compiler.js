@@ -68,6 +68,7 @@ export class Compiler {
     this.router = router;
     this.cacheTree = {};
     this.toc = [];
+    this.uniqueTOC = [];
     this.cacheTOC = {};
     this.linkTarget = config.externalLinkTarget || '_blank';
     this.linkRel =
@@ -223,7 +224,12 @@ export class Compiler {
       const slug = slugify(config.id || str);
       const url = router.toURL(router.getCurrentPath(), { id: slug });
       nextToc.slug = url;
-      _self.toc.push(nextToc);
+
+      // FIXME: Maybe we can do the de-duplication directly from _self.toc
+      if (_self.uniqueTOC.indexOf(url) === -1) {
+        _self.uniqueTOC.push(url);
+        _self.toc.push(nextToc);
+      }
 
       // Note: tabindex="-1" allows programmatically focusing on heading
       // elements after navigation. This is preferred over focusing on the link
