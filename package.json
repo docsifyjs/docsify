@@ -97,7 +97,7 @@
     "eslint-plugin-playwright": "^0.16.0",
     "eslint-plugin-prettier": "^4.2.1",
     "globals": "^13.20.0",
-    "husky": "^8.0.3",
+    "husky": "^9.0.10",
     "jest": "^27.4.7",
     "lint-staged": "^13.2.2",
     "mkdirp": "^3.0.0",
