@@ -1,6 +1,6 @@
 import Prism from 'prismjs';
 // See https://github.com/PrismJS/prism/pull/1367
-import 'prismjs/components/prism-markup-templating';
+import 'prismjs/components/prism-markup-templating.js';
 
 export const highlightCodeCompiler = ({ renderer }) =>
   (renderer.code = function (code, lang = 'markup') {
@@ -11,5 +11,5 @@ export const highlightCodeCompiler = ({ renderer }) =>
       lang
     );
 
-    return `<pre v-pre data-lang="${lang}"><code class="lang-${lang}">${text}</code></pre>`;
+    return /* html */ `<pre v-pre data-lang="${lang}"><code class="lang-${lang}" tabindex="0">${text}</code></pre>`;
   });

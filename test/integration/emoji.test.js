@@ -1,4 +1,4 @@
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -137,7 +137,7 @@ describe('Emoji', function () {
   test('Ignores emoji shorthand codes in html attributes', async () => {
     await docsifyInit({
       markdown: {
-        homepage: `<a href="http://domain.com/:smile:/"> <img src='http://domain.com/:smile:/file.png'> <script src=http://domain.com/:smile:/file.js></script>`,
+        homepage: /* html */ `<a href="http://domain.com/:smile:/"> <img src='http://domain.com/:smile:/file.png'> <script src=http://domain.com/:smile:/file.js></script>`,
       },
       // _logHTML: true,
     });
@@ -150,7 +150,7 @@ describe('Emoji', function () {
   test('Ignores emoji shorthand codes in style url() values', async () => {
     await docsifyInit({
       markdown: {
-        homepage: `<style>@import url(http://domain.com/:smile/file.css);</style>`,
+        homepage: /* html */ `<style>@import url(http://domain.com/:smile/file.css);</style>`,
       },
       // _logHTML: true,
     });
@@ -163,7 +163,7 @@ describe('Emoji', function () {
   test('Ignores emoji shorthand codes in code, pre, script, and template tags', async () => {
     await docsifyInit({
       markdown: {
-        homepage: `
+        homepage: /* html */ `
           <pre>:100:</pre>
 
           <code>:100:</code>

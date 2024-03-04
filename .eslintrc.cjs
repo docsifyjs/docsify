@@ -1,4 +1,4 @@
-const prettierConfig = require('./.prettierrc');
+const prettierConfig = require('./.prettierrc.json');
 
 module.exports = {
   root: true,
@@ -63,7 +63,6 @@ module.exports = {
     yoda: ['error', 'never'],
 
     // Import rules
-    // Search way how integrate with `lerna`
     'import/imports-first': ['error'],
     'import/newline-after-import': ['error'],
     'import/no-duplicates': ['error'],

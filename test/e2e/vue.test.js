@@ -1,6 +1,6 @@
-const stripIndent = require('common-tags/lib/stripIndent');
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 const vueURLs = [
   '/node_modules/vue2/dist/vue.js',
@@ -24,16 +24,14 @@ test.describe('Vue.js Compatibility', () => {
           },
         },
         vueGlobalOptions: {
-          data: function () {
-            return {
-              counter: 0,
-              msg: 'vueglobaloptions',
-            };
-          },
+          data: () => ({
+            counter: 0,
+            msg: 'vueglobaloptions',
+          }),
         },
         vueMounts: {
           '#vuemounts': {
-            data: function () {
+            data() {
               return {
                 counter: 0,
                 msg: 'vuemounts',
@@ -98,6 +96,23 @@ test.describe('Vue.js Compatibility', () => {
     const vueVersion = Number(vueURL.match(/vue(\d+)/)[1]); // 2|3
 
     test.describe(`Vue v${vueVersion}`, () => {
+      test(`Parse templates and render content when import Vue v${vueVersion} resources`, async ({
+        page,
+      }) => {
+        const docsifyInitConfig = {
+          config: {},
+          markdown: {
+            homepage: stripIndent`
+            <div id="vuefor"><span v-for="i in 5">{{ i }}</span></div>
+          `,
+          },
+        };
+
+        docsifyInitConfig.scriptURLs = vueURL;
+
+        await docsifyInit(docsifyInitConfig);
+        await expect(page.locator('#vuefor')).toHaveText('12345');
+      });
       for (const executeScript of [true, undefined]) {
         test(`renders content when executeScript is ${executeScript}`, async ({
           page,
@@ -149,24 +164,6 @@ test.describe('Vue.js Compatibility', () => {
         await expect(page.locator('#vuescript p')).toHaveText('---');
       });
 
-      test(`ignores content when vueComponents, vueMounts, and vueGlobalOptions are undefined`, async ({
-        page,
-      }) => {
-        const docsifyInitConfig = getSharedConfig();
-
-        docsifyInitConfig.config.vueComponents = undefined;
-        docsifyInitConfig.config.vueGlobalOptions = undefined;
-        docsifyInitConfig.config.vueMounts = undefined;
-        docsifyInitConfig.scriptURLs = vueURL;
-
-        await docsifyInit(docsifyInitConfig);
-        await expect(page.locator('#vuefor')).toHaveText('{{ i }}');
-        await expect(page.locator('#vuecomponent')).toHaveText('---');
-        await expect(page.locator('#vueglobaloptions p')).toHaveText('---');
-        await expect(page.locator('#vuemounts p')).toHaveText('---');
-        await expect(page.locator('#vuescript p')).toHaveText('vuescript');
-      });
-
       test(`ignores content when vueGlobalOptions is undefined`, async ({
         page,
       }) => {
@@ -179,6 +176,7 @@ test.describe('Vue.js Compatibility', () => {
         await expect(page.locator('#vuefor')).toHaveText('12345');
         await expect(page.locator('#vuecomponent')).toHaveText('0');
         await expect(page.locator('#vuecomponent')).toHaveText('0');
+        // eslint-disable-next-line playwright/prefer-web-first-assertions
         expect(await page.locator('#vueglobaloptions p').innerText()).toBe('');
         await expect(page.locator('#vuemounts p')).toHaveText('vuemounts');
         await expect(page.locator('#vuescript p')).toHaveText('vuescript');

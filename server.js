@@ -1,55 +1,14 @@
-const liveServer = require('live-server')
-const isSSR = !!process.env.SSR
-const middleware = []
+import { create } from 'browser-sync';
+import { devConfig, prodConfig } from './server.configs.js';
 
-if (isSSR) {
-  const Renderer = require('./packages/docsify-server-renderer/build.js')
-  const renderer = new Renderer({
-    template: `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>docsify</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="/themes/vue.css" title="vue">
-  </head>
-  <body>
-    <!--inject-app-->
-    <!--inject-config-->
-  <script src="/lib/docsify.js"></script>
-  </body>
-  </html>`,
-    config: {
-      name: 'docsify',
-      repo: 'docsifyjs/docsify',
-      basePath: 'https://docsify.js.org/',
-      loadNavbar: true,
-      loadSidebar: true,
-      subMaxLevel: 3,
-      auto2top: true,
-      alias: {
-        '/de-de/changelog': '/changelog',
-        '/zh-cn/changelog': '/changelog',
-        '/changelog':
-          'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG'
-      }
-    },
-    path: './'
-  })
+const bsServer = create();
+const args = process.argv.slice(2);
+const config = args.includes('--dev') ? devConfig : prodConfig;
+const configName = config === devConfig ? 'development' : 'production';
+const isWatch = Boolean(config.files) && config.watch !== false;
+const urlType = config === devConfig ? 'local' : 'CDN';
 
-  middleware.push(function(req, res, next) {
-    if (/\.(css|js)$/.test(req.url)) {
-      return next()
-    }
-    renderer.renderToString(req.url).then(html => res.end(html))
-  })
-}
+// prettier-ignore
+console.log(`\nStarting ${configName} server (${urlType} URLs, watch: ${isWatch})\n`);
 
-const params = {
-  port: 3000,
-  watch: ['lib', 'docs', 'themes'],
-  middleware
-}
-
-liveServer.start(params)
+bsServer.init(config);

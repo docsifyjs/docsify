@@ -1,5 +1,5 @@
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Search Plugin Tests', () => {
   test('search readme', async ({ page }) => {
@@ -175,5 +175,61 @@ test.describe('Search Plugin Tests', () => {
     await page.click('.clear-button');
     await searchFieldElm.fill('hello');
     await expect(resultsHeadingElm).toHaveText('Changelog Title');
+  });
+
+  test('search when there is no body', async ({ page }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          # EmptyContent
+          ---
+          ---
+        `,
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel h2');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await searchFieldElm.fill('empty');
+    await expect(resultsHeadingElm).toHaveText('EmptyContent');
+  });
+
+  test('handles default focusSearch binding', async ({ page }) => {
+    const docsifyInitConfig = {
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type="search"]');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await expect(searchFieldElm).not.toBeFocused();
+    await page.keyboard.press('/');
+    await expect(searchFieldElm).toBeFocused();
+  });
+
+  test('handles custom focusSearch binding', async ({ page }) => {
+    const docsifyInitConfig = {
+      config: {
+        search: {
+          keyBindings: ['z'],
+        },
+      },
+      scriptURLs: ['/lib/plugins/search.min.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type="search"]');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await expect(searchFieldElm).not.toBeFocused();
+    await page.keyboard.press('/');
+    await expect(searchFieldElm).not.toBeFocused();
+    await page.keyboard.press('z');
+    await expect(searchFieldElm).toBeFocused();
   });
 });

@@ -1,5 +1,3 @@
-import { hasOwn } from '../util/core';
-
 let cache = {};
 const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g;
 
@@ -22,7 +20,7 @@ export function slugify(str) {
     .replace(/^(\d)/, '_$1');
   let count = cache[slug];
 
-  count = hasOwn.call(cache, slug) ? count + 1 : 0;
+  count = Object.keys(cache).includes(slug) ? count + 1 : 0;
   cache[slug] = count;
 
   if (count) {

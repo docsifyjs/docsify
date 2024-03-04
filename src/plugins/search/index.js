@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { init as initComponent, update as updateComponent } from './component';
-import { init as initSearch } from './search';
+import {
+  init as initComponent,
+  update as updateComponent,
+} from './component.js';
+import { init as initSearch } from './search.js';
 
 const CONFIG = {
   placeholder: 'Type to search',
@@ -11,6 +14,7 @@ const CONFIG = {
   hideOtherSidebarContent: false,
   namespace: undefined,
   pathNamespaces: undefined,
+  keyBindings: ['/', 'meta+k', 'ctrl+k'],
 };
 
 const install = function (hook, vm) {
@@ -29,10 +33,31 @@ const install = function (hook, vm) {
       opts.hideOtherSidebarContent || CONFIG.hideOtherSidebarContent;
     CONFIG.namespace = opts.namespace || CONFIG.namespace;
     CONFIG.pathNamespaces = opts.pathNamespaces || CONFIG.pathNamespaces;
+    CONFIG.keyBindings = opts.keyBindings || CONFIG.keyBindings;
   }
 
   const isAuto = CONFIG.paths === 'auto';
 
+  hook.init(() => {
+    const { keyBindings } = vm.config;
+
+    // Add key bindings
+    if (keyBindings.constructor === Object) {
+      keyBindings.focusSearch = {
+        bindings: CONFIG.keyBindings,
+        callback(e) {
+          const sidebarElm = document.querySelector('.sidebar');
+          const sidebarToggleElm = document.querySelector('.sidebar-toggle');
+          const searchElm = sidebarElm?.querySelector('input[type="search"]');
+          const isSidebarHidden = sidebarElm?.getBoundingClientRect().x < 0;
+
+          isSidebarHidden && sidebarToggleElm?.click();
+
+          setTimeout(() => searchElm?.focus(), isSidebarHidden ? 250 : 0);
+        },
+      };
+    }
+  });
   hook.mounted(_ => {
     initComponent(CONFIG, vm);
     !isAuto && initSearch(CONFIG, vm);
@@ -43,4 +68,5 @@ const install = function (hook, vm) {
   });
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

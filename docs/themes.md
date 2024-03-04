@@ -8,6 +8,7 @@ There is a handful of themes available, both official and community-made. Copy [
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dolphin.css" />
 ```
 <!-- prettier-ignore-end -->
 
@@ -21,6 +22,7 @@ There is a handful of themes available, both official and community-made. Copy [
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/buble.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dark.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/pure.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dolphin.css" />
 ```
 <!-- prettier-ignore-end -->
 
@@ -33,6 +35,7 @@ If you have any ideas or would like to develop a new theme, you are welcome to s
   <a data-theme="buble">buble.css</a>
   <a data-theme="dark">dark.css</a>
   <a data-theme="pure">pure.css</a>
+  <a data-theme="dolphin">dolphin.css</a>
 </div>
 
 <style>
@@ -47,13 +50,13 @@ If you have any ideas or would like to develop a new theme, you are welcome to s
 </style>
 
 <script>
-  var preview = Docsify.dom.find('.demo-theme-preview');
-  var themes = Docsify.dom.findAll('[rel="stylesheet"]');
+  const preview = Docsify.dom.find('.demo-theme-preview');
+  const themes = Docsify.dom.findAll('[rel="stylesheet"]');
 
   preview.onclick = function (e) {
-    var title = e.target.getAttribute('data-theme');
+    const title = e.target.getAttribute('data-theme');
 
-    themes.forEach(function (theme) {
+    themes.forEach(theme => {
       theme.disabled = theme.title !== title;
     });
   };

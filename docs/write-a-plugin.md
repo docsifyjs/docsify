@@ -24,15 +24,15 @@ Alternatively, a plugin can be stored in a separate file and "installed" using a
 ```js
 // docsify-plugin-myplugin.js
 
-(function () {
-  var myPlugin = function (hook, vm) {
+{
+  function myPlugin(hook, vm) {
     // ...
-  };
+  }
 
   // Add plugin to docsify's plugin array
-  $docsify = $docsify || {};
-  $docsify.plugins = [].concat($docsify.plugins || [], myPlugin);
-})();
+  window.$docsify = window.$docsify || {};
+  $docsify.plugins = [...($docsify.plugins || []), myPlugin];
+}
 ```
 
 ```html
@@ -51,47 +51,47 @@ Below is a plugin template with placeholders for all available lifecycle hooks.
 1. Load your plugin using a standard `<script>` tag
 
 ```js
-(function () {
-  var myPlugin = function (hook, vm) {
+{
+  function myPlugin(hook, vm) {
     // Invoked one time when docsify script is initialized
-    hook.init(function () {
+    hook.init(() => {
       // ...
     });
 
     // Invoked one time when the docsify instance has mounted on the DOM
-    hook.mounted(function () {
+    hook.mounted(() => {
       // ...
     });
 
     // Invoked on each page load before new markdown is transformed to HTML.
     // Supports asynchronous tasks (see beforeEach documentation for details).
-    hook.beforeEach(function (markdown) {
+    hook.beforeEach(markdown => {
       // ...
       return markdown;
     });
 
     // Invoked on each page load after new markdown has been transformed to HTML.
     // Supports asynchronous tasks (see afterEach documentation for details).
-    hook.afterEach(function (html) {
+    hook.afterEach(html => {
       // ...
       return html;
     });
 
     // Invoked on each page load after new HTML has been appended to the DOM
-    hook.doneEach(function () {
+    hook.doneEach(() => {
       // ...
     });
 
     // Invoked one time after rendering the initial page
-    hook.ready(function () {
+    hook.ready(() => {
       // ...
     });
-  };
+  }
 
   // Add plugin to docsify's plugin array
-  $docsify = $docsify || {};
-  $docsify.plugins = [].concat(myPlugin, $docsify.plugins || []);
-})();
+  window.$docsify = window.$docsify || {};
+  $docsify.plugins = [myPlugin, ...($docsify.plugins || [])];
+}
 ```
 
 ## Lifecycle Hooks
@@ -103,7 +103,7 @@ Lifecycle hooks are provided via the `hook` argument passed to the plugin functi
 Invoked one time when docsify script is initialized.
 
 ```js
-hook.init(function () {
+hook.init(() => {
   // ...
 });
 ```
@@ -113,7 +113,7 @@ hook.init(function () {
 Invoked one time when the docsify instance has mounted on the DOM.
 
 ```js
-hook.mounted(function () {
+hook.mounted(() => {
   // ...
 });
 ```
@@ -123,7 +123,7 @@ hook.mounted(function () {
 Invoked on each page load before new markdown is transformed to HTML.
 
 ```js
-hook.beforeEach(function (markdown) {
+hook.beforeEach(markdown => {
   // ...
   return markdown;
 });
@@ -132,7 +132,7 @@ hook.beforeEach(function (markdown) {
 For asynchronous tasks, the hook function accepts a `next` callback as a second argument. Call this function with the final `markdown` value when ready. To prevent errors from affecting docsify and other plugins, wrap async code in a `try/catch/finally` block.
 
 ```js
-hook.beforeEach(function (markdown, next) {
+hook.beforeEach((markdown, next) => {
   try {
     // Async task(s)...
   } catch (err) {
@@ -148,7 +148,7 @@ hook.beforeEach(function (markdown, next) {
 Invoked on each page load after new markdown has been transformed to HTML.
 
 ```js
-hook.afterEach(function (html) {
+hook.afterEach(html => {
   // ...
   return html;
 });
@@ -157,7 +157,7 @@ hook.afterEach(function (html) {
 For asynchronous tasks, the hook function accepts a `next` callback as a second argument. Call this function with the final `html` value when ready. To prevent errors from affecting docsify and other plugins, wrap async code in a `try/catch/finally` block.
 
 ```js
-hook.afterEach(function (html, next) {
+hook.afterEach((html, next) => {
   try {
     // Async task(s)...
   } catch (err) {
@@ -173,7 +173,7 @@ hook.afterEach(function (html, next) {
 Invoked on each page load after new HTML has been appended to the DOM.
 
 ```js
-hook.doneEach(function () {
+hook.doneEach(() => {
   // ...
 });
 ```
@@ -183,7 +183,7 @@ hook.doneEach(function () {
 Invoked one time after rendering the initial page.
 
 ```js
-hook.ready(function () {
+hook.ready(() => {
   // ...
 });
 ```
@@ -203,15 +203,15 @@ hook.ready(function () {
 window.$docsify = {
   plugins: [
     function pageFooter(hook, vm) {
-      var footer = [
-        '<hr/>',
-        '<footer>',
-        '<span><a href="https://github.com/QingWei-Li">cinwell</a> &copy;2017.</span>',
-        '<span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>',
-        '</footer>',
-      ].join('');
+      const footer = /* html */ `
+        <hr/>
+        <footer>
+          <span><a href="https://github.com/QingWei-Li">cinwell</a> &copy;2017.</span>
+          <span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>
+        </footer>
+      `;
 
-      hook.afterEach(function (html) {
+      hook.afterEach(html => {
         return html + footer;
       });
     },
@@ -228,11 +228,11 @@ window.$docsify = {
       // The date template pattern
       $docsify.formatUpdated = '{YYYY}/{MM}/{DD} {HH}:{mm}';
 
-      hook.beforeEach(function (html) {
-        var url =
+      hook.beforeEach(html => {
+        const url =
           'https://github.com/docsifyjs/docsify/blob/master/docs/' +
           vm.route.file;
-        var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n';
+        const editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n';
 
         return (
           editHtml +

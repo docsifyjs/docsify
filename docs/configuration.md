@@ -44,10 +44,15 @@ window.$docsify = {
     '/zh-cn/changelog': '/changelog',
     '/changelog':
       'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+
+    // You may need this if you use routerMode:'history'.
     '/.*/_sidebar.md': '/_sidebar.md', // See #301
   },
 };
 ```
+
+> **Note** If you change [`routerMode`](#routermode) to `'history'`, you may
+> want to configure an alias for your `_sidebar.md` and `_navbar.md` files.
 
 ## auto2top
 
@@ -137,19 +142,6 @@ window.$docsify = {
     '/': 'cover.md',
     '/zh-cn/': 'cover.md',
   },
-};
-```
-
-## crossOriginLinks
-
-- Type: `Array`
-
-When `routerMode: 'history'`, you may face cross-origin issues. See [#1379](https://github.com/docsifyjs/docsify/issues/1379).
-In Markdown content, there is a simple way to solve it: see extends Markdown syntax `Cross-Origin link` in [helpers](helpers.md).
-
-```js
-window.$docsify = {
-  crossOriginLinks: ['https://example.com/cross-origin-link'],
 };
 ```
 
@@ -257,7 +249,7 @@ See https://github.com/lukeed/tinydate#patterns
 window.$docsify = {
   formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
-  formatUpdated: function (time) {
+  formatUpdated(time) {
     // ...
 
     return time;
@@ -293,6 +285,54 @@ window.$docsify = {
   // Or use the readme in your repo
   homepage:
     'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md',
+};
+```
+
+## keyBindings
+
+- Type: `Boolean|Object`
+- Default: `Object`
+  - <kbd>\\</kbd> Toggle the sidebar menu
+  - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field. Also supports <kbd>alt</kbd>&nbsp;/&nbsp;<kbd>ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>.
+
+Binds key combination(s) to a custom callback function.
+
+Key `bindings` are defined as case insensitive string values separated by `+`. Modifier key values include `alt`, `ctrl`, `meta`, and `shift`. Non-modifier key values should match the keyboard event's [key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) or [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) value.
+
+The `callback` function receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
+
+!> Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Custom key binding
+    myCustomBinding: {
+      bindings: ['alt+a', 'shift+a'],
+      callback(event) {
+        alert('Hello, World!');
+      },
+    },
+  },
+};
+```
+
+Key bindings can be disabled entirely or individually by setting the binding configuration to `false`.
+
+```js
+window.$docsify = {
+  // Disable all key bindings
+  keyBindings: false,
+};
+```
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Disable individual key bindings
+    focusSearch: false,
+    toggleSidebar: false,
+  },
 };
 ```
 
@@ -336,6 +376,8 @@ window.$docsify = {
 
 Website logo as it appears in the sidebar. You can resize it using CSS.
 
+!> Logo will only bee visible if `name` prop is also set. See [name](#name) configuration.
+
 ```js
 window.$docsify = {
   logo: '/_media/icon.svg',
@@ -354,14 +396,14 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function () {
+      link() {
         // ...
       },
     },
   },
 
   // function
-  markdown: function (marked, renderer) {
+  markdown(marked, renderer) {
     // ...
     return marked;
   },
@@ -542,7 +584,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 - Type: `Boolean` | `String` | `Object`
 - Default: `false`
 
-Display default "404 - Not found" message:
+Display default "404 - Not Found" message:
 
 ```js
 window.$docsify = {
@@ -672,6 +714,8 @@ window.$docsify = {
 
 ## routerMode
 
+Configure the URL format that the paths of your site will use.
+
 - Type: `String`
 - Default: `'hash'`
 
@@ -681,6 +725,57 @@ window.$docsify = {
 };
 ```
 
+For statically-deployed sites (f.e. on GitHub Pages) hash-based routing is
+simpler to set up. For websites that can re-write URLs, the history-based format
+is better (especially for search-engine optimization, hash-based routing is not
+so search-engine friendly)
+
+Hash-based routing means all URL paths will be prefixed with `/#/` in the
+address bar. This is a trick that allows the site to load `/index.html`, then it
+uses the path that follows the `#` to determine what markdown files to load. For
+example, a complete hash-based URL may look like this:
+`https://example.com/#/path/to/page`. The browser will actually load
+`https://example.com` (assuming your static server serves
+`index.html` by default, as most do), and then the Docsify JavaScript code will
+look at the `/#/...` and determine the markdown file to load and render.
+Additionally, when clicking on a link, the Docsify router will change the
+content after the hash dynamically. The value of `location.pathname` will still be
+`/` no matter what. The parts of a hash path are _not_ sent to the server when
+visiting such a URL in a browser.
+
+On the other hand, history-based routing means the Docsify JavaScript will use
+the [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
+to dynamically change the URL without using a `#`. This means that all URLs will
+be considered "real" by search engines, and the full path will be sent to the
+server when visiting the URL in your browser. For example, a URL may look like
+`https://example.com/path/to/page`. The browser will try to load that full URL
+directly from the server, not just `https://example.com`. The upside of this is
+that these types of URLs are much more friendly for search engines, and can be
+indexed (yay!). The downside, however, is that your server, or the place where
+you host your site files, has to be able to handle these URLs. Various static
+website hosting services allow "rewrite rules" to be configured, such that a
+server can be configured to always send back `/index.html` no matter what path
+is visited. The value of `location.pathname` will show `/path/to/page`, because
+it was actually sent to the server.
+
+TLDR: start with `hash` routing (the default). If you feel adventurous, learn
+how to configure a server, then switch to `history` mode for better experience
+without the `#` in the URL and SEO optimization.
+
+> **Note** If you use `routerMode: 'history'`, you may want to add an
+> [`alias`](#alias) to make your `_sidebar.md` and `_navbar.md` files always be
+> loaded no matter which path is being visited.
+>
+> ```js
+> window.$docsify = {
+>   routerMode: 'history',
+>   alias: {
+>     '/.*/_sidebar.md': '/_sidebar.md',
+>     '/.*/_navbar.md': '/_navbar.md',
+>   },
+> };
+> ```
+
 ## routes
 
 - Type: `Object`
@@ -688,6 +783,7 @@ window.$docsify = {
 Define "virtual" routes that can provide content dynamically. A route is a map between the expected path, to either a string or a function. If the mapped value is a string, it is treated as markdown and parsed accordingly. If it is a function, it is expected to return markdown content.
 
 A route function receives up to three parameters:
+
 1. `route` - the path of the route that was requested (e.g. `/bar/baz`)
 2. `matched` - the [`RegExpMatchArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match) that was matched by the route (e.g. for `/bar/(.+)`, you get `['/bar/baz', 'baz']`)
 3. `next` - this is a callback that you may call when your route function is async
@@ -701,23 +797,22 @@ window.$docsify = {
     '/foo': '# Custom Markdown',
 
     // RegEx match w/ synchronous function
-    '/bar/(.*)': function(route, matched) {
+    '/bar/(.*)'(route, matched) {
       return '# Custom Markdown';
     },
 
     // RegEx match w/ asynchronous function
-    '/baz/(.*)': function(route, matched, next) {
-       // Requires `fetch` polyfill for legacy browsers (https://github.github.io/fetch/)
+    '/baz/(.*)'(route, matched, next) {
       fetch('/api/users?id=12345')
-        .then(function(response) {
+        .then(response => {
           next('# Custom Markdown');
         })
-        .catch(function(err) {
+        .catch(err => {
           // Handle error...
         });
-    }
-  }
-}
+    },
+  },
+};
 ```
 
 Other than strings, route functions can return a falsy value (`null` \ `undefined`) to indicate that they ignore the current request:
@@ -726,7 +821,7 @@ Other than strings, route functions can return a falsy value (`null` \ `undefine
 window.$docsify = {
   routes: {
     // accepts everything other than dogs (synchronous)
-    '/pets/(.+)': function(route, matched) {
+    '/pets/(.+)'(route, matched) {
       if (matched[0] === 'dogs') {
         return null;
       } else {
@@ -735,7 +830,7 @@ window.$docsify = {
     }
 
     // accepts everything other than cats (asynchronous)
-    '/pets/(.*)': function(route, matched, next) {
+    '/pets/(.*)'(route, matched, next) {
       if (matched[0] === 'cats') {
         next();
       } else {
@@ -753,17 +848,50 @@ Finally, if you have a specific path that has a real markdown file (and therefor
 window.$docsify = {
   routes: {
     // if you look up /pets/cats, docsify will skip all routes and look for "pets/cats.md"
-    '/pets/cats': function(route, matched) {
+    '/pets/cats'(route, matched) {
       return false;
     }
 
     // but any other pet should generate dynamic content right here
-    '/pets/(.+)': function(route, matched) {
+    '/pets/(.+)'(route, matched) {
       const pet = matched[0];
       return `your pet is ${pet} (but not a cat)`;
     }
   }
 }
+```
+
+## skipLink
+
+- Type: `Boolean|String|Object`
+- Default: `'Skip to main content'`
+
+Determines if/how the site's [skip navigation link](https://webaim.org/techniques/skipnav/) will be rendered.
+
+```js
+// Render skip link for all routes (default)
+window.$docsify = {
+  skipLink: 'Skip to main content',
+};
+```
+
+```js
+// Render localized skip links based on route paths
+window.$docsify = {
+  skipLink: {
+    '/es/': 'Saltar al contenido principal',
+    '/de-de/': 'Ga naar de hoofdinhoud',
+    '/ru-ru/': 'Перейти к основному содержанию',
+    '/zh-cn/': '跳到主要内容',
+  },
+};
+```
+
+```js
+// Do not render skip link
+window.$docsify = {
+  skipLink: false,
+};
 ```
 
 ## subMaxLevel
@@ -789,11 +917,21 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor
+## themeColor (_deprecated_)
+
+> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
+>
+> ```html
+> <style>
+>   :root {
+>     --theme-color: deeppink;
+>   }
+> </style>
+> ```
 
 - Type: `String`
 
-Customize the theme color. Use [CSS3 variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) feature and polyfill in older browsers.
+Customize the theme color.
 
 ```js
 window.$docsify = {

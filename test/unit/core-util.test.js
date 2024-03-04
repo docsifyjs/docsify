@@ -1,4 +1,4 @@
-const { isExternal } = require('../../src/core/util');
+import { isExternal } from '../../src/core/util/index.js';
 
 // Core util
 // -----------------------------------------------------------------------------
@@ -56,6 +56,18 @@ describe('core/util', () => {
       const result = isExternal(
         '//////////////////example.github.io/docsify/demo.md'
       );
+
+      expect(result).toBeTruthy();
+    });
+
+    test('external url with one \\', () => {
+      const result = isExternal('/\\example.github.io/docsify/demo.md');
+
+      expect(result).toBeTruthy();
+    });
+
+    test('external url with two \\', () => {
+      const result = isExternal('/\\\\example.github.io/docsify/demo.md');
 
       expect(result).toBeTruthy();
     });

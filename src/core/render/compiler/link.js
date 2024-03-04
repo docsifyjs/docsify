@@ -1,5 +1,5 @@
-import { getAndRemoveConfig } from '../utils';
-import { isAbsolutePath } from '../../router/util';
+import { getAndRemoveConfig } from '../utils.js';
+import { isAbsolutePath } from '../../router/util.js';
 
 export const linkCompiler = ({
   renderer,
@@ -47,17 +47,6 @@ export const linkCompiler = ({
       );
     }
 
-    // special case to check crossorigin urls
-    if (
-      config.crossorgin &&
-      linkTarget === '_self' &&
-      compilerClass.config.routerMode === 'history'
-    ) {
-      if (compilerClass.config.crossOriginLinks.indexOf(href) === -1) {
-        compilerClass.config.crossOriginLinks.push(href);
-      }
-    }
-
     if (config.disabled) {
       attrs.push('disabled');
       href = 'javascript:void(0)';
@@ -75,5 +64,5 @@ export const linkCompiler = ({
       attrs.push(`title="${title}"`);
     }
 
-    return `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
+    return /* html */ `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
   });

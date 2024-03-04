@@ -16,7 +16,7 @@
  *
  * @param {string}   str   The string to parse.
  *
- * @return {object}  The original string and parsed object, { str, config }.
+ * @return {{str: string, config: object}} The original string formatted, and parsed object, { str, config }.
  */
 export function getAndRemoveConfig(str = '') {
   const config = {};
@@ -43,8 +43,39 @@ export function getAndRemoveConfig(str = '') {
  * Remove the <a> tag from sidebar when the header with link, details see issue 1069
  * @param {string}   str   The string to deal with.
  *
- * @return {string}   str   The string after delete the <a> element.
+ * @return {string}   The string after delete the <a> element.
  */
 export function removeAtag(str = '') {
   return str.replace(/(<\/?a.*?>)/gi, '');
+}
+
+/**
+ * Remove the docsifyIgnore configs and return the str
+ * @param {string}   content   The string to deal with.
+ *
+ * @return {{content: string, ignoreAllSubs: boolean, ignoreSubHeading: boolean}} The string after delete the docsifyIgnore configs, and whether to ignore some or all.
+ */
+export function getAndRemoveDocisfyIgnoreConfig(content = '') {
+  let ignoreAllSubs, ignoreSubHeading;
+  if (/<!-- {docsify-ignore} -->/g.test(content)) {
+    content = content.replace('<!-- {docsify-ignore} -->', '');
+    ignoreSubHeading = true;
+  }
+
+  if (/{docsify-ignore}/g.test(content)) {
+    content = content.replace('{docsify-ignore}', '');
+    ignoreSubHeading = true;
+  }
+
+  if (/<!-- {docsify-ignore-all} -->/g.test(content)) {
+    content = content.replace('<!-- {docsify-ignore-all} -->', '');
+    ignoreAllSubs = true;
+  }
+
+  if (/{docsify-ignore-all}/g.test(content)) {
+    content = content.replace('{docsify-ignore-all}', '');
+    ignoreAllSubs = true;
+  }
+
+  return { content, ignoreAllSubs, ignoreSubHeading };
 }

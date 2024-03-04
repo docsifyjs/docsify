@@ -1,5 +1,7 @@
-const { TEST_HOST } = require('./test/config/server.js');
+import { testConfig } from './server.configs.js';
 
+const { hostname, port } = testConfig;
+const TEST_HOST = `http://${hostname}:${port}`;
 const sharedConfig = {
   errorOnDeprecated: true,
   globalSetup: './test/config/jest.setup.js',
@@ -11,7 +13,10 @@ const sharedConfig = {
   testURL: `${TEST_HOST}/_blank.html`,
 };
 
-module.exports = {
+process.env.TEST_HOST = TEST_HOST;
+
+export default {
+  transform: {},
   projects: [
     // Unit Tests
     {

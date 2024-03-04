@@ -7,7 +7,7 @@ if (window && window.console) {
 
 // Emoji from GitHub API
 window.emojify = function (match, $1) {
-  return Object.prototype.hasOwnProperty.call(emojiData.data, $1) === false
-    ? match
-    : `<img src="${emojiData.baseURL}${emojiData.data[$1]}" alt="${$1}" class="emoji" />`;
+  return $1 in emojiData.data
+    ? /* html */ `<img src="${emojiData.baseURL}${emojiData.data[$1]}" alt="${$1}" class="emoji" />`
+    : match;
 };

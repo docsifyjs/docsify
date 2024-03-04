@@ -1,4 +1,4 @@
-import { helper as helperTpl } from '../tpl';
+import { helper as helperTpl } from '../tpl.js';
 
 export const paragraphCompiler = ({ renderer }) =>
   (renderer.paragraph = text => {
@@ -8,7 +8,7 @@ export const paragraphCompiler = ({ renderer }) =>
     } else if (/^\?&gt;/.test(text)) {
       result = helperTpl('warn', text);
     } else {
-      result = `<p>${text}</p>`;
+      result = /* html */ `<p>${text}</p>`;
     }
 
     return result;

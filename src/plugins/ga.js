@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // From https://github.com/egoist/vue-ga/blob/master/src/index.js
 function appendScript() {
   const script = document.createElement('script');
@@ -37,4 +36,5 @@ const install = function (hook) {
   hook.beforeEach(collect);
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

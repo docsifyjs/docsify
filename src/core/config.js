@@ -1,10 +1,11 @@
-import { merge, hyphenate, isPrimitive, hasOwn } from './util/core';
+import stripIndent from 'strip-indent';
+import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;
 
-/** @param {import('./Docsify').Docsify} vm */
+/** @param {import('./Docsify.js').Docsify} vm */
 export default function (vm) {
-  const config = merge(
+  const config = Object.assign(
     {
       auto2top: false,
       autoHeader: false,
@@ -12,7 +13,6 @@ export default function (vm) {
       catchPluginErrors: true,
       cornerExternalLinkTarget: '_blank',
       coverpage: '',
-      crossOriginLinks: [],
       el: '#app',
       executeScript: null,
       ext: '.md',
@@ -30,34 +30,76 @@ export default function (vm) {
       nativeEmoji: false,
       noCompileLinks: [],
       noEmoji: false,
-      notFoundPage: true,
+      notFoundPage: false,
+      plugins: [],
       relativePath: false,
       repo: '',
       routes: {},
       routerMode: 'hash',
       subMaxLevel: 0,
-      themeColor: '',
+      // themeColor: '',
       topMargin: 0,
+
+      // Deprecations //////////////////
+
+      __themeColor: '',
+      get themeColor() {
+        return this.__themeColor;
+      },
+      set themeColor(value) {
+        this.__themeColor = value;
+        console.warn(
+          stripIndent(/* html */ `
+            $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
+            <style>
+              :root {
+                --theme-color: deeppink;
+              }
+            </style>
+          `).trim()
+        );
+      },
     },
+
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)
       : window.$docsify
   );
 
+  // Merge default and user-specified key bindings
+  if (config.keyBindings !== false) {
+    config.keyBindings = Object.assign(
+      // Default
+      {
+        toggleSidebar: {
+          bindings: ['\\'],
+          callback(e) {
+            const toggleElm = document.querySelector('.sidebar-toggle');
+
+            if (toggleElm) {
+              toggleElm.click();
+              toggleElm.focus();
+            }
+          },
+        },
+      },
+      // User-specified
+      config.keyBindings
+    );
+  }
+
   const script =
     currentScript ||
-    [].slice
-      .call(document.getElementsByTagName('script'))
-      .filter(n => /docsify\./.test(n.src))[0];
+    Array.from(document.getElementsByTagName('script')).filter(n =>
+      /docsify\./.test(n.src)
+    )[0];
 
   if (script) {
-    for (const prop in config) {
-      if (hasOwn.call(config, prop)) {
-        const val = script.getAttribute('data-' + hyphenate(prop));
+    for (const prop of Object.keys(config)) {
+      const val = script.getAttribute('data-' + hyphenate(prop));
 
-        if (isPrimitive(val)) {
-          config[prop] = val === '' ? true : val;
-        }
+      if (isPrimitive(val)) {
+        config[prop] = val === '' ? true : val;
       }
     }
   }

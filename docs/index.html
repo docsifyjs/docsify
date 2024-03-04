@@ -8,7 +8,6 @@
       name="google-site-verification"
       content="6t0LoIeFksrjF4c9sqUEsVXiQNxLp2hgoqo0KryT-sE"
     />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta
       name="keywords"
       content="doc,docs,documentation,gitbook,creator,generator,github,jekyll,github-pages"
@@ -41,6 +40,12 @@
       title="pure"
       disabled
     />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dolphin.css"
+      title="dolphin"
+      disabled
+    />
     <style>
       nav.app-nav li ul {
         min-width: 100px;
@@ -51,19 +56,22 @@
         width: auto !important;
       }
     </style>
+    <script>
+      (function () {
+        const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
+
+        // Set html "lang" attribute based on URL
+        if (lang) {
+          document.documentElement.setAttribute('lang', lang[1]);
+        }
+      })();
+    </script>
   </head>
 
   <body>
     <div id="app">Loading ...</div>
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
     <script>
-      // Set html "lang" attribute based on URL
-      var lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
-
-      if (lang) {
-        document.documentElement.setAttribute('lang', lang[1]);
-      }
-
       // Docsify configuration
       window.$docsify = {
         alias: {
@@ -120,11 +128,16 @@
           },
           pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
         },
+        skipLink: {
+          '/es/': 'Saltar al contenido principal',
+          '/de-de/': 'Ga naar de hoofdinhoud',
+          '/ru-ru/': 'Перейти к основному содержанию',
+          '/zh-cn/': '跳到主要内容',
+        },
         vueComponents: {
           'button-counter': {
-            template:
-              '<button @click="count += 1">You clicked me {{ count }} times</button>',
-            data: function () {
+            template: /* html */ `<button @click="count += 1">You clicked me {{ count }} times</button>`,
+            data() {
               return {
                 count: 0,
               };
@@ -132,7 +145,7 @@
           },
         },
         vueGlobalOptions: {
-          data: function () {
+          data() {
             return {
               count: 0,
               message: 'Hello, World!',
@@ -145,7 +158,7 @@
             };
           },
           computed: {
-            timeOfDay: function () {
+            timeOfDay() {
               const date = new Date();
               const hours = date.getHours();
 
@@ -159,14 +172,14 @@
             },
           },
           methods: {
-            hello: function () {
+            hello() {
               alert(this.message);
             },
           },
         },
         vueMounts: {
           '#counter': {
-            data: function () {
+            data() {
               return {
                 count: 0,
               };
@@ -174,9 +187,11 @@
           },
         },
         plugins: [
-          DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
+          function () {
+            DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg');
+          },
           function (hook, vm) {
-            hook.beforeEach(function (html) {
+            hook.beforeEach(html => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
@@ -190,35 +205,26 @@
                   'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
                   vm.route.file;
               }
-              var editHtml = '[:memo: Edit Document](' + url + ')\n';
+              const editHtml = '[:memo: Edit Document](' + url + ')\n';
               return (
                 editHtml +
                 html +
                 '\n\n----\n\n' +
                 '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
               );
-            })
+            });
           },
         ],
       };
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
-    <script>
-      // Public site only
-      if (/docsify/.test(location.host)) {
-        document.write(
-          '<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"><\/script>'
-        );
-        document.write(
-          '<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"><\/script>'
-        );
-      }
-    </script>
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
     <!-- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> -->
   </body>

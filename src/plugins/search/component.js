@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { search } from './search';
+import { search } from './search.js';
 
 let NO_DATA_TEXT = '';
 let options;
@@ -19,6 +19,11 @@ function style() {
 .search .input-wrap {
   display: flex;
   align-items: center;
+}
+
+.search .results-status:not(:empty) {
+  margin-top: 10px;
+  font-size: smaller;
 }
 
 .search .results-panel {
@@ -72,6 +77,17 @@ function style() {
   transform: scale(.5);
 }
 
+.search kbd {
+  position: absolute;
+  right: 8px;
+  margin: 0;
+}
+
+.search input:focus ~ kbd,
+.search input:not(:empty) ~ kbd {
+  display: none;
+}
+
 .search h2 {
   font-size: 17px;
   margin: 10px 0;
@@ -111,8 +127,9 @@ function style() {
 }
 
 function tpl(defaultValue = '') {
-  const html = `<div class="input-wrap">
-      <input type="search" value="${defaultValue}" aria-label="Search text" />
+  const html = /* html */ `
+    <div class="input-wrap">
+      <input type="search" value="${defaultValue}" aria-keyshortcuts="/ control+k meta+k" />
       <div class="clear-button">
         <svg width="26" height="24">
           <circle cx="12" cy="12" r="11" fill="#ccc" />
@@ -120,13 +137,16 @@ function tpl(defaultValue = '') {
           <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />
         </svg>
       </div>
+      <kbd title="Press / to search">/</kbd>
     </div>
+    <div class="results-status" aria-live="polite"></div>
     <div class="results-panel"></div>
-    </div>`;
+  `;
   const el = Docsify.dom.create('div', html);
   const aside = Docsify.dom.find('aside');
 
   Docsify.dom.toggleClass(el, 'search');
+  el.setAttribute('role', 'search');
   Docsify.dom.before(aside, el);
 }
 
@@ -135,12 +155,14 @@ function doSearch(value) {
   const $panel = Docsify.dom.find($search, '.results-panel');
   const $clearBtn = Docsify.dom.find($search, '.clear-button');
   const $sidebarNav = Docsify.dom.find('.sidebar-nav');
+  const $status = Docsify.dom.find('div.search .results-status');
   const $appName = Docsify.dom.find('.app-name');
 
   if (!value) {
     $panel.classList.remove('show');
     $clearBtn.classList.remove('show');
     $panel.innerHTML = '';
+    $status.textContent = '';
 
     if (options.hideOtherSidebarContent) {
       $sidebarNav && $sidebarNav.classList.remove('hide');
@@ -150,21 +172,25 @@ function doSearch(value) {
     return;
   }
 
-  const matchs = search(value);
+  const matches = search(value);
 
   let html = '';
-  matchs.forEach(post => {
-    html += `<div class="matching-post">
-<a href="${post.url}">
-<h2>${post.title}</h2>
-<p>${post.content}</p>
-</a>
-</div>`;
+  matches.forEach((post, i) => {
+    html += /* html */ `
+      <div class="matching-post" aria-label="search result ${i + 1}">
+        <a href="${post.url}">
+          <h2>${post.title}</h2>
+          <p>${post.content}</p>
+        </a>
+      </div>
+    `;
   });
 
   $panel.classList.add('show');
   $clearBtn.classList.add('show');
-  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
+  $panel.innerHTML = html || /* html */ `<p class="empty">${NO_DATA_TEXT}</p>`;
+  $status.textContent = `Found ${matches.length} results`;
+
   if (options.hideOtherSidebarContent) {
     $sidebarNav && $sidebarNav.classList.add('hide');
     $appName && $appName.classList.add('hide');

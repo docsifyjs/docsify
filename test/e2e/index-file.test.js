@@ -1,12 +1,12 @@
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Index file hosting', () => {
   const sharedOptions = {
     config: {
-      basePath: '/docs/index.html#/',
+      basePath: '/index.html#/',
     },
-    testURL: '/docs/index.html#/',
+    testURL: '/index.html#/',
   };
 
   test('should serve from index file', async ({ page }) => {

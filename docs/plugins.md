@@ -63,13 +63,11 @@ By default, the hyperlink on the current page is recognized and the content is s
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 ```
 
-This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café"). Legacy browsers like IE11 require the following [String.normalize()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) polyfill to ignore diacritical marks:
-
-```html
-<script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
-```
+This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café").
 
 ## Google Analytics
+
+> Google's Universal Analytics service will no longer process new data in standard properties beginning July 1, 2023. Prepare now by setting up and switching over to a Google Analytics 4 property and docsify's gtag.js plugin.
 
 Install the plugin and configure the track id.
 
@@ -89,6 +87,31 @@ Configure by `data-ga`.
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+```
+
+## Google Analytics 4 (GA4)
+
+Install the plugin and configure the track id.
+
+```html
+<script>
+  // Single ID
+  window.$docsify = {
+    gtag: 'UA-XXXXX-Y',
+  };
+
+  // Multiple IDs
+  window.$docsify = {
+    gtag: [
+      'G-XXXXXXXX', // Google Analytics 4 (GA4)
+      'UA-XXXXXXXX', // Google Universal Analytics (GA3)
+      'AW-XXXXXXXX', // Google Ads
+      'DC-XXXXXXXX', // Floodlight
+    ],
+  };
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
 ```
 
 ## Emoji

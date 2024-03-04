@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { getAndRemoveConfig } from '../../core/render/utils';
+import {
+  getAndRemoveConfig,
+  getAndRemoveDocisfyIgnoreConfig,
+} from '../../core/render/utils.js';
 
 let INDEXS = {};
 
@@ -56,11 +59,9 @@ function getAllPaths(router) {
 
 function getTableData(token) {
   if (!token.text && token.type === 'table') {
-    token.cells.unshift(token.header);
-    token.text = token.cells
-      .map(function (rows) {
-        return rows.join(' | ');
-      })
+    token.rows.unshift(token.header);
+    token.text = token.rows
+      .map(columns => columns.map(r => r.text).join(' | '))
       .join(' |\n ');
   }
   return token.text;
@@ -85,23 +86,20 @@ export function genIndex(path, content = '', router, depth) {
   let slug;
   let title = '';
 
-  tokens.forEach(function (token, tokenIndex) {
+  tokens.forEach((token, tokenIndex) => {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
+
+      const text = getAndRemoveDocisfyIgnoreConfig(token.text).content;
 
       if (config.id) {
         slug = router.toURL(path, { id: slugify(config.id) });
       } else {
-        slug = router.toURL(path, { id: slugify(escapeHtml(token.text)) });
+        slug = router.toURL(path, { id: slugify(escapeHtml(text)) });
       }
 
       if (str) {
-        title = str
-          .replace(/<!-- {docsify-ignore} -->/, '')
-          .replace(/{docsify-ignore}/, '')
-          .replace(/<!-- {docsify-ignore-all} -->/, '')
-          .replace(/{docsify-ignore-all}/, '')
-          .trim();
+        title = getAndRemoveDocisfyIgnoreConfig(str).content;
       }
 
       index[slug] = { slug, title: title, body: '' };
@@ -130,9 +128,7 @@ export function genIndex(path, content = '', router, depth) {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body = index[slug].body
-          ? index[slug].body + token.text
-          : token.text;
+        index[slug].body = token.text || '';
       }
     }
   });
@@ -155,17 +151,19 @@ export function search(query) {
   const matchingResults = [];
   let data = [];
   Object.keys(INDEXS).forEach(key => {
-    data = data.concat(Object.keys(INDEXS[key]).map(page => INDEXS[key][page]));
+    data = [
+      ...data,
+      ...Object.keys(INDEXS[key]).map(page => INDEXS[key][page]),
+    ];
   });
 
   query = query.trim();
   let keywords = query.split(/[\s\-，\\/]+/);
   if (keywords.length !== 1) {
-    keywords = [].concat(query, keywords);
+    keywords = [query, ...keywords];
   }
 
-  for (let i = 0; i < data.length; i++) {
-    const post = data[i];
+  for (const post of data) {
     let matchesScore = 0;
     let resultStr = '';
     let handlePostTitle = '';
@@ -213,14 +211,15 @@ export function search(query) {
           }
 
           const matchContent =
+            handlePostContent &&
             '...' +
-            handlePostContent
-              .substring(start, end)
-              .replace(
-                regEx,
-                word => `<em class="search-keyword">${word}</em>`
-              ) +
-            '...';
+              handlePostContent
+                .substring(start, end)
+                .replace(
+                  regEx,
+                  word => /* html */ `<em class="search-keyword">${word}</em>`
+                ) +
+              '...';
 
           resultStr += matchContent;
         }

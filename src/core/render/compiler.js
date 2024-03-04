@@ -1,17 +1,21 @@
-import marked from 'marked';
-import { isAbsolutePath, getPath, getParentPath } from '../router/util';
-import { isFn, merge, cached, isPrimitive } from '../util/core';
-import { tree as treeTpl } from './tpl';
-import { genTree } from './gen-tree';
-import { slugify } from './slugify';
-import { emojify } from './emojify';
-import { getAndRemoveConfig, removeAtag } from './utils';
-import { imageCompiler } from './compiler/image';
-import { highlightCodeCompiler } from './compiler/code';
-import { paragraphCompiler } from './compiler/paragraph';
-import { taskListCompiler } from './compiler/taskList';
-import { taskListItemCompiler } from './compiler/taskListItem';
-import { linkCompiler } from './compiler/link';
+import { marked } from 'marked';
+import { isAbsolutePath, getPath, getParentPath } from '../router/util.js';
+import { isFn, cached, isPrimitive } from '../util/core.js';
+import { tree as treeTpl } from './tpl.js';
+import { genTree } from './gen-tree.js';
+import { slugify } from './slugify.js';
+import { emojify } from './emojify.js';
+import {
+  getAndRemoveConfig,
+  removeAtag,
+  getAndRemoveDocisfyIgnoreConfig,
+} from './utils.js';
+import { imageCompiler } from './compiler/image.js';
+import { highlightCodeCompiler } from './compiler/code.js';
+import { paragraphCompiler } from './compiler/paragraph.js';
+import { taskListCompiler } from './compiler/taskList.js';
+import { taskListItemCompiler } from './compiler/taskListItem.js';
+import { linkCompiler } from './compiler/link.js';
 
 const cachedLinks = {};
 
@@ -79,8 +83,8 @@ export class Compiler {
       compile = mdConf(marked, renderer);
     } else {
       marked.setOptions(
-        merge(mdConf, {
-          renderer: merge(renderer, mdConf.renderer),
+        Object.assign(mdConf, {
+          renderer: Object.assign(renderer, mdConf.renderer),
         })
       );
       compile = marked;
@@ -89,7 +93,8 @@ export class Compiler {
     this._marked = compile;
     this.compile = text => {
       let isCached = true;
-      // eslint-disable-next-line no-unused-vars
+
+      // FIXME: this is not cached.
       const result = cached(_ => {
         isCached = false;
         let html = '';
@@ -145,7 +150,7 @@ export class Compiler {
     if (config.include) {
       if (!isAbsolutePath(href)) {
         href = getPath(
-          process.env.SSR ? '' : this.contentBase,
+          this.contentBase,
           getParentPath(this.router.getCurrentPath()),
           href
         );
@@ -182,8 +187,7 @@ export class Compiler {
   _matchNotCompileLink(link) {
     const links = this.config.noCompileLinks || [];
 
-    for (let i = 0; i < links.length; i++) {
-      const n = links[i];
+    for (const n of links) {
       const re = cachedLinks[n] || (cachedLinks[n] = new RegExp(`^${n}$`));
 
       if (re.test(link)) {
@@ -207,38 +211,25 @@ export class Compiler {
      */
     origin.heading = renderer.heading = function (text, level) {
       let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { level, title: removeAtag(str) };
+      const nextToc = { level, title: str };
 
-      if (/<!-- {docsify-ignore} -->/g.test(str)) {
-        str = str.replace('<!-- {docsify-ignore} -->', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreSubHeading = true;
-      }
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnoreConfig(str);
+      str = content.trim();
 
-      if (/{docsify-ignore}/g.test(str)) {
-        str = str.replace('{docsify-ignore}', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreSubHeading = true;
-      }
-
-      if (/<!-- {docsify-ignore-all} -->/g.test(str)) {
-        str = str.replace('<!-- {docsify-ignore-all} -->', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreAllSubs = true;
-      }
-
-      if (/{docsify-ignore-all}/g.test(str)) {
-        str = str.replace('{docsify-ignore-all}', '');
-        nextToc.title = removeAtag(str);
-        nextToc.ignoreAllSubs = true;
-      }
-
+      nextToc.title = removeAtag(str);
+      nextToc.ignoreAllSubs = ignoreAllSubs;
+      nextToc.ignoreSubHeading = ignoreSubHeading;
       const slug = slugify(config.id || str);
       const url = router.toURL(router.getCurrentPath(), { id: slug });
       nextToc.slug = url;
       _self.toc.push(nextToc);
 
-      return `<h${level} id="${slug}"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
+      // Note: tabindex="-1" allows programmatically focusing on heading
+      // elements after navigation. This is preferred over focusing on the link
+      // within the heading because it matches the focus behavior of screen
+      // readers when navigating page content.
+      return `<h${level} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
     };
 
     origin.code = highlightCodeCompiler({ renderer });
@@ -291,7 +282,7 @@ export class Compiler {
       }
 
       const tree = this.cacheTree[currentPath] || genTree(toc, level);
-      html = treeTpl(tree, '<ul>{inner}</ul>');
+      html = treeTpl(tree, /* html */ `<ul>{inner}</ul>`);
       this.cacheTree[currentPath] = tree;
     }
 

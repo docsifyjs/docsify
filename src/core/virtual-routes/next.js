@@ -1,4 +1,5 @@
-/** @typedef {((value: any) => void) => void} OnNext */
+/** @typedef {(value: any) => void} CB */
+/** @typedef {(cb: CB) => void} OnNext */
 /** @typedef {(value: any) => void} NextFunction */
 
 /**
@@ -7,6 +8,7 @@
  * @returns {[NextFunction, OnNext]}
  */
 export function createNextFunction() {
+  /** @type {CB} */
   let storedCb = () => null;
 
   function next(value) {

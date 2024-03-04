@@ -1,3 +1,28 @@
+# [4.13.0](https://github.com/docsifyjs/docsify/compare/v4.12.4...v4.13.0) (2022-10-26)
+
+
+### Bug Fixes
+
+* cornerExternalLinkTarget config. ([#1814](https://github.com/docsifyjs/docsify/issues/1814)) ([54cc5f9](https://github.com/docsifyjs/docsify/commit/54cc5f939b9499ae56604f589eef4e3f1c13cdc5))
+* correctly fix missing +1, -1 ([#1722](https://github.com/docsifyjs/docsify/issues/1722)) ([719dcbe](https://github.com/docsifyjs/docsify/commit/719dcbea5cb0c8b0835f8e9fc473b094feecb7ec))
+* Coverpage when content > viewport height ([#1744](https://github.com/docsifyjs/docsify/issues/1744)) ([301b516](https://github.com/docsifyjs/docsify/commit/301b5169613e95765eda335a4b21d0f9f9cbbbfd)), closes [#381](https://github.com/docsifyjs/docsify/issues/381)
+* filter null node first. ([#1909](https://github.com/docsifyjs/docsify/issues/1909)) ([d27af3d](https://github.com/docsifyjs/docsify/commit/d27af3dd09a882fce4f1e2774065de57a3501858))
+* fix docsify-ignore in search title. ([#1872](https://github.com/docsifyjs/docsify/issues/1872)) ([9832805](https://github.com/docsifyjs/docsify/commit/9832805681cc6099e9c78deecf6dc0c6fb61fd9b))
+* fix search with no content. ([#1878](https://github.com/docsifyjs/docsify/issues/1878)) ([9b74744](https://github.com/docsifyjs/docsify/commit/9b74744299ece0108573a142e5a2e949dc569254))
+* Ignore emoji shorthand codes in URIs ([#1847](https://github.com/docsifyjs/docsify/issues/1847)) ([3c9b3d9](https://github.com/docsifyjs/docsify/commit/3c9b3d9702bb05a5ff45a4ce4233e144cf1ebecb)), closes [#1823](https://github.com/docsifyjs/docsify/issues/1823)
+* Legacy bugs (styles, site plugin error, and dev server error) ([#1743](https://github.com/docsifyjs/docsify/issues/1743)) ([fa6df6d](https://github.com/docsifyjs/docsify/commit/fa6df6d58487ec294e22be04ac159dfb5745bd66))
+* package.json & package-lock.json to reduce vulnerabilities ([#1756](https://github.com/docsifyjs/docsify/issues/1756)) ([2dc5b12](https://github.com/docsifyjs/docsify/commit/2dc5b12b715e3ad1922a6401e3fd9837a99ef9c0))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1715](https://github.com/docsifyjs/docsify/issues/1715)) ([c1227b2](https://github.com/docsifyjs/docsify/commit/c1227b22cb8a3fb6c362ca8ac109082ab2251cc3))
+
+
+### Features
+
+* Emoji build ([#1766](https://github.com/docsifyjs/docsify/issues/1766)) ([ba5ee26](https://github.com/docsifyjs/docsify/commit/ba5ee26f00e957b58173f96b1901f6ffd3d8e5f5))
+* Native emoji w/ image-based fallbacks and improved parsing ([#1746](https://github.com/docsifyjs/docsify/issues/1746)) ([35002c9](https://github.com/docsifyjs/docsify/commit/35002c92b762f0d12e51582d7de7914fa380596a)), closes [#779](https://github.com/docsifyjs/docsify/issues/779)
+* Plugin error handling ([#1742](https://github.com/docsifyjs/docsify/issues/1742)) ([63b2535](https://github.com/docsifyjs/docsify/commit/63b2535a45a98945ec897277f4fbddec2ddba887))
+
+
+
 ## [4.12.2](https://github.com/docsifyjs/docsify/compare/v4.12.1...v4.12.2) (2022-01-06)
 
 
@@ -520,7 +545,7 @@ Fix the last release files has the old version marked...
 - **compiler:** support embedded markdown, html, video, etc files, close [#383](https://github.com/QingWei-Li/docsify/issues/383), close [#333](https://github.com/QingWei-Li/docsify/issues/333) ([524f52f](https://github.com/QingWei-Li/docsify/commit/524f52f))
 - **cover:** add onlyCover option, close [#382](https://github.com/QingWei-Li/docsify/issues/382) ([b265fdd](https://github.com/QingWei-Li/docsify/commit/b265fdd))
 - **fetch:** add requestHeaders option, fixed [#336](https://github.com/QingWei-Li/docsify/issues/336) ([54ab4c9](https://github.com/QingWei-Li/docsify/commit/54ab4c9))
-- **render:** add ext option for custom file extenstion, close [#340](https://github.com/QingWei-Li/docsify/issues/340) ([248aa72](https://github.com/QingWei-Li/docsify/commit/248aa72))
+- **render:** add ext option for custom file extension, close [#340](https://github.com/QingWei-Li/docsify/issues/340) ([248aa72](https://github.com/QingWei-Li/docsify/commit/248aa72))
 - **render:** mutilple coverpage, close [#315](https://github.com/QingWei-Li/docsify/issues/315) ([f68ddf5](https://github.com/QingWei-Li/docsify/commit/f68ddf5))
 
 <a name="4.5.9"></a>

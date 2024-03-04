@@ -1,11 +1,10 @@
-const {
+import {
   removeAtag,
   getAndRemoveConfig,
-} = require('../../src/core/render/utils');
-
-const { tree } = require(`../../src/core/render/tpl`);
-
-const { slugify } = require(`../../src/core/render/slugify`);
+  getAndRemoveDocisfyIgnoreConfig,
+} from '../../src/core/render/utils.js';
+import { tree } from '../../src/core/render/tpl.js';
+import { slugify } from '../../src/core/render/slugify.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -17,6 +16,46 @@ describe('core/render/utils', () => {
       const result = removeAtag('<a href="www.example.com">content</a>');
 
       expect(result).toBe('content');
+    });
+  });
+
+  // getAndRemoveDocisfyIgnorConfig()
+  // ---------------------------------------------------------------------------
+  describe('getAndRemoveDocisfyIgnorConfig()', () => {
+    test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore} -->', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnoreConfig(
+          'My Ignore Title<!-- {docsify-ignore} -->'
+        );
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreSubHeading).toBeTruthy();
+      expect(ignoreAllSubs === undefined).toBeTruthy();
+    });
+
+    test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore-all} -->', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnoreConfig(
+          'My Ignore Title<!-- {docsify-ignore-all} -->'
+        );
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreAllSubs).toBeTruthy();
+      expect(ignoreSubHeading === undefined).toBeTruthy();
+    });
+
+    test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore}', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnoreConfig('My Ignore Title{docsify-ignore}');
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreSubHeading).toBeTruthy();
+      expect(ignoreAllSubs === undefined).toBeTruthy();
+    });
+
+    test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore-all}', () => {
+      const { content, ignoreAllSubs, ignoreSubHeading } =
+        getAndRemoveDocisfyIgnoreConfig('My Ignore Title{docsify-ignore-all}');
+      expect(content).toBe('My Ignore Title');
+      expect(ignoreAllSubs).toBeTruthy();
+      expect(ignoreSubHeading === undefined).toBeTruthy();
     });
   });
 
@@ -83,7 +122,7 @@ describe('core/render/tpl', () => {
     ]);
 
     expect(result).toBe(
-      `<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li></ul>`
+      /* html */ `<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li></ul>`
     );
   });
 });
