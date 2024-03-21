@@ -44,6 +44,8 @@ You will get:
 
 ## Markdown with YAML Front Matter
 
+Front Matter, commonly utilized in blogging systems like Jekyll, serves to define metadata for a document. The [front-matter.js](https://www.npmjs.com/package/front-matter) package facilitates the extraction of metadata (front matter) from documents.
+
 When using Markdown, YAML front matter will be stripped from the rendered content. The attributes cannot be used in this case.
 
 ```markdown
