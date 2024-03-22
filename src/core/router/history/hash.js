@@ -43,6 +43,15 @@ export class HashHistory extends History {
     let navigating = false;
 
     on('click', e => {
+      let hashArray = location.hash.split('?id=');
+      if (
+        e.target.tagName === 'A' &&
+        hashArray.length === 2 &&
+        e.target.text.toLowerCase().replaceAll(' ', '-') === hashArray[1]
+      ) {
+        history.pushState(null, null, hashArray[0]);
+      }
+
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
       if (el && el.tagName === 'A' && !isExternal(el.href)) {
