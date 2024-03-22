@@ -2,6 +2,7 @@
   "name": "@developerportalsg/docsify",
   "version": "4.12.10",
   "description": "A magical documentation generator.",
+  "private": true,
   "author": {
     "name": "qingwei-li",
     "email": "cinwell.li@gmail.com",
@@ -78,11 +79,18 @@
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.11.5",
     "@playwright/test": "^1.18.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^12.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^10.0.2",
+    "@semantic-release/npm": "^12.0.0",
+    "@semantic-release/release-notes-generator": "^12.1.0",
     "autoprefixer-stylus": "^1.0.0",
     "axios": "^0.21.1",
     "babel-jest": "^27.4.6",
     "browser-sync": "^2.26.12",
     "chokidar": "^3.4.2",
+    "commitizen": "^4.3.0",
     "common-tags": "^1.8.0",
     "conventional-changelog-cli": "^2.1.0",
     "copy-dir": "^1.2.0",
@@ -110,6 +118,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify": "^6.0.4",
+    "semantic-release": "^23.0.5",
     "serve-handler": "^6.1.2",
     "stylus": "^0.54.5",
     "vue2": "npm:vue@^2.6.12",
@@ -125,5 +134,10 @@
   ],
   "collective": {
     "url": "https://opencollective.com/docsify"
+  },
+  "config": {
+    "commitizen": {
+        "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
