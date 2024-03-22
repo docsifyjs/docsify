@@ -253,11 +253,19 @@ describe('render', function () {
       );
     });
 
-    test('target', async function () {
+    test('target for absolute path', async function () {
       const output = window.marked("[alt text](http://url ':target=_self')");
 
       expect(output).toMatchInlineSnapshot(
         `"<p><a href=\\"http://url\\" target=\\"_self\\" >alt text</a></p>"`
+      );
+    });
+
+    test('target for relative path', async function () {
+      const output = window.marked("[alt text](/url ':target=_blank')");
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href=\\"#/url\\" target=\\"_blank\\">alt text</a></p>"`
       );
     });
 
