@@ -4,3 +4,6 @@ lib/
 themes/
 _playwright-*/
 emoji-data.*
+
+# for some reason this is needed in CI, although locally Prettier ignored dist/ already.
+dist/

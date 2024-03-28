@@ -4,6 +4,7 @@
 /_playwright-report
 /_playwright-results
 /lib
+/dist
 /node_modules
 /.husky/_
 
