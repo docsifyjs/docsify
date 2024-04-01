@@ -18,13 +18,16 @@
   "// These exports require moduleResolution:NodeNext to be enabled in the consumer.": "",
   "// TODO native ESM (in browsers) does not work yet because prismjs is not ESM and Docsify source imports it as CommonJS": "",
   "exports": {
-    "./*": "./*",
+    "./src/*": "./src/*",
+    "./dist/core/module.js": "./dist/core/module.js",
+    "./dist/core/module.min.js": "./dist/core/module.min.js",
     ".": {
       "types": "./dist/core/Docsify.d.ts",
-      "default": "./src/core/Docsify.js"
+      "default": "./dist/core/module.min.js"
     }
   },
   "files": [
+    "src",
     "lib",
     "themes"
   ],

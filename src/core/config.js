@@ -3,9 +3,65 @@ import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;
 
-/** @param {import('./Docsify.js').Docsify} vm */
-export default function (vm) {
-  const config = Object.assign(
+/**
+@typedef {
+  {
+      auto2top: boolean
+      autoHeader: boolean
+      basePath: string
+      catchPluginErrors: boolean
+      cornerExternalLinkTarget: '_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'
+      coverpage: boolean | string
+      el: string
+      executeScript: null | boolean
+      ext: string
+      externalLinkRel: 'noopener' | string
+      externalLinkTarget: '_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'
+      formatUpdated: string
+      ga: string
+      homepage: string
+      keyBindings: false | {
+        [commandName: string]: {
+          bindings: string[]
+          callback: Function
+        }
+      }
+      loadNavbar: null | boolean | string
+      loadSidebar: null | boolean | string
+      maxLevel: number
+      mergeNavbar: boolean
+      name: boolean | string
+      nameLink: string
+      nativeEmoji: boolean
+      noCompileLinks: string[]
+      noEmoji: boolean
+      notFoundPage: boolean | string | Record<string, string>
+      plugins: Function[]
+      relativePath: boolean
+      repo: boolean | string
+      routes: Record<string, string | Function>
+      routerMode: 'hash' | 'history'
+      subMaxLevel: number,
+      topMargin: number,
+
+      themeColor: string,
+  }
+} DocsifyConfig
+*/
+
+/**
+ * @param {import('./Docsify.js').Docsify} vm
+ * @param {Partial<DocsifyConfig>} config
+ * @returns {DocsifyConfig}
+ */
+export default function (vm, config = {}) {
+  if (window.$docsify) {
+    console.warn(
+      'DEPRECATION: The global $docsify config variable is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart'
+    );
+  }
+
+  config = Object.assign(
     {
       auto2top: false,
       autoHeader: false,
@@ -21,6 +77,7 @@ export default function (vm) {
       formatUpdated: '',
       ga: '',
       homepage: 'README.md',
+      keyBindings: {},
       loadNavbar: null,
       loadSidebar: null,
       maxLevel: 6,
@@ -37,7 +94,6 @@ export default function (vm) {
       routes: {},
       routerMode: 'hash',
       subMaxLevel: 0,
-      // themeColor: '',
       topMargin: 0,
 
       // Deprecations //////////////////
@@ -63,7 +119,9 @@ export default function (vm) {
 
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)
-      : window.$docsify
+      : window.$docsify,
+
+    config
   );
 
   // Merge default and user-specified key bindings
@@ -99,6 +157,11 @@ export default function (vm) {
       const val = script.getAttribute('data-' + hyphenate(prop));
 
       if (isPrimitive(val)) {
+        console.warn(
+          `DEPRECATION: data-* attributes on the docsify global script (f.e. ${
+            'data-' + hyphenate(prop)
+          }) are deprecated.`
+        );
         config[prop] = val === '' ? true : val;
       }
     }
@@ -124,7 +187,5 @@ export default function (vm) {
     config.name = '';
   }
 
-  window.$docsify = config;
-
-  return config;
+  return /** @type {DocsifyConfig} */ (config);
 }

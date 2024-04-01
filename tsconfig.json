@@ -12,14 +12,5 @@
     "resolveJsonModule": true,
     "outDir": "dist/"
   },
-  "include": ["src/**/*.js"],
-  "exclude": [
-    // "./**/*.test.js",
-    // "test/",
-    // "jest.config.js",
-    // "middleware.js",
-    // "playwright.config.js",
-    // "server.configs.js",
-    // "server.js"
-  ]
+  "include": ["src/**/*.js", "src/core/module.min.js"]
 }
