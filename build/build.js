@@ -3,8 +3,8 @@ import { promises as fs } from 'fs';
 import * as rollup from 'rollup';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import uglify from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
+import terser from '@rollup/plugin-terser';
 import chokidar from 'chokidar';
 import { relative } from './util.js';
 
@@ -54,6 +54,7 @@ async function build(opts) {
         output: opts.globalName ? { name: opts.globalName } : {},
         file: dest,
         strict: false,
+        sourcemap: opts.sourcemap,
       });
     });
 }
@@ -68,15 +69,14 @@ async function buildCore() {
     })
   );
 
-  if (isProd) {
-    promises.push(
-      build({
-        input: 'src/core/index.js',
-        output: 'docsify.min.js',
-        plugins: [uglify()],
-      })
-    );
-  }
+  promises.push(
+    build({
+      input: 'src/core/index.js',
+      output: 'docsify.min.js',
+      plugins: [terser()],
+      sourcemap: true,
+    })
+  );
 
   await Promise.all(promises);
 }
@@ -102,17 +102,16 @@ async function buildAllPlugin() {
     });
   });
 
-  if (isProd) {
-    plugins.forEach(item => {
-      promises.push(
-        build({
-          input: 'src/plugins/' + item.input,
-          output: 'plugins/' + item.name + '.min.js',
-          plugins: [uglify()],
-        })
-      );
-    });
-  }
+  plugins.forEach(item => {
+    promises.push(
+      build({
+        input: 'src/plugins/' + item.input,
+        output: 'plugins/' + item.name + '.min.js',
+        plugins: [terser()],
+        sourcemap: true,
+      })
+    );
+  });
 
   await Promise.all(promises);
 }

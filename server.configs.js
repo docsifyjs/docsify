@@ -24,6 +24,8 @@ export const devConfig = {
   files: ['CHANGELOG.md', 'docs/**/*', 'lib/**/*'],
   port: 3000,
   rewriteRules,
+  reloadDebounce: 1000,
+  reloadOnRestart: true,
   server: {
     ...prodConfig.server,
     routes: {
