@@ -262,25 +262,7 @@ export function Fetch(Base) {
     initFetch() {
       const { loadSidebar } = this.config;
 
-      // Server-Side Rendering
-      if (this.rendered) {
-        const activeEl = this.__getAndActive(
-          this.router,
-          '.sidebar-nav',
-          true,
-          true
-        );
-        if (loadSidebar && activeEl) {
-          activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
-        }
-
-        this._bindEventOnRendered(activeEl);
-        this.$resetEvents();
-        this.callHook('doneEach');
-        this.callHook('ready');
-      } else {
-        this.$fetch(_ => this.callHook('ready'));
-      }
+      this.$fetch(_ => this.callHook('ready'));
     }
   };
 }
