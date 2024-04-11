@@ -184,7 +184,7 @@ export function Fetch(Base) {
       }
     }
 
-    $fetch(cb = noop, $resetEvents = this.$resetEvents.bind(this)) {
+    $fetch(cb = noop, onNavigate = this.onNavigate.bind(this)) {
       const done = () => {
         this.callHook('doneEach');
         cb();
@@ -196,7 +196,7 @@ export function Fetch(Base) {
         done();
       } else {
         this._fetch(() => {
-          $resetEvents();
+          onNavigate();
           done();
         });
       }
