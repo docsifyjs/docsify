@@ -10,6 +10,7 @@ import * as dom from '../util/dom.js';
 export function Events(Base) {
   return class Events extends Base {
     #intersectionObserver;
+    #isScrolling;
     #title = dom.$.title;
 
     // Initialization
@@ -75,6 +76,10 @@ export function Events(Base) {
       this.#intersectionObserver?.disconnect();
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
+          if (this.#isScrolling) {
+            return;
+          }
+
           for (const entry of entries) {
             const op = entry.isIntersecting ? 'add' : 'delete';
 
@@ -99,8 +104,13 @@ export function Events(Base) {
             const href = this.router.toURL(this.router.getCurrentPath(), {
               id,
             });
+            const newSidebarActiveElm = this.#markSidebarActiveElm(href);
 
-            this.#markSidebarActiveElm(href);
+            newSidebarActiveElm?.scrollIntoView({
+              behavior: 'instant',
+              block: 'nearest',
+              inline: 'nearest',
+            });
           }
         },
         {
@@ -319,10 +329,13 @@ export function Events(Base) {
             `.markdown-section :where(h1, h2, h3, h4, h5)[id="${query.id}"]`
           );
 
-          headingElm.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
+          if (headingElm) {
+            this.#watchNextScroll();
+            headingElm.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }
         }
         // User click/tap
         else if (source === 'navigate') {
@@ -341,6 +354,32 @@ export function Events(Base) {
 
     // Functions
     // =========================================================================
+    /**
+     * Set focus on the main content area: current route ID, first heading, or
+     * the main content container
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
+     * @param {Object} options HTMLElement focus() method options
+     * @void
+     */
+    #focusContent(options = {}) {
+      const settings = {
+        preventScroll: true,
+        ...options,
+      };
+      const { query } = this.route;
+      const focusEl = query.id
+        ? // Heading ID
+          dom.find(`#${query.id}`)
+        : // First heading
+          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+          // Content container
+          dom.find('#main');
+
+      // Move focus to content area
+      focusEl?.focus(settings);
+    }
+
     /**
      * Marks the active sidebar item
      *
@@ -390,29 +429,43 @@ export function Events(Base) {
     }
 
     /**
-     * Set focus on the main content area: current route ID, first heading, or
-     * the main content container
-     *
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
-     * @param {Object} options HTMLElement focus() method options
+     * Monitor next scroll start/end and set #isScrolling to true/false
+     * accordingly. Listeners are removed after the start/end events are fired.
      * @void
      */
-    #focusContent(options = {}) {
-      const settings = {
-        preventScroll: true,
-        ...options,
-      };
-      const { query } = this.route;
-      const focusEl = query.id
-        ? // Heading ID
-          dom.find(`#${query.id}`)
-        : // First heading
-          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
-          // Content container
-          dom.find('#main');
+    #watchNextScroll() {
+      // Scroll start
+      document.addEventListener(
+        'scroll',
+        () => {
+          this.#isScrolling = true;
 
-      // Move focus to content area
-      focusEl?.focus(settings);
+          // Scroll end
+          if ('onscrollend' in window) {
+            document.addEventListener(
+              'scrollend',
+              () => (this.#isScrolling = false),
+              { once: true }
+            );
+          }
+          // Browsers w/o native scrollend event support (Safari)
+          else {
+            const callback = () => {
+              clearTimeout(scrollTimer);
+
+              scrollTimer = setTimeout(() => {
+                document.removeEventListener('scroll', callback);
+                this.#isScrolling = false;
+              }, 100);
+            };
+
+            let scrollTimer;
+
+            document.addEventListener('scroll', callback, false);
+          }
+        },
+        { once: true }
+      );
     }
   };
 }
