@@ -47,17 +47,19 @@ export default function (vm) {
         return this.__themeColor;
       },
       set themeColor(value) {
-        this.__themeColor = value;
-        console.warn(
-          stripIndent(/* html */ `
-            $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
-            <style>
-              :root {
-                --theme-color: deeppink;
-              }
-            </style>
-          `).trim()
-        );
+        if (value) {
+          this.__themeColor = value;
+          console.warn(
+            stripIndent(`
+              $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
+              <style>
+                :root {
+                  --theme-color: deeppink;
+                }
+              </style>
+            `).trim()
+          );
+        }
       },
     },
 
