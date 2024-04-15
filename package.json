@@ -51,6 +51,8 @@
     "serve:dev": "npm run serve -- --dev",
     "serve": "node server",
     "test:e2e": "playwright test",
+    "test:e2e:chromium": "playwright test --project='chromium'",
+    "test:e2e:ui": "playwright test --ui",
     "test:integration": "npm run jest -- --selectProjects integration",
     "test:unit": "npm run jest -- --selectProjects unit",
     "test": "npm run jest && run-s test:e2e",
