@@ -303,6 +303,7 @@ export function Events(Base) {
       // Update page title
       dom.$.title = currentTitle || this.#title;
 
+      this.#markAppNavActiveElm();
       this.#markSidebarCurrentPage();
       this.#initHeadings();
     }
@@ -381,22 +382,50 @@ export function Events(Base) {
     }
 
     /**
+     * Marks the active app nav item
+     *
+     * @param {string} [href] Matching element HREF value. If unspecified,
+     * defaults to the current path (without query params)
+     * @returns Element|undefined
+     */
+    #markAppNavActiveElm() {
+      const href = this.router.toURL(this.route.path);
+      const navElm = dom.find('nav.app-nav');
+
+      if (!navElm) {
+        return;
+      }
+
+      const newActive = dom
+        .findAll(navElm, 'a')
+        .sort((a, b) => b.href.length - a.href.length)
+        .find(a => href.includes(decodeURI(a.getAttribute('href'))));
+      const oldActive = dom.find(navElm, 'li.active');
+
+      oldActive?.classList.remove('active');
+      newActive?.classList.add('active');
+
+      return newActive;
+    }
+
+    /**
      * Marks the active sidebar item
      *
-     * @param {string} [href] Matching sidebar element HREF value. If
-     * unspecified, defaults to the current path (with query params)
-     * @returns Element
+     * @param {string} [href] Matching element HREF value. If unspecified,
+     * defaults to the current path (with query params)
+     * @returns Element|undefined
      */
     #markSidebarActiveElm(href) {
       href ??= this.router.toURL(this.router.getCurrentPath());
 
       const sidebar = dom.find('.sidebar');
-      const oldActive = dom.find(sidebar, 'li.active');
-      const newActive = dom.find(`.sidebar a[href='${href}']`)?.closest('li');
 
-      if (!newActive || newActive === oldActive) {
+      if (!sidebar) {
         return;
       }
+
+      const oldActive = dom.find(sidebar, 'li.active');
+      const newActive = dom.find(sidebar, `a[href='${href}']`)?.closest('li');
 
       oldActive?.classList.remove('active');
       newActive?.classList.add('active');
@@ -409,18 +438,20 @@ export function Events(Base) {
      *
      * @param {string} [href] Matching sidebar element HREF value. If
      * unspecified, defaults to the current path (without query params)
-     * @returns Element
+     * @returns Element|undefined
      */
     #markSidebarCurrentPage(href) {
       href ??= this.router.toURL(this.route.path);
 
-      const path = href?.split('?')[0];
-      const oldPage = dom.find('.sidebar li[aria-current]');
-      const newPage = dom.find(`.sidebar a[href='${path}']`)?.closest('li');
+      const sidebar = dom.find('.sidebar');
 
-      if (!newPage || newPage === oldPage) {
+      if (!sidebar) {
         return;
       }
+
+      const path = href?.split('?')[0];
+      const oldPage = dom.find(sidebar, 'li[aria-current]');
+      const newPage = dom.find(sidebar, `a[href='${path}']`)?.closest('li');
 
       oldPage?.removeAttribute('aria-current');
       newPage?.setAttribute('aria-current', 'page');
