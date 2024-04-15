@@ -20,7 +20,9 @@ export function Render(Base) {
 
     #addTextAsTitleAttribute(cssSelector) {
       dom.findAll(cssSelector).forEach(elm => {
-        elm.title = elm.title || elm.innerText;
+        if (!elm.title && elm.innerText) {
+          elm.title = elm.innerText;
+        }
       });
     }
 
