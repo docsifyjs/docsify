@@ -71,7 +71,7 @@
   <body>
     <div id="app">Loading ...</div>
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
-    <script>
+    <!-- <script>
       // Docsify configuration
       window.$docsify = {
         alias: {
@@ -214,8 +214,12 @@
           },
         ],
       };
-    </script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+    </script> -->
+
+    <!-- <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script> -->
+
+    <!-- TODO this all relied on globals, currently disabled -->
+    <!--
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/front-matter.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
@@ -225,6 +229,163 @@
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
-    <!-- <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    -->
+
+    <script type="module">
+      import { Docsify } from '/dist/core/module.min.js';
+
+      new Docsify({
+        alias: {
+          '.*?/awesome':
+            'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
+          '.*?/changelog':
+            'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
+          '/.*/_navbar.md': '/_navbar.md',
+          '/es/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
+          '/de-de/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
+          '/ru-ru/(.*)':
+            'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
+          '/zh-cn/(.*)':
+            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
+        },
+        auto2top: true,
+        coverpage: true,
+        executeScript: true,
+        loadSidebar: true,
+        loadNavbar: true,
+        mergeNavbar: true,
+        maxLevel: 4,
+        subMaxLevel: 2,
+        ga: 'UA-106147152-1',
+        matomo: {
+          host: '//matomo.thunderwave.de',
+          id: 6,
+        },
+        name: 'docsify',
+        nameLink: {
+          '/es/': '#/es/',
+          '/de-de/': '#/de-de/',
+          '/ru-ru/': '#/ru-ru/',
+          '/zh-cn/': '#/zh-cn/',
+          '/': '#/',
+        },
+        search: {
+          noData: {
+            '/es/': '¡No hay resultados!',
+            '/de-de/': 'Keine Ergebnisse!',
+            '/ru-ru/': 'Никаких результатов!',
+            '/zh-cn/': '没有结果!',
+            '/': 'No results!',
+          },
+          paths: 'auto',
+          placeholder: {
+            '/es/': 'Buscar',
+            '/de-de/': 'Suche',
+            '/ru-ru/': 'Поиск',
+            '/zh-cn/': '搜索',
+            '/': 'Search',
+          },
+          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
+        },
+        skipLink: {
+          '/es/': 'Saltar al contenido principal',
+          '/de-de/': 'Ga naar de hoofdinhoud',
+          '/ru-ru/': 'Перейти к основному содержанию',
+          '/zh-cn/': '跳到主要内容',
+        },
+        vueComponents: {
+          'button-counter': {
+            template: /* html */ `<button @click="count += 1">You clicked me {{ count }} times</button>`,
+            data() {
+              return {
+                count: 0,
+              };
+            },
+          },
+        },
+        vueGlobalOptions: {
+          data() {
+            return {
+              count: 0,
+              message: 'Hello, World!',
+              // Fake API response
+              images: [
+                {
+                  title: 'Image 1',
+                  url: 'https://picsum.photos/150?random=1',
+                },
+                {
+                  title: 'Image 2',
+                  url: 'https://picsum.photos/150?random=2',
+                },
+                {
+                  title: 'Image 3',
+                  url: 'https://picsum.photos/150?random=3',
+                },
+              ],
+            };
+          },
+          computed: {
+            timeOfDay() {
+              const date = new Date();
+              const hours = date.getHours();
+
+              if (hours < 12) {
+                return 'morning';
+              } else if (hours < 18) {
+                return 'afternoon';
+              } else {
+                return 'evening';
+              }
+            },
+          },
+          methods: {
+            hello() {
+              alert(this.message);
+            },
+          },
+        },
+        vueMounts: {
+          '#counter': {
+            data() {
+              return {
+                count: 0,
+              };
+            },
+          },
+        },
+        plugins: [
+          DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
+          function (hook, vm) {
+            hook.beforeEach(html => {
+              let url;
+              if (/githubusercontent\.com/.test(vm.route.file)) {
+                url = vm.route.file
+                  .replace('raw.githubusercontent.com', 'github.com')
+                  .replace(/\/master/, '/blob/master');
+              } else if (/jsdelivr\.net/.test(vm.route.file)) {
+                url = vm.route.file
+                  .replace('cdn.jsdelivr.net/gh', 'github.com')
+                  .replace('@master', '/blob/master');
+              } else {
+                url =
+                  'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
+                  vm.route.file;
+              }
+              const editHtml = '[:memo: Edit Document](' + url + ')\n';
+              return (
+                editHtml +
+                html +
+                '\n\n----\n\n' +
+                '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
+              );
+            });
+          },
+        ],
+      });
+    </script>
   </body>
 </html>

@@ -12,22 +12,40 @@
   "type": "module",
   "// The 'main' and 'unpkg' fields will remain as legacy for backwards compatibility for now. We will add deprectaion warnings to these outputs to give people time to see the warnings in their apps in a non-breaking way, and eventually we can remove the legacy stuff.": "",
   "main": "lib/docsify.js",
+  "types": "dist/core/Docsify.d.ts",
   "unpkg": "lib/docsify.min.js",
   "// We're using the 'exports' field as an override of the 'main' field to provide the new ESM setup. Once we remove legacy 'main', we will remove the 'exports' field and have a simple ESM setup with only a 'main' field.": "",
+  "// These exports require moduleResolution:NodeNext to be enabled in the consumer.": "",
+  "// TODO native ESM (in browsers) does not work yet because prismjs is not ESM and Docsify source imports it as CommonJS": "",
   "exports": {
-    ".": "./src/Docsify.js",
-    "./*": "./*"
+    "./src/*": "./src/*",
+    "./dist/core/module.js": "./dist/core/module.js",
+    "./dist/core/module.min.js": "./dist/core/module.min.js",
+    ".": {
+      "types": "./dist/core/Docsify.d.ts",
+      "default": "./dist/core/module.min.js"
+    }
   },
   "files": [
+    "src",
     "lib",
     "themes"
   ],
+  "// Using 'typesVersions' here is the only way we could figure out how to get types working for imports of any subpath without any of the problems other approaches have when not using modeResolution:NodeNext (listed in https://stackoverflow.com/questions/77856692/how-to-publish-plain-jsjsdoc-library-for-typescript-consumers)": "",
+  "typesVersions": {
+    "*": {
+      "src/*": [
+        "dist/*"
+      ]
+    }
+  },
   "scripts": {
     "build:cover": "node build/cover.js",
     "build:css:min": "node build/mincss.js",
     "build:css": "mkdirp lib/themes && node build/css -o lib/themes",
     "build:emoji": "node ./build/emoji.js",
-    "build:js": "cross-env NODE_ENV=production node build/build.js",
+    "build:js": "npm run build:types && cross-env NODE_ENV=production node build/build.js",
+    "build:types": "tsc -p tsconfig.json || true",
     "build:test": "npm run build && npm test",
     "build": "rimraf lib themes && run-s build:js build:css build:css:min build:cover build:emoji",
     "dev": "run-p serve:dev watch:*",

@@ -17,6 +17,7 @@ const version = process.env.VERSION || pkg.version;
 /**
  * @param {{
  *   input: string,
+ *   format: 'iife' | 'module',
  *   output?: string,
  *   globalName?: string,
  *   plugins?: Array<import('rollup').Plugin>
@@ -46,11 +47,11 @@ async function build(opts) {
       },
     })
     .then(bundle => {
-      const dest = 'lib/' + (opts.output || opts.input);
+      const dest = opts.output || opts.input;
 
       console.log(dest);
       return bundle.write({
-        format: 'iife',
+        format: opts.format,
         output: opts.globalName ? { name: opts.globalName } : {},
         file: dest,
         strict: false,
@@ -64,7 +65,13 @@ async function buildCore() {
   promises.push(
     build({
       input: 'src/core/index.js',
-      output: 'docsify.js',
+      output: 'lib/docsify.js',
+      format: 'iife',
+    }),
+    build({
+      input: 'src/core/module.js',
+      output: 'dist/core/module.js',
+      format: 'module',
     })
   );
 
@@ -72,7 +79,14 @@ async function buildCore() {
     promises.push(
       build({
         input: 'src/core/index.js',
-        output: 'docsify.min.js',
+        output: 'lib/docsify.min.js',
+        format: 'iife',
+        plugins: [uglify()],
+      }),
+      build({
+        input: 'src/core/module.js',
+        output: 'dist/core/module.min.js',
+        format: 'module',
         plugins: [uglify()],
       })
     );
@@ -98,7 +112,7 @@ async function buildAllPlugin() {
   const promises = plugins.map(item => {
     return build({
       input: 'src/plugins/' + item.input,
-      output: 'plugins/' + item.name + '.js',
+      output: 'lib/plugins/' + item.name + '.js',
     });
   });
 
@@ -107,7 +121,7 @@ async function buildAllPlugin() {
       promises.push(
         build({
           input: 'src/plugins/' + item.input,
-          output: 'plugins/' + item.name + '.min.js',
+          output: 'lib/plugins/' + item.name + '.min.js',
           plugins: [uglify()],
         })
       );
@@ -140,7 +154,7 @@ async function main() {
 
           build({
             input,
-            output: 'plugins/' + name + '.js',
+            output: 'lib/plugins/' + name + '.js',
           });
         }
       })

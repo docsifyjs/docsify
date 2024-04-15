@@ -6,3 +6,4 @@ lib
 node_modules
 server.js
 themes
+dist
