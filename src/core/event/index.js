@@ -389,7 +389,7 @@ export function Events(Base) {
      * @returns Element|undefined
      */
     #markAppNavActiveElm() {
-      const href = this.router.toURL(this.route.path);
+      const href = decodeURIComponent(this.router.toURL(this.route.path));
       const navElm = dom.find('nav.app-nav');
 
       if (!navElm) {
@@ -399,11 +399,17 @@ export function Events(Base) {
       const newActive = dom
         .findAll(navElm, 'a')
         .sort((a, b) => b.href.length - a.href.length)
-        .find(a => href.includes(decodeURI(a.getAttribute('href'))));
+        .find(
+          a =>
+            href.includes(a.getAttribute('href')) ||
+            href.includes(decodeURI(a.getAttribute('href')))
+        );
       const oldActive = dom.find(navElm, 'li.active');
 
-      oldActive?.classList.remove('active');
-      newActive?.classList.add('active');
+      if (newActive && newActive !== oldActive) {
+        oldActive?.classList.remove('active');
+        newActive.classList.add('active');
+      }
 
       return newActive;
     }
@@ -425,10 +431,17 @@ export function Events(Base) {
       }
 
       const oldActive = dom.find(sidebar, 'li.active');
-      const newActive = dom.find(sidebar, `a[href='${href}']`)?.closest('li');
+      const newActive = dom
+        .find(
+          sidebar,
+          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`
+        )
+        ?.closest('li');
 
-      oldActive?.classList.remove('active');
-      newActive?.classList.add('active');
+      if (newActive && newActive !== oldActive) {
+        oldActive?.classList.remove('active');
+        newActive.classList.add('active');
+      }
 
       return newActive;
     }
@@ -451,10 +464,17 @@ export function Events(Base) {
 
       const path = href?.split('?')[0];
       const oldPage = dom.find(sidebar, 'li[aria-current]');
-      const newPage = dom.find(sidebar, `a[href='${path}']`)?.closest('li');
+      const newPage = dom
+        .find(
+          sidebar,
+          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`
+        )
+        ?.closest('li');
 
-      oldPage?.removeAttribute('aria-current');
-      newPage?.setAttribute('aria-current', 'page');
+      if (newPage && newPage !== oldPage) {
+        oldPage?.removeAttribute('aria-current');
+        newPage.setAttribute('aria-current', 'page');
+      }
 
       return newPage;
     }
