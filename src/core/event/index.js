@@ -41,7 +41,7 @@ export function Events(Base) {
     // Sub-Initializations
     // =========================================================================
     /**
-     * Initialize cover mutation observer
+     * Initialize cover observer
      * Toggles sticky behavior when when cover is not in view
      * @void
      */
@@ -64,7 +64,7 @@ export function Events(Base) {
     }
 
     /**
-     * Initialize heading intersection observer
+     * Initialize heading observer
      * Toggles sidebar active item based on top viewport edge intersection
      * @void
      */
