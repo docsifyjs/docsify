@@ -9,7 +9,7 @@ const files = fs
 files.forEach(file => {
   file = path.resolve('lib/themes', file);
   cssnano
-    .process(fs.readFileSync(file))
+    .process(fs.readFileSync(file), { from: file })
     .then(result => {
       file = file.replace(/\.css$/, '.min.css');
       fs.writeFileSync(file, result.css);
