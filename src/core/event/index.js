@@ -31,7 +31,7 @@ export function Events(Base) {
 
       // Move focus to content
       if (query.id || source === 'navigate') {
-        this.focusContent();
+        this.#focusContent();
       }
 
       if (loadNavbar) {
@@ -139,19 +139,15 @@ export function Events(Base) {
     #enableScrollEvent = true;
     #coverHeight = 0;
 
-    #skipLink(el) {
-      el = dom.getNode(el);
+    #skipLink(elm) {
+      elm = typeof elm === 'string' ? dom.find(elm) : elm;
 
-      if (el === null || el === undefined) {
-        return;
-      }
-
-      dom.on(el, 'click', evt => {
-        const target = dom.getNode('#main');
-
+      elm?.addEventListener('click', evt => {
         evt.preventDefault();
-        target && target.focus();
-        this.#scrollTo(target);
+        dom.getNode('main')?.scrollIntoView({
+          behavior: 'smooth',
+        });
+        this.#focusContent({ preventScroll: true });
       });
     }
 
@@ -177,7 +173,7 @@ export function Events(Base) {
         .begin();
     }
 
-    focusContent() {
+    #focusContent(options = {}) {
       const { query } = this.route;
       const focusEl = query.id
         ? // Heading ID
@@ -188,7 +184,7 @@ export function Events(Base) {
           dom.find('#main');
 
       // Move focus to content area
-      focusEl && focusEl.focus();
+      focusEl && focusEl.focus(options);
     }
 
     #highlight(path) {
