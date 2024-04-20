@@ -187,9 +187,7 @@
           },
         },
         plugins: [
-          function () {
-            DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg');
-          },
+          DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
           function (hook, vm) {
             hook.beforeEach(html => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
@@ -219,6 +217,7 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/front-matter.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/ga.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/matomo.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
