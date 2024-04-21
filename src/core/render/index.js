@@ -18,6 +18,14 @@ export function Render(Base) {
   return class Render extends Base {
     #vueGlobalData;
 
+    #addTextAsTitleAttribute(cssSelector) {
+      dom.findAll(cssSelector).forEach(elm => {
+        if (!elm.title && elm.innerText) {
+          elm.title = elm.innerText;
+        }
+      });
+    }
+
     #executeScript() {
       const script = dom
         .findAll('.markdown-section>script')
@@ -293,12 +301,10 @@ export function Render(Base) {
       this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
       sidebarToggleEl.setAttribute('aria-expanded', !isMobile);
 
-      const activeEl = this.__getAndActive(
-        this.router,
-        '.sidebar-nav',
-        true,
-        true
-      );
+      const activeElmHref = this.router.toURL(this.route.path);
+      const activeEl = dom.find(`.sidebar-nav a[href="${activeElmHref}"]`);
+
+      this.#addTextAsTitleAttribute('.sidebar-nav a');
 
       if (loadSidebar && activeEl) {
         activeEl.parentNode.innerHTML +=
@@ -315,7 +321,7 @@ export function Render(Base) {
     _bindEventOnRendered(activeEl) {
       const { autoHeader } = this.config;
 
-      this.__scrollActiveSidebar(this.router);
+      this.onRender();
 
       if (autoHeader && activeEl) {
         const main = dom.getNode('#main');
@@ -330,9 +336,7 @@ export function Render(Base) {
 
     _renderNav(text) {
       text && this._renderTo('nav', this.compiler.compile(text));
-      if (this.config.loadNavbar) {
-        this.__getAndActive(this.router, 'nav');
-      }
+      this.#addTextAsTitleAttribute('nav a');
     }
 
     _renderMain(text, opt = {}, next) {
@@ -420,7 +424,6 @@ export function Render(Base) {
       }
 
       this._renderTo('.cover-main', html);
-      this.__sticky();
     }
 
     _updateRender() {
