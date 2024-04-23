@@ -44,6 +44,10 @@ test.describe('Sidebar Tests', () => {
 
     await docsifyInit(docsifyInitConfig);
 
+    await page.click('a[href="#/test"]');
+    await expect(activeLinkElm).toHaveText('Test');
+    expect(page.url()).toMatch(/\/test$/);
+
     await page.click('a[href="#/test%20space"]');
     await expect(activeLinkElm).toHaveText('Test Space');
     expect(page.url()).toMatch(/\/test%20space$/);
@@ -57,15 +61,11 @@ test.describe('Sidebar Tests', () => {
     expect(page.url()).toMatch(/\/test-foo$/);
 
     await page.click('a[href="#/test.foo"]');
-    expect(page.url()).toMatch(/\/test.foo$/);
     await expect(activeLinkElm).toHaveText('Test .');
+    expect(page.url()).toMatch(/\/test.foo$/);
 
     await page.click('a[href="#/test>foo"]');
     await expect(activeLinkElm).toHaveText('Test >');
     expect(page.url()).toMatch(/\/test%3Efoo$/);
-
-    await page.click('a[href="#/test"]');
-    await expect(activeLinkElm).toHaveText('Test');
-    expect(page.url()).toMatch(/\/test$/);
   });
 });
