@@ -260,7 +260,11 @@ export function Render(Base) {
         [
           document.querySelector('aside.sidebar'),
           document.querySelector('button.sidebar-toggle'),
-        ].forEach(node => node.parentNode.removeChild(node));
+        ].forEach(node => {
+          if (node && node.parentNode) {
+            node.parentNode.removeChild(node);
+          }
+        });
         document.querySelector('section.content').style.right = 'unset';
         document.querySelector('section.content').style.left = 'unset';
         document.querySelector('section.content').style.position = 'relative';
