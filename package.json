@@ -2,6 +2,9 @@
   "name": "@developerportalsg/docsify",
   "version": "4.12.10",
   "description": "A magical documentation generator.",
+  "release": {
+    "branches": ["develop"]
+  },
   "private": true,
   "author": {
     "name": "qingwei-li",
