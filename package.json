@@ -1,6 +1,6 @@
 {
   "name": "@developerportalsg/docsify",
-  "version": "4.12.10",
+  "version": "4.12.12",
   "description": "A magical documentation generator.",
   "release": {
     "branches": ["develop"]
