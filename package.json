@@ -5,7 +5,6 @@
   "release": {
     "branches": ["develop"]
   },
-  "private": true,
   "author": {
     "name": "qingwei-li",
     "email": "cinwell.li@gmail.com",
