@@ -135,6 +135,16 @@ frontend:
 | /<\*>.png      | /<\*>.png      | 200 (Rewrite) |
 | /<\*>          | /index.html    | 200 (Rewrite) |
 
+## Stormkit
+
+1.  Login to your [Stormkit](https://www.stormkit.io) account.
+2.  Using the user interface, import your docsify project from one of the three supported Git providers (GitHub, GitLab, or Bitbucket).
+3.  Navigate to the project’s production environment in Stormkit or create a new environment if needed.
+4.  Verify the build command in your Stormkit configuration. By default, Stormkit CI will run npm run build but you can specify a custom build command on this page.
+5.  Click the “Deploy Now” button to deploy your site.
+
+Read more in the [Stormkit Documentation](https://stormkit.io/docs).
+
 ## Docker
 
 - Create docsify files
