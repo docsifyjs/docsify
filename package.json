@@ -3,7 +3,7 @@
   "version": "4.12.12",
   "description": "A magical documentation generator.",
   "release": {
-    "branches": ["develop"]
+    "branches": ["master"]
   },
   "author": {
     "name": "qingwei-li",
