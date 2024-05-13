@@ -150,7 +150,7 @@ export function Fetch(Base) {
       }
     }
 
-    _fetchCover() {
+    _fetchCover(cb = noop) {
       const { coverpage, requestHeaders } = this.config;
       const query = this.route.query;
       const root = getParentPath(this.route.path);
@@ -174,13 +174,17 @@ export function Fetch(Base) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
           get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-            text => this._renderCover(text, coverOnly)
+            text => {
+              this._renderCover(text, coverOnly);
+              cb(coverOnly);
+            }
           );
         } else {
           this._renderCover(null, coverOnly);
+          cb(coverOnly);
         }
-
-        return coverOnly;
+      } else {
+        cb(false);
       }
     }
 
@@ -190,16 +194,16 @@ export function Fetch(Base) {
         cb();
       };
 
-      const onlyCover = this._fetchCover();
-
-      if (onlyCover) {
-        done();
-      } else {
-        this._fetch(() => {
-          onNavigate();
+      this._fetchCover(onlyCover => {
+        if (onlyCover) {
           done();
-        });
-      }
+        } else {
+          this._fetch(() => {
+            onNavigate();
+            done();
+          });
+        }
+      });
     }
 
     _fetchFallbackPage(path, qs, cb = noop) {
