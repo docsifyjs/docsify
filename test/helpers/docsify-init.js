@@ -7,8 +7,8 @@ import stripIndent from 'common-tags/lib/stripIndent/index.js';
 import { waitForSelector } from './wait-for.js';
 
 const mock = _mock.default;
-const docsifyPATH = '../../lib/docsify.js'; // JSDOM
-const docsifyURL = '/lib/docsify.js'; // Playwright
+const docsifyPATH = '../../dist/docsify.js'; // JSDOM
+const docsifyURL = '/dist/docsify.js'; // Playwright
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
@@ -25,7 +25,7 @@ const docsifyURL = '/lib/docsify.js'; // Playwright
  * @param {String} [options.script] JS to inject via <script> tag
  * @param {String|String[]} [options.scriptURLs] External JS to inject via <script src="..."> tag(s)
  * @param {String} [options.style] CSS to inject via <style> tag
- * @param {String|String[]} [options.styleURLs=['/lib/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
+ * @param {String|String[]} [options.styleURLs=['/dist/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
  * @param {String} [options.testURL] URL to set as window.location.href
  * @param {String} [options.waitForSelector='#main'] Element to wait for before returning promise
  * @param {Boolean|Object|String} [options._logHTML] Logs HTML to console after initialization. Accepts CSS selector.

@@ -21,7 +21,7 @@ test.describe('Search Plugin Tests', () => {
           This is a custom route.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
@@ -64,7 +64,7 @@ test.describe('Search Plugin Tests', () => {
             There're three places to populate your docs for your Github repository2.
           `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
@@ -99,7 +99,7 @@ test.describe('Search Plugin Tests', () => {
           This is a custom route.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
@@ -125,7 +125,7 @@ test.describe('Search Plugin Tests', () => {
           docsify genera su sitio web de documentación sobre la marcha. A diferencia de GitBook, no genera archivos estáticos html. En cambio, carga y analiza de forma inteligente sus archivos de Markdown y los muestra como sitio web. Todo lo que necesita hacer es crear un index.html para comenzar y desplegarlo en GitHub Pages.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
@@ -159,7 +159,7 @@ test.describe('Search Plugin Tests', () => {
           hello, this is a changelog
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
@@ -186,7 +186,7 @@ test.describe('Search Plugin Tests', () => {
           ---
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
@@ -200,7 +200,7 @@ test.describe('Search Plugin Tests', () => {
 
   test('handles default focusSearch binding', async ({ page }) => {
     const docsifyInitConfig = {
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type="search"]');
@@ -219,7 +219,7 @@ test.describe('Search Plugin Tests', () => {
           keyBindings: ['z'],
         },
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type="search"]');

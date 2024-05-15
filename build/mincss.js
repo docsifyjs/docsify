@@ -2,12 +2,13 @@ import path from 'path';
 import fs from 'fs';
 import cssnano from 'cssnano';
 
+const outputDir = 'dist/themes';
 const files = fs
-  .readdirSync(path.resolve('lib/themes'))
+  .readdirSync(path.resolve(outputDir))
   .filter(file => !file.endsWith('min.css'));
 
 files.forEach(file => {
-  file = path.resolve('lib/themes', file);
+  file = path.resolve(outputDir, file);
   cssnano
     .process(fs.readFileSync(file), { from: file })
     .then(result => {

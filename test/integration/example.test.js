@@ -59,14 +59,14 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
         // docsifyInit() route
         'data-test-scripturls.js',
         // Server route
-        '/lib/plugins/search.min.js',
+        '/dist/plugins/search.js',
       ],
       style: `
         body {
           background: red !important;
         }
       `,
-      styleURLs: ['/lib/themes/vue.css'],
+      styleURLs: ['/dist/themes/vue.css'],
     };
 
     await docsifyInit({
