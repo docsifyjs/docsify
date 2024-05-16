@@ -6,7 +6,10 @@ Recommended: [jsDelivr](//cdn.jsdelivr.net), which will reflect the latest versi
 
 ```html
 <!-- load css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"
+/>
 
 <!-- load script -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
@@ -18,7 +21,10 @@ Alternatively, use [compressed files](#compressed-file).
 
 ```html
 <!-- load css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"
+/>
 
 <!-- load script -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
@@ -30,7 +36,7 @@ Alternatively, use [compressed files](#compressed-file).
 <!-- load css -->
 <link
   rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.css"
+  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.min.css"
 />
 
 <!-- load script -->
@@ -41,7 +47,7 @@ Alternatively, use [compressed files](#compressed-file).
 <!-- load css -->
 <link
   rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.css"
+  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.min.css"
 />
 
 <!-- load script -->

@@ -4,11 +4,11 @@ There is a handful of themes available, both official and community-made. Copy [
 
 <!-- prettier-ignore-start -->
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 <!-- prettier-ignore-end -->
 
@@ -18,11 +18,11 @@ There is a handful of themes available, both official and community-made. Copy [
 ```html
 <!-- compressed -->
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/buble.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dark.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/pure.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dolphin.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/buble.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dark.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/pure.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dolphin.min.css" />
 ```
 <!-- prettier-ignore-end -->
 
@@ -31,11 +31,11 @@ If you have any ideas or would like to develop a new theme, you are welcome to s
 #### Click to preview
 
 <div class="demo-theme-preview">
-  <a data-theme="vue">vue.css</a>
-  <a data-theme="buble">buble.css</a>
-  <a data-theme="dark">dark.css</a>
-  <a data-theme="pure">pure.css</a>
-  <a data-theme="dolphin">dolphin.css</a>
+  <a data-theme="vue">Vue Theme</a>
+  <a data-theme="buble">Buble Theme</a>
+  <a data-theme="dark">Dark Theme</a>
+  <a data-theme="pure">Pure Theme</a>
+  <a data-theme="dolphin">Dolphin Theme</a>
 </div>
 
 <style>

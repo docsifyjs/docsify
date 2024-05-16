@@ -48,7 +48,7 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
     <meta charset="UTF-8" />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css"
+      href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"
     />
   </head>
   <body>
@@ -70,14 +70,20 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
 Specifying a major version in the URL (`@5`) will allow your site to receive non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch" updates) automatically. This is the recommended way to load docsify resources.
 
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"
+/>
 <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
 ```
 
 If you prefer to lock docsify to a specific version, specify the full version after the `@` symbol in the URL. This is the safest way to ensure your site will look and behave the same way regardless of any changes made to future versions of docsify.
 
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"
+/>
 <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
 ```
 
