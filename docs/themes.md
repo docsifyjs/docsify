@@ -4,25 +4,25 @@ There is a handful of themes available, both official and community-made. Copy [
 
 <!-- prettier-ignore-start -->
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/buble.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/pure.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dolphin.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.css" />
 ```
 <!-- prettier-ignore-end -->
 
-!> Compressed files are available in `/lib/themes/`.
+!> Compressed files are available in `/dist/themes/`.
 
 <!-- prettier-ignore-start -->
 ```html
 <!-- compressed -->
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/buble.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dark.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/pure.css" />
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dolphin.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/buble.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dark.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/pure.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dolphin.css" />
 ```
 <!-- prettier-ignore-end -->
 

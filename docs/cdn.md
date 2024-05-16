@@ -6,10 +6,10 @@ Recommended: [jsDelivr](//cdn.jsdelivr.net), which will reflect the latest versi
 
 ```html
 <!-- load css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
 
 <!-- load script -->
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 Alternatively, use [compressed files](#compressed-file).
@@ -18,13 +18,10 @@ Alternatively, use [compressed files](#compressed-file).
 
 ```html
 <!-- load css -->
-<link
-  rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify@4.10.2/themes/vue.css"
-/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.css" />
 
 <!-- load script -->
-<script src="//cdn.jsdelivr.net/npm/docsify@4.10.2/lib/docsify.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ## Compressed file
@@ -33,22 +30,22 @@ Alternatively, use [compressed files](#compressed-file).
 <!-- load css -->
 <link
   rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css"
+  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.css"
 />
 
 <!-- load script -->
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ```html
 <!-- load css -->
 <link
   rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify@4.10.2/lib/themes/vue.css"
+  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.css"
 />
 
 <!-- load script -->
-<script src="//cdn.jsdelivr.net/npm/docsify@4.10.2/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ## Other CDN
