@@ -1,18 +1,8 @@
 # Vue compatibility
 
-Docsify allows Vue content to be added directly to your markdown pages. This can greatly simplify working with data and adding reactivity to your site.
+Docsify allows [Vue.js](https://vuejs.org) content to be added directly to your markdown pages. This can greatly simplify working with data and adding reactivity to your site.
 
-To get started, add Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
-
-#### Vue 2.x
-
-```html
-<!-- Production -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
-
-<!-- Development -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-```
+To get started, add Vue.js to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
 
 #### Vue 3.x
 
@@ -74,18 +64,13 @@ Vue content becomes more interesting when [data](#data), [computed properties](#
 
 <!-- Show message in docsify, hide elsewhere (e.g. GitHub)  -->
 <p v-text="message"></p>
-
-<!-- Show message in docsify, show text elsewhere (e.g. GitHub)  -->
-<p v-text="message">Text for GitHub</p>
 ```
 <!-- prettier-ignore-end -->
 
 <output data-lang="output">
-
-{{ message }}
+  <p>{{ message }}</p>
 
   <p v-text="message"></p>
-  <p v-text="message">Text for GitHub</p>
 </output>
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#data)
