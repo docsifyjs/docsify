@@ -45,7 +45,29 @@ Vue [template syntax](https://vuejs.org/guide/essentials/template-syntax) offers
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#template-syntax)
 
-### Data
+## Code Blocks
+
+Docsify ignores Vue template syntax within code blocks by default:
+
+````markdown
+```
+{{ message}}
+```
+````
+
+To process Vue template syntax within a code block, wrap the code block in an element with a `v-template` attribute:
+
+````markdown
+<div v-template>
+
+```
+{{ message}}
+```
+
+</div>
+````
+
+## Data
 
 ```js
 {
@@ -75,7 +97,7 @@ Vue [template syntax](https://vuejs.org/guide/essentials/template-syntax) offers
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#data)
 
-### Computed properties
+## Computed properties
 
 ```js
 {
@@ -108,7 +130,7 @@ Good {{ timeOfDay }}!
 
 </output>
 
-### Methods
+## Methods
 
 ```js
 {
@@ -133,7 +155,7 @@ Good {{ timeOfDay }}!
   <p><button @click="hello">Say Hello</button></p>
 </output>
 
-### Lifecycle Hooks
+## Lifecycle Hooks
 
 ```js
 {
