@@ -19,6 +19,9 @@
     "generator",
     "markdown"
   ],
+  "engines": {
+    "node": ">=20.11.0"
+  },
   "type": "module",
   "main": "dist/docsify.js",
   "exports": {
