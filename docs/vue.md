@@ -194,17 +194,17 @@ window.$docsify = {
 
 ```markdown
 <p>
-  <button @click="count -= 1">-</button>
-  {{ count }}
   <button @click="count += 1">+</button>
+  {{ count }}
+  <button @click="count -= 1">-</button>
 </p>
 ```
 
 <output data-lang="output">
   <p>
-    <button @click="count -= 1">-</button>
-    {{ count }}
     <button @click="count += 1">+</button>
+    {{ count }}
+    <button @click="count -= 1">-</button>
   </p>
 </output>
 
@@ -212,9 +212,9 @@ Notice the behavior when multiple global counters are rendered:
 
 <output data-lang="output">
   <p>
-    <button @click="count -= 1">-</button>
-    {{ count }}
     <button @click="count += 1">+</button>
+    {{ count }}
+    <button @click="count -= 1">-</button>
   </p>
 </output>
 
@@ -240,16 +240,16 @@ window.$docsify = {
 
 ```markdown
 <div id="counter">
-  <button @click="count -= 1">-</button>
-  {{ count }}
   <button @click="count += 1">+</button>
+  {{ count }}
+  <button @click="count -= 1">-</button>
 </div>
 ```
 
 <output id="counter">
-  <button @click="count -= 1">-</button>
-  {{ count }}
   <button @click="count += 1">+</button>
+  {{ count }}
+  <button @click="count -= 1">-</button>
 </output>
 
 ## Components
