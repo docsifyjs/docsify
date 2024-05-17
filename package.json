@@ -80,7 +80,7 @@
   },
   "scripts": {
     "build:cover": "node build/cover.js",
-    "build:css:min": "postcss 'dist/themes/**/!(*.min).css' --dir dist/themes --ext .min.css --map --use cssnano",
+    "build:css:min": "postcss \"dist/themes/**/!(*.min).css\" --dir dist/themes --ext .min.css --map --use cssnano",
     "build:css": "stylus src/themes --out dist/themes --sourcemap",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "rollup -c",
