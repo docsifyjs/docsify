@@ -2,9 +2,11 @@
 
 Docsify allows [Vue.js](https://vuejs.org) content to be added directly to your markdown pages. This can greatly simplify working with data and adding reactivity to your site.
 
-To get started, add Vue.js to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
+Vue [template syntax](https://vuejs.org/guide/essentials/template-syntax) can be used to add dynamic content to your pages. Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or within DOM [mounts](#mounts) and [components](#components).
 
-#### Vue 3.x
+## Setup
+
+To get started, add Vue.js to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
 
 ```html
 <!-- Production -->
@@ -16,7 +18,7 @@ To get started, add Vue.js to your `index.html` file. Choose the production vers
 
 ## Template syntax
 
-Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create dynamic content. With no additional configuration, this syntax offers several useful features like support for [JavaScript expressions](https://vuejs.org/v2/guide/syntax.html#Using-JavaScript-Expressions) and Vue [directives](https://vuejs.org/v2/guide/syntax.html#Directives) for loops and conditional rendering.
+Vue [template syntax](https://vuejs.org/guide/essentials/template-syntax) offers several useful features like support for [JavaScript expressions](https://vuejs.org/guide/essentials/template-syntax.html#using-javascript-expressions) and Vue [directives](https://vuejs.org/guide/essentials/template-syntax.html#directives) for loops and conditional rendering.
 
 ```markdown
 <!-- Hide in docsify, show elsewhere (e.g. GitHub) -->
@@ -42,8 +44,6 @@ Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create 
 </output>
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#template-syntax)
-
-Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or within DOM [mounts](#mounts) and [components](#components).
 
 ### Data
 
@@ -178,7 +178,7 @@ Good {{ timeOfDay }}!
 
 ## Global options
 
-Use `vueGlobalOptions` to specify [Vue options](https://vuejs.org/v2/api/#Options-Data) for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
+Use `vueGlobalOptions` to specify global Vue options for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
 ```js
 window.$docsify = {
@@ -222,7 +222,7 @@ Changes made to one counter affect the both counters. This is because both insta
 
 ## Mounts
 
-Use `vueMounts` to specify DOM elements to mount as [Vue instances](https://vuejs.org/v2/guide/instance.html) and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
+Use `vueMounts` to specify DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -254,7 +254,7 @@ window.$docsify = {
 
 ## Components
 
-Use `vueComponents` to create and register global [Vue components](https://vuejs.org/v2/guide/components.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
+Use `vueComponents` to create and register global [Vue components](https://vuejs.org/guide/essentials/component-basics.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
