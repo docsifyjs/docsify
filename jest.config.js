@@ -10,7 +10,9 @@ const sharedConfig = {
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
   testEnvironment: 'jsdom',
-  testURL: `${TEST_HOST}/_blank.html`,
+  testEnvironmentOptions: {
+    url: `${TEST_HOST}/_blank.html`,
+  },
 };
 
 process.env.TEST_HOST = TEST_HOST;
