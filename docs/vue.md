@@ -292,17 +292,6 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 !> Only the first `<script>` tag in a markdown file is executed. If you wish to mount multiple Vue instances using a script tag, all instances must be mounted within the first script tag in your markdown.
 
 ```html
-<!-- Vue 2.x  -->
-<script>
-  new Vue({
-    el: '#example',
-    // Options...
-  });
-</script>
-```
-
-```html
-<!-- Vue 3.x  -->
 <script>
   Vue.createApp({
     // Options...
