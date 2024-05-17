@@ -1,4 +1,4 @@
-import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import { stripIndent } from 'common-tags';
 import docsifyInit from '../helpers/docsify-init.js';
 import { test, expect } from './fixtures/docsify-init-fixture.js';
 

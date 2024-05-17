@@ -1,4 +1,4 @@
-import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import { stripIndent } from 'common-tags';
 import docsifyInit from '../helpers/docsify-init.js';
 import { waitForText } from '../helpers/wait-for.js';
 

@@ -3,7 +3,7 @@ import _mock, { proxy } from 'xhr-mock';
 
 import axios from 'axios';
 import prettier from 'prettier';
-import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import { stripIndent } from 'common-tags';
 import { waitForSelector } from './wait-for.js';
 
 const mock = _mock.default;

@@ -6,7 +6,7 @@ import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import { glob } from 'glob';
-import stripIndent from 'common-tags/lib/stripIndent/index.js';
+import { stripIndent } from 'common-tags';
 
 // Setup
 // =============================================================================
