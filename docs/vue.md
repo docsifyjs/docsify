@@ -1,20 +1,12 @@
 # Vue compatibility
 
-Docsify allows Vue content to be added directly to your markdown pages. This can greatly simplify working with data and adding reactivity to your site.
+Docsify allows [Vue.js](https://vuejs.org) content to be added directly to your markdown pages. This can greatly simplify working with data and adding reactivity to your site.
 
-To get started, add Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
+Vue [template syntax](https://vuejs.org/guide/essentials/template-syntax) can be used to add dynamic content to your pages. Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or within DOM [mounts](#mounts) and [components](#components).
 
-#### Vue 2.x
+## Setup
 
-```html
-<!-- Production -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
-
-<!-- Development -->
-<script src="//cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-```
-
-#### Vue 3.x
+To get started, add Vue.js to your `index.html` file. Choose the production version for your live site or the development version for helpful console warnings and [Vue.js devtools](https://github.com/vuejs/vue-devtools) support.
 
 ```html
 <!-- Production -->
@@ -26,7 +18,7 @@ To get started, add Vue [2.x](https://vuejs.org) or [3.x](https://v3.vuejs.org) 
 
 ## Template syntax
 
-Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create dynamic content. With no additional configuration, this syntax offers several useful features like support for [JavaScript expressions](https://vuejs.org/v2/guide/syntax.html#Using-JavaScript-Expressions) and Vue [directives](https://vuejs.org/v2/guide/syntax.html#Directives) for loops and conditional rendering.
+Vue [template syntax](https://vuejs.org/guide/essentials/template-syntax) offers several useful features like support for [JavaScript expressions](https://vuejs.org/guide/essentials/template-syntax.html#using-javascript-expressions) and Vue [directives](https://vuejs.org/guide/essentials/template-syntax.html#directives) for loops and conditional rendering.
 
 ```markdown
 <!-- Hide in docsify, show elsewhere (e.g. GitHub) -->
@@ -53,9 +45,29 @@ Vue [template syntax](https://vuejs.org/v2/guide/syntax.html) is used to create 
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#template-syntax)
 
-Vue content becomes more interesting when [data](#data), [computed properties](#computed-properties), [methods](#methods), and [lifecycle hooks](#lifecycle-hooks) are used. These options can be specified as [global options](#global-options) or within DOM [mounts](#mounts) and [components](#components).
+## Code Blocks
 
-### Data
+Docsify ignores Vue template syntax within code blocks by default:
+
+````markdown
+```
+{{ message}}
+```
+````
+
+To process Vue template syntax within a code block, wrap the code block in an element with a `v-template` attribute:
+
+````markdown
+<div v-template>
+
+```
+{{ message}}
+```
+
+</div>
+````
+
+## Data
 
 ```js
 {
@@ -74,23 +86,18 @@ Vue content becomes more interesting when [data](#data), [computed properties](#
 
 <!-- Show message in docsify, hide elsewhere (e.g. GitHub)  -->
 <p v-text="message"></p>
-
-<!-- Show message in docsify, show text elsewhere (e.g. GitHub)  -->
-<p v-text="message">Text for GitHub</p>
 ```
 <!-- prettier-ignore-end -->
 
 <output data-lang="output">
-
-{{ message }}
+  <p>{{ message }}</p>
 
   <p v-text="message"></p>
-  <p v-text="message">Text for GitHub</p>
 </output>
 
 [View output on GitHub](https://github.com/docsifyjs/docsify/blob/develop/docs/vue.md#data)
 
-### Computed properties
+## Computed properties
 
 ```js
 {
@@ -123,7 +130,7 @@ Good {{ timeOfDay }}!
 
 </output>
 
-### Methods
+## Methods
 
 ```js
 {
@@ -148,7 +155,7 @@ Good {{ timeOfDay }}!
   <p><button @click="hello">Say Hello</button></p>
 </output>
 
-### Lifecycle Hooks
+## Lifecycle Hooks
 
 ```js
 {
@@ -193,7 +200,7 @@ Good {{ timeOfDay }}!
 
 ## Global options
 
-Use `vueGlobalOptions` to specify [Vue options](https://vuejs.org/v2/api/#Options-Data) for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
+Use `vueGlobalOptions` to specify global Vue options for use with Vue content not explicitly mounted with [vueMounts](#mounts), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
 ```js
 window.$docsify = {
@@ -209,17 +216,17 @@ window.$docsify = {
 
 ```markdown
 <p>
-  <button @click="count -= 1">-</button>
-  {{ count }}
   <button @click="count += 1">+</button>
+  {{ count }}
+  <button @click="count -= 1">-</button>
 </p>
 ```
 
 <output data-lang="output">
   <p>
-    <button @click="count -= 1">-</button>
-    {{ count }}
     <button @click="count += 1">+</button>
+    {{ count }}
+    <button @click="count -= 1">-</button>
   </p>
 </output>
 
@@ -227,9 +234,9 @@ Notice the behavior when multiple global counters are rendered:
 
 <output data-lang="output">
   <p>
-    <button @click="count -= 1">-</button>
-    {{ count }}
     <button @click="count += 1">+</button>
+    {{ count }}
+    <button @click="count -= 1">-</button>
   </p>
 </output>
 
@@ -237,7 +244,7 @@ Changes made to one counter affect the both counters. This is because both insta
 
 ## Mounts
 
-Use `vueMounts` to specify DOM elements to mount as [Vue instances](https://vuejs.org/v2/guide/instance.html) and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
+Use `vueMounts` to specify DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -255,21 +262,21 @@ window.$docsify = {
 
 ```markdown
 <div id="counter">
-  <button @click="count -= 1">-</button>
-  {{ count }}
   <button @click="count += 1">+</button>
+  {{ count }}
+  <button @click="count -= 1">-</button>
 </div>
 ```
 
 <output id="counter">
-  <button @click="count -= 1">-</button>
-  {{ count }}
   <button @click="count += 1">+</button>
+  {{ count }}
+  <button @click="count -= 1">-</button>
 </output>
 
 ## Components
 
-Use `vueComponents` to create and register global [Vue components](https://vuejs.org/v2/guide/components.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
+Use `vueComponents` to create and register global [Vue components](https://vuejs.org/guide/essentials/component-basics.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -307,17 +314,6 @@ Vue content can mounted using a `<script>` tag in your markdown pages.
 !> Only the first `<script>` tag in a markdown file is executed. If you wish to mount multiple Vue instances using a script tag, all instances must be mounted within the first script tag in your markdown.
 
 ```html
-<!-- Vue 2.x  -->
-<script>
-  new Vue({
-    el: '#example',
-    // Options...
-  });
-</script>
-```
-
-```html
-<!-- Vue 3.x  -->
 <script>
   Vue.createApp({
     // Options...

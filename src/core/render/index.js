@@ -202,7 +202,7 @@ export function Render(Base) {
           const isVueAttr = 'data-isvue';
           const isSkipElm =
             // Is an invalid tag
-            mountElm.matches('pre, script') ||
+            mountElm.matches('pre, :not([v-template]):has(pre), script') ||
             // Is a mounted instance
             isMountedVue(mountElm) ||
             // Has mounted instance(s)

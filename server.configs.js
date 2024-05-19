@@ -49,7 +49,7 @@ export const testConfig = {
         route: '/_blank.html',
         handle(req, res, next) {
           res.setHeader('Content-Type', 'text/html');
-          res.end('');
+          res.end('<!DOCTYPE html><html><body></body></html>');
           next();
         },
       },
