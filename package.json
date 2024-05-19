@@ -75,7 +75,7 @@
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.11.5",
     "@eslint/js": "^8.43.0",
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.44.0",
     "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-replace": "^5.0.2",
@@ -108,8 +108,7 @@
     "rollup": "^3.25.3",
     "serve-handler": "^6.1.2",
     "stylus": "^0.60.0",
-    "vue2": "npm:vue@^2.6.12",
-    "vue3": "npm:vue@^3.0.0",
+    "vue": "^3.4.27",
     "xhr-mock": "^2.5.1"
   },
   "keywords": [
