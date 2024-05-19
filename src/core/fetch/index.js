@@ -102,7 +102,8 @@ export function Fetch(Base) {
         this.isHTML = /\.html$/g.test(file);
 
         // create a handler that should be called if content was fetched successfully
-        const contentFetched = (text, opt) => {
+        const contentFetched = (text, opt, response) => {
+          this.route.response = response;
           this._renderMain(
             text,
             opt,
@@ -111,7 +112,8 @@ export function Fetch(Base) {
         };
 
         // and a handler that is called if content failed to fetch
-        const contentFailedToFetch = _error => {
+        const contentFailedToFetch = (_error, response) => {
+          this.route.response = response;
           this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
         };
 
@@ -182,7 +184,7 @@ export function Fetch(Base) {
       }
     }
 
-    $fetch(cb = noop, $resetEvents = this.$resetEvents.bind(this)) {
+    $fetch(cb = noop, onNavigate = this.onNavigate.bind(this)) {
       const done = () => {
         this.callHook('doneEach');
         cb();
@@ -194,7 +196,7 @@ export function Fetch(Base) {
         done();
       } else {
         this._fetch(() => {
-          $resetEvents();
+          onNavigate();
           done();
         });
       }
@@ -260,25 +262,7 @@ export function Fetch(Base) {
     initFetch() {
       const { loadSidebar } = this.config;
 
-      // Server-Side Rendering
-      if (this.rendered) {
-        const activeEl = this.__getAndActive(
-          this.router,
-          '.sidebar-nav',
-          true,
-          true
-        );
-        if (loadSidebar && activeEl) {
-          activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
-        }
-
-        this._bindEventOnRendered(activeEl);
-        this.$resetEvents();
-        this.callHook('doneEach');
-        this.callHook('ready');
-      } else {
-        this.$fetch(_ => this.callHook('ready'));
-      }
+      this.$fetch(_ => this.callHook('ready'));
     }
   };
 }

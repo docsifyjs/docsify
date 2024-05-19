@@ -30,7 +30,7 @@ export default function (vm) {
       nativeEmoji: false,
       noCompileLinks: [],
       noEmoji: false,
-      notFoundPage: true,
+      notFoundPage: false,
       plugins: [],
       relativePath: false,
       repo: '',
@@ -47,17 +47,19 @@ export default function (vm) {
         return this.__themeColor;
       },
       set themeColor(value) {
-        this.__themeColor = value;
-        console.warn(
-          stripIndent(/* html */ `
-            $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
-            <style>
-              :root {
-                --theme-color: deeppink;
-              }
-            </style>
-          `).trim()
-        );
+        if (value) {
+          this.__themeColor = value;
+          console.warn(
+            stripIndent(`
+              $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
+              <style>
+                :root {
+                  --theme-color: deeppink;
+                }
+              </style>
+            `).trim()
+          );
+        }
       },
     },
 
@@ -65,6 +67,28 @@ export default function (vm) {
       ? window.$docsify(vm)
       : window.$docsify
   );
+
+  // Merge default and user-specified key bindings
+  if (config.keyBindings !== false) {
+    config.keyBindings = Object.assign(
+      // Default
+      {
+        toggleSidebar: {
+          bindings: ['\\'],
+          callback(e) {
+            const toggleElm = document.querySelector('.sidebar-toggle');
+
+            if (toggleElm) {
+              toggleElm.click();
+              toggleElm.focus();
+            }
+          },
+        },
+      },
+      // User-specified
+      config.keyBindings
+    );
+  }
 
   const script =
     currentScript ||

@@ -37,12 +37,12 @@ export function main(config) {
   const name = config.name ? config.name : '';
 
   const aside = /* html */ `
-    <button class="sidebar-toggle" aria-label="Menu">
-      <div class="sidebar-toggle-button">
+    <button class="sidebar-toggle" title="Press \\ to toggle" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
+      <div class="sidebar-toggle-button" aria-hidden="true">
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside class="sidebar">
+    <aside id="__sidebar" class="sidebar" role="none">
       ${
         config.name
           ? /* html */ `
@@ -52,14 +52,14 @@ export function main(config) {
           `
           : ''
       }
-      <div class="sidebar-nav"><!--sidebar--></div>
+      <div class="sidebar-nav" role="navigation" aria-label="primary"><!--sidebar--></div>
     </aside>
   `;
 
   return /* html */ `
-    <main>${aside}
+    <main role="presentation">${aside}
       <section class="content">
-        <article class="markdown-section" id="main"><!--main--></article>
+        <article id="main" class="markdown-section" role="main" tabindex="-1"><!--main--></article>
       </section>
     </main>
   `;
@@ -80,7 +80,7 @@ export function cover() {
   `;
 
   return /* html */ `
-    <section class="cover show" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover" style="background: ${bgc}">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>

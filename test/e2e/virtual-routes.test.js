@@ -221,7 +221,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       await navigateToRoute(page, '/d');
 
       const mainElm = page.locator('#main');
-      await expect(mainElm).toContainText('404 - Not found');
+      await expect(mainElm).toContainText('404 - Not Found');
     });
 
     test('skip routes that returned a falsy value that is not a boolean', async ({
@@ -263,7 +263,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       await navigateToRoute(page, '/multiple/matches');
 
       const mainElm = page.locator('#main');
-      await expect(mainElm).toContainText('404 - Not found');
+      await expect(mainElm).toContainText('404 - Not Found');
     });
 
     test('skip routes that are not a valid string or function', async ({

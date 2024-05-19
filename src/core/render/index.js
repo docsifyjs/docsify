@@ -18,6 +18,14 @@ export function Render(Base) {
   return class Render extends Base {
     #vueGlobalData;
 
+    #addTextAsTitleAttribute(cssSelector) {
+      dom.findAll(cssSelector).forEach(elm => {
+        if (!elm.title && elm.innerText) {
+          elm.title = elm.innerText;
+        }
+      });
+    }
+
     #executeScript() {
       const script = dom
         .findAll('.markdown-section>script')
@@ -60,10 +68,6 @@ export function Render(Base) {
         return isVue2 || isVue3;
       };
 
-      if (!html) {
-        html = /* html */ `<h1>404 - Not found</h1>`;
-      }
-
       if ('Vue' in window) {
         const mountedElms = dom
           .findAll('.markdown-section > *')
@@ -94,6 +98,7 @@ export function Render(Base) {
 
       // Handle Vue content not mounted by markdown <script>
       if ('Vue' in window) {
+        const vueGlobalOptions = docsifyConfig.vueGlobalOptions || {};
         const vueMountData = [];
         const vueComponentNames = Object.keys(
           docsifyConfig.vueComponents || {}
@@ -113,10 +118,10 @@ export function Render(Base) {
         // Store global data() return value as shared data object
         if (
           !this.#vueGlobalData &&
-          docsifyConfig.vueGlobalOptions &&
-          typeof docsifyConfig.vueGlobalOptions.data === 'function'
+          vueGlobalOptions.data &&
+          typeof vueGlobalOptions.data === 'function'
         ) {
-          this.#vueGlobalData = docsifyConfig.vueGlobalOptions.data();
+          this.#vueGlobalData = vueGlobalOptions.data();
         }
 
         // vueMounts
@@ -129,64 +134,67 @@ export function Render(Base) {
             .filter(([elm, vueConfig]) => elm)
         );
 
-        // Template syntax, vueComponents, vueGlobalOptions
-        if (docsifyConfig.vueGlobalOptions || vueComponentNames.length) {
-          const reHasBraces = /{{2}[^{}]*}{2}/;
-          // Matches Vue full and shorthand syntax as attributes in HTML tags.
-          //
-          // Full syntax examples:
-          // v-foo, v-foo[bar], v-foo-bar, v-foo:bar-baz.prop
-          //
-          // Shorthand syntax examples:
-          // @foo, @foo.bar, @foo.bar.baz, @[foo], :foo, :[foo]
-          //
-          // Markup examples:
-          // <div v-html>{{ html }}</div>
-          // <div v-text="msg"></div>
-          // <div v-bind:text-content.prop="text">
-          // <button v-on:click="doThis"></button>
-          // <button v-on:click.once="doThis"></button>
-          // <button v-on:[event]="doThis"></button>
-          // <button @click.stop.prevent="doThis">
-          // <a :href="url">
-          // <a :[key]="url">
-          const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
+        // Template syntax, vueComponents, vueGlobalOptions ...
+        const reHasBraces = /{{2}[^{}]*}{2}/;
+        // Matches Vue full and shorthand syntax as attributes in HTML tags.
+        //
+        // Full syntax examples:
+        // v-foo, v-foo[bar], v-foo-bar, v-foo:bar-baz.prop
+        //
+        // Shorthand syntax examples:
+        // @foo, @foo.bar, @foo.bar.baz, @[foo], :foo, :[foo]
+        //
+        // Markup examples:
+        // <div v-html>{{ html }}</div>
+        // <div v-text="msg"></div>
+        // <div v-bind:text-content.prop="text">
+        // <button v-on:click="doThis"></button>
+        // <button v-on:click.once="doThis"></button>
+        // <button v-on:[event]="doThis"></button>
+        // <button @click.stop.prevent="doThis">
+        // <a :href="url">
+        // <a :[key]="url">
+        const reHasDirective = /<[^>/]+\s([@:]|v-)[\w-:.[\]]+[=>\s]/;
 
-          vueMountData.push(
-            ...dom
-              .findAll('.markdown-section > *')
-              // Remove duplicates
-              .filter(elm => !vueMountData.some(([e, c]) => e === elm))
-              // Detect Vue content
-              .filter(elm => {
-                const isVueMount =
-                  // is a component
-                  elm.tagName.toLowerCase() in
-                    (docsifyConfig.vueComponents || {}) ||
-                  // has a component(s)
-                  elm.querySelector(vueComponentNames.join(',') || null) ||
-                  // has curly braces
-                  reHasBraces.test(elm.outerHTML) ||
-                  // has content directive
-                  reHasDirective.test(elm.outerHTML);
+        vueMountData.push(
+          ...dom
+            .findAll('.markdown-section > *')
+            // Remove duplicates
+            .filter(elm => !vueMountData.some(([e, c]) => e === elm))
+            // Detect Vue content
+            .filter(elm => {
+              const isVueMount =
+                // is a component
+                elm.tagName.toLowerCase() in
+                  (docsifyConfig.vueComponents || {}) ||
+                // has a component(s)
+                elm.querySelector(vueComponentNames.join(',') || null) ||
+                // has curly braces
+                reHasBraces.test(elm.outerHTML) ||
+                // has content directive
+                reHasDirective.test(elm.outerHTML);
 
-                return isVueMount;
-              })
-              .map(elm => {
-                // Clone global configuration
-                const vueConfig = {
-                  ...docsifyConfig.vueGlobalOptions,
-                };
-                // Replace vueGlobalOptions data() return value with shared data object.
-                // This provides a global store for all Vue instances that receive
-                // vueGlobalOptions as their configuration.
-                if (this.#vueGlobalData) {
-                  vueConfig.data = () => this.#vueGlobalData;
-                }
+              return isVueMount;
+            })
+            .map(elm => {
+              // Clone global configuration
+              const vueConfig = {
+                ...vueGlobalOptions,
+              };
+              // Replace vueGlobalOptions data() return value with shared data object.
+              // This provides a global store for all Vue instances that receive
+              // vueGlobalOptions as their configuration.
+              if (this.#vueGlobalData) {
+                vueConfig.data = () => this.#vueGlobalData;
+              }
 
-                return [elm, vueConfig];
-              })
-          );
+              return [elm, vueConfig];
+            })
+        );
+
+        // Not found mounts but import Vue resource
+        if (vueMountData.length === 0) {
+          return;
         }
 
         // Mount
@@ -194,7 +202,7 @@ export function Render(Base) {
           const isVueAttr = 'data-isvue';
           const isSkipElm =
             // Is an invalid tag
-            mountElm.matches('pre, script') ||
+            mountElm.matches('pre, :not([v-template]):has(pre), script') ||
             // Is a mounted instance
             isMountedVue(mountElm) ||
             // Has mounted instance(s)
@@ -242,6 +250,34 @@ export function Render(Base) {
         el.setAttribute('href', nameLink[match]);
       }
     }
+
+    #renderSkipLink(vm) {
+      const { skipLink } = vm.config;
+
+      if (skipLink !== false) {
+        const el = dom.getNode('#skip-to-content');
+
+        let skipLinkText =
+          typeof skipLink === 'string' ? skipLink : 'Skip to main content';
+
+        if (skipLink?.constructor === Object) {
+          const matchingPath = Object.keys(skipLink).find(path =>
+            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`)
+          );
+          const matchingText = matchingPath && skipLink[matchingPath];
+
+          skipLinkText = matchingText || skipLinkText;
+        }
+
+        if (el) {
+          el.innerHTML = skipLinkText;
+        } else {
+          const html = `<button id="skip-to-content">${skipLinkText}</button>`;
+          dom.body.insertAdjacentHTML('afterbegin', html);
+        }
+      }
+    }
+
     _renderTo(el, content, replace) {
       const node = dom.getNode(el);
       if (node) {
@@ -251,29 +287,25 @@ export function Render(Base) {
 
     _renderSidebar(text) {
       const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
+      const sidebarEl = dom.getNode('aside.sidebar');
+      const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
-        // FIXME : better styling solution
-        [
-          document.querySelector('aside.sidebar'),
-          document.querySelector('button.sidebar-toggle'),
-        ]
-          .filter(e => !!e)
-          .forEach(node => node.parentNode.removeChild(node));
-        document.querySelector('section.content').style.right = 'unset';
-        document.querySelector('section.content').style.left = 'unset';
-        document.querySelector('section.content').style.position = 'relative';
-        document.querySelector('section.content').style.width = '100%';
+        dom.body.classList.add('hidesidebar');
+        sidebarEl?.remove(sidebarEl);
+        sidebarToggleEl?.remove(sidebarToggleEl);
+
         return null;
       }
 
       this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
-      const activeEl = this.__getAndActive(
-        this.router,
-        '.sidebar-nav',
-        true,
-        true
-      );
+      sidebarToggleEl.setAttribute('aria-expanded', !isMobile);
+
+      const activeElmHref = this.router.toURL(this.route.path);
+      const activeEl = dom.find(`.sidebar-nav a[href="${activeElmHref}"]`);
+
+      this.#addTextAsTitleAttribute('.sidebar-nav a');
+
       if (loadSidebar && activeEl) {
         activeEl.parentNode.innerHTML +=
           this.compiler.subSidebar(subMaxLevel) || '';
@@ -289,7 +321,7 @@ export function Render(Base) {
     _bindEventOnRendered(activeEl) {
       const { autoHeader } = this.config;
 
-      this.__scrollActiveSidebar(this.router);
+      this.onRender();
 
       if (autoHeader && activeEl) {
         const main = dom.getNode('#main');
@@ -304,14 +336,16 @@ export function Render(Base) {
 
     _renderNav(text) {
       text && this._renderTo('nav', this.compiler.compile(text));
-      if (this.config.loadNavbar) {
-        this.__getAndActive(this.router, 'nav');
-      }
+      this.#addTextAsTitleAttribute('nav a');
     }
 
     _renderMain(text, opt = {}, next) {
-      if (!text) {
-        return this.#renderMain(text);
+      const { response } = this.route;
+
+      // Note: It is possible for the response to be undefined in environments
+      // where XMLHttpRequest has been modified or mocked
+      if (response && !response.ok && (!text || response.status !== 404)) {
+        text = `# ${response.status} - ${response.statusText}`;
       }
 
       this.callHook('beforeEach', text, result => {
@@ -390,12 +424,14 @@ export function Render(Base) {
       }
 
       this._renderTo('.cover-main', html);
-      this.__sticky();
     }
 
     _updateRender() {
       // Render name link
       this.#renderNameLink(this);
+
+      // Render skip link
+      this.#renderSkipLink(this);
     }
 
     initRender() {
@@ -409,13 +445,11 @@ export function Render(Base) {
       }
 
       const id = config.el || '#app';
-      const navEl = dom.find('nav') || dom.create('nav');
-
       const el = dom.find(id);
-      let html = '';
-      let navAppendToTarget = dom.body;
 
       if (el) {
+        let html = '';
+
         if (config.repo) {
           html += tpl.corner(config.repo, config.cornerExternalLinkTarget);
         }
@@ -435,25 +469,27 @@ export function Render(Base) {
         }
 
         html += tpl.main(config);
+
         // Render main app
         this._renderTo(el, html, true);
       } else {
         this.rendered = true;
       }
 
-      if (config.mergeNavbar && isMobile) {
-        navAppendToTarget = dom.find('.sidebar');
-      } else {
-        navEl.classList.add('app-nav');
-
-        if (!config.repo) {
-          navEl.classList.add('no-badge');
-        }
-      }
-
       // Add nav
       if (config.loadNavbar) {
-        dom.before(navAppendToTarget, navEl);
+        const navEl = dom.find('nav') || dom.create('nav');
+        const isMergedSidebar = config.mergeNavbar && isMobile;
+
+        navEl.setAttribute('aria-label', 'secondary');
+
+        if (isMergedSidebar) {
+          dom.find('.sidebar').prepend(navEl);
+        } else {
+          dom.body.prepend(navEl);
+          navEl.classList.add('app-nav');
+          navEl.classList.toggle('no-badge', !config.repo);
+        }
       }
 
       if (config.themeColor) {
