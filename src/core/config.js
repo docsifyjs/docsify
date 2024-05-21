@@ -1,4 +1,4 @@
-import stripIndent from 'strip-indent';
+import { stripIndent } from 'common-tags';
 import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;

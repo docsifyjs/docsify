@@ -37,8 +37,8 @@ test.describe('Gtag Plugin Tests', () => {
       config: {
         gtag: gtagList[0],
       },
-      scriptURLs: ['/lib/plugins/gtag.min.js'],
-      styleURLs: ['/lib/themes/vue.css'],
+      scriptURLs: ['/dist/plugins/gtag.js'],
+      styleURLs: ['/dist/themes/vue.css'],
     };
 
     await docsifyInit({
@@ -63,8 +63,8 @@ test.describe('Gtag Plugin Tests', () => {
       config: {
         gtag: gtagList,
       },
-      scriptURLs: ['/lib/plugins/gtag.min.js'],
-      styleURLs: ['/lib/themes/vue.css'],
+      scriptURLs: ['/dist/plugins/gtag.js'],
+      styleURLs: ['/dist/themes/vue.css'],
     };
 
     await docsifyInit({
