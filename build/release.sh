@@ -15,8 +15,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   # build
   VERSION=$VERSION npm run build
 
-  # TODO
-  # npm test
+  # test
+  npm run test
 
   # commit
   git add -A
