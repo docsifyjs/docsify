@@ -28,7 +28,7 @@
     "build:css": "mkdirp lib/themes && node build/css -o lib/themes",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "cross-env NODE_ENV=production node build/build.js",
-    "build": "run-s clean build:js build:css build:css:min build:cover build:emoji",
+    "build": "run-s clean build:js build:css build:css:min build:cover",
     "clean": "rimraf lib themes _playwright*",
     "dev": "run-p serve:dev watch:*",
     "docker:build:test": "npm run docker:cli -- build:test",

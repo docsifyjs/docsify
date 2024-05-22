@@ -13,9 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          # TODO change to develop
-          ref: rotate-emoji-test-dev
 
       - name: Setup Node.js v20
         uses: actions/setup-node@v3
