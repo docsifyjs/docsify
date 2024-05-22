@@ -37,7 +37,7 @@ First, you need to set `loadSidebar` to **true**. Details are available in the [
     loadSidebar: true,
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 Create the `_sidebar.md`:
@@ -110,7 +110,7 @@ A custom sidebar can also automatically generate a table of contents by setting 
     subMaxLevel: 2,
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ## Ignoring Subheaders

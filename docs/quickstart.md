@@ -38,6 +38,7 @@ docsify serve docs
 
 If you don't like `npm` or have trouble installing the tool, you can manually create `index.html`:
 
+<!-- prettier-ignore -->
 ```html
 <!-- index.html -->
 
@@ -46,10 +47,7 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta charset="UTF-8" />
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css"
-    />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
   </head>
   <body>
     <div id="app"></div>
@@ -58,41 +56,48 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
         //...
       };
     </script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
   </body>
 </html>
 ```
 
 ### Specifying docsify versions
 
-?> Note that in both of the examples below, docsify URLs will need to be manually updated when a new major version of docsify is released (e.g. `v4.x.x` => `v5.x.x`). Check the docsify website periodically to see if a new major version has been released.
+?> Note that in both of the examples below, docsify URLs will need to be manually updated when a new major version of docsify is released (e.g. `v5.x.x` => `v6.x.x`). Check the docsify website periodically to see if a new major version has been released.
 
-Specifying a major version in the URL (`@4`) will allow your site to receive non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch" updates) automatically. This is the recommended way to load docsify resources.
+Specifying a major version in the URL (`@5`) will allow your site to receive non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch" updates) automatically. This is the recommended way to load docsify resources.
 
+<!-- prettier-ignore -->
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/vue.css" />
-<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+<!-- Theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+
+<!-- Docsify -->
+<script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
 ```
 
 If you prefer to lock docsify to a specific version, specify the full version after the `@` symbol in the URL. This is the safest way to ensure your site will look and behave the same way regardless of any changes made to future versions of docsify.
 
+<!-- prettier-ignore -->
 ```html
-<link
-  rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify@4.11.4/themes/vue.css"
-/>
-<script src="//cdn.jsdelivr.net/npm/docsify@4.11.4"></script>
+<!-- Theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+
+<!-- Docsify -->
+<script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
 ```
 
 ### Manually preview your site
 
 If you have Python installed on your system, you can easily use it to run a static server to preview your site.
 
-```python2
+```python
+# Python 2
 cd docs && python -m SimpleHTTPServer 3000
 ```
 
-```python3
+```python
+# Python 3
 cd docs && python -m http.server 3000
 ```
 
