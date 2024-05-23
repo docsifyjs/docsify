@@ -40,7 +40,7 @@ export default async function middleware(request) {
   const indexHTML = await fetch(indexURL).then(res => res.text());
   const previewHTML = rewriteRules.reduce(
     (html, rule) => html.replace(rule.match, rule.replace),
-    indexHTML
+    indexHTML,
   );
 
   return new Response(previewHTML, {

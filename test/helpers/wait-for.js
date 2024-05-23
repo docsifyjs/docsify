@@ -25,7 +25,7 @@ function waitForFunction(fn, arg, options = {}) {
 
       try {
         result = fn(arg);
-      } catch (e) {
+      } catch {
         // Continue...
       }
 

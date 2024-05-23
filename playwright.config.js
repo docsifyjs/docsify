@@ -23,7 +23,7 @@ const config = {
   testDir: './test/e2e',
   timeout: 30 * 1000,
   workers: process.env.CI ? 1 : undefined, // No parallel tests on CI
-  forbidOnly: !!process.env.CI, // Fail on CI if test.only in source
+  forbidOnly: Boolean(process.env.CI), // Fail on CI if test.only in source
 
   // Output
   outputDir: './_playwright-results/', // screenshots, videos, traces, etc.

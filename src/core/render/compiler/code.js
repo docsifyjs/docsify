@@ -8,7 +8,7 @@ export const highlightCodeCompiler = ({ renderer }) =>
     const text = Prism.highlight(
       code.replace(/@DOCSIFY_QM@/g, '`'),
       langOrMarkup,
-      lang
+      lang,
     );
 
     return /* html */ `<pre data-lang="${lang}"><code class="lang-${lang}" tabindex="0">${text}</code></pre>`;

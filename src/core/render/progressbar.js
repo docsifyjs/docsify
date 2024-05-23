@@ -41,7 +41,7 @@ export default function (info) {
 
   if (num >= 95) {
     clearTimeout(timeId);
-    // eslint-disable-next-line no-unused-vars
+
     timeId = setTimeout(_ => {
       barEl.style.opacity = 0;
       barEl.style.width = '0%';

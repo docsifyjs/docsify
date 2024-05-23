@@ -9,7 +9,7 @@ const filePaths = {
     'src',
     'core',
     'render',
-    'emoji-data.js'
+    'emoji-data.js',
   ),
 };
 
@@ -26,7 +26,7 @@ async function getEmojiData() {
 
   // Remove base URL from emoji URLs
   Object.entries(data).forEach(
-    ([key, value]) => (data[key] = value.replace(baseURL, ''))
+    ([key, value]) => (data[key] = value.replace(baseURL, '')),
   );
 
   console.info(`- Retrieved ${Object.keys(data).length} emoji entries`);
@@ -41,7 +41,7 @@ function writeEmojiPage(emojiData) {
   const isExistingPage = fs.existsSync(filePaths.emojiMarkdown);
   const emojiPage =
     (isExistingPage && fs.readFileSync(filePaths.emojiMarkdown, 'utf8')) ||
-    `<!-- START -->\n\n<!-- END -->`;
+    '<!-- START -->\n\n<!-- END -->';
   const emojiRegEx = /(<!--\s*START.*-->\n)([\s\S]*)(\n<!--\s*END.*-->)/;
   const emojiMatch = emojiPage.match(emojiRegEx);
   const emojiMarkdownStart = emojiMatch[1].trim();
@@ -51,20 +51,20 @@ function writeEmojiPage(emojiData) {
     .reduce(
       (preVal, curVal) =>
         (preVal += `:${curVal}: ` + '`' + `:${curVal}:` + '`' + '\n\n'),
-      ''
+      '',
     )
     .trim();
 
   if (emojiMarkdown !== newEmojiMarkdown) {
     const newEmojiPage = emojiPage.replace(
       emojiMatch[0],
-      `${emojiMarkdownStart}\n\n${newEmojiMarkdown}\n\n${emojiMarkdownEnd}`
+      `${emojiMarkdownStart}\n\n${newEmojiMarkdown}\n\n${emojiMarkdownEnd}`,
     );
 
     fs.writeFileSync(filePaths.emojiMarkdown, newEmojiPage);
 
     console.info(
-      `- ${!isExistingPage ? 'Created' : 'Updated'}: ${filePaths.emojiMarkdown}`
+      `- ${!isExistingPage ? 'Created' : 'Updated'}: ${filePaths.emojiMarkdown}`,
     );
   } else {
     console.info(`- No changes: ${filePaths.emojiMarkdown}`);
@@ -86,7 +86,7 @@ function writeEmojiJS(emojiData) {
     fs.writeFileSync(filePaths.emojiJS, newEmojiJS);
 
     console.info(
-      `- ${!isExistingPage ? 'Created' : 'Updated'}: ${filePaths.emojiJS}`
+      `- ${!isExistingPage ? 'Created' : 'Updated'}: ${filePaths.emojiJS}`,
     );
   } else {
     console.info(`- No changes: ${filePaths.emojiJS}`);

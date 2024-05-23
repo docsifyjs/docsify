@@ -9,7 +9,7 @@ export const linkCompiler = ({
   compilerClass,
 }) =>
   (renderer.link = (href, title = '', text) => {
-    let attrs = [];
+    const attrs = [];
     const { str, config } = getAndRemoveConfig(title);
     linkTarget = config.target || linkTarget;
     linkRel =
@@ -42,8 +42,8 @@ export const linkCompiler = ({
         href.indexOf('mailto:') === 0
           ? ''
           : linkRel !== ''
-          ? ` rel="${linkRel}"`
-          : ''
+            ? ` rel="${linkRel}"`
+            : '',
       );
     }
 

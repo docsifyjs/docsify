@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   init as initComponent,
   update as updateComponent,

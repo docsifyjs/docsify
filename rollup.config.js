@@ -37,7 +37,7 @@ const pluginConfigs = pluginPaths.map(pluginPath => {
 // =============================================================================
 const currentYear = new Date().getFullYear();
 const { homepage, license, version } = JSON.parse(
-  await fs.readFile(path.join(import.meta.dirname, 'package.json'), 'utf8')
+  await fs.readFile(path.join(import.meta.dirname, 'package.json'), 'utf8'),
 );
 const baseConfig = {
   output: {

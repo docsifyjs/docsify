@@ -8,9 +8,7 @@ import { test, expect } from './fixtures/docsify-init-fixture.js';
  */
 async function navigateToRoute(page, route) {
   await page.evaluate(r => (window.location.hash = r), route);
-  // TODO: playwright eslint now recommends not using networkidle
-  // eslint-disable-next-line
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 }
 
 test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
@@ -60,7 +58,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
         '/my-awesome-async-function-route': async function (
           route,
           matched,
-          next
+          next,
         ) {
           setTimeout(() => next('# My Awesome Function Route'), 100);
         },
@@ -101,7 +99,7 @@ test.describe('Virtual Routes - Generate Dynamic Content via Config', () => {
       page,
     }) => {
       const routes = {
-        '/pets/(.*)': route => `# Route: /pets/dog`,
+        '/pets/(.*)': route => '# Route: /pets/dog',
       };
 
       await docsifyInit({

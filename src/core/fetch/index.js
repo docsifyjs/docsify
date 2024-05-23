@@ -22,7 +22,7 @@ export function Fetch(Base) {
       get(
         vm.router.getFile(path + file) + qs,
         false,
-        vm.config.requestHeaders
+        vm.config.requestHeaders,
       ).then(next, _error => this.#loadNested(path, qs, file, next, vm));
     }
 
@@ -83,7 +83,7 @@ export function Fetch(Base) {
 
     _fetch(cb = noop) {
       const { query } = this.route;
-      let { path } = this.route;
+      const { path } = this.route;
 
       // Prevent loading remote content via URL hash
       // Ex: https://foo.com/#//bar.com/file.md
@@ -107,7 +107,7 @@ export function Fetch(Base) {
           this._renderMain(
             text,
             opt,
-            this._loadSideAndNav(path, qs, loadSidebar, cb)
+            this._loadSideAndNav(path, qs, loadSidebar, cb),
           );
         };
 
@@ -125,7 +125,7 @@ export function Fetch(Base) {
             } else {
               this.#request(file + qs, requestHeaders).then(
                 contentFetched,
-                contentFailedToFetch
+                contentFailedToFetch,
               );
             }
           });
@@ -133,7 +133,7 @@ export function Fetch(Base) {
           // if the requested url is not local, just fetch the file
           this.#request(file + qs, requestHeaders).then(
             contentFetched,
-            contentFailedToFetch
+            contentFailedToFetch,
           );
         }
 
@@ -145,7 +145,7 @@ export function Fetch(Base) {
             loadNavbar,
             text => this._renderNav(text),
             this,
-            true
+            true,
           );
       }
     }
@@ -174,7 +174,7 @@ export function Fetch(Base) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
           get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-            text => this._renderCover(text, coverOnly)
+            text => this._renderCover(text, coverOnly),
           );
         } else {
           this._renderCover(null, coverOnly);
@@ -216,7 +216,7 @@ export function Fetch(Base) {
       }
 
       const newPath = this.router.getFile(
-        path.replace(new RegExp(`^/${local}`), '')
+        path.replace(new RegExp(`^/${local}`), ''),
       );
       const req = this.#request(newPath + qs, requestHeaders);
 
@@ -225,9 +225,9 @@ export function Fetch(Base) {
           this._renderMain(
             text,
             opt,
-            this._loadSideAndNav(path, qs, loadSidebar, cb)
+            this._loadSideAndNav(path, qs, loadSidebar, cb),
           ),
-        _error => this._fetch404(path, qs, cb)
+        _error => this._fetch404(path, qs, cb),
       );
 
       return true;
@@ -250,7 +250,7 @@ export function Fetch(Base) {
 
         this.#request(this.router.getFile(path404), requestHeaders).then(
           (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
-          _error => this._renderMain(null, {}, fnLoadSideAndNav)
+          _error => this._renderMain(null, {}, fnLoadSideAndNav),
         );
         return true;
       }
