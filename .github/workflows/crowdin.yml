@@ -1,0 +1,30 @@
+name: Crowdin Action
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'docs/**.md'
+    branches: [develop, master, main]
+
+jobs:
+  crowdin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Crowdin push
+        uses: crowdin/github-action@v1
+        with:
+          upload_sources: true
+          upload_translations: false
+          download_translations: false
+          push_translations: false
+          config: '.github/crowdin/crowdin-push.yml'
+          crowdin_branch_name: ${{ github.ref_name }}
+          base_path: ${{ github.workspace }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
