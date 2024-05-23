@@ -1,4 +1,4 @@
-name: Rotate emojiData
+name: Update Emoji
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: rotate-emoji-group
+  group: update-emoji-group
 
 jobs:
   sync-emojis-from-github:
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js v20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
@@ -36,14 +36,14 @@ jobs:
             current_date=$(date +'%Y-%m-%d')
 
             branch_name="update-emoji-data-$current_date"
-            pr_title="update(emoji): sync emojiData and find update emojis in [$current_date]"
+            pr_title="update(emoji): Sync emoji data with GitHub emoji API [$current_date]"
             git config --global user.email "actions@github.com"
             git config --global user.name "GitHub Actions"
 
             git checkout -b $branch_name
             git add src/core/render/emoji-data.js
             git add docs/emoji.md
-            git commit -m "update(emoji): sync emojiData and find update emojis in [$current_date]"
+            git commit -m "update(emoji): Sync emoji data with GitHub emoji API [$current_date]"
             unique_branch_name=$branch_name-$(git log -1 --pretty=%h)
             git checkout -b $unique_branch_name
             git push origin $unique_branch_name
