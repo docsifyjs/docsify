@@ -23,7 +23,7 @@ jobs:
           push_translations: false
           config: '.github/crowdin/crowdin-push.yml'
           crowdin_branch_name: ${{ github.ref_name }}
-          base_path: ${{ github.workspace }}
+          base_path: ${{ github.workspace }}/docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}

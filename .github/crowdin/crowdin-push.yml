@@ -1,9 +1,9 @@
 files:
-  - source: /docs/*.md
-    translation: /docs/%two_letters_code%/%original_file_name%
+  - source: /*.md
+    translation: /%two_letters_code%/%original_file_name%
     ignore:
-      - '/docs/_coverpage.md'
-      - '/docs/_navbar.md'
+      - '/_coverpage.md'
+      - '/_navbar.md'
 
 project_id_env: CROWDIN_PROJECT_ID
 api_token_env: CROWDIN_PERSONAL_TOKEN
