@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - 'docs/**.md'
-    branches: [develop, master, main]
+    branches: [develop, master]
 
 jobs:
   crowdin:
