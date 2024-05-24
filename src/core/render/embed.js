@@ -99,7 +99,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const compile = compiler._marked;
   let tokens = compile.lexer(raw);
   const embedTokens = [];
-  const linkRE = compile.Lexer.rules.inline.link;
+  const linkRE = compile.Lexer.rules.inline.normal.link;
   const links = tokens.links;
 
   tokens.forEach((token, index) => {
