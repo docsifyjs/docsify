@@ -14,12 +14,6 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 
 :-1: `:-1:`
 
-:1st_place_medal: `:1st_place_medal:`
-
-:2nd_place_medal: `:2nd_place_medal:`
-
-:3rd_place_medal: `:3rd_place_medal:`
-
 :8ball: `:8ball:`
 
 :a: `:a:`
