@@ -85,7 +85,7 @@
     "build:css": "stylus src/themes --out dist/themes --sourcemap",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "rollup -c",
-    "build": "run-s clean build:js build:css build:css:min build:cover build:emoji",
+    "build": "run-s clean build:js build:css build:css:min build:cover",
     "clean": "rimraf --glob dist/** themes/** _playwright*/**",
     "dev": "run-p serve:dev watch:*",
     "docker:build:test": "npm run docker:cli -- build:test",
