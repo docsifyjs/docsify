@@ -1,4 +1,4 @@
-import prettierConfig from 'eslint-config-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import playwrightPlugin from 'eslint-plugin-playwright';
 import jestPlugin from 'eslint-plugin-jest';
 import globals from 'globals';
@@ -24,7 +24,7 @@ export default [
   // ESLint Recommended
   js.configs.recommended,
   // Configuration: Prettier
-  prettierConfig,
+  eslintConfigPrettier,
   // All Files
   {
     languageOptions: {
