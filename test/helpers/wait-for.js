@@ -9,7 +9,8 @@ const defaults = {
  * @param {Function} fn function to be evaluated until truthy
  * @param {*} arg optional argument to pass to `fn`
  * @param {Object} options optional parameters
- * @returns {Promise} promise which resolves to function result
+ * @returns {Promise} promise which resolves to truthy return value or rejects
+ * to an error object or message
  */
 function waitForFunction(fn, arg, options = {}) {
   const settings = {
@@ -19,14 +20,15 @@ function waitForFunction(fn, arg, options = {}) {
 
   return new Promise((resolve, reject) => {
     let timeElapsed = 0;
+    let lastError;
 
     const int = setInterval(() => {
       let result;
 
       try {
         result = fn(arg);
-      } catch {
-        // Continue...
+      } catch (err) {
+        lastError = err;
       }
 
       if (result) {
@@ -37,11 +39,13 @@ function waitForFunction(fn, arg, options = {}) {
       timeElapsed += settings.delay;
 
       if (timeElapsed >= settings.timeout) {
-        const msg = `waitForFunction did not return a truthy value (${
-          settings.timeout
-        } ms): ${fn.toString()}\n`;
+        const msg = `waitForFunction did not return a truthy value within ${settings.timeout} ms.`;
 
-        reject(msg);
+        if (lastError) {
+          lastError.message = `waitForFunction did not return a truthy value within ${settings.timeout} ms.\n\n${lastError.message}`;
+        }
+
+        reject(lastError || msg);
       }
     }, settings.delay);
   });
