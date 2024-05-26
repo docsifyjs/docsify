@@ -9,6 +9,8 @@ const defaults = {
  * @param {Function} fn function to be evaluated until truthy
  * @param {*} arg optional argument to pass to `fn`
  * @param {Object} options optional parameters
+ * @param {number} options.delay delay between fn invocations
+ * @param {number} options.timeout timeout in milliseconds
  * @returns {Promise} promise which resolves to truthy return value or rejects
  * to an error object or message
  */
@@ -56,6 +58,8 @@ function waitForFunction(fn, arg, options = {}) {
  *
  * @param {String} cssSelector CSS selector to query for
  * @param {Object} options optional parameters
+ * @param {number} options.delay delay between checks
+ * @param {number} options.timeout timeout in milliseconds
  * @returns {Promise} promise which resolves to first matching element
  */
 function waitForSelector(cssSelector, options = {}) {
@@ -91,6 +95,8 @@ function waitForSelector(cssSelector, options = {}) {
  * @param {String} cssSelector CSS selector to query for
  * @param {String} text text to match
  * @param {Object} options optional parameters
+ * @param {number} options.delay delay between checks
+ * @param {number} options.timeout timeout in milliseconds
  * @returns {Promise} promise which resolves to first matching element that contains specified text
  */
 function waitForText(cssSelector, text, options = {}) {
