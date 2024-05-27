@@ -1,8 +1,11 @@
+# Directories
 .git
-**/*.md
 build
+dist
 docs
 lib
 node_modules
+
+# Files
+**/*.md
 server.js
-themes

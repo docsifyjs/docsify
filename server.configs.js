@@ -21,7 +21,7 @@ export const prodConfig = {
 // Development (local URLs, watch enabled)
 export const devConfig = {
   ...prodConfig,
-  files: ['CHANGELOG.md', 'docs/**/*', 'lib/**/*'],
+  files: ['CHANGELOG.md', 'docs/**/*', 'dist/**/*'],
   port: 3000,
   rewriteRules,
   reloadDebounce: 1000,
@@ -30,7 +30,7 @@ export const devConfig = {
     ...prodConfig.server,
     routes: {
       '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
-      '/lib': path.resolve(__dirname, 'lib'),
+      '/dist': path.resolve(__dirname, 'dist'),
       '/node_modules': path.resolve(__dirname, 'node_modules'), // Required for automated Vue tests
     },
   },
