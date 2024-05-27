@@ -11,8 +11,8 @@ const defaults = {
  * @param {Object} options optional parameters
  * @param {number} options.delay delay between fn invocations
  * @param {number} options.timeout timeout in milliseconds
- * @returns {Promise} promise which resolves to truthy return value or rejects
- * to an error object or message
+ * @returns {Promise} promise which resolves to the truthy fn return value or
+ * rejects to an error object or last non-truthy fn return value
  */
 function waitForFunction(fn, arg, options = {}) {
   const settings = {
@@ -41,13 +41,10 @@ function waitForFunction(fn, arg, options = {}) {
       timeElapsed += settings.delay;
 
       if (timeElapsed >= settings.timeout) {
-        const msg = `waitForFunction did not return a truthy value within ${settings.timeout} ms.`;
-
-        if (lastError) {
-          lastError.message = `waitForFunction did not return a truthy value within ${settings.timeout} ms.\n\n${lastError.message}`;
-        }
-
-        reject(lastError || msg);
+        console.error(
+          `\nwaitForFunction did not return a truthy value within ${settings.timeout} ms.\n`,
+        );
+        reject(lastError || result);
       }
     }, settings.delay);
   });
