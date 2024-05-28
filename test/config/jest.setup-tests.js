@@ -110,7 +110,7 @@ beforeEach(async () => {
   // Mock IntersectionObserver
   // -----------------------------------------------------------------------------
   [global, window].forEach(
-    obj => (obj.IntersectionObserver = IntersectionObserver)
+    obj => (obj.IntersectionObserver = IntersectionObserver),
   );
 });
 

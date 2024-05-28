@@ -47,7 +47,7 @@ window.$docsify = {
           return /* html */ `
             <div class="mermaid">${mermaid.render(
               'mermaid-svg-' + num++,
-              code
+              code,
             )}</div>
           `;
         }

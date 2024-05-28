@@ -10,10 +10,8 @@ import { Lifecycle } from './init/lifecycle.js';
 
 /** @typedef {new (...args: any[]) => any} Constructor */
 
-// eslint-disable-next-line new-cap
 export class Docsify extends Fetch(
-  // eslint-disable-next-line new-cap
-  Events(Render(VirtualRoutes(Router(Lifecycle(Object)))))
+  Events(Render(VirtualRoutes(Router(Lifecycle(Object))))),
 ) {
   config = config(this);
 
@@ -37,6 +35,8 @@ export class Docsify extends Fetch(
       } catch (err) {
         if (this.config.catchPluginErrors) {
           const errTitle = 'Docsify plugin error';
+
+          // eslint-disable-next-line no-console
           console.error(errTitle, err);
         } else {
           throw err;

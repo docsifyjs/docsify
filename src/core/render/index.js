@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
 import { getPath, isAbsolutePath } from '../router/util.js';
@@ -47,8 +46,8 @@ export function Render(Base) {
         typeof fn === 'function'
           ? fn(updated)
           : typeof fn === 'string'
-          ? tinydate(fn)(new Date(updated))
-          : updated;
+            ? tinydate(fn)(new Date(updated))
+            : updated;
 
       return html.replace(/{docsify-updated}/g, updated);
     }
@@ -101,7 +100,7 @@ export function Render(Base) {
         const vueGlobalOptions = docsifyConfig.vueGlobalOptions || {};
         const vueMountData = [];
         const vueComponentNames = Object.keys(
-          docsifyConfig.vueComponents || {}
+          docsifyConfig.vueComponents || {},
         );
 
         // Register global vueComponents
@@ -131,7 +130,7 @@ export function Render(Base) {
               dom.find(markdownElm, cssSelector),
               docsifyConfig.vueMounts[cssSelector],
             ])
-            .filter(([elm, vueConfig]) => elm)
+            .filter(([elm, vueConfig]) => elm),
         );
 
         // Template syntax, vueComponents, vueGlobalOptions ...
@@ -189,7 +188,7 @@ export function Render(Base) {
               }
 
               return [elm, vueConfig];
-            })
+            }),
         );
 
         // Not found mounts but import Vue resource
@@ -244,7 +243,7 @@ export function Render(Base) {
         el.setAttribute('href', nameLink);
       } else if (typeof nameLink === 'object') {
         const match = Object.keys(nameLink).filter(
-          key => path.indexOf(key) > -1
+          key => path.indexOf(key) > -1,
         )[0];
 
         el.setAttribute('href', nameLink[match]);
@@ -262,7 +261,7 @@ export function Render(Base) {
 
         if (skipLink?.constructor === Object) {
           const matchingPath = Object.keys(skipLink).find(path =>
-            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`)
+            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`),
           );
           const matchingText = matchingPath && skipLink[matchingPath];
 
@@ -355,7 +354,7 @@ export function Render(Base) {
             html = this.#formatUpdated(
               html,
               opt.updatedAt,
-              this.config.formatUpdated
+              this.config.formatUpdated,
             );
           }
 
@@ -377,7 +376,7 @@ export function Render(Base) {
             tokens => {
               html = this.compiler.compile(tokens);
               callback();
-            }
+            },
           );
         }
       });
@@ -389,7 +388,7 @@ export function Render(Base) {
       dom.toggleClass(
         dom.getNode('main'),
         coverOnly ? 'add' : 'remove',
-        'hidden'
+        'hidden',
       );
       if (!text) {
         dom.toggleClass(el, 'remove', 'show');
@@ -440,7 +439,6 @@ export function Render(Base) {
       // Init markdown compiler
       this.compiler = new Compiler(config, this.router);
       if (inBrowser) {
-        /* eslint-disable-next-line camelcase */
         window.__current_docsify_compiler__ = this.compiler;
       }
 
@@ -494,7 +492,7 @@ export function Render(Base) {
 
       if (config.themeColor) {
         dom.$.head.appendChild(
-          dom.create('div', tpl.theme(config.themeColor)).firstElementChild
+          dom.create('div', tpl.theme(config.themeColor)).firstElementChild,
         );
       }
 

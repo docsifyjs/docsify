@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { search } from './search.js';
 
 let NO_DATA_TEXT = '';
@@ -216,7 +215,7 @@ function bindEvents() {
     'click',
     e =>
       ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
-      e.stopPropagation()
+      e.stopPropagation(),
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);

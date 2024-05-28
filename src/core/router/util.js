@@ -33,7 +33,7 @@ export function stringifyQuery(obj, ignores = []) {
     qs.push(
       obj[key]
         ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
-        : encode(key)
+        : encode(key),
     );
   }
 
@@ -63,7 +63,7 @@ export const cleanPath = cached(path => {
 
 export const resolvePath = cached(path => {
   const segments = path.replace(/^\//, '').split('/');
-  let resolved = [];
+  const resolved = [];
   for (const segment of segments) {
     if (segment === '..') {
       resolved.pop();

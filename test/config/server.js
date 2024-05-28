@@ -17,7 +17,7 @@ export async function startServer() {
       // problematic for testing and CI/CD.
       if (bsServer.getOption('port') !== settings.port) {
         console.log(
-          `\nPort ${settings.port} not available. Exiting process.\n`
+          `\nPort ${settings.port} not available. Exiting process.\n`,
         );
         process.exit(0);
       }

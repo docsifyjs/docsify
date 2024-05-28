@@ -52,8 +52,8 @@ export function isFn(obj) {
  * @returns {Boolean} True if the passed-in url is external
  */
 export function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+  const match = url.match(
+    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/,
   );
 
   if (
@@ -68,9 +68,9 @@ export function isExternal(url) {
     match[2].length > 0 &&
     match[2].replace(
       new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
+        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$',
       ),
-      ''
+      '',
     ) !== location.host
   ) {
     return true;
