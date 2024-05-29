@@ -177,7 +177,7 @@ export function Fetch(Base) {
             text => {
               this._renderCover(text, coverOnly);
               cb(coverOnly);
-            }
+            },
           );
         } else {
           this._renderCover(null, coverOnly);
