@@ -1,6 +1,11 @@
 name: Build & Test
 
-on: [push]
+on:
+  push:
+    branches: [master, main, develop]
+  pull_request:
+    branches: [master, main, develop]
+  workflow_dispatch:
 
 jobs:
   lint:
