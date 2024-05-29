@@ -158,6 +158,36 @@ test.describe('Plugins', () => {
     });
   });
 
+  test.describe('doneEach()', () => {
+    test('callback after cover loads', async ({ page }) => {
+      const consoleMessages = [];
+
+      page.on('console', msg => consoleMessages.push(msg.text()));
+
+      await docsifyInit({
+        config: {
+          plugins: [
+            function (hook) {
+              hook.doneEach(() => {
+                const homepageTitle = document.querySelector('#homepage-title');
+                const coverTitle = document.querySelector('#cover-title');
+                console.log(homepageTitle?.textContent);
+                console.log(coverTitle?.textContent);
+              });
+            },
+          ],
+        },
+        markdown: {
+          homepage: '# Hello World :id=homepage-title',
+          coverpage: '# Cover Page :id=cover-title',
+        },
+        // _logHTML: true,
+      });
+
+      await expect(consoleMessages).toEqual(['Hello World', 'Cover Page']);
+    });
+  });
+
   test.describe('route data accessible to plugins', () => {
     let routeData = null;
 
