@@ -26,7 +26,7 @@ export class History {
       ? this.#getAlias(
           path.replace(this.#cached[match], alias[match]),
           alias,
-          path
+          path,
         )
       : path;
   }
@@ -35,8 +35,8 @@ export class History {
     return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
       ? path
       : /\/$/g.test(path)
-      ? `${path}README${ext}`
-      : `${path}${ext}`;
+        ? `${path}README${ext}`
+        : `${path}${ext}`;
   }
 
   getBasePath() {
@@ -88,7 +88,7 @@ export class History {
     if (this.config.relativePath && path.indexOf('/') !== 0) {
       const currentDir = currentRoute.substring(
         0,
-        currentRoute.lastIndexOf('/') + 1
+        currentRoute.lastIndexOf('/') + 1,
       );
       return cleanPath(resolvePath(currentDir + path));
     }

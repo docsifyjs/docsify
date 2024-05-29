@@ -27,7 +27,7 @@ export function Events(Base) {
       if (topMargin) {
         document.documentElement.style.setProperty(
           'scroll-padding-top',
-          `${topMargin}px`
+          `${topMargin}px`,
         );
       }
 
@@ -93,7 +93,7 @@ export function Events(Base) {
                   a.compareDocumentPosition(b) &
                   Node.DOCUMENT_POSITION_FOLLOWING
                     ? -1
-                    : 1
+                    : 1,
                 )[0]
               : // Get first and only item in set.
                 // May be undefined if no headings are in view.
@@ -115,7 +115,7 @@ export function Events(Base) {
         },
         {
           rootMargin: '0% 0% -50% 0%', // Top half of viewport
-        }
+        },
       );
 
       headingElms.forEach(elm => {
@@ -172,7 +172,7 @@ export function Events(Base) {
         // Handle keyboard events
         dom.on('keydown', e => {
           const isTextEntry = document.activeElement.matches(
-            'input, select, textarea'
+            'input, select, textarea',
           );
 
           if (isTextEntry) {
@@ -192,9 +192,9 @@ export function Events(Base) {
                     (modifierKeys.includes(k) && e[k + 'Key']) ||
                     e.key === k || // Ex: " ", "a"
                     e.code.toLowerCase() === k || // "space"
-                    e.code.toLowerCase() === `key${k}` // "keya"
-                )
-              )
+                    e.code.toLowerCase() === `key${k}`, // "keya"
+                ),
+              ),
           );
 
           matchingConfigs.forEach(({ callback }) => {
@@ -262,7 +262,7 @@ export function Events(Base) {
         dom.on(
           dom.body,
           'click',
-          () => dom.body.classList.contains('close') && toggle()
+          () => dom.body.classList.contains('close') && toggle(),
         );
     }
 
@@ -297,7 +297,7 @@ export function Events(Base) {
     onRender() {
       const currentPath = this.router.toURL(this.router.getCurrentPath());
       const currentTitle = dom.find(
-        `.sidebar a[href='${currentPath}']`
+        `.sidebar a[href='${currentPath}']`,
       )?.innerText;
 
       // Update page title
@@ -327,7 +327,7 @@ export function Events(Base) {
         // Anchor link
         if (query.id) {
           const headingElm = dom.find(
-            `.markdown-section :where(h1, h2, h3, h4, h5)[id="${query.id}"]`
+            `.markdown-section :where(h1, h2, h3, h4, h5)[id="${query.id}"]`,
           );
 
           if (headingElm) {
@@ -402,7 +402,7 @@ export function Events(Base) {
         .find(
           a =>
             href.includes(a.getAttribute('href')) ||
-            href.includes(decodeURI(a.getAttribute('href')))
+            href.includes(decodeURI(a.getAttribute('href'))),
         );
       const oldActive = dom.find(navElm, 'li.active');
 
@@ -434,7 +434,7 @@ export function Events(Base) {
       const newActive = dom
         .find(
           sidebar,
-          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`
+          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
         )
         ?.closest('li');
 
@@ -467,7 +467,7 @@ export function Events(Base) {
       const newPage = dom
         .find(
           sidebar,
-          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`
+          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`,
         )
         ?.closest('li');
 
@@ -496,7 +496,7 @@ export function Events(Base) {
             document.addEventListener(
               'scrollend',
               () => (this.#isScrolling = false),
-              { once: true }
+              { once: true },
             );
           }
           // Browsers w/o native scrollend event support (Safari)
@@ -515,7 +515,7 @@ export function Events(Base) {
             document.addEventListener('scroll', callback, false);
           }
         },
-        { once: true }
+        { once: true },
       );
     }
   };

@@ -85,7 +85,7 @@ export class Compiler {
       marked.setOptions(
         Object.assign(mdConf, {
           renderer: Object.assign(renderer, mdConf.renderer),
-        })
+        }),
       );
       compile = marked;
     }
@@ -152,7 +152,7 @@ export class Compiler {
         href = getPath(
           this.contentBase,
           getParentPath(this.router.getCurrentPath()),
-          href
+          href,
         );
       }
 
@@ -282,7 +282,7 @@ export class Compiler {
       }
 
       const tree = this.cacheTree[currentPath] || genTree(toc, level);
-      html = treeTpl(tree, /* html */ `<ul>{inner}</ul>`);
+      html = treeTpl(tree, /* html */ '<ul>{inner}</ul>');
       this.cacheTree[currentPath] = tree;
     }
 

@@ -43,7 +43,6 @@ export function Router(Base) {
       this.updateRender();
       lastRoute = this.route;
 
-      // eslint-disable-next-line no-unused-vars
       router.onchange(params => {
         this.updateRender();
         this._updateRender();

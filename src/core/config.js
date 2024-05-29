@@ -49,6 +49,8 @@ export default function (vm) {
       set themeColor(value) {
         if (value) {
           this.__themeColor = value;
+
+          // eslint-disable-next-line no-console
           console.warn(
             stripIndent(`
               $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
@@ -57,7 +59,7 @@ export default function (vm) {
                   --theme-color: deeppink;
                 }
               </style>
-            `).trim()
+            `).trim(),
           );
         }
       },
@@ -65,7 +67,7 @@ export default function (vm) {
 
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)
-      : window.$docsify
+      : window.$docsify,
   );
 
   // Merge default and user-specified key bindings
@@ -86,14 +88,14 @@ export default function (vm) {
         },
       },
       // User-specified
-      config.keyBindings
+      config.keyBindings,
     );
   }
 
   const script =
     currentScript ||
     Array.from(document.getElementsByTagName('script')).filter(n =>
-      /docsify\./.test(n.src)
+      /docsify\./.test(n.src),
     )[0];
 
   if (script) {

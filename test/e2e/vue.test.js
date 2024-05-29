@@ -83,7 +83,7 @@ test.describe('Vue.js Compatibility', () => {
 
   // Tests
   // ----------------------------------------------------------------------------
-  test(`Parse templates and render content when import Vue resources`, async ({
+  test('Parse templates and render content when import Vue resources', async ({
     page,
   }) => {
     const docsifyInitConfig = {
@@ -116,7 +116,7 @@ test.describe('Vue.js Compatibility', () => {
       await expect(page.locator('#vuefor')).toHaveText('12345');
       await expect(page.locator('#vuecomponent')).toHaveText('0');
       await expect(page.locator('#vueglobaloptions p')).toHaveText(
-        'vueglobaloptions'
+        'vueglobaloptions',
       );
       await expect(page.locator('#vueglobaloptions > span')).toHaveText('0');
       await expect(page.locator('#vuemounts p')).toHaveText('vuemounts');
@@ -136,7 +136,7 @@ test.describe('Vue.js Compatibility', () => {
     });
   }
 
-  test(`ignores content when Vue is not present`, async ({ page }) => {
+  test('ignores content when Vue is not present', async ({ page }) => {
     const docsifyInitConfig = getSharedConfig();
 
     await docsifyInit(docsifyInitConfig);
@@ -148,7 +148,7 @@ test.describe('Vue.js Compatibility', () => {
     await expect(page.locator('#vuescript p')).toHaveText('---');
   });
 
-  test(`ignores content when vueGlobalOptions is undefined`, async ({
+  test('ignores content when vueGlobalOptions is undefined', async ({
     page,
   }) => {
     const docsifyInitConfig = getSharedConfig();
@@ -166,7 +166,7 @@ test.describe('Vue.js Compatibility', () => {
     await expect(page.locator('#vuescript p')).toHaveText('vuescript');
   });
 
-  test(`ignores content when vueMounts is undefined`, async ({ page }) => {
+  test('ignores content when vueMounts is undefined', async ({ page }) => {
     const docsifyInitConfig = getSharedConfig();
 
     docsifyInitConfig.config.vueMounts['#vuemounts'] = undefined;
@@ -176,13 +176,13 @@ test.describe('Vue.js Compatibility', () => {
     await expect(page.locator('#vuefor')).toHaveText('12345');
     await expect(page.locator('#vuecomponent')).toHaveText('0');
     await expect(page.locator('#vueglobaloptions p')).toHaveText(
-      'vueglobaloptions'
+      'vueglobaloptions',
     );
     await expect(page.locator('#vuemounts p')).toHaveText('vueglobaloptions');
     await expect(page.locator('#vuescript p')).toHaveText('vuescript');
   });
 
-  test(`ignores <script> when executeScript is false`, async ({ page }) => {
+  test('ignores <script> when executeScript is false', async ({ page }) => {
     const docsifyInitConfig = getSharedConfig();
 
     docsifyInitConfig.config.executeScript = false;

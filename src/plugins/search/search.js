@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   getAndRemoveConfig,
   getAndRemoveDocisfyIgnoreConfig,
@@ -178,9 +177,9 @@ export function search(query) {
         const regEx = new RegExp(
           escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
             /[|\\{}()[\]^$+*?.]/g,
-            '\\$&'
+            '\\$&',
           ),
-          'gi'
+          'gi',
         );
         let indexTitle = -1;
         let indexContent = -1;
@@ -217,7 +216,7 @@ export function search(query) {
                 .substring(start, end)
                 .replace(
                   regEx,
-                  word => /* html */ `<em class="search-keyword">${word}</em>`
+                  word => /* html */ `<em class="search-keyword">${word}</em>`,
                 ) +
               '...';
 
@@ -254,7 +253,7 @@ export function init(config, vm) {
     if (Array.isArray(config.pathNamespaces)) {
       namespaceSuffix =
         config.pathNamespaces.filter(
-          prefix => path.slice(0, prefix.length) === prefix
+          prefix => path.slice(0, prefix.length) === prefix,
         )[0] || namespaceSuffix;
     } else if (config.pathNamespaces instanceof RegExp) {
       const matches = path.match(config.pathNamespaces);
@@ -297,7 +296,7 @@ export function init(config, vm) {
       result => {
         INDEXS[path] = genIndex(path, result, vm.router, config.depth);
         len === ++count && saveData(config.maxAge, expireKey, indexKey);
-      }
+      },
     );
   });
 }

@@ -95,7 +95,7 @@ export function cover() {
  */
 export function tree(
   toc,
-  tpl = /* html */ `<ul class="app-sub-sidebar">{inner}</ul>`
+  tpl = /* html */ '<ul class="app-sub-sidebar">{inner}</ul>',
 ) {
   if (!toc || !toc.length) {
     return '';
