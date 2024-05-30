@@ -12,7 +12,7 @@ test.describe('Embed files', () => {
       markdown: {
         homepage: "# Hello World\n\n[fragment](fragment.md ':include')",
       },
-      _logHTML: {},
+      // _logHTML: {},
     });
 
     await expect(page.locator('#main')).toContainText('Fragment');
@@ -25,7 +25,7 @@ test.describe('Embed files', () => {
         homepage: '# Hello World',
         coverpage: "# Cover\n\n[fragment](fragment.md ':include')",
       },
-      _logHTML: {},
+      // _logHTML: {},
     });
 
     await expect(page.locator('.cover-main')).toContainText('Fragment');
