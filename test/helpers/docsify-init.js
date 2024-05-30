@@ -363,13 +363,13 @@ async function docsifyInit(options = {}) {
     }
 
     if (htmlArr.length) {
-      htmlArr.forEach(html => {
+      for (let html of htmlArr) {
         if (settings._logHTML.format !== false) {
-          html = prettier.format(html, { parser: 'html' });
+          html = await prettier.format(html, { parser: 'html' });
         }
 
         console.log(html);
-      });
+      }
     } else {
       console.warn(`docsify-init(): unable to match selector '${selector}'`);
     }
