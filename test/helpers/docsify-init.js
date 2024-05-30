@@ -17,11 +17,11 @@ const docsifyURL = '/dist/docsify.js'; // Playwright
  * @param {Function|Object} [options.config] docsify configuration (merged with default)
  * @param {String} [options.html] HTML content to use for docsify `index.html` page
  * @param {Object} [options.markdown] Docsify markdown content
- * @param {String} [options.markdown.coverpage] coverpage markdown
- * @param {String} [options.markdown.homepage] homepage markdown
- * @param {String} [options.markdown.navbar] navbar markdown
- * @param {String} [options.markdown.sidebar] sidebar markdown
- * @param {Object} [options.routes] custom routes defined as `{ pathOrGlob: responseText }`
+ * @param {String|(()=>Promise<String>|String)} [options.markdown.coverpage] coverpage markdown
+ * @param {String|(()=>Promise<String>|String)} [options.markdown.homepage] homepage markdown
+ * @param {String|(()=>Promise<String>|String)} [options.markdown.navbar] navbar markdown
+ * @param {String|(()=>Promise<String>|String)} [options.markdown.sidebar] sidebar markdown
+ * @param {Record<String,String|(()=>Promise<String>|String)>} [options.routes] custom routes defined as `{ pathOrGlob: response }`
  * @param {String} [options.script] JS to inject via <script> tag
  * @param {String|String[]} [options.scriptURLs] External JS to inject via <script src="..."> tag(s)
  * @param {String} [options.style] CSS to inject via <style> tag
@@ -114,7 +114,7 @@ async function docsifyInit(options = {}) {
           ...options.markdown,
         })
           .filter(([key, markdown]) => key && markdown)
-          .map(([key, markdown]) => [key, stripIndent`${markdown}`]),
+          .map(([key, markdown]) => [key, markdown]),
       );
     },
     get routes() {
@@ -132,13 +132,12 @@ async function docsifyInit(options = {}) {
           ...options.routes,
         })
           // Remove items with falsey responseText
-          .filter(([url, responseText]) => url && responseText)
-          .map(([url, responseText]) => [
+          .filter(([url, response]) => url && response)
+          .map(([url, response]) => [
             // Convert relative to absolute URL
             new URL(url, settings.config.basePath || process.env.TEST_HOST)
               .href,
-            // Strip indentation from responseText
-            stripIndent`${responseText}`,
+            response,
           ]),
       );
 
@@ -173,29 +172,30 @@ async function docsifyInit(options = {}) {
     mock.setup();
   }
 
-  for (let [urlGlob, response] of Object.entries(settings.routes)) {
+  for (const [urlGlob, response] of Object.entries(settings.routes)) {
     const fileExtension = (urlGlob.match(reFileExtentionFromURL) || [])[1];
     const contentType = contentTypes[fileExtension];
-
-    if (typeof response === 'string') {
-      response = {
-        status: 200,
-        body: response,
-      };
-    }
-
-    // Specifying contentType required for Webkit
-    response.contentType = response.contentType || contentType || '';
+    const responseBody = async () => {
+      if (typeof response === 'string') {
+        return stripIndent`${response}`;
+      } else {
+        return stripIndent`${await response()}`;
+      }
+    };
 
     if (isJSDOM) {
-      mock.get(urlGlob, (req, res) => {
-        return res
-          .status(response.status)
-          .body(settings.routes[urlGlob])
-          .header('Content-Type', contentType);
+      mock.get(urlGlob, async (req, res) => {
+        const body = await responseBody();
+        return res.status(200).body(body).header('Content-Type', contentType);
       });
     } else {
-      await page.route(urlGlob, route => route.fulfill(response));
+      await page.route(urlGlob, async route => {
+        return route.fulfill({
+          status: 200,
+          body: await responseBody(),
+          contentType: contentType || '',
+        });
+      });
     }
   }
 
