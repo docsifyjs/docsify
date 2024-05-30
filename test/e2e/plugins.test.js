@@ -179,12 +179,50 @@ test.describe('Plugins', () => {
         },
         markdown: {
           homepage: '# Hello World :id=homepage-title',
-          coverpage: '# Cover Page :id=cover-title',
+          coverpage: () => {
+            return new Promise(resolve => {
+              setTimeout(() => resolve('# Cover Page :id=cover-title'), 500);
+            });
+          },
         },
-        // _logHTML: true,
+        // _logHTML: {},
       });
 
       await expect(consoleMessages).toEqual(['Hello World', 'Cover Page']);
+    });
+
+    test('only cover', async ({ page }) => {
+      const consoleMessages = [];
+
+      page.on('console', msg => consoleMessages.push(msg.text()));
+
+      await docsifyInit({
+        config: {
+          onlyCover: true,
+          plugins: [
+            function (hook) {
+              hook.doneEach(() => {
+                const homepageTitle = document.querySelector('#homepage-title');
+                const coverTitle = document.querySelector('#cover-title');
+                console.log(homepageTitle?.textContent);
+                console.log(coverTitle?.textContent);
+              });
+            },
+          ],
+        },
+        markdown: {
+          homepage: '# Hello World :id=homepage-title',
+          coverpage: () => {
+            return new Promise(resolve => {
+              setTimeout(() => resolve('# Cover Page :id=cover-title'), 500);
+            });
+          },
+        },
+        waitForSelector: '.cover-main > *:first-child',
+        // _logHTML: {},
+      });
+
+      await expect(consoleMessages).toEqual(['undefined', 'Cover Page']);
     });
   });
 

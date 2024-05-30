@@ -170,18 +170,23 @@ export function Fetch(Base) {
         }
 
         const coverOnly = Boolean(path) && this.config.onlyCover;
+        const next = () => cb(coverOnly);
         if (path) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
           get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-            text => {
-              this._renderCover(text, coverOnly);
-              cb(coverOnly);
+            text => this._renderCover(text, coverOnly, next),
+            (event, response) => {
+              this.coverIsHTML = false;
+              this._renderCover(
+                `# ${response.status} - ${response.statusText}`,
+                coverOnly,
+                next,
+              );
             },
           );
         } else {
-          this._renderCover(null, coverOnly);
-          cb(coverOnly);
+          this._renderCover(null, coverOnly, next);
         }
       } else {
         cb(false);
