@@ -1,19 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600')
 
-$color-primary = #42b983
-$color-bg = #fff
-$color-text = #34495e
-$sidebar-width = 300px
+:root
+  --color-primary #42b983
+  --color-bg #fff
+  --color-text #34495e
+  --sidebar-width 300px
 
 @import 'basic/_layout'
 @import 'basic/_coverpage'
 
 body
-  background-color $color-bg
+  background-color var(--color-bg)
 
 /* sidebar */
 .sidebar
-  background-color $color-bg
+  background-color var(--color-bg)
   color #364149
 
   li
@@ -36,8 +37,8 @@ body
 
   ul li.active > a
     border-right 2px solid
-    color $color-primary
-    color var(--theme-color, $color-primary)
+    color var(--color-primary)
+    color var(--theme-color, var(--color-primary))
     font-weight 600
 
 .app-sub-sidebar
@@ -53,8 +54,8 @@ body
   font-weight 600
 
 .markdown-section a
-  color $color-primary
-  color var(--theme-color, $color-primary)
+  color var(--color-primary)
+  color var(--theme-color, var(--color-primary))
   font-weight 600
 
 .markdown-section h1
@@ -90,8 +91,8 @@ body
   padding-left 1.5rem
 
 .markdown-section blockquote
-  border-left 4px solid $color-primary
-  border-left 4px solid var(--theme-color, $color-primary)
+  border-left 4px solid var(--color-primary)
+  border-left 4px solid var(--theme-color, var(--color-primary))
   color #858585
   margin 2em 0
   padding-left 20px
@@ -208,8 +209,8 @@ body
   color #2973b7
 
 .token.string
-  color $color-primary
-  color var(--theme-color, $color-primary)
+  color var(--color-primary)
+  color var(--theme-color, var(--color-primary))
 
 .token.selector
   color #6679cc
@@ -221,8 +222,8 @@ body
   color #22a2c9
 
 .token.attr-value, .token.control, .token.directive, .token.unit
-  color $color-primary
-  color var(--theme-color, $color-primary)
+  color var(--color-primary)
+  color var(--theme-color, var(--color-primary))
 
 .token.keyword, .token.function
   color #e96900

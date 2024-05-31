@@ -31,8 +31,7 @@ span.emoji
   vertical-align middle
 
 .progress
-  background-color $color-primary
-  background-color var(--theme-color, $color-primary)
+  background-color var(--theme-color, var(--color-primary))
   height 2px
   left 0px
   position fixed
@@ -43,12 +42,10 @@ span.emoji
   z-index 999999
 
 .search a:hover
-  color $color-primary
-  color var(--theme-color, $color-primary)
+  color var(--theme-color, var(--color-primary))
 
 .search .search-keyword
-  color $color-primary
-  color var(--theme-color, $color-primary)
+  color var(--theme-color, var(--color-primary))
   font-style normal
   font-weight bold
 
@@ -58,7 +55,7 @@ html, body
 body
   -moz-osx-font-smoothing grayscale
   -webkit-font-smoothing antialiased
-  color $color-text
+  color var(--color-text)
   font-family 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif
   font-size 15px
   letter-spacing 0
@@ -100,10 +97,8 @@ li input[type='checkbox']
   padding 0.5rem 1.5rem
   border 0
   border-radius: 100vw
-  background-color $color-primary
-  background-color var(--theme-color, $color-primary)
-  color $color-bg
-  color var(--theme-bg, $color-bg)
+  background-color var(--theme-color, var(--color-primary))
+  color var(--theme-bg, var(--color-bg))
   opacity 0
   font-size inherit
   text-decoration none
@@ -148,14 +143,11 @@ li input[type='checkbox']
     transition color 0.3s
 
     &:hover
-      color $color-primary
-      color var(--theme-color, $color-primary)
+      color var(--theme-color, var(--color-primary))
 
     &.active
-      border-bottom 2px solid $color-primary
-      border-bottom 2px solid var(--theme-color, $color-primary)
-      color $color-primary
-      color var(--theme-color, $color-primary)
+      border-bottom 2px solid var(--theme-color, var(--color-primary))
+      color var(--theme-color, var(--color-primary))
 
   /* navbar dropdown */
   li
@@ -214,9 +206,8 @@ li input[type='checkbox']
     animation octocat-wave 560ms ease-in-out
 
   svg
-    color $color-bg
-    fill $color-primary
-    fill var(--theme-color, $color-primary)
+    color var(--color-bg)
+    fill var(--theme-color, var(--color-primary))
     height 80px
     width 80px
 
@@ -237,7 +228,7 @@ main.hidden
   transition all 0.3s
 
   span
-    color $color-text
+    color var(--color-text)
 
   &:hover
     text-decoration underline
@@ -252,7 +243,7 @@ main.hidden
   bottom 0
   left 0
   transition transform 250ms ease-out, visibility 250ms
-  width $sidebar-width
+  width var(--sidebar-width)
   z-index 20
 
   > h1
@@ -314,7 +305,8 @@ main.hidden
 /* sidebar toggle */
 .sidebar-toggle
   background-color transparent
-  background-color rgba($color-bg, 0.8)
+  background-color var(--color-bg)
+  /* TODO: background-color rgba(var(--color-bg), 0.8) */
   border 0
   outline none
   padding 10px
@@ -323,7 +315,7 @@ main.hidden
   left 0
   text-align center
   transition opacity 0.3s
-  width $sidebar-width - 16px
+  width calc(var(--sidebar-width) - 16px)
   z-index 30
   cursor pointer
 
@@ -331,8 +323,7 @@ main.hidden
     opacity 0.4
 
   span
-    background-color $color-primary
-    background-color var(--theme-color, $color-primary)
+    background-color var(--theme-color, var(--color-primary))
     display block
     margin-bottom 4px
     width 16px
@@ -349,7 +340,7 @@ body.sticky
   top 0
   right 0
   bottom 0
-  left $sidebar-width
+  left var(--sidebar-width)
   transition left 250ms ease
 
   body.hidesidebar &
@@ -417,7 +408,7 @@ body.sticky
   &:before
     background-color #f66
     border-radius 100%
-    color $color-bg
+    color var(--color-bg)
     content '!'
     font-family 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif
     font-size 14px
@@ -434,10 +425,11 @@ body.sticky
     background-color #efefef
 
   em
-    color $color-text
+    color var(--color-text)
 
 .markdown-section p.warn
-  background rgba($color-primary, 0.1)
+  background var(--color-primary)
+  /* TODO: background rgba(var(--color-primary), 0.1) */
   border-radius 2px
   padding 1rem
 
@@ -447,7 +439,7 @@ body.sticky
 body.close
   .sidebar
     visibility hidden
-    transform translateX(- $sidebar-width)
+    transform translateX(calc(0px - var(--sidebar-width)))
 
   .sidebar-toggle
     width auto
@@ -476,7 +468,7 @@ body.close
 
   .sidebar
     visibility hidden
-    left - $sidebar-width
+    left calc(0px - var(--sidebar-width))
     transition transform 250ms ease-out, visibility 250ms
 
   .content
@@ -497,16 +489,17 @@ body.close
   body.close
     .sidebar
       visibility visible
-      transform translateX($sidebar-width)
+      transform translateX(var(--sidebar-width))
 
     .sidebar-toggle
-      background-color rgba($color-bg, 0.8)
+      background-color var(--color-bg)
+      /* TODO: background-color rgba(var(--color-bg), 0.8) */
       transition 1s background-color
-      width $sidebar-width - 16px
+      width calc(var(--sidebar-width) - 16px)
       padding 10px
 
     .content
-      transform translateX($sidebar-width)
+      transform translateX(var(--sidebar-width))
 
     .app-nav, .github-corner
       display none

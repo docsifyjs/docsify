@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold')
 
-$color-primary = #0074d9
-$color-bg = #fff
-$color-text = #34495e
-$sidebar-width = 16rem
+:root
+  --color-primary #0074d9
+  --color-bg #fff
+  --color-text #34495e
+  --sidebar-width 16rem
 
 @import 'basic/_layout'
 @import 'basic/_coverpage'
@@ -11,7 +12,7 @@ $sidebar-width = 16rem
 /* sidebar */
 .sidebar
   color #364149
-  background-color $color-bg
+  background-color var(--color-bg)
 
   a
     color #666
@@ -40,8 +41,8 @@ $sidebar-width = 16rem
   font-weight 600
 
 .markdown-section a
-  color $color-primary
-  color var(--theme-color, $color-primary)
+  color var(--color-primary)
+  color var(--theme-color, var(--color-primary))
 
 .markdown-section p, .markdown-section ul, .markdown-section ol
   line-height 1.6rem
@@ -84,8 +85,8 @@ $sidebar-width = 16rem
   margin 0
 
 .markdown-section blockquote
-  border-left 4px solid $color-primary
-  border-left 4px solid var(--theme-color, $color-primary)
+  border-left 4px solid var(--color-primary)
+  border-left 4px solid var(--theme-color, var(--color-primary))
   color #858585
   margin 2em 0
   padding-left 20px

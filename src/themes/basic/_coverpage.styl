@@ -12,7 +12,7 @@ section.cover
     display flex
 
   &.has-mask .mask
-    background-color $color-bg
+    background-color var(--color-bg)
     opacity 0.8
     position absolute
     top 0
@@ -64,14 +64,12 @@ section.cover
     padding 0
 
   .cover-main > p:last-child a
-    border-color $color-primary
-    border-color var(--theme-color, $color-primary)
+    border-color var(--theme-color, var(--color-primary))
     border-radius 2rem
     border-style solid
     border-width 1px
     box-sizing border-box
-    color $color-primary
-    color var(--theme-color, $color-primary)
+    color var(--theme-color, var(--color-primary))
     display inline-block
     font-size 1.05rem
     letter-spacing 0.1rem
@@ -81,8 +79,7 @@ section.cover
     transition all 0.15s ease
 
     &:last-child
-      background-color $color-primary
-      background-color var(--theme-color, $color-primary)
+      background-color var(--theme-color, var(--color-primary))
       color #fff
 
       &:hover
@@ -93,10 +90,8 @@ section.cover
       color inherit
 
   blockquote > p > a
-    border-bottom 2px solid $color-primary
-    border-bottom 2px solid var(--theme-color, $color-primary)
+    border-bottom 2px solid var(--theme-color, var(--color-primary))
     transition color 0.3s
 
     &:hover
-      color $color-primary
-      color var(--theme-color, $color-primary)
+      color var(--theme-color, var(--color-primary))
