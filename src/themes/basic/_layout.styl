@@ -1,3 +1,5 @@
+/*!! START: _layout.styl */
+
 *
   -webkit-font-smoothing antialiased
   -webkit-overflow-scrolling touch
@@ -86,7 +88,7 @@ li input[type='checkbox']
 [tabindex="-1"]:focus
   outline none !important
 
-/* skip link */
+/*! skip link */
 #skip-to-content
   appearance none
   display block
@@ -113,7 +115,7 @@ li input[type='checkbox']
     transition-duration 0s, 0.2s
     transition-delay 0s, 0s
 
-/* navbar */
+/*! navbar */
 .app-nav
   margin 25px 60px 0 0
   position absolute
@@ -149,7 +151,7 @@ li input[type='checkbox']
       border-bottom 2px solid var(--theme-color, var(--color-primary))
       color var(--theme-color, var(--color-primary))
 
-  /* navbar dropdown */
+  /*! navbar dropdown */
   li
     display inline-block
     margin 0 1rem
@@ -193,7 +195,7 @@ li input[type='checkbox']
     &:hover ul
       top: 100%;
 
-/* github corner */
+/*! github corner */
 .github-corner
   border-bottom 0
   position fixed
@@ -211,7 +213,7 @@ li input[type='checkbox']
     height 80px
     width 80px
 
-/* main */
+/*! main */
 main
   display block
   position relative
@@ -233,7 +235,7 @@ main.hidden
   &:hover
     text-decoration underline
 
-/* sidebar */
+/*! sidebar */
 .sidebar
   border-right 1px solid rgba(0, 0, 0, 0.07)
   overflow-y auto
@@ -302,11 +304,11 @@ main.hidden
   &:hover::-webkit-scrollbar-track
     background rgba(136, 136, 136, 0.1)
 
-/* sidebar toggle */
+/*! sidebar toggle */
 .sidebar-toggle
   background-color transparent
   background-color var(--color-bg)
-  /* TODO: background-color rgba(var(--color-bg), 0.8) */
+  /*! TODO: background-color rgba(var(--color-bg), 0.8) */
   border 0
   outline none
   padding 10px
@@ -333,7 +335,7 @@ body.sticky
   .sidebar, .sidebar-toggle
     position fixed
 
-/* main content */
+/*! main content */
 .content
   padding-top 60px
   position absolute
@@ -348,7 +350,7 @@ body.sticky
     left unset
     right unset
 
-/* markdown content found on pages */
+/*! markdown content found on pages */
 .markdown-section
   margin 0 auto
   max-width 80%
@@ -369,7 +371,7 @@ body.sticky
 
 .markdown-section iframe
   border 1px solid #eee
-  /* fix horizontal overflow on iOS Safari */
+  /*! fix horizontal overflow on iOS Safari */
   width 1px
   min-width 100%
 
@@ -429,7 +431,7 @@ body.sticky
 
 .markdown-section p.warn
   background var(--color-primary)
-  /* TODO: background rgba(var(--color-primary), 0.1) */
+  /*! TODO: background rgba(var(--color-primary), 0.1) */
   border-radius 2px
   padding 1rem
 
@@ -493,7 +495,7 @@ body.close
 
     .sidebar-toggle
       background-color var(--color-bg)
-      /* TODO: background-color rgba(var(--color-bg), 0.8) */
+      /*! TODO: background-color rgba(var(--color-bg), 0.8) */
       transition 1s background-color
       width calc(var(--sidebar-width) - 16px)
       padding 10px
@@ -520,3 +522,5 @@ body.close
 
   40%, 80%
     transform rotate(10deg)
+
+/*!! END: _layout.styl */

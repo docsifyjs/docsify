@@ -1,0 +1,9 @@
+@import 'basic/_layout.css';
+@import 'basic/_coverpage.css';
+
+:root {
+  --color-primary: #000;
+  --color-bg: #fff;
+  --color-text: #000;
+  --sidebar-width: 300px;
+}

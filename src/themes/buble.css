@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
+
+@import 'basic/_layout.css';
+@import 'basic/_coverpage.css';
+
+:root {
+  --color-primary: #0074d9;
+  --color-bg: #fff;
+  --color-text: #34495e;
+  --sidebar-width: 16rem;
+}
+
+/* sidebar */
+.sidebar {
+  color: #364149;
+  background-color: var(--color-bg);
+}
+.sidebar a {
+  color: #666;
+  text-decoration: none;
+}
+.sidebar li {
+  list-style: none;
+  margin: 0;
+  padding: 0.2em 0 0.2em 0;
+}
+.sidebar ul li ul {
+  padding: 0;
+}
+.sidebar li.active {
+  background-color: #eee;
+}
+.sidebar li.active a {
+  color: #333;
+}
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section strong {
+  color: #333;
+  font-weight: 400;
+}
+.markdown-section strong {
+  color: #333;
+  font-weight: 600;
+}
+.markdown-section a {
+  color: var(--color-primary);
+  color: var(--theme-color, var(--color-primary));
+}
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
+  line-height: 1.6rem;
+  margin: 0 0 1em 0;
+  word-spacing: 0.05rem;
+}
+.markdown-section h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
+.markdown-section h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+  padding: 1rem 0 0 0;
+}
+.markdown-section h3 {
+  font-size: 1.5rem;
+  margin: 52px 0 1.2rem;
+}
+.markdown-section h4 {
+  font-size: 1.25rem;
+}
+.markdown-section h5 {
+  font-size: 1rem;
+}
+.markdown-section h6 {
+  color: #777;
+  font-size: 1rem;
+}
+.markdown-section figure,
+.markdown-section p,
+.markdown-section ul,
+.markdown-section ol {
+  margin: 1.2em 0;
+}
+.markdown-section ul,
+.markdown-section ol {
+  padding-left: 1.5rem;
+}
+.markdown-section li {
+  line-height: 1.5;
+  margin: 0;
+}
+.markdown-section blockquote {
+  border-left: 4px solid var(--color-primary);
+  border-left: 4px solid var(--theme-color, var(--color-primary));
+  color: #858585;
+  margin: 2em 0;
+  padding-left: 20px;
+}
+.markdown-section blockquote p {
+  font-weight: 600;
+  margin-left: 0;
+}
+.markdown-section iframe {
+  margin: 1em 0;
+}
+.markdown-section em {
+  color: #7f8c8d;
+}
+.markdown-section code {
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  font-family: Inconsolata, monospace;
+  padding: 0.2em 0.4rem;
+  white-space: nowrap;
+}
+.markdown-section pre {
+  background-color: #f9f9f9;
+  border-left: 2px solid #eee;
+  font-family: Inconsolata, monospace;
+  font-size: 16px;
+  margin: 0 0 1em 0;
+  padding: 8px;
+  padding: 0 10px 12px 0;
+  overflow: auto;
+  word-wrap: normal;
+  position: relative;
+}
+/* code highlight */
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
+  color: #93a1a1 /* base1 */;
+}
+.token.punctuation {
+  color: #586e75 /* base01 */;
+}
+.namespace {
+  opacity: 0.7;
+}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #268bd2 /* blue */;
+}
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.url,
+.token.inserted {
+  color: #2aa198 /* cyan */;
+}
+.token.entity {
+  color: #657b83 /* base00 */;
+  background: #eee8d5 /* base2 */;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #a11 /* green */;
+}
+.token.function {
+  color: #b58900 /* yellow */;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #cb4b16 /* orange */;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+.markdown-section pre > code {
+  background-color: #f8f8f8;
+  border-radius: 2px;
+  display: block;
+  font-family: Inconsolata, monospace;
+  line-height: 1.1rem;
+  max-width: inherit;
+  overflow: inherit;
+  padding: 20px 0.8em 20px;
+  position: relative;
+  white-space: inherit;
+}
+.markdown-section code::after,
+.markdown-section code::before {
+  letter-spacing: 0.05rem;
+}
+code .token {
+  -webkit-font-smoothing: initial;
+  -moz-osx-font-smoothing: initial;
+  min-height: 1.5rem;
+  position: relative;
+  left: auto;
+}
