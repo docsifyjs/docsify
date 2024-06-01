@@ -73,6 +73,7 @@
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
+    "postcss-nesting": "^12.1.5",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.7",
     "rollup": "^4.17.2",
@@ -82,8 +83,8 @@
   },
   "scripts": {
     "build:cover": "node build/cover.js",
-    "build:css": "postcss \"src/themes/*.css\" --dir dist/themes --map --use postcss-import",
-    "build:css:min": "npm run build:css -- --ext .min.css",
+    "build:css": "postcss \"src/themes/*.css\" --dir dist/themes --map --use postcss-import postcss-nesting",
+    "build:css:min": "npm run build:css -- --ext .min.css --use cssnano",
     "build:stylus": "stylus src/themes --out dist/themes --sourcemap",
     "build:stylus:min": "postcss \"dist/themes/**/!(*.min).css\" --dir dist/themes --ext .min.css --map --use cssnano",
     "build:emoji": "node ./build/emoji.js",
