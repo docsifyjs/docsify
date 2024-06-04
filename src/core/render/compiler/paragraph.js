@@ -4,9 +4,9 @@ export const paragraphCompiler = ({ renderer }) =>
   (renderer.paragraph = text => {
     let result;
     if (/^!&gt;/.test(text)) {
-      result = helperTpl('tip', text);
+      result = helperTpl('callout tip', text);
     } else if (/^\?&gt;/.test(text)) {
-      result = helperTpl('warn', text);
+      result = helperTpl('callout warn', text);
     } else {
       result = /* html */ `<p>${text}</p>`;
     }

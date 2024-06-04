@@ -1,0 +1,98 @@
+/* Syntax Highlighting */
+/* ========================================================================== */
+.token {
+  &.atrule,
+  &.entity,
+  &.regex,
+  &.statement,
+  &.url,
+  .language-css &.string,
+  .style &.string {
+    color: #22a2c9;
+  }
+
+  &.attr-value,
+  &.control,
+  &.directive,
+  &.unit {
+    color: var(--color-primary);
+  }
+
+  &.bold,
+  &.important {
+    font-weight: var(--strong-font-weight);
+  }
+
+  &.boolean,
+  &.number {
+    color: #c76b29;
+  }
+
+  &.cdata,
+  &.comment,
+  &.doctype,
+  &.prolog {
+    color: #8e908c;
+  }
+
+  &.keyword,
+  &.function {
+    color: #e96900;
+  }
+
+  &.placeholder,
+  &.variable {
+    color: #3d8fd1;
+  }
+
+  /* ---------------------------------- */
+
+  &.attr-name {
+    color: #2973b7;
+  }
+
+  &.deleted {
+    text-decoration: line-through;
+  }
+
+  &.entity {
+    cursor: help;
+  }
+
+  &.important {
+    color: #c94922;
+  }
+
+  &.inserted {
+    border-bottom: 1px dotted #202746;
+    text-decoration: none;
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+
+  &.namespace {
+    opacity: 0.7;
+  }
+
+  &.property {
+    color: #c08b30;
+  }
+
+  &.punctuation {
+    color: #525252;
+  }
+
+  &.selector {
+    color: #6679cc;
+  }
+
+  &.string {
+    color: var(--color-primary);
+  }
+
+  &.tag {
+    color: #2973b7;
+  }
+}

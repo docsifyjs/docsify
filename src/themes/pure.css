@@ -1,9 +1,9 @@
-@import 'basic/_layout.css';
 @import 'basic/_coverpage.css';
+@import 'basic/_main.css';
 
+/* prettier-ignore */
 :root {
+  --color-bg     : #fff;
   --color-primary: #000;
-  --color-bg: #fff;
-  --color-text: #000;
-  --sidebar-width: 300px;
+  --color-text   : #000;
 }

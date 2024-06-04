@@ -77,12 +77,12 @@ section.cover {
   .cover-main {
     > p:last-child {
       a {
-        border-color: var(--theme-color, var(--color-primary));
+        border-color: var(--color-primary);
         border-radius: 2rem;
         border-style: solid;
         border-width: 1px;
         box-sizing: border-box;
-        color: var(--theme-color, var(--color-primary));
+        color: var(--color-primary);
         display: inline-block;
         font-size: 1.05rem;
         letter-spacing: 0.1rem;
@@ -92,7 +92,7 @@ section.cover {
         transition: all 0.15s ease;
 
         &:last-child {
-          background-color: var(--theme-color, var(--color-primary));
+          background-color: var(--color-primary);
           color: #fff;
         }
 
@@ -111,11 +111,11 @@ section.cover {
   blockquote {
     > p {
       > a {
-        border-bottom: 2px solid var(--theme-color, var(--color-primary));
+        border-bottom: 2px solid var(--color-primary);
         transition: color 0.3s;
 
         &:hover {
-          color: var(--theme-color, var(--color-primary));
+          color: var(--color-primary);
         }
       }
     }

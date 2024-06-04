@@ -1,241 +1,114 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
 
-@import 'basic/_layout.css';
 @import 'basic/_coverpage.css';
+@import 'basic/_main.css';
 
+/* prettier-ignore */
 :root {
-  --color-primary: #0074d9;
-  --color-bg: #fff;
-  --color-text: #34495e;
-  --sidebar-width: 16rem;
+  /* Base */
+  --color-primary   : #0074d9;
+  --font-family-mono: Inconsolata, monospace;
+
+    /* Elements */
+  --code-bg            : #f9f9f9;
+  --heading-color      : #333;
+  --heading-font-weight: 400;
+  --strong-color       : #333;
+  --strong-font-weight : 600;
+
+    /* Sidebar */
+  --sidebar-link-color       : #666;
+  --sidebar-link-color-active: #333;
 }
 
+/* Sidebar */
+/* ========================================================================== */
 .sidebar {
-  color: #364149;
-  background-color: var(--color-bg);
-
-  a {
-    color: #666;
-    text-decoration: none;
-  }
-
   li {
-    list-style: none;
-    margin: 0;
-    padding: 0.2em 0 0.2em 0;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
 
     &.active {
       background-color: #eee;
 
       a {
-        color: #333;
+        color: var(--sidebar-link-color-active);
       }
     }
   }
-
-  ul ul {
-    padding: 0;
-  }
 }
 
-.markdown-section {
-  :is(h1, h2, h3, h4),
-  strong {
-    color: #333;
-    font-weight: 400;
-  }
-
-  strong {
-    color: #333;
-    font-weight: 600;
-  }
-
-  a {
-    color: var(--theme-color, var(--color-primary));
-  }
-
-  p,
-  ul,
-  ol {
-    line-height: 1.6rem;
-    margin: 0 0 1em 0;
-    word-spacing: 0.05rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 500;
-    margin: 0 0 1rem;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 400;
-    margin: 0 0 1rem 0;
-    padding: 1rem 0 0 0;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin: 52px 0 1.2rem;
-  }
-
-  h4 {
-    font-size: 1.25rem;
-  }
-
-  h5 {
-    font-size: 1rem;
-  }
-
-  h6 {
-    color: #777;
-    font-size: 1rem;
-  }
-
-  figure,
-  p,
-  ul,
-  ol {
-    margin: 1.2em 0;
-  }
-
-  ul,
-  ol {
-    padding-left: 1.5rem;
-  }
-
-  li {
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  blockquote {
-    border-left: 4px solid var(--theme-color, var(--color-primary));
-    color: #858585;
-    margin: 2em 0;
-    padding-left: 20px;
-
-    p {
-      font-weight: 600;
-      margin-left: 0;
-    }
-  }
-
-  iframe {
-    margin: 1em 0;
-  }
-
-  em {
-    color: #7f8c8d;
-  }
-
-  code {
-    background-color: #f9f9f9;
-    border-radius: 3px;
-    font-family: Inconsolata, monospace;
-    padding: 0.2em 0.4rem;
-    white-space: nowrap;
-  }
-
-  pre {
-    background-color: #f9f9f9;
-    border-left: 2px solid #eee;
-    font-family: Inconsolata, monospace;
-    font-size: 16px;
-    margin: 0 0 1em 0;
-    padding: 8px;
-    padding: 0 10px 12px 0;
-    overflow: auto;
-    word-wrap: normal;
-    position: relative;
-  }
-}
-
+/* Syntax Highlighting */
+/* ========================================================================== */
 .token {
+  &.atrule,
+  &.attr-value,
+  &.keyword {
+    color: #a11;
+  }
+
+  &.attr-name,
+  &.builtin,
+  &.char,
+  &.inserted,
+  &.selector,
+  &.string,
+  &.url {
+    color: #2aa198;
+  }
+
+  &.bold,
+  &.important {
+    font-weight: bold;
+  }
+
+  &.boolean,
+  &.constant,
+  &.deleted,
+  &.number,
+  &.property,
+  &.symbol,
+  &.tag {
+    color: #268bd2;
+  }
+
   &.cdata,
   &.comment,
   &.doctype,
   &.prolog {
-    color: #93a1a1 /* base1 */;
+    color: #93a1a1;
   }
-  &.punctuation {
-    color: #586e75 /* base01 */;
-  }
-  .namespace {
-    opacity: 0.7;
-  }
-  &.property,
-  &.tag,
-  &.boolean,
-  &.number,
-  &.constant,
-  &.symbol,
-  &.deleted {
-    color: #268bd2 /* blue */;
-  }
-  &.selector,
-  &.attr-name,
-  &.string,
-  &.char,
-  &.builtin,
-  &.url,
-  &.inserted {
-    color: #2aa198 /* cyan */;
-  }
-  &.entity {
-    color: #657b83 /* base00 */;
-    background: #eee8d5 /* base2 */;
-  }
-  &.atrule,
-  &.attr-value,
-  &.keyword {
-    color: #a11 /* green */;
-  }
-  &.function {
-    color: #b58900 /* yellow */;
-  }
+
+  &.important,
   &.regex,
-  &.important,
   &.variable {
-    color: #cb4b16 /* orange */;
+    color: #cb4b16;
   }
-  &.important,
-  &.bold {
-    font-weight: bold;
-  }
-  &.italic {
-    font-style: italic;
-  }
+
+  /* ---------------------------------- */
+
   &.entity {
+    color: #657b83;
+    background: #eee8d5;
     cursor: help;
   }
 
-  code & {
-    -webkit-font-smoothing: initial;
-    -moz-osx-font-smoothing: initial;
-    min-height: 1.5rem;
-    position: relative;
-    left: auto;
-  }
-}
-
-.markdown-section {
-  pre > code {
-    background-color: #f8f8f8;
-    border-radius: 2px;
-    display: block;
-    font-family: Inconsolata, monospace;
-    line-height: 1.1rem;
-    max-width: inherit;
-    overflow: inherit;
-    padding: 20px 0.8em 20px;
-    position: relative;
-    white-space: inherit;
+  &.function {
+    color: #b58900;
   }
 
-  code::after,
-  code::before {
-    letter-spacing: 0.05rem;
+  &.italic {
+    font-style: italic;
+  }
+
+  &.namespace {
+    opacity: 0.7;
+  }
+
+  &.punctuation {
+    color: #586e75;
   }
 }
