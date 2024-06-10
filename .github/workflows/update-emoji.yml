@@ -39,5 +39,6 @@ jobs:
         if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
         run: |
           gh pr create --title 'chore: Sync emoji data with GitHub emoji API' --body 'Found updated github emojis need to sync.' --base mock-emoji-late --reviewer docsifyjs/reviewers
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.READ_TEAM_TOKEN }}
