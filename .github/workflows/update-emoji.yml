@@ -40,4 +40,4 @@ jobs:
         run: |
           gh pr create --title 'chore: Sync emoji data with GitHub emoji API' --body 'Found updated github emojis need to sync.' --base mock-emoji-late --reviewer docsifyjs/reviewers
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.READ_TEAM_TOKEN }}
