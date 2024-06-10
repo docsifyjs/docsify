@@ -9,6 +9,7 @@ on:
 
 jobs:
   crowdin:
+    if: github.repository == 'docsifyjs/docsify'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
