@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        ref: mock-emoji-late
 
       - uses: actions/setup-node@v4
         with:
@@ -36,6 +37,6 @@ jobs:
       - name: Create Pull Request
         if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
         run: |
-          gh pr create --title 'chore: Sync emoji data with GitHub emoji API' --body 'Found updated github emojis need to sync.' --base develop --reviewer docsifyjs/reviewers
+          gh pr create --title 'chore: Sync emoji data with GitHub emoji API' --body 'Found updated github emojis need to sync.' --base mock-emoji-late --reviewer docsifyjs/reviewers
         env:
           GH_TOKEN: ${{ github.token }}
