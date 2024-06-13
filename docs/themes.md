@@ -1,6 +1,8 @@
 # Themes
 
-Docsify offers several official themes to choose from. Click a theme name below to preview each theme.
+## Official Themes
+
+Docsify offers several official themes. Click a theme name below to preview each theme.
 
 - <a href="#" data-theme="vue">Vue</a>
 - <a href="#" data-theme="buble">Buble</a>
@@ -8,7 +10,7 @@ Docsify offers several official themes to choose from. Click a theme name below 
 - <a href="#" data-theme="pure">Pure</a>
 - <a href="#" data-theme="dolphin">Dolphin</a>
 
-Official themes are available on multiple [CDNs](cdn). Uncompressed themes are also available by omitting the `.min` from the filename.
+Official themes are available on multiple [CDNs](cdn). Uncompressed themes are also available by omitting `.min` from the filename.
 
 <!-- prettier-ignore -->
 ```html
@@ -28,15 +30,15 @@ Official themes are available on multiple [CDNs](cdn). Uncompressed themes are a
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
-## Endorsed
+## Endorsed Themes
 
-The Docsify team endorses the following third-party themes. Click a link below the learn more.
+The Docsify team endorses the following third-party themes:
 
 - [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable) - A delightfully simple theme system for docsify.
 
-## More Themes
+## Community Themes
 
-See [Awesome Docsify](awesome) for more themes.
+See [Awesome Docsify](awesome) for additional community themes.
 
 <script>
   const previewElm = Docsify.dom.findAll('a[data-theme]');
@@ -46,11 +48,17 @@ See [Awesome Docsify](awesome) for more themes.
     elm.onclick = (e) => {
       e.preventDefault();
       const title = e.target.getAttribute('data-theme');
+      const newSheet = stylesheetElms.some(sheet => sheet.title = title);
 
-      stylesheetElms.forEach(theme => {
-        theme.disabled = theme.title !== title;
-      });
+      if (newSheet) {
+        newSheet.disabled = false;
+
+        stylesheetElms.forEach(sheet => {
+          sheet.disabled =
+            (sheet !== newSheet) &&
+            (sheet.title !== title);
+        });
+      }
     };
   });
-
 </script>
