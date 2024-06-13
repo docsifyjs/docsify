@@ -14,6 +14,7 @@ const CONFIG = {
   namespace: undefined,
   pathNamespaces: undefined,
   keyBindings: ['/', 'meta+k', 'ctrl+k'],
+  largeContent: false
 };
 
 const install = function (hook, vm) {
@@ -33,6 +34,7 @@ const install = function (hook, vm) {
     CONFIG.namespace = opts.namespace || CONFIG.namespace;
     CONFIG.pathNamespaces = opts.pathNamespaces || CONFIG.pathNamespaces;
     CONFIG.keyBindings = opts.keyBindings || CONFIG.keyBindings;
+    CONFIG.largeContent = opts.largeContent || CONFIG.largeContent;
   }
 
   const isAuto = CONFIG.paths === 'auto';

@@ -3,6 +3,8 @@ import {
   getAndRemoveDocisfyIgnoreConfig,
 } from '../../core/render/utils.js';
 
+import LZString from 'lz-string';
+
 let INDEXS = {};
 
 const LOCAL_STORAGE = {
@@ -73,9 +75,23 @@ function getListData(token) {
   return token.text;
 }
 
-function saveData(maxAge, expireKey, indexKey) {
+function saveData(maxAge, expireKey, indexKey, largeContent) {
   localStorage.setItem(expireKey, Date.now() + maxAge);
+
+  if (largeContent) {
+    const compressed = LZString.compressToUTF16(JSON.stringify(INDEXS));
+    localStorage.setItem(indexKey, compressed);
+  }else{
   localStorage.setItem(indexKey, JSON.stringify(INDEXS));
+  }
+}
+
+function getData(indexKey, largeContent ) {
+  if (largeContent) {
+    const compressedData = localStorage.getItem(indexKey);
+    return compressedData && JSON.parse(LZString.decompressFromUTF16(compressedData));
+  }
+  return JSON.parse(localStorage.getItem(indexKey));
 }
 
 export function genIndex(path, content = '', router, depth) {
@@ -276,7 +292,7 @@ export function init(config, vm) {
 
   const isExpired = localStorage.getItem(expireKey) < Date.now();
 
-  INDEXS = JSON.parse(localStorage.getItem(indexKey));
+  INDEXS = getData(indexKey, config.largeContent)
 
   if (isExpired) {
     INDEXS = {};
@@ -295,7 +311,7 @@ export function init(config, vm) {
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
       result => {
         INDEXS[path] = genIndex(path, result, vm.router, config.depth);
-        len === ++count && saveData(config.maxAge, expireKey, indexKey);
+        len === ++count && saveData(config.maxAge, expireKey, indexKey, config.largeContent);
       },
     );
   });
