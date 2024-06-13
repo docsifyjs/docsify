@@ -376,7 +376,7 @@ window.$docsify = {
 
 Website logo as it appears in the sidebar. You can resize it using CSS.
 
-!> Logo will only bee visible if `name` prop is also set. See [name](#name) configuration.
+!> Logo will only be visible if `name` prop is also set. See [name](#name) configuration.
 
 ```js
 window.$docsify = {
