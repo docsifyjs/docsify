@@ -24,14 +24,14 @@
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dark.min.css"
-      title="dark"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/buble.min.css"
+      title="buble"
       disabled
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/buble.min.css"
-      title="buble"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dark.min.css"
+      title="dark"
       disabled
     />
     <link
@@ -68,8 +68,8 @@
     </script>
   </head>
 
-  <body>
-    <div id="app">Loading ...</div>
+  <body class="spinner">
+    <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
     <script>
       // Docsify configuration
@@ -96,6 +96,7 @@
         loadNavbar: true,
         mergeNavbar: true,
         maxLevel: 4,
+        // repo: 'docsifyjs/docsify',
         subMaxLevel: 2,
         ga: 'UA-106147152-1',
         matomo: {
