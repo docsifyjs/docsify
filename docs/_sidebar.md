@@ -1,12 +1,10 @@
-- Getting started
-
+- **Getting started**
   - [Quick start](quickstart.md)
-  - [Writing more pages](more-pages.md)
-  - [Custom navbar](custom-navbar.md)
+  - [Adding pages](adding-pages.md)
   - [Cover page](cover.md)
-
-- Customization
-
+  - [Custom navbar](custom-navbar.md)
+  - [UI Kit](ui-kit.md)
+- **Customization**
   - [Configuration](configuration.md)
   - [Themes](themes.md)
   - [List of Plugins](plugins.md)
@@ -14,15 +12,12 @@
   - [Markdown configuration](markdown.md)
   - [Language highlighting](language-highlight.md)
   - [Emoji](emoji.md)
-
-- Guide
-
+- **Guide**
   - [Deploy](deploy.md)
   - [Helpers](helpers.md)
   - [Vue compatibility](vue.md)
   - [CDN](cdn.md)
   - [Offline Mode (PWA)](pwa.md)
   - [Embed Files](embed-files.md)
-
 - [Awesome docsify](awesome.md)
 - [Changelog](changelog.md)

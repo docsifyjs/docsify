@@ -147,6 +147,10 @@ iframe {
   border: 1px solid var(--color-mono-1);
 }
 
+ins {
+  text-decoration: underline;
+}
+
 kbd {
   display: inline-block;
   min-width: 2em;
@@ -182,15 +186,15 @@ strong {
 /* Buttons */
 /* ---------------------------------- */
 a.button,
-:where(button, input):where([type='button'], [type='submit']) {
+button[type],
+input.button,
+input:where([type='button'], [type='reset'], [type='submit']) {
   display: inline-block;
-  padding: 0.1em 1em 0.2em 1em;
   border: 1px solid var(--color-mono-1);
-  border-radius: var(--button-border-radius);
   background: var(--color-mono-1);
   color: var(--color-text);
-  text-decoration: none;
   cursor: pointer;
+  vertical-align: middle;
   transition: scale 0.15s;
 
   &:focus,
@@ -217,7 +221,17 @@ a.button,
   }
 }
 
-:where(button, input):where([type='button'], [type='submit']) {
+a.button,
+button[type],
+input:where([type='button'], [type='reset'], [type='submit']) {
+  padding: 0.1em 1em 0.2em 1em;
+  border-radius: var(--button-border-radius);
+  text-decoration: none;
+}
+
+button[type],
+input.button,
+input:where([type='button'], [type='reset'], [type='submit']) {
   &:disabled {
     opacity: 0.6;
     filter: grayscale(100%);
@@ -226,22 +240,25 @@ a.button,
   }
 }
 
-/* Code / Output */
+/* Code, Output, Samp */
 /* ---------------------------------- */
 code,
 output,
-pre[data-lang] {
+pre[data-lang],
+samp {
   border-radius: var(--border-radius);
 }
 
 code,
-pre[data-lang] {
+pre[data-lang],
+samp {
   z-index: 0;
 }
 
 code,
 pre,
-output::after {
+output::after,
+samp {
   font-family: var(--font-family-mono);
   font-size: var(--font-size-mono);
 }
@@ -264,12 +281,16 @@ pre[data-lang] {
   }
 }
 
-code {
+code,
+samp {
   margin: 0 0.1em;
   padding: 0.2em 0.35em;
+  white-space: pre-wrap;
+}
+
+code {
   background: var(--code-bg);
   color: var(--code-color);
-  white-space: pre-wrap;
 
   .token {
     position: relative;
@@ -305,6 +326,16 @@ pre[data-lang] {
     background: inherit;
     color: inherit;
     white-space: inherit;
+  }
+}
+
+samp {
+  background: var(--color-mono-0);
+  color: var(--color-text);
+
+  .token {
+    position: relative;
+    left: auto;
   }
 }
 
@@ -359,8 +390,23 @@ textarea {
   color: var(--form-element-color);
 }
 
+input,
+label,
+select {
+  vertical-align: middle;
+}
+
 fieldset {
   padding: 1em;
+
+  > :first-child,
+  > legend + * {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
 }
 
 input[type='checkbox'],
@@ -368,13 +414,13 @@ input[type='radio'] {
   appearance: none;
   display: inline-block;
   position: relative;
+  top: -0.1em;
   height: 1.1em;
   width: 1.1em;
   margin: 0;
   padding: 0;
   background: var(--color-bg);
   border: 1px solid var(--color-mono-2);
-  vertical-align: middle;
 }
 
 input[type='checkbox'] {
@@ -407,10 +453,6 @@ input[type='radio'] {
     border-color: var(--color-primary);
     box-shadow: inset 0 0 0 0.25em var(--color-primary);
   }
-}
-
-label {
-  vertical-align: middle;
 }
 
 /* Headings */
