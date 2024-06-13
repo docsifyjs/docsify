@@ -9,6 +9,8 @@ By default, the hyperlink on the current page is recognized and the content is s
 <script>
   window.$docsify = {
     search: 'auto', // default
+    // Enable text compression to reduce the size, especially if your contents are very large.
+    largeContent: false, // default
 
     search: [
       '/',            // => /README.md

@@ -14,7 +14,7 @@ const CONFIG = {
   namespace: undefined,
   pathNamespaces: undefined,
   keyBindings: ['/', 'meta+k', 'ctrl+k'],
-  largeContent: false
+  largeContent: false,
 };
 
 const install = function (hook, vm) {
