@@ -513,8 +513,7 @@ h6 {
     background: rgba(0, 0, 0, 0.08);
   }
 
-  &.tip {
-    /* TODO: change "tip" class name to "important" */
+  &.important {
     --_bg: var(--important-bg);
     --_border-color: var(--important-border-color);
     --_charm-bg: var(--important-charm-bg);
@@ -523,8 +522,7 @@ h6 {
     --_color: var(--important-color);
   }
 
-  &.warn {
-    /* TODO: change "warn" class name to "tip" */
+  &.tip {
     --_bg: var(--tip-bg);
     --_border-color: var(--tip-border-color);
     --_charm-bg: var(--tip-charm-bg);
