@@ -1,8 +1,10 @@
+<!-- markdownlint-disable first-line-h1 -->
+
 ![logo](_media/icon.svg)
 
 # docsify <small>4.13.0</small>
 
-> A magical documentation site generator.
+> A magical documentation site generator
 
 - Simple and lightweight
 - No statically built html files

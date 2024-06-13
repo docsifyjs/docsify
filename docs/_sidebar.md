@@ -1,3 +1,5 @@
+<!-- markdownlint-disable first-line-h1 -->
+
 - **Getting started**
   - [Quick start](quickstart.md)
   - [Adding pages](adding-pages.md)
