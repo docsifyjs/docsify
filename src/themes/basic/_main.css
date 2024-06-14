@@ -866,16 +866,11 @@ tr {
 .app-nav {
   position: absolute;
   z-index: 10;
-  right: 0;
-  margin: 25px 60px 0 0;
-  text-align: right;
+  top: 25px;
+  right: 40px;
 
-  &.no-badge {
-    margin-right: 25px;
-  }
-
-  > p {
-    margin: 0;
+  &:has(~ .github-corner) {
+    right: 70px;
   }
 
   a {
@@ -899,14 +894,14 @@ tr {
   li {
     display: inline-block;
     position: relative;
-    margin: 0 1rem;
     cursor: pointer;
 
     /* Dropdown */
     ul {
       position: absolute;
       top: -100vh;
-      right: -15px;
+      right: 50%;
+      translate: 50% 0;
       overflow-y: auto;
       max-height: calc(100vh - 61px);
       padding: 0.5em 1em;
@@ -941,6 +936,18 @@ tr {
     &:hover {
       ul {
         top: 100%;
+      }
+    }
+  }
+
+  > p {
+    margin: 0;
+  }
+
+  > ul {
+    > li {
+      & + & {
+        margin-left: 1rem;
       }
     }
   }
@@ -1138,16 +1145,6 @@ tr {
   .sidebar,
   .sidebar-toggle {
     position: fixed;
-  }
-
-  .app-nav {
-    margin-top: 16px;
-
-    ul {
-      ul {
-        top: 30px;
-      }
-    }
   }
 
   .content {
