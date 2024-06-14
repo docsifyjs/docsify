@@ -31,7 +31,7 @@
   li {
     &.active {
       > a {
-        border-right: 3px solid;
+        border-right: 3px solid var(--color-primary);
       }
     }
   }
