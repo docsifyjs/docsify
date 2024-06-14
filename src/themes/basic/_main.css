@@ -1,5 +1,20 @@
 @import '_vars.css';
 
+/* Variables (Private) */
+/* ========================================================================== */
+/* prettier-ignore */
+:root {
+  --_content-margin-inline: 40px;
+
+  /* z-index */
+  --_z-progress       : 2147483647;
+  --_z-skip-to-content: 2147483646;
+  --_z-sidebar-toggle : 40;
+  --_z-sidebar        : 30;
+  --_z-github-corner  : 20;
+  --_z-app-nav        : 10;
+}
+
 /* Base */
 /* ========================================================================== */
 *,
@@ -172,7 +187,6 @@ main {
   position: relative;
   width: 100vw;
   height: 100%;
-  z-index: 0;
 
   &.hidden {
     display: none;
@@ -252,12 +266,6 @@ output,
 pre[data-lang],
 samp {
   border-radius: var(--border-radius);
-}
-
-code,
-pre[data-lang],
-samp {
-  z-index: 0;
 }
 
 code,
@@ -700,35 +708,44 @@ tr {
 
 /* App */
 /* ========================================================================== */
-#app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75em;
-  height: 100%;
-  padding-inline: 50px;
+body {
+  > .progress {
+    position: fixed;
+    z-index: var(--_z-progress);
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--color-primary);
+    transition:
+      width 0.2s,
+      opacity 0.4s;
+  }
 }
 
-.content {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: var(--sidebar-width);
-  transition: left 250ms ease;
+main {
+  > .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: var(--sidebar-width);
+    transition: left 250ms ease;
 
-  body:has(.app-nav) & {
-    top: var(--navbar-height);
-  }
+    body:has(.app-nav) & {
+      top: var(--navbar-height);
+    }
 
-  body.close & {
-    left: 0;
-  }
+    body.close & {
+      left: 0;
+    }
 
-  body.hidesidebar & {
-    position: relative;
-    left: unset;
-    right: unset;
+    body.hidesidebar & {
+      position: relative;
+      left: unset;
+      right: unset;
+    }
   }
 }
 
@@ -736,17 +753,21 @@ tr {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 1;
+  z-index: var(--_z-github-corner);
   border-bottom: 0;
   text-decoration: none;
 
-  &:hover .octo-arm {
-    animation: github-corner 560ms ease-in-out;
+  &:hover {
+    .octo-arm {
+      animation: github-corner 560ms ease-in-out;
+    }
   }
 
   svg {
-    height: 80px;
-    width: 80px;
+    --size: var(--navbar-height);
+
+    height: var(--size);
+    width: var(--size);
     color: var(--color-bg);
     fill: var(--color-primary);
   }
@@ -769,7 +790,8 @@ tr {
 
 .markdown-section {
   position: relative;
-  max-width: 80%;
+  width: var(--max-width);
+  max-width: calc(100% - 80px);
   margin: 0 auto;
   padding-block: 2rem;
 
@@ -788,47 +810,6 @@ tr {
 
   img {
     max-width: 100%;
-  }
-}
-
-.progress {
-  position: fixed;
-  z-index: 999999;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--color-primary);
-  transition:
-    width 0.2s,
-    opacity 0.4s;
-}
-
-#skip-to-content {
-  appearance: none;
-  display: block;
-  position: fixed;
-  z-index: 2147483647;
-  top: 0;
-  left: 50%;
-  padding: 0.5rem 1.5rem;
-  border: 0;
-  border-radius: var(--button-border-radius);
-  background: var(--color-primary);
-  color: var(--theme-bg, var(--color-bg));
-  opacity: 0;
-  text-decoration: none;
-  transform: translate(-50%, -100%);
-  transition-property: opacity, transform;
-  transition-duration: 0s, 0.2s;
-  transition-delay: 0.2s, 0s;
-
-  &:focus {
-    opacity: 1;
-    transform: translate(-50%, 0.75rem);
-    transition-duration: 0s, 0.2s;
-    transition-delay: 0s, 0s;
   }
 }
 
@@ -864,6 +845,42 @@ tr {
   }
 }
 
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75em;
+  height: 100%;
+  padding-inline: 50px;
+}
+
+#skip-to-content {
+  appearance: none;
+  display: block;
+  position: fixed;
+  z-index: var(--_z-skip-to-content);
+  top: 0;
+  left: 50%;
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  border-radius: var(--button-border-radius);
+  background: var(--color-primary);
+  color: var(--theme-bg, var(--color-bg));
+  opacity: 0;
+  text-decoration: none;
+  transform: translate(-50%, -100%);
+  transition-property: opacity, transform;
+  transition-duration: 0s, 0.2s;
+  transition-delay: 0.2s, 0s;
+
+  &:focus {
+    opacity: 1;
+    transform: translate(-50%, 0.75rem);
+    transition-duration: 0s, 0.2s;
+    transition-delay: 0s, 0s;
+  }
+}
+
 /* Navigation Bar */
 /* ========================================================================== */
 .app-nav {
@@ -871,7 +888,7 @@ tr {
   align-items: center;
   justify-content: end;
   position: absolute;
-  z-index: 10;
+  z-index: var(--_z-app-nav);
   top: 0;
   right: 0;
   left: var(--sidebar-width);
@@ -888,7 +905,7 @@ tr {
   }
 
   &:has(~ .github-corner) {
-    right: 70px;
+    padding-right: calc(var(--navbar-height) + 1em);
   }
 
   a {
@@ -977,7 +994,7 @@ tr {
   display: flex;
   flex-direction: column;
   position: absolute;
-  z-index: 20;
+  z-index: var(--_z-sidebar);
   top: 0;
   bottom: 0;
   left: 0;
@@ -1090,7 +1107,7 @@ tr {
 
 .sidebar-toggle {
   position: absolute;
-  z-index: 30;
+  z-index: var(--_z-sidebar-toggle);
   bottom: 0;
   left: 0;
   width: calc(var(--sidebar-width) - 6px);
@@ -1152,6 +1169,14 @@ tr {
     height: auto;
     min-height: 100vh;
     overflow-x: hidden;
+
+    > .content {
+      position: relative;
+      right: 0;
+      left: 0;
+      max-width: 100vw;
+      transition: transform 250ms ease;
+    }
   }
 
   .app-nav,
@@ -1167,14 +1192,6 @@ tr {
 
   .app-nav {
     left: 0;
-  }
-
-  .content {
-    position: relative;
-    right: 0;
-    left: 0;
-    max-width: 100vw;
-    transition: transform 250ms ease;
   }
 
   .github-corner {
@@ -1207,8 +1224,10 @@ tr {
       display: none;
     }
 
-    .content {
-      transform: translateX(var(--sidebar-width));
+    main {
+      > .content {
+        transform: translateX(var(--sidebar-width));
+      }
     }
 
     .sidebar {

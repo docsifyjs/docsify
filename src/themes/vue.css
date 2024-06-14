@@ -11,9 +11,8 @@
   --color-text      : #34495e;
   --font-family     : 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   --font-family-mono: 'Roboto Mono', Monaco, courier, monospace;
-  --font-size       : 15px;
-  --line-height     : 1.7;
-  --margin-block    : 1.2em;
+  --margin-block    : 1em;
+  --max-width       : 85ch; /* 675px / 98 characters */
 
   /* Elements */
   --code-color      : #e96900;

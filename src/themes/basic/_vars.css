@@ -34,6 +34,7 @@
   --font-weight-mono : 400;
   --line-height      : 1.6;
   --margin-block     : 1em;
+  --max-width        : 72ch; /* 725px / 98 characters */
   --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
 
   /* Elements */
