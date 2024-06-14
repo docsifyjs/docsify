@@ -486,7 +486,6 @@ export function Render(Base) {
         } else {
           dom.body.prepend(navEl);
           navEl.classList.add('app-nav');
-          navEl.classList.toggle('no-badge', !config.repo);
         }
       }
 

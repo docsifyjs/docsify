@@ -715,8 +715,11 @@ tr {
   right: 0;
   bottom: 0;
   left: var(--sidebar-width);
-  padding-top: 60px; /* TODO */
   transition: left 250ms ease;
+
+  body:has(.app-nav) & {
+    top: var(--navbar-height);
+  }
 
   body.close & {
     left: 0;
@@ -768,7 +771,7 @@ tr {
   position: relative;
   max-width: 80%;
   margin: 0 auto;
-  padding: 30px 15px 40px 15px;
+  padding-block: 2rem;
 
   > :first-child {
     margin-top: 0 !important;
@@ -864,10 +867,25 @@ tr {
 /* Navigation Bar */
 /* ========================================================================== */
 .app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: end;
   position: absolute;
   z-index: 10;
-  top: 25px;
-  right: 40px;
+  top: 0;
+  right: 0;
+  left: var(--sidebar-width);
+  height: var(--navbar-height);
+  padding-right: 40px;
+  transition: left 250ms ease;
+
+  body.close & {
+    left: 0;
+  }
+
+  body.hidesidebar & {
+    left: 0;
+  }
 
   &:has(~ .github-corner) {
     right: 70px;
@@ -1147,11 +1165,15 @@ tr {
     position: fixed;
   }
 
+  .app-nav {
+    left: 0;
+  }
+
   .content {
-    position: static;
+    position: relative;
+    right: 0;
     left: 0;
     max-width: 100vw;
-    padding-top: 20px;
     transition: transform 250ms ease;
   }
 

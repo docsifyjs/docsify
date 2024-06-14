@@ -107,6 +107,7 @@
 
   /* Navbar */
   --navbar-font-size        : var(--font-size);
+  --navbar-height           : 60px;
   --navbar-link-color       : ;
   --navbar-link-color-active: var(--color-primary);
   --navbar-link-line-height : 2.5;
