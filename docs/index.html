@@ -179,7 +179,7 @@
         },
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
-          // Plugin: Edit Document
+          // Plugin: Footer
           function (hook, vm) {
             hook.beforeEach(html => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
@@ -196,15 +196,13 @@
                   vm.route.file;
               }
 
-              const editHTML = `<p><a href="${url}" style="display: inline-flex; align-items: center; gap: 0.25em;">:memo: Edit Document</a></p>\n\n`;
-
-              return editHTML + html;
-            });
-          },
-          // Plugin: Powered by docsify
-          function (hook, vm) {
-            hook.beforeEach(html => {
-              const footerHTML = '<hr><p>Powered by docsify</p>\n';
+              const footerHTML = [
+                '<hr>',
+                '<div style="display: flex; align-items: center; justify-content: space-between;">',
+                '  <span>Powered by <a href="/">Docsify.js</a></span>',
+                `  <a href="${url}" style="display: inline-flex; align-items: center; gap: 0.25em;">:memo: Edit Page</a>`,
+                '</div>',
+              ].join('\n');
 
               return html + footerHTML;
             });
