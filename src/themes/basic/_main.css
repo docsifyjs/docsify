@@ -113,6 +113,7 @@ a {
 
 blockquote {
   position: relative;
+  overflow: auto;
   margin-inline: 0;
   padding: var(--blockquote-padding);
   border: solid var(--blockquote-border-color);
@@ -142,8 +143,8 @@ hr {
 
 iframe {
   display: block;
-  width: 1px;
-  min-width: 100%;
+  width: 100%;
+  max-width: 100%;
   border: 1px solid var(--color-mono-1);
 }
 
@@ -224,7 +225,7 @@ input:where([type='button'], [type='reset'], [type='submit']) {
 a.button,
 button[type],
 input:where([type='button'], [type='reset'], [type='submit']) {
-  padding: 0.1em 1em 0.2em 1em;
+  padding: var(--button-padding);
   border-radius: var(--button-border-radius);
   text-decoration: none;
 }
@@ -238,6 +239,10 @@ input:where([type='button'], [type='reset'], [type='submit']) {
     cursor: not-allowed;
     pointer-events: none;
   }
+}
+
+button:not([type]) {
+  color: inherit;
 }
 
 /* Code, Output, Samp */
@@ -373,6 +378,7 @@ fieldset,
 input,
 select,
 textarea {
+  max-width: 100%;
   border: var(--form-element-border);
   border-radius: var(--form-element-border-radius);
 }
@@ -918,7 +924,9 @@ tr {
       white-space: nowrap;
 
       a {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
         margin: 0;
         line-height: var(--navbar-link-line-height);
         text-decoration: none;
@@ -1015,7 +1023,9 @@ tr {
     }
 
     a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.25em;
       overflow: hidden;
       color: var(--sidebar-link-color);
       text-overflow: ellipsis;

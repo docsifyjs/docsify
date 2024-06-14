@@ -46,21 +46,11 @@
       title="dolphin"
       disabled
     />
-    <style>
-      nav.app-nav li ul {
-        min-width: 100px;
-      }
-
-      #carbonads {
-        box-shadow: none !important;
-        width: auto !important;
-      }
-    </style>
     <script>
+      // Set html "lang" attribute based on URL
       (function () {
         const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
 
-        // Set html "lang" attribute based on URL
         if (lang) {
           document.documentElement.setAttribute('lang', lang[1]);
         }
@@ -189,6 +179,7 @@
         },
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
+          // Plugin: Edit Document
           function (hook, vm) {
             hook.beforeEach(html => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
@@ -204,13 +195,18 @@
                   'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
                   vm.route.file;
               }
-              const editHtml = '[:memo: Edit Document](' + url + ')\n';
-              return (
-                editHtml +
-                html +
-                '\n\n----\n\n' +
-                '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
-              );
+
+              const editHTML = `<p><a href="${url}" style="display: inline-flex; align-items: center; gap: 0.25em;">:memo: Edit Document</a></p>\n\n`;
+
+              return editHTML + html;
+            });
+          },
+          // Plugin: Powered by docsify
+          function (hook, vm) {
+            hook.beforeEach(html => {
+              const footerHTML = '<hr><p>Powered by docsify</p>\n';
+
+              return html + footerHTML;
             });
           },
         ],

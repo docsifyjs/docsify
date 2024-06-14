@@ -46,6 +46,7 @@
   --button-bg                     : var(--color-primary);
   --button-border-radius          : 100vh;
   --button-color                  : #fff;
+  --button-padding                : 0.1em 1em 0.2em 1em;
   --code-bg                       : var(--color-mono-0);
   --code-color                    : ;
   --codeblock-bg                  : var(--color-mono-0);
