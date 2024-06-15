@@ -1084,6 +1084,17 @@ main {
     }
   }
 
+  /* Merged navbar */
+  nav {
+    li {
+      font-weight: var(--strong-font-weight);
+
+      li {
+        font-weight: normal;
+      }
+    }
+  }
+
   /* State: close */
   body.close & {
     visibility: hidden;

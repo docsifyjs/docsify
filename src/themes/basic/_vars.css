@@ -119,6 +119,6 @@
   --sidebar-font-size        : var(--font-size);
   --sidebar-link-color       : var(--color-text);
   --sidebar-link-color-active: var(--color-primary);
-  --sidebar-link-line-height : 2.5;
+  --sidebar-link-line-height : 2.25;
   --sidebar-width            : 280px;
 }
