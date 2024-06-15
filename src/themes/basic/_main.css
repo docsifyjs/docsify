@@ -4,8 +4,6 @@
 /* ========================================================================== */
 /* prettier-ignore */
 :root {
-  --_content-margin-inline: 40px;
-
   /* z-index */
   --_z-progress       : 2147483647;
   --_z-skip-to-content: 2147483646;
@@ -731,10 +729,11 @@ main {
     right: 0;
     bottom: 0;
     left: var(--sidebar-width);
+    padding-top: 2em;
     transition: left 250ms ease;
 
     body:has(.app-nav) & {
-      top: var(--navbar-height);
+      padding-top: var(--navbar-height);
     }
 
     body.close & {
@@ -789,9 +788,11 @@ main {
 }
 
 .markdown-section {
+  --_margin-inline: 40px;
+
   position: relative;
   width: var(--max-width);
-  max-width: calc(100% - 80px);
+  max-width: calc(100% - (var(--_margin-inline) * 2));
   margin: 0 auto;
   padding-block: 2rem;
 
@@ -1171,7 +1172,7 @@ main {
     overflow-x: hidden;
 
     > .content {
-      position: relative;
+      position: static;
       right: 0;
       left: 0;
       max-width: 100vw;
