@@ -197,7 +197,7 @@ hook.ready(() => {
 
 ## Examples
 
-#### Page Footer
+### Page Footer
 
 ```js
 window.$docsify = {
@@ -243,6 +243,44 @@ window.$docsify = {
         );
       });
     },
+  ],
+};
+```
+
+### Theme Swich
+
+It wiil add a theme switch to the after the sidebar and auto add the dark class to the body element, so it you can control the theme by css `body.dark`
+
+```js
+window.$docsify = {
+  plugins: [
+        function (hook, vm) {
+          // Darkmode
+          let light = "☀️"; // light logo
+          let dark = "🌑"; // dark logo
+          let switchID = "themeSwitch";
+          let rootNode = document.querySelector("body");  // add dark class to body
+          let autodark = window.matchMedia("(prefers-color-scheme: dark)"); // check system setting
+          var syncTheme = (switchNode) => {
+            switchNode.innerHTML === light
+              ? rootNode.classList.remove("dark")
+              : rootNode.classList.add("dark");
+          };
+          hook.mounted(function () {
+            let theme = autodark.matches ? dark : light;
+            let botton = `<div style="text-align: center"><span id=${switchID}>${theme}</span></div>`;
+            let insertArea = document.querySelector("h1.app-name");
+            insertArea.insertAdjacentHTML("afterend", botton);
+            let element = document.getElementById(switchID);
+            syncTheme(element);
+
+            element.addEventListener("click", () => {
+              let isLight = element.innerHTML === light;
+              element.innerHTML = isLight ? dark : light;
+              syncTheme(element);
+            });
+          });
+        },
   ],
 };
 ```
