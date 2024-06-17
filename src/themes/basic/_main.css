@@ -21,6 +21,8 @@
   box-sizing: border-box;
   border: 0;
   font: inherit;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 html,
