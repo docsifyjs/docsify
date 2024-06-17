@@ -37,6 +37,13 @@
   --max-width        : 72ch; /* 725px / 98 characters */
   --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
 
+  /* Cover */
+  --cover-bg         : ;
+  --cover-bg-overlay : ;
+  --cover-color      : ;
+  --cover-title-color: ;
+  --cover-title-font : 300 var(--font-size-xxxl) var(--font-family);
+
   /* Elements */
   --blockquote-bg                 : ;
   --blockquote-border-color       : var(--color-primary);
@@ -47,7 +54,7 @@
   --button-bg                     : var(--color-primary);
   --button-border-radius          : 100vh;
   --button-color                  : #fff;
-  --button-padding                : 0.1em 1em 0.2em 1em;
+  --button-padding                : 0.3em 1.25em 0.315em 1.25em;
   --code-bg                       : var(--color-mono-0);
   --code-color                    : ;
   --codeblock-bg                  : var(--color-mono-0);

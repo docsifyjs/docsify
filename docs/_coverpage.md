@@ -12,3 +12,6 @@
 
 [GitHub](https://github.com/docsifyjs/docsify/)
 [Getting Started](#docsify)
+
+<!-- ![color](#f0f0f0) -->
+<!-- ![](/_media/icon.svg) -->
