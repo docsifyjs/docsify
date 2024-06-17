@@ -70,17 +70,8 @@ export function main(config) {
  * @returns {String} Cover page
  */
 export function cover() {
-  const SL = ', 100%, 85%';
-  const bgc = `
-    linear-gradient(
-      to left bottom,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 0%,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 100%
-    )
-  `;
-
   return /* html */ `
-    <section class="cover show" role="complementary" aria-label="cover" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>

@@ -384,12 +384,21 @@ export function Render(Base) {
 
     _renderCover(text, coverOnly) {
       const el = dom.getNode('.cover');
+      const computedStyle = getComputedStyle(document.documentElement);
+      const coverBg = computedStyle.getPropertyValue('--cover-bg').trim();
+      const coverOverlay = computedStyle
+        .getPropertyValue('--cover-bg-overlay')
+        .trim();
+
+      let newCoverBg;
+      let newCoverOverlay;
 
       dom.toggleClass(
         dom.getNode('main'),
         coverOnly ? 'add' : 'remove',
         'hidden',
       );
+
       if (!text) {
         dom.toggleClass(el, 'remove', 'show');
         return;
@@ -399,30 +408,70 @@ export function Render(Base) {
 
       let html = this.coverIsHTML ? text : this.compiler.cover(text);
 
-      const m = html
+      const markdownBg = html
         .trim()
-        .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
+        .match(
+          '<p><img.*?data-origin="(.*?)".*?alt="(.*?)"[^>]*?>([^<]*?)</p>$',
+        );
 
-      if (m) {
-        if (m[2] === 'color') {
-          el.style.background = m[1] + (m[3] || '');
-        } else {
-          let path = m[1];
+      if (markdownBg) {
+        const [bgMatch, bgValue, bgType] = markdownBg;
 
-          dom.toggleClass(el, 'add', 'has-mask');
-          if (!isAbsolutePath(m[1])) {
-            path = getPath(this.router.getBasePath(), m[1]);
-          }
+        // Color
+        if (bgType === 'color') {
+          newCoverBg = bgValue;
+        }
+        // Image
+        else {
+          const path = !isAbsolutePath(bgValue)
+            ? getPath(this.router.getBasePath(), bgValue)
+            : bgValue;
 
-          el.style.backgroundImage = `url(${path})`;
-          el.style.backgroundSize = 'cover';
-          el.style.backgroundPosition = 'center center';
+          newCoverBg = `center center / cover url(${path})`;
+          newCoverOverlay = coverOverlay
+            ? null
+            : 'color-mix(in srgb, var(--color-bg), transparent 20%)';
         }
 
-        html = html.replace(m[0], '');
+        html = html.replace(bgMatch, '');
+      }
+
+      // Gradient background
+      if (!coverBg && !newCoverBg) {
+        const bgHue1 = Math.floor(Math.random() * 255);
+        const bgHue2 = Math.floor(Math.random() * 255);
+        const bgSaturation = 100;
+        const bgLightness = 85;
+
+        newCoverBg = `
+          linear-gradient(
+            to left bottom,
+            hsl(${bgHue1}, ${bgSaturation}%, ${bgLightness}%) 0%,
+            hsl(${bgHue2}, ${bgSaturation}%, ${bgLightness}%) 100%
+          )
+        `;
+      }
+
+      if (newCoverBg) {
+        const rootStyle = document.documentElement.style;
+
+        rootStyle.setProperty('--cover-bg', newCoverBg);
+        newCoverOverlay &&
+          rootStyle.setProperty('--cover-bg-overlay', newCoverOverlay);
       }
 
       this._renderTo('.cover-main', html);
+
+      // Button styles
+      dom
+        .findAll('.cover-main > p:last-of-type > a:not([class])')
+        .forEach(elm => {
+          const buttonType = elm.matches(':last-child')
+            ? 'primary'
+            : 'secondary';
+
+          elm.classList.add('button', buttonType);
+        });
     }
 
     _updateRender() {
