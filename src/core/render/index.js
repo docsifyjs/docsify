@@ -271,7 +271,7 @@ export function Render(Base) {
         if (el) {
           el.innerHTML = skipLinkText;
         } else {
-          const html = `<button id="skip-to-content">${skipLinkText}</button>`;
+          const html = `<button type="button" id="skip-to-content" class="primary">${skipLinkText}</button>`;
           dom.body.insertAdjacentHTML('afterbegin', html);
         }
       }

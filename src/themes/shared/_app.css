@@ -148,19 +148,11 @@ main {
 }
 
 #skip-to-content {
-  appearance: none;
-  display: block;
   position: fixed;
   z-index: var(--_z-skip-to-content);
   top: 0;
   left: 50%;
-  padding: 0.5rem 1.5rem;
-  border: 0;
-  border-radius: var(--button-border-radius);
-  background: var(--color-primary);
-  color: var(--theme-bg, var(--color-bg));
   opacity: 0;
-  text-decoration: none;
   transform: translate(-50%, -100%);
   transition-property: opacity, transform;
   transition-duration: 0s, 0.2s;
