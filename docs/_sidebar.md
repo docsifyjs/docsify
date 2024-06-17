@@ -1,12 +1,12 @@
 <!-- markdownlint-disable first-line-h1 -->
 
-- **Getting started**
+- Getting started
   - [Quick start](quickstart.md)
   - [Adding pages](adding-pages.md)
   - [Cover page](cover.md)
   - [Custom navbar](custom-navbar.md)
   - [UI Kit](ui-kit.md)
-- **Customization**
+- Customization
   - [Configuration](configuration.md)
   - [Themes](themes.md)
   - [List of Plugins](plugins.md)
@@ -14,7 +14,7 @@
   - [Markdown configuration](markdown.md)
   - [Language highlighting](language-highlight.md)
   - [Emoji](emoji.md)
-- **Guide**
+- Guide
   - [Deploy](deploy.md)
   - [Helpers](helpers.md)
   - [Vue compatibility](vue.md)

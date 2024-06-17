@@ -1052,6 +1052,7 @@ main {
   li {
     line-height: var(--sidebar-link-line-height);
     scroll-margin-bottom: 40px;
+    font-weight: bold;
 
     &.collapse {
       .app-sub-sidebar {
@@ -1082,16 +1083,9 @@ main {
         color: var(--sidebar-link-color-active);
       }
     }
-  }
 
-  /* Merged navbar */
-  nav {
     li {
-      font-weight: var(--strong-font-weight);
-
-      li {
-        font-weight: normal;
-      }
+      font-weight: normal;
     }
   }
 
