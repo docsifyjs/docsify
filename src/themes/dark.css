@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
 @import 'shared/__index.css';
 @import 'shared/_syntax.css';
@@ -9,8 +9,8 @@
   --color-bg        : #3f3f3f;
   --color-primary   : #ea6f5a;
   --color-text      : #c8c8c8;
-  --font-family     : 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-  --font-family-mono: 'Roboto Mono', Monaco, courier, monospace;
+  --font-family     : 'Source Sans 3', sans-serif;
+  --font-family-mono: 'Roboto Mono', monospace;
 
   /* Elements */
   --code-bg         : #282828;

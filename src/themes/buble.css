@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
 @import 'shared/__index.css';
 
@@ -6,7 +6,8 @@
 :root {
   /* Base */
   --color-primary   : #0074d9;
-  --font-family-mono: Inconsolata, monospace;
+  --font-family-mono: "Inconsolata", monospace;
+  --font-size-mono  : var(--font-size);
 
     /* Elements */
   --code-bg            : #f9f9f9;
