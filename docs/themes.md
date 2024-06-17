@@ -6,9 +6,10 @@ Docsify offers several official themes. Click a theme name below to preview each
 
 - <a href="#" data-theme="vue">Vue</a>
 - <a href="#" data-theme="buble">Buble</a>
+- <a href="#" data-theme="core">Core</a>
 - <a href="#" data-theme="dark">Dark</a>
-- <a href="#" data-theme="pure">Pure</a>
 - <a href="#" data-theme="dolphin">Dolphin</a>
+- <a href="#" data-theme="pure">Pure</a>
 
 Official themes are available on multiple [CDNs](cdn). Uncompressed themes are also available by omitting `.min` from the filename.
 

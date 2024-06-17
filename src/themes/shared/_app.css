@@ -1,0 +1,175 @@
+/* App */
+/* ========================================================================== */
+body {
+  > .progress {
+    position: fixed;
+    z-index: var(--_z-progress);
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--color-primary);
+    transition:
+      width 0.2s,
+      opacity 0.4s;
+  }
+}
+
+main {
+  > .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: var(--sidebar-width);
+    padding-top: 2em;
+    transition: left 250ms ease;
+
+    body:has(.app-nav) & {
+      padding-top: var(--navbar-height);
+    }
+
+    body.close & {
+      left: 0;
+    }
+
+    body.hidesidebar & {
+      position: relative;
+      left: unset;
+      right: unset;
+    }
+  }
+}
+
+.github-corner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: var(--_z-github-corner);
+  border-bottom: 0;
+  text-decoration: none;
+
+  &:hover {
+    .octo-arm {
+      animation: github-corner 560ms ease-in-out;
+    }
+  }
+
+  svg {
+    height: var(--navbar-height);
+    width: var(--navbar-height);
+    color: var(--color-bg);
+    fill: var(--color-primary);
+  }
+}
+
+@keyframes github-corner {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+
+.markdown-section {
+  --_margin-inline: 40px;
+
+  position: relative;
+  width: var(--max-width);
+  max-width: calc(100% - (var(--_margin-inline) * 2));
+  margin: 0 auto;
+  padding-block: 2rem;
+
+  > :first-child {
+    margin-top: 0 !important;
+  }
+
+  a:not(:where(.anchor, .button)) {
+    text-decoration-color: var(--color-primary);
+    color: inherit;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.spinner:empty /* Block: <div class="spinner"></div>  */,
+.spinner:not(:empty)::before /* Pseudo: <div class="spinner">Content</div>  */ {
+  --_gradient: no-repeat
+    radial-gradient(farthest-side, var(--color-primary) 92%, #0000);
+
+  content: '';
+  display: block;
+  width: 36px;
+  aspect-ratio: 1;
+  background:
+    var(--_gradient) top,
+    var(--_gradient) left,
+    var(--_gradient) right,
+    var(--_gradient) bottom;
+  background-size: 10px 10px;
+  animation: spinner 1s infinite;
+}
+
+.spinner:not(:empty)::before {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75em;
+  height: 100%;
+  padding-inline: 50px;
+}
+
+#skip-to-content {
+  appearance: none;
+  display: block;
+  position: fixed;
+  z-index: var(--_z-skip-to-content);
+  top: 0;
+  left: 50%;
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  border-radius: var(--button-border-radius);
+  background: var(--color-primary);
+  color: var(--theme-bg, var(--color-bg));
+  opacity: 0;
+  text-decoration: none;
+  transform: translate(-50%, -100%);
+  transition-property: opacity, transform;
+  transition-duration: 0s, 0.2s;
+  transition-delay: 0.2s, 0s;
+
+  &:focus {
+    opacity: 1;
+    transform: translate(-50%, 0.75rem);
+    transition-duration: 0s, 0.2s;
+    transition-delay: 0s, 0s;
+  }
+}

@@ -1,0 +1,24 @@
+@import '_vars.css';
+@import '_vars-private.css';
+@import '_base.css';
+@import '_elements.css';
+@import '_app.css';
+@import '_coverpage.css';
+@import '_navbar.css';
+@import '_sidebar.css';
+@import '_mq.css';
+
+/* Plugins */
+/* ========================================================================== */
+/* Search */
+.search {
+  a:hover {
+    color: var(--color-primary);
+  }
+
+  .search-keyword {
+    color: var(--color-primary);
+    font-style: normal;
+    font-weight: var(--strong-font-weight);
+  }
+}

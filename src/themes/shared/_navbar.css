@@ -1,0 +1,106 @@
+/* Nav Bar */
+/* ========================================================================== */
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: absolute;
+  z-index: var(--_z-app-nav);
+  top: 0;
+  right: 0;
+  left: var(--sidebar-width);
+  height: var(--navbar-height);
+  padding-right: 40px;
+  transition: left 250ms ease;
+
+  body.close & {
+    left: 0;
+  }
+
+  body.hidesidebar & {
+    left: 0;
+  }
+
+  &:has(~ .github-corner) {
+    padding-right: calc(var(--navbar-height) + 1em);
+  }
+
+  a {
+    color: var(--navbar-link-color);
+
+    &:hover {
+      text-decoration-color: var(--navbar-link-color-active);
+    }
+
+    &.active {
+      color: var(--navbar-link-color-active);
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+
+    /* Dropdown */
+    ul {
+      position: absolute;
+      top: -100vh;
+      right: 50%;
+      translate: 50% 0;
+      overflow-y: auto;
+      max-height: calc(100vh - 61px);
+      padding: 0.5em 1em;
+      border: 1px solid var(--color-mono-2);
+      border-radius: var(--border-radius);
+      background: var(--color-bg);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    li {
+      display: block;
+      margin: 0;
+      line-height: 1;
+      white-space: nowrap;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+        margin: 0;
+        line-height: var(--navbar-link-line-height);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--navbar-link-color-active);
+        }
+      }
+    }
+
+    &:focus-within,
+    &:hover {
+      ul {
+        top: 100%;
+      }
+    }
+  }
+
+  > p {
+    margin: 0;
+  }
+
+  > ul {
+    > li {
+      & + & {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

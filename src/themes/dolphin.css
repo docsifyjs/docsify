@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Thasadith:400,400i,700');
 
-@import 'basic/_coverpage.css';
-@import 'basic/_main.css';
-@import 'basic/_syntax.css';
+@import 'shared/__index.css';
+@import 'shared/_syntax.css';
 
 /* prettier-ignore */
 :root {

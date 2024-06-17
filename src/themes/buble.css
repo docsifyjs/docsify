@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Inconsolata-Bold');
 
-@import 'basic/_coverpage.css';
-@import 'basic/_main.css';
+@import 'shared/__index.css';
 
 /* prettier-ignore */
 :root {
