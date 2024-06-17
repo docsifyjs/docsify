@@ -42,12 +42,12 @@ If you don't like `npm` or have trouble installing the tool, you can manually cr
 ```html
 <!-- index.html -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css">
   </head>
   <body>
     <div id="app"></div>

@@ -1117,21 +1117,13 @@ main {
   bottom: 0;
   left: 0;
   width: calc(var(--sidebar-width) - 6px);
-  padding: 10px;
+  margin: 0;
+  padding: 0;
   border: 0;
   outline: none;
   background: color-mix(in srgb, var(--color-bg) 80%, transparent);
   text-align: center;
   cursor: pointer;
-  transition: opacity 0.3s;
-
-  span {
-    display: block;
-    height: 2px;
-    width: 16px;
-    margin-bottom: 4px;
-    background: var(--sidebar-link-color-active);
-  }
 
   /* State: close */
   body.close & {
@@ -1141,6 +1133,18 @@ main {
   /* State: sticky */
   body.sticky & {
     position: fixed;
+  }
+}
+
+.sidebar-toggle-button {
+  padding: 10px;
+
+  span {
+    display: block;
+    height: 2px;
+    width: 16px;
+    margin-bottom: 4px;
+    background: var(--sidebar-link-color-active);
   }
 }
 
@@ -1167,6 +1171,15 @@ main {
   .sidebar,
   .sidebar-toggle {
     display: none;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  @supports (width: env(safe-area-inset)) {
+    .sidebar > *,
+    .sidebar-toggle-button {
+      margin-left: calc(env(safe-area-inset-left) / 2);
+    }
   }
 }
 
@@ -1220,7 +1233,6 @@ main {
 
   .sidebar-toggle {
     width: auto;
-    padding: 30px 30px 10px 10px;
     background: transparent;
   }
 
@@ -1243,7 +1255,6 @@ main {
 
     .sidebar-toggle {
       width: calc(var(--sidebar-width) - 16px);
-      padding: 10px;
       background: color-mix(in srgb, var(--color-bg) 80%, transparent);
       transition: 1s background-color;
     }
