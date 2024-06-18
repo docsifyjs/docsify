@@ -1,6 +1,6 @@
 import {
   getAndRemoveConfig,
-  getAndRemoveDocisfyIgnoreConfig,
+  getAndRemoveDocsifyIgnoreConfig,
 } from '../../core/render/utils.js';
 
 let INDEXS = {};
@@ -89,7 +89,7 @@ export function genIndex(path, content = '', router, depth) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = getAndRemoveDocisfyIgnoreConfig(token.text).content;
+      const text = getAndRemoveDocsifyIgnoreConfig(token.text).content;
 
       if (config.id) {
         slug = router.toURL(path, { id: slugify(config.id) });
@@ -98,7 +98,7 @@ export function genIndex(path, content = '', router, depth) {
       }
 
       if (str) {
-        title = getAndRemoveDocisfyIgnoreConfig(str).content;
+        title = getAndRemoveDocsifyIgnoreConfig(str).content;
       }
 
       index[slug] = { slug, title: title, body: '' };
