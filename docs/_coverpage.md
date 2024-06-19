@@ -7,7 +7,7 @@
 > A magical documentation site generator
 
 - Simple and lightweight
-- No statically built html files
+- No statically built HTML files
 - Multiple themes
 
 [GitHub](https://github.com/docsifyjs/docsify/)
