@@ -28,28 +28,19 @@
 
 <button type="button">Button</button>
 <a href="javascript:void(0);" class="button">Link Button</a>
-
-<p>
-  <input type="button" value="Input Button" class="button">
-</p>
+<input type="button" value="Input Button" class="button">
 
 #### Primary
 
 <button type="button" class="primary">Button</button>
 <a href="javascript:void(0);" class="button primary">Link Button</a>
-
-<p>
-  <input type="button" value="Input Button" class="primary">
-</p>
+<input type="button" value="Input Button" class="primary">
 
 #### Secondary
 
 <button type="button" class="secondary">Button</button>
 <a href="javascript:void(0);" class="button secondary">Link Button</a>
-
-<p>
-  <input type="button" value="Input Button" class="secondary">
-</p>
+<input type="button" value="Input Button" class="secondary">
 
 ## Callouts
 
@@ -207,11 +198,11 @@ Ipsum ea amet dolore mollit incididunt fugiat nulla laboris est sint voluptate. 
 
 ## Horizontal Rule
 
-Nulla consequuntur ea cupiditate suscipit illum et.
+Text
 
 ---
 
-Quis consequuntur soluta quas aut facilis et ullam iusto.
+Text
 
 ## IFrame
 
