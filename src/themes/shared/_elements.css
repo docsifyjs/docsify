@@ -43,7 +43,7 @@ a {
 
   &.anchor > span {
     &:hover {
-      text-decoration-color: var(--color-primary);
+      text-decoration-color: var(--theme-color);
     }
   }
 }
@@ -201,7 +201,7 @@ button:not([type]) {
   background: var(--_bg);
   color: var(--_color);
 
-  /* Icon */
+  /* Charm */
   &::before {
     content: var(--_charm-content);
     position: absolute;
@@ -447,8 +447,8 @@ input[type='checkbox'] {
   }
 
   &:checked {
-    border-color: var(--color-primary);
-    background: var(--color-primary);
+    border-color: var(--theme-color);
+    background: var(--theme-color);
   }
 }
 
@@ -456,8 +456,8 @@ input[type='radio'] {
   border-radius: 100vh;
 
   &:checked {
-    border-color: var(--color-primary);
-    box-shadow: inset 0 0 0 0.25em var(--color-primary);
+    border-color: var(--theme-color);
+    box-shadow: inset 0 0 0 0.25em var(--theme-color);
   }
 }
 

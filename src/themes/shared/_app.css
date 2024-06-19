@@ -9,7 +9,7 @@ body {
     left: 0;
     height: 2px;
     width: 0%;
-    background: var(--color-primary);
+    background: var(--theme-color);
     transition:
       width 0.2s,
       opacity 0.4s;
@@ -60,7 +60,7 @@ main {
     height: var(--navbar-height);
     width: var(--navbar-height);
     color: var(--color-bg);
-    fill: var(--color-primary);
+    fill: var(--theme-color);
   }
 }
 
@@ -93,11 +93,11 @@ main {
   }
 
   a:not(:where(.anchor, .button)) {
-    text-decoration-color: var(--color-primary);
+    text-decoration-color: var(--theme-color);
     color: inherit;
 
     &:hover {
-      color: var(--color-primary);
+      color: var(--theme-color);
     }
   }
 
@@ -109,7 +109,7 @@ main {
 .spinner:empty /* Block: <div class="spinner"></div>  */,
 .spinner:not(:empty)::before /* Pseudo: <div class="spinner">Content</div>  */ {
   --_gradient: no-repeat
-    radial-gradient(farthest-side, var(--color-primary) 92%, #0000);
+    radial-gradient(farthest-side, var(--theme-color) 92%, #0000);
 
   content: '';
   display: block;

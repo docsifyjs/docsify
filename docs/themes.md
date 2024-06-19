@@ -103,9 +103,9 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
    <!-- prettier-ignore -->
    ```css
    :root {
-     --color-primary: red;
-     --font-size    : 15px;
-     --line-height  : 1.5;
+     --theme-color: red;
+     --font-size  : 15px;
+     --line-height: 1.5;
    }
    ```
 
@@ -115,7 +115,7 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
    ```css
    /* Light and dark mode */
    :root {
-     --color-primary: pink;
+     --theme-color: pink;
    }
 
    /* Light mode only */
@@ -155,7 +155,7 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
 
    ```css
    .sidebar li.active > a {
-     border-right: 3px solid var(--color-primary);
+     border-right: 3px solid var(--theme-color);
    }
    ```
 
@@ -167,26 +167,25 @@ The following properties are available in all official Docsify themes. Default v
 
 <!-- TODO: Replace with include from CDN /src/themes/shared/_vars.css -->
 
+<!-- prettier-ignore -->
 ```css
-/* Variables */
-/* ========================================================================== */
-/* prettier-ignore */
 :root {
-  /* Base */
-  --border-radius    : 3px; /* Single value */
-  --color-bg         : #fff;
-  --color-primary    : var(--theme-color, #0071e3);
-  --color-text       : #444;
-  --color-mono-0     : color-mix(in srgb, var(--color-text) 4%, var(--color-bg));
-  --color-mono-1     : color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
-  --color-mono-2     : color-mix(in srgb, var(--color-text) 20%, var(--color-bg));
-  --color-mono-3     : color-mix(in srgb, var(--color-text) 30%, var(--color-bg));
-  --color-mono-4     : color-mix(in srgb, var(--color-text) 40%, var(--color-bg));
-  --color-mono-5     : color-mix(in srgb, var(--color-text) 50%, var(--color-bg));
-  --color-mono-6     : color-mix(in srgb, var(--color-text) 60%, var(--color-bg));
-  --color-mono-7     : color-mix(in srgb, var(--color-text) 70%, var(--color-bg));
-  --color-mono-8     : color-mix(in srgb, var(--color-text) 80%, var(--color-bg));
-  --color-mono-9     : color-mix(in srgb, var(--color-text) 90%, var(--color-bg));
+  /* Color */
+  --color-bg    : #fff;
+  --color-mono-0: color-mix(in srgb, var(--color-text) 4%, var(--color-bg));
+  --color-mono-1: color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
+  --color-mono-2: color-mix(in srgb, var(--color-text) 20%, var(--color-bg));
+  --color-mono-3: color-mix(in srgb, var(--color-text) 30%, var(--color-bg));
+  --color-mono-4: color-mix(in srgb, var(--color-text) 40%, var(--color-bg));
+  --color-mono-5: color-mix(in srgb, var(--color-text) 50%, var(--color-bg));
+  --color-mono-6: color-mix(in srgb, var(--color-text) 60%, var(--color-bg));
+  --color-mono-7: color-mix(in srgb, var(--color-text) 70%, var(--color-bg));
+  --color-mono-8: color-mix(in srgb, var(--color-text) 80%, var(--color-bg));
+  --color-mono-9: color-mix(in srgb, var(--color-text) 90%, var(--color-bg));
+  --color-text  : #444;
+  --theme-color : #0071e3;
+
+  /* Typography */
   --font-family      : system-ui, sans-serif;
   --font-family-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-family-mono : ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
@@ -203,9 +202,12 @@ The following properties are available in all official Docsify themes. Default v
   --font-weight      : 400;
   --font-weight-mono : 400;
   --line-height      : 1.6;
-  --margin-block     : 1em;
-  --max-width        : 72ch; /* 725px / 98 characters */
+  --max-width        : 72ch;  /* 725px / 98 characters */
   --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
+
+  /* Common */
+  --border-radius: 3px; /* Single value */
+  --margin-block : 1em; /* Single value */
 
   /* Cover */
   --cover-bg         : ;
@@ -216,12 +218,12 @@ The following properties are available in all official Docsify themes. Default v
 
   /* Elements */
   --blockquote-bg                 : ;
-  --blockquote-border-color       : var(--color-primary);
+  --blockquote-border-color       : var(--theme-color);
   --blockquote-border-radius      : 0;
   --blockquote-border-width       : 0 0 0 4px;
   --blockquote-padding            : 0 0 0 1.5em;
   --blockquote-text               : var(--color-mono-6);
-  --button-bg                     : var(--color-primary);
+  --button-bg                     : var(--theme-color);
   --button-border-radius          : 100vh;
   --button-color                  : #fff;
   --button-padding                : 0.3em 1.25em 0.315em 1.25em;
@@ -253,15 +255,11 @@ The following properties are available in all official Docsify themes. Default v
   --kbd-color-text                : ;
   --kbd-font-size                 : var(--font-size-m);
   --link-text-decoration-thickness: 2px;
-  --name-color                    : ;
-  --name-font-family              : var(--font-family);
-  --name-font-size                : var(--font-size-xl);
-  --name-font-weight              : 400;
   --strong-color                  : #2c3e50;
   --strong-font-weight            : 600;
   --table-row-alt-bg              : #f8f8f8;
 
-  /* Callouts */
+  /* Elements: Callouts */
   --callout-border-radius      : 0 var(--border-radius) var(--border-radius) 0;
   --callout-border-width       : 0 0 0 4px;
   --callout-charm-border-radius: 100vh;
@@ -276,8 +274,8 @@ The following properties are available in all official Docsify themes. Default v
   --important-charm-color      : #fff;
   --important-charm-content    : '!';
   --important-color            : ;
-  --tip-bg                     : color-mix(in srgb, var(--color-primary), transparent 90%);
-  --tip-border-color           : var(--color-primary);
+  --tip-bg                     : color-mix(in srgb, var(--theme-color), transparent 90%);
+  --tip-border-color           : var(--theme-color);
   --tip-charm-bg               : var(--tip-border-color);
   --tip-charm-color            : #fff;
   --tip-charm-content          : 'i';
@@ -287,7 +285,7 @@ The following properties are available in all official Docsify themes. Default v
   --navbar-font-size        : var(--font-size);
   --navbar-height           : 60px;
   --navbar-link-color       : ;
-  --navbar-link-color-active: var(--color-primary);
+  --navbar-link-color-active: var(--theme-color);
   --navbar-link-line-height : 2.5;
 
   /* Sidebar */
@@ -295,8 +293,12 @@ The following properties are available in all official Docsify themes. Default v
   --sidebar-color            : #364149;
   --sidebar-font-size        : var(--font-size);
   --sidebar-link-color       : var(--color-text);
-  --sidebar-link-color-active: var(--color-primary);
+  --sidebar-link-color-active: var(--theme-color);
   --sidebar-link-line-height : 2.25;
+  --sidebar-name-color       : ;
+  --sidebar-name-font-family : var(--font-family);
+  --sidebar-name-font-size   : var(--font-size-xl);
+  --sidebar-name-font-weight : 400;
   --sidebar-width            : 280px;
 }
 ```

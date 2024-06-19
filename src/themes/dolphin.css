@@ -5,10 +5,13 @@
 
 /* prettier-ignore */
 :root {
-  /* Base */
-  --color-bg     : #f0ffff;
-  --color-primary: #0ff;
-  --font-family  : 'Thasadith', sans-serif;
+  --theme-color: #0ff;
+
+  /* Color */
+  --color-bg: #f0ffff;
+
+  /* Typography */
+  --font-family: 'Thasadith', sans-serif;
 }
 
 /* Sidebar */

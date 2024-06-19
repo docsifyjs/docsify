@@ -39,7 +39,7 @@ The cover page can be customized using [theme properties](themes#theme-propertie
   --cover-bg         : url('path/to/image.png');
   --cover-bg-overlay : rgba(0, 0, 0, 0.5);
   --cover-color      : #fff;
-  --cover-title-color: var(--color-primary);
+  --cover-title-color: var(--theme-color);
   --cover-title-font : 600 var(--font-size-xxxl) var(--font-family);
 }
 ```

@@ -5,13 +5,18 @@
 
 /* prettier-ignore */
 :root {
-  /* Base */
-  --color-primary   : #42b983;
-  --color-text      : #34495e;
+  --theme-color: #42b983;
+
+  /* Color */
+  --color-text: #34495e;
+
+  /* Typography */
   --font-family     : 'Source Sans 3', sans-serif;
   --font-family-mono: 'Roboto Mono', monospace;
-  --margin-block    : 1em;
   --max-width       : 85ch; /* 675px / 98 characters */
+
+  /* Common */
+  --margin-block: 1.2em;
 
   /* Elements */
   --code-color      : #e96900;
@@ -30,7 +35,7 @@
   li {
     &.active {
       > a {
-        border-right: 3px solid var(--color-primary);
+        border-right: 3px solid var(--theme-color);
       }
     }
   }

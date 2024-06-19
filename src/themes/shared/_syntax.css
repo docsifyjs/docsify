@@ -15,7 +15,7 @@
   &.control,
   &.directive,
   &.unit {
-    color: var(--color-primary);
+    color: var(--theme-color);
   }
 
   &.bold,
@@ -89,7 +89,7 @@
   }
 
   &.string {
-    color: var(--color-primary);
+    color: var(--theme-color);
   }
 
   &.tag {

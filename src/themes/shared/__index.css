@@ -13,11 +13,11 @@
 /* Search */
 .search {
   a:hover {
-    color: var(--color-primary);
+    color: var(--theme-color);
   }
 
   .search-keyword {
-    color: var(--color-primary);
+    color: var(--theme-color);
     font-style: normal;
     font-weight: var(--strong-font-weight);
   }

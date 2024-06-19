@@ -42,16 +42,19 @@
   .app-name {
     margin: 0;
     padding: 1rem 0;
-    color: var(--name-color);
-    font-family: var(--name-font-family);
-    font-size: var(--name-font-size);
-    font-weight: var(--name-font-weight);
     text-align: center;
 
     .app-nav {
       display: block;
       position: static;
     }
+  }
+
+  .app-name-link {
+    color: var(--sidebar-name-color);
+    font-family: var(--sidebar-name-font-family);
+    font-size: var(--sidebar-name-font-size);
+    font-weight: var(--sidebar-name-font-weight);
   }
 
   ul {

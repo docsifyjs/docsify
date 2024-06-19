@@ -5,10 +5,13 @@
 
 /* prettier-ignore */
 :root {
-  /* Base */
-  --color-bg        : #3f3f3f;
-  --color-primary   : #ea6f5a;
-  --color-text      : #c8c8c8;
+  --theme-color: #ea6f5a;
+
+  /* Color */
+  --color-bg  : #3f3f3f;
+  --color-text: #c8c8c8;
+
+  /* Typography */
   --font-family     : 'Source Sans 3', sans-serif;
   --font-family-mono: 'Roboto Mono', monospace;
 

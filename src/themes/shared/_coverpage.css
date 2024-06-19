@@ -19,7 +19,7 @@
   }
 
   a:not(.anchor) {
-    text-decoration-color: var(--color-primary);
+    text-decoration-color: var(--theme-color);
   }
 
   blockquote {

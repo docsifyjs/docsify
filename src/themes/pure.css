@@ -3,7 +3,9 @@
 
 /* prettier-ignore */
 :root {
-  --color-bg     : #fff;
-  --color-primary: #000;
-  --color-text   : #000;
+  --theme-color: #000;
+
+  /* Color */
+  --color-bg  : #fff;
+  --color-text: #000;
 }

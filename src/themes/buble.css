@@ -4,8 +4,9 @@
 
 /* prettier-ignore */
 :root {
-  /* Base */
-  --color-primary   : #0074d9;
+  --theme-color: #0074d9;
+
+  /* Typography */
   --font-family-mono: "Inconsolata", monospace;
   --font-size-mono  : var(--font-size);
 
