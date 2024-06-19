@@ -1,6 +1,7 @@
 /* Elements */
 /* ========================================================================== */
 blockquote,
+details,
 figure,
 form,
 iframe,
@@ -119,6 +120,14 @@ strong {
   font-weight: var(--strong-font-weight);
 }
 
+summary {
+  cursor: pointer;
+
+  > * {
+    display: inline;
+  }
+}
+
 /* Buttons */
 /* ---------------------------------- */
 a.button,
@@ -178,6 +187,63 @@ input:where([type='button'], [type='reset'], [type='submit']) {
 
 button:not([type]) {
   color: inherit;
+}
+
+/* Callouts */
+/* ---------------------------------- */
+.callout {
+  position: relative;
+  margin-block: calc(var(--margin-block) * 1.5);
+  padding: var(--callout-padding);
+  border: solid var(--_border-color);
+  border-width: var(--callout-border-width);
+  border-radius: var(--callout-border-radius);
+  background: var(--_bg);
+  color: var(--_color);
+
+  /* Icon */
+  &::before {
+    content: var(--_charm-content);
+    position: absolute;
+    inset: var(--callout-charm-inset);
+    height: var(--callout-charm-size);
+    width: var(--callout-charm-size);
+    translate: var(--callout-charm-translate);
+    border-radius: var(--callout-charm-border-radius);
+    background: var(--_charm-bg);
+    color: var(--_charm-color);
+    font-size: var(--callout-charm-font-size);
+    font-weight: var(--strong-font-weight);
+    line-height: calc(var(--callout-charm-size) + 0.015em);
+    text-align: center;
+  }
+
+  code,
+  strong {
+    color: inherit;
+  }
+
+  code {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  &.important {
+    --_bg: var(--important-bg);
+    --_border-color: var(--important-border-color);
+    --_charm-bg: var(--important-charm-bg);
+    --_charm-color: var(--important-charm-color);
+    --_charm-content: var(--important-charm-content);
+    --_color: var(--important-color);
+  }
+
+  &.tip {
+    --_bg: var(--tip-bg);
+    --_border-color: var(--tip-border-color);
+    --_charm-bg: var(--tip-charm-bg);
+    --_charm-color: var(--tip-charm-color);
+    --_charm-content: var(--tip-charm-content);
+    --_color: var(--tip-color);
+  }
 }
 
 /* Code, Output, Samp */
@@ -449,63 +515,6 @@ h6 {
 
   & + :not(h1, h2, h3, h4, h5) {
     margin-top: 0.5rem;
-  }
-}
-
-/* Callouts */
-/* ---------------------------------- */
-.callout {
-  position: relative;
-  margin-block: calc(var(--margin-block) * 1.5);
-  padding: var(--callout-padding);
-  border: solid var(--_border-color);
-  border-width: var(--callout-border-width);
-  border-radius: var(--callout-border-radius);
-  background: var(--_bg);
-  color: var(--_color);
-
-  /* Icon */
-  &::before {
-    content: var(--_charm-content);
-    position: absolute;
-    inset: var(--callout-charm-inset);
-    height: var(--callout-charm-size);
-    width: var(--callout-charm-size);
-    translate: var(--callout-charm-translate);
-    border-radius: var(--callout-charm-border-radius);
-    background: var(--_charm-bg);
-    color: var(--_charm-color);
-    font-size: var(--callout-charm-font-size);
-    font-weight: var(--strong-font-weight);
-    line-height: var(--callout-charm-size);
-    text-align: center;
-  }
-
-  code,
-  strong {
-    color: inherit;
-  }
-
-  code {
-    background: rgba(0, 0, 0, 0.08);
-  }
-
-  &.important {
-    --_bg: var(--important-bg);
-    --_border-color: var(--important-border-color);
-    --_charm-bg: var(--important-charm-bg);
-    --_charm-color: var(--important-charm-color);
-    --_charm-content: var(--important-charm-content);
-    --_color: var(--important-color);
-  }
-
-  &.tip {
-    --_bg: var(--tip-bg);
-    --_border-color: var(--tip-border-color);
-    --_charm-bg: var(--tip-charm-bg);
-    --_charm-color: var(--tip-charm-color);
-    --_charm-content: var(--tip-charm-content);
-    --_color: var(--tip-color);
   }
 }
 
