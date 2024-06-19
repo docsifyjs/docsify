@@ -214,7 +214,7 @@ button:not([type]) {
     color: var(--_charm-color);
     font-size: var(--callout-charm-font-size);
     font-weight: var(--strong-font-weight);
-    line-height: calc(var(--callout-charm-size) + 0.015em);
+    line-height: var(--callout-charm-size);
     text-align: center;
   }
 
