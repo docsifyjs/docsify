@@ -250,14 +250,13 @@ button:not([type]) {
 /* ---------------------------------- */
 code,
 output,
-pre[data-lang],
+pre,
 samp {
   border-radius: var(--border-radius);
 }
 
 code,
 pre,
-output::after,
 samp {
   font-family: var(--font-family-mono);
   font-size: var(--font-size-mono);
@@ -272,7 +271,7 @@ pre[data-lang] {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    color: var(--codeblock-color);
+    color: inherit;
     font-family: var(--font-family);
     font-size: var(--font-size-xs);
     letter-spacing: 0.02em;
@@ -313,16 +312,22 @@ output {
 }
 
 pre[data-lang] {
+  /* NOTE: !important declaration are intended to override third-party Prism theme values */
+  padding: 0 !important;
+  border-radius: var(--border-radius) !important;
   background: var(--codeblock-bg);
+  font-family: var(--font-family-mono) !important;
+  font-size: var(--font-size-mono) !important;
   color: var(--codeblock-color);
   word-wrap: normal;
 
   > code {
     display: block;
     overflow: auto;
-    margin: 0;
-    padding-block: 1.5rem;
-    padding-inline: 1.5rem;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-block: 1.5rem !important;
+    padding-inline: 1.5rem !important;
     background: inherit;
     color: inherit;
     white-space: inherit;
