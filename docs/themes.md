@@ -206,8 +206,9 @@ The following properties are available in all official Docsify themes. Default v
   --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
 
   /* Common */
-  --border-radius: 3px; /* Single value */
-  --margin-block : 1em; /* Single value */
+  --border-radius     : 3px; /* Single value */
+  --margin-block      : 1em; /* Single value */
+  --scroll-padding-top: 0;
 
   /* Cover */
   --cover-bg         : ;

@@ -25,6 +25,7 @@ html {
   font-size: var(--font-size);
   font-weight: var(--font-weight);
   line-height: var(--line-height);
+  scroll-padding-top: var(--scroll-padding-top);
 }
 
 body {

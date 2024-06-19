@@ -931,16 +931,18 @@ window.$docsify = {
 };
 ```
 
-## topMargin
+## topMargin ⚠️
 
-- Type: `Number`
+!> Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
+
+- Type: `Number|String`
 - Default: `0`
 
-Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+Adds scroll padding to the top of the viewport. This is useful when you have added a sticky or "fixed" element and would like auto scrolling to align with the bottom of your element.
 
 ```js
 window.$docsify = {
-  topMargin: 90, // default: 0
+  topMargin: 90, // 90, '90px', '2rem', etc.
 };
 ```
 

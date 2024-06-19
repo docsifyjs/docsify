@@ -25,9 +25,12 @@ export function Events(Base) {
 
       // Apply topMargin to scrolled content
       if (topMargin) {
+        const value =
+          typeof topMargin === 'number' ? `${topMargin}px` : topMargin;
+
         document.documentElement.style.setProperty(
-          'scroll-padding-top',
-          `${topMargin}px`,
+          '--scroll-padding-top',
+          value,
         );
       }
 
