@@ -2,12 +2,11 @@
 
 ## Official
 
-Docsify offers several official themes. Click a theme name below to preview theme styles.
+Docsify offers several official themes. Official themes are available on multiple [CDNs](cdn). Uncompressed themes are available by omitting `.min` from the filename.
 
-- <a href="#" data-theme="core">Core</a> - Core styles only. Ready for [customization](#customization) via [theme properties](#theme-properties).
-- <a href="#" data-theme="vue">Vue</a> - Popular Docsify v4 theme. Updated for Docsify v5.
+#### Core
 
-Official themes are available on multiple [CDNs](cdn). Uncompressed themes are available by omitting `.min` from the filename.
+This theme contains only the "core" styles and the default [theme property](#theme-properties) values. It is an excellent starting point for [customization](#customization).
 
 <!-- prettier-ignore -->
 ```html
@@ -15,21 +14,26 @@ Official themes are available on multiple [CDNs](cdn). Uncompressed themes are a
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
 ```
 
+<a href="#" class="button primary" data-theme="core">Preview Core</a>
+
+#### Vue
+
+The popular Docsify v4 theme updated for use with Docsify's new [theme properties](#theme-properties).
+
 <!-- prettier-ignore -->
 ```html
 <!-- Vue -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
 ```
 
+<a href="#" class="button primary" data-theme="vue">Preview Vue</a>
+
+---
+
 <details>
-  <summary>Legacy Themes</summary>
+  <summary><h4>Legacy Themes</h4></summary>
 
-The following legacy themes have been updated for use with v5, however they are now considered deprecated and will be removed in the next major version of Docisfy (v6).
-
-- <a href="#" data-theme="buble">Buble</a>
-- <a href="#" data-theme="dark">Dark</a>
-- <a href="#" data-theme="dolphin">Dolphin</a>
-- <a href="#" data-theme="pure">Pure</a>
+!> The following legacy themes have been deprecated as of v5 and will be removed in the next major version of Docisfy.
 
 <!-- prettier-ignore -->
 ```html
@@ -37,11 +41,15 @@ The following legacy themes have been updated for use with v5, however they are 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
 ```
 
+<a href="#" class="button secondary" data-theme="buble">Preview Buble</a>
+
 <!-- prettier-ignore -->
 ```html
 <!-- Dark -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
 ```
+
+<a href="#" class="button secondary" data-theme="dark">Preview Dark</a>
 
 <!-- prettier-ignore -->
 ```html
@@ -49,11 +57,15 @@ The following legacy themes have been updated for use with v5, however they are 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
+<a href="#" class="button secondary" data-theme="dolphin">Preview Dolphin</a>
+
 <!-- prettier-ignore -->
 ```html
 <!-- Pure -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
 ```
+
+<a href="#" class="button secondary" data-theme="pure">Preview Pure</a>
 
 </details>
 
@@ -149,9 +161,9 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
    }
    ```
 
-   !> **Theme authors**: Provide instructions to users for loading your recommended web fonts manually instead of including them using `@import` in your theme CSS. This allows users who prefer a different font to avoid loading your recommended web font(s) unnecessarily.
+   ?> **Theme authors**: Consider providing instructions for loading your recommended web fonts manually instead of including them in your theme using `@import`. This allows users who prefer a different font to avoid loading your recommended web font(s) unnecessarily.
 
-4. Advanced styling may require custom CSS declarations. This is expected, however custom CSS declarations may break when new versions of Docsify are released. When possible, leverage [theme properties](#theme-properties) instead of custom declarations or lock your [CDN](cdn) URLs to a [specific version](cdn#specific-version) to avoid potential issues.
+4. Advanced styling may require custom CSS declarations. This is expected, however custom CSS declarations may break when new versions of Docsify are released. When possible, leverage [theme properties](#theme-properties) instead of custom declarations or lock your [CDN](cdn) URLs to a [specific version](cdn#specific-version) to avoid potential issues when using custom CSS declarations.
 
    ```css
    .sidebar li.active > a {
@@ -161,148 +173,25 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
 
 ## Theme Properties
 
-The following properties are available in all official Docsify themes. Default values are shown and available in the [official](#official) "Core" theme.
+The following properties are available in all official Docsify themes. Default values for the "Core" theme are shown.
 
 ?> **Theme and plugin authors**: We encourage you to leverage these custom theme properties and to offer similar customization options in your projects.
 
+#### Common
+
+Below are the most commonly modified theme properties. [Advanced](#advanced) theme properties are also available for use but typically do not need to be modified.
+
+**TBD**
+
 <!-- TODO: Replace with include from CDN /src/themes/shared/_vars.css -->
 
-<!-- prettier-ignore -->
-```css
-:root {
-  /* Color */
-  --color-bg    : #fff;
-  --color-mono-0: color-mix(in srgb, var(--color-text) 4%, var(--color-bg));
-  --color-mono-1: color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
-  --color-mono-2: color-mix(in srgb, var(--color-text) 20%, var(--color-bg));
-  --color-mono-3: color-mix(in srgb, var(--color-text) 30%, var(--color-bg));
-  --color-mono-4: color-mix(in srgb, var(--color-text) 40%, var(--color-bg));
-  --color-mono-5: color-mix(in srgb, var(--color-text) 50%, var(--color-bg));
-  --color-mono-6: color-mix(in srgb, var(--color-text) 60%, var(--color-bg));
-  --color-mono-7: color-mix(in srgb, var(--color-text) 70%, var(--color-bg));
-  --color-mono-8: color-mix(in srgb, var(--color-text) 80%, var(--color-bg));
-  --color-mono-9: color-mix(in srgb, var(--color-text) 90%, var(--color-bg));
-  --color-text  : #444;
-  --theme-color : #0071e3;
+#### Advanced
 
-  /* Typography */
-  --font-family      : system-ui, sans-serif;
-  --font-family-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-family-mono : ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-  --font-size        : 16px;
-  --font-size-xxxl   : calc(var(--font-size-xxl) * var(--modular-scale));
-  --font-size-xxl    : calc(var(--font-size-xl) * var(--modular-scale));
-  --font-size-xl     : calc(var(--font-size-l) * var(--modular-scale));
-  --font-size-l      : calc(1rem * var(--modular-scale));
-  --font-size-m      : var(--font-size);
-  --font-size-s      : max(13px, calc(var(--font-size-m) / var(--modular-scale)));
-  --font-size-xs     : max(11px, calc(var(--font-size-s) / var(--modular-scale)));
-  --font-size-emoji  : 1.2em;
-  --font-size-mono   : 0.9375em;
-  --font-weight      : 400;
-  --font-weight-mono : 400;
-  --line-height      : 1.6;
-  --max-width        : 72ch;  /* 725px / 98 characters */
-  --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
+Advanced theme properties are also available for use but typically do not need to be modified. Values derived from [common](#common) theme properties but can be set explicitly if preferred.
 
-  /* Common */
-  --border-radius     : 3px; /* Single value */
-  --margin-block      : 1em; /* Single value */
-  --scroll-padding-top: 0;
+**TBD**
 
-  /* Cover */
-  --cover-bg         : ;
-  --cover-bg-overlay : ;
-  --cover-color      : ;
-  --cover-title-color: ;
-  --cover-title-font : 300 var(--font-size-xxxl) var(--font-family);
-
-  /* Elements */
-  --blockquote-bg                 : ;
-  --blockquote-border-color       : var(--theme-color);
-  --blockquote-border-radius      : 0;
-  --blockquote-border-width       : 0 0 0 4px;
-  --blockquote-padding            : 0 0 0 1.5em;
-  --blockquote-text               : var(--color-mono-6);
-  --button-bg                     : var(--theme-color);
-  --button-border-radius          : 100vh;
-  --button-color                  : #fff;
-  --button-padding                : 0.3em 1.25em 0.315em 1.25em;
-  --code-bg                       : var(--color-mono-0);
-  --code-color                    : ;
-  --codeblock-bg                  : var(--color-mono-0);
-  --codeblock-color               : ;
-  --form-element-bg               : ;
-  --form-element-border           : 1px solid var(--color-mono-2);
-  --form-element-border-radius    : var(--border-radius);
-  --form-element-color            : ;
-  --h1-font-size                  : var(--font-size-xxxl);
-  --h1-font-weight                : var(--heading-font-weight);
-  --h2-font-size                  : var(--font-size-xxl);
-  --h2-font-weight                : var(--heading-font-weight);
-  --h3-font-size                  : var(--font-size-xl);
-  --h3-font-weight                : var(--heading-font-weight);
-  --h4-font-size                  : var(--font-size-l);
-  --h4-font-weight                : var(--heading-font-weight);
-  --h5-font-size                  : var(--font-size-m);
-  --h5-font-weight                : var(--heading-font-weight);
-  --h6-font-size                  : var(--font-size-s);
-  --h6-font-weight                : var(--heading-font-weight);
-  --heading-color                 : inherit;
-  --heading-font-weight           : 600;
-  --kbd-bg                        : var(--color-mono-0);
-  --kbd-border-radius             : 4px;
-  --kbd-box-shadow                : 0 2px 0 1px var(--color-mono-2);
-  --kbd-color-text                : ;
-  --kbd-font-size                 : var(--font-size-m);
-  --link-text-decoration-thickness: 2px;
-  --strong-color                  : #2c3e50;
-  --strong-font-weight            : 600;
-  --table-row-alt-bg              : #f8f8f8;
-
-  /* Elements: Callouts */
-  --callout-border-radius      : 0 var(--border-radius) var(--border-radius) 0;
-  --callout-border-width       : 0 0 0 4px;
-  --callout-charm-border-radius: 100vh;
-  --callout-charm-font-size    : 1.2em;
-  --callout-charm-inset        : 50% auto auto -2px;
-  --callout-charm-size         : 1.3em;
-  --callout-charm-translate    : -50% -50%;
-  --callout-padding            : 1em 1em 1em var(--callout-charm-size);
-  --important-bg               : var(--color-mono-0);
-  --important-border-color     : #f66;
-  --important-charm-bg         : var(--important-border-color);
-  --important-charm-color      : #fff;
-  --important-charm-content    : '!';
-  --important-color            : ;
-  --tip-bg                     : color-mix(in srgb, var(--theme-color), transparent 90%);
-  --tip-border-color           : var(--theme-color);
-  --tip-charm-bg               : var(--tip-border-color);
-  --tip-charm-color            : #fff;
-  --tip-charm-content          : 'i';
-  --tip-color                  : ;
-
-  /* Navbar */
-  --navbar-font-size        : var(--font-size);
-  --navbar-height           : 60px;
-  --navbar-link-color       : ;
-  --navbar-link-color-active: var(--theme-color);
-  --navbar-link-line-height : 2.5;
-
-  /* Sidebar */
-  --sidebar-bg               : var(--color-bg);
-  --sidebar-color            : #364149;
-  --sidebar-font-size        : var(--font-size);
-  --sidebar-link-color       : var(--color-text);
-  --sidebar-link-color-active: var(--theme-color);
-  --sidebar-link-line-height : 2.25;
-  --sidebar-name-color       : ;
-  --sidebar-name-font-family : var(--font-family);
-  --sidebar-name-font-size   : var(--font-size-xl);
-  --sidebar-name-font-weight : 400;
-  --sidebar-width            : 280px;
-}
-```
+<!-- TODO: Replace with include from CDN /src/themes/shared/_vars-advanced.css -->
 
 <script>
   const previewElm = Docsify.dom.findAll('a[data-theme]');

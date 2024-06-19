@@ -13,7 +13,7 @@
   /* Typography */
   --font-family     : 'Source Sans 3', sans-serif;
   --font-family-mono: 'Roboto Mono', monospace;
-  --max-width       : 85ch; /* 675px / 98 characters */
+  --max-width       : 85ch;
 
   /* Common */
   --margin-block: 1.2em;

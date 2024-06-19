@@ -10,7 +10,7 @@
   left: 0;
   overflow-y: auto;
   width: var(--sidebar-width);
-  border-right: 1px solid var(--color-mono-1);
+  border-right: 1px solid var(--color-mono-2);
   background: var(--sidebar-bg);
   color: var(--sidebar-color);
   font-size: var(--sidebar-font-size);

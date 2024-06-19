@@ -82,7 +82,7 @@ iframe {
   display: block;
   width: 100%;
   max-width: 100%;
-  border: 1px solid var(--color-mono-1);
+  border: 1px solid var(--color-mono-2);
 }
 
 ins {
@@ -135,8 +135,8 @@ button[type],
 input.button,
 input:where([type='button'], [type='reset'], [type='submit']) {
   display: inline-block;
-  border: 1px solid var(--color-mono-1);
-  background: var(--color-mono-1);
+  border: 1px solid var(--color-mono-2);
+  background: var(--color-mono-2);
   color: var(--color-text);
   cursor: pointer;
   vertical-align: middle;
@@ -321,6 +321,10 @@ pre[data-lang] {
   color: var(--codeblock-color);
   word-wrap: normal;
 
+  &:only-child {
+    margin: 0;
+  }
+
   > code {
     display: block;
     overflow: auto;
@@ -335,7 +339,7 @@ pre[data-lang] {
 }
 
 samp {
-  background: var(--color-mono-0);
+  background: var(--color-mono-1);
   color: var(--color-text);
 
   .token {
@@ -426,7 +430,6 @@ input[type='radio'] {
   margin: 0;
   padding: 0;
   background: var(--color-bg);
-  border: 1px solid var(--color-mono-2);
 }
 
 input[type='checkbox'] {
@@ -563,7 +566,7 @@ ul.task-list {
         top: 1em;
         left: -1em;
         bottom: 0;
-        border-left: 1px solid var(--color-mono-1);
+        border-left: 1px solid var(--color-mono-2);
       }
     }
   }
@@ -584,7 +587,7 @@ ul.task-list {
         top: 0.9em;
         left: -2.7em;
         width: 1.25em;
-        border-top: 1px solid var(--color-mono-1);
+        border-top: 1px solid var(--color-mono-2);
         border-left: none;
       }
 

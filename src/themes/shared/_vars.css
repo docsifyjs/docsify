@@ -1,21 +1,12 @@
-/* Variables */
+/* Variables: Basic */
 /* ========================================================================== */
 /* prettier-ignore */
 :root {
   /* Color */
-  --color-bg    : #fff;
-  --color-mono-0: color-mix(in srgb, var(--color-text) 4%, var(--color-bg));
-  --color-mono-1: color-mix(in srgb, var(--color-text) 10%, var(--color-bg));
-  --color-mono-2: color-mix(in srgb, var(--color-text) 20%, var(--color-bg));
-  --color-mono-3: color-mix(in srgb, var(--color-text) 30%, var(--color-bg));
-  --color-mono-4: color-mix(in srgb, var(--color-text) 40%, var(--color-bg));
-  --color-mono-5: color-mix(in srgb, var(--color-text) 50%, var(--color-bg));
-  --color-mono-6: color-mix(in srgb, var(--color-text) 60%, var(--color-bg));
-  --color-mono-7: color-mix(in srgb, var(--color-text) 70%, var(--color-bg));
-  --color-mono-8: color-mix(in srgb, var(--color-text) 80%, var(--color-bg));
-  --color-mono-9: color-mix(in srgb, var(--color-text) 90%, var(--color-bg));
-  --color-text  : #444;
-  --theme-color : #0071e3;
+  --color-bg   : #ffffff;
+  --color-mono : var(--color-text);
+  --color-text : #333;
+  --theme-color: #0b85d7;
 
   /* Typography */
   --font-family      : system-ui, sans-serif;
@@ -30,7 +21,7 @@
   --font-size-s      : max(13px, calc(var(--font-size-m) / var(--modular-scale)));
   --font-size-xs     : max(11px, calc(var(--font-size-s) / var(--modular-scale)));
   --font-size-emoji  : 1.2em;
-  --font-size-mono   : 0.9375em;
+  --font-size-mono   : 0.875rem;
   --font-weight      : 400;
   --font-weight-mono : 400;
   --line-height      : 1.6;
@@ -60,9 +51,9 @@
   --button-border-radius          : 100vh;
   --button-color                  : #fff;
   --button-padding                : 0.3em 1.25em 0.315em 1.25em;
-  --code-bg                       : var(--color-mono-0);
+  --code-bg                       : var(--color-mono-1);
   --code-color                    : ;
-  --codeblock-bg                  : var(--color-mono-0);
+  --codeblock-bg                  : var(--color-mono-1);
   --codeblock-color               : ;
   --form-element-bg               : ;
   --form-element-border           : 1px solid var(--color-mono-2);
@@ -82,7 +73,7 @@
   --h6-font-weight                : var(--heading-font-weight);
   --heading-color                 : inherit;
   --heading-font-weight           : 600;
-  --kbd-bg                        : var(--color-mono-0);
+  --kbd-bg                        : var(--color-mono-1);
   --kbd-border-radius             : 4px;
   --kbd-box-shadow                : 0 2px 0 1px var(--color-mono-2);
   --kbd-color-text                : ;
@@ -101,7 +92,7 @@
   --callout-charm-size         : 1.3em;
   --callout-charm-translate    : -50% -50%;
   --callout-padding            : 1em 1em 1em var(--callout-charm-size);
-  --important-bg               : var(--color-mono-0);
+  --important-bg               : var(--color-mono-1);
   --important-border-color     : #f66;
   --important-charm-bg         : var(--important-border-color);
   --important-charm-color      : #fff;
@@ -133,4 +124,32 @@
   --sidebar-name-font-size   : var(--font-size-xl);
   --sidebar-name-font-weight : 400;
   --sidebar-width            : 280px;
+}
+
+/* Variables: Advanced */
+/* ========================================================================== */
+/* prettier-ignore */
+:root {
+  /* Color: Monochromatic (auto-generated) */
+  --color-mono-1: color-mix(in srgb, var(--color-mono) 5%, var(--color-bg));
+  --color-mono-2: color-mix(in srgb, var(--color-mono) 15%, var(--color-bg));
+  --color-mono-3: color-mix(in srgb, var(--color-mono) 25%, var(--color-bg));
+  --color-mono-4: color-mix(in srgb, var(--color-mono) 35%, var(--color-bg));
+  --color-mono-5: color-mix(in srgb, var(--color-mono) 45%, var(--color-bg));
+  --color-mono-6: color-mix(in srgb, var(--color-mono) 55%, var(--color-bg));
+  --color-mono-7: color-mix(in srgb, var(--color-mono) 65%, var(--color-bg));
+  --color-mono-8: color-mix(in srgb, var(--color-mono) 75%, var(--color-bg));
+  --color-mono-9: color-mix(in srgb, var(--color-mono) 85%, var(--color-bg));
+
+  /* Color: Theme Shades & Tints (auto-generated) */
+  --theme-color-shade  : var(--color-mono);
+  --theme-color-shade-1: color-mix(in srgb, var(--theme-color), var(--theme-color-shade) 20%);
+  --theme-color-shade-2: color-mix(in srgb, var(--theme-color), var(--theme-color-shade) 40%);
+  --theme-color-shade-3: color-mix(in srgb, var(--theme-color), var(--theme-color-shade) 60%);
+  --theme-color-shade-4: color-mix(in srgb, var(--theme-color), var(--theme-color-shade) 80%);
+  --theme-color-tint   : var(--color-mono-1);
+  --theme-color-tint-1 : color-mix(in srgb, var(--theme-color), var(--theme-color-tint) 20%);
+  --theme-color-tint-2 : color-mix(in srgb, var(--theme-color), var(--theme-color-tint) 40%);
+  --theme-color-tint-3 : color-mix(in srgb, var(--theme-color), var(--theme-color-tint) 60%);
+  --theme-color-tint-4 : color-mix(in srgb, var(--theme-color), var(--theme-color-tint) 80%);
 }
