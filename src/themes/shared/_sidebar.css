@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  z-index: var(--_z-sidebar);
+  z-index: var(--z-sidebar);
   top: 0;
   bottom: 0;
   left: 0;
@@ -125,7 +125,7 @@
 
 .sidebar-toggle {
   position: absolute;
-  z-index: var(--_z-sidebar-toggle);
+  z-index: var(--z-sidebar-toggle);
   bottom: 0;
   left: 0;
   width: calc(var(--sidebar-width) - 6px);

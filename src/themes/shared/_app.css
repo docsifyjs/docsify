@@ -3,7 +3,7 @@
 body {
   > .progress {
     position: fixed;
-    z-index: var(--_z-progress);
+    z-index: var(--z-progress);
     top: 0;
     right: 0;
     left: 0;
@@ -46,7 +46,7 @@ main {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: var(--_z-github-corner);
+  z-index: var(--z-github-corner);
   border-bottom: 0;
   text-decoration: none;
 
@@ -149,7 +149,7 @@ main {
 
 #skip-to-content {
   position: fixed;
-  z-index: var(--_z-skip-to-content);
+  z-index: var(--z-skip-to-content);
   top: 0;
   left: 50%;
   opacity: 0;

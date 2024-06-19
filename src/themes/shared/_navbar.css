@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: end;
   position: absolute;
-  z-index: var(--_z-app-nav);
+  z-index: var(--z-app-nav);
   top: 0;
   right: 0;
   left: var(--sidebar-width);
@@ -51,7 +51,7 @@
     /* Dropdown */
     ul {
       position: absolute;
-      top: -100vh;
+      top: -9999vh;
       right: 50%;
       translate: 50% 0;
       overflow-y: auto;
