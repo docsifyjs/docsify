@@ -917,17 +917,9 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor (_deprecated_)
+## themeColor ⚠️
 
-> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
->
-> ```html
-> <style>
->   :root {
->     --theme-color: deeppink;
->   }
-> </style>
-> ```
+!> Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
 - Type: `String`
 
