@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
-@import 'shared/__index.css';
-
 /* prettier-ignore */
 :root {
   --theme-color: #0074d9;

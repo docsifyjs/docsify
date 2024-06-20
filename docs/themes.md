@@ -1,71 +1,81 @@
 # Themes
 
+Docsify's theme system is designed to work with two different types of themes:
+
+- **Core Themes:** A standalone collection of CSS rules that style all Docsify site elements (cover, navbar, sidebar, markdown, etc.). Core themes do not require other themes or add-ons.
+- **Theme Add-ons:** A collection of CSS rules used to customize a core theme by providing [theme properties](#theme-property) values and/or style declarations. Theme add-ons require the use of a core theme.
+
+Separating the styles required to render a Docsify site ("core") from those used for theming ("add-on") allows Docsify themes to be smaller, simpler, and less likely to break when new versions of Docsify are released.
+
 ## Official
 
-Docsify offers several official themes. Official themes are available on multiple [CDNs](cdn). Uncompressed themes are available by omitting `.min` from the filename.
+Official themes are available on multiple [CDNs](cdn). Uncompressed themes are available by omitting `.min` from the filename.
 
-#### Core
+#### Core (Theme)
 
-This theme contains only the "core" styles and the default [theme property](#theme-properties) values. It is an excellent starting point for [customization](#customization).
+The core theme contains styles and default [theme property](#theme-properties) values required for rendering a Docsify site. It is an excellent starting point for [customization](#customization).
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core -->
+<!-- Core Theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="core">Preview Core</a>
+<a href="#" class="button primary" data-theme="">Preview Core</a>
 
-#### Vue
+#### Vue (Add-on)
 
-The popular Docsify v4 theme updated for use with Docsify's new [theme properties](#theme-properties).
+The popular Docsify v4 theme, now available as a theme add-on using Docsify [theme properties](#theme-properties).
 
 <!-- prettier-ignore -->
 ```html
-<!-- Vue -->
+<!-- Core Theme (required) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
+
+<!-- Vue Theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="vue">Preview Vue</a>
+<a href="#" class="button primary" data-theme="vue">Preview Vue <small>(with Core)</small></a>
 
 ---
 
 <details>
   <summary><h4>Legacy Themes</h4></summary>
 
-!> The following legacy themes have been deprecated as of v5 and will be removed in the next major version of Docisfy.
+!> The following legacy themes have been deprecated as of v5 and will be removed in the next major version of Docsify.
 
 <!-- prettier-ignore -->
 ```html
-<!-- Buble -->
+<!-- Buble theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="buble">Preview Buble</a>
+<a href="#" class="button secondary" data-theme="buble">Preview Buble <small>(with Core)</small></a>
 
 <!-- prettier-ignore -->
 ```html
-<!-- Dark -->
+<!-- Dark theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="dark">Preview Dark</a>
+<a href="#" class="button secondary" data-theme="dark">Preview Dark <small>(with Core)</small></a>
 
 <!-- prettier-ignore -->
 ```html
-<!-- Dolphin -->
+<!-- Dolphin theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="dolphin">Preview Dolphin</a>
+<a href="#" class="button secondary" data-theme="dolphin">Preview Dolphin <small>(with Core)</small></a>
 
 <!-- prettier-ignore -->
 ```html
-<!-- Pure -->
+<!-- Pure theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="pure">Preview Pure</a>
+<a href="#" class="button secondary" data-theme="pure">Preview Pure <small>(with Core)</small></a>
 
 </details>
 
@@ -195,23 +205,22 @@ Advanced theme properties are also available for use but typically do not need t
 
 <script>
   const previewElm = Docsify.dom.findAll('a[data-theme]');
-  const stylesheetElms = Docsify.dom.findAll('link[rel="stylesheet"]');
+  const stylesheetElms = Docsify.dom.findAll('link[rel="stylesheet"][title]');
 
   previewElm.forEach(elm => {
     elm.onclick = (e) => {
-      e.preventDefault();
       const title = e.target.getAttribute('data-theme');
-      const newSheet = stylesheetElms.some(sheet => sheet.title = title);
+      const newSheet = stylesheetElms.find(sheet => sheet.title === title);
+
+      e.preventDefault();
 
       if (newSheet) {
         newSheet.disabled = false;
-
-        stylesheetElms.forEach(sheet => {
-          sheet.disabled =
-            (sheet !== newSheet) &&
-            (sheet.title !== title);
-        });
       }
+
+      stylesheetElms.forEach(sheet => {
+        sheet.disabled = !title || sheet.title !== title;
+      });
     };
   });
 </script>
