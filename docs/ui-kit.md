@@ -82,19 +82,19 @@ console.log(total); // 3
 
 <div class="ui-kit-color">
   <figure>
-    <div style="background: var(--theme-color-1);"></div>
+    <div style="background: var(--theme-color1);"></div>
     <figcaption>1<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-2);"></div>
+    <div style="background: var(--theme-color2);"></div>
     <figcaption>2<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-3);"></div>
+    <div style="background: var(--theme-color3);"></div>
     <figcaption>3<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-4);"></div>
+    <div style="background: var(--theme-color4);"></div>
     <figcaption>4<figcaption>
   </figure>
   <figure>
@@ -102,19 +102,19 @@ console.log(total); // 3
     <figcaption>Theme Color<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-5);"></div>
+    <div style="background: var(--theme-color5);"></div>
     <figcaption>5<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-6);"></div>
+    <div style="background: var(--theme-color6);"></div>
     <figcaption>6<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-7);"></div>
+    <div style="background: var(--theme-color7);"></div>
     <figcaption>7<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-8);"></div>
+    <div style="background: var(--theme-color8);"></div>
     <figcaption>8<figcaption>
   </figure>
 </div>
@@ -123,39 +123,39 @@ console.log(total); // 3
 
 <div class="ui-kit-color">
   <figure>
-    <div style="background: var(--color-mono-min); border: 1px solid var(--color-mono-2);"></div>
+    <div style="background: var(--color-mono-min); border: 1px solid var(--color-mono2);"></div>
     <figcaption>Min<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-1);"></div>
+    <div style="background: var(--color-mono1);"></div>
     <figcaption>1<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-2);"></div>
+    <div style="background: var(--color-mono2);"></div>
     <figcaption>2<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-3);"></div>
+    <div style="background: var(--color-mono3);"></div>
     <figcaption>3<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-4);"></div>
+    <div style="background: var(--color-mono4);"></div>
     <figcaption>4<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-5);"></div>
+    <div style="background: var(--color-mono5);"></div>
     <figcaption>5<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-6);"></div>
+    <div style="background: var(--color-mono6);"></div>
     <figcaption>6<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-7);"></div>
+    <div style="background: var(--color-mono7);"></div>
     <figcaption>7<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-8);"></div>
+    <div style="background: var(--color-mono8);"></div>
     <figcaption>8<figcaption>
   </figure>
   <figure>
