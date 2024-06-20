@@ -204,23 +204,27 @@ Advanced theme properties are also available for use but typically do not need t
 <!-- TODO: Replace with include from CDN /src/themes/shared/_vars-advanced.css -->
 
 <script>
-  const previewElm = Docsify.dom.findAll('a[data-theme]');
-  const stylesheetElms = Docsify.dom.findAll('link[rel="stylesheet"][title]');
+  (function() {
+    const previewAttr = 'data-theme';
+    const previewSelector = `a[${previewAttr}]`;
+    const previewElms = Docsify.dom.findAll(previewSelector);
+    const stylesheetElms = Docsify.dom.findAll('link[rel="stylesheet"][title]');
 
-  previewElm.forEach(elm => {
-    elm.onclick = (e) => {
-      const title = e.target.getAttribute('data-theme');
-      const newSheet = stylesheetElms.find(sheet => sheet.title === title);
+    previewElms.forEach(elm => {
+      elm.onclick = (e) => {
+        const title = e.target.closest(previewSelector).getAttribute(previewAttr);
+        const newSheet = stylesheetElms.find(sheet => sheet.title === title);
 
-      e.preventDefault();
+        e.preventDefault();
 
-      if (newSheet) {
-        newSheet.disabled = false;
-      }
+        if (newSheet) {
+          newSheet.disabled = false;
+        }
 
-      stylesheetElms.forEach(sheet => {
-        sheet.disabled = !title || sheet.title !== title;
-      });
-    };
-  });
+        stylesheetElms.forEach(sheet => {
+          sheet.disabled = !title || sheet.title !== title;
+        });
+      };
+    });
+  })();
 </script>
