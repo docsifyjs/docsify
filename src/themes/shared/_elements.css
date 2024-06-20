@@ -75,7 +75,7 @@ em {
 hr {
   margin-block: 2em;
   border: none;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-mono-2);
 }
 
 iframe {
@@ -383,7 +383,6 @@ input,
 select,
 textarea {
   max-width: 100%;
-  border: var(--form-element-border);
   border-radius: var(--form-element-border-radius);
 }
 
@@ -391,6 +390,7 @@ input,
 select,
 textarea {
   padding: 0.25em 0.5em;
+  border: var(--form-element-border);
 }
 
 input,
@@ -408,6 +408,7 @@ select {
 
 fieldset {
   padding: 1em;
+  border: 1px solid var(--color-mono-2);
 
   > :first-child,
   > legend + * {
@@ -429,7 +430,6 @@ input[type='radio'] {
   width: 1.1em;
   margin: 0;
   padding: 0;
-  background: var(--color-bg);
 }
 
 input[type='checkbox'] {
@@ -442,16 +442,20 @@ input[type='checkbox'] {
     top: 43%;
     left: 50%;
     transform: rotate(40deg);
+    translate: -50% -50%;
     height: 0.7em;
     width: 0.4em;
-    border-bottom: 2px solid var(--color-bg);
-    border-right: 2px solid var(--color-bg);
-    translate: -50% -50%;
+    border-bottom: 2px solid transparent;
+    border-right: 2px solid transparent;
   }
 
   &:checked {
     border-color: var(--theme-color);
     background: var(--theme-color);
+
+    &::after {
+      border-color: var(--color-bg);
+    }
   }
 }
 

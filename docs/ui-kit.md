@@ -78,137 +78,89 @@ console.log(total); // 3
 
 ## Colors
 
-<style>
-  .palette {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    font-size: var(--font-size-s);
-  }
-
-  .palette figure {
-    flex-grow: 1;
-    margin: 0;
-    padding: 0;
-  }
-
-  .palette figure div {
-    height: 4rem;
-    /* aspect-ratio: 1; */
-    border-radius: var(--border-radius);
-  }
-
-  .palette figcaption {
-    /* flex-grow: 1; */
-    /* align-content: center; */
-    text-align: center;
-    padding: 0.5em 0;
-    /* aspect-ratio: 1; */
-    /* border-radius: var(--border-radius); */
-  }
-</style>
-
 #### Theme
 
-<div class="palette">
+<div class="ui-kit-color">
+  <figure>
+    <div style="background: var(--theme-color-1);"></div>
+    <figcaption>1<figcaption>
+  </figure>
+  <figure>
+    <div style="background: var(--theme-color-2);"></div>
+    <figcaption>2<figcaption>
+  </figure>
+  <figure>
+    <div style="background: var(--theme-color-3);"></div>
+    <figcaption>3<figcaption>
+  </figure>
+  <figure>
+    <div style="background: var(--theme-color-4);"></div>
+    <figcaption>4<figcaption>
+  </figure>
   <figure>
     <div style="background: var(--theme-color);"></div>
     <figcaption>Theme Color<figcaption>
   </figure>
-</div>
-
-#### Theme Shades
-
-<div class="palette">
   <figure>
-    <div style="background: var(--theme-color-shade-1);"></div>
-    <figcaption>Shade 1<figcaption>
+    <div style="background: var(--theme-color-5);"></div>
+    <figcaption>5<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-shade-2);"></div>
-    <figcaption>Shade 2<figcaption>
+    <div style="background: var(--theme-color-6);"></div>
+    <figcaption>6<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-shade-3);"></div>
-    <figcaption>Shade 3<figcaption>
+    <div style="background: var(--theme-color-7);"></div>
+    <figcaption>7<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--theme-color-shade-4);"></div>
-    <figcaption>Shade 4<figcaption>
-  </figure>
-  <figure>
-    <div style="background: var(--theme-color-shade);"></div>
-    <figcaption>Shade Mix<figcaption>
-  </figure>
-</div>
-
-#### Theme Tints
-
-<div class="palette">
-  <figure>
-    <div style="background: var(--theme-color-tint-1);"></div>
-    <figcaption>Tint 1<figcaption>
-  </figure>
-  <figure>
-    <div style="background: var(--theme-color-tint-2);"></div>
-    <figcaption>Tint 2<figcaption>
-  </figure>
-  <figure>
-    <div style="background: var(--theme-color-tint-3);"></div>
-    <figcaption>Tint 3<figcaption>
-  </figure>
-  <figure>
-    <div style="background: var(--theme-color-tint-4);"></div>
-    <figcaption>Tint 4<figcaption>
-  </figure>
-  <figure>
-    <div style="background: var(--theme-color-tint);"></div>
-    <figcaption>Tint Mix<figcaption>
+    <div style="background: var(--theme-color-8);"></div>
+    <figcaption>8<figcaption>
   </figure>
 </div>
 
 #### Monochromatic
 
-<div class="palette">
+<div class="ui-kit-color">
+  <figure>
+    <div style="background: var(--color-mono-min); border: 1px solid var(--color-mono-2);"></div>
+    <figcaption>Min<figcaption>
+  </figure>
   <figure>
     <div style="background: var(--color-mono-1);"></div>
-    <figcaption>Mono 1<figcaption>
+    <figcaption>1<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-2);"></div>
-    <figcaption>Mono 2<figcaption>
+    <figcaption>2<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-3);"></div>
-    <figcaption>Mono 3<figcaption>
+    <figcaption>3<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-4);"></div>
-    <figcaption>Mono 4<figcaption>
+    <figcaption>4<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-5);"></div>
-    <figcaption>Mono 5<figcaption>
+    <figcaption>5<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-6);"></div>
-    <figcaption>Mono 6<figcaption>
+    <figcaption>6<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-7);"></div>
-    <figcaption>Mono 7<figcaption>
+    <figcaption>7<figcaption>
   </figure>
   <figure>
     <div style="background: var(--color-mono-8);"></div>
-    <figcaption>Mono 8<figcaption>
+    <figcaption>8<figcaption>
   </figure>
   <figure>
-    <div style="background: var(--color-mono-9);"></div>
-    <figcaption>Mono 9<figcaption>
-  </figure>
-  <figure>
-    <div style="background: var(--color-mono);"></div>
-    <figcaption>Mono<figcaption>
+    <div style="background: var(--color-mono-max);"></div>
+    <figcaption>Max<figcaption>
   </figure>
 </div>
 

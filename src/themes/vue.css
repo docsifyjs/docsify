@@ -5,10 +5,8 @@
 
 /* prettier-ignore */
 :root {
-  --theme-color: #42b983;
-
   /* Color */
-  --color-text: #34495e;
+  --theme-color: #42b983;
 
   /* Typography */
   --font-family     : 'Source Sans 3', sans-serif;
@@ -19,14 +17,27 @@
   --margin-block: 1.2em;
 
   /* Elements */
-  --code-color      : #e96900;
-  --codeblock-color : #525252;
   --h1-font-size    : 2rem;
   --h2-font-size    : 1.75rem;
   --h3-font-size    : 1.5rem;
   --h4-font-size    : 1.25rem;
   --h5-font-size    : 1rem;
   --h6-font-size    : 1rem;
+
+  /* Dark mode */
+  @media screen and (prefers-color-scheme: light) {
+    /* Color */
+    --color-text: #34495e;
+
+    /* Elements */
+    --code-color      : #e96900;
+    --codeblock-color : #525252;
+  }
+
+  /* Dark mode */
+  @media screen and (prefers-color-scheme: dark) {
+    /* TBD */
+  }
 }
 
 /* Sidebar */

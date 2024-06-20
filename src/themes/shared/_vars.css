@@ -3,10 +3,11 @@
 /* prettier-ignore */
 :root {
   /* Color */
-  --color-bg   : #ffffff;
-  --color-mono : var(--color-text);
-  --color-text : #333;
-  --theme-color: #0b85d7;
+  --color-bg      : #fff;
+  --color-mono-max: var(--color-text);
+  --color-mono-min: var(--color-bg);
+  --color-text    : #333;
+  --theme-color   : #0b85d7;
 
   /* Typography */
   --font-family      : system-ui, sans-serif;
@@ -55,7 +56,7 @@
   --code-color                    : ;
   --codeblock-bg                  : var(--color-mono-1);
   --codeblock-color               : ;
-  --form-element-bg               : ;
+  --form-element-bg               : var(--color-mono-1);
   --form-element-border           : 1px solid var(--color-mono-2);
   --form-element-border-radius    : var(--border-radius);
   --form-element-color            : ;
@@ -79,9 +80,9 @@
   --kbd-color-text                : ;
   --kbd-font-size                 : var(--font-size-m);
   --link-text-decoration-thickness: 2px;
-  --strong-color                  : #2c3e50;
+  --strong-color                  : ;
   --strong-font-weight            : 600;
-  --table-row-alt-bg              : #f8f8f8;
+  --table-row-alt-bg              : var(--color-mono-1);
 
   /* Elements: Callouts */
   --callout-border-radius      : 0 var(--border-radius) var(--border-radius) 0;
@@ -98,7 +99,7 @@
   --important-charm-color      : #fff;
   --important-charm-content    : '!';
   --important-color            : ;
-  --tip-bg                     : color-mix(in srgb, var(--theme-color), transparent 90%);
+  --tip-bg                     : var(--theme-color-1);
   --tip-border-color           : var(--theme-color);
   --tip-charm-bg               : var(--tip-border-color);
   --tip-charm-color            : #fff;
@@ -114,7 +115,8 @@
 
   /* Sidebar */
   --sidebar-bg               : var(--color-bg);
-  --sidebar-color            : #364149;
+  --sidebar-border           : 1px solid var(--color-mono-2);
+  --sidebar-color            : ;
   --sidebar-font-size        : var(--font-size);
   --sidebar-link-color       : var(--color-text);
   --sidebar-link-color-active: var(--theme-color);
@@ -124,4 +126,12 @@
   --sidebar-name-font-size   : var(--font-size-xl);
   --sidebar-name-font-weight : 400;
   --sidebar-width            : 280px;
+
+  /* Dark mode */
+  @media screen and (prefers-color-scheme: dark) {
+    --color-bg  : #1f2428;
+    --color-text: #eee;
+
+    color-scheme: dark;
+  }
 }

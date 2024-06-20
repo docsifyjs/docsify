@@ -1,5 +1,13 @@
 /* Sidebar */
 /* ========================================================================== */
+:root {
+  --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar */
+
+  @supports (scrollbar-width: auto) {
+    --_sidebar-scrollbar-width: 4px;
+  }
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -10,7 +18,7 @@
   left: 0;
   overflow-y: auto;
   width: var(--sidebar-width);
-  border-right: 1px solid var(--color-mono-2);
+  border-right: var(--sidebar-border);
   background: var(--sidebar-bg);
   color: var(--sidebar-color);
   font-size: var(--sidebar-font-size);
@@ -18,13 +26,14 @@
     transform 250ms ease-out,
     visibility 250ms;
 
+  /* Non-webkit browsers: style scrollbar for consistency */
   @supports (scrollbar-width: auto) {
     &::-webkit-scrollbar {
-      width: 4px;
+      width: var(--_sidebar-scrollbar-width);
     }
 
     &::-webkit-scrollbar-thumb {
-      border-radius: 4px;
+      border-radius: var(--_sidebar-scrollbar-width);
       background: transparent;
     }
 
@@ -128,7 +137,7 @@
   z-index: var(--z-sidebar-toggle);
   bottom: 0;
   left: 0;
-  width: calc(var(--sidebar-width) - 6px);
+  width: calc(var(--sidebar-width) - var(--_sidebar-scrollbar-width) - 1px);
   margin: 0;
   padding: 0;
   border: 0;
