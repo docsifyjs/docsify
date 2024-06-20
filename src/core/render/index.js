@@ -6,6 +6,7 @@ import { isPrimitive } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
 import { prerenderEmbed } from './embed.js';
+import { stripIndent } from 'common-tags';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -390,8 +391,10 @@ export function Render(Base) {
         .getPropertyValue('--cover-bg-overlay')
         .trim();
 
-      let newCoverBg;
-      let newCoverOverlay;
+      let mdCoverBg;
+      let mdCoverOverlay;
+      let autoBgLight;
+      let autoBgDark;
 
       dom.toggleClass(
         dom.getNode('main'),
@@ -408,18 +411,18 @@ export function Render(Base) {
 
       let html = this.coverIsHTML ? text : this.compiler.cover(text);
 
-      const markdownBg = html
+      const mdCoverBgMatch = html
         .trim()
         .match(
           '<p><img.*?data-origin="(.*?)".*?alt="(.*?)"[^>]*?>([^<]*?)</p>$',
         );
 
-      if (markdownBg) {
-        const [bgMatch, bgValue, bgType] = markdownBg;
+      if (mdCoverBgMatch) {
+        const [bgMatch, bgValue, bgType] = mdCoverBgMatch;
 
         // Color
         if (bgType === 'color') {
-          newCoverBg = bgValue;
+          mdCoverBg = bgValue;
         }
         // Image
         else {
@@ -427,8 +430,8 @@ export function Render(Base) {
             ? getPath(this.router.getBasePath(), bgValue)
             : bgValue;
 
-          newCoverBg = `center center / cover url(${path})`;
-          newCoverOverlay = coverOverlay
+          mdCoverBg = `center center / cover url(${path})`;
+          mdCoverOverlay = coverOverlay
             ? null
             : 'color-mix(in srgb, var(--color-bg), transparent 20%)';
         }
@@ -437,27 +440,60 @@ export function Render(Base) {
       }
 
       // Gradient background
-      if (!coverBg && !newCoverBg) {
-        const bgHue1 = Math.floor(Math.random() * 255);
-        const bgHue2 = Math.floor(Math.random() * 255);
-        const bgSaturation = 100;
-        const bgLightness = 85;
+      if (!coverBg && !mdCoverBg) {
+        const degrees = Math.round(Math.random() * (90 + 45)) - 45;
+        const saturation = 100;
+        const lightness = 85;
+        const opacityLight = 100;
+        const opacityDark = 50;
 
-        newCoverBg = `
-          linear-gradient(
-            to left bottom,
-            hsl(${bgHue1}, ${bgSaturation}%, ${bgLightness}%) 0%,
-            hsl(${bgHue2}, ${bgSaturation}%, ${bgLightness}%) 100%
-          )
-        `;
+        let hue1 = Math.round(Math.random() * 360);
+        let hue2 = Math.round(Math.random() * 360);
+
+        // Ensure hue1 and hue2 are at least 50 degrees apart
+        if (Math.abs(hue1 - hue2) < 50) {
+          const hueShift = Math.round(Math.random() * 25) + 25;
+
+          hue1 = Math.max(hue1, hue2) + hueShift;
+          hue2 = Math.min(hue1, hue2) - hueShift;
+        }
+
+        // prettier-ignore
+        autoBgLight = `linear-gradient(${degrees}deg, hsl(${hue1} ${saturation}% ${lightness}% / ${opacityLight}%) 0%, hsl(${hue2} ${saturation}% ${lightness}% / ${opacityLight}%) 100%)`;
+        autoBgDark = `linear-gradient(${degrees}deg, hsl(${hue1} ${saturation}% ${lightness}% / ${opacityDark}%) 0%, hsl(${hue2} ${saturation}% ${lightness}% / ${opacityDark}%) 100%)`;
       }
 
-      if (newCoverBg) {
-        const rootStyle = document.documentElement.style;
+      if (mdCoverBg || autoBgLight) {
+        const styleElm = document.createElement('style');
+        const firstStyleElm = document.querySelector('style');
+        const lastLinkElm = document.querySelector(
+          'link[rel="stylesheet"]:last-of-type',
+        );
 
-        rootStyle.setProperty('--cover-bg', newCoverBg);
-        newCoverOverlay &&
-          rootStyle.setProperty('--cover-bg-overlay', newCoverOverlay);
+        if (mdCoverBg) {
+          styleElm.textContent = stripIndent`
+              :root {
+                --cover-bg: ${mdCoverBg || autoBgLight};
+                ${mdCoverOverlay ? `--cover-bg-overlay: ${mdCoverOverlay};` : ''}
+              }
+            `;
+        } else {
+          styleElm.textContent = stripIndent`
+              :root {
+                --cover-bg: ${autoBgLight};
+              }
+
+              @media (prefers-color-scheme: dark) {
+                :root {
+                  --cover-bg: ${autoBgDark};
+                }
+              }
+            `;
+        }
+
+        document
+          .querySelector('head')
+          ?.insertBefore(styleElm, firstStyleElm || lastLinkElm);
       }
 
       this._renderTo('.cover-main', html);
