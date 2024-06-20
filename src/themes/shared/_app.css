@@ -17,6 +17,15 @@ body {
 }
 
 main {
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 100%;
+
+  &.hidden {
+    display: none;
+  }
+
   > .content {
     position: absolute;
     top: 0;
@@ -76,33 +85,6 @@ main {
   40%,
   80% {
     transform: rotate(10deg);
-  }
-}
-
-.markdown-section {
-  --_margin-inline: 40px;
-
-  position: relative;
-  width: var(--max-width);
-  max-width: calc(100% - (var(--_margin-inline) * 2));
-  margin: 0 auto;
-  padding-block: 2rem;
-
-  > :first-child {
-    margin-top: 0 !important;
-  }
-
-  a:not(:where(.anchor, .button)) {
-    text-decoration-color: var(--theme-color);
-    color: inherit;
-
-    &:hover {
-      color: var(--theme-color);
-    }
-  }
-
-  img {
-    max-width: 100%;
   }
 }
 
