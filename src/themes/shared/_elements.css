@@ -76,10 +76,14 @@ input:where([type='button'], [type='reset'], [type='submit']) {
   color: var(--color-text);
   cursor: pointer;
   vertical-align: middle;
-  transition: box-shadow var(--duration-medium);
+  transition: outline-color var(--duration-fast);
+
+  &:not(:focus-visible) {
+    outline-color: transparent;
+  }
 
   &:hover {
-    box-shadow: 0 0 0 2px var(--theme-color);
+    outline: 2px solid var(--theme-color);
   }
 
   + & {
@@ -93,7 +97,7 @@ input:where([type='button'], [type='reset'], [type='submit']) {
     color: var(--button-color);
 
     &:hover {
-      box-shadow: 0 0 0 2px var(--theme-color5);
+      outline-offset: 2px;
     }
   }
 
