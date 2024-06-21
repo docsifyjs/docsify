@@ -63,6 +63,13 @@ kbd {
   white-space: nowrap;
 }
 
+mark {
+  padding-inline: 1px;
+  border-radius: 3px;
+  background: var(--mark-bg);
+  color: var(--mark-color);
+}
+
 strong {
   color: var(--strong-color);
   font-weight: var(--strong-font-weight);

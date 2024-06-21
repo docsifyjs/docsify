@@ -87,6 +87,8 @@
   --kbd-alt-box-shadow            : 0 2px 0 1px var(--color-mono3);
   --kbd-alt-color                 : var(--kbd-color);
   --link-text-decoration-thickness: 2px;
+  --mark-bg                       : #fef08a; /* Tailwind v3: Yellow 200 */
+  --mark-color                    : ;
   --strong-color                  : ;
   --strong-font-weight            : 600;
   --table-row-alt-bg              : var(--color-mono1);
@@ -136,8 +138,13 @@
 
   /* Dark mode */
   @media screen and (prefers-color-scheme: dark) {
+    /* Color */
     --color-bg  : #1f2428;
     --color-text: #eee;
+
+    /* Elements */
+    --mark-bg   : #fde047; /* Tailwind v3: Yellow 300 */
+    --mark-color: var(--color-bg);
 
     color-scheme: dark;
   }
