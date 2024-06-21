@@ -395,6 +395,7 @@ export function Render(Base) {
       let mdCoverOverlay;
       let autoBgLight;
       let autoBgDark;
+      let cssText;
 
       dom.toggleClass(
         dom.getNode('main'),
@@ -431,21 +432,22 @@ export function Render(Base) {
             : bgValue;
 
           mdCoverBg = `center center / cover url(${path})`;
-          mdCoverOverlay = coverOverlay
-            ? null
-            : 'color-mix(in srgb, var(--color-bg), transparent 20%)';
+          mdCoverOverlay =
+            'color-mix(in srgb, var(--color-bg), transparent 20%)';
         }
 
         html = html.replace(bgMatch, '');
+        cssText = stripIndent`
+          :root {
+            --cover-bg: ${mdCoverBg};
+            --cover-bg-overlay: ${!coverOverlay ? mdCoverOverlay : ''};
+          }
+        `;
       }
 
       // Gradient background
       if (!coverBg && !mdCoverBg) {
-        const degrees = Math.round(Math.random() * (90 + 45)) - 45;
-        const saturation = 100;
-        const lightness = 85;
-        const opacityLight = 100;
-        const opacityDark = 50;
+        const degrees = Math.round((Math.random() * 120) / 2);
 
         let hue1 = Math.round(Math.random() * 360);
         let hue2 = Math.round(Math.random() * 360);
@@ -458,39 +460,49 @@ export function Render(Base) {
           hue2 = Math.min(hue1, hue2) - hueShift;
         }
 
-        // prettier-ignore
-        autoBgLight = `linear-gradient(${degrees}deg, hsl(${hue1} ${saturation}% ${lightness}% / ${opacityLight}%) 0%, hsl(${hue2} ${saturation}% ${lightness}% / ${opacityLight}%) 100%)`;
-        autoBgDark = `linear-gradient(${degrees}deg, hsl(${hue1} ${saturation}% ${lightness}% / ${opacityDark}%) 0%, hsl(${hue2} ${saturation}% ${lightness}% / ${opacityDark}%) 100%)`;
+        // OKLCH color
+        if (CSS.supports('color', 'oklch(0 0 0 / 1%)')) {
+          const lLight = 90;
+          const lDark = 60;
+          const c = 20;
+
+          // prettier-ignore
+          autoBgLight = `linear-gradient(${degrees}deg, oklch(${lLight}% ${c}% ${hue1}) 0%, oklch(${lLight}% ${c}% ${hue2}) 100%)`;
+          autoBgDark = `linear-gradient(${degrees}deg, oklch(${lDark}% ${c}% ${hue1}) 0%, oklch(${lDark}% ${c}% ${hue2}) 100%)`;
+        }
+        // HSL color (Legacy)
+        else {
+          const s = 100;
+          const l = 85;
+          const oLight = 100;
+          const oDark = 50;
+
+          // prettier-ignore
+          autoBgLight = `linear-gradient(${degrees}deg, hsl(${hue1} ${s}% ${l}% / ${oLight}%) 0%, hsl(${hue2} ${s}% ${l}% / ${oLight}%) 100%)`;
+          autoBgDark = `linear-gradient(${degrees}deg, hsl(${hue1} ${s}% ${l}% / ${oDark}%) 0%, hsl(${hue2} ${s}% ${l}% / ${oDark}%) 100%)`;
+        }
+
+        cssText = stripIndent`
+          :root {
+            --cover-bg: ${autoBgLight};
+          }
+
+          @media (prefers-color-scheme: dark) {
+            :root {
+              --cover-bg: ${autoBgDark};
+            }
+          }
+        `;
       }
 
-      if (mdCoverBg || autoBgLight) {
+      if (cssText) {
         const styleElm = document.createElement('style');
         const firstStyleElm = document.querySelector('style');
         const lastLinkElm = document.querySelector(
           'link[rel="stylesheet"]:last-of-type',
         );
 
-        if (mdCoverBg) {
-          styleElm.textContent = stripIndent`
-              :root {
-                --cover-bg: ${mdCoverBg || autoBgLight};
-                ${mdCoverOverlay ? `--cover-bg-overlay: ${mdCoverOverlay};` : ''}
-              }
-            `;
-        } else {
-          styleElm.textContent = stripIndent`
-              :root {
-                --cover-bg: ${autoBgLight};
-              }
-
-              @media (prefers-color-scheme: dark) {
-                :root {
-                  --cover-bg: ${autoBgDark};
-                }
-              }
-            `;
-        }
-
+        styleElm.textContent = cssText;
         document
           .querySelector('head')
           ?.insertBefore(styleElm, firstStyleElm || lastLinkElm);
