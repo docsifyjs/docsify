@@ -48,8 +48,11 @@
     }
   }
 
+  > :first-child {
+    margin-top: 1rem;
+  }
+
   .app-name {
-    margin: 0;
     padding: 1rem 0;
     text-align: center;
 

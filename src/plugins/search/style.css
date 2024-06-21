@@ -149,6 +149,7 @@
 }
 
 .search .results-status {
+  margin-bottom: 0;
   color: var(--color-mono5);
   font-size: var(--font-size-s);
 }
