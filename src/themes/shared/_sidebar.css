@@ -23,8 +23,8 @@
   color: var(--sidebar-color);
   font-size: var(--sidebar-font-size);
   transition:
-    transform 250ms ease-out,
-    visibility 250ms;
+    transform var(--duration-medium) ease-out,
+    visibility var(--duration-medium);
 
   /* Non-webkit browsers: style scrollbar for consistency */
   @supports (scrollbar-width: auto) {

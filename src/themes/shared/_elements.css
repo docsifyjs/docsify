@@ -23,8 +23,8 @@ a {
     text-decoration-thickness: var(--link-text-decoration-thickness);
     text-underline-offset: 2px;
     transition:
-      color 0.15s,
-      text-decoration-color 0.15s;
+      color var(--duration-fast),
+      text-decoration-color var(--duration-fast);
   }
 
   &.anchor > span {
@@ -71,15 +71,15 @@ input.button,
 input:where([type='button'], [type='reset'], [type='submit']) {
   display: inline-block;
   border: 1px solid var(--color-mono2);
+  box-shadow: 0 0 0 3px transparent;
   background: var(--color-mono2);
   color: var(--color-text);
   cursor: pointer;
   vertical-align: middle;
-  transition: scale 0.15s;
+  transition: box-shadow var(--duration-medium);
 
-  &:focus,
   &:hover {
-    scale: 1.05;
+    box-shadow: 0 0 0 2px var(--theme-color);
   }
 
   + & {
@@ -91,6 +91,10 @@ input:where([type='button'], [type='reset'], [type='submit']) {
     border-color: var(--button-bg);
     background: var(--button-bg);
     color: var(--button-color);
+
+    &:hover {
+      box-shadow: 0 0 0 2px var(--theme-color5);
+    }
   }
 
   /* Secondary Button */

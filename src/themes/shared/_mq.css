@@ -20,13 +20,13 @@
       right: 0;
       left: 0;
       max-width: 100vw;
-      transition: transform 250ms ease;
+      transition: transform var(--duration-medium) ease;
     }
   }
 
   .app-nav,
   .github-corner {
-    transition: transform 250ms ease-out;
+    transition: transform var(--duration-medium) ease-out;
   }
 
   .github-corner,
@@ -53,8 +53,8 @@
     visibility: hidden;
     left: calc(0px - var(--sidebar-width));
     transition:
-      transform 250ms ease-out,
-      visibility 250ms;
+      transform var(--duration-medium) ease-out,
+      visibility var(--duration-medium);
   }
 
   .sidebar-toggle {
@@ -82,7 +82,7 @@
     .sidebar-toggle {
       width: calc(var(--sidebar-width) - 16px);
       background: color-mix(in srgb, var(--color-bg) 80%, transparent);
-      transition: 1s background-color;
+      transition: var(--duration-medium) background-color;
     }
   }
 }

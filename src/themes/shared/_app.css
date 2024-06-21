@@ -11,8 +11,8 @@ body {
     width: 0%;
     background: var(--theme-color);
     transition:
-      width 0.2s,
-      opacity 0.4s;
+      width var(--duration-medium),
+      opacity calc(var(--duration-medium) * 2);
   }
 }
 
@@ -33,7 +33,7 @@ main {
     bottom: 0;
     left: var(--sidebar-width);
     padding-top: 2em;
-    transition: left 250ms ease;
+    transition: left var(--duration-medium) ease;
 
     body:has(.app-nav) & {
       padding-top: var(--navbar-height);
@@ -137,13 +137,13 @@ main {
   opacity: 0;
   transform: translate(-50%, -100%);
   transition-property: opacity, transform;
-  transition-duration: 0s, 0.2s;
-  transition-delay: 0.2s, 0s;
+  transition-duration: 0s, var(--duration-medium);
+  transition-delay: var(--duration-medium), 0s;
 
   &:focus {
     opacity: 1;
     transform: translate(-50%, 0.75rem);
-    transition-duration: 0s, 0.2s;
+    transition-duration: 0s, var(--duration-medium);
     transition-delay: 0s, 0s;
   }
 }

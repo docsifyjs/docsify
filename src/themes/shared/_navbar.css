@@ -11,7 +11,7 @@
   left: var(--sidebar-width);
   height: var(--navbar-height);
   padding-right: 40px;
-  transition: left 250ms ease;
+  transition: left var(--duration-medium) ease;
 
   body.close & {
     left: 0;
