@@ -14,11 +14,6 @@
   --plugin-search-reset-color        : #fff;
 }
 
-.app-name.hide,
-.sidebar-nav.hide {
-  display: none;
-}
-
 .search {
   margin-block: 15px;
 }
@@ -63,7 +58,7 @@
 
 /* Note: invalid = empty, valid = not empty */
 .search input:valid ~ .clear-button,
-.search input:invalid:is(:focus, :hover) ~ .kbd-group,
+.search input:invalid:where(:focus, :hover) ~ .kbd-group,
 .search .kbd-group:hover {
   visibility: visible;
   opacity: 1;
@@ -119,6 +114,16 @@
 
 .search .results-panel:empty {
   display: none;
+}
+
+/* Hide other sidebar items when results are shown */
+.search:has(.results-panel:not(:empty)) ~ * {
+  display: none;
+}
+
+/* Dim other sidebar items when no results are found */
+.search:where(:has(input:valid:focus), :has(.results-panel::empty)) ~ * {
+  opacity: 0.2;
 }
 
 .search .matching-post {

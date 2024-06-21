@@ -2,7 +2,6 @@ import { search } from './search.js';
 import cssText from './style.css';
 
 let NO_DATA_TEXT = '';
-let options;
 
 function tpl(defaultValue = '') {
   const html = /* html */ `
@@ -28,18 +27,11 @@ function tpl(defaultValue = '') {
 function doSearch(value) {
   const $search = Docsify.dom.find('.search');
   const $panel = Docsify.dom.find($search, '.results-panel');
-  const $sidebarNav = Docsify.dom.find('.sidebar-nav');
   const $status = Docsify.dom.find('.search .results-status');
-  const $appName = Docsify.dom.find('.app-name');
 
   if (!value) {
     $panel.innerHTML = '';
     $status.textContent = '';
-
-    if (options.hideOtherSidebarContent) {
-      $sidebarNav && $sidebarNav.classList.remove('hide');
-      $appName && $appName.classList.remove('hide');
-    }
 
     return;
   }
@@ -62,11 +54,6 @@ function doSearch(value) {
   $status.textContent = matches.length
     ? `Found ${matches.length} results`
     : NO_DATA_TEXT;
-
-  if (options.hideOtherSidebarContent) {
-    $sidebarNav && $sidebarNav.classList.add('hide');
-    $appName && $appName.classList.add('hide');
-  }
 }
 
 function bindEvents() {
@@ -124,14 +111,9 @@ function updateNoData(text, path) {
   }
 }
 
-function updateOptions(opts) {
-  options = opts;
-}
-
 export function init(opts, vm) {
   const keywords = vm.router.parse().query.s;
 
-  updateOptions(opts);
   Docsify.dom.style(cssText);
   tpl(keywords);
   bindEvents();
@@ -139,7 +121,6 @@ export function init(opts, vm) {
 }
 
 export function update(opts, vm) {
-  updateOptions(opts);
   updatePlaceholder(opts.placeholder, vm.route.path);
   updateNoData(opts.noData, vm.route.path);
 }
