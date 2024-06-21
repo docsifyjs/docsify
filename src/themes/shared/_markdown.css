@@ -253,7 +253,6 @@
     margin: 2rem 0 1rem;
     color: var(--heading-color);
     font-weight: var(--heading-font-weight);
-    line-height: calc(2px + 2ex + 2px);
   }
 
   h1 {
