@@ -327,57 +327,47 @@ Text
 
 ## Keyboard
 
-<kbd>&uarr;</kbd> Arrow Up
-
-<kbd>&darr;</kbd> Arrow Down
-
-<kbd>&larr;</kbd> Arrow Left
-
-<kbd>&rarr;</kbd> Arrow Right
-
-<kbd>&#8682;</kbd> Caps Lock
-
-<kbd>&#8984;</kbd> Command
-
-<kbd>&#8963;</kbd> Control
-
-<kbd>&#9003;</kbd> Delete
-
-<kbd>&#8998;</kbd> Delete (Forward)
-
-<kbd>&#8600;</kbd> End
-
-<kbd>&#8996;</kbd> Enter
-
-<kbd>&#9099;</kbd> Escape
-
-<kbd>&#8598;</kbd> Home
-
-<kbd>&#8670;</kbd> Page Up
-
-<kbd>&#8671;</kbd> Page Down
-
-<kbd>&#8997;</kbd> Option, Alt
-
-<kbd>&#8629;</kbd> Return
-
-<kbd>&#8679;</kbd> Shift
-
-<kbd>&#9251;</kbd> Space
-
-<kbd>&#8677;</kbd> Tab
-
-<kbd>&#8676;</kbd> Tab + Shift
+#### Default
 
 <kbd>&#8963;</kbd><kbd>&#8997;</kbd><kbd>&#9003;</kbd>
 
 <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Del</kbd>
 
-<kbd>&#8963; Ctrl</kbd><kbd>&#8997; Alt</kbd><kbd>&#9003; Del</kbd>
-
-<kbd>Control</kbd><kbd>Alt</kbd><kbd>Delete</kbd>
-
 <kbd>&#8963; Control</kbd><kbd>&#8997; Alt</kbd><kbd>&#9003; Delete</kbd>
+
+#### Alternate
+
+<kbd class="alt">&#8963;</kbd><kbd class="alt">&#8997;</kbd><kbd class="alt">&#9003;</kbd>
+
+<kbd class="alt">Ctrl</kbd><kbd class="alt">Alt</kbd><kbd class="alt">Del</kbd>
+
+<kbd class="alt">&#8963; Control</kbd><kbd class="alt">&#8997; Alt</kbd><kbd class="alt">&#9003; Delete</kbd>
+
+#### Entities
+
+<div style="display: grid; grid-template-columns: auto auto 1fr; gap: 1em 0.2em; align-items: end;">
+  <div><kbd class="alt">&uarr;</kbd></div>  <div><kbd>&uarr;</kbd></div>  <div>Arrow Up</div>
+  <div><kbd class="alt">&darr;</kbd></div>  <div><kbd>&darr;</kbd></div>  <div>Arrow Down</div>
+  <div><kbd class="alt">&larr;</kbd></div>  <div><kbd>&larr;</kbd></div>  <div>Arrow Left</div>
+  <div><kbd class="alt">&rarr;</kbd></div>  <div><kbd>&rarr;</kbd></div>  <div>Arrow Right</div>
+  <div><kbd class="alt">&#8682;</kbd></div> <div><kbd>&#8682;</kbd></div> <div>Caps Lock</div>
+  <div><kbd class="alt">&#8984;</kbd></div> <div><kbd>&#8984;</kbd></div> <div>Command</div>
+  <div><kbd class="alt">&#8963;</kbd></div> <div><kbd>&#8963;</kbd></div> <div>Control</div>
+  <div><kbd class="alt">&#9003;</kbd></div> <div><kbd>&#9003;</kbd></div> <div>Delete</div>
+  <div><kbd class="alt">&#8998;</kbd></div> <div><kbd>&#8998;</kbd></div> <div>Delete (Forward)</div>
+  <div><kbd class="alt">&#8600;</kbd></div> <div><kbd>&#8600;</kbd></div> <div>End</div>
+  <div><kbd class="alt">&#8996;</kbd></div> <div><kbd>&#8996;</kbd></div> <div>Enter</div>
+  <div><kbd class="alt">&#9099;</kbd></div> <div><kbd>&#9099;</kbd></div> <div>Escape</div>
+  <div><kbd class="alt">&#8598;</kbd></div> <div><kbd>&#8598;</kbd></div> <div>Home</div>
+  <div><kbd class="alt">&#8670;</kbd></div> <div><kbd>&#8670;</kbd></div> <div>Page Up</div>
+  <div><kbd class="alt">&#8671;</kbd></div> <div><kbd>&#8671;</kbd></div> <div>Page Down</div>
+  <div><kbd class="alt">&#8997;</kbd></div> <div><kbd>&#8997;</kbd></div> <div>Option, Alt</div>
+  <div><kbd class="alt">&#8629;</kbd></div> <div><kbd>&#8629;</kbd></div> <div>Return</div>
+  <div><kbd class="alt">&#8679;</kbd></div> <div><kbd>&#8679;</kbd></div> <div>Shift</div>
+  <div><kbd class="alt">&#9251;</kbd></div> <div><kbd>&#9251;</kbd></div> <div>Space</div>
+  <div><kbd class="alt">&#8677;</kbd></div> <div><kbd>&#8677;</kbd></div> <div>Tab</div>
+  <div><kbd class="alt">&#8676;</kbd></div> <div><kbd>&#8676;</kbd></div> <div>Tab + Shift</div>
+ </div>
 
 ## Links
 

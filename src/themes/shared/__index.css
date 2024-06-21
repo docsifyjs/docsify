@@ -8,18 +8,3 @@
 @import '_sidebar.css';
 @import '_markdown.css';
 @import '_mq.css';
-
-/* Plugins */
-/* ========================================================================== */
-/* Search */
-.search {
-  a:hover {
-    color: var(--theme-color);
-  }
-
-  .search-keyword {
-    color: var(--theme-color);
-    font-style: normal;
-    font-weight: var(--strong-font-weight);
-  }
-}

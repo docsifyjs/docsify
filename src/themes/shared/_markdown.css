@@ -78,14 +78,17 @@
   }
 
   kbd {
-    min-width: 2em;
-    margin-inline: 0.2em;
-    padding: 0.15em 0.3em;
-    border-radius: var(--kbd-border-radius);
-    box-shadow: var(--kbd-box-shadow);
-    background: var(--kbd-bg);
-    color: var(--kbd-color-text);
-    font-size: var(--kbd-font-size);
+    margin-inline: 0.15em;
+
+    &.alt {
+      padding: 0.5em;
+      border: var(--kbd-alt-border);
+      border-radius: var(--kbd-alt-border-radius);
+      box-shadow: var(--kbd-alt-box-shadow);
+      background: var(--kbd-alt-bg);
+      color: var(--kbd-alt-color);
+      font-size: var(--font-size-m);
+    }
   }
 
   /* Callouts */

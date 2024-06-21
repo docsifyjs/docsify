@@ -1,0 +1,132 @@
+/* prettier-ignore */
+:root {
+  --plugin-search-input-bg           : var(--form-element-bg);
+  --plugin-search-input-border       : var(--form-element-border);
+  --plugin-search-input-border-radius: var(--form-element-border-radius);
+  --plugin-search-input-color        : var(--form-element-color);
+  --plugin-search-kbd-bg             : var(--color-bg);
+  --plugin-search-kbd-border         : 1px solid var(--color-mono3);
+  --plugin-search-kbd-border-radius  : 4px;
+  --plugin-search-kbd-color          : var(--color-mono5);
+}
+
+.app-name.hide,
+.sidebar-nav.hide {
+  display: none;
+}
+
+.search {
+  /* margin: 15px; */
+  padding: 20px;
+}
+
+/* Input */
+/* ================================== */
+.search .input-wrap {
+  position: relative;
+}
+
+.search input {
+  width: 100%;
+  padding-inline-end: 36px;
+  border: var(--plugin-search-input-border);
+  border-radius: var(--plugin-search-input-border-radius);
+  background: var(--plugin-search-input-bg);
+  color: var(--plugin-search-input-color);
+}
+
+.search input::-webkit-search-decoration,
+.search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.search .clear-button,
+.search .kbd-group {
+  visibility: hidden;
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  opacity: 0;
+  translate: 0 -50%;
+  transition-property: opacity, visibility;
+  transition-duration: var(--duration-medium);
+}
+
+/* Note: invalid = empty, valid = not empty */
+.search input:valid ~ .clear-button,
+.search input:invalid:is(:focus, :hover) ~ .kbd-group,
+.search .kbd-group:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+.search .clear-button {
+  margin: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.search .clear-button svg {
+  display: block;
+}
+
+.search .clear-button circle {
+  fill: var(--color-mono3);
+}
+
+.search kbd {
+  border: var(--plugin-search-kbd-border);
+  border-radius: var(--plugin-search-kbd-border-radius);
+  background: var(--plugin-search-kbd-bg);
+  color: var(--plugin-search-kbd-color);
+  font-size: var(--font-size-s);
+}
+
+/* Results */
+/* ================================== */
+.search a:hover {
+  color: var(--theme-color);
+}
+
+.search .results-panel:empty {
+  display: none;
+}
+
+.search .matching-post {
+  overflow: hidden;
+  padding: 1em 0 1.2em 0;
+  border-bottom: 1px solid var(--color-mono2);
+}
+
+.search .matching-post .title,
+.search .matching-post .content {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
+.search .matching-post .title {
+  margin: 0 0 0.5em 0;
+  line-height: 1.4;
+  -webkit-line-clamp: 1;
+}
+
+.search .matching-post .content {
+  margin: 0;
+  color: var(--color-mono5);
+  font-size: var(--font-size-s);
+  -webkit-line-clamp: 2;
+}
+
+.search .results-status {
+  color: var(--color-mono5);
+  font-size: var(--font-size-s);
+}
+
+.search .results-status:empty {
+  display: none;
+}

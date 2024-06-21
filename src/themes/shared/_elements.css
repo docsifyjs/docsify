@@ -51,6 +51,14 @@ ins {
 
 kbd {
   display: inline-block;
+  min-width: 2em;
+  padding: 0.3em 0.5em;
+  border: var(--kbd-border);
+  border-radius: var(--kbd-border-radius);
+  background: var(--kbd-bg);
+  color: var(--kbd-color);
+  font-size: var(--font-size-s);
+  line-height: 1;
   text-align: center;
   white-space: nowrap;
 }
