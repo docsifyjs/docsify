@@ -126,10 +126,6 @@
 
 .sidebar-nav {
   padding-bottom: 40px;
-
-  > ul {
-    padding-top: calc((1em * var(--line-height)) / 2);
-  }
 }
 
 .sidebar-toggle {

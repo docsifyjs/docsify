@@ -8,13 +8,7 @@ function tpl(defaultValue = '') {
   const html = /* html */ `
     <div class="input-wrap">
       <input type="search" value="${defaultValue}" required aria-keyshortcuts="/ control+k meta+k" />
-      <button class="clear-button">
-        <svg width="26" height="24">
-          <circle cx="12" cy="12" r="11" fill="#ccc" />
-          <path stroke="white" stroke-width="2" d="M8.25,8.25,15.75,15.75" />
-          <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />
-        </svg>
-      </button>
+      <button class="clear-button">Clear search field</button>
       <div class="kbd-group">
         <kbd title="Press / to search">/</kbd>
         <kbd title="Press Control+K to search">⌃K</kbd>
@@ -78,7 +72,7 @@ function doSearch(value) {
 function bindEvents() {
   const $search = Docsify.dom.find('.search');
   const $input = Docsify.dom.find($search, 'input');
-  const $inputWrap = Docsify.dom.find($search, '.input-wrap');
+  const $clear = Docsify.dom.find($search, '.clear-button');
 
   let timeId;
 
@@ -100,12 +94,9 @@ function bindEvents() {
     clearTimeout(timeId);
     timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
   });
-  Docsify.dom.on($inputWrap, 'click', e => {
-    // Click input outside
-    if (e.target.tagName !== 'INPUT') {
-      $input.value = '';
-      doSearch();
-    }
+  Docsify.dom.on($clear, 'click', e => {
+    $input.value = '';
+    doSearch();
   });
 }
 

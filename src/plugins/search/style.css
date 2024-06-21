@@ -8,6 +8,10 @@
   --plugin-search-kbd-border         : 1px solid var(--color-mono3);
   --plugin-search-kbd-border-radius  : 4px;
   --plugin-search-kbd-color          : var(--color-mono5);
+  --plugin-search-reset-bg           : var(--theme-color);
+  --plugin-search-reset-border       : transparent;
+  --plugin-search-reset-border-radius: var(--border-radius);
+  --plugin-search-reset-color        : #fff;
 }
 
 .app-name.hide,
@@ -16,8 +20,11 @@
 }
 
 .search {
-  /* margin: 15px; */
-  padding: 20px;
+  margin-block: 15px;
+}
+
+.search > * {
+  margin-inline: 15px;
 }
 
 /* Input */
@@ -63,18 +70,37 @@
 }
 
 .search .clear-button {
-  margin: 0;
-  padding: 0;
-  background: none;
+  --_button-size: 20px;
+  --_content-size: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--_button-size);
+  width: var(--_button-size);
+  border: var(--plugin-search-reset-border);
+  border-radius: var(--plugin-search-reset-border-radius);
+  background: var(--plugin-search-reset-bg);
   cursor: pointer;
-}
+  text-indent: -9999px;
 
-.search .clear-button svg {
-  display: block;
-}
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: var(--_content-size);
+    color: var(--plugin-search-reset-color);
+    background: var(--plugin-search-reset-color);
+  }
 
-.search .clear-button circle {
-  fill: var(--color-mono3);
+  &:before {
+    rotate: 45deg;
+  }
+
+  &:after {
+    rotate: -45deg;
+  }
 }
 
 .search kbd {
