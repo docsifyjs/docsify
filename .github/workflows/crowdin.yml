@@ -9,13 +9,14 @@ on:
 
 jobs:
   crowdin:
+    if: github.repository == 'docsifyjs/docsify'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Crowdin push
-        uses: crowdin/github-action@v1
+        uses: crowdin/github-action@v2
         with:
           upload_sources: true
           upload_translations: false
