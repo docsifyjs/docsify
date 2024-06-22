@@ -78,24 +78,24 @@
   background: var(--plugin-search-reset-bg);
   cursor: pointer;
   text-indent: -9999px;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    height: 2px;
-    width: var(--_content-size);
-    color: var(--plugin-search-reset-color);
-    background: var(--plugin-search-reset-color);
-  }
+.search .clear-button::before,
+.search .clear-button::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: var(--_content-size);
+  color: var(--plugin-search-reset-color);
+  background: var(--plugin-search-reset-color);
+}
 
-  &:before {
-    rotate: 45deg;
-  }
+.search .clear-button::before {
+  rotate: 45deg;
+}
 
-  &:after {
-    rotate: -45deg;
-  }
+.search .clear-button::after {
+  rotate: -45deg;
 }
 
 .search kbd {
