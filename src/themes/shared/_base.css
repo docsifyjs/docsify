@@ -16,7 +16,6 @@ body {
 }
 
 html {
-  accent-color: var(--theme-color);
   font-family: var(--font-family);
   font-feature-settings:
     'liga' 1,
