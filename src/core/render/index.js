@@ -496,16 +496,11 @@ export function Render(Base) {
       }
 
       if (cssText) {
+        const targetElm = document.querySelector('head');
         const styleElm = document.createElement('style');
-        const firstStyleElm = document.querySelector('style');
-        const lastLinkElm = document.querySelector(
-          'link[rel="stylesheet"]:last-of-type',
-        );
 
         styleElm.textContent = cssText;
-        document
-          .querySelector('head')
-          ?.insertBefore(styleElm, firstStyleElm || lastLinkElm);
+        targetElm.appendChild(styleElm);
       }
 
       this._renderTo('.cover-main', html);
