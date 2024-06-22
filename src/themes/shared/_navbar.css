@@ -57,7 +57,7 @@
       overflow-y: auto;
       max-height: calc(100vh - 61px);
       padding: 0.5em 1em;
-      border: 1px solid var(--color-mono2);
+      border: 1px solid var(--color-mono-2);
       border-radius: var(--border-radius);
       background: var(--color-bg);
       text-align: left;

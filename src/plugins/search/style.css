@@ -5,9 +5,9 @@
   --plugin-search-input-border-radius: var(--form-element-border-radius);
   --plugin-search-input-color        : var(--form-element-color);
   --plugin-search-kbd-bg             : var(--color-bg);
-  --plugin-search-kbd-border         : 1px solid var(--color-mono3);
+  --plugin-search-kbd-border         : 1px solid var(--color-mono-3);
   --plugin-search-kbd-border-radius  : 4px;
-  --plugin-search-kbd-color          : var(--color-mono5);
+  --plugin-search-kbd-color          : var(--color-mono-5);
   --plugin-search-reset-bg           : var(--theme-color);
   --plugin-search-reset-border       : transparent;
   --plugin-search-reset-border-radius: var(--border-radius);
@@ -128,7 +128,7 @@
 .search .matching-post {
   overflow: hidden;
   padding: 1em 0 1.2em 0;
-  border-bottom: 1px solid var(--color-mono2);
+  border-bottom: 1px solid var(--color-mono-2);
 }
 
 .search .matching-post .title {
@@ -138,13 +138,13 @@
 
 .search .matching-post .content {
   margin: 0;
-  color: var(--color-mono5);
+  color: var(--color-mono-5);
   font-size: var(--font-size-s);
 }
 
 .search .results-status {
   margin-bottom: 0;
-  color: var(--color-mono5);
+  color: var(--color-mono-5);
   font-size: var(--font-size-s);
 }
 

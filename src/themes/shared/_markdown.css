@@ -70,7 +70,7 @@
     display: block;
     width: 100%;
     max-width: 100%;
-    border: 1px solid var(--color-mono2);
+    border: 1px solid var(--color-mono-2);
   }
 
   img {
@@ -202,7 +202,7 @@
   output {
     display: block;
     padding: 1.7rem 1.4rem 1.4rem;
-    border: 1px dotted var(--color-mono2);
+    border: 1px dotted var(--color-mono-2);
 
     > :first-child {
       margin-top: 0;
@@ -241,7 +241,7 @@
   }
 
   samp {
-    background: var(--color-mono1);
+    background: var(--color-mono-1);
     color: var(--color-text);
 
     .token {
@@ -357,7 +357,7 @@
           top: 1em;
           left: -1em;
           bottom: 0;
-          border-left: 1px solid var(--color-mono2);
+          border-left: 1px solid var(--color-mono-2);
         }
       }
     }
@@ -378,7 +378,7 @@
           top: 0.9em;
           left: -2.7em;
           width: 1.25em;
-          border-top: 1px solid var(--color-mono2);
+          border-top: 1px solid var(--color-mono-2);
           border-left: none;
         }
 
@@ -398,7 +398,7 @@
   th,
   td {
     padding: 0.25em 0.75em;
-    border: 1px solid var(--color-mono2);
+    border: 1px solid var(--color-mono-2);
   }
 
   table {
@@ -428,7 +428,7 @@
   }
 
   tr {
-    border-top: 1px solid var(--color-mono2);
+    border-top: 1px solid var(--color-mono-2);
 
     &:nth-child(2n) {
       background: var(--table-row-alt-bg);

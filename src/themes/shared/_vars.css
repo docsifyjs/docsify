@@ -50,17 +50,17 @@
   --blockquote-border-radius      : 0;
   --blockquote-border-width       : 0 0 0 4px;
   --blockquote-padding            : 0 0 0 1.5em;
-  --blockquote-text               : var(--color-mono6);
+  --blockquote-text               : var(--color-mono-6);
   --button-bg                     : var(--theme-color);
   --button-border-radius          : 100vh;
   --button-color                  : #fff;
   --button-padding                : 0.3em 1.25em 0.315em 1.25em;
-  --code-bg                       : var(--color-mono1);
+  --code-bg                       : var(--color-mono-1);
   --code-color                    : ;
-  --codeblock-bg                  : var(--color-mono1);
+  --codeblock-bg                  : var(--color-mono-1);
   --codeblock-color               : ;
-  --form-element-bg               : var(--color-mono1);
-  --form-element-border           : 1px solid var(--color-mono2);
+  --form-element-bg               : var(--color-mono-1);
+  --form-element-border           : 1px solid var(--color-mono-2);
   --form-element-border-radius    : var(--border-radius);
   --form-element-color            : ;
   --h1-font-size                  : var(--font-size-xxxl);
@@ -77,21 +77,21 @@
   --h6-font-weight                : var(--heading-font-weight);
   --heading-color                 : inherit;
   --heading-font-weight           : 600;
-  --kbd-bg                        : var(--color-mono1);
-  --kbd-border                    : 1px solid var(--color-mono3);
+  --kbd-bg                        : var(--color-mono-1);
+  --kbd-border                    : 1px solid var(--color-mono-3);
   --kbd-border-radius             : 4px;
-  --kbd-color                     : var(--color-mono5);
-  --kbd-alt-bg                    : var(--color-mono1);
+  --kbd-color                     : var(--color-mono-5);
+  --kbd-alt-bg                    : var(--color-mono-1);
   --kbd-alt-border                : none;
   --kbd-alt-border-radius         : var(--kbd-border-radius);
-  --kbd-alt-box-shadow            : 0 2px 0 1px var(--color-mono3);
+  --kbd-alt-box-shadow            : 0 2px 0 1px var(--color-mono-3);
   --kbd-alt-color                 : var(--kbd-color);
   --link-text-decoration-thickness: 2px;
   --mark-bg                       : #fef08a; /* Tailwind v3: Yellow 200 */
   --mark-color                    : ;
   --strong-color                  : ;
   --strong-font-weight            : 600;
-  --table-row-alt-bg              : var(--color-mono1);
+  --table-row-alt-bg              : var(--color-mono-1);
 
   /* Elements: Callouts */
   --callout-border-radius      : 0 var(--border-radius) var(--border-radius) 0;
@@ -102,13 +102,13 @@
   --callout-charm-size         : 1.3em;
   --callout-charm-translate    : -50% -50%;
   --callout-padding            : 1em 1em 1em var(--callout-charm-size);
-  --important-bg               : var(--color-mono1);
+  --important-bg               : var(--color-mono-1);
   --important-border-color     : #f66;
   --important-charm-bg         : var(--important-border-color);
   --important-charm-color      : #fff;
   --important-charm-content    : '!';
   --important-color            : ;
-  --tip-bg                     : var(--theme-color1);
+  --tip-bg                     : var(--theme-color-1);
   --tip-border-color           : var(--theme-color);
   --tip-charm-bg               : var(--tip-border-color);
   --tip-charm-color            : #fff;
@@ -124,7 +124,7 @@
 
   /* Sidebar */
   --sidebar-bg               : var(--color-bg);
-  --sidebar-border           : 1px solid var(--color-mono2);
+  --sidebar-border           : 1px solid var(--color-mono-2);
   --sidebar-color            : ;
   --sidebar-font-size        : var(--font-size);
   --sidebar-link-color       : var(--color-text);

@@ -42,7 +42,7 @@ a {
 hr {
   margin-block: 1em;
   border: none;
-  border-bottom: 1px solid var(--color-mono2);
+  border-bottom: 1px solid var(--color-mono-2);
 }
 
 ins {
@@ -90,9 +90,9 @@ button[type],
 input.button,
 input:where([type='button'], [type='reset'], [type='submit']) {
   display: inline-block;
-  border: 1px solid var(--color-mono2);
+  border: 1px solid var(--color-mono-2);
   box-shadow: 0 0 0 3px transparent;
-  background: var(--color-mono2);
+  background: var(--color-mono-2);
   color: var(--color-text);
   cursor: pointer;
   vertical-align: middle;
@@ -212,7 +212,7 @@ select {
 
 fieldset {
   padding: 1em;
-  border: 1px solid var(--color-mono2);
+  border: 1px solid var(--color-mono-2);
 
   > :first-child,
   > legend + * {
