@@ -2,26 +2,6 @@
 /* ========================================================================== */
 /* prettier-ignore */
 :root {
-  /* Color: Monochromatic */
-  --color-mono-1: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 4%);
-  --color-mono-2: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 10%);
-  --color-mono-3: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 20%);
-  --color-mono-4: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 30%);
-  --color-mono-5: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 30%);
-  --color-mono-6: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 20%);
-  --color-mono-7: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 10%);
-  --color-mono-8: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 4%);
-
-  /* Color: Theme Shades (darker) & Tints (lighter)*/
-  --theme-color-1: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 90%);
-  --theme-color-2: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 75%);
-  --theme-color-3: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 55%);
-  --theme-color-4: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 30%);
-  --theme-color-5: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 30%);
-  --theme-color-6: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 55%);
-  --theme-color-7: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 75%);
-  --theme-color-8: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 90%);
-
   /* z-index */
   --z-progress       : 2147483647;
   --z-skip-to-content: 2147483646;
