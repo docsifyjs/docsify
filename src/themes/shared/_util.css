@@ -1,0 +1,23 @@
+/* Utility */
+/* ========================================================================== */
+/* 1. Add "clamp-[number] class */
+/* 2. Add "clamp" class w/ -webkit-line-clamp: [number] declaration */
+.clamp,
+[class*='clamp-'] {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
+.clamp-1 {
+  -webkit-line-clamp: 1;
+}
+
+.clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.clamp-3 {
+  -webkit-line-clamp: 3;
+}

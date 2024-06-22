@@ -132,25 +132,15 @@
   border-bottom: 1px solid var(--color-mono2);
 }
 
-.search .matching-post .title,
-.search .matching-post .content {
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-}
-
 .search .matching-post .title {
   margin: 0 0 0.5em 0;
   line-height: 1.4;
-  -webkit-line-clamp: 1;
 }
 
 .search .matching-post .content {
   margin: 0;
   color: var(--color-mono5);
   font-size: var(--font-size-s);
-  -webkit-line-clamp: 2;
 }
 
 .search .results-status {
