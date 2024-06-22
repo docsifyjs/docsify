@@ -469,7 +469,7 @@ export function Render(Base) {
         }
 
         // OKLCH color
-        if (CSS.supports('color', 'oklch(0 0 0 / 1%)')) {
+        if (window?.CSS?.supports('color', 'oklch(0 0 0 / 1%)')) {
           const lLight = 90;
           const lDark = 60;
           const c = 20;

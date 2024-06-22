@@ -409,7 +409,7 @@ export function Events(Base) {
               href.includes(a.getAttribute('href')) ||
               href.includes(decodeURI(a.getAttribute('href'))),
           )
-          .closest('li');
+          ?.closest('li');
         const oldActive = dom.find(navElm, 'li.active');
 
         if (newActive && newActive !== oldActive) {
