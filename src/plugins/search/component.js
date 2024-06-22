@@ -7,7 +7,9 @@ function tpl(defaultValue = '') {
   const html = /* html */ `
     <div class="input-wrap">
       <input type="search" value="${defaultValue}" required aria-keyshortcuts="/ control+k meta+k" />
-      <button class="clear-button">Clear search field</button>
+      <button class="clear-button" title="Clear search">
+        <span class="visually-hidden">Clear search</span>
+      </button>
       <div class="kbd-group">
         <kbd title="Press / to search">/</kbd>
         <kbd title="Press Control+K to search">⌃K</kbd>

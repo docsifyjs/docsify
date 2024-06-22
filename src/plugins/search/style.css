@@ -77,7 +77,6 @@
   border-radius: var(--plugin-search-reset-border-radius);
   background: var(--plugin-search-reset-bg);
   cursor: pointer;
-  text-indent: -9999px;
 }
 
 .search .clear-button::before,
