@@ -32,7 +32,7 @@
       text-decoration-color: var(--navbar-link-color-active);
     }
 
-    &.active {
+    .active & {
       color: var(--navbar-link-color-active);
     }
   }
@@ -103,4 +103,8 @@
       }
     }
   }
+}
+
+.app-nav-merged {
+  display: none;
 }

@@ -389,32 +389,34 @@ export function Events(Base) {
      *
      * @param {string} [href] Matching element HREF value. If unspecified,
      * defaults to the current path (without query params)
-     * @returns Element|undefined
+     * @void
      */
     #markAppNavActiveElm() {
       const href = decodeURIComponent(this.router.toURL(this.route.path));
-      const navElm = dom.find('nav.app-nav');
 
-      if (!navElm) {
-        return;
-      }
+      ['.app-nav', '.app-nav-merged'].forEach(selector => {
+        const navElm = dom.find(selector);
 
-      const newActive = dom
-        .findAll(navElm, 'a')
-        .sort((a, b) => b.href.length - a.href.length)
-        .find(
-          a =>
-            href.includes(a.getAttribute('href')) ||
-            href.includes(decodeURI(a.getAttribute('href'))),
-        );
-      const oldActive = dom.find(navElm, 'li.active');
+        if (!navElm) {
+          return;
+        }
 
-      if (newActive && newActive !== oldActive) {
-        oldActive?.classList.remove('active');
-        newActive.classList.add('active');
-      }
+        const newActive = dom
+          .findAll(navElm, 'a')
+          .sort((a, b) => b.href.length - a.href.length)
+          .find(
+            a =>
+              href.includes(a.getAttribute('href')) ||
+              href.includes(decodeURI(a.getAttribute('href'))),
+          )
+          .closest('li');
+        const oldActive = dom.find(navElm, 'li.active');
 
-      return newActive;
+        if (newActive && newActive !== oldActive) {
+          oldActive?.classList.remove('active');
+          newActive.classList.add('active');
+        }
+      });
     }
 
     /**
