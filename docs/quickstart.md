@@ -36,30 +36,46 @@ docsify serve docs
 
 ## Manual initialization
 
-If you don't like `npm` or have trouble installing the tool, you can manually create `index.html`:
+Download or create an `index.html` template using the following markup:
+
+<div id="template">
+
+<a href="#" class="button primary" download="index.html">Download Template</a>
 
 <!-- prettier-ignore -->
 ```html
-<!-- index.html -->
-
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css">
+
+    <!-- Core Theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
+
+    <!-- Theme Add-on(s) (optional) -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"> -->
   </head>
-  <body>
+  <body class="spinner">
     <div id="app"></div>
+
+    <!-- Configuration -->
     <script>
       window.$docsify = {
         //...
       };
     </script>
+
+    <!-- Docsify.js -->
     <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
+
+    <!-- Plugins (optional) -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script> -->
   </body>
 </html>
 ```
+
+</div>
 
 ### Specifying docsify versions
 
@@ -69,8 +85,8 @@ Specifying a major version in the URL (`@5`) will allow your site to receive non
 
 <!-- prettier-ignore -->
 ```html
-<!-- Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+<!-- Core Theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
 
 <!-- Docsify -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
@@ -80,11 +96,11 @@ If you prefer to lock docsify to a specific version, specify the full version af
 
 <!-- prettier-ignore -->
 ```html
-<!-- Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+<!-- Core Theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5.0.0/themes/core.min.css">
 
 <!-- Docsify -->
-<script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5.0.0"></script>
 ```
 
 ### Manually preview your site
@@ -126,3 +142,13 @@ You should set the `data-app` attribute if you changed `el`:
 ```
 
 Compare [el configuration](configuration.md#el).
+
+<script>
+  (function() {
+    const linkElm = document.querySelector('#template a[download="index.html"]');
+    const codeElm = document.querySelector('#template code');
+    const html = codeElm?.textContent;
+
+    linkElm?.setAttribute('href', `data:text/plain,${html}`);
+  })();
+</script>
