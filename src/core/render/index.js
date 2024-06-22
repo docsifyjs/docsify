@@ -335,8 +335,16 @@ export function Render(Base) {
     }
 
     _renderNav(text) {
-      text && this._renderTo('nav', this.compiler.compile(text));
-      this.#addTextAsTitleAttribute('nav a');
+      if (!text) {
+        return;
+      }
+
+      const html = this.compiler.compile(text);
+
+      ['.app-nav', '.app-nav-merged'].forEach(selector => {
+        this._renderTo(selector, html);
+        this.#addTextAsTitleAttribute(`${selector} a`);
+      });
     }
 
     _renderMain(text, opt = {}, next) {
@@ -569,15 +577,19 @@ export function Render(Base) {
       // Add nav
       if (config.loadNavbar) {
         const navEl = dom.find('nav') || dom.create('nav');
-        const isMergedSidebar = config.mergeNavbar && isMobile;
+        const isMergedSidebar = config.mergeNavbar;
 
+        navEl.classList.add('app-nav');
         navEl.setAttribute('aria-label', 'secondary');
+        dom.body.prepend(navEl);
 
         if (isMergedSidebar) {
-          dom.find('.sidebar').prepend(navEl);
-        } else {
-          dom.body.prepend(navEl);
-          navEl.classList.add('app-nav');
+          const mergedNavEl = dom.create('div');
+          const sidebarEl = dom.find('.sidebar');
+          const sidebarNavEl = dom.find(sidebarEl, '.sidebar-nav');
+
+          mergedNavEl.classList.add('app-nav-merged');
+          sidebarEl.insertBefore(mergedNavEl, sidebarNavEl);
         }
       }
 

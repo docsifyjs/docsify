@@ -9,6 +9,7 @@
   }
 }
 
+/* Mobile */
 @media screen and (max-width: 768px) {
   main {
     height: auto;
@@ -37,6 +38,14 @@
 
   .app-nav {
     left: 0;
+
+    body:has(.app-nav-merged) & {
+      display: none;
+    }
+  }
+
+  .app-nav-merged {
+    display: block;
   }
 
   .github-corner {

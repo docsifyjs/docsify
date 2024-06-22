@@ -127,6 +127,10 @@
   }
 }
 
+.app-nav-merged {
+  display: none;
+}
+
 .sidebar-nav {
   padding-bottom: 40px;
 }
