@@ -1,3 +1,4 @@
+import markdownToTxt from 'markdown-to-txt';
 import {
   getAndRemoveConfig,
   getAndRemoveDocisfyIgnoreConfig,
@@ -32,6 +33,13 @@ function escapeHtml(string) {
   };
 
   return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+}
+
+function cleanMarkdown(text) {
+  if (text) {
+    text = markdownToTxt(text);
+  }
+  return text;
 }
 
 function getAllPaths(router) {
@@ -226,8 +234,8 @@ export function search(query) {
 
       if (matchesScore > 0) {
         const matchingPost = {
-          title: handlePostTitle,
-          content: postContent ? resultStr : '',
+          title: cleanMarkdown(handlePostTitle),
+          content: cleanMarkdown(postContent ? resultStr : ''),
           url: postUrl,
           score: matchesScore,
         };
