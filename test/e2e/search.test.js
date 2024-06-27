@@ -232,4 +232,23 @@ test.describe('Search Plugin Tests', () => {
     await page.keyboard.press('z');
     await expect(searchFieldElm).toBeFocused();
   });
+  test('search result should remove markdown', async ({ page }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          # The [mock](example.com) link
+          There is lots of words.
+        `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel h2');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await searchFieldElm.fill('There');
+    await expect(resultsHeadingElm).toHaveText('The mock link');
+  });
 });

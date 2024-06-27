@@ -2,6 +2,7 @@ import {
   getAndRemoveConfig,
   getAndRemoveDocisfyIgnoreConfig,
 } from '../../core/render/utils.js';
+import { markdownToTxt } from './markdown-to-txt.js';
 
 let INDEXS = {};
 
@@ -32,6 +33,17 @@ function escapeHtml(string) {
   };
 
   return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+}
+
+function formatContent(text) {
+  return escapeHtml(cleanMarkdown(ignoreDiacriticalMarks(text)));
+}
+
+function cleanMarkdown(text) {
+  if (text) {
+    text = markdownToTxt(text);
+  }
+  return text;
 }
 
 function getAllPaths(router) {
@@ -175,19 +187,14 @@ export function search(query) {
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
-          escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
-            /[|\\{}()[\]^$+*?.]/g,
-            '\\$&',
-          ),
+          formatContent(keyword).replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
           'gi',
         );
         let indexTitle = -1;
         let indexContent = -1;
-        handlePostTitle = postTitle
-          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
-          : postTitle;
+        handlePostTitle = postTitle ? formatContent(postTitle) : postTitle;
         handlePostContent = postContent
-          ? escapeHtml(ignoreDiacriticalMarks(postContent))
+          ? formatContent(postContent)
           : postContent;
 
         indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
@@ -226,8 +233,8 @@ export function search(query) {
 
       if (matchesScore > 0) {
         const matchingPost = {
-          title: handlePostTitle,
-          content: postContent ? resultStr : '',
+          title: formatContent(handlePostTitle),
+          content: formatContent(postContent ? resultStr : ''),
           url: postUrl,
           score: matchesScore,
         };
