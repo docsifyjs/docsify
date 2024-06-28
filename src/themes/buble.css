@@ -61,7 +61,7 @@
 
   &.bold,
   &.important {
-    font-weight: bold;
+    font-weight: var(--strong-font-weight);
   }
 
   &.boolean,

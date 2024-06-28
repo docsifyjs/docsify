@@ -411,7 +411,7 @@
 
   thead {
     display: none;
-    font-weight: bold;
+    font-weight: var(--strong-font-weight);
     text-align: left;
 
     &:has(th:not(:empty)) {

@@ -78,7 +78,7 @@
   li {
     line-height: var(--sidebar-link-line-height);
     scroll-margin-bottom: 40px;
-    font-weight: bold;
+    font-weight: var(--strong-font-weight);
 
     &.collapse {
       .app-sub-sidebar {
