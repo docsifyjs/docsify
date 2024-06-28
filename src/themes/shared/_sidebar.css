@@ -111,7 +111,7 @@
     }
 
     li {
-      font-weight: normal;
+      font-weight: var(--font-weight);
     }
   }
 
