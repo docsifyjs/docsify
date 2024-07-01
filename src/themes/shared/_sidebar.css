@@ -1,10 +1,67 @@
 /* Sidebar */
 /* ========================================================================== */
 :root {
-  --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar */
+  --_sidebar-list-inset: 18px;
+  --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar default */
 
   @supports (scrollbar-width: auto) {
     --_sidebar-scrollbar-width: 4px;
+  }
+}
+
+.app-nav-merged,
+.sidebar-nav {
+  ul {
+    margin: 0 0 0 var(--_sidebar-list-inset);
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    line-height: var(--sidebar-link-line-height);
+    scroll-margin-bottom: 40px;
+
+    > * {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    > a {
+      display: block;
+      color: var(--sidebar-link-color);
+
+      &:has(img, svg) {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+      }
+
+      &:hover {
+        text-decoration-color: var(--sidebar-link-color-active);
+      }
+    }
+
+    > p {
+      margin: 0;
+
+      /* Text-only <p> tags */
+      &:not(:has(> *)) {
+        font-weight: var(--strong-font-weight);
+      }
+    }
+
+    &.active {
+      > a {
+        color: var(--sidebar-link-color-active);
+      }
+    }
+
+    &.collapse {
+      > :not(a) {
+        display: none;
+      }
+    }
   }
 }
 
@@ -18,6 +75,7 @@
   left: 0;
   overflow-y: auto;
   width: var(--sidebar-width);
+  padding-bottom: 40px;
   border-right: var(--sidebar-border);
   background: var(--sidebar-bg);
   color: var(--sidebar-color);
@@ -69,52 +127,6 @@
     font-weight: var(--sidebar-name-font-weight);
   }
 
-  ul {
-    margin: 0 0 0 20px;
-    padding: 0;
-    list-style: none;
-  }
-
-  li {
-    line-height: var(--sidebar-link-line-height);
-    scroll-margin-bottom: 40px;
-    font-weight: var(--strong-font-weight);
-
-    &.collapse {
-      .app-sub-sidebar {
-        display: none;
-      }
-    }
-
-    > p {
-      margin: 0;
-    }
-
-    a {
-      display: flex;
-      align-items: center;
-      gap: 0.25em;
-      overflow: hidden;
-      color: var(--sidebar-link-color);
-      text-overflow: ellipsis;
-      white-space: nowrap;
-
-      &:hover {
-        text-decoration-color: var(--sidebar-link-color-active);
-      }
-    }
-
-    &.active {
-      > a {
-        color: var(--sidebar-link-color-active);
-      }
-    }
-
-    li {
-      font-weight: var(--font-weight);
-    }
-  }
-
   /* State: close */
   body.close & {
     visibility: hidden;
@@ -125,10 +137,6 @@
   body.sticky & {
     position: fixed;
   }
-}
-
-.sidebar-nav {
-  padding-bottom: 40px;
 }
 
 .sidebar-toggle {

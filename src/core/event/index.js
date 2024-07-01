@@ -222,13 +222,12 @@ export function Events(Base) {
       }
 
       dom.on(elm, 'click', ({ target }) => {
-        if (
-          target.nodeName === 'A' &&
-          target.nextSibling &&
-          target.nextSibling.classList &&
-          target.nextSibling.classList.contains('app-sub-sidebar')
-        ) {
-          dom.toggleClass(target.parentNode, 'collapse');
+        const linkElm = target.closest('a');
+        const linkParent = linkElm?.closest('li');
+        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+
+        if (subSidebar) {
+          dom.toggleClass(linkParent, 'collapse');
         }
       });
     }

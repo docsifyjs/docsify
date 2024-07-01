@@ -41,22 +41,26 @@
 
 /* Sidebar */
 /* ========================================================================== */
-.sidebar {
-  li {
-    &.active {
-      > a {
-        border-right: 3px solid var(--theme-color);
-      }
+.sidebar-nav {
+  li.active > a {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 3px;
+      background: var(--theme-color);
     }
   }
 
   .app-sub-sidebar {
-    li {
-      &::before {
-        content: '-';
-        padding-right: 4px;
-        float: left;
-      }
+    li::before {
+      content: '-';
+      margin-right: 0.25em;
+      float: left;
     }
   }
 }
