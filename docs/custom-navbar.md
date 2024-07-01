@@ -59,6 +59,7 @@ You can create sub-lists by indenting items that are under a certain parent.
   - [Cover page](cover.md)
 
 - Configuration
+
   - [Configuration](configuration.md)
   - [Themes](themes.md)
   - [Using plugins](plugins.md)
