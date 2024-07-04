@@ -1,19 +1,17 @@
 # Themes
 
-Docsify's theme system is designed to work with two different types of themes:
+Docsify's theme system is designed to work with two types of themes:
 
-- **Core Themes:** A standalone collection of CSS rules that style all Docsify site elements (cover, navbar, sidebar, markdown, etc.). Core themes do not require other themes or add-ons.
-- **Theme Add-ons:** A collection of CSS rules used to customize a core theme by providing [theme properties](#theme-property) values and/or style declarations. Theme add-ons require the use of a core theme.
+- [**Core Themes:**](#core) A complete collection of CSS rules that style all Docsify site elements (cover, navbar, sidebar, markdown, etc.). A core theme is required to render a Docsify site. Core themes do not require other themes or add-ons.
+- [**Theme Add-ons:**](#add-ons) A partial collection of CSS rules used to customize a core theme. Add-ons contain custom [theme properties](#theme-property) values and/or style declarations. Add-ons require the use of a core theme and can often (but not always) be used with other add-ons.
 
-Separating the styles required to render a Docsify site ("core") from those used for theming ("add-on") allows Docsify themes to be smaller, simpler, and less likely to break when new versions of Docsify are released.
+Separating the "core" styles required to render a Docsify site from the "add-on" styles typically associated with theming provides several important benefits. For site administrators, the ability to use the official "core" theme with multiple add-ons provides both stability and flexibility. For Docsify maintainers and community contributors, the separation of styles makes working on customizations faster, simpler, and easier to maintain.
 
-## Official
+?> Official themes are available on multiple [CDNs](cdn). Uncompressed themes are available by omitting `.min` from the filename.
 
-Official themes are available on multiple [CDNs](cdn). Uncompressed themes are available by omitting `.min` from the filename.
+## Core
 
-#### Core (Theme)
-
-The core theme contains styles and default [theme property](#theme-properties) values required for rendering a Docsify site. It is an excellent starting point for [customization](#customization).
+The official Docsify core theme contains styles and default [theme property](#theme-properties) values needed to render a Docsify site. It can serve as a production-ready theme on its own or as a starting point for use with [add-ons](#add-ons) or [customization](#customization).
 
 <!-- prettier-ignore -->
 ```html
@@ -21,27 +19,48 @@ The core theme contains styles and default [theme property](#theme-properties) v
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="">Preview Core</a>
+<a href="#" class="button primary" data-theme="">Preview</a>
 
-#### Vue (Add-on)
+## Add-ons
+
+### Sidebar Chevrons
+
+Adds expand/collapse icons to page links in the sidebar.
+
+#### Right
+
+<!-- prettier-ignore -->
+```html
+<!-- Sidebar Chevrons Right (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-right.min.css" />
+```
+
+<a href="#" class="button primary" data-theme="sidebar-chevrons-right">Preview</a>
+
+#### Left
+
+<!-- prettier-ignore -->
+```html
+<!-- Sidebar Chevrons Left (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-left.min.css" />
+```
+
+<a href="#" class="button primary" data-theme="sidebar-chevrons-left">Preview</a>
+
+### Vue (Add-on)
 
 The popular Docsify v4 theme, now available as a theme add-on using Docsify [theme properties](#theme-properties).
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme (required) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
-
 <!-- Vue Theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="vue">Preview Vue <small>(with Core)</small></a>
-
----
+<a href="#" class="button primary" data-theme="vue">Preview</a>
 
 <details>
-  <summary><h4>Legacy Themes</h4></summary>
+  <summary><h3>Legacy themes (Add-on)</h3></summary>
 
 !> The following legacy themes have been deprecated as of v5 and will be removed in the next major version of Docsify.
 
@@ -51,7 +70,7 @@ The popular Docsify v4 theme, now available as a theme add-on using Docsify [the
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="buble">Preview Buble <small>(with Core)</small></a>
+<a href="#" class="button" data-theme="buble">Preview</a>
 
 <!-- prettier-ignore -->
 ```html
@@ -59,7 +78,7 @@ The popular Docsify v4 theme, now available as a theme add-on using Docsify [the
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="dark">Preview Dark <small>(with Core)</small></a>
+<a href="#" class="button" data-theme="dark">Preview</a>
 
 <!-- prettier-ignore -->
 ```html
@@ -67,7 +86,7 @@ The popular Docsify v4 theme, now available as a theme add-on using Docsify [the
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="dolphin">Preview Dolphin <small>(with Core)</small></a>
+<a href="#" class="button" data-theme="dolphin">Preview</a>
 
 <!-- prettier-ignore -->
 ```html
@@ -75,7 +94,7 @@ The popular Docsify v4 theme, now available as a theme add-on using Docsify [the
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
 ```
 
-<a href="#" class="button secondary" data-theme="pure">Preview Pure <small>(with Core)</small></a>
+<a href="#" class="button" data-theme="pure">Preview</a>
 
 </details>
 

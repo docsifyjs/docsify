@@ -84,7 +84,7 @@
   },
   "scripts": {
     "build:cover": "node build/cover.js",
-    "build:css": "postcss \"src/themes/*.css\" --dir dist/themes --map --use postcss-import postcss-nesting",
+    "build:css": "postcss \"src/themes/*.css\" \"src/themes/**/[!_]*.css\" --base src/themes --dir dist/themes --map --use postcss-import postcss-nesting",
     "build:css:min": "npm run build:css -- --ext .min.css --use cssnano",
     "build:stylus": "stylus src/themes --out dist/themes --sourcemap",
     "build:stylus:min": "postcss \"dist/themes/**/!(*.min).css\" --dir dist/themes --ext .min.css --map --use cssnano",

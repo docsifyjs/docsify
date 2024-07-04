@@ -1,0 +1,16 @@
+@import '_sidebar-chevrons.css';
+
+:root {
+  --_sidebar_pagelink-bg-left: 2px;
+}
+
+.sidebar-nav {
+  li {
+    /* Page Links */
+    > a {
+      &:not([target='_blank'], .app-sub-sidebar a) {
+        padding-left: var(--_sidebar-list-inset);
+      }
+    }
+  }
+}
