@@ -141,10 +141,14 @@
 
 .sidebar-nav {
   li {
-    &.group:not(:last-child) {
-      margin-bottom: 1em;
-      padding-bottom: 1em;
-      border-bottom: 1px solid var(--color-mono-2);
+    &.group {
+      padding-block: var(--sidebar-group-spacing);
+      border-top: var(--sidebar-group-border);
+
+      &:has(+ :not(.group)) {
+        margin-bottom: var(--sidebar-group-spacing);
+        border-bottom: var(--sidebar-group-border);
+      }
     }
 
     > a.pagelink {
