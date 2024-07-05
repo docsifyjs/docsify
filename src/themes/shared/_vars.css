@@ -145,18 +145,22 @@
   --navbar-link-line-height : 2.5;
 
   /* Sidebar */
-  --sidebar-bg               : var(--color-bg);
-  --sidebar-border           : 1px solid var(--color-mono-2);
-  --sidebar-color            : ;
-  --sidebar-font-size        : var(--font-size);
-  --sidebar-link-color       : var(--color-text);
-  --sidebar-link-color-active: var(--theme-color);
-  --sidebar-link-line-height : 2.25;
-  --sidebar-name-color       : ;
-  --sidebar-name-font-family : var(--font-family);
-  --sidebar-name-font-size   : var(--font-size-xl);
-  --sidebar-name-font-weight : 400;
-  --sidebar-width            : 280px;
+  --sidebar-bg                   : var(--color-bg);
+  --sidebar-border               : 1px solid var(--color-mono-2);
+  --sidebar-color                : ;
+  --sidebar-font-size            : var(--font-size);
+  --sidebar-link-color           : var(--color-text);
+  --sidebar-link-color-active    : var(--theme-color);
+  --sidebar-link-line-height     : 2.25;
+  --sidebar-name-color           : ;
+  --sidebar-name-font-family     : var(--font-family);
+  --sidebar-name-font-size       : var(--font-size-xl);
+  --sidebar-name-font-weight     : 400;
+  --sidebar-pagelink-bg          : ;
+  --sidebar-pagelink-bg-collapsed: ;
+  --sidebar-pagelink-bg-empty    : ;
+  --sidebar-pagelink-bg-expanded : ;
+  --sidebar-width                : 280px;
 
   /* Dark mode */
   @media screen and (prefers-color-scheme: dark) {

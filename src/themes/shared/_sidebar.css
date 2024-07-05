@@ -139,6 +139,34 @@
   }
 }
 
+.sidebar-nav {
+  li {
+    &.group:not(:last-child) {
+      margin-bottom: 1em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid var(--color-mono-2);
+    }
+
+    > a.pagelink {
+      border-radius: var(--border-radius);
+      background: var(--sidebar-pagelink-bg);
+
+      .active > &,
+      :has(.active) > & {
+        background: var(--sidebar-pagelink-bg-expanded);
+
+        &:only-child {
+          background: var(--sidebar-pagelink-bg-empty);
+        }
+      }
+
+      .collapse > & {
+        background: var(--sidebar-pagelink-bg-collapsed);
+      }
+    }
+  }
+}
+
 .sidebar-toggle {
   position: absolute;
   z-index: var(--z-sidebar-toggle);

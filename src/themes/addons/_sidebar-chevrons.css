@@ -15,8 +15,24 @@
         var(--color-mono-3) 2.75px 4.25px,
         transparent 4px
       );
+  /* Chevron right (Theme color) */
+  --sidebar-pagelink-bg-collapsed: no-repeat var(--_sidebar_pagelink-bg-left)
+      calc(50% - 2.5px) / 6px 5px
+      linear-gradient(
+        45deg,
+        transparent 2.75px,
+        var(--theme-color) 2.75px 4.25px,
+        transparent 4px
+      ),
+    no-repeat var(--_sidebar_pagelink-bg-left) calc(50% + 2.5px) / 6px 5px
+      linear-gradient(
+        135deg,
+        transparent 2.75px,
+        var(--theme-color) 2.75px 4.25px,
+        transparent 4px
+      );
   /* Chevron down (Theme color) */
-  --sidebar-pagelink-bg-active: no-repeat
+  --sidebar-pagelink-bg-expanded: no-repeat
       calc(var(--_sidebar_pagelink-bg-left) - 2px) center / 5px 6px
       linear-gradient(
         225deg,
@@ -31,61 +47,13 @@
         var(--theme-color) 2.75px 4.25px,
         transparent 4.25px
       );
-  /* Chevron right (Theme color) */
-  --sidebar-pagelink-bg-active-collapsed: no-repeat
-      var(--_sidebar_pagelink-bg-left) calc(50% - 2.5px) / 6px 5px
-      linear-gradient(
-        45deg,
-        transparent 2.75px,
-        var(--theme-color) 2.75px 4.25px,
-        transparent 4px
-      ),
-    no-repeat var(--_sidebar_pagelink-bg-left) calc(50% + 2.5px) / 6px 5px
-      linear-gradient(
-        135deg,
-        transparent 2.75px,
-        var(--theme-color) 2.75px 4.25px,
-        transparent 4px
-      );
   /* Dot (active without children) */
-  --sidebar-pagelink-bg-active-empty: no-repeat var(--_sidebar_pagelink-bg-left)
-    center / 4px 4px
+  --sidebar-pagelink-bg-empty: no-repeat var(--_sidebar_pagelink-bg-left) center /
+    4px 4px
     radial-gradient(
       circle,
       var(--theme-color) 0,
       var(--theme-color) 70%,
       transparent 71%
     );
-}
-
-.sidebar-nav {
-  li {
-    /* Groups */
-    &:not(:last-child, :has(> a, > p > a)) {
-      margin-bottom: 1em;
-      padding-bottom: 1em;
-      border-bottom: 1px solid var(--color-mono-2);
-    }
-
-    /* Page Links */
-    > a {
-      &:not([target='_blank'], .app-sub-sidebar a) {
-        border-radius: var(--border-radius);
-        background: var(--sidebar-pagelink-bg);
-
-        .active > &,
-        :has(.active) > & {
-          background: var(--sidebar-pagelink-bg-active);
-
-          &:only-child {
-            background: var(--sidebar-pagelink-bg-active-empty);
-          }
-        }
-
-        .collapse > & {
-          background: var(--sidebar-pagelink-bg-active-collapsed);
-        }
-      }
-    }
-  }
 }

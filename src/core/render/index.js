@@ -316,6 +316,22 @@ export function Render(Base) {
 
       // Bind event
       this._bindEventOnRendered(activeEl);
+
+      // Mark page links and groups
+      const pageLinks = dom.findAll(
+        '.sidebar-nav li > a:not([target="_blank"], .app-sub-sidebar a)',
+      );
+      const pageLinkGroups = dom.findAll(
+        '.sidebar-nav li:not(:has(> a, > p > a)',
+      );
+
+      pageLinks.forEach(elm => {
+        elm.classList.add('pagelink');
+      });
+
+      pageLinkGroups.forEach(elm => {
+        elm.classList.add('group');
+      });
     }
 
     _bindEventOnRendered(activeEl) {
