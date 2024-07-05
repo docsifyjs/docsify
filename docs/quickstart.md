@@ -50,11 +50,12 @@ Download or create an `index.html` template using the following markup:
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <!-- Core Theme -->
+    <!-- Core Theme (required) -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
 
-    <!-- Theme Add-on(s) (optional) -->
-    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css"> -->
+    <!-- Theme Add-ons (optional) -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-right.min.css"> -->
   </head>
   <body class="spinner">
     <div id="app"></div>
