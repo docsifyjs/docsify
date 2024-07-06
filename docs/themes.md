@@ -252,18 +252,17 @@ Advanced theme properties are also available for use but typically do not need t
 
 <script>
   (function() {
-    const previewElmSelector = '[data-theme]';
-    const previewElms = Docsify.dom.findAll(previewElmSelector);
-    const previewSheets = Docsify.dom.findAll('link[rel="stylesheet"][title]');
+    const previewElms = Docsify.dom.findAll('input[data-theme]');
+    const previewSheets = Docsify.dom.findAll('link[rel="stylesheet"][data-theme]');
 
     function handleChange(e) {
-      const elm = e.target.closest(previewElmSelector)
-      const title = elm.value;
-      const matchingSheet = previewSheets.find(sheet => sheet.title === title);
+      const elm = e.target.closest('[data-theme]')
+      const themeVal = elm.value
+      const themeSheet = previewSheets.find(sheet => sheet.getAttribute('data-theme') === themeVal);
       const groupAttr = 'data-group';
-      const groupName = elm.getAttribute(groupAttr);
+      const groupVal = elm.getAttribute(groupAttr);
 
-      matchingSheet && (matchingSheet.disabled = !elm.checked);
+      themeSheet && (themeSheet.disabled = !elm.checked);
 
       if (!elm.checked) {
         return;
@@ -271,14 +270,14 @@ Advanced theme properties are also available for use but typically do not need t
 
       let groupSheets;
 
-      if (groupName) {
+      if (groupVal) {
         const groupElms = previewElms
-          .filter(elm => elm.getAttribute(groupAttr) === groupName);
+          .filter(elm => elm.getAttribute(groupAttr) === groupVal);
         const groupVals = groupElms
           .map(elm => elm.value);
 
         groupSheets = groupVals
-          .map(val => previewSheets.find(elm => elm.title === val))
+          .map(val => previewSheets.find(sheet => sheet.getAttribute('data-theme') === val))
           .filter(sheet => sheet);
 
         groupElms.forEach(groupElm => {
@@ -289,9 +288,17 @@ Advanced theme properties are also available for use but typically do not need t
       }
 
       (groupSheets || previewSheets).forEach(sheet => {
-        sheet.disabled = !title || sheet.title !== title;
+        sheet.disabled = !themeVal || sheet.getAttribute('data-theme') !== themeVal;
       });
     };
+
+    // Toggle active preview elms
+    previewSheets.forEach(sheet => {
+      const themeVal = sheet.getAttribute('data-theme');
+      const previewElm = previewElms.find(elm => elm.value === themeVal);
+
+      previewElm.checked = !sheet.disabled;
+    });
 
     previewElms.forEach(elm => elm.addEventListener('change', handleChange));
   }());
