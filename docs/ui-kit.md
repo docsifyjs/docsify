@@ -201,7 +201,7 @@ Suscipit nemo aut ex suscipit voluptatem laboriosam odio velit. Ipsum eveniet la
 #### Checkbox
 
 <form>
-  <label><input type="checkbox" value="HTML"> HTML</label><br>
+  <label><input type="checkbox" value="HTML" checked> HTML</label><br>
   <label><input type="checkbox" value="CSS"> CSS</label><br>
   <label><input type="checkbox" value="JavaScript"> JavaScript</label>
 </form>
@@ -228,7 +228,7 @@ Suscipit nemo aut ex suscipit voluptatem laboriosam odio velit. Ipsum eveniet la
 #### Radio
 
 <form>
-  <label><input type="radio" name="language" value="HTML"> HTML</label><br>
+  <label><input type="radio" name="language" value="HTML" checked> HTML</label><br>
   <label><input type="radio" name="language" value="CSS"> CSS</label><br>
   <label><input type="radio" name="language" value="JavaScript"> JavaScript</label>
 </form>
@@ -240,6 +240,23 @@ Suscipit nemo aut ex suscipit voluptatem laboriosam odio velit. Ipsum eveniet la
     First name<br>
     <input type="text" placeholder="Placeholder">
   </label>
+</form>
+
+#### Toggles
+
+<form>
+Checkbox (multi-select)
+
+<label><input class="toggle" type="checkbox" checked> HTML</label><br>
+<label><input class="toggle" type="checkbox"> CSS</label><br>
+<label><input class="toggle" type="checkbox"> JavaScript</label>
+
+Radio (single-select)
+
+<label><input class="toggle" type="radio" name="toggle" checked> HTML</label><br>
+<label><input class="toggle" type="radio" name="toggle"> CSS</label><br>
+<label><input class="toggle" type="radio" name="toggle"> JavaScript</label>
+
 </form>
 
 ### Select

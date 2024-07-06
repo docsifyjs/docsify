@@ -194,7 +194,7 @@ input,
 select,
 textarea {
   padding: 0.25em 0.5em;
-  border: var(--form-element-border);
+  border: 1px solid var(--form-element-border-color);
 }
 
 input,
@@ -224,22 +224,64 @@ fieldset {
   }
 }
 
-input[type='checkbox'],
-input[type='radio'] {
+input:where([type='checkbox'], [type='radio']) {
+  --_size: 1.1em;
+
   appearance: none;
   display: inline-block;
   position: relative;
   top: -0.1em;
-  height: 1.1em;
-  width: 1.1em;
+  height: var(--_size);
+  width: var(--_size);
   margin: 0;
   padding: 0;
+
+  &.toggle {
+    --_inset: 2px;
+    --_handle-size: calc(var(--_size) - (var(--_inset) * 2));
+
+    height: calc(var(--_size) + 2px);
+    width: calc(var(--_size) * 1.9);
+    border-radius: 100vh;
+
+    &::before,
+    &::after {
+      all: unset;
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: var(--_inset);
+      left: var(--_inset);
+      height: var(--_handle-size);
+      width: var(--_handle-size);
+      border-radius: 100vh;
+      background: var(--color-mono-3);
+      transition: all var(--duration-fast);
+    }
+
+    &:checked {
+      background: var(--theme-color);
+      border-color: var(--theme-color);
+
+      &::before {
+        left: calc(100% - var(--_handle-size) - var(--_inset));
+        background: var(--color-bg);
+      }
+    }
+  }
+
+  label & {
+    margin-right: 0.25em;
+  }
 }
 
-input[type='checkbox'] {
+input:where([type='checkbox']):not(.toggle) {
   border-radius: min(var(--form-element-border-radius), 3px);
 
-  &::after {
+  &::before {
     content: '';
     display: inline-block;
     position: absolute;
@@ -257,13 +299,13 @@ input[type='checkbox'] {
     border-color: var(--theme-color);
     background: var(--theme-color);
 
-    &::after {
+    &::before {
       border-color: var(--color-bg);
     }
   }
 }
 
-input[type='radio'] {
+input:where([type='radio']):not(.toggle) {
   border-radius: 100vh;
 
   &:checked {

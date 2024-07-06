@@ -82,7 +82,7 @@
   --codeblock-bg                  : var(--color-mono-1);
   --codeblock-color               : ;
   --form-element-bg               : var(--color-mono-1);
-  --form-element-border           : 1px solid var(--color-mono-2);
+  --form-element-border-color     : var(--color-mono-2);
   --form-element-border-radius    : var(--border-radius);
   --form-element-color            : ;
   --h1-font-size                  : var(--font-size-xxxl);

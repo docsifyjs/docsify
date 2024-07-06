@@ -11,13 +11,16 @@ Separating the "core" styles needed to render a Docsify site from the "add-on" s
 
 The official Docsify core theme contains styles and default [theme property](#theme-properties) values needed to render a Docsify site. It can serve as a minimalist theme on its own or as a starting point for use with [add-ons](#add-ons) or [customization](#customization).
 
+<label>
+  <input class="toggle" type="checkbox" checked disabled>
+  Preview Core (Locked)
+</label>
+
 <!-- prettier-ignore -->
 ```html
 <!-- Core Theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
 ```
-
-<a href="#" class="button primary" data-theme="">Preview: Core</a>
 
 ## Add-ons
 
@@ -27,13 +30,19 @@ The following add-ons are designed to be used with the Docsify [Core](#core) the
 
 Adds expand/collapse icons to page links in the sidebar.
 
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-chevrons-right" data-theme data-group="sidebar-chevrons"> Preview Chevrons Right
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-chevrons-left" data-theme data-group="sidebar-chevrons"> Preview Chevrons Left
+</label>
+
 <!-- prettier-ignore -->
 ```html
 <!-- Sidebar Chevrons Right (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-right.min.css" />
 ```
-
-<a href="#" class="button primary" data-theme="sidebar-chevrons-right">Preview: Chevrons Right</a>
 
 <!-- prettier-ignore -->
 ```html
@@ -41,19 +50,20 @@ Adds expand/collapse icons to page links in the sidebar.
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-left.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="sidebar-chevrons-left">Preview: Chevrons Left</a>
-
 ### Vue Theme (Add-on)
 
 The popular Docsify v4 theme, now available as a theme add-on using Docsify [theme properties](#theme-properties).
+
+<label>
+  <input class="toggle" type="checkbox" value="vue" data-theme data-group="theme">
+  Preview Vue
+</label>
 
 <!-- prettier-ignore -->
 ```html
 <!-- Vue Theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
 ```
-
-<a href="#" class="button primary" data-theme="vue">Preview: Vue</a>
 
 <details>
   <summary><h3>Legacy themes (Add-on)</h3></summary>
@@ -64,15 +74,23 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 
 ### Buble Theme (Add-on)
 
+<label>
+  <input class="toggle" type="checkbox" value="buble" data-theme data-group="theme">
+  Preview Buble
+</label>
+
 <!-- prettier-ignore -->
 ```html
 <!-- Buble theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="buble">Preview: Buble</a>
-
 ### Dark Theme (Add-on)
+
+<label>
+  <input class="toggle" type="checkbox" value="dark" data-theme data-group="theme">
+  Preview Dark
+</label>
 
 <!-- prettier-ignore -->
 ```html
@@ -80,9 +98,12 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="dark">Preview: Dark</a>
-
 ### Dolphin Theme (Add-on)
+
+<label>
+  <input class="toggle" type="checkbox" value="dolphin" data-theme data-group="theme">
+  Preview Dolphin
+</label>
 
 <!-- prettier-ignore -->
 ```html
@@ -90,17 +111,18 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
-<a href="#" class="button primary" data-theme="dolphin">Preview: Dolphin</a>
-
 ### Pure Theme (Add-on)
+
+<label>
+  <input class="toggle" type="checkbox" value="pure" data-theme data-group="theme">
+  Preview Pure
+</label>
 
 <!-- prettier-ignore -->
 ```html
 <!-- Pure theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
 ```
-
-<a href="#" class="button primary" data-theme="pure">Preview: Pure</a>
 
 </details>
 
@@ -230,26 +252,47 @@ Advanced theme properties are also available for use but typically do not need t
 
 <script>
   (function() {
-    const previewAttr = 'data-theme';
-    const previewSelector = `a[${previewAttr}]`;
-    const previewElms = Docsify.dom.findAll(previewSelector);
-    const stylesheetElms = Docsify.dom.findAll('link[rel="stylesheet"][title]');
+    const previewElmSelector = '[data-theme]';
+    const previewElms = Docsify.dom.findAll(previewElmSelector);
+    const previewSheets = Docsify.dom.findAll('link[rel="stylesheet"][title]');
 
-    previewElms.forEach(elm => {
-      elm.onclick = (e) => {
-        const title = e.target.closest(previewSelector).getAttribute(previewAttr);
-        const newSheet = stylesheetElms.find(sheet => sheet.title === title);
+    function handleChange(e) {
+      const elm = e.target.closest(previewElmSelector)
+      const title = elm.value;
+      const matchingSheet = previewSheets.find(sheet => sheet.title === title);
+      const groupAttr = 'data-group';
+      const groupName = elm.getAttribute(groupAttr);
 
-        e.preventDefault();
+      matchingSheet && (matchingSheet.disabled = !elm.checked);
 
-        if (newSheet) {
-          newSheet.disabled = false;
-        }
+      if (!elm.checked) {
+        return;
+      }
 
-        stylesheetElms.forEach(sheet => {
-          sheet.disabled = !title || sheet.title !== title;
+      let groupSheets;
+
+      if (groupName) {
+        const groupElms = previewElms
+          .filter(elm => elm.getAttribute(groupAttr) === groupName);
+        const groupVals = groupElms
+          .map(elm => elm.value);
+
+        groupSheets = groupVals
+          .map(val => previewSheets.find(elm => elm.title === val))
+          .filter(sheet => sheet);
+
+        groupElms.forEach(groupElm => {
+          if (groupElm !== elm) {
+            groupElm.checked = false;
+          }
         });
-      };
-    });
-  })();
+      }
+
+      (groupSheets || previewSheets).forEach(sheet => {
+        sheet.disabled = !title || sheet.title !== title;
+      });
+    };
+
+    previewElms.forEach(elm => elm.addEventListener('change', handleChange));
+  }());
 </script>
