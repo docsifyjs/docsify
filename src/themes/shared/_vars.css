@@ -57,7 +57,7 @@
   --duration-slow     : 400ms;
   --duration-medium   : 200ms;
   --duration-fast     : 150ms;
-  --margin-block      : 1em; /* Single value */
+  --margin-block      : 1rem; /* Single value */
   --scroll-padding-top: 0;
 
   /* Cover */
