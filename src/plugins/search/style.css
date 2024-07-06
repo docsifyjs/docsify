@@ -15,11 +15,11 @@
 }
 
 .search {
-  margin-block: 15px;
+  margin-block: 12px;
 }
 
 .search > * {
-  margin-inline: 15px;
+  margin-inline: 12px;
 }
 
 /* Input */

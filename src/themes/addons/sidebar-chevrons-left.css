@@ -5,11 +5,16 @@
 }
 
 .sidebar-nav {
+  --_inset: 16px;
+
   li {
-    /* Page Links */
-    > a {
-      &:not([target='_blank'], .app-sub-sidebar a) {
-        padding-left: var(--_sidebar-list-inset);
+    a.pagelink {
+      padding-left: var(--_inset);
+    }
+
+    &:has(> .pagelink) {
+      > ul {
+        margin-left: calc(var(--_sidebar-list-inset) + var(--_inset));
       }
     }
   }

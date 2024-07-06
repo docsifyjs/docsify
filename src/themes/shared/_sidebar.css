@@ -1,7 +1,8 @@
 /* Sidebar */
 /* ========================================================================== */
 :root {
-  --_sidebar-list-inset: 18px;
+  --_sidebar-inset: 20px;
+  --_sidebar-list-inset: 0.85em;
   --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar default */
 
   @supports (scrollbar-width: auto) {
@@ -12,7 +13,7 @@
 .app-nav-merged,
 .sidebar-nav {
   ul {
-    margin: 0 0 0 var(--_sidebar-list-inset);
+    margin: 0;
     padding: 0;
     list-style: none;
   }
@@ -27,8 +28,18 @@
       white-space: nowrap;
     }
 
-    > a {
+    > p {
+      margin: 0;
+
+      /* Text-only <p> tags */
+      &:not(:has(> *)) {
+        font-weight: var(--strong-font-weight);
+      }
+    }
+
+    a {
       display: block;
+      padding-right: var(--_sidebar-inset);
       color: var(--sidebar-link-color);
 
       &:has(img, svg) {
@@ -42,15 +53,6 @@
       }
     }
 
-    > p {
-      margin: 0;
-
-      /* Text-only <p> tags */
-      &:not(:has(> *)) {
-        font-weight: var(--strong-font-weight);
-      }
-    }
-
     &.active {
       > a {
         color: var(--sidebar-link-color-active);
@@ -61,6 +63,16 @@
       > :not(a) {
         display: none;
       }
+    }
+  }
+
+  > ul {
+    > li {
+      padding-left: var(--_sidebar-inset);
+    }
+
+    ul {
+      margin-left: var(--_sidebar-list-inset);
     }
   }
 }
@@ -104,10 +116,6 @@
         background: rgba(136, 136, 136, 0.1);
       }
     }
-  }
-
-  > :first-child {
-    margin-top: 1rem;
   }
 
   .app-name {

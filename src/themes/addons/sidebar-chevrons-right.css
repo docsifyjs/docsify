@@ -6,11 +6,8 @@
 
 .sidebar-nav {
   li {
-    /* Page Links */
-    > a {
-      &:not([target='_blank'], .app-sub-sidebar a) {
-        padding-right: 30px;
-      }
+    a {
+      padding-right: calc(var(--_sidebar-inset) + 0.5em);
     }
   }
 }
