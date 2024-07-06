@@ -317,7 +317,6 @@ input:where([type='radio']):not(.toggle) {
 
 label {
   display: inline-block;
-  /* margin-inline-end: 0.5em; */
 }
 
 select {

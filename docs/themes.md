@@ -86,7 +86,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 
 !> These legacy themes have been deprecated and will be removed in the next major version of Docsify.
 
-#### Buble Theme (Add-on)
+#### Buble (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="buble" data-theme data-group="theme">
@@ -99,7 +99,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
 ```
 
-#### Dark Theme (Add-on)
+#### Dark (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="dark" data-theme data-group="theme">
@@ -112,7 +112,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
 ```
 
-#### Dolphin Theme (Add-on)
+#### Dolphin (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="dolphin" data-theme data-group="theme">
@@ -125,7 +125,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
-#### Pure Theme (Add-on)
+#### Pure (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="pure" data-theme data-group="theme">
