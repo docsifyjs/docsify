@@ -10,7 +10,7 @@ const sharedConfig = {
   resetModules: true,
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
   testEnvironmentOptions: {
     url: `${TEST_HOST}/_blank.html`,
   },

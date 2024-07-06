@@ -319,11 +319,18 @@ export function Render(Base) {
 
       // Mark page links and groups
       const pageLinks = dom.findAll(
-        '.sidebar-nav li > a:not([target="_blank"], .app-sub-sidebar a)',
+        sidebarEl,
+        'li > a:not([target="_blank"], .app-sub-sidebar a)',
       );
-      const pageLinkGroups = dom.findAll(
-        '.sidebar-nav li:not(:has(> a, > p > a)',
-      );
+      const pageLinkGroups = dom
+        // NOTE: Using filter() method as a replacement for :has() selector. It
+        // would be preferable to use only 'li:not(:has(> a, > p > a))' selector
+        // but the :has() selector is not supported by our Jest test environment
+        // See: https://github.com/jsdom/jsdom/issues/3506#issuecomment-1769782333
+        .findAll(sidebarEl, 'li')
+        .filter(
+          elm => !elm.querySelectorAll(':scope > a, :scope > p > a').length,
+        );
 
       pageLinks.forEach(elm => {
         elm.classList.add('pagelink');
