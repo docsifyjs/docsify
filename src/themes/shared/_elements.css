@@ -83,6 +83,10 @@ summary {
   }
 }
 
+:disabled {
+  cursor: not-allowed;
+}
+
 /* Buttons */
 /* ---------------------------------- */
 a.button,
@@ -143,7 +147,6 @@ input:where([type='button'], [type='reset'], [type='submit']) {
   &:disabled {
     opacity: 0.6;
     filter: grayscale(100%);
-    cursor: not-allowed;
     pointer-events: none;
   }
 }
@@ -177,8 +180,6 @@ select,
 textarea {
   &:disabled {
     opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
   }
 }
 
