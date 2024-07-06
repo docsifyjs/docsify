@@ -80,7 +80,7 @@ Adds expand/collapse icons to page links in the sidebar.
 ```
 
 <details>
-  <summary><h3>Legacy themes (Add-on)</h3></summary>
+  <summary><h3>Legacy themes</h3></summary>
 
 The following Docsify v4 themes have been converted to theme add-ons for use with the Docsify v5 [Core](#core) theme.
 
