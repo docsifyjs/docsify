@@ -2,7 +2,7 @@ import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
 import { getPath, isAbsolutePath } from '../router/util.js';
 import { isMobile, inBrowser } from '../util/env.js';
-import { isPrimitive } from '../util/core.js';
+import { isPrimitive, rgbToHsl } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
 import { prerenderEmbed } from './embed.js';
@@ -479,6 +479,9 @@ export function Render(Base) {
       // Gradient background
       if (!coverBg && !mdCoverBg) {
         const degrees = Math.round((Math.random() * 120) / 2);
+        const bgRGB = computedStyle.backgroundColor;
+        const bgHSL = rgbToHsl(bgRGB);
+        const isDark = bgHSL[2] < 50;
 
         let hue1 = Math.round(Math.random() * 360);
         let hue2 = Math.round(Math.random() * 360);
@@ -515,13 +518,7 @@ export function Render(Base) {
 
         cssText = stripIndent`
           :root {
-            --cover-bg: ${autoBgLight};
-          }
-
-          @media (prefers-color-scheme: dark) {
-            :root {
-              --cover-bg: ${autoBgDark};
-            }
+            --cover-bg: ${isDark ? autoBgDark : autoBgLight};
           }
         `;
       }

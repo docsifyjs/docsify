@@ -16,6 +16,8 @@ body {
 }
 
 html {
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-family);
   font-feature-settings:
     'liga' 1,
@@ -30,8 +32,6 @@ html {
 body {
   overflow-x: hidden;
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
 
   &:not(.ready) {
     overflow: hidden;
