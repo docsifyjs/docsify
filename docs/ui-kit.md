@@ -312,11 +312,11 @@ Ipsum ea amet dolore mollit incididunt fugiat nulla laboris est sint voluptate. 
 
 ## Horizontal Rule
 
-Text
+Text before rule.
 
 ---
 
-Text
+Text after rule.
 
 ## IFrame
 

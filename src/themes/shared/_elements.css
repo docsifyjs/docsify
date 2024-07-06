@@ -42,7 +42,7 @@ a {
 hr {
   margin-block: 1em;
   border: none;
-  border-bottom: 1px solid var(--color-mono-2);
+  border-bottom: 1px solid var(--border-color);
 }
 
 ins {

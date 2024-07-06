@@ -52,6 +52,7 @@
   --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
 
   /* Common */
+  --border-color      : var(--color-mono-2);
   --border-radius     : 3px; /* Single value */
   --duration-slow     : 400ms;
   --duration-medium   : 200ms;
@@ -82,7 +83,7 @@
   --codeblock-bg                  : var(--color-mono-1);
   --codeblock-color               : ;
   --form-element-bg               : var(--color-mono-1);
-  --form-element-border-color     : var(--color-mono-2);
+  --form-element-border-color     : var(--color-mono-3);
   --form-element-border-radius    : var(--border-radius);
   --form-element-color            : ;
   --h1-font-size                  : var(--font-size-xxxl);
@@ -146,10 +147,10 @@
 
   /* Sidebar */
   --sidebar-bg                   : var(--color-bg);
-  --sidebar-border               : 1px solid var(--color-mono-2);
+  --sidebar-border               : 1px solid var(--border-color);
   --sidebar-color                : ;
   --sidebar-font-size            : var(--font-size);
-  --sidebar-group-border         : 1px solid var(--color-mono-2);
+  --sidebar-group-border         : 1px solid var(--border-color);
   --sidebar-group-spacing        : 1em;
   --sidebar-link-color           : var(--color-text);
   --sidebar-link-color-active    : var(--theme-color);
