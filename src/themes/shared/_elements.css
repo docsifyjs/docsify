@@ -325,6 +325,7 @@ select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.95 10'%3E%3Cpolygon fill='black' opacity='0.5' points='1.41 4.67 2.48 3.18 3.54 4.67 1.41 4.67'/%3E%3Cpolygon fill='black' opacity='0.5' points='3.54 5.33 2.48 6.82 1.41 5.33 3.54 5.33'/%3E%3C/svg%3E");
   background-position: right 2px center;
   background-repeat: no-repeat;
+  font-weight: normal; /* Fix for Safari using serif font is weight is bold */
 
   @media screen and (prefers-color-scheme: dark) {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.95 10'%3E%3Cpolygon fill='white' opacity='0.4' points='1.41 4.67 2.48 3.18 3.54 4.67 1.41 4.67'/%3E%3Cpolygon fill='white' opacity='0.4' points='3.54 5.33 2.48 6.82 1.41 5.33 3.54 5.33'/%3E%3C/svg%3E");
