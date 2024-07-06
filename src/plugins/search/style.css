@@ -15,11 +15,15 @@
 }
 
 .search {
-  margin-block: 12px;
+  margin-top: 12px;
 }
 
 .search > * {
   margin-inline: 12px;
+}
+
+.search:not(:has(~ .app-name)) {
+  margin-bottom: 12px;
 }
 
 /* Input */
