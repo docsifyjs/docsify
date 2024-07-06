@@ -1,0 +1,12 @@
+/* prettier-ignore */
+:root {
+  /* Color */
+  --color-bg  : #1f2428;
+  --color-text: #eee;
+
+  /* Elements */
+  --mark-bg   : #fde047; /* Tailwind v3: Yellow 300 */
+  --mark-color: var(--color-bg);
+
+  color-scheme: dark;
+}

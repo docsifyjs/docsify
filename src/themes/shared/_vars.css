@@ -164,19 +164,6 @@
   --sidebar-pagelink-bg-expanded : ;
   --sidebar-width                : 280px;
 
-  /* Dark mode */
-  @media screen and (prefers-color-scheme: dark) {
-    /* Color */
-    --color-bg  : #1f2428;
-    --color-text: #eee;
-
-    /* Elements */
-    --mark-bg   : #fde047; /* Tailwind v3: Yellow 300 */
-    --mark-color: var(--color-bg);
-
-    color-scheme: dark;
-  }
-
   /* Reduced motion */
   @media (prefers-reduced-motion) {
     --duration-slow  : 0s;

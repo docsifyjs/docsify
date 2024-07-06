@@ -5,15 +5,15 @@ Docsify's is designed to work with two types of theme resources:
 - [**Core Themes:**](#core) A complete collection of CSS rules that style all Docsify site elements (cover, navbar, sidebar, markdown content, etc.). A core theme is required to render a Docsify site. Core themes do not require by may be used with other themes or add-ons.
 - [**Theme Add-ons:**](#add-ons) A partial collection of CSS rules used to customize a core theme using [theme properties](#theme-property) values and/or style declarations. Add-ons require the use of a core theme and can often (but not always) be used with other add-ons.
 
-Separating the "core" styles needed to render a Docsify site from the "add-on" styles typically associated with theming provides several important benefits. For site administrators, the ability to use the official "core" theme with multiple official and community add-ons provides both stability and flexibility. For Docsify maintainers and community contributors, the separation simplifies and expedites maintenance and the delivery of new customizations with significantly less code.
+?> Separating the "core" styles needed to render a Docsify site from the "add-on" styles typically associated with theming provides several important benefits. For site administrators, the ability to use the official "core" theme with multiple add-ons provides both stability and flexibility. For Docsify maintainers and community contributors, the separation simplifies and expedites maintenance and the delivery of new customizations with significantly less code.
 
 ## Core
 
-The official Docsify core theme contains styles and default [theme property](#theme-properties) values needed to render a Docsify site. It can serve as a minimalist theme on its own or as a starting point for use with [add-ons](#add-ons) or [customization](#customization).
+Docsify offers one "core" theme. This theme contains styles and [theme properties](#theme-properties) needed to render a Docsify site. The core theme can serve as a minimalist theme on its own, enhanced using [add-ons](#add-ons), or as a starting point for [customization](#customization).
 
 <label>
   <input class="toggle" type="checkbox" checked disabled>
-  Preview Core (Locked)
+  Preview Core (Required)
 </label>
 
 <!-- prettier-ignore -->
@@ -25,6 +25,35 @@ The official Docsify core theme contains styles and default [theme property](#th
 ## Add-ons
 
 The following add-ons are designed to be used with the Docsify [Core](#core) theme.
+
+### Core Dark (Add-on)
+
+Dark mode styles for the Docsify [Core](#core) theme. Styles can conditionally be applied only when an operating system's dark mode is active by specifying a `media` attribute.
+
+<label>
+  <input class="toggle" type="checkbox" value="core-dark" data-theme data-group="theme">
+  Preview Core Dark
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="core-dark-auto" data-theme data-group="theme">
+  Preview Core Dark (Dark Mode Only)
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Core Dark (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/core-dark.min.css" />
+```
+
+```html
+<!-- Core Dark / Dark Mode Only (add-on) -->
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/core-dark.min.css"
+  media="(prefers-color-scheme: dark)"
+/>
+```
 
 ### Sidebar Chevrons (Add-on)
 
@@ -50,21 +79,6 @@ Adds expand/collapse icons to page links in the sidebar.
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-left.min.css" />
 ```
 
-### Vue Theme (Add-on)
-
-The popular Docsify v4 theme, now available as a theme add-on using Docsify [theme properties](#theme-properties).
-
-<label>
-  <input class="toggle" type="checkbox" value="vue" data-theme data-group="theme">
-  Preview Vue
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Vue Theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
-```
-
 <details>
   <summary><h3>Legacy themes (Add-on)</h3></summary>
 
@@ -72,7 +86,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 
 !> These legacy themes have been deprecated and will be removed in the next major version of Docsify.
 
-### Buble Theme (Add-on)
+#### Buble Theme (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="buble" data-theme data-group="theme">
@@ -85,7 +99,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
 ```
 
-### Dark Theme (Add-on)
+#### Dark Theme (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="dark" data-theme data-group="theme">
@@ -98,7 +112,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
 ```
 
-### Dolphin Theme (Add-on)
+#### Dolphin Theme (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="dolphin" data-theme data-group="theme">
@@ -111,7 +125,7 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
 ```
 
-### Pure Theme (Add-on)
+#### Pure Theme (Add-on)
 
 <label>
   <input class="toggle" type="checkbox" value="pure" data-theme data-group="theme">
@@ -122,6 +136,19 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 ```html
 <!-- Pure theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
+```
+
+#### Vue Theme (Add-on)
+
+<label>
+  <input class="toggle" type="checkbox" value="vue" data-theme data-group="theme">
+  Preview Vue
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Vue Theme (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
 ```
 
 </details>
@@ -297,7 +324,7 @@ Advanced theme properties are also available for use but typically do not need t
       const themeVal = sheet.getAttribute('data-theme');
       const previewElm = previewElms.find(elm => elm.value === themeVal);
 
-      previewElm.checked = !sheet.disabled;
+      previewElm && (previewElm.checked = !sheet.disabled);
     });
 
     previewElms.forEach(elm => elm.addEventListener('change', handleChange));

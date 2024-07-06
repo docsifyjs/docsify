@@ -23,7 +23,7 @@
   --h5-font-size: 1rem;
   --h6-font-size: 1rem;
 
-  /* Dark mode */
+  /* Light mode */
   @media screen and (prefers-color-scheme: light) {
     /* Color */
     --color-text: #34495e;
