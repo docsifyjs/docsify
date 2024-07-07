@@ -6,11 +6,11 @@
   position: relative;
   width: var(--max-width);
   max-width: calc(100% - (var(--_margin-inline) * 2));
-  margin: 0 auto;
-  padding-block: 2rem;
+  margin: var(--navbar-height) auto 0 auto;
+  padding-bottom: 2rem;
 
   > :first-child {
-    margin-top: 0 !important;
+    margin-top: 0;
   }
 
   blockquote,

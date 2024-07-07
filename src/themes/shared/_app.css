@@ -32,12 +32,7 @@ main {
     right: 0;
     bottom: 0;
     left: var(--sidebar-width);
-    padding-top: 2em;
     transition: left var(--duration-medium) ease;
-
-    body:has(.app-nav) & {
-      padding-top: var(--navbar-height);
-    }
 
     body.close & {
       left: 0;
