@@ -25,15 +25,9 @@
   }
 
   blockquote {
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
+    line-height: var(--heading-line-height);
     text-align: center;
-
-    &,
-    &::before,
-    &::after {
-      all: unset;
-      font-size: var(--font-size-xl);
-    }
   }
 
   h1 {

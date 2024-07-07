@@ -100,6 +100,7 @@
   --h6-font-weight                : var(--heading-font-weight);
   --heading-color                 : inherit;
   --heading-font-weight           : 600;
+  --heading-line-height           : calc(2px + 2ex + 2px);
   --kbd-bg                        : var(--color-mono-1);
   --kbd-border                    : 1px solid var(--color-mono-3);
   --kbd-border-radius             : 4px;
