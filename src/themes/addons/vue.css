@@ -16,12 +16,12 @@
   --margin-block: 1.2em;
 
   /* Elements */
-  --h1-font-size: 2rem;
-  --h2-font-size: 1.75rem;
-  --h3-font-size: 1.5rem;
-  --h4-font-size: 1.25rem;
-  --h5-font-size: 1rem;
-  --h6-font-size: 1rem;
+  --font-size-xxxl: 2rem;
+  --font-size-xxl : 1.75rem;
+  --font-size-xl  : 1.5rem;
+  --font-size-l   : 1.25rem;
+  --font-size-m   : 1rem;
+  --font-size-s   : 1rem;
 
   /* Light mode */
   @media screen and (prefers-color-scheme: light) {
