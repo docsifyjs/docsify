@@ -152,8 +152,7 @@
   /* ---------------------------------- */
   code,
   output,
-  pre,
-  samp {
+  pre {
     border-radius: var(--border-radius);
   }
 
@@ -184,12 +183,12 @@
 
   code,
   samp {
-    margin: 0 0.1em;
-    padding: 0.2em 0.35em;
     white-space: pre-wrap;
   }
 
   code {
+    margin: 0 0.1em;
+    padding: 0.2em 0.35em;
     background: var(--code-bg);
     color: var(--code-color);
 
@@ -241,8 +240,7 @@
   }
 
   samp {
-    background: var(--color-mono-1);
-    color: var(--color-text);
+    font-weight: var(--strong-font-weight);
 
     .token {
       position: relative;
