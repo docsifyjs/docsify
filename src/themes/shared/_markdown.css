@@ -281,7 +281,9 @@
   h2 {
     --_spacing: 0.5em;
 
-    margin-bottom: calc(var(--_spacing) * var(--line-height));
+    margin-bottom: calc(
+      var(--_spacing) + (var(--heading-line-height) - var(--font-size-xxl))
+    );
     padding-bottom: var(--_spacing);
     border-bottom: 1px solid var(--border-color);
     font-size: var(--font-size-xxl);
