@@ -22,6 +22,16 @@
     line-height: var(--sidebar-link-line-height);
     scroll-margin-bottom: 40px;
 
+    &.group {
+      padding-block: var(--sidebar-group-spacing);
+      border-top: var(--sidebar-group-border);
+
+      &:has(+ :not(.group)) {
+        margin-bottom: var(--sidebar-group-spacing);
+        border-bottom: var(--sidebar-group-border);
+      }
+    }
+
     > * {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -149,16 +159,6 @@
 
 .sidebar-nav {
   li {
-    &.group {
-      padding-block: var(--sidebar-group-spacing);
-      border-top: var(--sidebar-group-border);
-
-      &:has(+ :not(.group)) {
-        margin-bottom: var(--sidebar-group-spacing);
-        border-bottom: var(--sidebar-group-border);
-      }
-    }
-
     > a.pagelink {
       border-radius: var(--border-radius);
       background: var(--sidebar-pagelink-bg);
