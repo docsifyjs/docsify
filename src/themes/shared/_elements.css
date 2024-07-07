@@ -70,7 +70,7 @@ kbd {
 
 mark {
   padding-inline: 1px;
-  border-radius: 3px;
+  border-radius: 1px;
   background: var(--mark-bg);
   color: var(--mark-color);
 }
