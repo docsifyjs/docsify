@@ -78,7 +78,6 @@
     "rimraf": "^5.0.7",
     "rollup": "^4.17.2",
     "rollup-plugin-import-css": "^3.5.0",
-    "stylus": "^0.63.0",
     "vue": "^3.4.27",
     "xhr-mock": "^2.5.1"
   },
@@ -86,8 +85,6 @@
     "build:cover": "node build/cover.js",
     "build:css": "postcss \"src/themes/*.css\" \"src/themes/**/[!_]*.css\" --base src/themes --dir dist/themes --map --use postcss-import postcss-nesting",
     "build:css:min": "npm run build:css -- --ext .min.css --use cssnano",
-    "build:stylus": "stylus src/themes --out dist/themes --sourcemap",
-    "build:stylus:min": "postcss \"dist/themes/**/!(*.min).css\" --dir dist/themes --ext .min.css --map --use cssnano",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "rollup -c",
     "build": "run-s clean build:js build:css build:css:min build:cover",
