@@ -4,6 +4,7 @@
   --_sidebar-inset: 20px;
   --_sidebar-list-inset: 0.85em;
   --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar default */
+  --_sidebar-toggle-size: 40px;
 
   @supports (scrollbar-width: auto) {
     --_sidebar-scrollbar-width: 4px;
@@ -89,12 +90,14 @@
 
 .sidebar {
   display: flex;
+  visibility: hidden;
   flex-direction: column;
   position: absolute;
   z-index: var(--z-sidebar);
   top: 0;
   bottom: 0;
   left: 0;
+  translate: calc(0px - var(--sidebar-width));
   overflow-y: auto;
   width: var(--sidebar-width);
   padding-bottom: 40px;
@@ -103,7 +106,7 @@
   color: var(--sidebar-color);
   font-size: var(--sidebar-font-size);
   transition:
-    transform var(--duration-medium) ease-out,
+    translate var(--duration-medium) ease-out,
     visibility var(--duration-medium);
 
   /* Non-webkit browsers: style scrollbar for consistency */
@@ -145,13 +148,11 @@
     font-weight: var(--sidebar-name-font-weight);
   }
 
-  /* State: close */
-  body.close & {
-    visibility: hidden;
-    transform: translateX(calc(0px - var(--sidebar-width)));
+  body:has(.sidebar.show) & {
+    visibility: visible;
+    translate: 0;
   }
 
-  /* State: sticky */
   body.sticky & {
     position: fixed;
   }
@@ -184,7 +185,8 @@
   z-index: var(--z-sidebar-toggle);
   bottom: 0;
   left: 0;
-  width: calc(var(--sidebar-width) - var(--_sidebar-scrollbar-width) - 1px);
+  height: var(--_sidebar-toggle-size);
+  width: var(--_sidebar-toggle-size);
   margin: 0;
   padding: 0;
   border: 0;
@@ -192,27 +194,33 @@
   background: color-mix(in srgb, var(--color-bg) 80%, transparent);
   text-align: center;
   cursor: pointer;
+  transition: width var(--duration-medium);
 
-  /* State: close */
-  body.close & {
-    width: auto;
+  body:has(.sidebar.show) & {
+    width: calc(var(--sidebar-width) - var(--_sidebar-scrollbar-width) - 1px);
   }
 
-  /* State: sticky */
   body.sticky & {
     position: fixed;
   }
 }
 
 .sidebar-toggle-button {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: var(--_sidebar-toggle-size);
 
   span {
     display: block;
     height: 2px;
     width: 16px;
-    margin-bottom: 4px;
     background: var(--sidebar-link-color-active);
+
+    &:nth-child(2) {
+      margin-block: 4px;
+    }
   }
 }
 

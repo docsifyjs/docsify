@@ -239,33 +239,29 @@ export function Events(Base) {
      * @void
      */
     #initSidebarToggle(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+      const toggleElm =
+        typeof elm === 'string' ? document.querySelector(elm) : elm;
 
-      if (!elm) {
+      if (!toggleElm) {
         return;
       }
 
-      const toggle = () => {
-        dom.body.classList.toggle('close');
+      const toggleSidebar = force => {
+        const sidebarElm = dom.find('.sidebar');
 
-        const isClosed = isMobile
-          ? dom.body.classList.contains('close')
-          : !dom.body.classList.contains('close');
-
-        elm.setAttribute('aria-expanded', isClosed);
+        sidebarElm.classList.toggle('show', force);
+        toggleElm.setAttribute(
+          'aria-expanded',
+          force ?? sidebarElm.classList.contains('show'),
+        );
       };
 
-      dom.on(elm, 'click', e => {
+      dom.on(toggleElm, 'click', e => {
         e.stopPropagation();
-        toggle();
+        toggleSidebar();
       });
 
-      isMobile &&
-        dom.on(
-          dom.body,
-          'click',
-          () => dom.body.classList.contains('close') && toggle(),
-        );
+      isMobile && dom.on(dom.body, 'click', () => toggleSidebar(false));
     }
 
     /**

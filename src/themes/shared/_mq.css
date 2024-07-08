@@ -11,26 +11,12 @@
 
 /* Mobile */
 @media screen and (max-width: 768px) {
-  main {
-    height: auto;
-    min-height: 100vh;
-    overflow-x: hidden;
-
-    > .content {
-      position: static;
-      right: 0;
-      left: 0;
-      max-width: 100vw;
-      transition: transform var(--duration-medium) ease;
-    }
-  }
-
   .app-nav,
-  .github-corner {
-    transition: transform var(--duration-medium) ease-out;
+  .github-corner,
+  main > .content {
+    transition: translate var(--duration-medium) ease-out;
   }
 
-  .github-corner,
   .sidebar,
   .sidebar-toggle {
     position: fixed;
@@ -48,50 +34,21 @@
     display: block;
   }
 
-  .github-corner {
-    &:hover .octo-arm {
-      animation: none;
-    }
-
-    .octo-arm {
-      animation: github-corner 560ms ease-in-out;
-    }
+  main > .content {
+    position: static;
   }
 
-  .sidebar {
-    visibility: hidden;
-    left: calc(0px - var(--sidebar-width));
-    transition:
-      transform var(--duration-medium) ease-out,
-      visibility var(--duration-medium);
-  }
-
-  .sidebar-toggle {
-    width: auto;
-    background: transparent;
-  }
-
-  body.close {
-    .app-nav,
-    .github-corner {
-      display: none;
-    }
-
-    main {
-      > .content {
-        transform: translateX(var(--sidebar-width));
-      }
-    }
-
-    .sidebar {
-      visibility: visible;
-      transform: translateX(var(--sidebar-width));
-    }
-
+  body:not(:has(.sidebar.show)) {
     .sidebar-toggle {
-      width: calc(var(--sidebar-width) - 16px);
-      background: color-mix(in srgb, var(--color-bg) 80%, transparent);
-      transition: var(--duration-medium) background-color;
+      background: transparent;
+    }
+  }
+
+  body:has(.sidebar.show) {
+    .app-nav,
+    .github-corner,
+    main > .content {
+      translate: var(--sidebar-width);
     }
   }
 }

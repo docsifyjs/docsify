@@ -31,11 +31,11 @@ main {
     top: 0;
     right: 0;
     bottom: 0;
-    left: var(--sidebar-width);
+    left: 0;
     transition: left var(--duration-medium) ease;
 
-    body.close & {
-      left: 0;
+    body:has(.sidebar.show) & {
+      left: var(--sidebar-width);
     }
 
     body.hidesidebar & {

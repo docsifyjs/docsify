@@ -1,3 +1,5 @@
+import { isMobile } from '../util/env.js';
+
 /**
  * Render github corner
  * @param  {Object} data URL for the View Source on Github link
@@ -42,7 +44,7 @@ export function main(config) {
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside id="__sidebar" class="sidebar" role="none">
+    <aside id="__sidebar" class="sidebar${!isMobile ? ' show' : ''}" role="none">
       ${
         config.name
           ? /* html */ `

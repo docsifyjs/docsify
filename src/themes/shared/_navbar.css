@@ -8,13 +8,13 @@
   z-index: var(--z-app-nav);
   top: 0;
   right: 0;
-  left: var(--sidebar-width);
+  left: 0;
   height: var(--navbar-height);
   padding-right: 40px;
   transition: left var(--duration-medium) ease;
 
-  body.close & {
-    left: 0;
+  body:has(.sidebar.show) & {
+    left: var(--sidebar-width);
   }
 
   body.hidesidebar & {
