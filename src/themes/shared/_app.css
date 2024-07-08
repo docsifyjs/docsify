@@ -71,15 +71,15 @@ main {
 @keyframes github-corner {
   0%,
   100% {
-    transform: rotate(0);
+    rotate: 0;
   }
   20%,
   60% {
-    transform: rotate(-25deg);
+    rotate: -25deg;
   }
   40%,
   80% {
-    transform: rotate(10deg);
+    rotate: 10deg;
   }
 }
 
@@ -111,7 +111,7 @@ main {
 
 @keyframes spinner {
   to {
-    transform: rotate(0.5turn);
+    rotate: 0.5turn;
   }
 }
 
@@ -130,14 +130,14 @@ main {
   top: 0;
   left: 50%;
   opacity: 0;
-  transform: translate(-50%, -100%);
-  transition-property: opacity, transform;
+  translate: -50% -100%;
+  transition-property: opacity, translate;
   transition-duration: 0s, var(--duration-medium);
   transition-delay: var(--duration-medium), 0s;
 
   &:focus {
     opacity: 1;
-    transform: translate(-50%, 0.75rem);
+    translate: -50% 0.75rem;
     transition-duration: 0s, var(--duration-medium);
     transition-delay: 0s, 0s;
   }

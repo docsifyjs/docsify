@@ -293,7 +293,7 @@ input:where([type='checkbox']):not(.toggle) {
     position: absolute;
     top: 43%;
     left: 50%;
-    transform: rotate(40deg);
+    rotate: 40deg;
     translate: -50% -50%;
     height: 0.7em;
     width: 0.4em;
