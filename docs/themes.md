@@ -79,6 +79,30 @@ Adds expand/collapse icons to page links in the sidebar.
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-left.min.css" />
 ```
 
+### Sidebar Groups (Add-on)
+
+Adds styling to sidebar link groups.
+
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-group-box" data-theme data-group="sidebar-group"> Preview Group Box
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-group-underline" data-theme data-group="sidebar-group"> Preview Group Underline
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Sidebar Group Box (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-group-box.min.css" />
+```
+
+<!-- prettier-ignore -->
+```html
+<!-- Sidebar Group Underline (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-group-underline.min.css" />
+```
+
 <details>
   <summary><h3>Legacy themes</h3></summary>
 

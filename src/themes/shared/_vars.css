@@ -139,8 +139,8 @@
   --sidebar-border                 : 1px solid var(--border-color);
   --sidebar-color                  : ;
   --sidebar-font-size              : var(--font-size);
-  --sidebar-group-border           : 1px solid var(--border-color);
-  --sidebar-group-spacing          : 1em;
+  --sidebar-group-border           : ;
+  --sidebar-group-spacing          : ;
   --sidebar-group-title-border     : ;
   --sidebar-group-title-color      : ;
   --sidebar-group-title-font-size  : ;

@@ -1,0 +1,6 @@
+/* prettier-ignore */
+:root {
+  --sidebar-group-spacing      : 0.5em;
+  --sidebar-group-title-border : 1px solid var(--border-color);
+  --sidebar-group-title-spacing: 0.25em;
+}

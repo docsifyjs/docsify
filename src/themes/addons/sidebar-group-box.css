@@ -1,0 +1,5 @@
+/* prettier-ignore */
+:root {
+  --sidebar-group-border : 1px solid var(--border-color);
+  --sidebar-group-spacing: 1em;
+}
