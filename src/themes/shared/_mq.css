@@ -1,5 +1,13 @@
 /* Media */
 /* ========================================================================== */
+@media (prefers-reduced-motion) {
+  :root {
+    --duration-slow: 0s;
+    --duration-medium: 0s;
+    --duration-fast: 0s;
+  }
+}
+
 @media print {
   .app-nav,
   .github-corner,

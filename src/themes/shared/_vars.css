@@ -153,11 +153,4 @@
   --sidebar-pagelink-bg-empty    : ;
   --sidebar-pagelink-bg-expanded : ;
   --sidebar-width                : 280px;
-
-  /* Reduced motion */
-  @media (prefers-reduced-motion) {
-    --duration-slow  : 0s;
-    --duration-medium: 0s;
-    --duration-fast  : 0s;
-  }
 }
