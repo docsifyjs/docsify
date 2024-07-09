@@ -36,9 +36,12 @@ export function corner(data, cornerExternalLinkTarget) {
  * @returns {String} HTML of the main content
  */
 export function main(config) {
-  const name = config.name ? config.name : '';
+  const { hideSidebar, name } = config;
+  // const name = config.name ? config.name : '';
 
-  const aside = /* html */ `
+  const aside = /* html */ hideSidebar
+    ? ''
+    : `
     <button class="sidebar-toggle" title="Press \\ to toggle" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
       <div class="sidebar-toggle-button" aria-hidden="true">
         <span></span><span></span><span></span>
@@ -59,7 +62,8 @@ export function main(config) {
   `;
 
   return /* html */ `
-    <main role="presentation">${aside}
+    <main role="presentation">
+      ${aside}
       <section class="content">
         <article id="main" class="markdown-section" role="main" tabindex="-1"><!--main--></article>
       </section>

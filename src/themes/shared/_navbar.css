@@ -17,10 +17,6 @@
     left: var(--sidebar-width);
   }
 
-  body.hidesidebar & {
-    left: 0;
-  }
-
   &:has(~ .github-corner) {
     padding-right: calc(var(--navbar-height) + 1em);
   }

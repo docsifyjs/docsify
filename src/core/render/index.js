@@ -291,7 +291,6 @@ export function Render(Base) {
       const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
-        dom.body.classList.add('hidesidebar');
         sidebarEl?.remove(sidebarEl);
         sidebarToggleEl?.remove(sidebarToggleEl);
 
@@ -604,10 +603,10 @@ export function Render(Base) {
         if (isMergedSidebar) {
           const mergedNavEl = dom.create('div');
           const sidebarEl = dom.find('.sidebar');
-          const sidebarNavEl = dom.find(sidebarEl, '.sidebar-nav');
+          const sidebarNavEl = dom.find('.sidebar-nav');
 
-          mergedNavEl.classList.add('app-nav-merged');
-          sidebarEl.insertBefore(mergedNavEl, sidebarNavEl);
+          mergedNavEl?.classList.add('app-nav-merged');
+          sidebarEl?.insertBefore(mergedNavEl, sidebarNavEl);
         }
       }
 

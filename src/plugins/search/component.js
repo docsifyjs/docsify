@@ -18,8 +18,8 @@ function tpl(defaultValue = '') {
     <p class="results-status" aria-live="polite"></p>
     <div class="results-panel"></div>
   `;
-  const el = Docsify.dom.create('section', html);
   const aside = Docsify.dom.find('aside');
+  const el = Docsify.dom.create('section', html);
 
   Docsify.dom.toggleClass(el, 'search');
   el.setAttribute('role', 'search');
@@ -114,6 +114,12 @@ function updateNoData(text, path) {
 }
 
 export function init(opts, vm) {
+  const sidebarElm = Docsify.dom.find('.sidebar');
+
+  if (!sidebarElm) {
+    return;
+  }
+
   const keywords = vm.router.parse().query.s;
 
   Docsify.dom.style(cssText);

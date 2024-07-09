@@ -38,10 +38,9 @@ main {
       left: var(--sidebar-width);
     }
 
-    body.hidesidebar & {
-      position: relative;
-      left: unset;
-      right: unset;
+    /* hideSidebar: true */
+    body:not:has(.sidebar) & {
+      position: static;
     }
   }
 }
