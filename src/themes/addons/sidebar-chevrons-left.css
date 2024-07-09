@@ -8,11 +8,11 @@
   --_inset: 16px;
 
   li {
-    a.pagelink {
+    a.page-link {
       padding-left: var(--_inset);
     }
 
-    &:has(> .pagelink) {
+    &:has(> .page-link) {
       > ul {
         margin-left: calc(var(--_sidebar-list-inset) + var(--_inset));
       }

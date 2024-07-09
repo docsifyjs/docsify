@@ -49,7 +49,7 @@
       );
   /* Dot (active without children) */
   --sidebar-pagelink-bg-empty: no-repeat var(--_sidebar_pagelink-bg-left) center /
-    4px 4px
+    7px 7px
     radial-gradient(
       circle,
       var(--theme-color) 0,

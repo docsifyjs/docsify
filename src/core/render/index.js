@@ -288,6 +288,7 @@ export function Render(Base) {
     _renderSidebar(text) {
       const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
       const sidebarEl = dom.getNode('aside.sidebar');
+      const sidebarNavEl = dom.getNode('.sidebar-nav');
       const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
@@ -318,21 +319,21 @@ export function Render(Base) {
 
       // Mark page links and groups
       const pageLinks = dom.findAll(
-        sidebarEl,
-        'li > a:not([target="_blank"], .app-sub-sidebar a)',
+        sidebarNavEl,
+        'a:is(li > a, li > p > a):not(.section-link, [target="_blank"])',
       );
       const pageLinkGroups = dom
         // NOTE: Using filter() method as a replacement for :has() selector. It
         // would be preferable to use only 'li:not(:has(> a, > p > a))' selector
         // but the :has() selector is not supported by our Jest test environment
         // See: https://github.com/jsdom/jsdom/issues/3506#issuecomment-1769782333
-        .findAll(sidebarEl, 'li')
+        .findAll(sidebarNavEl, 'li')
         .filter(
           elm => !elm.querySelectorAll(':scope > a, :scope > p > a').length,
         );
 
       pageLinks.forEach(elm => {
-        elm.classList.add('pagelink');
+        elm.classList.add('page-link');
       });
 
       pageLinkGroups.forEach(elm => {

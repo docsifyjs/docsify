@@ -160,7 +160,7 @@
 
 .sidebar-nav {
   li {
-    > a.pagelink {
+    a.page-link {
       border-radius: var(--border-radius);
       background: var(--sidebar-pagelink-bg);
 
