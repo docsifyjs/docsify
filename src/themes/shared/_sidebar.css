@@ -13,15 +13,41 @@
 
 .app-nav-merged,
 .sidebar-nav {
+  > * {
+    margin-inline: var(--_sidebar-inset);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  > hr {
+    margin-inline: 0;
+  }
+
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
+  > ul {
+    > li {
+      padding-left: var(--_sidebar-inset);
+    }
+
+    ul {
+      margin-left: var(--_sidebar-list-inset);
+    }
+  }
+
   li {
     line-height: var(--sidebar-link-line-height);
     scroll-margin-bottom: 40px;
+
+    &:not(.group):has(+ .group) {
+      margin-bottom: var(--sidebar-group-spacing);
+    }
 
     &.group {
       padding-block: var(--sidebar-group-spacing);
@@ -79,16 +105,6 @@
       > :not(a) {
         display: none;
       }
-    }
-  }
-
-  > ul {
-    > li {
-      padding-left: var(--_sidebar-inset);
-    }
-
-    ul {
-      margin-left: var(--_sidebar-list-inset);
     }
   }
 }
