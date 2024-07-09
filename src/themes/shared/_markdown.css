@@ -209,7 +209,7 @@
   output {
     display: block;
     padding: 1.7rem 1.4rem 1.4rem;
-    border: 1px dotted var(--color-mono-2);
+    border: 1px solid var(--color-mono-2);
 
     > :first-child {
       margin-top: 0;
