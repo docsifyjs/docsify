@@ -72,8 +72,8 @@
   --blockquote-border-color       : var(--theme-color);
   --blockquote-border-radius      : 0;
   --blockquote-border-width       : 0 0 0 4px;
+  --blockquote-color              : var(--color-mono-6);
   --blockquote-padding            : 0 0 0 1.5em;
-  --blockquote-text               : var(--color-mono-6);
   --button-bg                     : var(--theme-color);
   --button-border-radius          : 100vh;
   --button-color                  : #fff;

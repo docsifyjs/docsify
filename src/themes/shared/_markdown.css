@@ -55,7 +55,7 @@
     border-width: var(--blockquote-border-width);
     border-radius: var(--blockquote-border-radius);
     background: var(--blockquote-bg);
-    color: var(--blockquote-text);
+    color: var(--blockquote-color);
 
     > :first-child {
       margin-top: 0;
