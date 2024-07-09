@@ -327,7 +327,7 @@ export function Render(Base) {
         // would be preferable to use only 'li:not(:has(> a, > p > a))' selector
         // but the :has() selector is not supported by our Jest test environment
         // See: https://github.com/jsdom/jsdom/issues/3506#issuecomment-1769782333
-        .findAll(sidebarNavEl, 'li')
+        .findAll(sidebarEl, 'li')
         .filter(
           elm => !elm.querySelectorAll(':scope > a, :scope > p > a').length,
         );
@@ -338,6 +338,9 @@ export function Render(Base) {
 
       pageLinkGroups.forEach(elm => {
         elm.classList.add('group');
+        elm
+          .querySelector(':scope > p:not(:has(> *))')
+          ?.classList.add('group-title');
       });
     }
 
