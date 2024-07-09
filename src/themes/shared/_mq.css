@@ -14,7 +14,7 @@
   .app-nav,
   .github-corner,
   main > .content {
-    transition: translate var(--duration-medium) ease-out;
+    transition: translate var(--duration-medium) ease;
   }
 
   .sidebar,

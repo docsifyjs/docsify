@@ -54,8 +54,8 @@
   /* Common */
   --border-color      : var(--color-mono-2);
   --border-radius     : 3px; /* Single value */
-  --duration-slow     : 400ms;
-  --duration-medium   : 200ms;
+  --duration-slow     : 500ms;
+  --duration-medium   : 250ms;
   --duration-fast     : 150ms;
   --margin-block      : 1rem; /* Single value */
   --scroll-padding-top: 0;

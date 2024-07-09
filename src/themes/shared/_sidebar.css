@@ -106,7 +106,7 @@
   color: var(--sidebar-color);
   font-size: var(--sidebar-font-size);
   transition:
-    translate var(--duration-medium) ease-out,
+    translate var(--duration-medium) ease,
     visibility var(--duration-medium);
 
   /* Non-webkit browsers: style scrollbar for consistency */
@@ -194,7 +194,7 @@
   background: color-mix(in srgb, var(--color-bg) 80%, transparent);
   text-align: center;
   cursor: pointer;
-  transition: width var(--duration-medium);
+  transition: width var(--duration-medium) ease;
 
   body:has(.sidebar.show) & {
     width: calc(var(--sidebar-width) - var(--_sidebar-scrollbar-width) - 1px);

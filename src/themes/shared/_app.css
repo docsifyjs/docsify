@@ -11,7 +11,7 @@ body {
     width: 0%;
     background: var(--theme-color);
     transition:
-      width var(--duration-medium),
+      width var(--duration-medium) ease,
       opacity calc(var(--duration-medium) * 2);
   }
 }
@@ -134,6 +134,7 @@ main {
   transition-property: opacity, translate;
   transition-duration: 0s, var(--duration-medium);
   transition-delay: var(--duration-medium), 0s;
+  transition-timing-function: ease;
 
   &:focus {
     opacity: 1;
