@@ -329,7 +329,9 @@ export function Render(Base) {
         // See: https://github.com/jsdom/jsdom/issues/3506#issuecomment-1769782333
         .findAll(sidebarEl, 'li')
         .filter(
-          elm => !elm.querySelectorAll(':scope > a, :scope > p > a').length,
+          elm =>
+            elm.querySelector(':scope > ul') &&
+            !elm.querySelectorAll(':scope > a, :scope > p > a').length,
         );
 
       pageLinks.forEach(elm => {
