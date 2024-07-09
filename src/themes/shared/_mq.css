@@ -46,8 +46,12 @@
     display: block;
   }
 
-  main > .content {
-    position: static;
+  main {
+    overflow-x: hidden;
+
+    > .content {
+      position: static;
+    }
   }
 
   body:not(:has(.sidebar.show)) {
