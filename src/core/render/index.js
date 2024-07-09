@@ -1,7 +1,7 @@
 import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
 import { getPath, isAbsolutePath } from '../router/util.js';
-import { isMobile, inBrowser } from '../util/env.js';
+import { isMobile } from '../util/env.js';
 import { isPrimitive, rgbToHsl } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
@@ -558,9 +558,7 @@ export function Render(Base) {
 
       // Init markdown compiler
       this.compiler = new Compiler(config, this.router);
-      if (inBrowser) {
-        window.__current_docsify_compiler__ = this.compiler;
-      }
+      window.__current_docsify_compiler__ = this.compiler;
 
       const id = config.el || '#app';
       const el = dom.find(id);
