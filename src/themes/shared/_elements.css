@@ -3,6 +3,7 @@
 small,
 sub,
 sup {
+  display: inline-block;
   font-size: var(--font-size-s);
 }
 
