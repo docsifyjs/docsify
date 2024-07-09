@@ -1,5 +1,9 @@
 /* Media */
 /* ========================================================================== */
+:root {
+  --_mobile-breakpoint: 640px; /* JS Accessible. Match with MQ below. */
+}
+
 @media (prefers-reduced-motion) {
   :root {
     --duration-slow: 0s;
@@ -18,7 +22,7 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 640px) {
   .app-nav,
   .github-corner,
   main > .content {

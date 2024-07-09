@@ -299,7 +299,7 @@ export function Render(Base) {
       }
 
       this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
-      sidebarToggleEl.setAttribute('aria-expanded', !isMobile);
+      sidebarToggleEl.setAttribute('aria-expanded', !isMobile());
 
       const activeElmHref = this.router.toURL(this.route.path);
       const activeEl = dom.find(`.sidebar-nav a[href="${activeElmHref}"]`);

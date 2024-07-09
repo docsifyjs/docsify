@@ -1,4 +1,4 @@
-import { isMobile } from '../util/env.js';
+import { isMobile, mobileBreakpoint } from '../util/env.js';
 import * as dom from '../util/dom.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
@@ -36,7 +36,7 @@ export function Events(Base) {
 
       this.#initCover();
       this.#initSkipToContent('#skip-to-content');
-      this.#initSidebarCollapse('.sidebar');
+      this.#initSidebar('.sidebar');
       this.#initSidebarToggle('button.sidebar-toggle');
       this.#initKeyBindings();
     }
@@ -209,19 +209,28 @@ export function Events(Base) {
     }
 
     /**
-     * Initialize sidebar content expand/collapse toggle behavior
+     * Initialize sidebar event listeners
      *
      * @param {Element|string} elm Sidebar Element or CSS selector
      * @void
      */
-    #initSidebarCollapse(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebar(elm) {
+      const sidebarElm =
+        typeof elm === 'string' ? document.querySelector(elm) : elm;
 
-      if (!elm) {
+      if (!sidebarElm) {
         return;
       }
 
-      dom.on(elm, 'click', ({ target }) => {
+      // Auto-toggle on resolution change
+      window
+        .matchMedia(`(max-width: ${mobileBreakpoint})`)
+        .addEventListener('change', evt => {
+          this.#toggleSidebar(!evt.matches);
+        });
+
+      // Collapse toggle
+      dom.on(sidebarElm, 'click', ({ target }) => {
         const linkElm = target.closest('a');
         const linkParent = linkElm?.closest('li');
         const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
@@ -230,6 +239,9 @@ export function Events(Base) {
           dom.toggleClass(linkParent, 'collapse');
         }
       });
+
+      // Click to dismiss (mobile only)
+      dom.on(dom.body, 'click', () => isMobile() && this.#toggleSidebar(false));
     }
 
     /**
@@ -238,7 +250,7 @@ export function Events(Base) {
      * @param {Element|string} elm Toggle Element or CSS selector
      * @void
      */
-    #initSidebarToggle(elm) {
+    #initSidebarToggle(elm, force) {
       const toggleElm =
         typeof elm === 'string' ? document.querySelector(elm) : elm;
 
@@ -246,22 +258,10 @@ export function Events(Base) {
         return;
       }
 
-      const toggleSidebar = force => {
-        const sidebarElm = dom.find('.sidebar');
-
-        sidebarElm.classList.toggle('show', force);
-        toggleElm.setAttribute(
-          'aria-expanded',
-          force ?? sidebarElm.classList.contains('show'),
-        );
-      };
-
       dom.on(toggleElm, 'click', e => {
         e.stopPropagation();
-        toggleSidebar();
+        this.#toggleSidebar(force);
       });
-
-      isMobile && dom.on(dom.body, 'click', () => toggleSidebar(false));
     }
 
     /**
@@ -477,6 +477,24 @@ export function Events(Base) {
       }
 
       return newPage;
+    }
+
+    #toggleSidebar(force) {
+      const sidebarElm = dom.find('.sidebar');
+
+      if (!sidebarElm) {
+        return;
+      }
+
+      const toggleElms = dom.findAll('[aria-controls="__sidebar"]');
+
+      sidebarElm.classList.toggle('show', force);
+      toggleElms.forEach(toggleElm => {
+        toggleElm.setAttribute(
+          'aria-expanded',
+          force ?? sidebarElm.classList.contains('show'),
+        );
+      });
     }
 
     /**
