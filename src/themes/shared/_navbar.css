@@ -3,14 +3,13 @@
 .app-nav {
   display: flex;
   align-items: center;
-  justify-content: end;
   position: absolute;
   z-index: var(--z-app-nav);
   top: 0;
   right: 0;
   left: 0;
   height: var(--navbar-height);
-  padding-right: 40px;
+  padding-inline: var(--_markdown-margin-inline);
   transition: left var(--duration-medium) ease;
 
   body:has(.sidebar.show) & {
@@ -18,7 +17,7 @@
   }
 
   &:has(~ .github-corner) {
-    padding-right: calc(var(--navbar-height) + 1em);
+    padding-inline-end: calc(var(--navbar-height) + 1em);
   }
 
   a {
@@ -39,14 +38,24 @@
     padding: 0;
   }
 
+  > ul {
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: 0 1em;
+    width: 100%;
+  }
+
   li {
     display: inline-block;
     position: relative;
+    white-space: nowrap;
     cursor: pointer;
 
     /* Dropdown */
     ul {
       position: absolute;
+      z-index: 1;
       top: -9999vh;
       right: 50%;
       translate: 50% 0;
@@ -56,15 +65,17 @@
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
       background: var(--color-bg);
-      text-align: left;
-      white-space: nowrap;
+
+      li:last-child & {
+        right: calc(0px - var(--_markdown-margin-inline) / 2);
+        translate: 0;
+      }
     }
 
     li {
       display: block;
       margin: 0;
       line-height: 1;
-      white-space: nowrap;
 
       a {
         display: flex;
@@ -88,16 +99,8 @@
     }
   }
 
-  > p {
+  p {
     margin: 0;
-  }
-
-  > ul {
-    > li {
-      & + & {
-        margin-left: 1rem;
-      }
-    }
   }
 }
 

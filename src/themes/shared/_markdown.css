@@ -1,13 +1,21 @@
 /* Markdown */
 /* ========================================================================== */
-.markdown-section {
-  --_margin-inline: 40px;
+:root {
+  --_markdown-margin-inline: 40px;
+}
 
+.markdown-section {
   position: relative;
   width: var(--max-width);
-  max-width: calc(100% - (var(--_margin-inline) * 2));
-  margin: var(--navbar-height) auto 0 auto;
+  max-width: calc(100% - (var(--_markdown-margin-inline) * 2));
+  margin: var(--_markdown-margin-inline) auto 0 auto;
   padding-bottom: 2rem;
+
+  body:has(.app-nav) & {
+    margin-top: calc(
+      var(--navbar-height) + (var(--_markdown-margin-inline) / 2)
+    );
+  }
 
   > :first-child {
     margin-top: 0;

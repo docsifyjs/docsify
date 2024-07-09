@@ -63,4 +63,10 @@
       translate: var(--sidebar-width);
     }
   }
+
+  body:has(.app-nav-merged) {
+    .markdown-section {
+      margin-top: var(--_markdown-margin-inline);
+    }
+  }
 }
