@@ -32,7 +32,7 @@
   }
 
   > ul {
-    > li {
+    > * {
       padding-left: var(--_sidebar-inset);
     }
 
