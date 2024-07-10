@@ -13,6 +13,8 @@ const CONFIG = {
   namespace: undefined,
   pathNamespaces: undefined,
   keyBindings: ['/', 'meta+k', 'ctrl+k'],
+  insertAfter: undefined, // CSS selector
+  insertBefore: undefined, // CSS selector
 };
 
 const install = function (hook, vm) {

@@ -105,9 +105,9 @@
 }
 
 .sidebar {
-  display: flex;
+  /* display: flex; */
   visibility: hidden;
-  flex-direction: column;
+  /* flex-direction: column; */
   position: absolute;
   z-index: var(--z-sidebar);
   top: 0;
@@ -161,7 +161,7 @@
   }
 
   .app-name {
-    padding: 1.5rem 0;
+    margin: var(--sidebar-name-margin);
     text-align: center;
   }
 
@@ -170,6 +170,11 @@
     font-family: var(--sidebar-name-font-family);
     font-size: var(--sidebar-name-font-size);
     font-weight: var(--sidebar-name-font-weight);
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
   }
 
   body:has(.sidebar.show) & {

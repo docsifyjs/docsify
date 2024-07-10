@@ -17,8 +17,13 @@ By default, the hyperlink on the current page is recognized and the content is s
       '/zh-cn/',      // => /zh-cn/README.md
     ],
 
-    // complete configuration parameters
+    // Complete configuration parameters
     search: {
+      // Location in sidebar (default: prepended as first child)
+      // Optionally specify insertAfter or insertBefore (not both)
+      insertAfter: '.app-name', // CSS selector in .sidebar scope
+      insertBefore: '.sidebar-nav', // CSS selector in .sidebar scope
+
       maxAge: 86400000, // Expiration time, the default one day
       paths: [], // or 'auto'
       placeholder: 'Type to search',

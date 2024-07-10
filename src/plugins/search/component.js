@@ -3,7 +3,8 @@ import cssText from './style.css';
 
 let NO_DATA_TEXT = '';
 
-function tpl(defaultValue = '') {
+function tpl(vm, defaultValue = '') {
+  const { insertAfter, insertBefore } = vm.config?.search || {};
   const html = /* html */ `
     <div class="input-wrap">
       <input type="search" value="${defaultValue}" required aria-keyshortcuts="/ control+k meta+k" />
@@ -18,12 +19,18 @@ function tpl(defaultValue = '') {
     <p class="results-status" aria-live="polite"></p>
     <div class="results-panel"></div>
   `;
-  const aside = Docsify.dom.find('aside');
-  const el = Docsify.dom.create('section', html);
+  const sidebarElm = Docsify.dom.find('.sidebar');
+  const searchElm = Docsify.dom.create('section', html);
+  const insertElm = sidebarElm.querySelector(
+    `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+  );
 
-  Docsify.dom.toggleClass(el, 'search');
-  el.setAttribute('role', 'search');
-  Docsify.dom.before(aside, el);
+  searchElm.classList.add('search');
+  searchElm.setAttribute('role', 'search');
+  sidebarElm.insertBefore(
+    searchElm,
+    insertAfter ? insertElm.nextSibling : insertElm,
+  );
 }
 
 function doSearch(value) {
@@ -123,7 +130,7 @@ export function init(opts, vm) {
   const keywords = vm.router.parse().query.s;
 
   Docsify.dom.style(cssText);
-  tpl(keywords);
+  tpl(vm, keywords);
   bindEvents();
   keywords && setTimeout(_ => doSearch(keywords), 500);
 }

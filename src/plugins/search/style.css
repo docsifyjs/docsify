@@ -8,6 +8,7 @@
   --plugin-search-kbd-border         : 1px solid var(--color-mono-3);
   --plugin-search-kbd-border-radius  : 4px;
   --plugin-search-kbd-color          : var(--color-mono-5);
+  --plugin-search-margin             : 10px;
   --plugin-search-reset-bg           : var(--theme-color);
   --plugin-search-reset-border       : transparent;
   --plugin-search-reset-border-radius: var(--border-radius);
@@ -15,15 +16,7 @@
 }
 
 .search {
-  margin-top: 12px;
-}
-
-.search > * {
-  margin-inline: 12px;
-}
-
-.search:not(:has(~ .app-name)) {
-  margin-bottom: 12px;
+  margin: var(--plugin-search-margin);
 }
 
 /* Input */
