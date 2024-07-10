@@ -83,8 +83,8 @@
   },
   "scripts": {
     "build:cover": "node build/cover.js",
-    "build:css": "postcss \"src/themes/*.css\" \"src/themes/**/[!_]*.css\" --base src/themes --dir dist/themes --map --use postcss-import postcss-nesting",
-    "build:css:min": "npm run build:css -- --ext .min.css --use cssnano",
+    "build:css": "postcss \"src/themes/*.css\" \"src/themes/**/[!_]*.css\" --base src/themes --dir dist/themes --map",
+    "build:css:min": "cross-env NODE_ENV='production' npm run build:css -- --ext .min.css",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "rollup -c",
     "build": "run-s clean build:js build:css build:css:min build:cover",
