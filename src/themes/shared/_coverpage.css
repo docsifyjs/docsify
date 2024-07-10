@@ -35,6 +35,13 @@
     color: var(--cover-title-color);
     font: var(--cover-title-font);
 
+    a {
+      &,
+      &:hover {
+        text-decoration-color: transparent;
+      }
+    }
+
     small {
       font-weight: var(--font-weight);
       position: absolute;
