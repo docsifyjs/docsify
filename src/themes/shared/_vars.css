@@ -35,7 +35,7 @@
   --font-family      : system-ui, sans-serif;
   --font-family-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-family-mono : ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-  --font-size        : 16px;
+  --font-size        : 16px; /* px */
   --font-size-xxxl   : calc(var(--font-size-xxl) * var(--modular-scale));
   --font-size-xxl    : calc(var(--font-size-xl) * var(--modular-scale));
   --font-size-xl     : calc(var(--font-size-l) * var(--modular-scale));
