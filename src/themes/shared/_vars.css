@@ -98,7 +98,12 @@
   --kbd-alt-border-radius         : var(--kbd-border-radius);
   --kbd-alt-box-shadow            : 0 2px 0 1px var(--color-mono-3);
   --kbd-alt-color                 : var(--kbd-color);
-  --link-text-decoration-thickness: 2px;
+  --link-color                    : ;
+  --link-color-hover              : var(--theme-color);
+  --link-underline-color          : var(--theme-color);
+  --link-underline-color-hover    : var(--link-underline-color);
+  --link-underline-thickness      : 2px;
+  --link-underline-thickness-hover: var(--link-underline-thickness);
   --mark-bg                       : #fef08a; /* Tailwind v3: Yellow 200 */
   --mark-color                    : ;
   --strong-color                  : ;

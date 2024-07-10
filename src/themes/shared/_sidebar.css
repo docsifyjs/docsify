@@ -82,16 +82,11 @@
     a {
       display: block;
       padding-right: var(--_sidebar-inset);
-      color: var(--sidebar-link-color);
 
       &:has(img, svg) {
         display: flex;
         align-items: center;
         gap: 0.25em;
-      }
-
-      &:hover {
-        text-decoration-color: var(--sidebar-link-color-active);
       }
     }
 
@@ -152,17 +147,25 @@
     }
   }
 
-  .app-name {
-    padding: 1.5rem 0;
-    text-align: center;
+  a[href] {
+    text-decoration-color: transparent;
 
-    .app-nav {
-      display: block;
-      position: static;
+    &,
+    &:hover {
+      color: var(--sidebar-link-color);
+    }
+
+    &:hover {
+      text-decoration-color: var(--sidebar-link-color-active);
     }
   }
 
-  .app-name-link {
+  .app-name {
+    padding: 1.5rem 0;
+    text-align: center;
+  }
+
+  a.app-name-link {
     color: var(--sidebar-name-color);
     font-family: var(--sidebar-name-font-family);
     font-size: var(--sidebar-name-font-size);

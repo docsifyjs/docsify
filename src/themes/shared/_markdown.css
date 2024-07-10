@@ -36,12 +36,16 @@
   }
 
   a {
-    &:not(:where(.anchor, .button)) {
-      text-decoration-color: var(--theme-color);
+    &.anchor {
       color: inherit;
 
+      &:not(:hover) {
+        text-decoration-color: transparent;
+      }
+
       &:hover {
-        color: var(--theme-color);
+        translate: 0 0 0; /* Safari Fix: Forced redraw */
+        text-decoration-color: var(--link-underline-color-hover);
       }
     }
   }

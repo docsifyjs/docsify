@@ -8,29 +8,21 @@ sup {
 }
 
 a {
-  color: inherit;
+  color: var(--link-color);
 
-  /* NOTE:
-  1. Safari requires separate text-decoration declarations (no shorthand)
-  2. Safari requires applying text decoration declarations on nested anchor
-      span rather then the link itself
-  3. Set text-decoration-color to display underline effect
-  */
-  &,
-  &.anchor > span {
-    text-decoration-color: transparent;
+  /* NOTE: Safari may require a forced redraw when changing text-decoration
+  values (e.g., :hover). One way to do this is via translate: 0 0 0. */
+  &:not(.button) {
+    text-decoration-color: var(--link-underline-color);
     text-decoration-line: underline;
     text-decoration-style: solid;
-    text-decoration-thickness: var(--link-text-decoration-thickness);
+    text-decoration-thickness: var(--link-underline-thickness);
     text-underline-offset: 2px;
-    transition:
-      color var(--duration-fast),
-      text-decoration-color var(--duration-fast);
-  }
 
-  &.anchor > span {
     &:hover {
-      text-decoration-color: var(--theme-color);
+      color: var(--link-color-hover);
+      text-decoration-color: var(--link-underline-color-hover);
+      text-decoration-thickness: var(--link-underline-thickness-hover);
     }
   }
 }
