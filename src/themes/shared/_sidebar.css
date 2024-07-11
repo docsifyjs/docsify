@@ -4,7 +4,7 @@
   --_sidebar-inset: 20px;
   --_sidebar-list-inset: 0.85em;
   --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar default */
-  --_sidebar-toggle-size: 40px;
+  --_sidebar-toggle-size: var(--_markdown-margin-inline);
 
   @supports (scrollbar-width: auto) {
     --_sidebar-scrollbar-width: 4px;
