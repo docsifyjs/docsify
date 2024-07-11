@@ -112,7 +112,6 @@
   bottom: 0;
   left: 0;
   translate: calc(0px - var(--sidebar-width));
-  overflow-y: auto;
   width: var(--sidebar-width);
   padding-bottom: 40px;
   border-right: 1px solid var(--sidebar-border-color);
@@ -182,6 +181,7 @@
 
   body.sticky & {
     position: fixed;
+    overflow-y: auto;
   }
 }
 
