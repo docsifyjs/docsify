@@ -47,7 +47,7 @@
   }
 
   main {
-    overflow-x: hidden;
+    overflow: hidden;
 
     > .content {
       position: static;
