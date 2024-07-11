@@ -217,7 +217,6 @@
   margin: 0;
   padding: 0;
   border: 0;
-  outline: none;
   background: color-mix(in srgb, var(--sidebar-bg) 80%, transparent);
   backdrop-filter: blur(1px);
   text-align: center;

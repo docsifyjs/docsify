@@ -42,8 +42,8 @@ export function main(config) {
   const aside = /* html */ hideSidebar
     ? ''
     : `
-    <button class="sidebar-toggle" title="Press \\ to toggle" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
-      <div class="sidebar-toggle-button" aria-hidden="true">
+    <button class="sidebar-toggle" tabindex="-1" title="Press \\ to toggle" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
+      <div class="sidebar-toggle-button" tabindex="0" aria-hidden="true">
         <span></span><span></span><span></span>
       </div>
     </button>
