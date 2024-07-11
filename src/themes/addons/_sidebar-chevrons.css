@@ -57,3 +57,7 @@
       transparent 71%
     );
 }
+
+.sidebar-nav a.page-link.no-chevron {
+  background: none;
+}

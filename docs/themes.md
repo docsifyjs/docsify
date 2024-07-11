@@ -79,6 +79,12 @@ Adds expand/collapse icons to page links in the sidebar.
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-left.min.css" />
 ```
 
+To prevent chevrons from displaying for specific page links, add a `no-chevron` class as follows:
+
+```md
+[My Page](page.md ':class=no-chevron')
+```
+
 ### Sidebar Groups (Add-on)
 
 Adds styling to sidebar link groups.
