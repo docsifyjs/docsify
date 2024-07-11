@@ -542,7 +542,7 @@ export function Render(Base) {
       dom
         .findAll('.cover-main > p:last-of-type > a:not([class])')
         .forEach(elm => {
-          const buttonType = elm.matches(':last-child')
+          const buttonType = elm.matches(':first-child')
             ? 'primary'
             : 'secondary';
 
