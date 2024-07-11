@@ -96,7 +96,7 @@
   --form-element-border-color     : var(--color-mono-3);
   --form-element-border-radius    : var(--border-radius);
   --form-element-color            : ;
-  --heading-color                 : inherit;
+  --heading-color                 : var(--strong-color);
   --heading-font-weight           : 600;
   --heading-line-height           : calc(2ex + 5px); /* Unit required */
   --kbd-bg                        : var(--color-mono-1);
@@ -116,7 +116,7 @@
   --link-underline-thickness-hover: var(--link-underline-thickness);
   --mark-bg                       : #fef08a; /* Tailwind v3: Yellow 200 */
   --mark-color                    : ;
-  --strong-color                  : ;
+  --strong-color                  : color-mix(in srgb, var(--color-text), black 35%);
   --strong-font-weight            : 600;
   --table-row-alt-bg              : var(--color-mono-1);
 

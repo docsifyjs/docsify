@@ -2,7 +2,7 @@
 :root {
   /* Color */
   --color-bg  : #1f2428;
-  --color-text: #eee;
+  --color-text: #ddd;
 
   /* Elements */
   --codeblock-comment    : #516e7a;
@@ -13,8 +13,10 @@
   --codeblock-selector   : #ffcb6b;
   --codeblock-tag        : #f07178;
   --codeblock-variable   : #ffcb6b;
+  --heading-color        : var(--strong-color);
   --mark-bg              : #fde047; /* Tailwind v3: Yellow 300 */
   --mark-color           : var(--color-bg);
+  --strong-color         : color-mix(in srgb, var(--color-text), white 35%);;
 
   color-scheme: dark;
 }
