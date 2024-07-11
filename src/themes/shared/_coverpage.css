@@ -3,6 +3,7 @@
 .cover {
   display: none;
   position: relative;
+  z-index: var(--z-cover);
   min-height: 100%;
   width: 100%;
   align-items: center;
