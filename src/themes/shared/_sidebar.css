@@ -51,11 +51,11 @@
 
     &.group {
       padding-block: var(--sidebar-group-spacing);
-      border-top: var(--sidebar-group-border);
+      border-top: 1px solid var(--sidebar-group-border-color);
 
       &:has(+ :not(.group)) {
         margin-bottom: var(--sidebar-group-spacing);
-        border-bottom: var(--sidebar-group-border);
+        border-bottom: 1px solid var(--sidebar-group-border-color);
       }
     }
 
@@ -72,7 +72,7 @@
       &.group-title {
         margin-bottom: var(--sidebar-group-title-spacing);
         padding-bottom: var(--sidebar-group-title-spacing);
-        border-bottom: var(--sidebar-group-title-border);
+        border-bottom: 1px solid var(--sidebar-group-title-border-color);
         color: var(--sidebar-group-title-color);
         font-size: var(--sidebar-group-title-font-size);
         font-weight: var(--sidebar-group-title-font-weight);
@@ -105,9 +105,7 @@
 }
 
 .sidebar {
-  /* display: flex; */
   visibility: hidden;
-  /* flex-direction: column; */
   position: absolute;
   z-index: var(--z-sidebar);
   top: 0;
@@ -117,7 +115,7 @@
   overflow-y: auto;
   width: var(--sidebar-width);
   padding-bottom: 40px;
-  border-right: var(--sidebar-border);
+  border-right: 1px solid var(--sidebar-border-color);
   background: var(--sidebar-bg);
   color: var(--sidebar-color);
   font-size: var(--sidebar-font-size);
@@ -220,7 +218,8 @@
   padding: 0;
   border: 0;
   outline: none;
-  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  background: color-mix(in srgb, var(--sidebar-bg) 80%, transparent);
+  backdrop-filter: blur(1px);
   text-align: center;
   cursor: pointer;
   transition: width var(--duration-medium) ease;

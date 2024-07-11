@@ -1,7 +1,7 @@
 /* prettier-ignore */
 :root {
   --plugin-search-input-bg           : var(--form-element-bg);
-  --plugin-search-input-border       : var(--form-element-border);
+  --plugin-search-input-border-color : var(--sidebar-border-color);
   --plugin-search-input-border-radius: var(--form-element-border-radius);
   --plugin-search-input-color        : var(--form-element-color);
   --plugin-search-kbd-bg             : var(--color-bg);
@@ -28,7 +28,7 @@
 .search input {
   width: 100%;
   padding-inline-end: 36px;
-  border: var(--plugin-search-input-border);
+  border: 1px solid var(--plugin-search-input-border-color);
   border-radius: var(--plugin-search-input-border-radius);
   background: var(--plugin-search-input-bg);
   color: var(--plugin-search-input-color);
