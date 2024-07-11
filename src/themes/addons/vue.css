@@ -1,42 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
-@import '../shared/_syntax.css';
-
 /* prettier-ignore */
 :root {
   /* Color */
+  --color-text : #34495e;
   --theme-color: #42b983;
 
   /* Typography */
   --font-family     : 'Source Sans 3', sans-serif;
   --font-family-mono: 'Roboto Mono', monospace;
+  --font-size       : 15px;
+  --font-size-xxxl  : 2rem;
+  --font-size-xxl   : 1.75rem;
+  --font-size-xl    : 1.5rem;
+  --font-size-l     : 1.25rem;
   --max-width       : 85ch;
 
   /* Common */
   --margin-block: 1.2em;
 
   /* Elements */
-  --font-size-xxxl: 2rem;
-  --font-size-xxl : 1.75rem;
-  --font-size-xl  : 1.5rem;
-  --font-size-l   : 1.25rem;
-  --font-size-m   : 1rem;
-  --font-size-s   : 1rem;
-
-  /* Light mode */
-  @media screen and (prefers-color-scheme: light) {
-    /* Color */
-    --color-text: #34495e;
-
-    /* Elements */
-    --code-color      : #e96900;
-    --codeblock-color : #525252;
-  }
-
-  /* Dark mode */
-  @media screen and (prefers-color-scheme: dark) {
-    /* TBD */
-  }
+  --code-color           : #e96900;
+  --codeblock-comment    : #8e908c;
+  --codeblock-function   : #c94922;
+  --codeblock-important  : #c94922;
+  --codeblock-keyword    : var(--theme-color);
+  --codeblock-operator   : #22a2c9;
+  --codeblock-property   : #c08b30;
+  --codeblock-punctuation: #525252;
+  --codeblock-selector   : #6679cc;
+  --codeblock-tag        : #2973b7;
+  --codeblock-variable   : #3d8fd1;
 }
 
 /* Sidebar */

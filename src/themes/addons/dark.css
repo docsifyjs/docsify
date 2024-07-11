@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
-@import '../shared/_syntax.css';
-
 /* prettier-ignore */
 :root {
   --theme-color: #ea6f5a;
@@ -15,14 +13,22 @@
   --font-family-mono: 'Roboto Mono', monospace;
 
   /* Elements */
-  --code-bg         : #282828;
-  --code-color      : #657b83;
-  --codeblock-bg    : #282828;
-  --codeblock-color : #657b83;
-  --heading-color   : #657b83;
-  --input-bg        : #4f4f4f;
-  --strong-color    : #657b83;
-  --table-row-alt-bg: #282828;
+  --code-bg              : #282828;
+  --code-color           : #657b83;
+  --codeblock-comment    : #8e908c;
+  --codeblock-function   : #c94922;
+  --codeblock-important  : #c94922;
+  --codeblock-keyword    : var(--theme-color);
+  --codeblock-operator   : #22a2c9;
+  --codeblock-property   : #c08b30;
+  --codeblock-punctuation: #525252;
+  --codeblock-selector   : #6679cc;
+  --codeblock-tag        : #2973b7;
+  --codeblock-variable   : #3d8fd1;
+  --heading-color        : #657b83;
+  --input-bg             : #4f4f4f;
+  --strong-color         : #657b83;
+  --table-row-alt-bg     : #282828;
 
   /* Sidebar */
   --sidebar-color     : #c8c8c8;

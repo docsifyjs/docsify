@@ -5,8 +5,16 @@
   --color-text: #eee;
 
   /* Elements */
-  --mark-bg   : #fde047; /* Tailwind v3: Yellow 300 */
-  --mark-color: var(--color-bg);
+  --codeblock-comment    : #516e7a;
+  --codeblock-function   : #f07178;
+  --codeblock-keyword    : #c2e78c;
+  --codeblock-operator   : #ffcb6b;
+  --codeblock-punctuation: #89ddff;
+  --codeblock-selector   : #ffcb6b;
+  --codeblock-tag        : #f07178;
+  --codeblock-variable   : #ffcb6b;
+  --mark-bg              : #fde047; /* Tailwind v3: Yellow 300 */
+  --mark-color           : var(--color-bg);
 
   color-scheme: dark;
 }

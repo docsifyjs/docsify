@@ -1,21 +1,60 @@
 /* Syntax Highlighting */
+/* See: https://prismjs.com */
 /* ========================================================================== */
+pre[data-lang] {
+  background: var(--codeblock-bg);
+  color: var(--codeblock-color);
+}
+
+.namespace {
+  opacity: 0.7;
+}
+
 .token {
-  &.atrule,
+  &.boolean,
+  &.constant,
+  &.deleted,
+  &.number,
+  &.property,
+  &.symbol,
+  &.tag {
+    color: var(--codeblock-tag);
+  }
+
+  &.attr-name,
+  &.builtin,
+  &.char,
+  &.inserted,
+  &.selector,
+  &.string {
+    color: var(--codeblock-selector);
+  }
+
   &.entity,
-  &.regex,
-  &.statement,
+  &.operator,
   &.url,
   .language-css &.string,
   .style &.string {
-    color: #22a2c9;
+    color: var(--codeblock-operator);
   }
 
+  &.cdata,
+  &.comment,
+  &.doctype,
+  &.prolog {
+    color: var(--codeblock-comment);
+  }
+
+  &.atrule,
   &.attr-value,
-  &.control,
-  &.directive,
-  &.unit {
-    color: var(--theme-color);
+  &.keyword {
+    color: var(--codeblock-keyword);
+  }
+
+  &.important,
+  &.regex,
+  &.variable {
+    color: var(--codeblock-variable);
   }
 
   &.bold,
@@ -23,76 +62,23 @@
     font-weight: var(--strong-font-weight);
   }
 
-  &.boolean,
-  &.number {
-    color: #c76b29;
-  }
-
-  &.cdata,
-  &.comment,
-  &.doctype,
-  &.prolog {
-    color: #8e908c;
-  }
-
-  &.keyword,
-  &.function {
-    color: #e96900;
-  }
-
-  &.placeholder,
-  &.variable {
-    color: #3d8fd1;
-  }
-
-  /* ---------------------------------- */
-
-  &.attr-name {
-    color: #2973b7;
-  }
-
-  &.deleted {
-    text-decoration: line-through;
-  }
-
   &.entity {
     cursor: help;
   }
 
-  &.important {
-    color: #c94922;
+  &.function {
+    color: var(--codeblock-function);
   }
 
-  &.inserted {
-    border-bottom: 1px dotted #202746;
-    text-decoration: none;
+  &.important {
+    color: var(--codeblock-important);
   }
 
   &.italic {
     font-style: italic;
   }
 
-  &.namespace {
-    opacity: 0.7;
-  }
-
-  &.property {
-    color: #c08b30;
-  }
-
   &.punctuation {
-    color: #525252;
-  }
-
-  &.selector {
-    color: #6679cc;
-  }
-
-  &.string {
-    color: var(--theme-color);
-  }
-
-  &.tag {
-    color: #2973b7;
+    color: var(--codeblock-punctuation);
   }
 }

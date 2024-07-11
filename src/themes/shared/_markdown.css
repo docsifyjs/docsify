@@ -228,11 +228,16 @@
     /* NOTE: !important declaration are intended to override third-party Prism theme values */
     padding: 0 !important;
     border-radius: var(--border-radius) !important;
-    background: var(--codeblock-bg);
     font-family: var(--font-family-mono) !important;
     font-size: var(--font-size-mono) !important;
-    color: var(--codeblock-color);
+    line-height: inherit !important;
+    tab-size: 2 !important;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
     word-wrap: normal;
+    word-break: normal;
+    hyphens: none;
 
     &:only-child {
       margin: 0;
