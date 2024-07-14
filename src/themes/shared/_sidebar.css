@@ -152,6 +152,7 @@
     color: var(--sidebar-link-color);
 
     &:hover {
+      translate: 0; /* HACK: Force Safari to render text-decoration */
       text-decoration-color: var(--sidebar-link-color-active);
     }
   }

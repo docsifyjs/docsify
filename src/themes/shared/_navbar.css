@@ -27,6 +27,7 @@
     text-decoration-color: transparent;
 
     &:hover {
+      translate: 0; /* HACK: Force Safari to render text-decoration */
       text-decoration-color: var(--navbar-link-color-active);
     }
 
