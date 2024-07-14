@@ -321,7 +321,7 @@ export function Events(Base) {
      */
     onNavigate(source) {
       const { auto2top, topMargin } = this.config;
-      const { query } = this.route;
+      const { path, query } = this.route;
 
       this.#markSidebarActiveElm();
 
@@ -351,7 +351,7 @@ export function Events(Base) {
       }
 
       // Clicked anchor link
-      if (query.id && source === 'navigate') {
+      if (path === '/' || (query.id && source === 'navigate')) {
         isMobile() && this.#toggleSidebar(false);
       }
 
