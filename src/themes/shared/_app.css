@@ -19,6 +19,7 @@ main {
   position: relative;
   width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 
   /* Overlay */
   &::before {
@@ -52,10 +53,6 @@ main {
       position: static;
     }
   }
-}
-
-.markdown-section {
-  overflow: hidden;
 }
 
 .github-corner {
