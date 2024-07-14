@@ -33,6 +33,10 @@
       pointer-events: none;
     }
 
+    .app-nav {
+      left: 0;
+    }
+
     main {
       &::before {
         width: 100%;

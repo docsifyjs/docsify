@@ -18,6 +18,10 @@
     padding-inline-end: calc(var(--navbar-height) + 1em);
   }
 
+  body:where(:has(.sidebar.show)) & {
+    left: var(--sidebar-width);
+  }
+
   a {
     color: var(--navbar-link-color);
     text-decoration-color: transparent;
