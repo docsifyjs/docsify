@@ -382,7 +382,7 @@ export function Render(Base) {
       });
     }
 
-    _renderCover(text, coverOnly) {
+    _renderCover(text, coverOnly, next) {
       const el = dom.getNode('.cover');
 
       dom.toggleClass(
@@ -392,37 +392,56 @@ export function Render(Base) {
       );
       if (!text) {
         dom.toggleClass(el, 'remove', 'show');
+        next();
         return;
       }
 
       dom.toggleClass(el, 'add', 'show');
 
-      let html = this.coverIsHTML ? text : this.compiler.cover(text);
+      const callback = html => {
+        const m = html
+          .trim()
+          .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
 
-      const m = html
-        .trim()
-        .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
+        if (m) {
+          if (m[2] === 'color') {
+            el.style.background = m[1] + (m[3] || '');
+          } else {
+            let path = m[1];
 
-      if (m) {
-        if (m[2] === 'color') {
-          el.style.background = m[1] + (m[3] || '');
-        } else {
-          let path = m[1];
+            dom.toggleClass(el, 'add', 'has-mask');
+            if (!isAbsolutePath(m[1])) {
+              path = getPath(this.router.getBasePath(), m[1]);
+            }
 
-          dom.toggleClass(el, 'add', 'has-mask');
-          if (!isAbsolutePath(m[1])) {
-            path = getPath(this.router.getBasePath(), m[1]);
+            el.style.backgroundImage = `url(${path})`;
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center center';
           }
 
-          el.style.backgroundImage = `url(${path})`;
-          el.style.backgroundSize = 'cover';
-          el.style.backgroundPosition = 'center center';
+          html = html.replace(m[0], '');
         }
 
-        html = html.replace(m[0], '');
-      }
+        this._renderTo('.cover-main', html);
+        next();
+      };
 
-      this._renderTo('.cover-main', html);
+      // TODO: Call the 'beforeEach' and 'afterEach' hooks.
+      // However, when the cover and the home page are on the same page,
+      // the 'beforeEach' and 'afterEach' hooks are called multiple times.
+      // It is difficult to determine the target of the hook within the
+      // hook functions. We might need to make some changes.
+      if (this.coverIsHTML) {
+        callback(text);
+      } else {
+        prerenderEmbed(
+          {
+            compiler: this.compiler,
+            raw: text,
+          },
+          tokens => callback(this.compiler.cover(tokens)),
+        );
+      }
     }
 
     _updateRender() {

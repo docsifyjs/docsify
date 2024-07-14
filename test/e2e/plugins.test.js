@@ -158,6 +158,74 @@ test.describe('Plugins', () => {
     });
   });
 
+  test.describe('doneEach()', () => {
+    test('callback after cover loads', async ({ page }) => {
+      const consoleMessages = [];
+
+      page.on('console', msg => consoleMessages.push(msg.text()));
+
+      await docsifyInit({
+        config: {
+          plugins: [
+            function (hook) {
+              hook.doneEach(() => {
+                const homepageTitle = document.querySelector('#homepage-title');
+                const coverTitle = document.querySelector('#cover-title');
+                console.log(homepageTitle?.textContent);
+                console.log(coverTitle?.textContent);
+              });
+            },
+          ],
+        },
+        markdown: {
+          homepage: '# Hello World :id=homepage-title',
+          coverpage: () => {
+            return new Promise(resolve => {
+              setTimeout(() => resolve('# Cover Page :id=cover-title'), 500);
+            });
+          },
+        },
+        // _logHTML: {},
+      });
+
+      await expect(consoleMessages).toEqual(['Hello World', 'Cover Page']);
+    });
+
+    test('only cover', async ({ page }) => {
+      const consoleMessages = [];
+
+      page.on('console', msg => consoleMessages.push(msg.text()));
+
+      await docsifyInit({
+        config: {
+          onlyCover: true,
+          plugins: [
+            function (hook) {
+              hook.doneEach(() => {
+                const homepageTitle = document.querySelector('#homepage-title');
+                const coverTitle = document.querySelector('#cover-title');
+                console.log(homepageTitle?.textContent);
+                console.log(coverTitle?.textContent);
+              });
+            },
+          ],
+        },
+        markdown: {
+          homepage: '# Hello World :id=homepage-title',
+          coverpage: () => {
+            return new Promise(resolve => {
+              setTimeout(() => resolve('# Cover Page :id=cover-title'), 500);
+            });
+          },
+        },
+        waitForSelector: '.cover-main > *:first-child',
+        // _logHTML: {},
+      });
+
+      await expect(consoleMessages).toEqual(['undefined', 'Cover Page']);
+    });
+  });
+
   test.describe('route data accessible to plugins', () => {
     let routeData = null;
 
