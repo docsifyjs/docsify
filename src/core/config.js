@@ -82,7 +82,6 @@ export default function (vm) {
 
             if (toggleElm) {
               toggleElm.click();
-              toggleElm.focus();
             }
           },
         },

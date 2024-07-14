@@ -35,9 +35,9 @@ export function Events(Base) {
       }
 
       this.#initCover();
-      this.#initSkipToContent('#skip-to-content');
-      this.#initSidebar('.sidebar');
-      this.#initSidebarToggle('button.sidebar-toggle');
+      this.#initSkipToContent();
+      this.#initSidebar();
+      this.#initSidebarToggle();
       this.#initKeyBindings();
     }
 
@@ -211,12 +211,10 @@ export function Events(Base) {
     /**
      * Initialize sidebar event listeners
      *
-     * @param {Element|string} elm Sidebar Element or CSS selector
      * @void
      */
-    #initSidebar(elm) {
-      const sidebarElm =
-        typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebar() {
+      const sidebarElm = document.querySelector('.sidebar');
 
       if (!sidebarElm) {
         return;
@@ -244,37 +242,47 @@ export function Events(Base) {
     /**
      * Initialize sidebar show/hide toggle behavior
      *
-     * @param {Element|string} elm Toggle Element or CSS selector
      * @void
      */
-    #initSidebarToggle(elm, force) {
-      const toggleElm =
-        typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebarToggle() {
+      const contentElm = dom.find('main > .content');
+      const toggleElm = dom.find('button.sidebar-toggle');
 
       if (!toggleElm) {
         return;
       }
 
+      let lastContentFocusElm;
+
+      // Store last focused content element (restored via #toggleSidebar)
+      dom.on(contentElm, 'focusin', e => {
+        const focusAttr = 'data-restore-focus';
+
+        lastContentFocusElm?.removeAttribute(focusAttr);
+        lastContentFocusElm = e.target;
+        lastContentFocusElm.setAttribute(focusAttr, '');
+      });
+
+      // Toggle sidebar
       dom.on(toggleElm, 'click', e => {
         e.stopPropagation();
-        this.#toggleSidebar(force);
+        this.#toggleSidebar();
       });
     }
 
     /**
      * Initialize skip to content behavior
      *
-     * @param {Element|string} elm Skip link Element or CSS selector
      * @void
      */
-    #initSkipToContent(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSkipToContent() {
+      const skipElm = document.querySelector('#skip-to-content');
 
-      if (!elm) {
+      if (!skipElm) {
         return;
       }
 
-      elm.addEventListener('click', evt => {
+      skipElm.addEventListener('click', evt => {
         evt.preventDefault();
         dom.find('main')?.scrollIntoView({
           behavior: 'smooth',
@@ -488,14 +496,14 @@ export function Events(Base) {
         return;
       }
 
-      const isShow = sidebarElm.classList.toggle('show', force);
-      const otherElms = dom.findAll(
+      const ariaElms = dom.findAll('[aria-controls="__sidebar"]');
+      const inertElms = dom.findAll(
         'body > *:not(main, script), main > .content',
       );
-      const toggleElms = dom.findAll('[aria-controls="__sidebar"]');
+      const isShow = sidebarElm.classList.toggle('show', force);
 
       // Focus trap (prevent tabbing outside of sidebar)
-      otherElms.forEach(otherElm => {
+      inertElms.forEach(otherElm => {
         if (isShow) {
           otherElm.setAttribute('inert', '');
         } else {
@@ -503,12 +511,28 @@ export function Events(Base) {
         }
       });
 
-      toggleElms.forEach(toggleElm => {
+      // Set aria-expanded attribute
+      ariaElms.forEach(toggleElm => {
         toggleElm.setAttribute(
           'aria-expanded',
           force ?? sidebarElm.classList.contains('show'),
         );
       });
+
+      // Restore focus
+      if (!isShow) {
+        const restoreElm = document.querySelector(
+          'main > .content [data-restore-focus]',
+        );
+
+        if (restoreElm) {
+          restoreElm.focus({
+            preventScroll: true,
+          });
+        } else {
+          this.#focusContent();
+        }
+      }
     }
 
     /**
