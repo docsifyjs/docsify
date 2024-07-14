@@ -239,9 +239,6 @@ export function Events(Base) {
           dom.toggleClass(linkParent, 'collapse');
         }
       });
-
-      // Click to dismiss (mobile only)
-      dom.on(dom.body, 'click', () => isMobile() && this.#toggleSidebar(false));
     }
 
     /**
@@ -345,7 +342,12 @@ export function Events(Base) {
         }
       }
 
-      // Move focus to content
+      // Clicked anchor link
+      if (query.id && source === 'navigate') {
+        isMobile() && this.#toggleSidebar(false);
+      }
+
+      // Clicked anchor link or page load with anchor ID
       if (query.id || source === 'navigate') {
         this.#focusContent();
       }
@@ -486,9 +488,20 @@ export function Events(Base) {
         return;
       }
 
+      const isShow = sidebarElm.classList.toggle('show', force);
+      const otherElms = dom.findAll(
+        'body > *:not(main, script), main > .content',
+      );
       const toggleElms = dom.findAll('[aria-controls="__sidebar"]');
 
-      sidebarElm.classList.toggle('show', force);
+      otherElms.forEach(otherElm => {
+        if (isShow) {
+          otherElm.setAttribute('inert', '');
+        } else {
+          otherElm.removeAttribute('inert');
+        }
+      });
+
       toggleElms.forEach(toggleElm => {
         toggleElm.setAttribute(
           'aria-expanded',

@@ -4,9 +4,7 @@ body {
   > .progress {
     position: fixed;
     z-index: var(--z-progress);
-    top: 0;
-    right: 0;
-    left: 0;
+    inset: 0 0 auto 0;
     height: 2px;
     width: 0%;
     background: var(--theme-color);
@@ -22,16 +20,27 @@ main {
   width: 100vw;
   min-height: 100vh;
 
+  /* Overlay */
+  &::before {
+    content: '';
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: transparent;
+    transition:
+      width 0s var(--duration-medium),
+      background var(--duration-medium);
+  }
+
   &.hidden {
     display: none;
   }
 
   > .content {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     transition: left var(--duration-medium) ease;
 
     body:has(.sidebar.show) & {

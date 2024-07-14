@@ -4,7 +4,6 @@
   --_sidebar-inset: 20px;
   --_sidebar-list-inset: 0.85em;
   --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar default */
-  --_sidebar-toggle-size: var(--_markdown-margin-inline);
 
   @supports (scrollbar-width: auto) {
     --_sidebar-scrollbar-width: 4px;
@@ -113,6 +112,7 @@
   left: 0;
   translate: calc(0px - var(--sidebar-width));
   width: var(--sidebar-width);
+  overscroll-behavior: contain;
   padding-bottom: 40px;
   border-right: 1px solid var(--sidebar-border-color);
   background: var(--sidebar-bg);
@@ -208,23 +208,41 @@
 }
 
 .sidebar-toggle {
+  display: flex;
+  align-items: var(--sidebar-toggle-alignment);
+  justify-content: start;
   position: absolute;
   z-index: var(--z-sidebar-toggle);
+  top: 0;
   bottom: 0;
-  left: 0;
-  height: var(--_sidebar-toggle-size);
-  width: var(--_sidebar-toggle-size);
+  width: var(--sidebar-toggle-width);
   margin: 0;
   padding: 0;
   border: 0;
-  background: color-mix(in srgb, var(--sidebar-bg) 80%, transparent);
-  backdrop-filter: blur(1px);
-  text-align: center;
+  background: transparent;
   cursor: pointer;
-  transition: width var(--duration-medium) ease;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background var(--duration-medium),
+    translate var(--duration-medium) ease;
 
-  body:has(.sidebar.show) & {
-    width: calc(var(--sidebar-width) - var(--_sidebar-scrollbar-width) - 1px);
+  &:hover {
+    background: color-mix(
+      in srgb,
+      var(--sidebar-toggle-bg-hover) 10%,
+      transparent
+    );
+  }
+
+  /* Hide */
+  body:where(:has(.sidebar.show)) & {
+    translate: calc(var(--sidebar-width) - var(--sidebar-toggle-width));
+  }
+
+  /* Show */
+  body:where(:has(.sidebar.show)) &:is(:focus-within, :hover),
+  body:where(:has(.sidebar.show:where(:focus-within, :hover))) & {
+    translate: var(--sidebar-width);
   }
 
   body.sticky & {
@@ -237,25 +255,36 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: var(--_sidebar-toggle-size);
+  height: var(--sidebar-toggle-height);
+  width: var(--sidebar-toggle-width);
+  margin-block: var(--sidebar-toggle-margin-block);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: var(--sidebar-toggle-bg);
+  color: var(--sidebar-toggle-color);
+  transition:
+    background var(--duration-medium),
+    translate var(--duration-medium);
 
   span {
     display: block;
     height: 2px;
-    width: 16px;
-    background: var(--sidebar-link-color-active);
+    width: 65%;
+    max-width: 16px;
+    border-radius: 100vh;
+    background: currentColor;
+    transition: background var(--duration-medium);
 
     &:nth-child(2) {
-      margin-block: 4px;
+      margin-block: 3px;
     }
   }
-}
 
-@media only screen and (orientation: landscape) {
-  @supports (width: env(safe-area-inset)) {
-    .sidebar > *,
-    .sidebar-toggle-button {
-      margin-left: calc(env(safe-area-inset-left) / 2);
+  &:hover,
+  body:where(:has(.sidebar-toggle:hover)) & {
+    background: var(--sidebar-toggle-bg-hover);
+
+    span {
+      background: var(--sidebar-toggle-color-hover);
     }
   }
 }

@@ -78,7 +78,7 @@ export default function (vm) {
         toggleSidebar: {
           bindings: ['\\'],
           callback(e) {
-            const toggleElm = document.querySelector('.sidebar-toggle');
+            const toggleElm = document.querySelector('.sidebar-toggle-button');
 
             if (toggleElm) {
               toggleElm.click();

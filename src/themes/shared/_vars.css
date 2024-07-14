@@ -173,5 +173,13 @@
   --sidebar-pagelink-bg-collapsed   : ;
   --sidebar-pagelink-bg-empty       : ;
   --sidebar-pagelink-bg-expanded    : ;
+  --sidebar-toggle-alignment        : center; /* start center end */
+  --sidebar-toggle-bg               : var(--color-mono-2);
+  --sidebar-toggle-bg-hover         : var(--button-bg);
+  --sidebar-toggle-color            : var(--color-mono-4);
+  --sidebar-toggle-color-hover      : var(--button-color);
+  --sidebar-toggle-height           : 80px;
+  --sidebar-toggle-margin-block     : 20px;
+  --sidebar-toggle-width            : 25px;
   --sidebar-width                   : 280px;
 }

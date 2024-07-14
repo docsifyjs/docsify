@@ -24,51 +24,58 @@
 /* Mobile */
 @media screen and (max-width: 640px) {
   .app-nav,
-  .github-corner,
-  main > .content {
+  .github-corner {
     transition: translate var(--duration-medium) ease;
-  }
-
-  .sidebar,
-  .sidebar-toggle {
-    position: fixed;
   }
 
   .app-nav {
     left: 0;
-
-    body:has(.app-nav-merged) & {
-      display: none;
-    }
   }
 
   .app-nav-merged {
     display: block;
   }
 
-  main {
-    overflow: hidden;
-
-    > .content {
-      position: static;
-    }
-  }
-
-  body:not(:has(.sidebar.show)) {
-    .sidebar-toggle {
-      background: transparent;
-    }
+  .sidebar-toggle {
+    transition: background var(--duration-medium);
   }
 
   body:has(.sidebar.show) {
     .app-nav,
-    .github-corner,
-    main > .content {
+    .github-corner {
       translate: var(--sidebar-width);
+      pointer-events: none;
+    }
+
+    main {
+      &::before {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.15);
+        transition:
+          width 0s,
+          background var(--duration-medium);
+      }
+    }
+
+    .sidebar-toggle {
+      width: 100%;
+      translate: 0;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    main > .content {
+      left: 0;
     }
   }
 
   body:has(.app-nav-merged) {
+    .app-nav {
+      display: none;
+    }
+
     .markdown-section {
       margin-top: var(--_markdown-margin-inline);
     }
