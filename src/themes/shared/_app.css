@@ -54,6 +54,10 @@ main {
   }
 }
 
+.markdown-section {
+  overflow: hidden;
+}
+
 .github-corner {
   position: absolute;
   top: 0;
