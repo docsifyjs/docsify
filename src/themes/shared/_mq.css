@@ -27,10 +27,6 @@
     display: block;
   }
 
-  .sidebar-toggle {
-    transition: background var(--duration-medium);
-  }
-
   body:has(.sidebar.show) {
     .app-nav,
     .github-corner {
@@ -48,8 +44,7 @@
     }
 
     .sidebar-toggle {
-      width: 100%;
-      translate: 0;
+      width: calc(100% - var(--sidebar-width));
 
       &:hover {
         background: transparent;

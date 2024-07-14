@@ -222,23 +222,21 @@
     background var(--duration-medium),
     translate var(--duration-medium) ease;
 
-  &:hover {
-    background: color-mix(
-      in srgb,
-      var(--sidebar-toggle-bg-hover) 10%,
-      transparent
-    );
+  @media screen and (any-hover) {
+    &:hover {
+      background: color-mix(
+        in srgb,
+        var(--sidebar-toggle-bg-hover) 10%,
+        transparent
+      );
+    }
   }
 
-  /* Hide */
   body:where(:has(.sidebar.show)) & {
-    translate: calc(var(--sidebar-width) - var(--sidebar-toggle-width));
-  }
-
-  /* Show */
-  body:where(:has(.sidebar.show)) &:is(:focus-within, :hover),
-  body:where(:has(.sidebar.show:where(:focus-within, :hover))) & {
     translate: var(--sidebar-width);
+    transition:
+      background 0s,
+      translate var(--duration-medium) ease;
   }
 
   body.sticky & {
@@ -275,12 +273,14 @@
     }
   }
 
-  &:hover,
-  body:where(:has(.sidebar-toggle:hover)) & {
-    background: var(--sidebar-toggle-bg-hover);
+  @media screen and (any-hover) {
+    &:hover,
+    body:where(:has(.sidebar-toggle:hover)) & {
+      background: var(--sidebar-toggle-bg-hover);
 
-    span {
-      background: var(--sidebar-toggle-color-hover);
+      span {
+        background: var(--sidebar-toggle-color-hover);
+      }
     }
   }
 }
