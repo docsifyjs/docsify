@@ -47,7 +47,7 @@ export function main(config) {
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside id="__sidebar" class="sidebar${!isMobile() ? ' show' : ''}" role="none">
+    <aside id="__sidebar" class="sidebar${!isMobile() ? ' show' : ''}" tabindex="-1" role="none">
       ${
         config.name
           ? /* html */ `

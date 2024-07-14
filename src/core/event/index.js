@@ -519,8 +519,11 @@ export function Events(Base) {
         );
       });
 
+      if (isShow) {
+        sidebarElm.focus();
+      }
       // Restore focus
-      if (!isShow) {
+      else {
         const restoreElm = document.querySelector(
           'main > .content [data-restore-focus]',
         );
