@@ -38,25 +38,28 @@
     ul {
       margin-left: var(--_sidebar-list-inset);
     }
+
+    > li {
+      &:last-child:not(.group),
+      &:not(.group):has(+ .group) {
+        margin-bottom: var(--sidebar-group-spacing);
+      }
+
+      &.group {
+        padding-block: var(--sidebar-group-spacing);
+        border-top: 1px solid var(--sidebar-group-border-color);
+
+        &:has(+ :not(.group)) {
+          margin-bottom: var(--sidebar-group-spacing);
+          border-bottom: 1px solid var(--sidebar-group-border-color);
+        }
+      }
+    }
   }
 
   li {
     line-height: var(--sidebar-link-line-height);
     scroll-margin-bottom: 40px;
-
-    &:not(.group):has(+ .group) {
-      margin-bottom: var(--sidebar-group-spacing);
-    }
-
-    &.group {
-      padding-block: var(--sidebar-group-spacing);
-      border-top: 1px solid var(--sidebar-group-border-color);
-
-      &:has(+ :not(.group)) {
-        margin-bottom: var(--sidebar-group-spacing);
-        border-bottom: 1px solid var(--sidebar-group-border-color);
-      }
-    }
 
     > * {
       overflow: hidden;
