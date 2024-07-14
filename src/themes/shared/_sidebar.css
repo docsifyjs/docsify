@@ -146,11 +146,7 @@
 
   a[href] {
     text-decoration-color: transparent;
-
-    &,
-    &:hover {
-      color: var(--sidebar-link-color);
-    }
+    color: var(--sidebar-link-color);
 
     &:hover {
       text-decoration-color: var(--sidebar-link-color-active);
