@@ -2,8 +2,24 @@ import {
   getAndRemoveConfig,
   getAndRemoveDocisfyIgnoreConfig,
 } from '../../core/render/utils.js';
+import Dexie from 'dexie';
 
-let INDEXS = {};
+let INDEXES = {};
+
+const db = new Dexie('DocsifySearchDB');
+db.version(1).stores({
+  search: 'key, value',
+});
+
+async function saveData(maxAge, expireKey, indexKey) {
+  await db.search.put({ key: expireKey, value: Date.now() + maxAge });
+  await db.search.put({ key: indexKey, value: JSON.stringify(INDEXES) });
+}
+
+async function getData(key) {
+  const item = await db.search.get(key);
+  return item ? item.value : null;
+}
 
 const LOCAL_STORAGE = {
   EXPIRE_KEY: 'docsify.search.expires',
@@ -71,11 +87,6 @@ function getListData(token) {
     token.text = token.raw;
   }
   return token.text;
-}
-
-function saveData(maxAge, expireKey, indexKey) {
-  localStorage.setItem(expireKey, Date.now() + maxAge);
-  localStorage.setItem(indexKey, JSON.stringify(INDEXS));
 }
 
 export function genIndex(path, content = '', router, depth) {
@@ -149,10 +160,10 @@ export function ignoreDiacriticalMarks(keyword) {
 export function search(query) {
   const matchingResults = [];
   let data = [];
-  Object.keys(INDEXS).forEach(key => {
+  Object.keys(INDEXES).forEach(key => {
     data = [
       ...data,
-      ...Object.keys(INDEXS[key]).map(page => INDEXS[key][page]),
+      ...Object.keys(INDEXES[key]).map(page => INDEXES[key][page]),
     ];
   });
 
@@ -240,7 +251,7 @@ export function search(query) {
   return matchingResults.sort((r1, r2) => r2.score - r1.score);
 }
 
-export function init(config, vm) {
+export async function init(config, vm) {
   const isAuto = config.paths === 'auto';
   const paths = isAuto ? getAllPaths(vm.router) : config.paths;
 
@@ -274,12 +285,12 @@ export function init(config, vm) {
   const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
   const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
 
-  const isExpired = localStorage.getItem(expireKey) < Date.now();
+  const isExpired = (await getData(expireKey)) < Date.now();
 
-  INDEXS = JSON.parse(localStorage.getItem(indexKey));
+  INDEXES = JSON.parse(await getData(indexKey));
 
   if (isExpired) {
-    INDEXS = {};
+    INDEXES = {};
   } else if (!isAuto) {
     return;
   }
@@ -288,14 +299,16 @@ export function init(config, vm) {
   let count = 0;
 
   paths.forEach(path => {
-    if (INDEXS[path]) {
+    if (INDEXES[path]) {
       return count++;
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      result => {
-        INDEXS[path] = genIndex(path, result, vm.router, config.depth);
-        len === ++count && saveData(config.maxAge, expireKey, indexKey);
+      async result => {
+        INDEXES[path] = genIndex(path, result, vm.router, config.depth);
+        if (len === ++count) {
+          await saveData(config.maxAge, expireKey, indexKey);
+        }
       },
     );
   });
