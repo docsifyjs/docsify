@@ -502,15 +502,6 @@ export function Events(Base) {
       );
       const isShow = sidebarElm.classList.toggle('show', force);
 
-      // Focus trap (prevent tabbing outside of sidebar)
-      inertElms.forEach(otherElm => {
-        if (isShow) {
-          otherElm.setAttribute('inert', '');
-        } else {
-          otherElm.removeAttribute('inert');
-        }
-      });
-
       // Set aria-expanded attribute
       ariaElms.forEach(toggleElm => {
         toggleElm.setAttribute(
@@ -518,6 +509,15 @@ export function Events(Base) {
           force ?? sidebarElm.classList.contains('show'),
         );
       });
+
+      // Add inert attributes (focus trap)
+      if (isShow && isMobile()) {
+        inertElms.forEach(elm => elm.setAttribute('inert', ''));
+      }
+      // Remove inert attributes
+      else {
+        inertElms.forEach(elm => elm.removeAttribute('inert'));
+      }
 
       if (isShow) {
         sidebarElm.focus();
