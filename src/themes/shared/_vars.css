@@ -168,7 +168,7 @@
   --sidebar-name-font-family        : var(--font-family);
   --sidebar-name-font-size          : var(--font-size-xl);
   --sidebar-name-font-weight        : 400;
-  --sidebar-name-margin             : 1.5rem 0;
+  --sidebar-name-margin             : 1.5rem 20px;
   --sidebar-pagelink-bg             : ;
   --sidebar-pagelink-bg-collapsed   : ;
   --sidebar-pagelink-bg-empty       : ;

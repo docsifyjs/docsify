@@ -158,18 +158,22 @@
 
   .app-name {
     margin: var(--sidebar-name-margin);
-    text-align: center;
-  }
-
-  a.app-name-link {
     color: var(--sidebar-name-color);
     font-family: var(--sidebar-name-font-family);
     font-size: var(--sidebar-name-font-size);
     font-weight: var(--sidebar-name-font-weight);
+    text-align: center;
+  }
 
+  a.app-name-link {
     img {
       display: block;
       max-width: 100%;
+    }
+
+    &:hover {
+      color: var(--sidebar-link-color-active);
+      text-decoration-color: transparent;
     }
   }
 
