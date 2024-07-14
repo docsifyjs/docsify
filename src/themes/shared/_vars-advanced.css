@@ -3,11 +3,12 @@
 /* prettier-ignore */
 :root {
   /* z-index */
-  --z-progress       : 2147483647;
-  --z-skip-to-content: 2147483646;
-  --z-github-corner  : 50;
-  --z-app-nav        : 40;
-  --z-cover          : 30;
-  --z-sidebar        : 20;
-  --z-sidebar-toggle : 10;
+  --z-skip-to-content: 2147483647;
+  --z-progress       : 2147483637;
+  --z-sidebar        : 60;
+  --z-sidebar-toggle : 50;
+  --z-main-overlay   : 40;
+  --z-github-corner  : 30;
+  --z-app-nav        : 20;
+  --z-cover          : 10;
 }

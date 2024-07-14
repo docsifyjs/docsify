@@ -23,15 +23,6 @@
 
 /* Mobile */
 @media screen and (max-width: 640px) {
-  .app-nav,
-  .github-corner {
-    transition: translate var(--duration-medium) ease;
-  }
-
-  .app-nav {
-    left: 0;
-  }
-
   .app-nav-merged {
     display: block;
   }
@@ -43,7 +34,6 @@
   body:has(.sidebar.show) {
     .app-nav,
     .github-corner {
-      translate: var(--sidebar-width);
       pointer-events: none;
     }
 

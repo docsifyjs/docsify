@@ -494,6 +494,7 @@ export function Events(Base) {
       );
       const toggleElms = dom.findAll('[aria-controls="__sidebar"]');
 
+      // Focus trap (prevent tabbing outside of sidebar)
       otherElms.forEach(otherElm => {
         if (isShow) {
           otherElm.setAttribute('inert', '');

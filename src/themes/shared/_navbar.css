@@ -3,6 +3,8 @@
 .app-nav {
   display: flex;
   align-items: center;
+  justify-content: end;
+  gap: 1em;
   position: absolute;
   z-index: var(--z-app-nav);
   top: 0;
@@ -12,16 +14,13 @@
   padding-inline: var(--_markdown-margin-inline);
   transition: left var(--duration-medium) ease;
 
-  body:has(.sidebar.show) & {
-    left: var(--sidebar-width);
-  }
-
   &:has(~ .github-corner) {
     padding-inline-end: calc(var(--navbar-height) + 1em);
   }
 
   a {
     color: var(--navbar-link-color);
+    text-decoration-color: transparent;
 
     &:hover {
       text-decoration-color: var(--navbar-link-color-active);
@@ -43,7 +42,6 @@
     justify-content: end;
     flex-wrap: wrap;
     gap: 0 1em;
-    width: 100%;
   }
 
   li {
@@ -83,7 +81,6 @@
         gap: 0.25em;
         margin: 0;
         line-height: var(--navbar-link-line-height);
-        text-decoration: none;
 
         &:hover {
           color: var(--navbar-link-color-active);
@@ -101,6 +98,11 @@
 
   p {
     margin: 0;
+  }
+
+  > :where(a, p),
+  > ul > li > :where(a, p) {
+    white-space: nowrap;
   }
 }
 
