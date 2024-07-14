@@ -19,7 +19,6 @@ main {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  overflow-x: hidden;
 
   /* Overlay */
   &::before {
@@ -53,6 +52,13 @@ main {
       position: static;
     }
   }
+}
+
+.markdown-section {
+  /* NOTE: It would be preferable to use overflow-clip-margin to prevent
+  clipping of the focus ring, but Safari lacks support at this time. */
+  overflow: hidden;
+  padding: 5px;
 }
 
 .github-corner {
