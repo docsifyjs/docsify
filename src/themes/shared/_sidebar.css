@@ -58,8 +58,6 @@
   }
 
   li {
-    scroll-margin-bottom: 40px;
-
     &:not(.group):not(:last-child) {
       margin-block: var(--sidebar-link-spacing);
     }
@@ -114,7 +112,6 @@
   translate: calc(0px - var(--sidebar-width));
   width: var(--sidebar-width);
   overscroll-behavior: contain;
-  padding-bottom: 40px;
   border-right: 1px solid var(--sidebar-border-color);
   background: var(--sidebar-bg);
   color: var(--sidebar-color);
