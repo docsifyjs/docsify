@@ -1,1 +1,2 @@
 @import 'shared/__index.css';
+@import 'addons/core-dark.css' screen and (prefers-color-scheme: dark);

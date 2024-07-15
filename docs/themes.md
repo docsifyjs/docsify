@@ -5,14 +5,54 @@
 The Docsify "core" theme contains all of the styles and [theme properties](#theme-properties) needed to render a Docsify site. This theme is designed to serve as a minimalist theme on its own or [customized](#customization) using core [classes](#classes) and/or [add-ons](#add-ons).
 
 <label>
-  <input class="toggle" type="checkbox" checked disabled>
-  Preview Core (Required)
+  <input
+    class="toggle"
+    type="radio"
+    name="core"
+    value="core"
+    data-theme
+  >
+  Preview Core (auto light/dark)
 </label>
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme -->
+<!-- Core Theme (Auto) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
+```
+
+<label>
+  <input
+    class="toggle"
+    type="radio"
+    name="core"
+    value="core-light"
+    data-theme
+  >
+  Preview Core Light
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Core Theme Light-->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core-light.min.css" />
+```
+
+<label>
+  <input
+    class="toggle"
+    type="radio"
+    name="core"
+    value="core-dark"
+    data-theme
+  >
+  Preview Core Dark
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Core Theme Dark -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core-dark.min.css" />
 ```
 
 ## Classes
@@ -75,100 +115,22 @@ Limit multi-line sidebar links to a single line followed by an ellipses.
 
 ## Add-ons
 
-Theme add-ons contain a partial collection of CSS rules used to customize a core theme using [theme properties](#theme-properties) values and/or style declarations. Add-ons require the use of a [core theme](#core-theme) and can often (but not always) be used with other add-ons.
+Theme add-ons contain a partial collection of CSS rules used to customize the core theme using [theme properties](#theme-properties) values and/or style declarations.
 
-### Core Dark (Add-on)
+!> Add-ons require the use of the [core theme](#core-theme) and can often (but not always) be used with other add-ons.
 
-Dark mode styles for the Docsify [core theme](#core-theme). Styles can conditionally be applied only when an operating system's dark mode is active by specifying a `media` attribute.
+### Vue Theme (Add-on)
 
-<label>
-  <input class="toggle" type="checkbox" value="core-dark" data-theme data-group="theme">
-  Preview Core Dark
-</label>
-<br>
-<label>
-  <input class="toggle" type="checkbox" value="core-dark-auto" data-theme data-group="theme">
-  Preview Core Dark (Dark Mode Only)
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Core Dark (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/core-dark.min.css" />
-```
-
-```html
-<!-- Core Dark / Dark Mode Only (add-on) -->
-<link
-  rel="stylesheet"
-  href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/core-dark.min.css"
-  media="(prefers-color-scheme: dark)"
-/>
-```
-
-<details>
-  <summary><h3>Legacy themes</h3></summary>
-
-The following Docsify v4 themes have been converted to theme add-ons for use with the Docsify v5 [core theme](#core-theme) theme.
-
-!> These legacy themes have been deprecated and will be removed in the next major version of Docsify.
-
-#### Buble (Add-on)
+The popular Docsify v4 theme.
 
 <label>
-  <input class="toggle" type="checkbox" value="buble" data-theme data-group="theme">
-  Preview Buble
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Buble theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/buble.min.css" />
-```
-
-#### Dark (Add-on)
-
-<label>
-  <input class="toggle" type="checkbox" value="dark" data-theme data-group="theme">
-  Preview Dark
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Dark theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dark.min.css" />
-```
-
-#### Dolphin (Add-on)
-
-<label>
-  <input class="toggle" type="checkbox" value="dolphin" data-theme data-group="theme">
-  Preview Dolphin
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Dolphin theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/dolphin.min.css" />
-```
-
-#### Pure (Add-on)
-
-<label>
-  <input class="toggle" type="checkbox" value="pure" data-theme data-group="theme">
-  Preview Pure
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Pure theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/pure.min.css" />
-```
-
-#### Vue Theme (Add-on)
-
-<label>
-  <input class="toggle" type="checkbox" value="vue" data-theme data-group="theme">
+  <input
+   class="toggle"
+   type="checkbox"
+   value="vue"
+   data-theme
+   data-group="addon"
+  >
   Preview Vue
 </label>
 
@@ -177,16 +139,6 @@ The following Docsify v4 themes have been converted to theme add-ons for use wit
 <!-- Vue Theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
 ```
-
-</details>
-
-## Community
-
-The Docsify team endorses the following third-party themes:
-
-- [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable) - A delightfully simple theme system for docsify. Provided by [@jhildenbiddle](https://github.com/jhildenbiddle).
-
-See [Awesome Docsify](awesome) for additional community themes.
 
 ## Customization
 
@@ -304,15 +256,28 @@ Advanced theme properties are also available for use but typically do not need t
 
 <!-- TODO: Replace with include from CDN /src/themes/shared/_vars-advanced.css -->
 
+## Community
+
+The Docsify team endorses the following third-party themes:
+
+- [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable) - A delightfully simple theme system for docsify. Provided by [@jhildenbiddle](https://github.com/jhildenbiddle).
+
+See [Awesome Docsify](awesome) for additional community themes.
+
 <script>
-  (function() {
-    const toggleElms = Docsify.dom.findAll('input:where([data-class], [data-theme])');
-    const previewSheets = Docsify.dom.findAll('link[rel="stylesheet"][data-theme]');
+  (function () {
+    const toggleElms = Docsify.dom.findAll(
+      'input:where([data-class], [data-theme])',
+    );
+    const previewSheets = Docsify.dom.findAll(
+      'link[rel="stylesheet"][data-theme]',
+    );
 
     function handleChange(e) {
-      const elm = e.target.closest('[data-class], [data-theme]')
-      const value = elm.value
+      const elm = e.target.closest('[data-class], [data-theme]');
+      const value = elm.value;
       const groupVal = elm.getAttribute('data-group');
+      const radioGroupName = elm.matches('[type="radio"]') ? elm.name : undefined;
 
       // Toggle class
       if (elm.matches('[data-class]')) {
@@ -320,27 +285,37 @@ Advanced theme properties are also available for use but typically do not need t
       }
       // Toggle sheet
       else {
-        const themeSheet = previewSheets.find(sheet => sheet.getAttribute('data-theme') === value);
+        const themeSheet = previewSheets.find(
+          sheet => sheet.getAttribute('data-theme') === value,
+        );
 
         themeSheet && (themeSheet.disabled = !elm.checked);
       }
 
-      if (!elm.checked || !groupVal) {
+      if (!elm.checked || (!groupVal && !radioGroupName)) {
         return;
       }
 
       // Group elements & values
-      const groupElms = toggleElms
-        .filter(elm => elm.getAttribute('data-group') === groupVal);
-      const groupVals = groupElms
-        .map(elm => elm.value);
+      const groupElms = toggleElms.filter(elm =>
+        groupVal
+          ? groupVal === elm.getAttribute('data-group')
+          : radioGroupName === elm.name,
+      );
+      const groupVals = groupElms.map(elm => elm.value);
 
-      // Uncheck other group elements
-      groupElms.forEach(groupElm => {
-        if (groupElm !== elm) {
-          groupElm.checked = false;
-        }
-      });
+      if (groupElms.length <= 1) {
+        return;
+      }
+
+      if (groupVal) {
+        // Uncheck other group elements
+        groupElms.forEach(groupElm => {
+          if (groupElm !== elm) {
+            groupElm.checked = false;
+          }
+        });
+      }
 
       // Remove group classes
       if (elm.matches('[data-class]')) {
@@ -352,15 +327,16 @@ Advanced theme properties are also available for use but typically do not need t
       }
       // Disable group sheets
       else {
-        const groupSheets = groupVals
-          .map(val => previewSheets.find(sheet => sheet.getAttribute('data-theme') === val))
-          .filter(sheet => sheet);
+        const otherSheets = groupVals
+          .map(val =>
+            previewSheets.find(sheet => sheet.getAttribute('data-theme') === val),
+          )
+          .filter(sheet => sheet && sheet.getAttribute('data-theme') !== value);
+        const disableSheets = otherSheets.length ? otherSheets : previewSheets;
 
-        (groupSheets || previewSheets).forEach(sheet => {
-          sheet.disabled = !value || sheet.getAttribute('data-theme') !== value;
-        });
+        disableSheets.forEach(sheet => sheet.disabled = true);
       }
-    };
+    }
 
     // Toggle active elms
     toggleElms.forEach(elm => {
@@ -372,12 +348,14 @@ Advanced theme properties are also available for use but typically do not need t
       }
       // Sheet toggle
       else {
-        const previewSheet = previewSheets.find(sheet => sheet.getAttribute('data-theme') === value);
+        const previewSheet = previewSheets.find(
+          sheet => sheet.getAttribute('data-theme') === value,
+        );
 
         elm.checked = previewSheet && !previewSheet.disabled;
       }
     });
 
     toggleElms.forEach(elm => elm.addEventListener('change', handleChange));
-  }());
+  })();
 </script>
