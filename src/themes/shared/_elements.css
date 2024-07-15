@@ -92,6 +92,7 @@ button[type],
 input.button,
 input:where([type='button'], [type='reset'], [type='submit']) {
   display: inline-block;
+  margin-block: 0.35em;
   border: 1px solid var(--color-mono-2);
   box-shadow: 0 0 0 3px transparent;
   background: var(--color-mono-2);
