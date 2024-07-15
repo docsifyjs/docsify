@@ -32,7 +32,7 @@
 
   > ul {
     > * {
-      padding-left: var(--_sidebar-inset);
+      margin-left: var(--_sidebar-inset);
     }
 
     ul {
@@ -58,13 +58,10 @@
   }
 
   li {
-    line-height: var(--sidebar-link-line-height);
     scroll-margin-bottom: 40px;
 
-    > * {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    &:not(.group):not(:last-child) {
+      margin-block: var(--sidebar-link-spacing);
     }
 
     > p {
@@ -72,6 +69,7 @@
 
       /* Text-only <p> tags */
       &.group-title {
+        margin-right: var(--_sidebar-inset);
         margin-bottom: var(--sidebar-group-title-spacing);
         padding-bottom: var(--sidebar-group-title-spacing);
         border-bottom: 1px solid var(--sidebar-group-title-border-color);
