@@ -258,10 +258,6 @@ Advanced theme properties are also available for use but typically do not need t
 
 ## Community
 
-The Docsify team endorses the following third-party themes:
-
-- [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable) - A delightfully simple theme system for docsify. Provided by [@jhildenbiddle](https://github.com/jhildenbiddle).
-
 See [Awesome Docsify](awesome) for additional community themes.
 
 <script>
