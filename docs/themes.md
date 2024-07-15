@@ -10,7 +10,7 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
     type="radio"
     name="core"
     value="core"
-    data-theme
+    data-sheet
   >
   Preview Core (auto light/dark)
 </label>
@@ -27,7 +27,7 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
     type="radio"
     name="core"
     value="core-light"
-    data-theme
+    data-sheet
   >
   Preview Core Light
 </label>
@@ -44,7 +44,7 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
     type="radio"
     name="core"
     value="core-dark"
-    data-theme
+    data-sheet
   >
   Preview Core Dark
 </label>
@@ -128,7 +128,7 @@ The popular Docsify v4 theme.
    class="toggle"
    type="checkbox"
    value="vue"
-   data-theme
+   data-sheet
    data-group="addon"
   >
   Preview Vue
@@ -267,14 +267,14 @@ See [Awesome Docsify](awesome) for additional community themes.
 <script>
   (function () {
     const toggleElms = Docsify.dom.findAll(
-      'input:where([data-class], [data-theme])',
+      'input:where([data-class], [data-sheet])',
     );
     const previewSheets = Docsify.dom.findAll(
-      'link[rel="stylesheet"][data-theme]',
+      'link[rel="stylesheet"][data-sheet]',
     );
 
     function handleChange(e) {
-      const elm = e.target.closest('[data-class], [data-theme]');
+      const elm = e.target.closest('[data-class], [data-sheet]');
       const value = elm.value;
       const groupVal = elm.getAttribute('data-group');
       const radioGroupName = elm.matches('[type="radio"]') ? elm.name : undefined;
@@ -286,7 +286,7 @@ See [Awesome Docsify](awesome) for additional community themes.
       // Toggle sheet
       else {
         const themeSheet = previewSheets.find(
-          sheet => sheet.getAttribute('data-theme') === value,
+          sheet => sheet.getAttribute('data-sheet') === value,
         );
 
         themeSheet && (themeSheet.disabled = !elm.checked);
@@ -329,9 +329,9 @@ See [Awesome Docsify](awesome) for additional community themes.
       else {
         const otherSheets = groupVals
           .map(val =>
-            previewSheets.find(sheet => sheet.getAttribute('data-theme') === val),
+            previewSheets.find(sheet => sheet.getAttribute('data-sheet') === val),
           )
-          .filter(sheet => sheet && sheet.getAttribute('data-theme') !== value);
+          .filter(sheet => sheet && sheet.getAttribute('data-sheet') !== value);
         const disableSheets = otherSheets.length ? otherSheets : previewSheets;
 
         disableSheets.forEach(sheet => sheet.disabled = true);
@@ -349,7 +349,7 @@ See [Awesome Docsify](awesome) for additional community themes.
       // Sheet toggle
       else {
         const previewSheet = previewSheets.find(
-          sheet => sheet.getAttribute('data-theme') === value,
+          sheet => sheet.getAttribute('data-sheet') === value,
         );
 
         elm.checked = previewSheet && !previewSheet.disabled;

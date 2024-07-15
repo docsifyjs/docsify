@@ -23,20 +23,20 @@
       rel="stylesheet"
       href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css"
       data-group="core"
-      data-theme="core"
+      data-sheet="core"
     />
     <link
       rel="stylesheet"
       href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core-light.min.css"
       data-group="core"
-      data-theme="core-light"
+      data-sheet="core-light"
       disabled
     />
     <link
       rel="stylesheet"
       href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core-dark.min.css"
       data-group="core"
-      data-theme="core-dark"
+      data-sheet="core-dark"
       disabled
     />
 
@@ -45,7 +45,7 @@
       rel="stylesheet"
       href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css"
       data-group="addon"
-      data-theme="vue"
+      data-sheet="vue"
       disabled
     />
 
@@ -116,11 +116,13 @@
         auto2top: true,
         coverpage: true,
         executeScript: true,
+        // hideSidebar: true,
         loadSidebar: true,
         loadNavbar: true,
         mergeNavbar: true,
         maxLevel: 4,
-        // repo: 'docsifyjs/docsify',
+        repo: 'docsifyjs/docsify',
+        // routerMode: 'history',
         subMaxLevel: 2,
         ga: 'UA-106147152-1',
         matomo: {
@@ -136,6 +138,8 @@
           '/': '#/',
         },
         search: {
+          // insertAfter: '.app-name',
+          // insertBefore: '.sidebar-nav',
           noData: {
             '/es/': '¡No hay resultados!',
             '/de-de/': 'Keine Ergebnisse!',
@@ -212,7 +216,7 @@
           },
         },
         plugins: [
-          DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
+          // DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
           // Plugin: Footer
           function (hook, vm) {
             hook.beforeEach(html => {
@@ -247,8 +251,8 @@
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/front-matter.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/matomo.min.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script> -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/matomo.min.js"></script> -->
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
