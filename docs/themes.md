@@ -1,15 +1,8 @@
 # Themes
 
-Docsify's is designed to work with two types of theme resources:
+## Core Theme
 
-- [**Core Themes:**](#core) A complete collection of CSS rules that style all Docsify site elements (cover, navbar, sidebar, markdown content, etc.). A core theme is required to render a Docsify site. Core themes do not require by may be used with other themes or add-ons.
-- [**Theme Add-ons:**](#add-ons) A partial collection of CSS rules used to customize a core theme using [theme properties](#theme-property) values and/or style declarations. Add-ons require the use of a core theme and can often (but not always) be used with other add-ons.
-
-?> Separating the "core" styles needed to render a Docsify site from the "add-on" styles typically associated with theming provides several important benefits. For site administrators, the ability to use the official "core" theme with multiple add-ons provides both stability and flexibility. For Docsify maintainers and community contributors, the separation simplifies and expedites maintenance and the delivery of new customizations with significantly less code.
-
-## Core
-
-Docsify offers one "core" theme. This theme contains styles and [theme properties](#theme-properties) needed to render a Docsify site. The core theme can serve as a minimalist theme on its own, enhanced using [add-ons](#add-ons), or as a starting point for [customization](#customization).
+The Docsify "core" theme contains all of the styles and [theme properties](#theme-properties) needed to render a Docsify site. This theme is designed to serve as a minimalist theme on its own or [customized](#customization) using core [classes](#classes) and/or [add-ons](#add-ons).
 
 <label>
   <input class="toggle" type="checkbox" checked disabled>
@@ -22,13 +15,71 @@ Docsify offers one "core" theme. This theme contains styles and [theme propertie
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
 ```
 
+## Classes
+
+The [core theme](#core-theme) provides several CSS classes for customizing your Docsify site. These classes should be applied to the `<body>` element within your `index.html` page.
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-chevron-right sidebar-group-box">
+```
+
+### Sidebar chevrons
+
+Display expand/collapse icons on page links in the sidebar.
+
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-chevron-right" data-class data-group="sidebar-chevron"> Preview <code>sidebar-chevron-right</code>
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-chevron-left" data-class data-group="sidebar-chevron"> Preview <code>sidebar-chevron-left</code>
+</label>
+
+To prevent chevrons from displaying for specific page links, add a `no-chevron` class as follows:
+
+```md
+[My Page](page.md ':class=no-chevron')
+```
+
+**Theme properties**
+
+<!-- prettier-ignore -->
+```css
+:root {
+  --sidebar-chevron-collapsed-color: var(--color-mono-3);
+  --sidebar-chevron-expanded-color : var(--theme-color);
+}
+```
+
+### Sidebar groups
+
+Add visual distinction between groups of links in the sidebar.
+
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-group-box" data-class data-group="sidebar-group"> Preview <code>sidebar-group-box</code>
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-group-underline" data-class data-group="sidebar-group"> Preview <code>sidebar-group-underline</code>
+</label>
+
+### Sidebar link clamp
+
+Limit multi-line sidebar links to a single line followed by an ellipses.
+
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-link-clamp" data-class>
+  Preview <code>sidebar-link-clamp</code>
+</label>
+
 ## Add-ons
 
-The following add-ons are designed to be used with the Docsify [Core](#core) theme.
+Theme add-ons contain a partial collection of CSS rules used to customize a core theme using [theme properties](#theme-properties) values and/or style declarations. Add-ons require the use of a [core theme](#core-theme) and can often (but not always) be used with other add-ons.
 
 ### Core Dark (Add-on)
 
-Dark mode styles for the Docsify [Core](#core) theme. Styles can conditionally be applied only when an operating system's dark mode is active by specifying a `media` attribute.
+Dark mode styles for the Docsify [core theme](#core-theme). Styles can conditionally be applied only when an operating system's dark mode is active by specifying a `media` attribute.
 
 <label>
   <input class="toggle" type="checkbox" value="core-dark" data-theme data-group="theme">
@@ -55,64 +106,10 @@ Dark mode styles for the Docsify [Core](#core) theme. Styles can conditionally b
 />
 ```
 
-### Sidebar Chevrons (Add-on)
-
-Adds expand/collapse icons to page links in the sidebar.
-
-<label>
-  <input class="toggle" type="checkbox" value="sidebar-chevrons-right" data-theme data-group="sidebar-chevrons"> Preview Chevrons Right
-</label>
-<br>
-<label>
-  <input class="toggle" type="checkbox" value="sidebar-chevrons-left" data-theme data-group="sidebar-chevrons"> Preview Chevrons Left
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Sidebar Chevrons Right (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-right.min.css" />
-```
-
-<!-- prettier-ignore -->
-```html
-<!-- Sidebar Chevrons Left (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-chevrons-left.min.css" />
-```
-
-To prevent chevrons from displaying for specific page links, add a `no-chevron` class as follows:
-
-```md
-[My Page](page.md ':class=no-chevron')
-```
-
-### Sidebar Groups (Add-on)
-
-Adds styling to sidebar link groups.
-
-<label>
-  <input class="toggle" type="checkbox" value="sidebar-group-box" data-theme data-group="sidebar-group"> Preview Group Box
-</label>
-<br>
-<label>
-  <input class="toggle" type="checkbox" value="sidebar-group-underline" data-theme data-group="sidebar-group"> Preview Group Underline
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Sidebar Group Box (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-group-box.min.css" />
-```
-
-<!-- prettier-ignore -->
-```html
-<!-- Sidebar Group Underline (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/sidebar-group-underline.min.css" />
-```
-
 <details>
   <summary><h3>Legacy themes</h3></summary>
 
-The following Docsify v4 themes have been converted to theme add-ons for use with the Docsify v5 [Core](#core) theme.
+The following Docsify v4 themes have been converted to theme add-ons for use with the Docsify v5 [core theme](#core-theme) theme.
 
 !> These legacy themes have been deprecated and will be removed in the next major version of Docsify.
 
@@ -291,7 +288,7 @@ The following properties are available in all official Docsify themes. Default v
 
 ?> **Theme and plugin authors**: We encourage you to leverage these custom theme properties and to offer similar customization options in your projects.
 
-#### Common
+### Common
 
 Below are the most commonly modified theme properties. [Advanced](#advanced) theme properties are also available for use but typically do not need to be modified.
 
@@ -299,7 +296,7 @@ Below are the most commonly modified theme properties. [Advanced](#advanced) the
 
 <!-- TODO: Replace with include from CDN /src/themes/shared/_vars.css -->
 
-#### Advanced
+### Advanced
 
 Advanced theme properties are also available for use but typically do not need to be modified. Values derived from [common](#common) theme properties but can be set explicitly if preferred.
 
@@ -309,54 +306,78 @@ Advanced theme properties are also available for use but typically do not need t
 
 <script>
   (function() {
-    const previewElms = Docsify.dom.findAll('input[data-theme]');
+    const toggleElms = Docsify.dom.findAll('input:where([data-class], [data-theme])');
     const previewSheets = Docsify.dom.findAll('link[rel="stylesheet"][data-theme]');
 
     function handleChange(e) {
-      const elm = e.target.closest('[data-theme]')
-      const themeVal = elm.value
-      const themeSheet = previewSheets.find(sheet => sheet.getAttribute('data-theme') === themeVal);
-      const groupAttr = 'data-group';
-      const groupVal = elm.getAttribute(groupAttr);
+      const elm = e.target.closest('[data-class], [data-theme]')
+      const value = elm.value
+      const groupVal = elm.getAttribute('data-group');
 
-      themeSheet && (themeSheet.disabled = !elm.checked);
+      // Toggle class
+      if (elm.matches('[data-class]')) {
+        document.body.classList.toggle(value, elm.checked);
+      }
+      // Toggle sheet
+      else {
+        const themeSheet = previewSheets.find(sheet => sheet.getAttribute('data-theme') === value);
 
-      if (!elm.checked) {
+        themeSheet && (themeSheet.disabled = !elm.checked);
+      }
+
+      if (!elm.checked || !groupVal) {
         return;
       }
 
-      let groupSheets;
+      // Group elements & values
+      const groupElms = toggleElms
+        .filter(elm => elm.getAttribute('data-group') === groupVal);
+      const groupVals = groupElms
+        .map(elm => elm.value);
 
-      if (groupVal) {
-        const groupElms = previewElms
-          .filter(elm => elm.getAttribute(groupAttr) === groupVal);
-        const groupVals = groupElms
-          .map(elm => elm.value);
+      // Uncheck other group elements
+      groupElms.forEach(groupElm => {
+        if (groupElm !== elm) {
+          groupElm.checked = false;
+        }
+      });
 
-        groupSheets = groupVals
-          .map(val => previewSheets.find(sheet => sheet.getAttribute('data-theme') === val))
-          .filter(sheet => sheet);
-
-        groupElms.forEach(groupElm => {
-          if (groupElm !== elm) {
-            groupElm.checked = false;
+      // Remove group classes
+      if (elm.matches('[data-class]')) {
+        groupVals.forEach(className => {
+          if (className !== value) {
+            document.body.classList.remove(className);
           }
         });
       }
+      // Disable group sheets
+      else {
+        const groupSheets = groupVals
+          .map(val => previewSheets.find(sheet => sheet.getAttribute('data-theme') === val))
+          .filter(sheet => sheet);
 
-      (groupSheets || previewSheets).forEach(sheet => {
-        sheet.disabled = !themeVal || sheet.getAttribute('data-theme') !== themeVal;
-      });
+        (groupSheets || previewSheets).forEach(sheet => {
+          sheet.disabled = !value || sheet.getAttribute('data-theme') !== value;
+        });
+      }
     };
 
-    // Toggle active preview elms
-    previewSheets.forEach(sheet => {
-      const themeVal = sheet.getAttribute('data-theme');
-      const previewElm = previewElms.find(elm => elm.value === themeVal);
+    // Toggle active elms
+    toggleElms.forEach(elm => {
+      const value = elm.value;
 
-      previewElm && (previewElm.checked = !sheet.disabled);
+      // Class toggle
+      if (elm.matches('[data-class]')) {
+        elm.checked = document.body.classList.contains(value);
+      }
+      // Sheet toggle
+      else {
+        const previewSheet = previewSheets.find(sheet => sheet.getAttribute('data-theme') === value);
+
+        elm.checked = previewSheet && !previewSheet.disabled;
+      }
     });
 
-    previewElms.forEach(elm => elm.addEventListener('change', handleChange));
+    toggleElms.forEach(elm => elm.addEventListener('change', handleChange));
   }());
 </script>
