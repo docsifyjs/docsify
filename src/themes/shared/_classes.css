@@ -114,15 +114,15 @@ body.sidebar-chevron-right {
 /* ========================================================================== */
 /* prettier-ignore */
 :root:has(body.sidebar-group-box) {
-  --sidebar-group-border-color: var(--sidebar-border-color);
-  --sidebar-group-spacing     : 1em;
+  --sidebar-group-border : 1px solid var(--sidebar-border-color);
+  --sidebar-group-spacing: 1em;
 }
 
 /* prettier-ignore */
 :root:has(body.sidebar-group-underline) {
-  --sidebar-group-spacing           : 0.5em;
-  --sidebar-group-title-border-color: var(--sidebar-border-color);
-  --sidebar-group-title-spacing     : 0.25em;
+  --sidebar-group-spacing      : 0.5em;
+  --sidebar-group-title-border : 1px solid var(--sidebar-border-color);
+  --sidebar-group-title-spacing: 0.35em;
 }
 
 /* Sidebar link clamp */

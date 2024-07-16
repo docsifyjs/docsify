@@ -154,9 +154,9 @@
   --sidebar-border-color            : var(--border-color);
   --sidebar-color                   : ;
   --sidebar-font-size               : var(--font-size);
-  --sidebar-group-border-color      : transparent;
+  --sidebar-group-border            : ;
   --sidebar-group-spacing           : ;
-  --sidebar-group-title-border-color: transparent;
+  --sidebar-group-title-border      : ;
   --sidebar-group-title-color       : ;
   --sidebar-group-title-font-size   : ;
   --sidebar-group-title-font-weight : var(--strong-font-weight);
