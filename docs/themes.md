@@ -1,8 +1,8 @@
 # Themes
 
-## Core Theme
+## Core theme
 
-The Docsify "core" theme contains all of the styles and [theme properties](#theme-properties) needed to render a Docsify site. This theme is designed to serve as a minimalist theme on its own or [customized](#customization) using core [classes](#classes) and/or [add-ons](#add-ons).
+The Docsify "core" theme contains all of the styles and [theme properties](#theme-properties) needed to render a Docsify site. This theme is designed to serve as a minimalist theme on its own, in combination with [theme add-ons](#theme-add-ons), modified using core [classes](#classes), and as a starting point for [customization](#customization).
 
 <label>
   <input
@@ -17,7 +17,7 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme (Auto) -->
+<!-- Core Theme (Light/Dark) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
 ```
 
@@ -34,7 +34,7 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme Light-->
+<!-- Core Theme (Light Only)-->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core-light.min.css" />
 ```
 
@@ -51,8 +51,44 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme Dark -->
+<!-- Core Theme (Dark Only) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core-dark.min.css" />
+```
+
+## Theme add-ons
+
+Theme add-ons are used in combination with the [core theme](#core-theme). Add-ons contain CSS rules that modify [theme properties](#theme-properties) values and/or add custom style declarations. They can often (but not always) be used with other add-ons.
+
+!> Theme add-ons must be loaded after the [core theme](#core-theme).
+
+<!-- prettier-ignore -->
+```html
+<!-- Core Theme (Light/Dark) -->
+<link rel="stylesheet" href="..." />
+
+<!-- Theme (add-on) -->
+<link rel="stylesheet" href="..." />
+```
+
+### Vue theme (Add-on)
+
+The popular Docsify v4 theme.
+
+<label>
+  <input
+   class="toggle"
+   type="checkbox"
+   value="vue"
+   data-sheet
+   data-group="addon"
+  >
+  Preview Vue
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Vue Theme (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
 ```
 
 ## Classes
@@ -151,33 +187,6 @@ Limit multi-line sidebar links to a single line followed by an ellipses.
 <body class="sidebar-link-clamp">
 ```
 
-## Add-ons
-
-Theme add-ons contain a partial collection of CSS rules used to customize the core theme using [theme properties](#theme-properties) values and/or style declarations.
-
-!> Add-ons require the use of the [core theme](#core-theme) and can often (but not always) be used with other add-ons.
-
-### Vue Theme (Add-on)
-
-The popular Docsify v4 theme.
-
-<label>
-  <input
-   class="toggle"
-   type="checkbox"
-   value="vue"
-   data-sheet
-   data-group="addon"
-  >
-  Preview Vue
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Vue Theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
-```
-
 ## Customization
 
 Docsify provides [theme properties](#theme-properties) for simplified customization of frequently modified styles.
@@ -272,7 +281,7 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
    }
    ```
 
-## Theme Properties
+## Theme properties
 
 The following properties are available in all official Docsify themes. Default values for the "Core" theme are shown.
 
