@@ -40,6 +40,17 @@ Alternatively, you can create a custom markdown-based navigation file by setting
 - [chinese](/zh-cn/)
 ```
 
+To create drop-down menus:
+
+```markdown
+<!-- _navbar.md -->
+
+- Translations
+
+  - [En](/)
+  - [chinese](/zh-cn/)
+```
+
 !> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
 `_navbar.md` is loaded from each level directory. If the current directory doesn't have `_navbar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`, the `_navbar.md` will be loaded from `/guide/_navbar.md`.
