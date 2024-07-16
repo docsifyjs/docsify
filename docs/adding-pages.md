@@ -46,7 +46,23 @@ Create the `_sidebar.md`:
 <!-- docs/_sidebar.md -->
 
 - [Home](/)
-- [Guide](guide.md)
+- [Page 1](page-1.md)
+```
+
+To create section headers:
+
+```markdown
+<!-- docs/_sidebar.md -->
+
+- Section Header 1
+
+  - [Home](/)
+  - [Page 1](page-1.md)
+
+- Section Header 2
+
+  - [Page 2](page-2.md)
+  - [Page 3](page-3.md)
 ```
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
