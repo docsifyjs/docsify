@@ -2,22 +2,22 @@
 /* ========================================================================== */
 :root {
   /* Color */
-  --color-bg      : #fff;
-  --color-mono-max: var(--color-text);
-  --color-mono-min: var(--color-bg);
-  --color-text    : #333;
-  --theme-color   : #0b85d7;
+  --color-bg   : #fff;
+  --color-text : #333;
+  --theme-color: #0b85d7;
 
   /* Color: Monochromatic */
-  /* NOTE: Values derived from --color-mono-[max|min] */
-  --color-mono-1: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 4%);
-  --color-mono-2: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 10%);
-  --color-mono-3: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 20%);
-  --color-mono-4: color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 30%);
-  --color-mono-5: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 30%);
-  --color-mono-6: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 20%);
-  --color-mono-7: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 10%);
-  --color-mono-8: color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 4%);
+  --color-mono-min: var(--color-bg);
+  --color-mono-1  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 5%);
+  --color-mono-2  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 10%);
+  --color-mono-3  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 20%);
+  --color-mono-4  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 30%);
+  --color-mono-5  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 50%);
+  --color-mono-6  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 30%);
+  --color-mono-7  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 20%);
+  --color-mono-8  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 10%);
+  --color-mono-9  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 5%);
+  --color-mono-max: var(--color-text);
 
   /* Color: Theme Shades (darker) & Tints (lighter)*/
   /* NOTE: Values derived from --theme-color */
@@ -130,7 +130,7 @@
   --link-underline-color-hover    : var(--link-underline-color);
   --link-underline-thickness      : 2px;
   --link-underline-thickness-hover: var(--link-underline-thickness);
-  --mark-bg                       : #fef08a; /* Tailwind v3: Yellow 200 */
+  --mark-bg                       : #fef08a;
   --mark-color                    : ;
   --strong-color                  : color-mix(in srgb, var(--color-text), black 35%);
   --strong-font-weight            : 600;

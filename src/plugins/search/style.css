@@ -144,13 +144,13 @@
 
 .search .matching-post .content {
   margin: 0;
-  color: var(--color-mono-5);
+  color: var(--color-mono-6);
   font-size: var(--font-size-s);
 }
 
 .search .results-status {
   margin-bottom: 0;
-  color: var(--color-mono-5);
+  color: var(--color-mono-6);
   font-size: var(--font-size-s);
 }
 
