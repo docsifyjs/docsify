@@ -48,7 +48,6 @@
   --font-weight      : 350;
   --font-weight-mono : var(--font-weight);
   --line-height      : 1.6;
-  --max-width        : 72ch;  /* 725px / 98 characters */
   --modular-scale    : 1.250; /* 1.067, 1.125, 1.200, 1.250, 1.333, 1.414, 1.500, 1.618 */
 
   /* Common */
@@ -62,6 +61,7 @@
 
   /* Content */
   --content-margin-inline: 40px; /* Single value */
+  --content-max-width    : 72ch;
 
   /* Cover */
   --cover-bg         : ;

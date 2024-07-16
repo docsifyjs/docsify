@@ -7,14 +7,14 @@
   --theme-color: #42b983;
 
   /* Typography */
-  --font-family     : 'Source Sans 3', sans-serif;
-  --font-family-mono: 'Roboto Mono', monospace;
-  --font-size       : 15px;
-  --font-size-xxxl  : 2rem;
-  --font-size-xxl   : 1.75rem;
-  --font-size-xl    : 1.5rem;
-  --font-size-l     : 1.25rem;
-  --max-width       : 85ch;
+  --font-family      : 'Source Sans 3', sans-serif;
+  --font-family-mono : 'Roboto Mono', monospace;
+  --font-size        : 15px;
+  --font-size-xxxl   : 2rem;
+  --font-size-xxl    : 1.75rem;
+  --font-size-xl     : 1.5rem;
+  --font-size-l      : 1.25rem;
+  --content-max-width: 85ch;
 
   /* Common */
   --margin-block: 1.2em;

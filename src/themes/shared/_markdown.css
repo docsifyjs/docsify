@@ -2,7 +2,7 @@
 /* ========================================================================== */
 .markdown-section {
   position: relative;
-  width: var(--max-width);
+  width: var(--content-max-width);
   max-width: calc(100% - (var(--content-margin-inline) * 2));
   margin: var(--content-margin-inline) auto 0 auto;
   padding-bottom: 2rem;
