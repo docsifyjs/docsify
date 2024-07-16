@@ -64,7 +64,7 @@
       translate: 50% 0;
       overflow-y: auto;
       max-height: calc(100vh - 61px);
-      padding: 0.5em 1em;
+      padding: 1em;
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
       background: var(--color-bg);
@@ -77,15 +77,21 @@
 
     li {
       display: block;
-      margin: 0;
-      line-height: 1;
+      margin-block: 0.4em;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       a {
         display: flex;
         align-items: center;
         gap: 0.25em;
         margin: 0;
-        line-height: var(--navbar-link-line-height);
 
         &:hover {
           color: var(--navbar-link-color-active);

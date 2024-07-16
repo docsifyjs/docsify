@@ -147,7 +147,6 @@
   --navbar-height           : 4em;
   --navbar-link-color       : ;
   --navbar-link-color-active: var(--theme-color);
-  --navbar-link-line-height : 2;
 
   /* Sidebar */
   --sidebar-bg                      : var(--color-bg);
