@@ -36,7 +36,7 @@
     }
 
     ul {
-      margin-left: var(--_sidebar-list-inset);
+      padding-left: var(--_sidebar-list-inset);
     }
 
     > li {
