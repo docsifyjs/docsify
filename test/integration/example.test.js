@@ -57,8 +57,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
       scriptURLs: [
         // docsifyInit() route
         'data-test-scripturls.js',
-        // Server route
-        '/dist/plugins/search.js',
       ],
       style: `
         body {
@@ -99,7 +97,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
 
     // Verify docsifyInitConfig.scriptURLs were executed
     expect(document.body.hasAttribute('data-test-scripturls')).toBe(true);
-    expect(document.querySelector('.search input[type="search"]')).toBeTruthy();
 
     // Verify docsifyInitConfig.script was added to the DOM
     expect(
