@@ -39,17 +39,16 @@
       padding-left: var(--_sidebar-list-inset);
     }
 
-    > li {
+    > li:not(:only-child) {
       &:first-child,
       &.group {
         padding-top: var(--sidebar-group-spacing);
         border-top: var(--sidebar-group-border);
-      }
-    }
 
-    > li {
-      &.group:has(+ :not(.group)) {
-        border-bottom: var(--sidebar-group-border);
+        &:last-child,
+        &:has(+ :not(.group)) {
+          border-bottom: var(--sidebar-group-border);
+        }
       }
     }
   }
