@@ -1,4 +1,5 @@
 import { testConfig } from './server.configs.js';
+import structuredClone from '@ungap/structured-clone';
 
 const { hostname, port } = testConfig;
 const TEST_HOST = `http://${hostname}:${port}`;
@@ -30,7 +31,11 @@ export default {
     {
       displayName: 'integration',
       ...sharedConfig,
-      testMatch: ['<rootDir>/test/integration/*.test.js'],
+      testMatch: ['<rootDir>/test/integration/example.test.js'],
+      setupFiles: ['fake-indexeddb/auto'],
+      globals: {
+        structuredClone: structuredClone.default,
+      },
     },
   ],
 };

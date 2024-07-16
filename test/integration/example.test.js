@@ -1,5 +1,6 @@
 import { waitForFunction, waitForText } from '../helpers/wait-for.js';
 import docsifyInit from '../helpers/docsify-init.js';
+import 'core-js/stable/structured-clone';
 
 describe('Creating a Docsify site (integration tests in Jest)', function () {
   test('Docsify /docs/ site using docsifyInit()', async () => {
