@@ -31,7 +31,7 @@ export default {
     {
       displayName: 'integration',
       ...sharedConfig,
-      testMatch: ['<rootDir>/test/integration/example.test.js'],
+      testMatch: ['<rootDir>/test/integration/*.test.js'],
       setupFiles: ['fake-indexeddb/auto'],
       globals: {
         structuredClone: structuredClone.default,
