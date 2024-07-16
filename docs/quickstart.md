@@ -53,7 +53,7 @@ Download or create an `index.html` template using the following markup:
     <!-- Core Theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
   </head>
-  <body class="spinner">
+  <body class="loading">
     <div id="app"></div>
 
     <!-- Configuration -->

@@ -43,8 +43,8 @@ body {
     }
   }
 
-  /* Spinner */
-  &.spinner {
+  /* Loading animation */
+  &.loading {
     &::before {
       position: fixed;
     }

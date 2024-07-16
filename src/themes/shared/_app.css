@@ -91,8 +91,8 @@ main {
   }
 }
 
-.spinner:empty /* Block: <div class="spinner"></div>  */,
-.spinner:not(:empty)::before /* Pseudo: <div class="spinner">Content</div>  */ {
+.loading:empty /* Block: <div class="loading"></div>  */,
+.loading:not(:empty)::before /* Pseudo: <div class="loading">Content</div>  */ {
   --_gradient: no-repeat
     radial-gradient(farthest-side, var(--theme-color) 92%, #0000);
 
@@ -106,10 +106,10 @@ main {
     var(--_gradient) right,
     var(--_gradient) bottom;
   background-size: 10px 10px;
-  animation: spinner 1s infinite;
+  animation: loading 1s infinite;
 }
 
-.spinner:not(:empty)::before {
+.loading:not(:empty)::before {
   position: absolute;
   z-index: 1;
   top: 50%;
@@ -117,7 +117,7 @@ main {
   translate: -50% -50%;
 }
 
-@keyframes spinner {
+@keyframes loading {
   to {
     rotate: 0.5turn;
   }

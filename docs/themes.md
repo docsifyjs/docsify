@@ -61,8 +61,21 @@ The [core theme](#core-theme) provides several CSS classes for customizing your 
 
 <!-- prettier-ignore -->
 ```html
-<body class="sidebar-chevron-right sidebar-group-box">
+<body class="...">
 ```
+
+### Loading
+
+Display a loading animation while waiting for Docsify to initialize.
+
+<!-- prettier-ignore -->
+```html
+<body class="loading">
+```
+
+<output data-lang="output">
+  <div class="loading" style="margin: auto;"></div>
+</output>
 
 ### Sidebar chevrons
 
@@ -75,6 +88,16 @@ Display expand/collapse icons on page links in the sidebar.
 <label>
   <input class="toggle" type="checkbox" value="sidebar-chevron-left" data-class data-group="sidebar-chevron"> Preview <code>sidebar-chevron-left</code>
 </label>
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-chevron-right">
+```
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-chevron-left">
+```
 
 To prevent chevrons from displaying for specific page links, add a `no-chevron` class as follows:
 
@@ -104,6 +127,16 @@ Add visual distinction between groups of links in the sidebar.
   <input class="toggle" type="checkbox" value="sidebar-group-underline" data-class data-group="sidebar-group"> Preview <code>sidebar-group-underline</code>
 </label>
 
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-group-box">
+```
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-group-underline">
+```
+
 ### Sidebar link clamp
 
 Limit multi-line sidebar links to a single line followed by an ellipses.
@@ -112,6 +145,11 @@ Limit multi-line sidebar links to a single line followed by an ellipses.
   <input class="toggle" type="checkbox" value="sidebar-link-clamp" data-class>
   Preview <code>sidebar-link-clamp</code>
 </label>
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-link-clamp">
+```
 
 ## Add-ons
 
