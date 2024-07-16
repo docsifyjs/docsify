@@ -54,13 +54,6 @@ main {
   }
 }
 
-.markdown-section {
-  /* NOTE: It would be preferable to use overflow-clip-margin to prevent
-  clipping of the focus ring, but Safari lacks support at this time. */
-  overflow: hidden;
-  padding: 5px;
-}
-
 .github-corner {
   position: absolute;
   top: 0;

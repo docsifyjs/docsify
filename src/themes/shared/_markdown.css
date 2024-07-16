@@ -267,15 +267,17 @@
 
   /* Headings */
   /* --------------------------------- */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  :where(h1, h2, h3, h4, h5, h6) {
     margin: 2rem 0 0.5em;
     color: var(--heading-color);
     font-weight: var(--heading-font-weight);
+
+    /* Prevent long titles from causing horizontal scrolling */
+    &[id] a {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   h1,
