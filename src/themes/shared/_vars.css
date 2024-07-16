@@ -57,7 +57,7 @@
   --duration-medium   : 250ms;
   --duration-fast     : 150ms;
   --margin-block      : 1rem; /* Single value */
-  --scroll-padding-top: ;
+  --scroll-padding-top: var(--margin-block);
 
   /* Content */
   --content-margin-inline: 40px; /* Single value */
