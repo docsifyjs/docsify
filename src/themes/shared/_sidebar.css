@@ -39,14 +39,13 @@
       padding-left: var(--_sidebar-list-inset);
     }
 
-    > li:not(:only-child) {
-      &:first-child,
+    > li {
       &.group {
         padding-top: var(--sidebar-group-spacing);
         border-top: var(--sidebar-group-border);
 
-        &:last-child,
-        &:has(+ :not(.group)) {
+        &:has(+ :not(.group)),
+        &:last-child {
           border-bottom: var(--sidebar-group-border);
         }
       }
