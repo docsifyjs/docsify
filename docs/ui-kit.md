@@ -159,6 +159,10 @@ console.log(total); // 3
     <figcaption>8<figcaption>
   </figure>
   <figure>
+    <div style="background: var(--color-mono-9);"></div>
+    <figcaption>9<figcaption>
+  </figure>
+  <figure>
     <div style="background: var(--color-mono-max);"></div>
     <figcaption>Max<figcaption>
   </figure>

@@ -11,9 +11,9 @@
   --color-mono-1  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 5%);
   --color-mono-2  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 10%);
   --color-mono-3  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 20%);
-  --color-mono-4  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 30%);
+  --color-mono-4  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 32%);
   --color-mono-5  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 50%);
-  --color-mono-6  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 30%);
+  --color-mono-6  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 32%);
   --color-mono-7  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 20%);
   --color-mono-8  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 10%);
   --color-mono-9  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 5%);
