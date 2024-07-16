@@ -58,7 +58,10 @@
   --duration-medium   : 250ms;
   --duration-fast     : 150ms;
   --margin-block      : 1rem; /* Single value */
-  --scroll-padding-top: 0;
+  --scroll-padding-top: ;
+
+  /* Content */
+  --content-margin-inline: 40px; /* Single value */
 
   /* Cover */
   --cover-bg         : ;

@@ -65,6 +65,6 @@
 .cover-main {
   position: relative;
   flex: 1;
-  margin: 5vh var(--_markdown-margin-inline);
+  margin: 5vh var(--content-margin-inline);
   text-align: center;
 }

@@ -11,7 +11,7 @@
   right: 0;
   left: 0;
   height: var(--navbar-height);
-  padding-inline: var(--_markdown-margin-inline);
+  padding-inline: var(--content-margin-inline);
   transition: left var(--duration-medium) ease;
 
   &:has(~ .github-corner) {
@@ -70,7 +70,7 @@
       background: var(--color-bg);
 
       li:last-child & {
-        right: calc(0px - var(--_markdown-margin-inline) / 2);
+        right: calc(0px - var(--content-margin-inline) / 2);
         translate: 0;
       }
     }
