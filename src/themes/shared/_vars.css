@@ -1,6 +1,5 @@
 /* Variables: Basic */
 /* ========================================================================== */
-/* prettier-ignore */
 :root {
   /* Color */
   --color-bg      : #fff;
@@ -81,6 +80,20 @@
   --button-border-radius          : 100vh;
   --button-color                  : #fff;
   --button-padding                : 0.3em 1.25em 0.315em 1.25em;
+  --callout-bg                 : ;
+  --callout-border-color       : ;
+  --callout-border-radius      : 0 var(--border-radius) var(--border-radius) 0;
+  --callout-border-width       : 0 0 0 4px;
+  --callout-charm-bg           : ;
+  --callout-charm-border-radius: 100vh;
+  --callout-charm-color        : ;
+  --callout-charm-content      : ;
+  --callout-charm-font-size    : 1.2em;
+  --callout-charm-inset        : 50% auto auto -2px;
+  --callout-charm-size         : 1.3em;
+  --callout-charm-translate    : -50% -50%;
+  --callout-color              : ;
+  --callout-padding            : 1em 1em 1em var(--callout-charm-size);
   --code-bg                       : var(--color-mono-1);
   --code-color                    : ;
   --codeblock-bg                  : var(--code-bg);
@@ -123,28 +136,6 @@
   --strong-font-weight            : 600;
   --table-row-alt-bg              : var(--color-mono-1);
 
-  /* Elements: Callouts */
-  --callout-border-radius      : 0 var(--border-radius) var(--border-radius) 0;
-  --callout-border-width       : 0 0 0 4px;
-  --callout-charm-border-radius: 100vh;
-  --callout-charm-font-size    : 1.2em;
-  --callout-charm-inset        : 50% auto auto -2px;
-  --callout-charm-size         : 1.3em;
-  --callout-charm-translate    : -50% -50%;
-  --callout-padding            : 1em 1em 1em var(--callout-charm-size);
-  --important-bg               : var(--color-mono-1);
-  --important-border-color     : #f66;
-  --important-charm-bg         : var(--important-border-color);
-  --important-charm-color      : #fff;
-  --important-charm-content    : '!';
-  --important-color            : ;
-  --tip-bg                     : var(--theme-color-1);
-  --tip-border-color           : var(--theme-color);
-  --tip-charm-bg               : var(--tip-border-color);
-  --tip-charm-color            : #fff;
-  --tip-charm-content          : 'i';
-  --tip-color                  : ;
-
   /* Navbar */
   --navbar-font-size        : var(--font-size);
   --navbar-height           : 4em;
@@ -184,4 +175,26 @@
   --sidebar-toggle-margin-block     : 20px;
   --sidebar-toggle-width            : 25px;
   --sidebar-width                   : 280px;
+}
+
+/* Scoped Variables */
+/* ========================================================================== */
+/* Callout: Important */
+.callout.important {
+  --callout-bg           : var(--color-mono-1);
+  --callout-border-color : #f66;
+  --callout-charm-bg     : var(--callout-border-color);
+  --callout-charm-color  : #fff;
+  --callout-charm-content: '!';
+  --callout-color        : ;
+}
+
+/* Callout: Important */
+.callout.tip {
+  --callout-bg           : var(--theme-color-1);
+  --callout-border-color : var(--theme-color);
+  --callout-charm-bg     : var(--callout-border-color);
+  --callout-charm-color  : #fff;
+  --callout-charm-content: 'i';
+  --callout-color        : ;
 }
