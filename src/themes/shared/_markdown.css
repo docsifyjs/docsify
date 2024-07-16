@@ -228,6 +228,7 @@
       padding-inline: 1.5rem !important;
       background: inherit;
       color: inherit;
+      font-size: inherit;
       white-space: inherit;
     }
   }
