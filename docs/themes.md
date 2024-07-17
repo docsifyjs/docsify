@@ -4,55 +4,10 @@
 
 The Docsify "core" theme contains all of the styles and [theme properties](#theme-properties) needed to render a Docsify site. This theme is designed to serve as a minimalist theme on its own, in combination with [theme add-ons](#theme-add-ons), modified using core [classes](#classes), and as a starting point for [customization](#customization).
 
-<label>
-  <input
-    class="toggle"
-    type="radio"
-    name="core"
-    value="core"
-    data-sheet
-  >
-  Preview Core (auto light/dark)
-</label>
-
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme (Light/Dark) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
-```
-
-<label>
-  <input
-    class="toggle"
-    type="radio"
-    name="core"
-    value="core-light"
-    data-sheet
-  >
-  Preview Core Light
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Core Theme (Light Only)-->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core-light.min.css" />
-```
-
-<label>
-  <input
-    class="toggle"
-    type="radio"
-    name="core"
-    value="core-dark"
-    data-sheet
-  >
-  Preview Core Dark
-</label>
-
-<!-- prettier-ignore -->
-```html
-<!-- Core Theme (Dark Only) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core-dark.min.css" />
+<!-- Core Theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css" />
 ```
 
 ## Theme add-ons
@@ -63,11 +18,49 @@ Theme add-ons are used in combination with the [core theme](#core-theme). Add-on
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Theme (Light/Dark) -->
+<!-- Core Theme -->
 <link rel="stylesheet" href="..." />
 
 <!-- Theme (add-on) -->
 <link rel="stylesheet" href="..." />
+```
+
+### Core Dark (Add-on)
+
+Dark mode styles for the [core theme](#core-theme). Styles can applied only when an operating system's dark mode is active by specifying a `media` attribute.
+
+<label>
+  <input
+    class="toggle"
+    type="checkbox"
+    value="core-dark"
+    data-group="addon"
+    data-sheet
+  >
+  Preview Core Dark
+</label>
+<br>
+<label>
+  <input
+    class="toggle"
+    type="checkbox"
+    value="core-dark-auto"
+    data-group="addon"
+    data-sheet
+  >
+  Preview Core Dark (Dark Mode Only)
+</label>
+
+<!-- prettier-ignore -->
+```html
+<!-- Core Dark (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" />
+```
+
+<!-- prettier-ignore -->
+```html
+<!-- Core Dark - Dark Mode Only (add-on) -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" media="(prefers-color-scheme: dark)" />
 ```
 
 ### Vue theme (Add-on)
@@ -79,8 +72,8 @@ The popular Docsify v4 theme.
    class="toggle"
    type="checkbox"
    value="vue"
-   data-sheet
    data-group="addon"
+   data-sheet
   >
   Preview Vue
 </label>
@@ -88,7 +81,7 @@ The popular Docsify v4 theme.
 <!-- prettier-ignore -->
 ```html
 <!-- Vue Theme (add-on) -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/addons/vue.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css" />
 ```
 
 ## Classes
@@ -220,7 +213,7 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
    <!-- prettier-ignore -->
    ```html
    <!-- Theme -->
-   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css" />
+   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css" />
 
    <!-- Custom theme styles -->
    <style>
