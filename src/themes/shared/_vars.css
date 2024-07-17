@@ -63,11 +63,12 @@
   --content-max-width    : 72ch;
 
   /* Cover */
-  --cover-bg         : ;
-  --cover-bg-overlay : ;
-  --cover-color      : ;
-  --cover-title-color: ;
-  --cover-title-font : 300 var(--font-size-xxxl) var(--font-family);
+  --cover-bg           : unset;
+  --cover-bg-brightness: 1;
+  --cover-bg-overlay   : radial-gradient(transparent 60%, rgba(0, 0, 0, 0.1));
+  --cover-color        : ;
+  --cover-title-color  : ;
+  --cover-title-font   : 300 var(--font-size-xxxl) var(--font-family);
 
   /* Elements */
   --blockquote-bg                 : ;

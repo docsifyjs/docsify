@@ -2,11 +2,10 @@ import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
 import { getPath, isAbsolutePath } from '../router/util.js';
 import { isMobile } from '../util/env.js';
-import { isPrimitive, rgbToHsl } from '../util/core.js';
+import { isPrimitive } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
 import { prerenderEmbed } from './embed.js';
-import { stripIndent } from 'common-tags';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -421,17 +420,8 @@ export function Render(Base) {
 
     _renderCover(text, coverOnly) {
       const el = dom.getNode('.cover');
-      const computedStyle = getComputedStyle(document.documentElement);
-      const coverBg = computedStyle.getPropertyValue('--cover-bg').trim();
-      const coverOverlay = computedStyle
-        .getPropertyValue('--cover-bg-overlay')
-        .trim();
-
-      let mdCoverBg;
-      let mdCoverOverlay;
-      let autoBgLight;
-      let autoBgDark;
-      let cssText;
+      const rootElm = document.documentElement;
+      const coverBg = getComputedStyle(rootElm).getPropertyValue('--cover-bg');
 
       dom.toggleClass(
         dom.getNode('main'),
@@ -448,92 +438,76 @@ export function Render(Base) {
 
       let html = this.coverIsHTML ? text : this.compiler.cover(text);
 
-      const mdCoverBgMatch = html
-        .trim()
-        .match(
-          '<p><img.*?data-origin="(.*?)".*?alt="(.*?)"[^>]*?>([^<]*?)</p>$',
-        );
+      if (!coverBg) {
+        const mdBgMatch = html
+          .trim()
+          .match(
+            '<p><img.*?data-origin="(.*?)".*?alt="(.*?)"[^>]*?>([^<]*?)</p>$',
+          );
 
-      if (mdCoverBgMatch) {
-        const [bgMatch, bgValue, bgType] = mdCoverBgMatch;
+        let mdCoverBg;
 
-        // Color
-        if (bgType === 'color') {
-          mdCoverBg = bgValue;
-        }
-        // Image
-        else {
-          const path = !isAbsolutePath(bgValue)
-            ? getPath(this.router.getBasePath(), bgValue)
-            : bgValue;
+        if (mdBgMatch) {
+          const [bgMatch, bgValue, bgType] = mdBgMatch;
 
-          mdCoverBg = `center center / cover url(${path})`;
-          mdCoverOverlay =
-            'color-mix(in srgb, var(--color-bg), transparent 20%)';
-        }
-
-        html = html.replace(bgMatch, '');
-        cssText = stripIndent`
-          :root {
-            --cover-bg: ${mdCoverBg};
-            --cover-bg-overlay: ${!coverOverlay ? mdCoverOverlay : ''};
+          // Color
+          if (bgType === 'color') {
+            mdCoverBg = bgValue;
           }
-        `;
-      }
+          // Image
+          else {
+            const path = !isAbsolutePath(bgValue)
+              ? getPath(this.router.getBasePath(), bgValue)
+              : bgValue;
 
-      // Gradient background
-      if (!coverBg && !mdCoverBg) {
-        const degrees = Math.round((Math.random() * 120) / 2);
-        const bgRGB = computedStyle.backgroundColor;
-        const bgHSL = rgbToHsl(bgRGB);
-        const isDark = bgHSL[2] < 50;
-
-        let hue1 = Math.round(Math.random() * 360);
-        let hue2 = Math.round(Math.random() * 360);
-
-        // Ensure hue1 and hue2 are at least 50 degrees apart
-        if (Math.abs(hue1 - hue2) < 50) {
-          const hueShift = Math.round(Math.random() * 25) + 25;
-
-          hue1 = Math.max(hue1, hue2) + hueShift;
-          hue2 = Math.min(hue1, hue2) - hueShift;
-        }
-
-        // OKLCH color
-        if (window?.CSS?.supports('color', 'oklch(0 0 0 / 1%)')) {
-          const lLight = 90;
-          const lDark = 60;
-          const c = 20;
-
-          // prettier-ignore
-          autoBgLight = `linear-gradient(${degrees}deg, oklch(${lLight}% ${c}% ${hue1}) 0%, oklch(${lLight}% ${c}% ${hue2}) 100%)`;
-          autoBgDark = `linear-gradient(${degrees}deg, oklch(${lDark}% ${c}% ${hue1}) 0%, oklch(${lDark}% ${c}% ${hue2}) 100%)`;
-        }
-        // HSL color (Legacy)
-        else {
-          const s = 100;
-          const l = 85;
-          const oLight = 100;
-          const oDark = 50;
-
-          // prettier-ignore
-          autoBgLight = `linear-gradient(${degrees}deg, hsl(${hue1} ${s}% ${l}% / ${oLight}%) 0%, hsl(${hue2} ${s}% ${l}% / ${oLight}%) 100%)`;
-          autoBgDark = `linear-gradient(${degrees}deg, hsl(${hue1} ${s}% ${l}% / ${oDark}%) 0%, hsl(${hue2} ${s}% ${l}% / ${oDark}%) 100%)`;
-        }
-
-        cssText = stripIndent`
-          :root {
-            --cover-bg: ${isDark ? autoBgDark : autoBgLight};
+            mdCoverBg = `center center / cover url(${path})`;
           }
-        `;
-      }
 
-      if (cssText) {
-        const targetElm = document.querySelector('head');
-        const styleElm = document.createElement('style');
+          html = html.replace(bgMatch, '');
+        }
+        // Gradient background
+        else {
+          const degrees = Math.round((Math.random() * 120) / 2);
 
-        styleElm.textContent = cssText;
-        targetElm.appendChild(styleElm);
+          let hue1 = Math.round(Math.random() * 360);
+          let hue2 = Math.round(Math.random() * 360);
+
+          // Ensure hue1 and hue2 are at least 50 degrees apart
+          if (Math.abs(hue1 - hue2) < 50) {
+            const hueShift = Math.round(Math.random() * 25) + 25;
+
+            hue1 = Math.max(hue1, hue2) + hueShift;
+            hue2 = Math.min(hue1, hue2) - hueShift;
+          }
+
+          // OKLCH color
+          if (window?.CSS?.supports('color', 'oklch(0 0 0 / 1%)')) {
+            const l = 90; // Lightness
+            const c = 20; // Chroma
+
+            // prettier-ignore
+            mdCoverBg = `linear-gradient(
+              ${degrees}deg,
+              oklch(${l}% ${c}% ${hue1}) 0%,
+              oklch(${l}% ${c}% ${hue2}) 100%
+            )`.replace(/\s+/g, ' ');
+          }
+          // HSL color (Legacy)
+          else {
+            const s = 100; // Saturation
+            const l = 85; // Lightness
+            const o = 100; // Opacity
+
+            // prettier-ignore
+            mdCoverBg = `linear-gradient(
+              ${degrees}deg,
+              hsl(${hue1} ${s}% ${l}% / ${o}%) 0%,
+              hsl(${hue2} ${s}% ${l}% / ${o}%) 100%
+            )`.replace(/\s+/g, ' ');
+          }
+        }
+
+        rootElm.style.setProperty('--cover-bg', mdCoverBg);
       }
 
       this._renderTo('.cover-main', html);

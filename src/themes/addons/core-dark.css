@@ -4,6 +4,9 @@
   --color-bg  : #1f2428;
   --color-text: #ddd;
 
+  /* Cover */
+  --cover-bg-brightness: 0.75;
+
   /* Elements */
   --codeblock-comment    : #516e7a;
   --codeblock-function   : #f07178;
