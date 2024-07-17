@@ -90,10 +90,10 @@ summary {
 a.button,
 button[type],
 input.button,
-input:where([type='button'], [type='reset'], [type='submit']) {
+input:is([type='button'], [type='reset'], [type='submit']) {
   display: inline-block;
   margin-block: 0.35em;
-  border: 1px solid var(--color-mono-2);
+  border: 2px solid var(--color-mono-2);
   box-shadow: 0 0 0 3px transparent;
   background: var(--color-mono-2);
   color: var(--color-text);
@@ -106,27 +106,27 @@ input:where([type='button'], [type='reset'], [type='submit']) {
   }
 
   &:hover {
-    outline: 2px solid var(--theme-color);
+    outline: 3px solid var(--theme-color-3);
+    outline-offset: 1px;
   }
 
   + & {
     margin-left: 0.25em;
   }
 
+  &.primary,
+  &.secondary {
+    border-color: var(--button-bg);
+  }
+
   /* Primary Button */
   &.primary {
-    border-color: var(--button-bg);
     background: var(--button-bg);
     color: var(--button-color);
-
-    &:hover {
-      outline-offset: 2px;
-    }
   }
 
   /* Secondary Button */
   &.secondary {
-    border-color: var(--button-bg);
     background: transparent;
     color: var(--button-bg);
   }
