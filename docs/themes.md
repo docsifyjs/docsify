@@ -187,6 +187,20 @@ Limit multi-line sidebar links to a single line followed by an ellipses.
 <body class="sidebar-link-clamp">
 ```
 
+### Sidebar toggle
+
+Display "kebab" style (three dots) sidebar toggle icon instead of default "hamburger" style (three lines).
+
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-toggle-kebab" data-class>
+  Preview <code>sidebar-toggle-kebab</code>
+</label>
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-toggle-kebab">
+```
+
 ## Customization
 
 Docsify provides [theme properties](#theme-properties) for simplified customization of frequently modified styles.

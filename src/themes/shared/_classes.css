@@ -136,3 +136,16 @@ body.sidebar-link-clamp {
     }
   }
 }
+
+/* Sidebar toggle */
+/* ========================================================================== */
+body.sidebar-toggle-kebab {
+  .sidebar-toggle-button {
+    span {
+      --_size: 5px;
+
+      height: var(--_size);
+      width: var(--_size);
+    }
+  }
+}

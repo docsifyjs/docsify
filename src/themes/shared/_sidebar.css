@@ -266,7 +266,7 @@
     transition: background var(--duration-medium);
 
     &:nth-child(2) {
-      margin-block: 3px;
+      margin-block: 4px;
     }
   }
 
@@ -274,10 +274,7 @@
     &:hover,
     body:where(:has(.sidebar-toggle:hover)) & {
       background: var(--sidebar-toggle-bg-hover);
-
-      span {
-        background: var(--sidebar-toggle-color-hover);
-      }
+      color: var(--sidebar-toggle-color-hover);
     }
   }
 }
