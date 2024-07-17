@@ -189,16 +189,26 @@ Limit multi-line sidebar links to a single line followed by an ellipses.
 
 ### Sidebar toggle
 
-Display "kebab" style (three dots) sidebar toggle icon instead of default "hamburger" style (three lines).
+Display a "hamburger" icon (three lines) in the sidebar toggle button instead of the default "kebab" icon.
 
 <label>
-  <input class="toggle" type="checkbox" value="sidebar-toggle-kebab" data-class>
-  Preview <code>sidebar-toggle-kebab</code>
+  <input class="toggle" type="checkbox" value="sidebar-toggle-chevron" data-class data-group="sidebar-toggle">
+  Preview <code>sidebar-toggle-chevron</code>
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-toggle-hamburger" data-class data-group="sidebar-toggle">
+  Preview <code>sidebar-toggle-hamburger</code>
 </label>
 
 <!-- prettier-ignore -->
 ```html
-<body class="sidebar-toggle-kebab">
+<body class="sidebar-toggle-chevron">
+```
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-toggle-hamburger">
 ```
 
 ## Customization

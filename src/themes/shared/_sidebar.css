@@ -252,21 +252,21 @@
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   background: var(--sidebar-toggle-bg);
   color: var(--sidebar-toggle-color);
-  transition:
-    background var(--duration-medium),
-    translate var(--duration-medium);
+  transition-duration: var(--duration-medium);
+  transition-property: background, translate;
 
   span {
+    --_size: 4px;
+
     display: block;
-    height: 2px;
-    width: 65%;
-    max-width: 16px;
+    height: var(--_size);
+    width: var(--_size);
     border-radius: 100vh;
     background: currentColor;
     transition: background var(--duration-medium);
 
     &:nth-child(2) {
-      margin-block: 4px;
+      margin-block: calc(var(--_size) - 1px);
     }
   }
 

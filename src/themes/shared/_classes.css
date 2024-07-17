@@ -139,13 +139,41 @@ body.sidebar-link-clamp {
 
 /* Sidebar toggle */
 /* ========================================================================== */
-body.sidebar-toggle-kebab {
+body.sidebar-toggle-chevron {
   .sidebar-toggle-button {
     span {
-      --_size: 5px;
+      --_size: 10px;
 
-      height: var(--_size);
-      width: var(--_size);
+      border: solid currentColor;
+      border-radius: 0;
+      background: transparent;
+
+      &:where(:not(:first-child)) {
+        display: none;
+      }
+
+      &:first-child {
+        height: var(--_size);
+        width: var(--_size);
+        border-width: 2px 2px 0 0;
+        rotate: 45deg;
+        translate: -20%;
+
+        body:has(.sidebar.show) & {
+          rotate: -135deg;
+          translate: 20%;
+        }
+      }
+    }
+  }
+}
+
+body.sidebar-toggle-hamburger {
+  .sidebar-toggle-button {
+    span {
+      height: 2px;
+      width: 65%;
+      max-width: 16px;
     }
   }
 }
