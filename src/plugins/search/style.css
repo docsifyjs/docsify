@@ -42,6 +42,8 @@
 .search .clear-button,
 .search .kbd-group {
   visibility: hidden;
+  display: flex;
+  gap: 0.15em;
   position: absolute;
   right: 7px;
   top: 50%;
