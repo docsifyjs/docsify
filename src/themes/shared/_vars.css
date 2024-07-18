@@ -157,7 +157,7 @@
   --sidebar-group-title-spacing     : ;
   --sidebar-link-color              : var(--color-text);
   --sidebar-link-color-active       : var(--theme-color);
-  --sidebar-link-spacing            : 1em;
+  --sidebar-link-spacing            : 0.75em;
   --sidebar-name-color              : var(--strong-color);
   --sidebar-name-font-family        : var(--font-family);
   --sidebar-name-font-size          : var(--font-size-xl);
