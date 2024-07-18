@@ -205,14 +205,14 @@ export class Compiler {
     /**
      * Render anchor tag
      * @link https://github.com/markedjs/marked#overriding-renderer-methods
-     * @param {String} text Text content
-     * @param {Number} level Type of heading (h<level> tag)
+     * @param {String} tokens the content tokens
+     * @param {Number} depth Type of heading (h<level> tag)
      * @returns {String} Heading element
      */
-    origin.heading = renderer.heading = function ({ tokens, depth: level }) {
+    origin.heading = renderer.heading = function ({ tokens, depth }) {
       const text = this.parser.parseInline(tokens);
       let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { level, title: str };
+      const nextToc = { depth, title: str };
 
       const { content, ignoreAllSubs, ignoreSubHeading } =
         getAndRemoveDocisfyIgnoreConfig(str);
@@ -230,7 +230,7 @@ export class Compiler {
       // elements after navigation. This is preferred over focusing on the link
       // within the heading because it matches the focus behavior of screen
       // readers when navigating page content.
-      return `<h${level} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
+      return `<h${depth} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${depth}>`;
     };
 
     origin.code = highlightCodeCompiler({ renderer });
