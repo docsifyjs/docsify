@@ -209,7 +209,8 @@ export class Compiler {
      * @param {Number} level Type of heading (h<level> tag)
      * @returns {String} Heading element
      */
-    origin.heading = renderer.heading = function (text, level) {
+    origin.heading = renderer.heading = function ({ tokens, depth: level }) {
+      const text = this.parser.parseInline(tokens);
       let { str, config } = getAndRemoveConfig(text);
       const nextToc = { level, title: str };
 
