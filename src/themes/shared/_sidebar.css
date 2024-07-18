@@ -239,6 +239,11 @@
   body.sticky & {
     position: fixed;
   }
+
+  /* Increase tap target size on touch-only devices */
+  @media screen and not (any-hover) {
+    width: calc(var(--content-margin-inline) - 10px);
+  }
 }
 
 .sidebar-toggle-button {
