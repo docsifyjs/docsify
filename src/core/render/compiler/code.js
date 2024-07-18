@@ -3,13 +3,13 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-markup-templating.js';
 
 export const highlightCodeCompiler = ({ renderer }) =>
-  (renderer.code = function ({ text: code, lang = 'markup' }) {
+  (renderer.code = function ({ text, lang = 'markup' }) {
     const langOrMarkup = Prism.languages[lang] || Prism.languages.markup;
-    const text = Prism.highlight(
-      code.replace(/@DOCSIFY_QM@/g, '`'),
+    const code = Prism.highlight(
+      text.replace(/@DOCSIFY_QM@/g, '`'),
       langOrMarkup,
       lang,
     );
 
-    return /* html */ `<pre data-lang="${lang}"><code class="lang-${lang}" tabindex="0">${text}</code></pre>`;
+    return /* html */ `<pre data-lang="${lang}"><code class="lang-${lang}" tabindex="0">${code}</code></pre>`;
   });
