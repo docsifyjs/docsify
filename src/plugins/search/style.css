@@ -126,17 +126,15 @@
   overflow: hidden;
   padding: 1em 0 1.2em 0;
   border-bottom: 1px solid var(--color-mono-2);
+}
 
-  &:hover {
-    a {
-      text-decoration-color: transparent;
-    }
+.search .matching-post:hover a {
+  text-decoration-color: transparent;
+}
 
-    .title {
-      text-decoration: inherit;
-      text-decoration-color: var(--link-underline-color-hover);
-    }
-  }
+.search .matching-post:hover .title {
+  text-decoration: inherit;
+  text-decoration-color: var(--link-underline-color-hover);
 }
 
 .search .matching-post .title {
