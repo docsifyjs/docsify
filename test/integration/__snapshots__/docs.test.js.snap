@@ -16,7 +16,7 @@ exports[`Docs Site coverpage renders and is unchanged 1`] = `
     </section>"
 `;
 
-exports[`Docs Site navbar renders and is unchanged 1`] = `"<nav aria-label="secondary" class="app-nav no-badge"><ul><li>Translations<ul><li><a href="#/"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f1ec-1f1e7.png?v8.png" alt="uk" class="emoji" loading="lazy"> English</a></li><li><a href="#/zh-cn/"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f1e8-1f1f3.png?v8.png" alt="cn" class="emoji" loading="lazy"> 简体中文</a></li><li><a href="#/de-de/"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f1e9-1f1ea.png?v8.png" alt="de" class="emoji" loading="lazy"> Deutsch</a></li><li><a href="#/es/"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f1ea-1f1f8.png?v8.png" alt="es" class="emoji" loading="lazy"> Español</a></li><li><a href="#/ru-ru/"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f7-1f1fa.png?v8.png" alt="ru" class="emoji" loading="lazy"> Русский</a></li></ul></li></ul></nav>"`;
+exports[`Docs Site navbar renders and is unchanged 1`] = `"<nav aria-label="secondary" class="app-nav no-badge"><ul><li>Translations<ul><li><a href="#/">English</a></li><li><a href="#/zh-cn/">简体中文</a></li><li><a href="#/de-de/">Deutsch</a></li><li><a href="#/es/">Español</a></li><li><a href="#/ru-ru/">Русский</a></li></ul></li></ul></nav>"`;
 
 exports[`Docs Site sidebar renders and is unchanged 1`] = `
 "<aside id="__sidebar" class="sidebar" role="none">
