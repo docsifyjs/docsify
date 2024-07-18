@@ -222,7 +222,7 @@ export function Events(Base) {
 
       // Auto-toggle on resolution change
       window
-        .matchMedia(`(max-width: ${mobileBreakpoint})`)
+        ?.matchMedia?.(`(max-width: ${mobileBreakpoint})`)
         .addEventListener('change', evt => {
           this.#toggleSidebar(!evt.matches);
         });

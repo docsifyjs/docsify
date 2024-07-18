@@ -5,5 +5,5 @@ export const mobileBreakpoint = computedStyle.getPropertyValue(
 );
 
 export function isMobile() {
-  return window.matchMedia(`(max-width: ${mobileBreakpoint})`).matches;
+  return window?.matchMedia?.(`(max-width: ${mobileBreakpoint})`)?.matches;
 }
