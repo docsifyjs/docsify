@@ -59,7 +59,7 @@
   --scroll-padding-top: var(--margin-block);
 
   /* Content */
-  --content-margin-inline: 40px; /* Single value */
+  --content-margin-inline: 45px; /* Single value */
   --content-max-width    : 72ch;
 
   /* Cover */
@@ -175,7 +175,7 @@
   --sidebar-toggle-color-hover      : var(--button-color);
   --sidebar-toggle-height           : 80px;
   --sidebar-toggle-margin-block     : 20px;
-  --sidebar-toggle-width            : 26px;
+  --sidebar-toggle-width            : 22px;
   --sidebar-width                   : 280px;
 }
 
