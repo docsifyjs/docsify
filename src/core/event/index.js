@@ -283,11 +283,12 @@ export function Events(Base) {
       }
 
       skipElm.addEventListener('click', evt => {
+        const focusElm = this.#focusContent();
+
         evt.preventDefault();
-        dom.find('main')?.scrollIntoView({
+        focusElm?.scrollIntoView({
           behavior: 'smooth',
         });
-        this.#focusContent();
       });
     }
 
@@ -369,6 +370,7 @@ export function Events(Base) {
      *
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
      * @param {Object} options HTMLElement focus() method options
+     * @returns HTMLElement|undefined
      * @void
      */
     #focusContent(options = {}) {
@@ -387,6 +389,8 @@ export function Events(Base) {
 
       // Move focus to content area
       focusEl?.focus(settings);
+
+      return focusEl;
     }
 
     /**
@@ -532,8 +536,6 @@ export function Events(Base) {
           restoreElm.focus({
             preventScroll: true,
           });
-        } else {
-          this.#focusContent();
         }
       }
     }
