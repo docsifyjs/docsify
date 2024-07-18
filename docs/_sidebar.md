@@ -6,7 +6,6 @@
   - [Adding pages](adding-pages.md)
   - [Cover page](cover.md)
   - [Custom navbar](custom-navbar.md)
-  - [UI Kit](ui-kit.md)
 
 - Customization
 
@@ -26,6 +25,7 @@
   - [CDN](cdn.md)
   - [Offline Mode (PWA)](pwa.md)
   - [Embed Files](embed-files.md)
+  - [UI Kit](ui-kit.md)
 
 - [Awesome docsify](awesome.md)
 - [Changelog](changelog.md)
