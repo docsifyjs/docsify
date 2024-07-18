@@ -77,7 +77,7 @@
 
     li {
       display: block;
-      margin-block: 0.4em;
+      margin-block: var(--navbar-drop-link-spacing);
 
       &:first-child {
         margin-top: 0;

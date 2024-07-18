@@ -142,6 +142,7 @@
   --navbar-height           : 4em;
   --navbar-link-color       : ;
   --navbar-link-color-active: var(--theme-color);
+  --navbar-drop-link-spacing: 0.5em;
 
   /* Sidebar */
   --sidebar-bg                      : var(--color-bg);
