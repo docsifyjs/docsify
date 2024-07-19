@@ -301,7 +301,6 @@ export function Render(Base) {
 
       sidebarToggleEl.setAttribute('aria-expanded', !isMobile());
 
-
       const activeElmHref = this.router.toURL(this.route.path);
       const activeEl = dom.find(`.sidebar-nav a[href="${activeElmHref}"]`);
 
