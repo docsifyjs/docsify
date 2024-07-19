@@ -25,7 +25,7 @@ const docsifyURL = '/dist/docsify.js'; // Playwright
  * @param {String} [options.script] JS to inject via <script> tag
  * @param {String|String[]} [options.scriptURLs] External JS to inject via <script src="..."> tag(s)
  * @param {String} [options.style] CSS to inject via <style> tag
- * @param {String|String[]} [options.styleURLs=['/dist/themes/vue.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
+ * @param {String|String[]} [options.styleURLs=['/dist/themes/core.css']] External CSS to inject via <link rel="stylesheet"> tag(s)
  * @param {String} [options.testURL] URL to set as window.location.href
  * @param {String} [options.waitForSelector='#main'] Element to wait for before returning promise
  * @param {Boolean|Object|String} [options._logHTML] Logs HTML to console after initialization. Accepts CSS selector.
