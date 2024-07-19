@@ -1,3 +1,5 @@
+import { isMobile } from '../util/env.js';
+
 /**
  * Render github corner
  * @param  {Object} data URL for the View Source on Github link
@@ -34,15 +36,18 @@ export function corner(data, cornerExternalLinkTarget) {
  * @returns {String} HTML of the main content
  */
 export function main(config) {
-  const name = config.name ? config.name : '';
+  const { hideSidebar, name } = config;
+  // const name = config.name ? config.name : '';
 
-  const aside = /* html */ `
-    <button class="sidebar-toggle" title="Press \\ to toggle" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
-      <div class="sidebar-toggle-button" aria-hidden="true">
+  const aside = /* html */ hideSidebar
+    ? ''
+    : `
+    <button class="sidebar-toggle" tabindex="-1" title="Press \\ to toggle">
+      <div class="sidebar-toggle-button" tabindex="0" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside id="__sidebar" class="sidebar" role="none">
+    <aside id="__sidebar" class="sidebar${!isMobile() ? ' show' : ''}" tabindex="-1" role="none">
       ${
         config.name
           ? /* html */ `
@@ -57,7 +62,8 @@ export function main(config) {
   `;
 
   return /* html */ `
-    <main role="presentation">${aside}
+    <main role="presentation">
+      ${aside}
       <section class="content">
         <article id="main" class="markdown-section" role="main" tabindex="-1"><!--main--></article>
       </section>
@@ -70,17 +76,8 @@ export function main(config) {
  * @returns {String} Cover page
  */
 export function cover() {
-  const SL = ', 100%, 85%';
-  const bgc = `
-    linear-gradient(
-      to left bottom,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 0%,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 100%
-    )
-  `;
-
   return /* html */ `
-    <section class="cover show" role="complementary" aria-label="cover" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>

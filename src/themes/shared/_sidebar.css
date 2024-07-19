@@ -1,0 +1,285 @@
+/* Sidebar */
+/* ========================================================================== */
+:root {
+  --_sidebar-inset: 20px;
+  --_sidebar-list-inset: 0.85em;
+  --_sidebar-scrollbar-width: 10px; /* macOS overlay scrollbar default */
+
+  @supports (scrollbar-width: auto) {
+    --_sidebar-scrollbar-width: 4px;
+  }
+}
+
+.app-nav-merged,
+.sidebar-nav {
+  > * {
+    margin-inline: var(--_sidebar-inset);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  > hr {
+    margin-inline: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  > ul {
+    > * {
+      margin-left: var(--_sidebar-inset);
+    }
+
+    ul {
+      padding-left: var(--_sidebar-list-inset);
+    }
+
+    > li {
+      &.group {
+        padding-top: var(--sidebar-group-spacing);
+        border-top: var(--sidebar-group-border);
+
+        &:has(+ :not(.group)),
+        &:last-child {
+          border-bottom: var(--sidebar-group-border);
+        }
+      }
+    }
+  }
+
+  li {
+    margin-block: var(--sidebar-link-spacing);
+
+    > p {
+      margin: 0;
+
+      /* Text-only <p> tags */
+      &.group-title {
+        margin-right: var(--_sidebar-inset);
+        margin-bottom: var(--sidebar-group-title-spacing);
+        padding-bottom: var(--sidebar-group-title-spacing);
+        border-bottom: var(--sidebar-group-title-border);
+        color: var(--sidebar-group-title-color);
+        font-size: var(--sidebar-group-title-font-size);
+        font-weight: var(--sidebar-group-title-font-weight);
+      }
+    }
+
+    a {
+      display: block;
+      padding-right: var(--_sidebar-inset);
+      overflow: hidden;
+
+      &:has(img, svg) {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+      }
+    }
+
+    &.active {
+      > a {
+        color: var(--sidebar-link-color-active);
+      }
+    }
+
+    &.collapse {
+      > :not(a) {
+        display: none;
+      }
+    }
+  }
+}
+
+.sidebar {
+  visibility: hidden;
+  position: absolute;
+  z-index: var(--z-sidebar);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  translate: calc(0px - var(--sidebar-width));
+  width: var(--sidebar-width);
+  overscroll-behavior: contain;
+  border-right: 1px solid var(--sidebar-border-color);
+  background: var(--sidebar-bg);
+  color: var(--sidebar-color);
+  font-size: var(--sidebar-font-size);
+  transition:
+    translate var(--duration-medium) ease,
+    visibility var(--duration-medium);
+
+  /* Non-webkit browsers: style scrollbar for consistency */
+  @supports (scrollbar-width: auto) {
+    &::-webkit-scrollbar {
+      width: var(--_sidebar-scrollbar-width);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: var(--_sidebar-scrollbar-width);
+      background: transparent;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background: rgba(136, 136, 136, 0.4);
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(136, 136, 136, 0.1);
+      }
+    }
+  }
+
+  a[href] {
+    text-decoration-color: transparent;
+    color: var(--sidebar-link-color);
+
+    &:hover {
+      translate: 0; /* HACK: Force Safari to render text-decoration */
+      text-decoration-color: var(--sidebar-link-color-active);
+    }
+  }
+
+  .app-name {
+    margin: var(--sidebar-name-margin);
+    color: var(--sidebar-name-color);
+    font-family: var(--sidebar-name-font-family);
+    font-size: var(--sidebar-name-font-size);
+    font-weight: var(--sidebar-name-font-weight);
+    text-align: center;
+  }
+
+  a.app-name-link {
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    &:hover {
+      color: var(--sidebar-link-color-active);
+      text-decoration-color: transparent;
+    }
+  }
+
+  body:has(.sidebar.show) & {
+    visibility: visible;
+    translate: 0;
+  }
+
+  body.sticky & {
+    position: fixed;
+    overflow-y: auto;
+  }
+}
+
+.sidebar-nav {
+  li {
+    a.page-link {
+      border-radius: var(--border-radius);
+      background: var(--sidebar-pagelink-bg);
+
+      .active > &,
+      :has(.active) > & {
+        background: var(--sidebar-pagelink-bg-expanded);
+
+        &:only-child {
+          background: var(--sidebar-pagelink-bg-empty);
+        }
+      }
+
+      .collapse > & {
+        background: var(--sidebar-pagelink-bg-collapsed);
+      }
+    }
+  }
+}
+
+.sidebar-toggle {
+  display: flex;
+  align-items: var(--sidebar-toggle-alignment);
+  justify-content: start;
+  position: absolute;
+  z-index: var(--z-sidebar-toggle);
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-toggle-width);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background var(--duration-medium),
+    translate var(--duration-medium) ease;
+
+  @media screen and (any-hover) {
+    &:hover {
+      background: color-mix(
+        in srgb,
+        var(--sidebar-toggle-bg-hover) 10%,
+        transparent
+      );
+    }
+  }
+
+  body:where(:has(.sidebar.show)) & {
+    translate: var(--sidebar-width);
+    transition:
+      background 0s,
+      translate var(--duration-medium) ease;
+  }
+
+  body.sticky & {
+    position: fixed;
+  }
+
+  /* Increase tap target size on touch-only devices */
+  @media screen and not (any-hover) {
+    width: calc(var(--content-margin-inline) - 10px);
+  }
+}
+
+.sidebar-toggle-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: var(--sidebar-toggle-height);
+  width: var(--sidebar-toggle-width);
+  margin-block: var(--sidebar-toggle-margin-block);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: var(--sidebar-toggle-bg);
+  color: var(--sidebar-toggle-color);
+  transition-duration: var(--duration-medium);
+  transition-property: background, translate;
+
+  span {
+    --_size: 4px;
+
+    display: block;
+    height: var(--_size);
+    width: var(--_size);
+    border-radius: 100vh;
+    background: currentColor;
+    transition: background var(--duration-medium);
+
+    &:nth-child(2) {
+      margin-block: calc(var(--_size) - 1px);
+    }
+  }
+
+  @media screen and (any-hover) {
+    &:hover,
+    body:where(:has(.sidebar-toggle:hover)) & {
+      background: var(--sidebar-toggle-bg-hover);
+      color: var(--sidebar-toggle-color-hover);
+    }
+  }
+}
