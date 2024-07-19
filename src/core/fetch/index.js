@@ -67,17 +67,18 @@ export function Fetch(Base) {
 
     _loadSideAndNav(path, qs, loadSidebar, cb) {
       return () => {
-        if (!loadSidebar) {
-          return cb();
-        }
-
-        const fn = result => {
+        const renderSidebar = result => {
           this._renderSidebar(result);
           cb();
         };
 
-        // Load sidebar
-        this.#loadNested(path, qs, loadSidebar, fn, this, true);
+        if (!loadSidebar) {
+          // Although, we don't load sidebar from sidebar file, we still need call the render to auto generate sidebar from headings toc
+          renderSidebar();
+        }
+
+        // Load sidebar from the sidebar file
+        this.#loadNested(path, qs, loadSidebar, renderSidebar, this, true);
       };
     }
 

@@ -251,8 +251,8 @@ export class Compiler {
   }
 
   /**
-   * Compile sidebar
-   * @param {String} text Text content
+   * Compile sidebar, it uses  _sidebar.md ( or specific file) or the content's headings toc to render sidebar.
+   * @param {String} text Text content from the sidebar file, maybe empty
    * @param {Number} level Type of heading (h<level> tag)
    * @returns {String} Sidebar element
    */
@@ -290,16 +290,18 @@ export class Compiler {
   }
 
   /**
+   * When current content redirect to a new path file, clean pre content headings toc
+   */
+  resetToc() {
+    this.toc = [];
+  }
+
+  /**
    * Compile sub sidebar
    * @param {Number} level Type of heading (h<level> tag)
    * @returns {String} Sub-sidebar element
    */
   subSidebar(level) {
-    if (!level) {
-      this.toc = [];
-      return;
-    }
-
     const currentPath = this.router.getCurrentPath();
     const { cacheTree, toc } = this;
 

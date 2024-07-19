@@ -104,10 +104,13 @@ export function tree(
   let innerHTML = '';
   toc.forEach(node => {
     const title = node.title.replace(/(<([^>]+)>)/g, '');
-    innerHTML += /* html */ `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a></li>`;
+    let current = `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a></li>`;
     if (node.children) {
-      innerHTML += tree(node.children, tpl);
+      // when current node has children, we need put them all in parent's <li> block
+      const children = tree(node.children, tpl);
+      current = `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a>${children}</li>`;
     }
+    innerHTML += current;
   });
   return tpl.replace('{inner}', innerHTML);
 }

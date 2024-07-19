@@ -298,6 +298,7 @@ export function Render(Base) {
       }
 
       this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
+
       sidebarToggleEl.setAttribute('aria-expanded', !isMobile);
 
       const activeElmHref = this.router.toURL(this.route.path);
@@ -309,8 +310,7 @@ export function Render(Base) {
         activeEl.parentNode.innerHTML +=
           this.compiler.subSidebar(subMaxLevel) || '';
       } else {
-        // Reset toc
-        this.compiler.subSidebar();
+        this.compiler.resetToc();
       }
 
       // Bind event
