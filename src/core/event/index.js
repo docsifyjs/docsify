@@ -1,4 +1,4 @@
-import { isMobile } from '../util/env.js';
+import { isMobile, mobileBreakpoint } from '../util/env.js';
 import * as dom from '../util/dom.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
@@ -25,16 +25,19 @@ export function Events(Base) {
 
       // Apply topMargin to scrolled content
       if (topMargin) {
+        const value =
+          typeof topMargin === 'number' ? `${topMargin}px` : topMargin;
+
         document.documentElement.style.setProperty(
-          'scroll-padding-top',
-          `${topMargin}px`,
+          '--scroll-padding-top',
+          value,
         );
       }
 
       this.#initCover();
-      this.#initSkipToContent('#skip-to-content');
-      this.#initSidebarCollapse('.sidebar');
-      this.#initSidebarToggle('button.sidebar-toggle');
+      this.#initSkipToContent();
+      this.#initSidebar();
+      this.#initSidebarToggle();
       this.#initKeyBindings();
     }
 
@@ -206,26 +209,32 @@ export function Events(Base) {
     }
 
     /**
-     * Initialize sidebar content expand/collapse toggle behavior
+     * Initialize sidebar event listeners
      *
-     * @param {Element|string} elm Sidebar Element or CSS selector
      * @void
      */
-    #initSidebarCollapse(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebar() {
+      const sidebarElm = document.querySelector('.sidebar');
 
-      if (!elm) {
+      if (!sidebarElm) {
         return;
       }
 
-      dom.on(elm, 'click', ({ target }) => {
-        if (
-          target.nodeName === 'A' &&
-          target.nextSibling &&
-          target.nextSibling.classList &&
-          target.nextSibling.classList.contains('app-sub-sidebar')
-        ) {
-          dom.toggleClass(target.parentNode, 'collapse');
+      // Auto-toggle on resolution change
+      window
+        ?.matchMedia?.(`(max-width: ${mobileBreakpoint})`)
+        .addEventListener('change', evt => {
+          this.#toggleSidebar(!evt.matches);
+        });
+
+      // Collapse toggle
+      dom.on(sidebarElm, 'click', ({ target }) => {
+        const linkElm = target.closest('a');
+        const linkParent = linkElm?.closest('li');
+        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+
+        if (subSidebar) {
+          dom.toggleClass(linkParent, 'collapse');
         }
       });
     }
@@ -233,58 +242,53 @@ export function Events(Base) {
     /**
      * Initialize sidebar show/hide toggle behavior
      *
-     * @param {Element|string} elm Toggle Element or CSS selector
      * @void
      */
-    #initSidebarToggle(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebarToggle() {
+      const contentElm = dom.find('main > .content');
+      const toggleElm = dom.find('button.sidebar-toggle');
 
-      if (!elm) {
+      if (!toggleElm) {
         return;
       }
 
-      const toggle = () => {
-        dom.body.classList.toggle('close');
+      let lastContentFocusElm;
 
-        const isClosed = isMobile
-          ? dom.body.classList.contains('close')
-          : !dom.body.classList.contains('close');
+      // Store last focused content element (restored via #toggleSidebar)
+      dom.on(contentElm, 'focusin', e => {
+        const focusAttr = 'data-restore-focus';
 
-        elm.setAttribute('aria-expanded', isClosed);
-      };
-
-      dom.on(elm, 'click', e => {
-        e.stopPropagation();
-        toggle();
+        lastContentFocusElm?.removeAttribute(focusAttr);
+        lastContentFocusElm = e.target;
+        lastContentFocusElm.setAttribute(focusAttr, '');
       });
 
-      isMobile &&
-        dom.on(
-          dom.body,
-          'click',
-          () => dom.body.classList.contains('close') && toggle(),
-        );
+      // Toggle sidebar
+      dom.on(toggleElm, 'click', e => {
+        e.stopPropagation();
+        this.#toggleSidebar();
+      });
     }
 
     /**
      * Initialize skip to content behavior
      *
-     * @param {Element|string} elm Skip link Element or CSS selector
      * @void
      */
-    #initSkipToContent(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSkipToContent() {
+      const skipElm = document.querySelector('#skip-to-content');
 
-      if (!elm) {
+      if (!skipElm) {
         return;
       }
 
-      elm.addEventListener('click', evt => {
+      skipElm.addEventListener('click', evt => {
+        const focusElm = this.#focusContent();
+
         evt.preventDefault();
-        dom.find('main')?.scrollIntoView({
+        focusElm?.scrollIntoView({
           behavior: 'smooth',
         });
-        this.#focusContent();
       });
     }
 
@@ -318,7 +322,7 @@ export function Events(Base) {
      */
     onNavigate(source) {
       const { auto2top, topMargin } = this.config;
-      const { query } = this.route;
+      const { path, query } = this.route;
 
       this.#markSidebarActiveElm();
 
@@ -347,7 +351,12 @@ export function Events(Base) {
         }
       }
 
-      // Move focus to content
+      // Clicked anchor link
+      if (path === '/' || (query.id && source === 'navigate')) {
+        isMobile() && this.#toggleSidebar(false);
+      }
+
+      // Clicked anchor link or page load with anchor ID
       if (query.id || source === 'navigate') {
         this.#focusContent();
       }
@@ -361,6 +370,7 @@ export function Events(Base) {
      *
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
      * @param {Object} options HTMLElement focus() method options
+     * @returns HTMLElement|undefined
      * @void
      */
     #focusContent(options = {}) {
@@ -379,6 +389,8 @@ export function Events(Base) {
 
       // Move focus to content area
       focusEl?.focus(settings);
+
+      return focusEl;
     }
 
     /**
@@ -386,32 +398,34 @@ export function Events(Base) {
      *
      * @param {string} [href] Matching element HREF value. If unspecified,
      * defaults to the current path (without query params)
-     * @returns Element|undefined
+     * @void
      */
     #markAppNavActiveElm() {
       const href = decodeURIComponent(this.router.toURL(this.route.path));
-      const navElm = dom.find('nav.app-nav');
 
-      if (!navElm) {
-        return;
-      }
+      ['.app-nav', '.app-nav-merged'].forEach(selector => {
+        const navElm = dom.find(selector);
 
-      const newActive = dom
-        .findAll(navElm, 'a')
-        .sort((a, b) => b.href.length - a.href.length)
-        .find(
-          a =>
-            href.includes(a.getAttribute('href')) ||
-            href.includes(decodeURI(a.getAttribute('href'))),
-        );
-      const oldActive = dom.find(navElm, 'li.active');
+        if (!navElm) {
+          return;
+        }
 
-      if (newActive && newActive !== oldActive) {
-        oldActive?.classList.remove('active');
-        newActive.classList.add('active');
-      }
+        const newActive = dom
+          .findAll(navElm, 'a')
+          .sort((a, b) => b.href.length - a.href.length)
+          .find(
+            a =>
+              href.includes(a.getAttribute('href')) ||
+              href.includes(decodeURI(a.getAttribute('href'))),
+          )
+          ?.closest('li');
+        const oldActive = dom.find(navElm, 'li.active');
 
-      return newActive;
+        if (newActive && newActive !== oldActive) {
+          oldActive?.classList.remove('active');
+          newActive.classList.add('active');
+        }
+      });
     }
 
     /**
@@ -477,6 +491,53 @@ export function Events(Base) {
       }
 
       return newPage;
+    }
+
+    #toggleSidebar(force) {
+      const sidebarElm = dom.find('.sidebar');
+
+      if (!sidebarElm) {
+        return;
+      }
+
+      const ariaElms = dom.findAll('[aria-controls="__sidebar"]');
+      const inertElms = dom.findAll(
+        'body > *:not(main, script), main > .content',
+      );
+      const isShow = sidebarElm.classList.toggle('show', force);
+
+      // Set aria-expanded attribute
+      ariaElms.forEach(toggleElm => {
+        toggleElm.setAttribute(
+          'aria-expanded',
+          force ?? sidebarElm.classList.contains('show'),
+        );
+      });
+
+      // Add inert attributes (focus trap)
+      if (isShow && isMobile()) {
+        inertElms.forEach(elm => elm.setAttribute('inert', ''));
+      }
+      // Remove inert attributes
+      else {
+        inertElms.forEach(elm => elm.removeAttribute('inert'));
+      }
+
+      if (isShow) {
+        sidebarElm.focus();
+      }
+      // Restore focus
+      else {
+        const restoreElm = document.querySelector(
+          'main > .content [data-restore-focus]',
+        );
+
+        if (restoreElm) {
+          restoreElm.focus({
+            preventScroll: true,
+          });
+        }
+      }
     }
 
     /**

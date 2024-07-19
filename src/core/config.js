@@ -53,7 +53,7 @@ export default function (vm) {
           // eslint-disable-next-line no-console
           console.warn(
             stripIndent(`
-              $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
+              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
               <style>
                 :root {
                   --theme-color: deeppink;
@@ -78,11 +78,10 @@ export default function (vm) {
         toggleSidebar: {
           bindings: ['\\'],
           callback(e) {
-            const toggleElm = document.querySelector('.sidebar-toggle');
+            const toggleElm = document.querySelector('.sidebar-toggle-button');
 
             if (toggleElm) {
               toggleElm.click();
-              toggleElm.focus();
             }
           },
         },

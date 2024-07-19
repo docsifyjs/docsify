@@ -376,7 +376,7 @@ window.$docsify = {
 
 Website logo as it appears in the sidebar. You can resize it using CSS.
 
-!> Logo will only bee visible if `name` prop is also set. See [name](#name) configuration.
+!> Logo will only be visible if `name` prop is also set. See [name](#name) configuration.
 
 ```js
 window.$docsify = {
@@ -917,17 +917,9 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor (_deprecated_)
+## themeColor ⚠️
 
-> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
->
-> ```html
-> <style>
->   :root {
->     --theme-color: deeppink;
->   }
-> </style>
-> ```
+!> Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
 - Type: `String`
 
@@ -939,16 +931,18 @@ window.$docsify = {
 };
 ```
 
-## topMargin
+## topMargin ⚠️
 
-- Type: `Number`
+!> Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
+
+- Type: `Number|String`
 - Default: `0`
 
-Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+Adds scroll padding to the top of the viewport. This is useful when you have added a sticky or "fixed" element and would like auto scrolling to align with the bottom of your element.
 
 ```js
 window.$docsify = {
-  topMargin: 90, // default: 0
+  topMargin: 90, // 90, '90px', '2rem', etc.
 };
 ```
 

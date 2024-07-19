@@ -25,7 +25,7 @@ test.describe('Search Plugin Tests', () => {
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -68,7 +68,7 @@ test.describe('Search Plugin Tests', () => {
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -103,7 +103,7 @@ test.describe('Search Plugin Tests', () => {
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
     const resultElm = page.locator('.matching-post');
 
     await docsifyInit(docsifyInitConfig);
@@ -129,7 +129,7 @@ test.describe('Search Plugin Tests', () => {
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -163,7 +163,7 @@ test.describe('Search Plugin Tests', () => {
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -190,7 +190,7 @@ test.describe('Search Plugin Tests', () => {
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
