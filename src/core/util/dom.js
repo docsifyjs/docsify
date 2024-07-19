@@ -1,5 +1,4 @@
 import { isFn } from '../util/core.js';
-import { inBrowser } from './env.js';
 
 const cacheNode = {};
 
@@ -21,11 +20,11 @@ export function getNode(el, noCache = false) {
   return el;
 }
 
-export const $ = inBrowser && document;
+export const $ = document;
 
-export const body = inBrowser && $.body;
+export const body = $.body;
 
-export const head = inBrowser && $.head;
+export const head = $.head;
 
 /**
  * Find elements

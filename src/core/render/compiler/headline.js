@@ -1,7 +1,7 @@
 import {
   getAndRemoveConfig,
   removeAtag,
-  getAndRemoveDocisfyIgnoreConfig,
+  getAndRemoveDocsifyIgnoreConfig,
 } from '../utils.js';
 import { slugify } from './slugify.js';
 
@@ -11,7 +11,7 @@ export const headingCompiler = ({ renderer, router, _self }) =>
     const nextToc = { level, title: str };
 
     const { content, ignoreAllSubs, ignoreSubHeading } =
-      getAndRemoveDocisfyIgnoreConfig(str);
+      getAndRemoveDocsifyIgnoreConfig(str);
     str = content.trim();
 
     nextToc.title = removeAtag(str);

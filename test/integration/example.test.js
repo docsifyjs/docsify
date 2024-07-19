@@ -66,7 +66,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
           background: red !important;
         }
       `,
-      styleURLs: ['/dist/themes/vue.css'],
+      styleURLs: ['/dist/themes/core.css'],
     };
 
     await docsifyInit({

@@ -1,26 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Docs Site coverpage renders and is unchanged 1`] = `
-"<section class="cover show" role="complementary" aria-label="cover" style="background: 
-    linear-gradient(
-      to left bottom,
-      hsl(127, 100%, 85%) 0%,
-      hsl(127, 100%, 85%) 100%
-    )
-  ">
+"<section class="cover show" role="complementary" aria-label="cover">
       <div class="mask"></div>
-      <div class="cover-main"><p><img src="http://127.0.0.1:4000/_media/icon.svg" data-origin="_media/icon.svg" alt="logo"></p><h1 id="docsify-4130" tabindex="-1"><a href="#/?id=docsify-4130" data-id="docsify-4130" class="anchor"><span>docsify <small>4.13.0</small></span></a></h1><blockquote>
-<p>A magical documentation site generator.</p></blockquote>
-<ul><li>Simple and lightweight</li><li>No statically built html files</li><li>Multiple themes</li></ul><p><a href="https://github.com/docsifyjs/docsify/" target="_blank" rel="noopener">GitHub</a>
-<a href="#/?id=docsify">Getting Started</a></p></div>
+      <div class="cover-main"><!-- markdownlint-disable first-line-h1 -->
+
+<p><img src="http://127.0.0.1:4000/_media/icon.svg" data-origin="_media/icon.svg" alt="logo"></p><h1 id="docsify-4130" tabindex="-1"><a href="#/?id=docsify-4130" data-id="docsify-4130" class="anchor"><span>docsify <small>4.13.0</small></span></a></h1><blockquote>
+<p>A magical documentation site generator</p></blockquote>
+<ul><li>Simple and lightweight</li><li>No statically built HTML files</li><li>Multiple themes</li></ul><p><a href="#/?id=docsify" class="button primary">Get Started</a>
+<a href="https://github.com/docsifyjs/docsify/" target="_blank" rel="noopener" class="button secondary">GitHub</a></p><!-- ![color](#f0f0f0) -->
+<!-- ![](/_media/icon.svg) -->
+</div>
     </section>"
 `;
 
-exports[`Docs Site navbar renders and is unchanged 1`] = `"<nav aria-label="secondary" class="app-nav no-badge"><ul><li>Translations<ul><li><a href="#/">English</a></li><li><a href="#/zh-cn/">简体中文</a></li><li><a href="#/de-de/">Deutsch</a></li><li><a href="#/es/">Español</a></li><li><a href="#/ru-ru/">Русский</a></li></ul></li></ul></nav>"`;
+exports[`Docs Site navbar renders and is unchanged 1`] = `
+"<nav class="app-nav" aria-label="secondary"><!-- markdownlint-disable first-line-h1 -->
+
+<ul><li>Translations<ul><li><a href="#/">English</a></li><li><a href="#/zh-cn/">简体中文</a></li><li><a href="#/de-de/">Deutsch</a></li><li><a href="#/es/">Español</a></li><li><a href="#/ru-ru/">Русский</a></li></ul></li></ul></nav>"
+`;
 
 exports[`Docs Site sidebar renders and is unchanged 1`] = `
-"<aside id="__sidebar" class="sidebar" role="none">
+"<aside id="__sidebar" class="sidebar show" tabindex="-1" role="none">
       
-      <div class="sidebar-nav" role="navigation" aria-label="primary"><ul><li><p>Getting started</p><ul><li><a href="#/quickstart">Quick start</a></li><li><a href="#/more-pages">Writing more pages</a></li><li><a href="#/custom-navbar">Custom navbar</a></li><li><a href="#/cover">Cover page</a></li></ul></li><li><p>Customization</p><ul><li><a href="#/configuration">Configuration</a></li><li><a href="#/themes">Themes</a></li><li><a href="#/plugins">List of Plugins</a></li><li><a href="#/write-a-plugin">Write a Plugin</a></li><li><a href="#/markdown">Markdown configuration</a></li><li><a href="#/language-highlight">Language highlighting</a></li><li><a href="#/emoji">Emoji</a></li></ul></li><li><p>Guide</p><ul><li><a href="#/deploy">Deploy</a></li><li><a href="#/helpers">Helpers</a></li><li><a href="#/vue">Vue compatibility</a></li><li><a href="#/cdn">CDN</a></li><li><a href="#/pwa">Offline Mode (PWA)</a></li><li><a href="#/embed-files">Embed Files</a></li></ul></li><li><p><a href="#/awesome">Awesome docsify</a></p></li><li><p><a href="#/changelog">Changelog</a></p></li></ul></div>
+      <div class="sidebar-nav" role="navigation" aria-label="primary"><!-- markdownlint-disable first-line-h1 -->
+
+<ul><li><p>Getting started</p><ul><li><a href="#/quickstart" class="page-link">Quick start</a></li><li><a href="#/adding-pages" class="page-link">Adding pages</a></li><li><a href="#/cover" class="page-link">Cover page</a></li><li><a href="#/custom-navbar" class="page-link">Custom navbar</a></li></ul></li><li><p>Customization</p><ul><li><a href="#/configuration" class="page-link">Configuration</a></li><li><a href="#/themes" class="page-link">Themes</a></li><li><a href="#/plugins" class="page-link">List of Plugins</a></li><li><a href="#/write-a-plugin" class="page-link">Write a Plugin</a></li><li><a href="#/markdown" class="page-link">Markdown configuration</a></li><li><a href="#/language-highlight" class="page-link">Language highlighting</a></li><li><a href="#/emoji" class="page-link">Emoji</a></li></ul></li><li><p>Guide</p><ul><li><a href="#/deploy" class="page-link">Deploy</a></li><li><a href="#/helpers" class="page-link">Helpers</a></li><li><a href="#/vue" class="page-link">Vue compatibility</a></li><li><a href="#/cdn" class="page-link">CDN</a></li><li><a href="#/pwa" class="page-link">Offline Mode (PWA)</a></li><li><a href="#/embed-files" class="page-link">Embed Files</a></li><li><a href="#/ui-kit" class="page-link">UI Kit</a></li></ul></li><li><p><a href="#/awesome" class="page-link">Awesome docsify</a></p></li><li><p><a href="#/changelog" class="page-link">Changelog</a></p></li></ul></div>
     </aside>"
 `;
