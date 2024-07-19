@@ -17,7 +17,7 @@ exports[`Docs Site coverpage renders and is unchanged 1`] = `
 exports[`Docs Site navbar renders and is unchanged 1`] = `
 "<nav class="app-nav" aria-label="secondary"><!-- markdownlint-disable first-line-h1 -->
 
-<ul><li>Translations<ul><li><a href="#/">English</a></li><li><a href="#/zh-cn/">简体中文</a></li><li><a href="#/de-de/">Deutsch</a></li><li><a href="#/es/">Español</a></li><li><a href="#/ru-ru/">Русский</a></li></ul></li></ul></nav>"
+<ul><li><p>Translations</p><ul><li><a href="#/">English</a></li><li><a href="#/zh-cn/">简体中文</a></li><li><a href="#/de-de/">Deutsch</a></li><li><a href="#/es/">Español</a></li><li><a href="#/ru-ru/">Русский</a></li></ul></li></ul></nav>"
 `;
 
 exports[`Docs Site sidebar renders and is unchanged 1`] = `
