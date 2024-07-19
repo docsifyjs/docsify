@@ -1,0 +1,84 @@
+/* Syntax Highlighting */
+/* See: https://prismjs.com */
+/* ========================================================================== */
+pre[data-lang] {
+  background: var(--codeblock-bg);
+  color: var(--codeblock-color);
+}
+
+.namespace {
+  opacity: 0.7;
+}
+
+.token {
+  &.boolean,
+  &.constant,
+  &.deleted,
+  &.number,
+  &.property,
+  &.symbol,
+  &.tag {
+    color: var(--codeblock-tag);
+  }
+
+  &.attr-name,
+  &.builtin,
+  &.char,
+  &.inserted,
+  &.selector,
+  &.string {
+    color: var(--codeblock-selector);
+  }
+
+  &.entity,
+  &.operator,
+  &.url,
+  .language-css &.string,
+  .style &.string {
+    color: var(--codeblock-operator);
+  }
+
+  &.cdata,
+  &.comment,
+  &.doctype,
+  &.prolog {
+    color: var(--codeblock-comment);
+  }
+
+  &.atrule,
+  &.attr-value,
+  &.keyword {
+    color: var(--codeblock-keyword);
+  }
+
+  &.important,
+  &.regex,
+  &.variable {
+    color: var(--codeblock-variable);
+  }
+
+  &.bold,
+  &.important {
+    font-weight: var(--strong-font-weight);
+  }
+
+  &.entity {
+    cursor: help;
+  }
+
+  &.function {
+    color: var(--codeblock-function);
+  }
+
+  &.important {
+    color: var(--codeblock-important);
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+
+  &.punctuation {
+    color: var(--codeblock-punctuation);
+  }
+}

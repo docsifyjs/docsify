@@ -11,5 +11,6 @@ export const highlightCodeCompiler = ({ renderer }) =>
       lang,
     );
 
-    return /* html */ `<pre data-lang="${lang}"><code class="lang-${lang}" tabindex="0">${code}</code></pre>`;
+
+    return /* html */ `<pre data-lang="${lang}" class="language-${lang}"><code class="lang-${lang} language-${lang}" tabindex="0">${code}</code></pre>`;
   });
