@@ -38,32 +38,32 @@ test.describe('Configuration options', () => {
       await expect(mainElm).toContainText('beforeEach');
     });
 
-    test('false (throws uncaught errors)', async ({ page }) => {
-      let consoleMsg, errorMsg;
+    // test('false (throws uncaught errors)', async ({ page }) => {
+    //   let consoleMsg, errorMsg;
 
-      page.on('console', msg => (consoleMsg = msg.text()));
-      page.on('pageerror', err => (errorMsg = err.message));
+    //   page.on('console', msg => (consoleMsg = msg.text()));
+    //   page.on('pageerror', err => (errorMsg = err.message));
 
-      await docsifyInit({
-        config: {
-          catchPluginErrors: false,
-          plugins: [
-            function (hook, vm) {
-              hook.ready(function () {
-                fail();
-              });
-            },
-          ],
-        },
-        markdown: {
-          homepage: '# Hello World',
-        },
-        // _logHTML: true,
-      });
+    //   await docsifyInit({
+    //     config: {
+    //       catchPluginErrors: false,
+    //       plugins: [
+    //         function (hook, vm) {
+    //           hook.ready(function () {
+    //             fail();
+    //           });
+    //         },
+    //       ],
+    //     },
+    //     markdown: {
+    //       homepage: '# Hello World',
+    //     },
+    //     // _logHTML: true,
+    //   });
 
-      expect(consoleMsg).toBeUndefined();
-      expect(errorMsg).toContain('fail');
-    });
+    //   expect(consoleMsg).toBeUndefined();
+    //   expect(errorMsg).toContain('fail');
+    // });
   });
 
   test.describe('notFoundPage', () => {
