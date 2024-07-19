@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 // Production (CDN URLs, watch disabled)
 export const prodConfig = {
+  ghostMode: false,
   hostname: '127.0.0.1',
   notify: false,
   open: false,

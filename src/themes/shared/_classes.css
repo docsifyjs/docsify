@@ -1,0 +1,181 @@
+/* Sidebar chevrons */
+/* ========================================================================== */
+/* prettier-ignore */
+:root:has(body[class*='sidebar-chevron']) {
+  --sidebar-chevron-collapsed-color: var(--color-mono-3);
+  --sidebar-chevron-expanded-color : var(--theme-color);
+
+  /* Chevron right (Mono) */
+  --sidebar-pagelink-bg: no-repeat var(--_sidebar_pagelink-bg-left)
+      calc(50% - 2.5px) / 6px 5px
+      linear-gradient(
+        45deg,
+        transparent 2.75px,
+        var(--sidebar-chevron-collapsed-color) 2.75px 4.25px,
+        transparent 4px
+      ),
+    no-repeat var(--_sidebar_pagelink-bg-left) calc(50% + 2.5px) / 6px 5px
+      linear-gradient(
+        135deg,
+        transparent 2.75px,
+        var(--sidebar-chevron-collapsed-color) 2.75px 4.25px,
+        transparent 4px
+      );
+  /* Chevron right (Theme color) */
+  --sidebar-pagelink-bg-collapsed: no-repeat var(--_sidebar_pagelink-bg-left)
+      calc(50% - 2.5px) / 6px 5px
+      linear-gradient(
+        45deg,
+        transparent 2.75px,
+        var(--sidebar-chevron-expanded-color) 2.75px 4.25px,
+        transparent 4px
+      ),
+    no-repeat var(--_sidebar_pagelink-bg-left) calc(50% + 2.5px) / 6px 5px
+      linear-gradient(
+        135deg,
+        transparent 2.75px,
+        var(--sidebar-chevron-expanded-color) 2.75px 4.25px,
+        transparent 4px
+      );
+  /* Chevron down (Theme color) */
+  --sidebar-pagelink-bg-expanded: no-repeat
+      calc(var(--_sidebar_pagelink-bg-left) - 2px) center / 5px 6px
+      linear-gradient(
+        225deg,
+        transparent 2.75px,
+        var(--sidebar-chevron-expanded-color) 2.75px 4.25px,
+        transparent 4.25px
+      ),
+    no-repeat calc(var(--_sidebar_pagelink-bg-left) + 3px) center / 5px 6px
+      linear-gradient(
+        135deg,
+        transparent 2.75px,
+        var(--sidebar-chevron-expanded-color) 2.75px 4.25px,
+        transparent 4.25px
+      );
+  /* Dot (active without children) */
+  --sidebar-pagelink-bg-empty: no-repeat var(--_sidebar_pagelink-bg-left) center /
+    7px 7px
+    radial-gradient(
+      circle,
+      var(--sidebar-chevron-expanded-color) 0,
+      var(--sidebar-chevron-expanded-color) 70%,
+      transparent 71%
+    );
+}
+
+body[class*='sidebar-chevron'] {
+  .sidebar-nav a.page-link.no-chevron {
+    background: none;
+  }
+}
+
+/* Left */
+/* -------------------------------------------------------------------------- */
+:root:has(body.sidebar-chevron-left) {
+  --_sidebar_pagelink-bg-left: 2px;
+}
+
+body.sidebar-chevron-left {
+  .sidebar-nav {
+    --_inset: 18px;
+
+    li {
+      a.page-link {
+        padding-left: var(--_inset);
+      }
+
+      &:has(> .page-link, > p > .page-link) {
+        > ul,
+        > p > ul {
+          margin-left: calc(var(--_sidebar-list-inset) + var(--_inset));
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Right */
+/* -------------------------------------------------------------------------- */
+:root:has(body.sidebar-chevron-right) {
+  --_sidebar_pagelink-bg-left: calc(100% - var(--_sidebar-inset));
+}
+
+body.sidebar-chevron-right {
+  .sidebar-nav {
+    li {
+      a {
+        padding-right: calc(var(--_sidebar-inset) + 15px);
+      }
+    }
+  }
+}
+
+/* Sidebar groups */
+/* ========================================================================== */
+/* prettier-ignore */
+:root:has(body.sidebar-group-box) {
+  --sidebar-group-border : 1px solid var(--sidebar-border-color);
+  --sidebar-group-spacing: 1em;
+}
+
+/* prettier-ignore */
+:root:has(body.sidebar-group-underline) {
+  --sidebar-group-spacing      : 0.5em;
+  --sidebar-group-title-border : 1px solid var(--sidebar-border-color);
+  --sidebar-group-title-spacing: 0.35em;
+}
+
+/* Sidebar link clamp */
+/* ========================================================================== */
+body.sidebar-link-clamp {
+  .sidebar {
+    a {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+/* Sidebar toggle */
+/* ========================================================================== */
+body.sidebar-toggle-chevron {
+  .sidebar-toggle-button {
+    span {
+      --_size: 10px;
+
+      border: solid currentColor;
+      border-radius: 0;
+      background: transparent;
+
+      &:where(:not(:first-child)) {
+        display: none;
+      }
+
+      &:first-child {
+        height: var(--_size);
+        width: var(--_size);
+        border-width: 2px 2px 0 0;
+        rotate: 45deg;
+        translate: -20%;
+
+        body:has(.sidebar.show) & {
+          rotate: -135deg;
+          translate: 20%;
+        }
+      }
+    }
+  }
+}
+
+body.sidebar-toggle-hamburger {
+  .sidebar-toggle-button {
+    span {
+      height: 2px;
+      width: 65%;
+      max-width: 16px;
+    }
+  }
+}

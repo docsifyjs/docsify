@@ -55,7 +55,7 @@ export function removeAtag(str = '') {
  *
  * @return {{content: string, ignoreAllSubs: boolean, ignoreSubHeading: boolean}} The string after delete the docsifyIgnore configs, and whether to ignore some or all.
  */
-export function getAndRemoveDocisfyIgnoreConfig(content = '') {
+export function getAndRemoveDocsifyIgnoreConfig(content = '') {
   let ignoreAllSubs, ignoreSubHeading;
   if (/<!-- {docsify-ignore} -->/g.test(content)) {
     content = content.replace('<!-- {docsify-ignore} -->', '');

@@ -1,6 +1,6 @@
 import {
   getAndRemoveConfig,
-  getAndRemoveDocisfyIgnoreConfig,
+  getAndRemoveDocsifyIgnoreConfig,
 } from '../../core/render/utils.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 
@@ -101,7 +101,7 @@ export function genIndex(path, content = '', router, depth) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = getAndRemoveDocisfyIgnoreConfig(token.text).content;
+      const text = getAndRemoveDocsifyIgnoreConfig(token.text).content;
 
       if (config.id) {
         slug = router.toURL(path, { id: slugify(config.id) });
@@ -110,7 +110,7 @@ export function genIndex(path, content = '', router, depth) {
       }
 
       if (str) {
-        title = getAndRemoveDocisfyIgnoreConfig(str).content;
+        title = getAndRemoveDocsifyIgnoreConfig(str).content;
       }
 
       index[slug] = { slug, title: title, body: '' };
@@ -210,7 +210,7 @@ export function search(query) {
           let end = 0;
 
           start = indexContent < 11 ? 0 : indexContent - 10;
-          end = start === 0 ? 70 : indexContent + keyword.length + 60;
+          end = start === 0 ? 100 : indexContent + keyword.length + 90;
 
           if (postContent && end > postContent.length) {
             end = postContent.length;
@@ -218,14 +218,9 @@ export function search(query) {
 
           const matchContent =
             handlePostContent &&
-            '...' +
-              handlePostContent
-                .substring(start, end)
-                .replace(
-                  regEx,
-                  word => /* html */ `<em class="search-keyword">${word}</em>`,
-                ) +
-              '...';
+            handlePostContent
+              .substring(start, end)
+              .replace(regEx, word => /* html */ `<mark>${word}</mark>`);
 
           resultStr += matchContent;
         }

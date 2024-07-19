@@ -16,14 +16,16 @@ describe('render', function () {
       const output = window.marked('!> Important content');
 
       expect(output).toMatchInlineSnapshot(
-        '"<p class="tip">Important content</p>"',
+        `"<p class="callout important">Important content</p>"`,
       );
     });
 
     test('general tip', () => {
       const output = window.marked('?> General tip');
 
-      expect(output).toMatchInlineSnapshot('"<p class="warn">General tip</p>"');
+      expect(output).toMatchInlineSnapshot(
+        `"<p class="callout tip">General tip</p>"`,
+      );
     });
   });
 
@@ -297,7 +299,7 @@ describe('render', function () {
 
       expect(elm.textContent).toBe(expectText);
       expect(elm.outerHTML).toMatchInlineSnapshot(
-        '"<button id="skip-to-content">Skip to main content</button>"',
+        `"<button type="button" id="skip-to-content" class="primary">Skip to main content</button>"`,
       );
     });
 
