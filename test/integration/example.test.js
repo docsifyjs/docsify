@@ -20,7 +20,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     const docsifyInitConfig = {
       config: {
         name: 'Docsify Name',
-        themeColor: 'red',
+        // themeColor: 'red',
       },
       markdown: {
         coverpage: `
