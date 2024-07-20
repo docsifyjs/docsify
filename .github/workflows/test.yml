@@ -48,7 +48,7 @@ jobs:
       - name: Unit Tests
         run: npm run test:unit -- --ci --runInBand
       - name: Integration Tests
-        run: npm run test:integration -- --ci --runInBand --detectOpenHandles --forceExit
+        run: npm run test:integration -- --ci
 
   test-playwright:
     runs-on: ubuntu-latest
