@@ -75,6 +75,7 @@ export function Fetch(Base) {
         if (!loadSidebar) {
           // Although, we don't load sidebar from sidebar file, we still need call the render to auto generate sidebar from headings toc
           renderSidebar();
+          return;
         }
 
         // Load sidebar from the sidebar file
