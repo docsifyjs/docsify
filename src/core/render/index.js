@@ -84,9 +84,6 @@ export function Render(Base) {
 
       this._renderTo(markdownElm, html);
 
-      // Render sidebar with the TOC
-      !docsifyConfig.loadSidebar && this._renderSidebar();
-
       // Execute markdown <script>
       if (
         docsifyConfig.executeScript ||
