@@ -20,7 +20,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     const docsifyInitConfig = {
       config: {
         name: 'Docsify Name',
-        // themeColor: 'red',
+        themeColor: 'red',
       },
       markdown: {
         coverpage: `
@@ -76,7 +76,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
 
     // Verify config options
     expect(typeof window.$docsify).toBe('object');
-    // expect(window.$docsify).toHaveProperty('themeColor', 'red');
+    expect(window.$docsify).toHaveProperty('themeColor', 'red');
     expect(document.querySelector('.app-name').textContent).toContain(
       'Docsify Name',
     );
