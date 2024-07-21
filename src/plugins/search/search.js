@@ -13,7 +13,9 @@ db.version(1).stores({
 });
 
 async function saveData(maxAge, expireKey, indexKey) {
-  INDEXES = Object.values(INDEXES).flatMap(innerData => Object.values(innerData));
+  INDEXES = Object.values(INDEXES).flatMap(innerData =>
+    Object.values(innerData),
+  );
   await db.search.bulkPut(INDEXES);
   await db.expires.put({ key: expireKey, value: Date.now() + maxAge });
 }
