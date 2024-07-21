@@ -6,19 +6,27 @@ import Dexie from 'dexie';
 
 let INDEXES = {};
 
-const db = new Dexie('DocsifySearchDB');
+const db = new Dexie('docsify');
 db.version(1).stores({
-  search: 'key, value',
+  search: 'slug, title, body, path, indexKey',
+  expires: 'key, value',
 });
 
 async function saveData(maxAge, expireKey, indexKey) {
-  await db.search.put({ key: expireKey, value: Date.now() + maxAge });
-  await db.search.put({ key: indexKey, value: JSON.stringify(INDEXES) });
+  await db.search.bulkPut(
+    Object.values(INDEXES).flatMap(innerData => Object.values(innerData)),
+  );
+  await db.expires.put({ key: expireKey, value: Date.now() + maxAge });
 }
 
-async function getData(key) {
-  const item = await db.search.get(key);
-  return item ? item.value : null;
+async function getData(key, isExpireKey = false) {
+  if (isExpireKey) {
+    const item = await db.expires.get(key);
+    return item ? item.value : 0;
+  }
+
+  const item = await db.search.where({ indexKey: key }).toArray();
+  return item ? item : null;
 }
 
 const LOCAL_STORAGE = {
@@ -89,7 +97,7 @@ function getListData(token) {
   return token.text;
 }
 
-export function genIndex(path, content = '', router, depth) {
+export function genIndex(path, content = '', router, depth, indexKey) {
   const tokens = window.marked.lexer(content);
   const slugify = window.Docsify.slugify;
   const index = {};
@@ -112,7 +120,13 @@ export function genIndex(path, content = '', router, depth) {
         title = getAndRemoveDocsifyIgnoreConfig(str).content;
       }
 
-      index[slug] = { slug, title: title, body: '' };
+      index[slug] = {
+        slug,
+        title: title,
+        body: '',
+        path: path,
+        indexKey: indexKey,
+      };
     } else {
       if (tokenIndex === 0) {
         slug = router.toURL(path);
@@ -120,6 +134,8 @@ export function genIndex(path, content = '', router, depth) {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
           body: token.text || '',
+          path: path,
+          indexKey: indexKey,
         };
       }
 
@@ -140,6 +156,9 @@ export function genIndex(path, content = '', router, depth) {
 
         index[slug].body = token.text || '';
       }
+
+      index[slug].path = path;
+      index[slug].indexKey = indexKey;
     }
   });
   slugify.clear();
@@ -159,13 +178,6 @@ export function ignoreDiacriticalMarks(keyword) {
  */
 export function search(query) {
   const matchingResults = [];
-  let data = [];
-  Object.keys(INDEXES).forEach(key => {
-    data = [
-      ...data,
-      ...Object.keys(INDEXES[key]).map(page => INDEXES[key][page]),
-    ];
-  });
 
   query = query.trim();
   let keywords = query.split(/[\s\-，\\/]+/);
@@ -173,7 +185,7 @@ export function search(query) {
     keywords = [query, ...keywords];
   }
 
-  for (const post of data) {
+  for (const post of INDEXES) {
     let matchesScore = 0;
     let resultStr = '';
     let handlePostTitle = '';
@@ -280,9 +292,9 @@ export async function init(config, vm) {
   const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
   const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
 
-  const isExpired = (await getData(expireKey)) < Date.now();
+  const isExpired = (await getData(expireKey, true)) < Date.now();
 
-  INDEXES = JSON.parse(await getData(indexKey));
+  INDEXES = await getData(indexKey);
 
   if (isExpired) {
     INDEXES = {};
@@ -294,13 +306,22 @@ export async function init(config, vm) {
   let count = 0;
 
   paths.forEach(path => {
-    if (INDEXES[path]) {
+    const pathExists = Array.isArray(INDEXES)
+      ? INDEXES.some(obj => obj.path === path)
+      : false;
+    if (pathExists) {
       return count++;
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
       async result => {
-        INDEXES[path] = genIndex(path, result, vm.router, config.depth);
+        INDEXES[path] = genIndex(
+          path,
+          result,
+          vm.router,
+          config.depth,
+          indexKey,
+        );
         if (len === ++count) {
           await saveData(config.maxAge, expireKey, indexKey);
         }
