@@ -271,11 +271,11 @@ describe('render', function () {
 
     test('class', async function () {
       const output = window.marked(
-        "[alt text](http://url ':class=someCssClass')",
+        "[alt text](http://url ':class=someCssClass someCssClassB')",
       );
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass">alt text</a></p>"',
+        '"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass someCssClassB">alt text</a></p>"',
       );
     });
 
