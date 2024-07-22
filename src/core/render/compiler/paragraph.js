@@ -1,7 +1,8 @@
 import { helper as helperTpl } from '../tpl.js';
 
 export const paragraphCompiler = ({ renderer }) =>
-  (renderer.paragraph = text => {
+  (renderer.paragraph = function ({ tokens }) {
+    const text = this.parser.parseInline(tokens);
     let result;
 
     if (text.startsWith('!&gt;')) {
