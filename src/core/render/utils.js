@@ -52,7 +52,9 @@ const lexer = function (str) {
   const invalidConfigKeys = [];
 
   const scanner = function (token) {
-    if (isAtEnd()) {return;}
+    if (isAtEnd()) {
+      return;
+    }
 
     if (isBlank(token)) {
       return;
@@ -177,7 +179,9 @@ const lexer = function (str) {
   };
 
   const peek = function () {
-    if (isAtEnd()) {return '';}
+    if (isAtEnd()) {
+      return '';
+    }
     return tokens[cur];
   };
 
