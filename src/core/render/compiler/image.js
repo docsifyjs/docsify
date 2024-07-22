@@ -27,7 +27,11 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
     }
 
     if (config.class) {
-      attrs.push(`class="${config.class}"`);
+      let classes = config.class;
+      if (config.class_appened_props) {
+        classes = `${config.config.class} ${config.class_appened_props}`;
+      }
+      attrs.push(`class="${classes}"`);
     }
 
     if (config.id) {

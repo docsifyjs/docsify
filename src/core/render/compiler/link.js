@@ -10,13 +10,12 @@ export const linkCompiler = ({
 }) =>
   (renderer.link = (href, title = '', text) => {
     const attrs = [];
-    const { str, config } = getAndRemoveConfig(title);
+    const { config } = getAndRemoveConfig(title);
     linkTarget = config.target || linkTarget;
     linkRel =
       linkTarget === '_blank'
         ? compilerClass.config.externalLinkRel || 'noopener'
         : '';
-    title = str;
 
     if (
       !isAbsolutePath(href) &&
@@ -53,15 +52,19 @@ export const linkCompiler = ({
     }
 
     if (config.class) {
-      attrs.push(`class="${config.class}"`);
+      let classes = config.class;
+      if (config.class_appened_props) {
+        classes = `${config.config.class} ${config.class_appened_props}`;
+      }
+      attrs.push(`class="${classes}"`);
     }
 
     if (config.id) {
       attrs.push(`id="${config.id}"`);
     }
 
-    if (title) {
-      attrs.push(`title="${title}"`);
+    if (config.ignore_appened_props) {
+      attrs.push(`title="${config.ignore_appened_props}"`);
     }
 
     return /* html */ `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;

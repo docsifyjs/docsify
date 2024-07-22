@@ -62,80 +62,122 @@ describe('core/render/utils', () => {
   // getAndRemoveConfig()
   // ---------------------------------------------------------------------------
   describe('getAndRemoveConfig()', () => {
-    test('parse simple config', () => {
+    test('parse simple class config', () => {
       const result = getAndRemoveConfig(
-        "[filename](_media/example.md ':include')",
+        "[filename](_media/example.md ':class=foo bar')",
+      );
+
+      expect(result).toMatchObject({
+        config: { class: 'foo', class_appened_props: 'bar' },
+        str: '[filename](_media/example.md )',
+      });
+    });
+
+    test('parse simple no config', () => {
+      const result = getAndRemoveConfig('[filename](_media/example.md )');
+
+      expect(result).toMatchObject({
+        config: {},
+        str: '[filename](_media/example.md )',
+      });
+    });
+
+    test('parse simple config with emoji no config', () => {
+      const result = getAndRemoveConfig(
+        'I use the :emoji: but it should be fine with :code=js',
       );
 
       expect(result).toMatchObject({
         config: {},
-        str: "[filename](_media/example.md ':include')",
+        str: 'I use the :emoji: but it should be fine with :code=js',
       });
     });
 
-    test('parse config with arguments', () => {
+    test('parse config with invalid arguments', () => {
       const result = getAndRemoveConfig(
-        "[filename](_media/example.md ':include :foo=bar :baz test')",
+        "[filename](_media/example.md ':include :class=myClz myClz2 myClz3 :invalid=bar :invalid2 test')",
       );
 
       expect(result).toMatchObject({
         config: {
-          foo: 'bar',
-          baz: true,
+          include: true,
+          class: 'myClz',
+          class_appened_props: 'myClz2 myClz3',
         },
-        str: "[filename](_media/example.md ':include test')",
+        // It looks weird since it quotes the invalid configs, and we don't want to swallow them.
+        str: "[filename](_media/example.md  :invalid=bar :invalid2 test')",
       });
     });
 
     test('parse config with double quotes', () => {
       const result = getAndRemoveConfig(
-        '[filename](_media/example.md ":include")',
+        '[filename](_media/example.md ":type=code js :include")',
       );
 
       expect(result).toMatchObject({
-        config: {},
-        str: '[filename](_media/example.md ":include")',
+        config: {
+          include: true,
+          type: 'code',
+          type_appened_props: 'js',
+        },
+        str: '[filename](_media/example.md )',
+      });
+    });
+
+    test('parse config with naughty complex string', () => {
+      const result = getAndRemoveConfig(
+        "It should work :dog: and the ::dog2:: and the ::dog3::dog4::  :id=myTitle :type=code js :include'",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          id: 'myTitle',
+          type: 'code',
+          type_appened_props: 'js',
+          include: true,
+        },
+        str: 'It should work :dog: and the ::dog2:: and the ::dog3::dog4::',
       });
     });
   });
-});
 
-describe('core/render/tpl', () => {
-  test('remove html tag in tree', () => {
-    const result = tree([
-      {
-        level: 2,
-        slug: '#/cover?id=basic-usage',
-        title: '<span style="color:red">Basic usage</span>',
-      },
-      {
-        level: 2,
-        slug: '#/cover?id=custom-background',
-        title: 'Custom background',
-      },
-      {
-        level: 2,
-        slug: '#/cover?id=test',
-        title:
-          '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
-      },
-    ]);
+  describe('core/render/tpl', () => {
+    test('remove html tag in tree', () => {
+      const result = tree([
+        {
+          level: 2,
+          slug: '#/cover?id=basic-usage',
+          title: '<span style="color:red">Basic usage</span>',
+        },
+        {
+          level: 2,
+          slug: '#/cover?id=custom-background',
+          title: 'Custom background',
+        },
+        {
+          level: 2,
+          slug: '#/cover?id=test',
+          title:
+            '<img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test',
+        },
+      ]);
 
-    expect(result).toBe(
-      /* html */ '<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li></ul>',
-    );
+      expect(result).toBe(
+        /* html */ '<ul class="app-sub-sidebar"><li><a class="section-link" href="#/cover?id=basic-usage" title="Basic usage"><span style="color:red">Basic usage</span></a></li><li><a class="section-link" href="#/cover?id=custom-background" title="Custom background">Custom background</a></li><li><a class="section-link" href="#/cover?id=test" title="Test"><img src="/docs/_media/favicon.ico" data-origin="/_media/favicon.ico" alt="ico">Test</a></li></ul>',
+      );
+    });
   });
-});
 
-describe('core/render/slugify', () => {
-  test('slugify()', () => {
-    const result = slugify(
-      'Bla bla bla <svg aria-label="broken" class="broken" viewPort="0 0 1 1"><circle cx="0.5" cy="0.5"/></svg>',
-    );
-    const result2 = slugify(
-      'Another <span style="font-size: 1.2em" class="foo bar baz">broken <span class="aaa">example</span></span>',
-    );
-    expect(result).toBe('bla-bla-bla-');
-    expect(result2).toBe('another-broken-example');
+  describe('core/render/slugify', () => {
+    test('slugify()', () => {
+      const result = slugify(
+        'Bla bla bla <svg aria-label="broken" class="broken" viewPort="0 0 1 1"><circle cx="0.5" cy="0.5"/></svg>',
+      );
+      const result2 = slugify(
+        'Another <span style="font-size: 1.2em" class="foo bar baz">broken <span class="aaa">example</span></span>',
+      );
+      expect(result).toBe('bla-bla-bla-');
+      expect(result2).toBe('another-broken-example');
+    });
   });
 });

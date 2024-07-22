@@ -30,27 +30,27 @@ const compileMedia = {
       url,
     };
   },
-  iframe(url, title) {
+  iframe(url, props) {
     return {
       html: `<iframe src="${url}" ${
-        title || 'width=100% height=400'
+        props || 'width=100% height=400'
       }></iframe>`,
     };
   },
-  video(url, title) {
+  video(url, props) {
     return {
-      html: `<video src="${url}" ${title || 'controls'}>Not Support</video>`,
+      html: `<video src="${url}" ${props || 'controls'}>Not Support</video>`,
     };
   },
-  audio(url, title) {
+  audio(url, props) {
     return {
-      html: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`,
+      html: `<audio src="${url}" ${props || 'controls'}>Not Support</audio>`,
     };
   },
-  code(url, title) {
+  code(url, props) {
     let lang = url.match(/\.(\w+)$/);
 
-    lang = title || (lang && lang[1]);
+    lang = props || (lang && lang[1]);
     if (lang === 'md') {
       lang = 'markdown';
     }
@@ -143,9 +143,9 @@ export class Compiler {
    * @return {type} Return value description.
    */
   compileEmbed(href, title) {
-    const { str, config } = getAndRemoveConfig(title);
+    const { config } = getAndRemoveConfig(title);
     let embed;
-    title = str;
+    const appenedProps = config.type_appened_props;
 
     if (config.include) {
       if (!isAbsolutePath(href)) {
@@ -158,7 +158,7 @@ export class Compiler {
 
       let media;
       if (config.type && (media = compileMedia[config.type])) {
-        embed = media.call(this, href, title);
+        embed = media.call(this, href, appenedProps);
         embed.type = config.type;
       } else {
         let type = 'code';
@@ -174,7 +174,7 @@ export class Compiler {
           type = 'audio';
         }
 
-        embed = compileMedia[type].call(this, href, title);
+        embed = compileMedia[type].call(this, href, appenedProps);
         embed.type = type;
       }
 
