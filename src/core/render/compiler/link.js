@@ -8,8 +8,9 @@ export const linkCompiler = ({
   linkRel,
   compilerClass,
 }) =>
-  (renderer.link = (href, title = '', text) => {
+  (renderer.link = function ({ href, title = '', tokens }) {
     const attrs = [];
+    const text = this.parser.parseInline(tokens) || '';
     const { config } = getAndRemoveConfig(title);
     linkTarget = config.target || linkTarget;
     linkRel =
