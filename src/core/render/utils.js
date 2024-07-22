@@ -6,7 +6,7 @@
  * An example of this is ':include :type=code :fragment=demo' is taken and
  * then converted to:
  *
- * Specially the exitra values following a key, such as `:propKey=propVal additinalProp1 additinalProp2`
+ * Specially the extra values following a key, such as `:propKey=propVal additinalProp1 additinalProp2`
  * or `:propKey propVal additinalProp1 additinalProp2`, those additional values will be appended to the key with `_appened_props` suffix
  * as the additional props for the key.
  * the example above, its result will be `{ propKey: propVal, propKey_appened_props: 'additinalProp1 additinalProp2' }`
@@ -66,7 +66,7 @@ const lexer = function (str) {
     let curToken = '';
     let start = cur - 1;
 
-    // eat start '/" if it exists
+    // Eat start '/" if it exists
     if (tokens[start - 1] && tokens[start - 1].match(/['"]/)) {
       start--;
     }
@@ -76,27 +76,26 @@ const lexer = function (str) {
     }
 
     let match = true;
-    // Check for the currentToken and process it with our keywords
+    // Check for the currentToken and process it with our keywords.
     switch (curToken) {
-      // customise ID for headings or #id
+      // Customise ID for headings or #id.
       case 'id':
         configs.id = findValuePair();
         break;
-      // customise class for headings
       case 'type':
         configs.type = findValuePair();
         findAdditionalPropsIfExist('type');
         break;
-      // ignore to compile link, e.g. ':ignore' , ':ignore title'
+      // Ignore to compile link, e.g. ':ignore' , ':ignore title'.
       case 'ignore':
         configs.ignore = true;
         findAdditionalPropsIfExist('ignore');
         break;
-      // include
+      // Include
       case 'include':
         configs.include = true;
         break;
-      // Embedded code fragments e.g. :fragment=demo'
+      // Embedded code fragments e.g. :fragment=demo'.
       case 'fragment':
         configs.fragment = findValuePair();
         break;
@@ -104,11 +103,11 @@ const lexer = function (str) {
       case 'disabled':
         configs.disabled = true;
         break;
-      // Link target config, e.g. target=_blank
+      // Link target config, e.g. target=_blank.
       case 'target':
         configs.target = findValuePair();
         break;
-      // Image size config, e.g. size=100, size=WIDTHxHEIGHT
+      // Image size config, e.g. size=100, size=WIDTHxHEIGHT.
       case 'size':
         configs.size = findValuePair();
         break;
@@ -120,9 +119,9 @@ const lexer = function (str) {
         configs['no-zoom'] = true;
         break;
       default:
-        // Although it start with FLAG (:), it is an invalid config token for docsify
+        // Although it start with FLAG (:), it is an invalid config token for docsify.
         if (curToken.endsWith(FLAG)) {
-          // okay, suppose it should be a emoji, skip it to make all happy
+          // Okay, suppose it should be an emoji, skip to warn it to make all happy.
         } else {
           invalidConfigKeys.push(FLAG + curToken);
         }
