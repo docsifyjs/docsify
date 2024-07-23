@@ -191,7 +191,6 @@ describe('core/render/utils', () => {
           class_appened_props: 'myClz2 myClz3',
           target: '_blank',
         },
-        // It looks weird since it quotes the invalid configs, and we don't want to swallow them.
         str: '[filename](_media/example.md )',
       });
     });

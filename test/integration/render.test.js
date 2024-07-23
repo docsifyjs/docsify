@@ -125,7 +125,7 @@ describe('render', function () {
       );
     });
 
-    test('multi class and losse quotes', async function () {
+    test('multi class and loose quotes', async function () {
       const output = window.marked(
         "![alt text](http://imageUrl ' target=_self :class=someCssClass someCssClassB ')",
       );
