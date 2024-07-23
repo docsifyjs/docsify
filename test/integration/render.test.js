@@ -125,6 +125,16 @@ describe('render', function () {
       );
     });
 
+    test('multi class and losse quotes', async function () {
+      const output = window.marked(
+        "![alt text](http://imageUrl ' target=_self :class=someCssClass someCssClassB ')",
+      );
+
+      expect(output).toMatchInlineSnapshot(
+        '"<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" title="target=_self" class="someCssClass someCssClassB" /></p>"',
+      );
+    });
+
     test('id', async function () {
       const output = window.marked(
         "![alt text](http://imageUrl ':id=someCssID')",
@@ -132,6 +142,22 @@ describe('render', function () {
 
       expect(output).toMatchInlineSnapshot(
         '"<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" id="someCssID" /></p>"',
+      );
+    });
+
+    test('id in heading', async function () {
+      const output = window.marked('# MyHeader :id=myNewId');
+
+      expect(output).toMatchInlineSnapshot(
+        '"<h1 id="mynewid" tabindex="-1"><a href="#/?id=mynewid" data-id="mynewid" class="anchor"><span>MyHeader</span></a></h1>"',
+      );
+    });
+
+    test('compatibility case when id in heading with quoto', async function () {
+      const output = window.marked('# MyHeader :id="myQuotedId"');
+
+      expect(output).toMatchInlineSnapshot(
+        '"<h1 id="myquotedid" tabindex="-1"><a href="#/?id=myquotedid" data-id="myquotedid" class="anchor"><span>MyHeader</span></a></h1>"',
       );
     });
 

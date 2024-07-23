@@ -33,11 +33,7 @@ export function getAndRemoveConfig(str = '') {
   const config = {};
 
   if (str) {
-    str = str
-      .replace(/^('|")/, '')
-      .replace(/('|")$/, '')
-      .trim();
-    return lexer(str);
+    return lexer(str.trim());
   }
 
   return { str, config };
@@ -47,9 +43,11 @@ const lexer = function (str) {
   const FLAG = ':';
   const EQUIL = '=';
   const tokens = str.split('');
-  let cur = 0;
   const configs = {};
-  const invalidConfigKeys = [];
+  let cur = 0;
+  let startConfigsStringQuote = '';
+  let startConfigsStringIndex = -1;
+  let endConfigsStringIndex = -1;
 
   const scanner = function (token) {
     if (isAtEnd()) {
@@ -64,14 +62,41 @@ const lexer = function (str) {
     }
 
     let curToken = '';
-    let start = cur - 1;
+    const start = cur - 1;
 
-    // Eat start '/" if it exists
-    if (tokens[start - 1] && tokens[start - 1].match(/['"]/)) {
-      start--;
+    // Eat the most close start '/" if it exists.
+    // The special case is the :id config in heading, which is without quotes wrapped.
+    if (startConfigsStringIndex === -1) {
+      const possibleStartQuoteIndex = findPossiableStartQuote(start);
+      const possibleStartQuote = tokens[possibleStartQuoteIndex];
+      // Can not find the start quote, it means it is not a valid config scope, e.g.  `[example](_mediea/xx.md  :include )`.
+      if (possibleStartQuoteIndex !== -1) {
+        // Find the close quote
+        const possibleEndQuoteIndex = findPossiableEndQuote(
+          start,
+          possibleStartQuote,
+        );
+        // Can not find a close quote, e.g.  `[example](_mediea/xx.md  ":include )`.
+        if (possibleEndQuoteIndex === -1) {
+          return;
+        }
+        // Can not find a matched close quote but a wired string, e.g.  `[example](_mediea/xx.md  ":include' )`.
+        if (possibleStartQuote !== tokens[possibleEndQuoteIndex]) {
+          return;
+        }
+        endConfigsStringIndex = possibleEndQuoteIndex;
+      }
+
+      startConfigsStringIndex = possibleStartQuoteIndex;
+      startConfigsStringQuote = possibleStartQuote;
     }
 
-    while (!isBlank(peek()) && !(peek() === EQUIL) && !peek().match(/['"]/)) {
+    while (
+      !isBlank(peek()) &&
+      !(peek() === startConfigsStringQuote) &&
+      !(peek() === EQUIL) &&
+      !(peek() === FLAG)
+    ) {
       curToken += advance();
     }
 
@@ -79,8 +104,9 @@ const lexer = function (str) {
     // Check for the currentToken and process it with our keywords.
     switch (curToken) {
       // Customise ID for headings or #id.
+      // Note: when user wrapper the id value like this :id="something" in heading, it will bring the excaped quotes, we should remove it.
       case 'id':
-        configs.id = findValuePair();
+        configs.id = findValuePair().replace(/&quot;/g, '');
         break;
       case 'type':
         configs.type = findValuePair();
@@ -119,26 +145,14 @@ const lexer = function (str) {
         configs['no-zoom'] = true;
         break;
       default:
-        // Although it start with FLAG (:), it is an invalid config token for docsify.
-        if (curToken.endsWith(FLAG)) {
-          // Okay, suppose it should be an emoji, skip to warn it to make all happy.
-        } else {
-          invalidConfigKeys.push(FLAG + curToken);
-        }
         match = false;
+      // Although it start with FLAG (:), it is an invalid config token for docsify.
     }
 
     if (match) {
       for (let i = start; i < cur; i++) {
         tokens[i] = '';
       }
-
-      // eat the end '/" if it exists
-      if (peek().match(/['"]/)) {
-        tokens[cur] = '';
-        advance();
-      }
-      match = false;
     }
   };
 
@@ -155,6 +169,7 @@ const lexer = function (str) {
       while (!isBlank(peek()) && !peek().match(/['"]/)) {
         val += advance();
       }
+
       return val.trim();
     }
 
@@ -177,6 +192,27 @@ const lexer = function (str) {
     val && (configs[configKey + '_appened_props'] = val.trimEnd());
   };
 
+  const findPossiableStartQuote = function (current) {
+    for (let i = current - 1; i >= 0; i--) {
+      if (tokens[i].match(/['"]/)) {
+        return i;
+      }
+      if (!isBlank(tokens[i])) {
+        return -1;
+      }
+    }
+    return -1;
+  };
+
+  const findPossiableEndQuote = function (current, possibleStartQuote) {
+    for (let i = current + 1; i < tokens.length; i++) {
+      if (tokens[i] === possibleStartQuote) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
   const peek = function () {
     if (isAtEnd()) {
       return '';
@@ -196,11 +232,8 @@ const lexer = function (str) {
     scanner(advance());
   }
 
-  if (invalidConfigKeys.length > 0) {
-    const msg = invalidConfigKeys.join(', ');
-    console.warn(
-      `May find docsify doesn't support config keys: [${msg}], please recheck it.`,
-    );
+  for (let i = startConfigsStringIndex; i <= endConfigsStringIndex; i++) {
+    tokens[i] = '';
   }
 
   const content = tokens.join('').trim();

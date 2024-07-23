@@ -62,7 +62,16 @@ describe('core/render/utils', () => {
   // getAndRemoveConfig()
   // ---------------------------------------------------------------------------
   describe('getAndRemoveConfig()', () => {
-    test('parse simple class config', () => {
+    test('parse a headling config which is no leading quoto', () => {
+      const result = getAndRemoveConfig('Test :id=myTitle');
+
+      expect(result).toMatchObject({
+        config: { id: 'myTitle' },
+        str: 'Test',
+      });
+    });
+
+    test('parse simple classes config', () => {
       const result = getAndRemoveConfig(
         "[filename](_media/example.md ':class=foo bar')",
       );
@@ -82,7 +91,7 @@ describe('core/render/utils', () => {
       });
     });
 
-    test('parse simple config with emoji no config', () => {
+    test('parse simple config with emoji and no config', () => {
       const result = getAndRemoveConfig(
         'I use the :emoji: but it should be fine with :code=js',
       );
@@ -93,7 +102,7 @@ describe('core/render/utils', () => {
       });
     });
 
-    test('parse config with invalid arguments', () => {
+    test('parse config with invalid data attributes but we can swallow them', () => {
       const result = getAndRemoveConfig(
         "[filename](_media/example.md ':include :class=myClz myClz2 myClz3 :invalid=bar :invalid2 test')",
       );
@@ -104,12 +113,11 @@ describe('core/render/utils', () => {
           class: 'myClz',
           class_appened_props: 'myClz2 myClz3',
         },
-        // It looks weird since it quotes the invalid configs, and we don't want to swallow them.
-        str: "[filename](_media/example.md  :invalid=bar :invalid2 test')",
+        str: '[filename](_media/example.md )',
       });
     });
 
-    test('parse config with double quotes', () => {
+    test('parse config with double quotes configs string', () => {
       const result = getAndRemoveConfig(
         '[filename](_media/example.md ":type=code js :include")',
       );
@@ -124,9 +132,40 @@ describe('core/render/utils', () => {
       });
     });
 
+    test('parse config with double quotes and loose leading/ending quotos', () => {
+      const result = getAndRemoveConfig(
+        '[filename](_media/example.md "   :target=_self        :type=code js :include            ")',
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          include: true,
+          type: 'code',
+          type_appened_props: 'js',
+          target: '_self',
+        },
+        str: '[filename](_media/example.md )',
+      });
+    });
+
+    test('parse config with some custom appened configs which we could use in further', () => {
+      const result = getAndRemoveConfig(
+        '[filename](_media/example.md " :type=code lang=js highlight=false :include  ")',
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          include: true,
+          type: 'code',
+          type_appened_props: 'lang=js highlight=false',
+        },
+        str: '[filename](_media/example.md )',
+      });
+    });
+
     test('parse config with naughty complex string', () => {
       const result = getAndRemoveConfig(
-        "It should work :dog: and the ::dog2:: and the ::dog3::dog4::  :id=myTitle :type=code js :include'",
+        "It should work :dog: and the ::dog2:: and the ::dog3::dog4::  '    :id=myTitle :type=code js :include'",
       );
 
       expect(result).toMatchObject({
@@ -137,6 +176,23 @@ describe('core/render/utils', () => {
           include: true,
         },
         str: 'It should work :dog: and the ::dog2:: and the ::dog3::dog4::',
+      });
+    });
+
+    test('parse config with multi config arguments', () => {
+      const result = getAndRemoveConfig(
+        "[filename](_media/example.md ':include :class=myClz myClz2 myClz3 :target=_blank')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          include: true,
+          class: 'myClz',
+          class_appened_props: 'myClz2 myClz3',
+          target: '_blank',
+        },
+        // It looks weird since it quotes the invalid configs, and we don't want to swallow them.
+        str: '[filename](_media/example.md )',
       });
     });
   });
