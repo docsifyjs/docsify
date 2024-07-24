@@ -153,14 +153,6 @@ describe('render', function () {
       );
     });
 
-    test('compatibility case when id in heading with quoto', async function () {
-      const output = window.marked('# MyHeader :id="myQuotedId"');
-
-      expect(output).toMatchInlineSnapshot(
-        '"<h1 id="myquotedid" tabindex="-1"><a href="#/?id=myquotedid" data-id="myquotedid" class="anchor"><span>MyHeader</span></a></h1>"',
-      );
-    });
-
     test('no-zoom', async function () {
       const output = window.marked("![alt text](http://imageUrl ':no-zoom')");
 

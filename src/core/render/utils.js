@@ -69,19 +69,19 @@ const lexer = function (str) {
     if (startConfigsStringIndex === -1) {
       const possibleStartQuoteIndex = findPossiableStartQuote(start);
       const possibleStartQuote = tokens[possibleStartQuoteIndex];
-      // Can not find the start quote, it means it is not a valid config scope, e.g.  `[example](_mediea/xx.md  :include )`.
+
       if (possibleStartQuoteIndex !== -1) {
-        // Find the close quote
         const possibleEndQuoteIndex = findPossiableEndQuote(
           start,
           possibleStartQuote,
         );
-        // Can not find a close quote, e.g.  `[example](_mediea/xx.md  ":include )`.
-        if (possibleEndQuoteIndex === -1) {
+
+        if (!possibleStartQuote) {
           return;
         }
-        // Can not find a matched close quote but a wired string, e.g.  `[example](_mediea/xx.md  ":include' )`.
-        if (possibleStartQuote !== tokens[possibleEndQuoteIndex]) {
+
+        const possibleEndQuote = tokens[possibleEndQuoteIndex];
+        if (possibleStartQuote !== possibleEndQuote) {
           return;
         }
         endConfigsStringIndex = possibleEndQuoteIndex;
@@ -101,18 +101,17 @@ const lexer = function (str) {
     }
 
     let match = true;
-    // Check for the currentToken and process it with our keywords.
+
     switch (curToken) {
-      // Customise ID for headings or #id.
-      // Note: when user wrapper the id value like this :id="something" in heading, it will bring the excaped quotes, we should remove it.
+      // Customise ID for headings  #Docsify :id=heading .
       case 'id':
-        configs.id = findValuePair().replace(/&quot;/g, '');
+        configs.id = findValuePair();
         break;
       case 'type':
         configs.type = findValuePair();
         findAdditionalPropsIfExist('type');
         break;
-      // Ignore to compile link, e.g. ':ignore' , ':ignore title'.
+      // Ignore to compile link, e.g. :ignore , :ignore title.
       case 'ignore':
         configs.ignore = true;
         findAdditionalPropsIfExist('ignore');
@@ -145,8 +144,8 @@ const lexer = function (str) {
         configs['no-zoom'] = true;
         break;
       default:
+        // Although it start with FLAG (:), it is an invalid config token for docsify.
         match = false;
-      // Although it start with FLAG (:), it is an invalid config token for docsify.
     }
 
     if (match) {
@@ -170,7 +169,7 @@ const lexer = function (str) {
         val += advance();
       }
 
-      return val.trim();
+      return val.trim().replace(/&quot;/g, '');
     }
 
     return '';
