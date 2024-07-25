@@ -74,17 +74,16 @@ export class Compiler {
       this.linkTarget === '_blank' ? config.externalLinkRel || 'noopener' : '';
     this.contentBase = router.getBasePath();
 
-    const renderer = this._initRenderer();
-    this.heading = renderer.heading;
+    this.renderer = this._initRenderer();
     let compile;
     const mdConf = config.markdown || {};
 
     if (isFn(mdConf)) {
-      compile = mdConf(marked, renderer);
+      compile = mdConf(marked, this.renderer);
     } else {
       marked.setOptions(
         Object.assign(mdConf, {
-          renderer: Object.assign(renderer, mdConf.renderer),
+          renderer: Object.assign(this.renderer, mdConf.renderer),
         }),
       );
       compile = marked;
@@ -318,12 +317,21 @@ export class Compiler {
     return treeTpl(tree);
   }
 
+  /**
+   * Compile the text to generate HTML heading element based on the level
+   * @param {*} text Text content, for now it is only from the _sidebar.md file
+   * @param {*} level Type of heading (h<level> tag), for now it is always 1
+   * @returns
+   */
   header(text, level) {
-    return this.heading(text, level);
-  }
-
-  article(text) {
-    return this.compile(text);
+    const tokenHeading = {
+      type: 'heading',
+      raw: text,
+      depth: level,
+      text: text,
+      tokens: [{ type: 'text', raw: text, text: text }],
+    };
+    return this.renderer.heading(tokenHeading);
   }
 
   /**
