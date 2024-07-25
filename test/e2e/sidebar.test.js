@@ -94,13 +94,6 @@ test.describe('Configuration: autoHeader', () => {
 
     await page.click('a[href="#/quickstart"]');
     expect(page.url()).toMatch(/\/quickstart$/);
-    // const element = page.locator('#main');
-    // expect(await element.innerText()).toContain(
-    //   'In the main content there is no h1',
-    // );
-    // expect(await element.innerText()).toContain(
-    //   'the content of quickstart space',
-    // );
     // not heading
     await expect(page.locator('#quickstart')).toBeHidden();
   });
