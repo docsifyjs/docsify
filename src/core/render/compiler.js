@@ -267,12 +267,12 @@ export class Compiler {
     } else {
       for (let i = 0; i < toc.length; i++) {
         if (toc[i].ignoreSubHeading) {
-          const deletedHeaderLevel = toc[i].level;
+          const deletedHeaderLevel = toc[i].depth;
           toc.splice(i, 1);
           // Remove headers who are under current header
           for (
             let j = i;
-            j < toc.length && deletedHeaderLevel < toc[j].level;
+            j < toc.length && deletedHeaderLevel < toc[j].depth;
             j++
           ) {
             toc.splice(j, 1) && j-- && i++;
@@ -307,7 +307,8 @@ export class Compiler {
     const { cacheTree, toc } = this;
 
     toc[0] && toc[0].ignoreAllSubs && toc.splice(0);
-    toc[0] && toc[0].level === 1 && toc.shift();
+    // remove the first heading from the toc if it is a top-level heading
+    toc[0] && toc[0].depth === 1 && toc.shift();
 
     for (let i = 0; i < toc.length; i++) {
       toc[i].ignoreSubHeading && toc.splice(i, 1) && i--;

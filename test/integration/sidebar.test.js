@@ -1,5 +1,4 @@
 import docsifyInit from '../helpers/docsify-init.js';
-import { expect } from '@playwright/test';
 
 describe('Test sidebar render toc structure', function () {
   test('Render sidebar with loadSidebar=true and the _sidebar.md file', async () => {
