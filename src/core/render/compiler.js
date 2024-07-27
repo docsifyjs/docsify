@@ -262,31 +262,31 @@ export class Compiler {
     const currentPath = this.router.getCurrentPath();
     let html = '';
 
+    // compile sidebar from _sidebar.md
     if (text) {
-      html = this.compile(text);
-    } else {
-      for (let i = 0; i < toc.length; i++) {
-        if (toc[i].ignoreSubHeading) {
-          const deletedHeaderLevel = toc[i].depth;
-          toc.splice(i, 1);
-          // Remove headers who are under current header
-          for (
-            let j = i;
-            j < toc.length && deletedHeaderLevel < toc[j].depth;
-            j++
-          ) {
-            toc.splice(j, 1) && j-- && i++;
-          }
-
-          i--;
+      return this.compile(text);
+    }
+    // compile sidebar from content's headings toc
+    for (let i = 0; i < toc.length; i++) {
+      if (toc[i].ignoreSubHeading) {
+        const deletedHeaderLevel = toc[i].depth;
+        toc.splice(i, 1);
+        // Remove headers who are under current header
+        for (
+          let j = i;
+          j < toc.length && deletedHeaderLevel < toc[j].depth;
+          j++
+        ) {
+          toc.splice(j, 1) && j-- && i++;
         }
-      }
 
-      const tree = this.cacheTree[currentPath] || genTree(toc, level);
-      html = treeTpl(tree, /* html */ '<ul>{inner}</ul>');
-      this.cacheTree[currentPath] = tree;
+        i--;
+      }
     }
 
+    const tree = this.cacheTree[currentPath] || genTree(toc, level);
+    html = treeTpl(tree);
+    this.cacheTree[currentPath] = tree;
     return html;
   }
 
