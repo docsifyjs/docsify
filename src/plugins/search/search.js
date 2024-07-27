@@ -12,7 +12,7 @@ db.version(1).stores({
   expires: 'key, value',
 });
 
-async function saveData(maxAge, expireKey, indexKey) {
+async function saveData(maxAge, expireKey) {
   INDEXES = Object.values(INDEXES).flatMap(innerData =>
     Object.values(innerData),
   );
@@ -324,7 +324,7 @@ export async function init(config, vm) {
           indexKey,
         );
         if (len === ++count) {
-          await saveData(config.maxAge, expireKey, indexKey);
+          await saveData(config.maxAge, expireKey);
         }
       },
     );
