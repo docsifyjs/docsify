@@ -93,6 +93,12 @@ describe('Test sidebar render toc structure', function () {
      * </ul>
      */
 
+    const appSubSidebarTargetElm = document.querySelector('.sidebar-nav > ul');
+    expect(appSubSidebarTargetElm).not.toBeNull();
+    const ulClass = appSubSidebarTargetElm.className;
+    // the sidebar-nav > ul should have the class app-sub-sidebar
+    expect(ulClass).toContain('app-sub-sidebar');
+
     const GettingStarted = document.querySelector('.sidebar-nav > ul > li');
     const level1_Elm = document.querySelector(
       '.sidebar-nav > ul > li > ul> li',
