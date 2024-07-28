@@ -251,8 +251,8 @@ export class Compiler {
   }
 
   /**
-   * Compile sidebar
-   * @param {String} text Text content
+   * Compile sidebar, it uses  _sidebar.md ( or specific file) or the content's headings toc to render sidebar.
+   * @param {String} text Text content from the sidebar file, maybe empty
    * @param {Number} level Type of heading (h<level> tag)
    * @returns {String} Sidebar element
    */
@@ -261,32 +261,39 @@ export class Compiler {
     const currentPath = this.router.getCurrentPath();
     let html = '';
 
+    // compile sidebar from _sidebar.md
     if (text) {
-      html = this.compile(text);
-    } else {
-      for (let i = 0; i < toc.length; i++) {
-        if (toc[i].ignoreSubHeading) {
-          const deletedHeaderLevel = toc[i].level;
-          toc.splice(i, 1);
-          // Remove headers who are under current header
-          for (
-            let j = i;
-            j < toc.length && deletedHeaderLevel < toc[j].level;
-            j++
-          ) {
-            toc.splice(j, 1) && j-- && i++;
-          }
-
-          i--;
+      return this.compile(text);
+    }
+    // compile sidebar from content's headings toc
+    for (let i = 0; i < toc.length; i++) {
+      if (toc[i].ignoreSubHeading) {
+        const deletedHeaderLevel = toc[i].depth;
+        toc.splice(i, 1);
+        // Remove headers who are under current header
+        for (
+          let j = i;
+          j < toc.length && deletedHeaderLevel < toc[j].depth;
+          j++
+        ) {
+          toc.splice(j, 1) && j-- && i++;
         }
-      }
 
-      const tree = this.cacheTree[currentPath] || genTree(toc, level);
-      html = treeTpl(tree, /* html */ '<ul>{inner}</ul>');
-      this.cacheTree[currentPath] = tree;
+        i--;
+      }
     }
 
+    const tree = this.cacheTree[currentPath] || genTree(toc, level);
+    html = treeTpl(tree);
+    this.cacheTree[currentPath] = tree;
     return html;
+  }
+
+  /**
+   * When current content redirect to a new path file, clean pre content headings toc
+   */
+  resetToc() {
+    this.toc = [];
   }
 
   /**
@@ -295,16 +302,12 @@ export class Compiler {
    * @returns {String} Sub-sidebar element
    */
   subSidebar(level) {
-    if (!level) {
-      this.toc = [];
-      return;
-    }
-
     const currentPath = this.router.getCurrentPath();
     const { cacheTree, toc } = this;
 
     toc[0] && toc[0].ignoreAllSubs && toc.splice(0);
-    toc[0] && toc[0].level === 1 && toc.shift();
+    // remove the first heading from the toc if it is a top-level heading
+    toc[0] && toc[0].depth === 1 && toc.shift();
 
     for (let i = 0; i < toc.length; i++) {
       toc[i].ignoreSubHeading && toc.splice(i, 1) && i--;
