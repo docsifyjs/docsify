@@ -64,13 +64,13 @@
       translate: 50% 0;
       overflow-y: auto;
       max-height: calc(100vh - 61px);
-      padding: 1em;
+      padding: 0.75em 1em;
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
       background: var(--color-bg);
 
       li:last-child & {
-        right: calc(0px - var(--content-margin-inline) / 2);
+        right: -0.5em;
         translate: 0;
       }
     }
