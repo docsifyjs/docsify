@@ -74,17 +74,16 @@ export class Compiler {
       this.linkTarget === '_blank' ? config.externalLinkRel || 'noopener' : '';
     this.contentBase = router.getBasePath();
 
-    const renderer = this._initRenderer();
-    this.heading = renderer.heading;
+    this.renderer = this._initRenderer();
     let compile;
     const mdConf = config.markdown || {};
 
     if (isFn(mdConf)) {
-      compile = mdConf(marked, renderer);
+      compile = mdConf(marked, this.renderer);
     } else {
       marked.setOptions(
         Object.assign(mdConf, {
-          renderer: Object.assign(renderer, mdConf.renderer),
+          renderer: Object.assign(this.renderer, mdConf.renderer),
         }),
       );
       compile = marked;
@@ -205,13 +204,14 @@ export class Compiler {
     /**
      * Render anchor tag
      * @link https://github.com/markedjs/marked#overriding-renderer-methods
-     * @param {String} text Text content
-     * @param {Number} level Type of heading (h<level> tag)
+     * @param {String} tokens the content tokens
+     * @param {Number} depth Type of heading (h<level> tag)
      * @returns {String} Heading element
      */
-    origin.heading = renderer.heading = function (text, level) {
+    origin.heading = renderer.heading = function ({ tokens, depth }) {
+      const text = this.parser.parseInline(tokens);
       let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { level, title: str };
+      const nextToc = { depth, title: str };
 
       const { content, ignoreAllSubs, ignoreSubHeading } =
         getAndRemoveDocsifyIgnoreConfig(str);
@@ -229,7 +229,7 @@ export class Compiler {
       // elements after navigation. This is preferred over focusing on the link
       // within the heading because it matches the focus behavior of screen
       // readers when navigating page content.
-      return `<h${level} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${level}>`;
+      return `<h${depth} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${depth}>`;
     };
 
     origin.code = highlightCodeCompiler({ renderer });
@@ -251,8 +251,8 @@ export class Compiler {
   }
 
   /**
-   * Compile sidebar
-   * @param {String} text Text content
+   * Compile sidebar, it uses  _sidebar.md ( or specific file) or the content's headings toc to render sidebar.
+   * @param {String} text Text content from the sidebar file, maybe empty
    * @param {Number} level Type of heading (h<level> tag)
    * @returns {String} Sidebar element
    */
@@ -261,32 +261,39 @@ export class Compiler {
     const currentPath = this.router.getCurrentPath();
     let html = '';
 
+    // compile sidebar from _sidebar.md
     if (text) {
-      html = this.compile(text);
-    } else {
-      for (let i = 0; i < toc.length; i++) {
-        if (toc[i].ignoreSubHeading) {
-          const deletedHeaderLevel = toc[i].level;
-          toc.splice(i, 1);
-          // Remove headers who are under current header
-          for (
-            let j = i;
-            j < toc.length && deletedHeaderLevel < toc[j].level;
-            j++
-          ) {
-            toc.splice(j, 1) && j-- && i++;
-          }
-
-          i--;
+      return this.compile(text);
+    }
+    // compile sidebar from content's headings toc
+    for (let i = 0; i < toc.length; i++) {
+      if (toc[i].ignoreSubHeading) {
+        const deletedHeaderLevel = toc[i].depth;
+        toc.splice(i, 1);
+        // Remove headers who are under current header
+        for (
+          let j = i;
+          j < toc.length && deletedHeaderLevel < toc[j].depth;
+          j++
+        ) {
+          toc.splice(j, 1) && j-- && i++;
         }
-      }
 
-      const tree = this.cacheTree[currentPath] || genTree(toc, level);
-      html = treeTpl(tree, /* html */ '<ul>{inner}</ul>');
-      this.cacheTree[currentPath] = tree;
+        i--;
+      }
     }
 
+    const tree = this.cacheTree[currentPath] || genTree(toc, level);
+    html = treeTpl(tree);
+    this.cacheTree[currentPath] = tree;
     return html;
+  }
+
+  /**
+   * When current content redirect to a new path file, clean pre content headings toc
+   */
+  resetToc() {
+    this.toc = [];
   }
 
   /**
@@ -295,16 +302,12 @@ export class Compiler {
    * @returns {String} Sub-sidebar element
    */
   subSidebar(level) {
-    if (!level) {
-      this.toc = [];
-      return;
-    }
-
     const currentPath = this.router.getCurrentPath();
     const { cacheTree, toc } = this;
 
     toc[0] && toc[0].ignoreAllSubs && toc.splice(0);
-    toc[0] && toc[0].level === 1 && toc.shift();
+    // remove the first heading from the toc if it is a top-level heading
+    toc[0] && toc[0].depth === 1 && toc.shift();
 
     for (let i = 0; i < toc.length; i++) {
       toc[i].ignoreSubHeading && toc.splice(i, 1) && i--;
@@ -317,12 +320,21 @@ export class Compiler {
     return treeTpl(tree);
   }
 
+  /**
+   * Compile the text to generate HTML heading element based on the level
+   * @param {*} text Text content, for now it is only from the _sidebar.md file
+   * @param {*} level Type of heading (h<level> tag), for now it is always 1
+   * @returns
+   */
   header(text, level) {
-    return this.heading(text, level);
-  }
-
-  article(text) {
-    return this.compile(text);
+    const tokenHeading = {
+      type: 'heading',
+      raw: text,
+      depth: level,
+      text: text,
+      tokens: [{ type: 'text', raw: text, text: text }],
+    };
+    return this.renderer.heading(tokenHeading);
   }
 
   /**

@@ -2,7 +2,7 @@ import { getAndRemoveConfig } from '../utils.js';
 import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
 
 export const imageCompiler = ({ renderer, contentBase, router }) =>
-  (renderer.image = (href, title, text) => {
+  (renderer.image = ({ href, title, text }) => {
     let url = href;
     const attrs = [];
 
