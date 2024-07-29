@@ -152,6 +152,11 @@
   }
 
   output,
+  pre:not(data-lang) {
+    overflow: auto;
+  }
+
+  output,
   pre[data-lang] {
     position: relative;
 
