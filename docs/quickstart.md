@@ -51,7 +51,10 @@ Download or create an `index.html` template using the following markup:
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <!-- Core Theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css">
+
+    <!-- Core Dark Theme (add-on / dark mode only) -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" media="(prefers-color-scheme: dark)" />
   </head>
   <body class="loading">
     <div id="app"></div>
@@ -83,7 +86,7 @@ Specifying a major version in the URL (`@5`) will allow your site to receive non
 <!-- prettier-ignore -->
 ```html
 <!-- Core Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css">
 
 <!-- Docsify -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
@@ -94,7 +97,7 @@ If you prefer to lock docsify to a specific version, specify the full version af
 <!-- prettier-ignore -->
 ```html
 <!-- Core Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5.0.0/themes/core.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5.0.0/dist/themes/core.min.css">
 
 <!-- Docsify -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5.0.0"></script>

@@ -14,6 +14,8 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
 
 Theme add-ons are used in combination with the [core theme](#core-theme). Add-ons contain CSS rules that modify [theme properties](#theme-properties) values and/or add custom style declarations. They can often (but not always) be used with other add-ons.
 
+Theme add-ons can be applied conditionally using an `@media` attribute. This allows applying styles only at specific screen sizes, when light or dark mode is being used, when a device is touch enabled, etc.
+
 !> Theme add-ons must be loaded after the [core theme](#core-theme).
 
 <!-- prettier-ignore -->
@@ -21,13 +23,16 @@ Theme add-ons are used in combination with the [core theme](#core-theme). Add-on
 <!-- Core Theme -->
 <link rel="stylesheet" href="..." />
 
-<!-- Theme (add-on) -->
+<!-- Theme Add-on -->
 <link rel="stylesheet" href="..." />
+
+<!-- Theme Add-on with @media rule -->
+<link rel="stylesheet" href="..." media="(prefers-color-scheme: dark)" />
 ```
 
 ### Core Dark (Add-on)
 
-Dark mode styles for the [core theme](#core-theme). Styles can applied only when an operating system's dark mode is active by specifying a `media` attribute.
+Dark styles for the [core theme](#core-theme).
 
 <label>
   <input
@@ -53,13 +58,13 @@ Dark mode styles for the [core theme](#core-theme). Styles can applied only when
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Dark (add-on) -->
+<!-- Core Dark Theme (add-on) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" />
 ```
 
 <!-- prettier-ignore -->
 ```html
-<!-- Core Dark - Dark Mode Only (add-on) -->
+<!-- Core Dark Theme (add-on / dark mode only) -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" media="(prefers-color-scheme: dark)" />
 ```
 
