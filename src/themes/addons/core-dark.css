@@ -29,8 +29,14 @@
 }
 
 .cover-main {
-  a.button.secondary {
-    color: var(--color-text);
-    border-color: rgba(255, 255, 255, 0.5);
+  a.button {
+    &.secondary {
+      color: var(--color-text);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:hover {
+      outline-color: var(--theme-color-4);
+    }
   }
 }

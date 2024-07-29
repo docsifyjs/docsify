@@ -23,8 +23,10 @@
     display: flex;
   }
 
-  a:not(.anchor) {
-    text-decoration-color: var(--theme-color);
+  a {
+    &:not(.anchor) {
+      text-decoration-color: var(--theme-color);
+    }
   }
 
   blockquote {
