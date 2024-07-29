@@ -44,6 +44,8 @@
     font: var(--cover-title-font);
 
     a {
+      color: inherit;
+
       &,
       &:hover {
         text-decoration-color: transparent;
