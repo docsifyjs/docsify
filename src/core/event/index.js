@@ -299,10 +299,17 @@ export function Events(Base) {
      * @void
      */
     onRender() {
+      const { name } = this.config;
       const currentPath = this.router.toURL(this.router.getCurrentPath());
-      const currentTitle = dom.find(
-        `.sidebar a[href='${currentPath}']`,
-      )?.innerText;
+      const currentSection = dom
+        .find(`.sidebar a[href='${currentPath}']`)
+        ?.getAttribute('title');
+
+      const currentTitle = name
+        ? currentSection
+          ? `${name} - ${currentSection}`
+          : name
+        : currentSection;
 
       // Update page title
       dom.$.title = currentTitle || this.#title;
