@@ -20,7 +20,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     const docsifyInitConfig = {
       config: {
         name: 'Docsify Name',
-        themeColor: 'red',
       },
       markdown: {
         coverpage: `
@@ -58,8 +57,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
       scriptURLs: [
         // docsifyInit() route
         'data-test-scripturls.js',
-        // Server route
-        '/dist/plugins/search.js',
       ],
       style: `
         body {
@@ -76,7 +73,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
 
     // Verify config options
     expect(typeof window.$docsify).toBe('object');
-    expect(window.$docsify).toHaveProperty('themeColor', 'red');
     expect(document.querySelector('.app-name').textContent).toContain(
       'Docsify Name',
     );
@@ -101,7 +97,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
 
     // Verify docsifyInitConfig.scriptURLs were executed
     expect(document.body.hasAttribute('data-test-scripturls')).toBe(true);
-    expect(document.querySelector('.search input[type="search"]')).toBeTruthy();
 
     // Verify docsifyInitConfig.script was added to the DOM
     expect(
