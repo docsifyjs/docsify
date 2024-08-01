@@ -60,17 +60,6 @@ function escapeHtml(string) {
   return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
 
-function formatContent(text) {
-  return escapeHtml(cleanMarkdown(ignoreDiacriticalMarks(text)));
-}
-
-function cleanMarkdown(text) {
-  if (text) {
-    text = markdownToTxt(text);
-  }
-  return text;
-}
-
 function getAllPaths(router) {
   const paths = [];
 
@@ -146,7 +135,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: token.text || '',
+          body: markdownToTxt(token.text || ''),
           path: path,
           indexKey: indexKey,
         };
@@ -162,12 +151,12 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body += '\n' + (token.text || '');
+        index[slug].body += '\n' + markdownToTxt(token.text || '');
       } else {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body = token.text || '';
+        index[slug].body = markdownToTxt(token.text || '');
       }
 
       index[slug].path = path;
@@ -211,14 +200,19 @@ export function search(query) {
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
-          formatContent(keyword).replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
+          escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
+            /[|\\{}()[\]^$+*?.]/g,
+            '\\$&',
+          ),
           'gi',
         );
         let indexTitle = -1;
         let indexContent = -1;
-        handlePostTitle = postTitle ? formatContent(postTitle) : postTitle;
+        handlePostTitle = postTitle
+          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
+          : postTitle;
         handlePostContent = postContent
-          ? formatContent(postContent)
+          ? escapeHtml(ignoreDiacriticalMarks(postContent))
           : postContent;
 
         indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
@@ -252,8 +246,8 @@ export function search(query) {
 
       if (matchesScore > 0) {
         const matchingPost = {
-          title: formatContent(handlePostTitle),
-          content: formatContent(postContent ? resultStr : ''),
+          title: handlePostTitle,
+          content: postContent ? resultStr : '',
           url: postUrl,
           score: matchesScore,
         };

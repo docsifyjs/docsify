@@ -53,7 +53,7 @@ function doSearch(value) {
       <div class="matching-post" aria-label="search result ${i + 1}">
         <a href="${post.url}">
           <p class="title clamp-1">${post.title}</p>
-          <p class="content clamp-2">${post.content}</p>
+          <p class="content clamp-2">...${post.content}...</p>
         </a>
       </div>
     `;
