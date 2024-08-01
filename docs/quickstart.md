@@ -22,7 +22,7 @@ After the `init` is complete, you can see the file list in the `./docs` subdirec
 - `README.md` as the home page
 - `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
 
-You can easily update the documentation in `./docs/README.md`, of course you can add [more pages](more-pages.md).
+You can easily update the documentation in `./docs/README.md`, of course you can add [more pages](adding-pages.md).
 
 ## Preview your site
 
