@@ -27,7 +27,7 @@ Please consider donating if you think docsify is helpful to you or that my work 
 
 ### Gold sponsors
 
-<object type="image/svg+xml" data="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=64&button=false"></object>
+[![](_images/Route4Me.png ':size=200')](https://route4me.com/ 'Best Route Planning and Route Optimization Software')
 
 ## Community
 
