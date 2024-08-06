@@ -14,7 +14,6 @@
     <img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
   <a href="https://github.com/docsifyjs/docsify/actions/workflows/test.yml"><img src="https://github.com/docsifyjs/docsify/actions/workflows/test.yml/badge.svg" alt="Build & Test"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
-  <a href="https://github.com/QingWei-Li/donate"><img alt="donate" src="https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square"></a>
   <a href="https://discord.gg/3NwKFyR"><img alt="Join Discord community and chat about Docsify" src="https://img.shields.io/discord/713647066802421792.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2&cacheSeconds=60"></a>
   <a href="https://gitpod.io/#https://github.com/docsifyjs/docsify"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"></a>
 </p>
@@ -23,7 +22,7 @@
 
 <p align="center">
   <a href="https://opencollective.com/docsify/order/3254">
-    <img src="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=36">
+    <img src="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=48&button=false">
   </a>
 </p>
 
@@ -36,7 +35,7 @@ Docsify turns one or more Markdown files into a Website, with no build process r
 - Smart full-text search plugin
 - Multiple themes
 - Useful plugin API
-- Support embedded files
+- Emoji support
 
 ## Quick Start
 
@@ -63,13 +62,13 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Backers
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/docsify#backers)]
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/docsify/contribute)]
 
 <a href="https://opencollective.com/docsify#backers" target="_blank"><img src="https://opencollective.com/docsify/backers.svg?width=890"></a>
 
 ## Sponsors
 
-Thank you for supporting this project！:heart: [[Become a sponsor](https://opencollective.com/docsify)]
+Thank you for supporting this project! ❤️ [[Become a sponsor](https://opencollective.com/docsify/contribute)]
 
 <img src="https://opencollective.com/docsify/sponsors.svg?width=890" />
 

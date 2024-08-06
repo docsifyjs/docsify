@@ -25,6 +25,10 @@ Check out the [Showcase](https://github.com/docsifyjs/awesome-docsify#showcase) 
 
 Please consider donating if you think docsify is helpful to you or that my work is valuable. I am happy if you can help me [buy a cup of coffee](https://github.com/QingWei-Li/donate). :heart:
 
+### Gold sponsors
+
+<object type="image/svg+xml" data="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=64&button=false"></object>
+
 ## Community
 
 Users and the development team are usually in the [Discord server](https://discord.gg/3NwKFyR).
