@@ -28,9 +28,46 @@
   color-scheme: dark;
 }
 
+/* Cover */
+/* ========================================================================== */
 .cover-main {
   a.button.secondary {
     color: var(--color-text);
     border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Markdown */
+/* ========================================================================== */
+.markdown-section {
+  .callout {
+    &[class] {
+      --callout-bg: unset;
+    }
+
+    &.caution {
+      --callout-border-color: #991b1b; /* Tailwind: red 800 */
+    }
+
+    &.important {
+      --callout-border-color: #5b21b6; /* Tailwind: violet 800 */
+    }
+
+    &.note {
+      --callout-border-color: var(--theme-color-4);
+    }
+
+    &.tip {
+      --callout-border-color: #115e59; /* Tailwind: teal 800 */
+    }
+
+    &.warning {
+      --callout-border-color: #a16207; /* Tailwind: yellow 700 */
+    }
+
+    code,
+    pre:where([data-lang]) {
+      background: var(--color-mono-min);
+    }
   }
 }

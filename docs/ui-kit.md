@@ -53,6 +53,40 @@
 
 ## Callouts
 
+### Github Style
+
+<!-- prettier-ignore -->
+> [!CAUTION]
+> **Caution** callouts communicate negative potential consequences of an action.
+
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> **Important** callouts communicate information necessary for users to succeed.
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> **Note** callouts communicate information that users should take into account.
+
+<!-- prettier-ignore -->
+> [!TIP]
+> **Tip** callouts communicate optional information to help a user be more successful.
+
+<!-- prettier-ignore -->
+> [!WARNING]
+> **Warning** callouts communicate potential risks user should be aware of.
+
+**Nested**
+
+<!-- prettier-ignore -->
+> [!CAUTION]
+> **Caution** callouts communicate negative potential consequences of an action.
+> > [!IMPORTANT]
+> > **Important** callouts communicate information necessary for users to succeed.
+> > > [!NOTE]
+> > > **Note** callouts communicate information that users should take into account.
+
+#### Legacy Docsify Style
+
 !> **Important** callout with `inline code` and additional placeholder text used
 to force the content to wrap and span multiple lines.
 

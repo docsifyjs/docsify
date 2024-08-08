@@ -13,6 +13,7 @@ import {
 import { imageCompiler } from './compiler/image.js';
 import { highlightCodeCompiler } from './compiler/code.js';
 import { paragraphCompiler } from './compiler/paragraph.js';
+import { blockquoteCompiler } from './compiler/blockquote.js';
 import { taskListCompiler } from './compiler/taskList.js';
 import { taskListItemCompiler } from './compiler/taskListItem.js';
 import { linkCompiler } from './compiler/link.js';
@@ -232,6 +233,7 @@ export class Compiler {
       return `<h${depth} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${depth}>`;
     };
 
+    origin.blockquoteCompiler = blockquoteCompiler({ renderer });
     origin.code = highlightCodeCompiler({ renderer });
     origin.link = linkCompiler({
       renderer,
