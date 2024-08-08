@@ -14,14 +14,14 @@ It is recommended that you save your files to the `./docs` subfolder of the `mai
 
 ![GitHub Pages](_images/deploy-github-pages.png)
 
-!> You can also save files in the root directory and select `main branch`.
-You'll need to place a `.nojekyll` file in the deploy location (such as `/docs` or the gh-pages branch)
+> [!IMPORTANT] You can also save files in the root directory and select `main branch`.
+> You'll need to place a `.nojekyll` file in the deploy location (such as `/docs` or the gh-pages branch)
 
 ## GitLab Pages
 
 If you are deploying your master branch, create a `.gitlab-ci.yml` with the following script:
 
-?> The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
+> [!TIP] The `.public` workaround is so `cp` doesn't also copy `public/` to itself in an infinite loop.
 
 ```YAML
 pages:
@@ -37,11 +37,11 @@ pages:
   - master
 ```
 
-!> You can replace script with `- cp -r docs/. public`, if `./docs` is your Docsify subfolder.
+> [!IMPORTANT] You can replace script with `- cp -r docs/. public`, if `./docs` is your Docsify subfolder.
 
 ## Firebase Hosting
 
-!> You'll need to install the Firebase CLI using `npm i -g firebase-tools` after signing into the [Firebase Console](https://console.firebase.google.com) using a Google Account.
+> [!IMPORTANT] You'll need to install the Firebase CLI using `npm i -g firebase-tools` after signing into the [Firebase Console](https://console.firebase.google.com) using a Google Account.
 
 Using a terminal, determine and navigate to the directory for your Firebase Project. This could be `~/Projects/Docs`, etc. From there, run `firebase init` and choose `Hosting` from the menu (use **space** to select, **arrow keys** to change options and **enter** to confirm). Follow the setup instructions.
 

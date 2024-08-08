@@ -301,7 +301,7 @@ Key `bindings` are defined as case insensitive string values separated by `+`. M
 
 The `callback` function receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
 
-!> Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
+> [!IMPORTANT] Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
 
 ```js
 window.$docsify = {
@@ -376,7 +376,7 @@ window.$docsify = {
 
 Website logo as it appears in the sidebar. You can resize it using CSS.
 
-!> Logo will only be visible if `name` prop is also set. See [name](#name) configuration.
+> [!IMPORTANT] Logo will only be visible if `name` prop is also set. See [name](#name) configuration.
 
 ```js
 window.$docsify = {
@@ -919,7 +919,7 @@ For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
 ## themeColor ⚠️
 
-!> Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
+> [!IMPORTANT] Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
 - Type: `String`
 
@@ -933,7 +933,7 @@ window.$docsify = {
 
 ## topMargin ⚠️
 
-!> Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
+> [!IMPORTANT] Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
 
 - Type: `Number|String`
 - Default: `0`

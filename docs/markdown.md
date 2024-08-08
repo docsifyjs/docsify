@@ -15,7 +15,7 @@ window.$docsify = {
 };
 ```
 
-?> Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
+> [!TIP] Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
 
 You can completely customize the parsing rules.
 

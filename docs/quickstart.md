@@ -32,7 +32,7 @@ Run the local server with `docsify serve`. You can preview your site in your bro
 docsify serve docs
 ```
 
-?> For more use cases of `docsify-cli`, head over to the [docsify-cli documentation](https://github.com/docsifyjs/docsify-cli).
+> [!TIP] For more use cases of `docsify-cli`, head over to the [docsify-cli documentation](https://github.com/docsifyjs/docsify-cli).
 
 ## Manual initialization
 
@@ -76,7 +76,7 @@ Download or create an `index.html` template using the following markup:
 
 ### Specifying docsify versions
 
-?> Note that in both of the examples below, docsify URLs will need to be manually updated when a new major version of docsify is released (e.g. `v5.x.x` => `v6.x.x`). Check the docsify website periodically to see if a new major version has been released.
+> [!TIP] Note that in both of the examples below, docsify URLs will need to be manually updated when a new major version of docsify is released (e.g. `v5.x.x` => `v6.x.x`). Check the docsify website periodically to see if a new major version has been released.
 
 Specifying a major version in the URL (`@5`) will allow your site to receive non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch" updates) automatically. This is the recommended way to load docsify resources.
 

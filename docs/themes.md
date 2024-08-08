@@ -14,7 +14,7 @@ The Docsify "core" theme contains all of the styles and [theme properties](#them
 
 Theme add-ons are used in combination with the [core theme](#core-theme). Add-ons contain CSS rules that modify [theme properties](#theme-properties) values and/or add custom style declarations. They can often (but not always) be used with other add-ons.
 
-!> Theme add-ons must be loaded after the [core theme](#core-theme).
+> [!IMPORTANT] Theme add-ons must be loaded after the [core theme](#core-theme).
 
 <!-- prettier-ignore -->
 ```html
@@ -288,7 +288,7 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
    }
    ```
 
-   ?> **Theme authors**: Consider providing instructions for loading your recommended web fonts manually instead of including them in your theme using `@import`. This allows users who prefer a different font to avoid loading your recommended web font(s) unnecessarily.
+   > [!TIP] **Theme authors**: Consider providing instructions for loading your recommended web fonts manually instead of including them in your theme using `@import`. This allows users who prefer a different font to avoid loading your recommended web font(s) unnecessarily.
 
 4. Advanced styling may require custom CSS declarations. This is expected, however custom CSS declarations may break when new versions of Docsify are released. When possible, leverage [theme properties](#theme-properties) instead of custom declarations or lock your [CDN](cdn) URLs to a [specific version](cdn#specific-version) to avoid potential issues when using custom CSS declarations.
 
@@ -302,7 +302,7 @@ Docsify provides [theme properties](#theme-properties) for simplified customizat
 
 The following properties are available in all official Docsify themes. Default values for the "Core" theme are shown.
 
-?> **Theme and plugin authors**: We encourage you to leverage these custom theme properties and to offer similar customization options in your projects.
+> [!TIP] **Theme and plugin authors**: We encourage you to leverage these custom theme properties and to offer similar customization options in your projects.
 
 ### Common
 

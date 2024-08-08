@@ -53,45 +53,54 @@
 
 ## Callouts
 
-### Github Style
-
 <!-- prettier-ignore -->
 > [!CAUTION]
-> **Caution** callouts communicate negative potential consequences of an action.
+> **Caution** callout with `inline code`.
 
 <!-- prettier-ignore -->
 > [!IMPORTANT]
-> **Important** callouts communicate information necessary for users to succeed.
+> **Important** callout with `inline code`.
 
 <!-- prettier-ignore -->
 > [!NOTE]
-> **Note** callouts communicate information that users should take into account.
+> **Note** callout with `inline code`.
 
 <!-- prettier-ignore -->
 > [!TIP]
-> **Tip** callouts communicate optional information to help a user be more successful.
+> **Tip** callout with `inline code`.
 
 <!-- prettier-ignore -->
 > [!WARNING]
-> **Warning** callouts communicate potential risks user should be aware of.
+> **Warning** callout with `inline code`.
+
+**Multi Line**
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> - List item 1
+> - List item 2
+>
+> Text
+>
+> ```html
+> <p>Hello, World!</p>
+> ```
 
 **Nested**
 
 <!-- prettier-ignore -->
-> [!CAUTION]
-> **Caution** callouts communicate negative potential consequences of an action.
-> > [!IMPORTANT]
-> > **Important** callouts communicate information necessary for users to succeed.
+> [!NOTE]
+> Level 1
+> > [!NOTE]
+> > Level 2
 > > > [!NOTE]
-> > > **Note** callouts communicate information that users should take into account.
+> > > Level 3
 
-#### Legacy Docsify Style
+**Legacy Style**
 
-!> **Important** callout with `inline code` and additional placeholder text used
-to force the content to wrap and span multiple lines.
+!> Legacy **Important** callout with `inline code`.
 
-?> **Tip** callout with `inline code` and additional placeholder text used to
-force the content to wrap and span multiple lines.
+?> Legacy **Tip** with `inline code`.
 
 ## Code
 

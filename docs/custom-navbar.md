@@ -4,7 +4,7 @@
 
 If you need custom navigation, you can create a HTML-based navigation bar.
 
-!> Note that documentation links begin with `#/`.
+> [!IMPORTANT] Note that documentation links begin with `#/`.
 
 ```html
 <!-- index.html -->
@@ -51,7 +51,7 @@ To create drop-down menus:
   - [chinese](/zh-cn/)
 ```
 
-!> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
+> [!IMPORTANT] You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
 `_navbar.md` is loaded from each level directory. If the current directory doesn't have `_navbar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`, the `_navbar.md` will be loaded from `/guide/_navbar.md`.
 

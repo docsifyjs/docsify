@@ -52,16 +52,16 @@ Docsify supports [GitHub style](https://docs.github.com/en/get-started/writing-o
 
 The following Docsify v4 callout syntax has been deprecated and will be removed in a future version.
 
-!> **Important** callouts communicate information necessary for users to succeed.
+!> Legacy **Important** callouts are deprecated.
 
-?> **Tip** callouts communicate optional information to help a user be more successful.
+?> Legacy **Tip** callouts are deprecated.
 
 **Markdown**
 
 ```markdown
-!> **Important** callouts communicate information necessary for users to succeed.
+!> Legacy **Important** callouts are deprecated.
 
-?> **Tip** callouts communicate optional information to help a user be more successful.
+?> Legacy **Tip** callouts are deprecated.
 ```
 
 ## Link attributes
