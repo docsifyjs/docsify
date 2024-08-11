@@ -307,7 +307,7 @@ export function Events(Base) {
 
       const currentTitle = name
         ? currentSection
-          ? `${name} - ${currentSection}`
+          ? `${currentSection} - ${name}`
           : name
         : currentSection;
 
