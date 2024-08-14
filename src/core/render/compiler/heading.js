@@ -3,9 +3,9 @@ import {
   removeAtag,
   getAndRemoveDocsifyIgnoreConfig,
 } from '../utils.js';
-import { slugify } from './../slugify.js';
+import { slugify } from '../slugify.js';
 
-export const headingCompiler = ({ renderer, router, compilerClass }) =>
+export const headingCompiler = ({ renderer, router, compiler }) =>
   (renderer.heading = function ({ tokens, depth }) {
     const text = this.parser.parseInline(tokens);
     let { str, config } = getAndRemoveConfig(text);
@@ -21,7 +21,7 @@ export const headingCompiler = ({ renderer, router, compilerClass }) =>
     const slug = slugify(config.id || str);
     const url = router.toURL(router.getCurrentPath(), { id: slug });
     nextToc.slug = url;
-    compilerClass.toc.push(nextToc);
+    compiler.toc.push(nextToc);
 
     // Note: tabindex="-1" allows programmatically focusing on heading
     // elements after navigation. This is preferred over focusing on the link

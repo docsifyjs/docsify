@@ -23,10 +23,10 @@ export function getNode(el, noCache = false) {
 /**
  *
  * @param {*} el the targt element or the selector
- * @param {*} content the content to be rendered
+ * @param {*} content the content to be rendered as HTML
  * @param {*} replace To replace the content (true) or insert instead (false) , default is false
  */
-export function renderTo(el, content, replace) {
+export function setHTML(el, content, replace) {
   const node = getNode(el);
   if (node) {
     node[replace ? 'outerHTML' : 'innerHTML'] = content;

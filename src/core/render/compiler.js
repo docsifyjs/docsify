@@ -160,7 +160,7 @@ export class Compiler {
     origin.heading = headingCompiler({
       renderer,
       router,
-      compilerClass: this,
+      compiler: this,
     });
     origin.code = highlightCodeCompiler({ renderer });
     origin.link = linkCompiler({
@@ -168,7 +168,7 @@ export class Compiler {
       router,
       linkTarget,
       linkRel,
-      compilerClass: this,
+      compiler: this,
     });
     origin.paragraph = paragraphCompiler({ renderer });
     origin.image = imageCompiler({ renderer, contentBase, router });

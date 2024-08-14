@@ -82,7 +82,7 @@ export function Render(Base) {
         }
       }
 
-      dom.renderTo(markdownElm, html);
+      dom.setHTML(markdownElm, html);
 
       // Execute markdown <script>
       if (
@@ -287,7 +287,7 @@ export function Render(Base) {
         return null;
       }
 
-      dom.renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
+      dom.setHTML('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
 
       sidebarToggleEl.setAttribute('aria-expanded', !isMobile());
 
@@ -359,7 +359,7 @@ export function Render(Base) {
       const html = this.compiler.compile(text);
 
       ['.app-nav', '.app-nav-merged'].forEach(selector => {
-        dom.renderTo(selector, html);
+        dom.setHTML(selector, html);
         this.#addTextAsTitleAttribute(`${selector} a`);
       });
     }
@@ -500,7 +500,7 @@ export function Render(Base) {
         rootElm.style.setProperty('--cover-bg', mdCoverBg);
       }
 
-      dom.renderTo('.cover-main', html);
+      dom.setHTML('.cover-main', html);
 
       // Button styles
       dom
@@ -556,7 +556,7 @@ export function Render(Base) {
         html += tpl.main(config);
 
         // Render main app
-        dom.renderTo(el, html, true);
+        dom.setHTML(el, html, true);
       } else {
         this.rendered = true;
       }
