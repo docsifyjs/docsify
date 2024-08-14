@@ -49,9 +49,10 @@ function doSearch(value) {
 
   let html = '';
   matches.forEach((post, i) => {
+    const title = (post.title || '').replace(/<[^>]+>/g, '');
     html += /* html */ `
       <div class="matching-post" aria-label="search result ${i + 1}">
-        <a href="${post.url}">
+        <a href="${post.url}" title="${title}">
           <p class="title clamp-1">${post.title}</p>
           <p class="content clamp-2">${post.content}</p>
         </a>
