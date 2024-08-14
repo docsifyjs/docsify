@@ -7,7 +7,7 @@ import { slugify } from './slugify.js';
 import { emojify } from './emojify.js';
 import { getAndRemoveConfig } from './utils.js';
 import { imageCompiler } from './compiler/image.js';
-import { headingCompiler } from './compiler/headling.js';
+import { headingCompiler } from './compiler/heading.js';
 import { highlightCodeCompiler } from './compiler/code.js';
 import { paragraphCompiler } from './compiler/paragraph.js';
 import { taskListCompiler } from './compiler/taskList.js';
