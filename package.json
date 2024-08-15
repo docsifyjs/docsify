@@ -76,7 +76,7 @@
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^12.1.5",
     "prettier": "^3.2.5",
-    "rimraf": "^5.0.7",
+    "rimraf": "^6.0.1",
     "rollup": "^4.17.2",
     "rollup-plugin-import-css": "^3.5.0",
     "vue": "^3.4.27",
