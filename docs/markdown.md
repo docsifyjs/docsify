@@ -1,6 +1,6 @@
 # Markdown configuration
 
-**docsify** uses [marked](https://github.com/markedjs/marked) as its Markdown parser. You can customize how it renders your Markdown content to HTML by customizing `renderer`:
+**docsify** uses [marked v13+](https://github.com/markedjs/marked) as its Markdown parser. You can customize how it renders your Markdown content to HTML by customizing `renderer`:
 
 ```js
 window.$docsify = {
@@ -31,10 +31,11 @@ window.$docsify = {
 
 ## Supports mermaid
 
+!> Currently, docsify doesn't support the async mermaid render ( the limited supported latest merimaid version is `v9.3.0`).
+
 ```js
-// Import mermaid
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-//  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+//  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
 
 let num = 0;
 mermaid.initialize({ startOnLoad: false });
@@ -42,12 +43,12 @@ mermaid.initialize({ startOnLoad: false });
 window.$docsify = {
   markdown: {
     renderer: {
-      code(code, lang) {
+      code({ text, lang }) {
         if (lang === 'mermaid') {
           return /* html */ `
             <div class="mermaid">${mermaid.render(
               'mermaid-svg-' + num++,
-              code,
+              text,
             )}</div>
           `;
         }
