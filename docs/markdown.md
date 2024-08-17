@@ -31,7 +31,7 @@ window.$docsify = {
 
 ## Supports mermaid
 
-!> Currently, docsify doesn't support the async mermaid render ( the limited supported latest merimaid version is `v9.3.0`).
+!> Currently, docsify doesn't support the async mermaid render (the latest mermaid version supported is `v9.3.0`).
 
 ```js
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
