@@ -5,63 +5,18 @@ import { tree as treeTpl } from './tpl.js';
 import { genTree } from './gen-tree.js';
 import { slugify } from './slugify.js';
 import { emojify } from './emojify.js';
-import {
-  getAndRemoveConfig,
-  removeAtag,
-  getAndRemoveDocsifyIgnoreConfig,
-} from './utils.js';
+import { getAndRemoveConfig } from './utils.js';
 import { imageCompiler } from './compiler/image.js';
+import { headingCompiler } from './compiler/heading.js';
 import { highlightCodeCompiler } from './compiler/code.js';
 import { paragraphCompiler } from './compiler/paragraph.js';
 import { blockquoteCompiler } from './compiler/blockquote.js';
 import { taskListCompiler } from './compiler/taskList.js';
 import { taskListItemCompiler } from './compiler/taskListItem.js';
 import { linkCompiler } from './compiler/link.js';
+import { compileMedia } from './compiler/media.js';
 
 const cachedLinks = {};
-
-const compileMedia = {
-  markdown(url) {
-    return {
-      url,
-    };
-  },
-  mermaid(url) {
-    return {
-      url,
-    };
-  },
-  iframe(url, title) {
-    return {
-      html: `<iframe src="${url}" ${
-        title || 'width=100% height=400'
-      }></iframe>`,
-    };
-  },
-  video(url, title) {
-    return {
-      html: `<video src="${url}" ${title || 'controls'}>Not Support</video>`,
-    };
-  },
-  audio(url, title) {
-    return {
-      html: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`,
-    };
-  },
-  code(url, title) {
-    let lang = url.match(/\.(\w+)$/);
-
-    lang = title || (lang && lang[1]);
-    if (lang === 'md') {
-      lang = 'markdown';
-    }
-
-    return {
-      url,
-      lang,
-    };
-  },
-};
 
 export class Compiler {
   constructor(config, router) {
@@ -174,7 +129,7 @@ export class Compiler {
           type = 'audio';
         }
 
-        embed = compileMedia[type].call(this, href, title);
+        embed = compileMedia[type](href, title);
         embed.type = type;
       }
 
@@ -199,40 +154,15 @@ export class Compiler {
   _initRenderer() {
     const renderer = new marked.Renderer();
     const { linkTarget, linkRel, router, contentBase } = this;
-    const _self = this;
+    // Supports mermaid
     const origin = {};
 
-    /**
-     * Render anchor tag
-     * @link https://github.com/markedjs/marked#overriding-renderer-methods
-     * @param {String} tokens the content tokens
-     * @param {Number} depth Type of heading (h<level> tag)
-     * @returns {String} Heading element
-     */
-    origin.heading = renderer.heading = function ({ tokens, depth }) {
-      const text = this.parser.parseInline(tokens);
-      let { str, config } = getAndRemoveConfig(text);
-      const nextToc = { depth, title: str };
-
-      const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocsifyIgnoreConfig(str);
-      str = content.trim();
-
-      nextToc.title = removeAtag(str);
-      nextToc.ignoreAllSubs = ignoreAllSubs;
-      nextToc.ignoreSubHeading = ignoreSubHeading;
-      const slug = slugify(config.id || str);
-      const url = router.toURL(router.getCurrentPath(), { id: slug });
-      nextToc.slug = url;
-      _self.toc.push(nextToc);
-
-      // Note: tabindex="-1" allows programmatically focusing on heading
-      // elements after navigation. This is preferred over focusing on the link
-      // within the heading because it matches the focus behavior of screen
-      // readers when navigating page content.
-      return `<h${depth} id="${slug}" tabindex="-1"><a href="${url}" data-id="${slug}" class="anchor"><span>${str}</span></a></h${depth}>`;
-    };
-
+    // Renderer customizers
+    origin.heading = headingCompiler({
+      renderer,
+      router,
+      compiler: this,
+    });
     origin.blockquoteCompiler = blockquoteCompiler({ renderer });
     origin.code = highlightCodeCompiler({ renderer });
     origin.link = linkCompiler({
@@ -240,7 +170,7 @@ export class Compiler {
       router,
       linkTarget,
       linkRel,
-      compilerClass: _self,
+      compiler: this,
     });
     origin.paragraph = paragraphCompiler({ renderer });
     origin.image = imageCompiler({ renderer, contentBase, router });

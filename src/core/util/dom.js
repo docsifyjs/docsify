@@ -20,6 +20,19 @@ export function getNode(el, noCache = false) {
   return el;
 }
 
+/**
+ *
+ * @param {*} el the targt element or the selector
+ * @param {*} content the content to be rendered as HTML
+ * @param {*} replace To replace the content (true) or insert instead (false) , default is false
+ */
+export function setHTML(el, content, replace) {
+  const node = getNode(el);
+  if (node) {
+    node[replace ? 'outerHTML' : 'innerHTML'] = content;
+  }
+}
+
 export const $ = document;
 
 export const body = $.body;
