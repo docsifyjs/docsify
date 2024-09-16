@@ -6,7 +6,7 @@ export const linkCompiler = ({
   router,
   linkTarget,
   linkRel,
-  compilerClass,
+  compiler,
 }) =>
   (renderer.link = function ({ href, title = '', tokens }) {
     const attrs = [];
@@ -15,16 +15,16 @@ export const linkCompiler = ({
     linkTarget = config.target || linkTarget;
     linkRel =
       linkTarget === '_blank'
-        ? compilerClass.config.externalLinkRel || 'noopener'
+        ? compiler.config.externalLinkRel || 'noopener'
         : '';
     title = str;
 
     if (
       !isAbsolutePath(href) &&
-      !compilerClass._matchNotCompileLink(href) &&
+      !compiler._matchNotCompileLink(href) &&
       !config.ignore
     ) {
-      if (href === compilerClass.config.homepage) {
+      if (href === compiler.config.homepage) {
         href = 'README';
       }
 
