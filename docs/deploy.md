@@ -208,4 +208,3 @@ You can deploy **Docsify** as a Static Site on [Kinsta](https://kinsta.com/stati
    - Publish directory: `docs`
 
 6. Click the **Create site**.
-
