@@ -230,8 +230,8 @@ export function search(query) {
           start = indexContent < 11 ? 0 : indexContent - 10;
           end = start === 0 ? 100 : indexContent + keyword.length + 90;
 
-          if (postContent && end > postContent.length) {
-            end = postContent.length;
+          if (handlePostContent && end > handlePostContent.length) {
+            end = handlePostContent.length;
           }
 
           const matchContent =

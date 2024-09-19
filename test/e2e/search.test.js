@@ -254,7 +254,7 @@ console.log('Hello World');
     await searchFieldElm.fill('searchHere');
     // there is a newline after searchHere and the markdown part ```js ``` it should be removed
     expect(await resultsHeadingElm.textContent()).toContain(
-      "...searchHere\nconsole.log('Hello Worl...",
+      "...searchHere\nconsole.log('Hello World');...",
     );
   });
 
