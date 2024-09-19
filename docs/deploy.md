@@ -193,7 +193,7 @@ You can deploy **Docsify** as a Static Site on [Kinsta](https://kinsta.com/stati
 5. During the build settings, Kinsta will automatically try to fill out the **Build command**, **Node version**, and **Publish directory**. If it won't, fill out the following:
 
    - Build command: leave empty
-   - Node version: leave on default selection or a specific version ( e.g. `18.16.0`)
+   - Node version: leave on default selection or a specific version (e.g. `18.16.0`)
    - Publish directory: `docs`
 
 6. Click the **Create site**.
