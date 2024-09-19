@@ -1,183 +1,75 @@
-/* eslint-disable no-unused-vars */
 import { search } from './search.js';
+import cssText from './style.css';
 
 let NO_DATA_TEXT = '';
-let options;
 
-function style() {
-  const code = `
-.sidebar {
-  padding-top: 0;
-}
-
-.search {
-  margin-bottom: 20px;
-  padding: 6px;
-  border-bottom: 1px solid #eee;
-}
-
-.search .input-wrap {
-  display: flex;
-  align-items: center;
-}
-
-.search .results-panel {
-  display: none;
-}
-
-.search .results-panel.show {
-  display: block;
-}
-
-.search input {
-  outline: none;
-  border: none;
-  width: 100%;
-  padding: 0.6em 7px;
-  font-size: inherit;
-  border: 1px solid transparent;
-}
-
-.search input:focus {
-  box-shadow: 0 0 5px var(--theme-color, #42b983);
-  border: 1px solid var(--theme-color, #42b983);
-}
-
-.search input::-webkit-search-decoration,
-.search input::-webkit-search-cancel-button,
-.search input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.search input::-ms-clear {
-  display: none;
-  height: 0;
-  width: 0;
-}
-
-.search .clear-button {
-  cursor: pointer;
-  width: 36px;
-  text-align: right;
-  display: none;
-}
-
-.search .clear-button.show {
-  display: block;
-}
-
-.search .clear-button svg {
-  transform: scale(.5);
-}
-
-.search h2 {
-  font-size: 17px;
-  margin: 10px 0;
-}
-
-.search a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.search .matching-post {
-  border-bottom: 1px solid #eee;
-}
-
-.search .matching-post:last-child {
-  border-bottom: 0;
-}
-
-.search p {
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.search p.empty {
-  text-align: center;
-}
-
-.app-name.hide, .sidebar-nav.hide {
-  display: none;
-}`;
-
-  Docsify.dom.style(code);
-}
-
-function tpl(defaultValue = '') {
+function tpl(vm, defaultValue = '') {
+  const { insertAfter, insertBefore } = vm.config?.search || {};
   const html = /* html */ `
     <div class="input-wrap">
-      <input type="search" value="${defaultValue}" aria-label="Search text" />
-      <div class="clear-button">
-        <svg width="26" height="24">
-          <circle cx="12" cy="12" r="11" fill="#ccc" />
-          <path stroke="white" stroke-width="2" d="M8.25,8.25,15.75,15.75" />
-          <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />
-        </svg>
+      <input type="search" value="${defaultValue}" required aria-keyshortcuts="/ control+k meta+k" />
+      <button class="clear-button" title="Clear search">
+        <span class="visually-hidden">Clear search</span>
+      </button>
+      <div class="kbd-group">
+        <kbd title="Press / to search">/</kbd>
+        <kbd title="Press Control+K to search">⌃K</kbd>
       </div>
     </div>
+    <p class="results-status" aria-live="polite"></p>
     <div class="results-panel"></div>
   `;
-  const el = Docsify.dom.create('div', html);
-  const aside = Docsify.dom.find('aside');
+  const sidebarElm = Docsify.dom.find('.sidebar');
+  const searchElm = Docsify.dom.create('section', html);
+  const insertElm = sidebarElm.querySelector(
+    `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+  );
 
-  Docsify.dom.toggleClass(el, 'search');
-  Docsify.dom.before(aside, el);
+  searchElm.classList.add('search');
+  searchElm.setAttribute('role', 'search');
+  sidebarElm.insertBefore(
+    searchElm,
+    insertAfter ? insertElm.nextSibling : insertElm,
+  );
 }
 
 function doSearch(value) {
-  const $search = Docsify.dom.find('div.search');
+  const $search = Docsify.dom.find('.search');
   const $panel = Docsify.dom.find($search, '.results-panel');
-  const $clearBtn = Docsify.dom.find($search, '.clear-button');
-  const $sidebarNav = Docsify.dom.find('.sidebar-nav');
-  const $appName = Docsify.dom.find('.app-name');
+  const $status = Docsify.dom.find('.search .results-status');
 
   if (!value) {
-    $panel.classList.remove('show');
-    $clearBtn.classList.remove('show');
     $panel.innerHTML = '';
-
-    if (options.hideOtherSidebarContent) {
-      $sidebarNav && $sidebarNav.classList.remove('hide');
-      $appName && $appName.classList.remove('hide');
-    }
+    $status.textContent = '';
 
     return;
   }
 
-  const matchs = search(value);
+  const matches = search(value);
 
   let html = '';
-  matchs.forEach(post => {
+  matches.forEach((post, i) => {
+    const title = (post.title || '').replace(/<[^>]+>/g, '');
     html += /* html */ `
-      <div class="matching-post">
-        <a href="${post.url}">
-          <h2>${post.title}</h2>
-          <p>${post.content}</p>
+      <div class="matching-post" aria-label="search result ${i + 1}">
+        <a href="${post.url}" title="${title}">
+          <p class="title clamp-1">${post.title}</p>
+          <p class="content clamp-2">${post.content}</p>
         </a>
       </div>
     `;
   });
 
-  $panel.classList.add('show');
-  $clearBtn.classList.add('show');
-  $panel.innerHTML = html || /* html */ `<p class="empty">${NO_DATA_TEXT}</p>`;
-  if (options.hideOtherSidebarContent) {
-    $sidebarNav && $sidebarNav.classList.add('hide');
-    $appName && $appName.classList.add('hide');
-  }
+  $panel.innerHTML = html || '';
+  $status.textContent = matches.length
+    ? `Found ${matches.length} results`
+    : NO_DATA_TEXT;
 }
 
 function bindEvents() {
-  const $search = Docsify.dom.find('div.search');
+  const $search = Docsify.dom.find('.search');
   const $input = Docsify.dom.find($search, 'input');
-  const $inputWrap = Docsify.dom.find($search, '.input-wrap');
+  const $clear = Docsify.dom.find($search, '.clear-button');
 
   let timeId;
 
@@ -193,18 +85,15 @@ function bindEvents() {
     'click',
     e =>
       ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
-      e.stopPropagation()
+      e.stopPropagation(),
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);
     timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
   });
-  Docsify.dom.on($inputWrap, 'click', e => {
-    // Click input outside
-    if (e.target.tagName !== 'INPUT') {
-      $input.value = '';
-      doSearch();
-    }
+  Docsify.dom.on($clear, 'click', e => {
+    $input.value = '';
+    doSearch();
   });
 }
 
@@ -232,22 +121,22 @@ function updateNoData(text, path) {
   }
 }
 
-function updateOptions(opts) {
-  options = opts;
-}
-
 export function init(opts, vm) {
+  const sidebarElm = Docsify.dom.find('.sidebar');
+
+  if (!sidebarElm) {
+    return;
+  }
+
   const keywords = vm.router.parse().query.s;
 
-  updateOptions(opts);
-  style();
-  tpl(keywords);
+  Docsify.dom.style(cssText);
+  tpl(vm, keywords);
   bindEvents();
   keywords && setTimeout(_ => doSearch(keywords), 500);
 }
 
 export function update(opts, vm) {
-  updateOptions(opts);
   updatePlaceholder(opts.placeholder, vm.route.path);
   updateNoData(opts.noData, vm.route.path);
 }

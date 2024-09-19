@@ -1,6 +1,11 @@
+# Directories
+_playwright-*
+dist
+lib
+
+# Files
+_vars.css
+_vars-advanced.css
 CHANGELOG.md
-HISTORY.md
-lib/
-themes/
-_playwright-*/
 emoji-data.*
+HISTORY.md

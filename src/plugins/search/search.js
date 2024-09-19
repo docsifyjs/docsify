@@ -1,10 +1,34 @@
-/* eslint-disable no-unused-vars */
 import {
   getAndRemoveConfig,
-  getAndRemoveDocisfyIgnoreConfig,
+  getAndRemoveDocsifyIgnoreConfig,
 } from '../../core/render/utils.js';
+import Dexie from 'dexie';
 
-let INDEXS = {};
+let INDEXES = {};
+
+const db = new Dexie('docsify');
+db.version(1).stores({
+  search: 'slug, title, body, path, indexKey',
+  expires: 'key, value',
+});
+
+async function saveData(maxAge, expireKey) {
+  INDEXES = Object.values(INDEXES).flatMap(innerData =>
+    Object.values(innerData),
+  );
+  await db.search.bulkPut(INDEXES);
+  await db.expires.put({ key: expireKey, value: Date.now() + maxAge });
+}
+
+async function getData(key, isExpireKey = false) {
+  if (isExpireKey) {
+    const item = await db.expires.get(key);
+    return item ? item.value : 0;
+  }
+
+  const item = await db.search.where({ indexKey: key }).toArray();
+  return item ? item : null;
+}
 
 const LOCAL_STORAGE = {
   EXPIRE_KEY: 'docsify.search.expires',
@@ -74,12 +98,7 @@ function getListData(token) {
   return token.text;
 }
 
-function saveData(maxAge, expireKey, indexKey) {
-  localStorage.setItem(expireKey, Date.now() + maxAge);
-  localStorage.setItem(indexKey, JSON.stringify(INDEXS));
-}
-
-export function genIndex(path, content = '', router, depth) {
+export function genIndex(path, content = '', router, depth, indexKey) {
   const tokens = window.marked.lexer(content);
   const slugify = window.Docsify.slugify;
   const index = {};
@@ -90,7 +109,7 @@ export function genIndex(path, content = '', router, depth) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = getAndRemoveDocisfyIgnoreConfig(token.text).content;
+      const text = getAndRemoveDocsifyIgnoreConfig(token.text).content;
 
       if (config.id) {
         slug = router.toURL(path, { id: slugify(config.id) });
@@ -99,10 +118,16 @@ export function genIndex(path, content = '', router, depth) {
       }
 
       if (str) {
-        title = getAndRemoveDocisfyIgnoreConfig(str).content;
+        title = getAndRemoveDocsifyIgnoreConfig(str).content;
       }
 
-      index[slug] = { slug, title: title, body: '' };
+      index[slug] = {
+        slug,
+        title: title,
+        body: '',
+        path: path,
+        indexKey: indexKey,
+      };
     } else {
       if (tokenIndex === 0) {
         slug = router.toURL(path);
@@ -110,6 +135,8 @@ export function genIndex(path, content = '', router, depth) {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
           body: token.text || '',
+          path: path,
+          indexKey: indexKey,
         };
       }
 
@@ -130,6 +157,9 @@ export function genIndex(path, content = '', router, depth) {
 
         index[slug].body = token.text || '';
       }
+
+      index[slug].path = path;
+      index[slug].indexKey = indexKey;
     }
   });
   slugify.clear();
@@ -149,13 +179,6 @@ export function ignoreDiacriticalMarks(keyword) {
  */
 export function search(query) {
   const matchingResults = [];
-  let data = [];
-  Object.keys(INDEXS).forEach(key => {
-    data = [
-      ...data,
-      ...Object.keys(INDEXS[key]).map(page => INDEXS[key][page]),
-    ];
-  });
 
   query = query.trim();
   let keywords = query.split(/[\s\-，\\/]+/);
@@ -163,7 +186,7 @@ export function search(query) {
     keywords = [query, ...keywords];
   }
 
-  for (const post of data) {
+  for (const post of INDEXES) {
     let matchesScore = 0;
     let resultStr = '';
     let handlePostTitle = '';
@@ -178,9 +201,9 @@ export function search(query) {
         const regEx = new RegExp(
           escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
             /[|\\{}()[\]^$+*?.]/g,
-            '\\$&'
+            '\\$&',
           ),
-          'gi'
+          'gi',
         );
         let indexTitle = -1;
         let indexContent = -1;
@@ -204,7 +227,7 @@ export function search(query) {
           let end = 0;
 
           start = indexContent < 11 ? 0 : indexContent - 10;
-          end = start === 0 ? 70 : indexContent + keyword.length + 60;
+          end = start === 0 ? 100 : indexContent + keyword.length + 90;
 
           if (postContent && end > postContent.length) {
             end = postContent.length;
@@ -212,14 +235,9 @@ export function search(query) {
 
           const matchContent =
             handlePostContent &&
-            '...' +
-              handlePostContent
-                .substring(start, end)
-                .replace(
-                  regEx,
-                  word => /* html */ `<em class="search-keyword">${word}</em>`
-                ) +
-              '...';
+            handlePostContent
+              .substring(start, end)
+              .replace(regEx, word => /* html */ `<mark>${word}</mark>`);
 
           resultStr += matchContent;
         }
@@ -241,7 +259,7 @@ export function search(query) {
   return matchingResults.sort((r1, r2) => r2.score - r1.score);
 }
 
-export function init(config, vm) {
+export async function init(config, vm) {
   const isAuto = config.paths === 'auto';
   const paths = isAuto ? getAllPaths(vm.router) : config.paths;
 
@@ -254,7 +272,7 @@ export function init(config, vm) {
     if (Array.isArray(config.pathNamespaces)) {
       namespaceSuffix =
         config.pathNamespaces.filter(
-          prefix => path.slice(0, prefix.length) === prefix
+          prefix => path.slice(0, prefix.length) === prefix,
         )[0] || namespaceSuffix;
     } else if (config.pathNamespaces instanceof RegExp) {
       const matches = path.match(config.pathNamespaces);
@@ -275,12 +293,12 @@ export function init(config, vm) {
   const expireKey = resolveExpireKey(config.namespace) + namespaceSuffix;
   const indexKey = resolveIndexKey(config.namespace) + namespaceSuffix;
 
-  const isExpired = localStorage.getItem(expireKey) < Date.now();
+  const isExpired = (await getData(expireKey, true)) < Date.now();
 
-  INDEXS = JSON.parse(localStorage.getItem(indexKey));
+  INDEXES = await getData(indexKey);
 
   if (isExpired) {
-    INDEXS = {};
+    INDEXES = {};
   } else if (!isAuto) {
     return;
   }
@@ -289,15 +307,26 @@ export function init(config, vm) {
   let count = 0;
 
   paths.forEach(path => {
-    if (INDEXS[path]) {
+    const pathExists = Array.isArray(INDEXES)
+      ? INDEXES.some(obj => obj.path === path)
+      : false;
+    if (pathExists) {
       return count++;
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      result => {
-        INDEXS[path] = genIndex(path, result, vm.router, config.depth);
-        len === ++count && saveData(config.maxAge, expireKey, indexKey);
-      }
+      async result => {
+        INDEXES[path] = genIndex(
+          path,
+          result,
+          vm.router,
+          config.depth,
+          indexKey,
+        );
+        if (len === ++count) {
+          await saveData(config.maxAge, expireKey);
+        }
+      },
     );
   });
 }

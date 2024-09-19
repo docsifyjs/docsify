@@ -288,6 +288,54 @@ window.$docsify = {
 };
 ```
 
+## keyBindings
+
+- Type: `Boolean|Object`
+- Default: `Object`
+  - <kbd>\\</kbd> Toggle the sidebar menu
+  - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field. Also supports <kbd>alt</kbd>&nbsp;/&nbsp;<kbd>ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>.
+
+Binds key combination(s) to a custom callback function.
+
+Key `bindings` are defined as case insensitive string values separated by `+`. Modifier key values include `alt`, `ctrl`, `meta`, and `shift`. Non-modifier key values should match the keyboard event's [key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) or [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) value.
+
+The `callback` function receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
+
+!> Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Custom key binding
+    myCustomBinding: {
+      bindings: ['alt+a', 'shift+a'],
+      callback(event) {
+        alert('Hello, World!');
+      },
+    },
+  },
+};
+```
+
+Key bindings can be disabled entirely or individually by setting the binding configuration to `false`.
+
+```js
+window.$docsify = {
+  // Disable all key bindings
+  keyBindings: false,
+};
+```
+
+```js
+window.$docsify = {
+  keyBindings: {
+    // Disable individual key bindings
+    focusSearch: false,
+    toggleSidebar: false,
+  },
+};
+```
+
 ## loadNavbar
 
 - Type: `Boolean|String`
@@ -327,6 +375,8 @@ window.$docsify = {
 - Type: `String`
 
 Website logo as it appears in the sidebar. You can resize it using CSS.
+
+!> Logo will only be visible if `name` prop is also set. See [name](#name) configuration.
 
 ```js
 window.$docsify = {
@@ -534,7 +584,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 - Type: `Boolean` | `String` | `Object`
 - Default: `false`
 
-Display default "404 - Not found" message:
+Display default "404 - Not Found" message:
 
 ```js
 window.$docsify = {
@@ -811,6 +861,39 @@ window.$docsify = {
 }
 ```
 
+## skipLink
+
+- Type: `Boolean|String|Object`
+- Default: `'Skip to main content'`
+
+Determines if/how the site's [skip navigation link](https://webaim.org/techniques/skipnav/) will be rendered.
+
+```js
+// Render skip link for all routes (default)
+window.$docsify = {
+  skipLink: 'Skip to main content',
+};
+```
+
+```js
+// Render localized skip links based on route paths
+window.$docsify = {
+  skipLink: {
+    '/es/': 'Saltar al contenido principal',
+    '/de-de/': 'Ga naar de hoofdinhoud',
+    '/ru-ru/': 'Перейти к основному содержанию',
+    '/zh-cn/': '跳到主要内容',
+  },
+};
+```
+
+```js
+// Do not render skip link
+window.$docsify = {
+  skipLink: false,
+};
+```
+
 ## subMaxLevel
 
 - Type: `Number`
@@ -834,17 +917,9 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor (_deprecated_)
+## themeColor ⚠️
 
-> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
->
-> ```html
-> <style>
->   :root {
->     --theme-color: deeppink;
->   }
-> </style>
-> ```
+!> Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
 - Type: `String`
 
@@ -856,16 +931,18 @@ window.$docsify = {
 };
 ```
 
-## topMargin
+## topMargin ⚠️
 
-- Type: `Number`
+!> Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
+
+- Type: `Number|String`
 - Default: `0`
 
-Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+Adds scroll padding to the top of the viewport. This is useful when you have added a sticky or "fixed" element and would like auto scrolling to align with the bottom of your element.
 
 ```js
 window.$docsify = {
-  topMargin: 90, // default: 0
+  topMargin: 90, // 90, '90px', '2rem', etc.
 };
 ```
 
@@ -873,7 +950,7 @@ window.$docsify = {
 
 - Type: `Object`
 
-Creates and registers global [Vue components](https://vuejs.org/v2/guide/components.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
+Creates and registers global [Vue](https://vuejs.org/guide/essentials/component-basics.html). Components are specified using the component name as the key with an object containing Vue options as the value. Component `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {
@@ -906,7 +983,7 @@ window.$docsify = {
 
 - Type: `Object`
 
-Specifies [Vue options](https://vuejs.org/v2/api/#Options-Data) for use with Vue content not explicitly mounted with [vueMounts](#mounting-dom-elements), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
+Specifies global Vue options for use with Vue content not explicitly mounted with [vueMounts](#mounting-dom-elements), [vueComponents](#components), or a [markdown script](#markdown-script). Changes to global `data` will persist and be reflected anywhere global references are used.
 
 ```js
 window.$docsify = {
@@ -940,7 +1017,7 @@ window.$docsify = {
 
 - Type: `Object`
 
-Specifies DOM elements to mount as [Vue instances](https://vuejs.org/v2/guide/instance.html) and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
+Specifies DOM elements to mount as Vue instances and their associated options. Mount elements are specified using a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) as the key with an object containing Vue options as their value. Docsify will mount the first matching element in the main content area each time a new page is loaded. Mount element `data` is unique for each instance and will not persist as users navigate the site.
 
 ```js
 window.$docsify = {

@@ -1,3 +1,5 @@
+import { isMobile } from '../util/env.js';
+
 /**
  * Render github corner
  * @param  {Object} data URL for the View Source on Github link
@@ -34,15 +36,18 @@ export function corner(data, cornerExternalLinkTarget) {
  * @returns {String} HTML of the main content
  */
 export function main(config) {
-  const name = config.name ? config.name : '';
+  const { hideSidebar, name } = config;
+  // const name = config.name ? config.name : '';
 
-  const aside = /* html */ `
-    <button class="sidebar-toggle" aria-label="Menu">
-      <div class="sidebar-toggle-button">
+  const aside = /* html */ hideSidebar
+    ? ''
+    : `
+    <button class="sidebar-toggle" tabindex="-1" title="Press \\ to toggle">
+      <div class="sidebar-toggle-button" tabindex="0" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside class="sidebar">
+    <aside id="__sidebar" class="sidebar${!isMobile() ? ' show' : ''}" tabindex="-1" role="none">
       ${
         config.name
           ? /* html */ `
@@ -52,14 +57,15 @@ export function main(config) {
           `
           : ''
       }
-      <div class="sidebar-nav"><!--sidebar--></div>
+      <div class="sidebar-nav" role="navigation" aria-label="primary"><!--sidebar--></div>
     </aside>
   `;
 
   return /* html */ `
-    <main>${aside}
+    <main role="presentation">
+      ${aside}
       <section class="content">
-        <article class="markdown-section" id="main"><!--main--></article>
+        <article id="main" class="markdown-section" role="main" tabindex="-1"><!--main--></article>
       </section>
     </main>
   `;
@@ -70,17 +76,8 @@ export function main(config) {
  * @returns {String} Cover page
  */
 export function cover() {
-  const SL = ', 100%, 85%';
-  const bgc = `
-    linear-gradient(
-      to left bottom,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 0%,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 100%
-    )
-  `;
-
   return /* html */ `
-    <section class="cover show" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>
@@ -95,7 +92,7 @@ export function cover() {
  */
 export function tree(
   toc,
-  tpl = /* html */ `<ul class="app-sub-sidebar">{inner}</ul>`
+  tpl = /* html */ '<ul class="app-sub-sidebar">{inner}</ul>',
 ) {
   if (!toc || !toc.length) {
     return '';
@@ -104,10 +101,13 @@ export function tree(
   let innerHTML = '';
   toc.forEach(node => {
     const title = node.title.replace(/(<([^>]+)>)/g, '');
-    innerHTML += /* html */ `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a></li>`;
+    let current = `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a></li>`;
     if (node.children) {
-      innerHTML += tree(node.children, tpl);
+      // when current node has children, we need put them all in parent's <li> block without the `class="app-sub-sidebar"` attribute
+      const children = tree(node.children, '<ul>{inner}</ul>');
+      current = `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a>${children}</li>`;
     }
+    innerHTML += current;
   });
   return tpl.replace('{inner}', innerHTML);
 }

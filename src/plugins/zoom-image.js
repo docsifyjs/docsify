@@ -6,8 +6,8 @@ function install(hook) {
   hook.doneEach(_ => {
     let elms = Array.from(
       document.querySelectorAll(
-        '.markdown-section img:not(.emoji):not([data-no-zoom])'
-      )
+        '.markdown-section img:not(.emoji):not([data-no-zoom])',
+      ),
     );
 
     elms = elms.filter(elm => !elm.matches('a img'));

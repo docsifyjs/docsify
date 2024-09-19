@@ -1,11 +1,16 @@
-.DS_Store
+# Directories
+.husky/_
 .idea
-*.log
-/_playwright-report
-/_playwright-results
-/lib
-/node_modules
-/themes
+.vercel
+_playwright-report
+_playwright-results
+dist
+lib
+node_modules
 
-# exceptions
+# Files
+.DS_Store
+*.log
+
+# Exceptions
 !.gitkeep

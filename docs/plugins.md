@@ -17,8 +17,13 @@ By default, the hyperlink on the current page is recognized and the content is s
       '/zh-cn/',      // => /zh-cn/README.md
     ],
 
-    // complete configuration parameters
+    // Complete configuration parameters
     search: {
+      // Location in sidebar (default: prepended as first child)
+      // Optionally specify insertAfter or insertBefore (not both)
+      insertAfter: '.app-name', // CSS selector in .sidebar scope
+      insertBefore: '.sidebar-nav', // CSS selector in .sidebar scope
+
       maxAge: 86400000, // Expiration time, the default one day
       paths: [], // or 'auto'
       placeholder: 'Type to search',
@@ -40,7 +45,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Headline depth, 1 - 6
       depth: 2,
 
-      hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+      hideOtherSidebarContent: true, // Deprecated as of v5
 
       // To avoid search index collision
       // between multiple websites under the same domain
@@ -59,8 +64,8 @@ By default, the hyperlink on the current page is recognized and the content is s
     },
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
 ```
 
 This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café").
@@ -77,16 +82,16 @@ Install the plugin and configure the track id.
     ga: 'UA-XXXXX-Y',
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script>
 ```
 
 Configure by `data-ga`.
 
 <!-- prettier-ignore -->
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script>
 ```
 
 ## Google Analytics 4 (GA4)
@@ -110,8 +115,8 @@ Install the plugin and configure the track id.
     ],
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/gtag.min.js"></script>
 ```
 
 ## Emoji
@@ -121,7 +126,7 @@ Renders a larger collection of emoji shorthand codes. Without this plugin, Docsi
 !> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js"></script>
 ```
 
 ## External Script
@@ -129,7 +134,7 @@ Renders a larger collection of emoji shorthand codes. Without this plugin, Docsi
 If the script on the page is an external one (imports a js file via `src` attribute), you'll need this plugin to make it work.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/external-script.min.js"></script>
 ```
 
 ## Zoom image
@@ -137,7 +142,7 @@ If the script on the page is an external one (imports a js file via `src` attrib
 Medium's image zoom. Based on [medium-zoom](https://github.com/francoischalifour/medium-zoom).
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/zoom-image.min.js"></script>
 ```
 
 Exclude the special image
@@ -178,7 +183,7 @@ Disqus comments. https://disqus.com/
     disqus: 'shortname',
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/disqus.min.js"></script>
 ```
 
 ## Gitalk
@@ -188,7 +193,7 @@ Disqus comments. https://disqus.com/
 ```html
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css" />
 
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/gitalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
   const gitalk = new Gitalk({
@@ -210,7 +215,7 @@ Disqus comments. https://disqus.com/
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
 

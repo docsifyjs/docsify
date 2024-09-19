@@ -10,6 +10,10 @@ function init() {
   const div = dom.create('div');
 
   div.classList.add('progress');
+  div.setAttribute('role', 'progressbar');
+  div.setAttribute('aria-valuemin', '0');
+  div.setAttribute('aria-valuemax', '100');
+  div.setAttribute('aria-label', 'Loading...');
   dom.appendTo(dom.body, div);
   barEl = div;
 }
@@ -33,13 +37,15 @@ export default function (info) {
 
   barEl.style.opacity = 1;
   barEl.style.width = num >= 95 ? '100%' : num + '%';
+  barEl.setAttribute('aria-valuenow', num >= 95 ? 100 : num);
 
   if (num >= 95) {
     clearTimeout(timeId);
-    // eslint-disable-next-line no-unused-vars
+
     timeId = setTimeout(_ => {
       barEl.style.opacity = 0;
       barEl.style.width = '0%';
+      barEl.removeAttribute('aria-valuenow');
     }, 200);
   }
 }

@@ -1,0 +1,42 @@
+name: Sync Emoji
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-emoji:
+    if: github.repository == 'docsifyjs/docsify'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run script to sync emoji data
+        run: npm run build:emoji
+
+      - name: Commit
+        id: auto-commit-action
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: Sync emoji data with GitHub emoji API'
+          branch: sync-emoji
+          create_branch: true
+          file_pattern: 'src/core/render/emoji-data.js docs/emoji.md'
+          push_options: '--force'
+
+      - name: Create Pull Request
+        if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
+        run: |
+          gh pr create --title 'chore: Sync emoji data with GitHub emoji API' --body 'Found updated github emojis need to sync.' --base develop --reviewer docsifyjs/reviewers
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.READ_TEAM_TOKEN }}

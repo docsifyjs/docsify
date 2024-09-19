@@ -4,9 +4,6 @@ import docsifyInit from '../helpers/docsify-init.js';
 describe('Creating a Docsify site (integration tests in Jest)', function () {
   test('Docsify /docs/ site using docsifyInit()', async () => {
     await docsifyInit({
-      config: {
-        basePath: '/docs/',
-      },
       // _logHTML: true,
     });
 
@@ -15,7 +12,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
 
     // Verify options.markdown content was rendered
     expect(document.querySelector('#main').textContent).toContain(
-      'A magical documentation site generator'
+      'A magical documentation site generator',
     );
   });
 
@@ -23,7 +20,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     const docsifyInitConfig = {
       config: {
         name: 'Docsify Name',
-        themeColor: 'red',
       },
       markdown: {
         coverpage: `
@@ -61,15 +57,13 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
       scriptURLs: [
         // docsifyInit() route
         'data-test-scripturls.js',
-        // Server route
-        '/lib/plugins/search.min.js',
       ],
       style: `
         body {
           background: red !important;
         }
       `,
-      styleURLs: ['/lib/themes/vue.css'],
+      styleURLs: ['/dist/themes/core.css'],
     };
 
     await docsifyInit({
@@ -79,9 +73,8 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
 
     // Verify config options
     expect(typeof window.$docsify).toBe('object');
-    expect(window.$docsify).toHaveProperty('themeColor', 'red');
     expect(document.querySelector('.app-name').textContent).toContain(
-      'Docsify Name'
+      'Docsify Name',
     );
 
     // Verify docsifyInitConfig.markdown content was rendered
@@ -97,22 +90,21 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     // Verify docsifyInitConfig.scriptURLs were added to the DOM
     for (const scriptURL of docsifyInitConfig.scriptURLs) {
       const matchElm = document.querySelector(
-        `script[data-src$="${scriptURL}"]`
+        `script[data-src$="${scriptURL}"]`,
       );
       expect(matchElm).toBeTruthy();
     }
 
     // Verify docsifyInitConfig.scriptURLs were executed
     expect(document.body.hasAttribute('data-test-scripturls')).toBe(true);
-    expect(document.querySelector('.search input[type="search"]')).toBeTruthy();
 
     // Verify docsifyInitConfig.script was added to the DOM
     expect(
       [...document.querySelectorAll('script')].some(
         elm =>
           elm.textContent.replace(/\s+/g, '') ===
-          docsifyInitConfig.script.replace(/\s+/g, '')
-      )
+          docsifyInitConfig.script.replace(/\s+/g, ''),
+      ),
     ).toBe(true);
 
     // Verify docsifyInitConfig.script was executed
@@ -121,7 +113,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     // Verify docsifyInitConfig.styleURLs were added to the DOM
     for (const styleURL of docsifyInitConfig.styleURLs) {
       const matchElm = document.querySelector(
-        `link[rel*="stylesheet"][href$="${styleURL}"]`
+        `link[rel*="stylesheet"][href$="${styleURL}"]`,
       );
       expect(matchElm).toBeTruthy();
     }
@@ -131,14 +123,14 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
       [...document.querySelectorAll('style')].some(
         elm =>
           elm.textContent.replace(/\s+/g, '') ===
-          docsifyInitConfig.style.replace(/\s+/g, '')
-      )
+          docsifyInitConfig.style.replace(/\s+/g, ''),
+      ),
     ).toBe(true);
 
     // Verify docsify navigation and docsifyInitConfig.routes
     document.querySelector('a[href="#/test"]').click();
     expect(
-      await waitForFunction(() => /#\/test$/.test(window.location.href))
+      await waitForFunction(() => /#\/test$/.test(window.location.href)),
     ).toBeTruthy();
     expect(await waitForText('#main', 'This is a custom route')).toBeTruthy();
   });

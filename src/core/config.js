@@ -1,4 +1,4 @@
-import stripIndent from 'strip-indent';
+import { stripIndent } from 'common-tags';
 import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;
@@ -30,7 +30,7 @@ export default function (vm) {
       nativeEmoji: false,
       noCompileLinks: [],
       noEmoji: false,
-      notFoundPage: true,
+      notFoundPage: false,
       plugins: [],
       relativePath: false,
       repo: '',
@@ -47,29 +47,54 @@ export default function (vm) {
         return this.__themeColor;
       },
       set themeColor(value) {
-        this.__themeColor = value;
-        console.warn(
-          stripIndent(/* html */ `
-            $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
-            <style>
-              :root {
-                --theme-color: deeppink;
-              }
-            </style>
-          `).trim()
-        );
+        if (value) {
+          this.__themeColor = value;
+
+          // eslint-disable-next-line no-console
+          console.warn(
+            stripIndent(`
+              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
+              <style>
+                :root {
+                  --theme-color: deeppink;
+                }
+              </style>
+            `).trim(),
+          );
+        }
       },
     },
 
     typeof window.$docsify === 'function'
       ? window.$docsify(vm)
-      : window.$docsify
+      : window.$docsify,
   );
+
+  // Merge default and user-specified key bindings
+  if (config.keyBindings !== false) {
+    config.keyBindings = Object.assign(
+      // Default
+      {
+        toggleSidebar: {
+          bindings: ['\\'],
+          callback(e) {
+            const toggleElm = document.querySelector('.sidebar-toggle-button');
+
+            if (toggleElm) {
+              toggleElm.click();
+            }
+          },
+        },
+      },
+      // User-specified
+      config.keyBindings,
+    );
+  }
 
   const script =
     currentScript ||
     Array.from(document.getElementsByTagName('script')).filter(n =>
-      /docsify\./.test(n.src)
+      /docsify\./.test(n.src),
     )[0];
 
   if (script) {

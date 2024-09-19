@@ -1,9 +1,5 @@
-import Tweezer from 'tweezer.js';
-import { isMobile } from '../util/env.js';
-import { body, on } from '../util/dom.js';
+import { isMobile, mobileBreakpoint } from '../util/env.js';
 import * as dom from '../util/dom.js';
-import { removeParams } from '../router/util.js';
-import config from '../config.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -13,307 +9,582 @@ import config from '../config.js';
  */
 export function Events(Base) {
   return class Events extends Base {
-    $resetEvents(source) {
-      const { auto2top } = this.config;
-
-      // If 'history', rely on the browser's scroll auto-restoration when going back or forward
-      if (source !== 'history') {
-        // Scroll to ID if specified
-        if (this.route.query.id) {
-          this.#scrollIntoView(this.route.path, this.route.query.id);
-        }
-        // Scroll to top if a link was clicked and auto2top is enabled
-        if (source === 'navigate') {
-          auto2top && this.#scroll2Top(auto2top);
-        }
-      }
-
-      if (this.config.loadNavbar) {
-        this.__getAndActive(this.router, 'nav');
-      }
-    }
-
-    initEvent() {
-      // Bind toggle button
-      this.#btn('button.sidebar-toggle', this.router);
-      this.#collapse('.sidebar', this.router);
-      // Bind sticky effect
-      if (this.config.coverpage) {
-        !isMobile && on('scroll', this.__sticky);
-      } else {
-        body.classList.add('sticky');
-      }
-    }
-
-    /** @readonly */
-    #nav = {};
-
-    #hoverOver = false;
-    #scroller = null;
-    #enableScrollEvent = true;
-    #coverHeight = 0;
-
-    #scrollTo(el, offset = 0) {
-      if (this.#scroller) {
-        this.#scroller.stop();
-      }
-
-      this.#enableScrollEvent = false;
-      this.#scroller = new Tweezer({
-        start: window.pageYOffset,
-        end:
-          Math.round(el.getBoundingClientRect().top) +
-          window.pageYOffset -
-          offset,
-        duration: 500,
-      })
-        .on('tick', v => window.scrollTo(0, v))
-        .on('done', () => {
-          this.#enableScrollEvent = true;
-          this.#scroller = null;
-        })
-        .begin();
-    }
-
-    #highlight(path) {
-      if (!this.#enableScrollEvent) {
-        return;
-      }
-
-      const sidebar = dom.getNode('.sidebar');
-      const anchors = dom.findAll('.anchor');
-      const wrap = dom.find(sidebar, '.sidebar-nav');
-      let active = dom.find(sidebar, 'li.active');
-      const doc = document.documentElement;
-      const top =
-        ((doc && doc.scrollTop) || document.body.scrollTop) - this.#coverHeight;
-      let last;
-
-      for (const node of anchors) {
-        if (node.offsetTop > top) {
-          if (!last) {
-            last = node;
-          }
-
-          break;
-        } else {
-          last = node;
-        }
-      }
-
-      if (!last) {
-        return;
-      }
-
-      const li = this.#nav[this.#getNavKey(path, last.getAttribute('data-id'))];
-
-      if (!li || li === active) {
-        return;
-      }
-
-      active && active.classList.remove('active');
-      li.classList.add('active');
-      active = li;
-
-      // Scroll into view
-      // https://github.com/vuejs/vuejs.org/blob/master/themes/vue/source/js/common.js#L282-L297
-      if (!this.#hoverOver && dom.body.classList.contains('sticky')) {
-        const height = sidebar.clientHeight;
-        const curOffset = 0;
-        const cur = active.offsetTop + active.clientHeight + 40;
-        const isInView =
-          active.offsetTop >= wrap.scrollTop && cur <= wrap.scrollTop + height;
-        const notThan = cur - curOffset < height;
-
-        sidebar.scrollTop = isInView
-          ? wrap.scrollTop
-          : notThan
-          ? curOffset
-          : cur - height;
-      }
-    }
-
-    #getNavKey(path, id) {
-      return `${decodeURIComponent(path)}?id=${decodeURIComponent(id)}`;
-    }
-
-    __scrollActiveSidebar(router) {
-      const cover = dom.find('.cover.show');
-      this.#coverHeight = cover ? cover.offsetHeight : 0;
-
-      const sidebar = dom.getNode('.sidebar');
-      let lis = [];
-      if (sidebar !== null && sidebar !== undefined) {
-        lis = dom.findAll(sidebar, 'li');
-      }
-
-      for (const li of lis) {
-        const a = li.querySelector('a');
-        if (!a) {
-          continue;
-        }
-
-        let href = a.getAttribute('href');
-
-        if (href !== '/') {
-          const {
-            query: { id },
-            path,
-          } = router.parse(href);
-          if (id) {
-            href = this.#getNavKey(path, id);
-          }
-        }
-
-        if (href) {
-          this.#nav[decodeURIComponent(href)] = li;
-        }
-      }
-
-      if (isMobile) {
-        return;
-      }
-
-      const path = removeParams(router.getCurrentPath());
-      dom.off('scroll', () => this.#highlight(path));
-      dom.on('scroll', () => this.#highlight(path));
-      dom.on(sidebar, 'mouseover', () => {
-        this.#hoverOver = true;
-      });
-      dom.on(sidebar, 'mouseleave', () => {
-        this.#hoverOver = false;
-      });
-    }
-
-    #scrollIntoView(path, id) {
-      if (!id) {
-        return;
-      }
-      const topMargin = config().topMargin;
-      // Use [id='1234'] instead of #id to handle special cases such as reserved characters and pure number id
-      // https://stackoverflow.com/questions/37270787/uncaught-syntaxerror-failed-to-execute-queryselector-on-document
-      const section = dom.find("[id='" + id + "']");
-      section && this.#scrollTo(section, topMargin);
-
-      const li = this.#nav[this.#getNavKey(path, id)];
-      const sidebar = dom.getNode('.sidebar');
-      const active = dom.find(sidebar, 'li.active');
-      active && active.classList.remove('active');
-      li && li.classList.add('active');
-    }
-
-    #scrollEl = dom.$.scrollingElement || dom.$.documentElement;
-
-    #scroll2Top(offset = 0) {
-      this.#scrollEl.scrollTop = offset === true ? 0 : Number(offset);
-    }
-
-    /** @readonly */
+    #intersectionObserver;
+    #isScrolling;
     #title = dom.$.title;
 
+    // Initialization
+    // =========================================================================
     /**
-     * Toggle button
-     * @param {Element} el Button to be toggled
+     * Initialize Docsify events
+     * One-time setup of listeners, observers, and tasks.
      * @void
      */
-    #btn(el) {
-      const toggle = _ => dom.body.classList.toggle('close');
+    initEvent() {
+      const { topMargin } = this.config;
 
-      el = dom.getNode(el);
-      if (el === null || el === undefined) {
-        return;
+      // Apply topMargin to scrolled content
+      if (topMargin) {
+        const value =
+          typeof topMargin === 'number' ? `${topMargin}px` : topMargin;
+
+        document.documentElement.style.setProperty(
+          '--scroll-padding-top',
+          value,
+        );
       }
 
-      dom.on(el, 'click', e => {
-        e.stopPropagation();
-        toggle();
-      });
-
-      isMobile &&
-        dom.on(
-          dom.body,
-          'click',
-          _ => dom.body.classList.contains('close') && toggle()
-        );
+      this.#initCover();
+      this.#initSkipToContent();
+      this.#initSidebar();
+      this.#initSidebarToggle();
+      this.#initKeyBindings();
     }
 
-    #collapse(el) {
-      el = dom.getNode(el);
-      if (el === null || el === undefined) {
+    // Sub-Initializations
+    // =========================================================================
+    /**
+     * Initialize cover observer
+     * Toggles sticky behavior when when cover is not in view
+     * @void
+     */
+    #initCover() {
+      const coverElm = dom.find('section.cover');
+
+      if (!coverElm) {
+        dom.toggleClass(dom.body, 'add', 'sticky');
         return;
       }
 
-      dom.on(el, 'click', ({ target }) => {
-        if (
-          target.nodeName === 'A' &&
-          target.nextSibling &&
-          target.nextSibling.classList &&
-          target.nextSibling.classList.contains('app-sub-sidebar')
-        ) {
-          dom.toggleClass(target.parentNode, 'collapse');
+      const observer = new IntersectionObserver(entries => {
+        const isIntersecting = entries[0].isIntersecting;
+        const op = isIntersecting ? 'remove' : 'add';
+
+        dom.toggleClass(dom.body, op, 'sticky');
+      });
+
+      observer.observe(coverElm);
+    }
+
+    /**
+     * Initialize heading observer
+     * Toggles sidebar active item based on top viewport edge intersection
+     * @void
+     */
+    #initHeadings() {
+      const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5)');
+      const headingsInView = new Set();
+
+      // Mark sidebar active item on heading intersection
+      this.#intersectionObserver?.disconnect();
+      this.#intersectionObserver = new IntersectionObserver(
+        entries => {
+          if (this.#isScrolling) {
+            return;
+          }
+
+          for (const entry of entries) {
+            const op = entry.isIntersecting ? 'add' : 'delete';
+
+            headingsInView[op](entry.target);
+          }
+
+          const activeHeading =
+            headingsInView.size > 1
+              ? // Sort headings by proximity to viewport top and select first
+                Array.from(headingsInView).sort((a, b) =>
+                  a.compareDocumentPosition(b) &
+                  Node.DOCUMENT_POSITION_FOLLOWING
+                    ? -1
+                    : 1,
+                )[0]
+              : // Get first and only item in set.
+                // May be undefined if no headings are in view.
+                headingsInView.values().next().value;
+
+          if (activeHeading) {
+            const id = activeHeading.getAttribute('id');
+            const href = this.router.toURL(this.router.getCurrentPath(), {
+              id,
+            });
+            const newSidebarActiveElm = this.#markSidebarActiveElm(href);
+
+            newSidebarActiveElm?.scrollIntoView({
+              behavior: 'instant',
+              block: 'nearest',
+              inline: 'nearest',
+            });
+          }
+        },
+        {
+          rootMargin: '0% 0% -50% 0%', // Top half of viewport
+        },
+      );
+
+      headingElms.forEach(elm => {
+        this.#intersectionObserver.observe(elm);
+      });
+    }
+
+    /**
+     * Initialize keyboard bindings
+     * @void
+     */
+    #initKeyBindings() {
+      const { keyBindings } = this.config;
+      const modifierKeys = ['alt', 'ctrl', 'meta', 'shift'];
+
+      if (keyBindings && keyBindings.constructor === Object) {
+        // Prepare key binding configurations
+        Object.values(keyBindings || []).forEach(bindingConfig => {
+          const { bindings } = bindingConfig;
+
+          if (!bindings) {
+            return;
+          }
+
+          // Convert bindings to arrays
+          // Ex: 'alt+t' => ['alt+t']
+          bindingConfig.bindings = Array.isArray(bindings)
+            ? bindings
+            : [bindings];
+
+          // Convert key sequences to sorted arrays (modifiers first)
+          // Ex: ['alt+t', 't+ctrl'] => [['alt', 't'], ['ctrl', 't']]
+          bindingConfig.bindings = bindingConfig.bindings.map(keys => {
+            const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
+
+            if (typeof keys === 'string') {
+              keys = keys.split('+');
+            }
+
+            keys.forEach(key => {
+              const isModifierKey = modifierKeys.includes(key);
+              const targetArray = sortedKeys[isModifierKey ? 0 : 1];
+              const newKeyValue = key.trim().toLowerCase();
+
+              targetArray.push(newKeyValue);
+            });
+
+            sortedKeys.forEach(arr => arr.sort());
+
+            return sortedKeys.flat();
+          });
+        });
+
+        // Handle keyboard events
+        dom.on('keydown', e => {
+          const isTextEntry = document.activeElement.matches(
+            'input, select, textarea',
+          );
+
+          if (isTextEntry) {
+            return;
+          }
+
+          const bindingConfigs = Object.values(keyBindings || []);
+          const matchingConfigs = bindingConfigs.filter(
+            ({ bindings }) =>
+              bindings &&
+              // bindings: [['alt', 't'], ['ctrl', 't']]
+              bindings.some(keys =>
+                // keys: ['alt', 't']
+                keys.every(
+                  // k: 'alt'
+                  k =>
+                    (modifierKeys.includes(k) && e[k + 'Key']) ||
+                    e.key === k || // Ex: " ", "a"
+                    e.code.toLowerCase() === k || // "space"
+                    e.code.toLowerCase() === `key${k}`, // "keya"
+                ),
+              ),
+          );
+
+          matchingConfigs.forEach(({ callback }) => {
+            e.preventDefault();
+            callback(e);
+          });
+        });
+      }
+    }
+
+    /**
+     * Initialize sidebar event listeners
+     *
+     * @void
+     */
+    #initSidebar() {
+      const sidebarElm = document.querySelector('.sidebar');
+
+      if (!sidebarElm) {
+        return;
+      }
+
+      // Auto-toggle on resolution change
+      window
+        ?.matchMedia?.(`(max-width: ${mobileBreakpoint})`)
+        .addEventListener('change', evt => {
+          this.#toggleSidebar(!evt.matches);
+        });
+
+      // Collapse toggle
+      dom.on(sidebarElm, 'click', ({ target }) => {
+        const linkElm = target.closest('a');
+        const linkParent = linkElm?.closest('li');
+        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+
+        if (subSidebar) {
+          dom.toggleClass(linkParent, 'collapse');
         }
       });
     }
 
-    __sticky = () => {
-      const cover = dom.getNode('section.cover');
-      if (!cover) {
+    /**
+     * Initialize sidebar show/hide toggle behavior
+     *
+     * @void
+     */
+    #initSidebarToggle() {
+      const contentElm = dom.find('main > .content');
+      const toggleElm = dom.find('button.sidebar-toggle');
+
+      if (!toggleElm) {
         return;
       }
 
-      const coverHeight = cover.getBoundingClientRect().height;
+      let lastContentFocusElm;
 
-      if (
-        window.pageYOffset >= coverHeight ||
-        cover.classList.contains('hidden')
-      ) {
-        dom.toggleClass(dom.body, 'add', 'sticky');
-      } else {
-        dom.toggleClass(dom.body, 'remove', 'sticky');
-      }
-    };
+      // Store last focused content element (restored via #toggleSidebar)
+      dom.on(contentElm, 'focusin', e => {
+        const focusAttr = 'data-restore-focus';
+
+        lastContentFocusElm?.removeAttribute(focusAttr);
+        lastContentFocusElm = e.target;
+        lastContentFocusElm.setAttribute(focusAttr, '');
+      });
+
+      // Toggle sidebar
+      dom.on(toggleElm, 'click', e => {
+        e.stopPropagation();
+        this.#toggleSidebar();
+      });
+    }
 
     /**
-     * Get and active link
-     * @param  {Object} router Router
-     * @param  {String|Element} el Target element
-     * @param  {Boolean} isParent Active parent
-     * @param  {Boolean} autoTitle Automatically set title
-     * @return {Element} Active element
+     * Initialize skip to content behavior
+     *
+     * @void
      */
-    __getAndActive(router, el, isParent, autoTitle) {
-      el = dom.getNode(el);
-      let links = [];
-      if (el !== null && el !== undefined) {
-        links = dom.findAll(el, 'a');
+    #initSkipToContent() {
+      const skipElm = document.querySelector('#skip-to-content');
+
+      if (!skipElm) {
+        return;
       }
 
-      const hash = decodeURI(router.toURL(router.getCurrentPath()));
-      let target;
+      skipElm.addEventListener('click', evt => {
+        const focusElm = this.#focusContent();
 
-      links
-        .sort((a, b) => b.href.length - a.href.length)
-        .forEach(a => {
-          const href = decodeURI(a.getAttribute('href'));
-          const node = isParent ? a.parentNode : a;
-
-          a.title = a.title || a.innerText;
-
-          if (hash.indexOf(href) === 0 && !target) {
-            target = a;
-            dom.toggleClass(node, 'add', 'active');
-          } else {
-            dom.toggleClass(node, 'remove', 'active');
-          }
+        evt.preventDefault();
+        focusElm?.scrollIntoView({
+          behavior: 'smooth',
         });
+      });
+    }
 
-      if (autoTitle) {
-        dom.$.title = target
-          ? target.title || `${target.innerText} - ${this.#title}`
-          : this.#title;
+    // Callbacks
+    // =========================================================================
+    /**
+     * Handle rendering UI element updates and new content
+     * @void
+     */
+    onRender() {
+      const { name } = this.config;
+      const currentPath = this.router.toURL(this.router.getCurrentPath());
+      const currentSection = dom
+        .find(`.sidebar a[href='${currentPath}']`)
+        ?.getAttribute('title');
+
+      const currentTitle = name
+        ? currentSection
+          ? `${currentSection} - ${name}`
+          : name
+        : currentSection;
+
+      // Update page title
+      dom.$.title = currentTitle || this.#title;
+
+      this.#markAppNavActiveElm();
+      this.#markSidebarCurrentPage();
+      this.#initHeadings();
+    }
+
+    /**
+     * Handle navigation events
+     *
+     * @param {undefined|"history"|"navigate"} source Type of navigation where
+     * undefined is initial load, "history" is forward/back, and "navigate" is
+     * user click/tap
+     * @void
+     */
+    onNavigate(source) {
+      const { auto2top, topMargin } = this.config;
+      const { path, query } = this.route;
+
+      this.#markSidebarActiveElm();
+
+      // Note: Scroll position set by browser on forward/back (i.e. "history")
+      if (source !== 'history') {
+        // Anchor link
+        if (query.id) {
+          const headingElm = dom.find(
+            `.markdown-section :where(h1, h2, h3, h4, h5)[id="${query.id}"]`,
+          );
+
+          if (headingElm) {
+            this.#watchNextScroll();
+            headingElm.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }
+        }
+        // User click/tap
+        else if (source === 'navigate') {
+          // Scroll to top
+          if (auto2top) {
+            document.scrollingElement.scrollTop = topMargin ?? 0;
+          }
+        }
       }
 
-      return target;
+      // Clicked anchor link
+      if (path === '/' || (query.id && source === 'navigate')) {
+        isMobile() && this.#toggleSidebar(false);
+      }
+
+      // Clicked anchor link or page load with anchor ID
+      if (query.id || source === 'navigate') {
+        this.#focusContent();
+      }
+    }
+
+    // Functions
+    // =========================================================================
+    /**
+     * Set focus on the main content area: current route ID, first heading, or
+     * the main content container
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
+     * @param {Object} options HTMLElement focus() method options
+     * @returns HTMLElement|undefined
+     * @void
+     */
+    #focusContent(options = {}) {
+      const settings = {
+        preventScroll: true,
+        ...options,
+      };
+      const { query } = this.route;
+      const focusEl = query.id
+        ? // Heading ID
+          dom.find(`#${query.id}`)
+        : // First heading
+          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+          // Content container
+          dom.find('#main');
+
+      // Move focus to content area
+      focusEl?.focus(settings);
+
+      return focusEl;
+    }
+
+    /**
+     * Marks the active app nav item
+     *
+     * @param {string} [href] Matching element HREF value. If unspecified,
+     * defaults to the current path (without query params)
+     * @void
+     */
+    #markAppNavActiveElm() {
+      const href = decodeURIComponent(this.router.toURL(this.route.path));
+
+      ['.app-nav', '.app-nav-merged'].forEach(selector => {
+        const navElm = dom.find(selector);
+
+        if (!navElm) {
+          return;
+        }
+
+        const newActive = dom
+          .findAll(navElm, 'a')
+          .sort((a, b) => b.href.length - a.href.length)
+          .find(
+            a =>
+              href.includes(a.getAttribute('href')) ||
+              href.includes(decodeURI(a.getAttribute('href'))),
+          )
+          ?.closest('li');
+        const oldActive = dom.find(navElm, 'li.active');
+
+        if (newActive && newActive !== oldActive) {
+          oldActive?.classList.remove('active');
+          newActive.classList.add('active');
+        }
+      });
+    }
+
+    /**
+     * Marks the active sidebar item
+     *
+     * @param {string} [href] Matching element HREF value. If unspecified,
+     * defaults to the current path (with query params)
+     * @returns Element|undefined
+     */
+    #markSidebarActiveElm(href) {
+      href ??= this.router.toURL(this.router.getCurrentPath());
+
+      const sidebar = dom.find('.sidebar');
+
+      if (!sidebar) {
+        return;
+      }
+
+      const oldActive = dom.find(sidebar, 'li.active');
+      const newActive = dom
+        .find(
+          sidebar,
+          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
+        )
+        ?.closest('li');
+
+      if (newActive && newActive !== oldActive) {
+        oldActive?.classList.remove('active');
+        newActive.classList.add('active');
+      }
+
+      return newActive;
+    }
+
+    /**
+     * Marks the current page in the sidebar
+     *
+     * @param {string} [href] Matching sidebar element HREF value. If
+     * unspecified, defaults to the current path (without query params)
+     * @returns Element|undefined
+     */
+    #markSidebarCurrentPage(href) {
+      href ??= this.router.toURL(this.route.path);
+
+      const sidebar = dom.find('.sidebar');
+
+      if (!sidebar) {
+        return;
+      }
+
+      const path = href?.split('?')[0];
+      const oldPage = dom.find(sidebar, 'li[aria-current]');
+      const newPage = dom
+        .find(
+          sidebar,
+          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`,
+        )
+        ?.closest('li');
+
+      if (newPage && newPage !== oldPage) {
+        oldPage?.removeAttribute('aria-current');
+        newPage.setAttribute('aria-current', 'page');
+      }
+
+      return newPage;
+    }
+
+    #toggleSidebar(force) {
+      const sidebarElm = dom.find('.sidebar');
+
+      if (!sidebarElm) {
+        return;
+      }
+
+      const ariaElms = dom.findAll('[aria-controls="__sidebar"]');
+      const inertElms = dom.findAll(
+        'body > *:not(main, script), main > .content',
+      );
+      const isShow = sidebarElm.classList.toggle('show', force);
+
+      // Set aria-expanded attribute
+      ariaElms.forEach(toggleElm => {
+        toggleElm.setAttribute(
+          'aria-expanded',
+          force ?? sidebarElm.classList.contains('show'),
+        );
+      });
+
+      // Add inert attributes (focus trap)
+      if (isShow && isMobile()) {
+        inertElms.forEach(elm => elm.setAttribute('inert', ''));
+      }
+      // Remove inert attributes
+      else {
+        inertElms.forEach(elm => elm.removeAttribute('inert'));
+      }
+
+      if (isShow) {
+        sidebarElm.focus();
+      }
+      // Restore focus
+      else {
+        const restoreElm = document.querySelector(
+          'main > .content [data-restore-focus]',
+        );
+
+        if (restoreElm) {
+          restoreElm.focus({
+            preventScroll: true,
+          });
+        }
+      }
+    }
+
+    /**
+     * Monitor next scroll start/end and set #isScrolling to true/false
+     * accordingly. Listeners are removed after the start/end events are fired.
+     * @void
+     */
+    #watchNextScroll() {
+      // Scroll start
+      document.addEventListener(
+        'scroll',
+        () => {
+          this.#isScrolling = true;
+
+          // Scroll end
+          if ('onscrollend' in window) {
+            document.addEventListener(
+              'scrollend',
+              () => (this.#isScrolling = false),
+              { once: true },
+            );
+          }
+          // Browsers w/o native scrollend event support (Safari)
+          else {
+            const callback = () => {
+              clearTimeout(scrollTimer);
+
+              scrollTimer = setTimeout(() => {
+                document.removeEventListener('scroll', callback);
+                this.#isScrolling = false;
+              }, 100);
+            };
+
+            let scrollTimer;
+
+            document.addEventListener('scroll', callback, false);
+          }
+        },
+        { once: true },
+      );
     }
   };
 }

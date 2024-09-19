@@ -71,7 +71,7 @@ export class HashHistory extends History {
 
   /**
    * Parse the url
-   * @param {string} [path=location.herf] URL to be parsed
+   * @param {string} [path=location.href] URL to be parsed
    * @return {object} { path, query }
    */
   parse(path = location.href) {
@@ -92,6 +92,7 @@ export class HashHistory extends History {
       path,
       file: this.getFile(path, true),
       query: parseQuery(query),
+      response: {},
     };
   }
 

@@ -1,4 +1,4 @@
-# More pages
+# Adding pages
 
 If you need more pages, you can simply create more markdown files in your docsify directory. If you create a file named `guide.md`, then it is accessible via `/#/guide`.
 
@@ -37,7 +37,7 @@ First, you need to set `loadSidebar` to **true**. Details are available in the [
     loadSidebar: true,
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 Create the `_sidebar.md`:
@@ -46,7 +46,23 @@ Create the `_sidebar.md`:
 <!-- docs/_sidebar.md -->
 
 - [Home](/)
-- [Guide](guide.md)
+- [Page 1](page-1.md)
+```
+
+To create section headers:
+
+```markdown
+<!-- docs/_sidebar.md -->
+
+- Section Header 1
+
+  - [Home](/)
+  - [Page 1](page-1.md)
+
+- Section Header 2
+
+  - [Page 2](page-2.md)
+  - [Page 3](page-3.md)
 ```
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
@@ -110,7 +126,7 @@ A custom sidebar can also automatically generate a table of contents by setting 
     subMaxLevel: 2,
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ## Ignoring Subheaders

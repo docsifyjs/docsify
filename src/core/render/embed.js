@@ -1,4 +1,4 @@
-import stripIndent from 'strip-indent';
+import { stripIndent } from 'common-tags';
 import { get } from '../util/ajax.js';
 
 const cached = {};
@@ -15,6 +15,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   while ((token = embedTokens[step++])) {
     const currentToken = token;
 
+    // eslint-disable-next-line no-loop-func
     const next = text => {
       let embedToken;
       if (text) {
@@ -48,7 +49,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
           if (currentToken.embed.fragment) {
             const fragment = currentToken.embed.fragment;
             const pattern = new RegExp(
-              `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`
+              `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`,
             );
             text = stripIndent((text.match(pattern) || [])[1] || '').trim();
           }
@@ -58,7 +59,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
               currentToken.embed.lang +
               '\n' +
               text.replace(/`/g, '@DOCSIFY_QM@') +
-              '\n```\n'
+              '\n```\n',
           );
         } else if (currentToken.embed.type === 'mermaid') {
           embedToken = [
@@ -89,7 +90,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
 }
 
 export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
-  let hit = cached[raw];
+  const hit = cached[raw];
   if (hit) {
     const copy = hit.slice();
     copy.links = hit.links;
@@ -99,7 +100,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const compile = compiler._marked;
   let tokens = compile.lexer(raw);
   const embedTokens = [];
-  const linkRE = compile.Lexer.rules.inline.link;
+  const linkRE = compile.Lexer.rules.inline.normal.link;
   const links = tokens.links;
 
   tokens.forEach((token, index) => {
@@ -117,7 +118,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
           }
 
           return src;
-        }
+        },
       );
     }
   });

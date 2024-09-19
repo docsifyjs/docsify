@@ -10,19 +10,18 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     await page.evaluate(() => {
       window.$docsify = {
         el: '#app',
-        basePath: '/docs/',
         themeColor: 'red',
       };
     });
 
-    // Inject docsify theme (vue.css)
-    await page.addStyleTag({ url: '/lib/themes/vue.css' });
+    // Inject docsify theme
+    await page.addStyleTag({ url: '/dist/themes/core.css' });
 
     // Inject docsify.js
-    await page.addScriptTag({ url: '/lib/docsify.js' });
+    await page.addScriptTag({ url: '/dist/docsify.js' });
 
     // Wait for docsify to initialize
-    await page.waitForSelector('#main');
+    await page.locator('#main').waitFor();
 
     // Create handle for JavaScript object in browser
     const $docsify = await page.evaluate(() => window.$docsify);
@@ -36,9 +35,6 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     // Load custom docsify
     // (See ./helpers/docsifyInit.js for details)
     await docsifyInit({
-      config: {
-        basePath: '/docs/',
-      },
       // _logHTML: true,
     });
 
@@ -46,7 +42,7 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     const mainElm = page.locator('#main');
     await expect(mainElm).toHaveCount(1);
     await expect(mainElm).toContainText(
-      'A magical documentation site generator'
+      'A magical documentation site generator',
     );
   });
 
@@ -93,14 +89,14 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
         // docsifyInit() route
         'data-test-scripturls.js',
         // Server route
-        '/lib/plugins/search.min.js',
+        '/dist/plugins/search.js',
       ],
       style: `
         body {
           background: red !important;
         }
       `,
-      styleURLs: ['/lib/themes/vue.css'],
+      styleURLs: ['/dist/themes/core.css'],
     };
 
     await docsifyInit({
@@ -132,11 +128,14 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
 
     // Verify docsifyInitConfig.script was added to the DOM
     expect(
-      await page.evaluate(scriptText => {
-        return [...document.querySelectorAll('script')].some(
-          elm => elm.textContent.replace(/\s+/g, '') === scriptText
-        );
-      }, docsifyInitConfig.script.replace(/\s+/g, ''))
+      await page.evaluate(
+        scriptText => {
+          return [...document.querySelectorAll('script')].some(
+            elm => elm.textContent.replace(/\s+/g, '') === scriptText,
+          );
+        },
+        docsifyInitConfig.script.replace(/\s+/g, ''),
+      ),
     ).toBe(true);
 
     // Verify docsifyInitConfig.script was executed
@@ -145,17 +144,20 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     // Verify docsifyInitConfig.styleURLs were added to the DOM
     for (const styleURL of docsifyInitConfig.styleURLs) {
       await expect(
-        page.locator(`link[rel*="stylesheet"][href$="${styleURL}"]`)
+        page.locator(`link[rel*="stylesheet"][href$="${styleURL}"]`),
       ).toHaveCount(1);
     }
 
     // Verify docsifyInitConfig.style was added to the DOM
     expect(
-      await page.evaluate(styleText => {
-        return [...document.querySelectorAll('style')].some(
-          elm => elm.textContent.replace(/\s+/g, '') === styleText
-        );
-      }, docsifyInitConfig.style.replace(/\s+/g, ''))
+      await page.evaluate(
+        styleText => {
+          return [...document.querySelectorAll('style')].some(
+            elm => elm.textContent.replace(/\s+/g, '') === styleText,
+          );
+        },
+        docsifyInitConfig.style.replace(/\s+/g, ''),
+      ),
     ).toBe(true);
 
     // Verify docsify navigation and docsifyInitConfig.routes
@@ -212,7 +214,7 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
   //         upon billions upon billions upon billions upon billions.
   //       `,
   //     },
-  //     styleURLs: [`/lib/themes/vue.css`],
+  //     styleURLs: [`/dist/themes/core.css`],
   //     // _logHTML: true,
   //   });
 

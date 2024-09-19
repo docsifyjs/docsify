@@ -21,11 +21,11 @@ test.describe('Search Plugin Tests', () => {
           This is a custom route.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -64,11 +64,11 @@ test.describe('Search Plugin Tests', () => {
             There're three places to populate your docs for your Github repository2.
           `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -99,11 +99,11 @@ test.describe('Search Plugin Tests', () => {
           This is a custom route.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
     const resultElm = page.locator('.matching-post');
 
     await docsifyInit(docsifyInitConfig);
@@ -125,11 +125,11 @@ test.describe('Search Plugin Tests', () => {
           docsify genera su sitio web de documentación sobre la marcha. A diferencia de GitBook, no genera archivos estáticos html. En cambio, carga y analiza de forma inteligente sus archivos de Markdown y los muestra como sitio web. Todo lo que necesita hacer es crear un index.html para comenzar y desplegarlo en GitHub Pages.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -159,11 +159,11 @@ test.describe('Search Plugin Tests', () => {
           hello, this is a changelog
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -176,6 +176,7 @@ test.describe('Search Plugin Tests', () => {
     await searchFieldElm.fill('hello');
     await expect(resultsHeadingElm).toHaveText('Changelog Title');
   });
+
   test('search when there is no body', async ({ page }) => {
     const docsifyInitConfig = {
       markdown: {
@@ -185,15 +186,50 @@ test.describe('Search Plugin Tests', () => {
           ---
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
     await searchFieldElm.fill('empty');
     await expect(resultsHeadingElm).toHaveText('EmptyContent');
+  });
+
+  test('handles default focusSearch binding', async ({ page }) => {
+    const docsifyInitConfig = {
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type="search"]');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await expect(searchFieldElm).not.toBeFocused();
+    await page.keyboard.press('/');
+    await expect(searchFieldElm).toBeFocused();
+  });
+
+  test('handles custom focusSearch binding', async ({ page }) => {
+    const docsifyInitConfig = {
+      config: {
+        search: {
+          keyBindings: ['z'],
+        },
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type="search"]');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await expect(searchFieldElm).not.toBeFocused();
+    await page.keyboard.press('/');
+    await expect(searchFieldElm).not.toBeFocused();
+    await page.keyboard.press('z');
+    await expect(searchFieldElm).toBeFocused();
   });
 });

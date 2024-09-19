@@ -137,7 +137,8 @@ describe('Emoji', function () {
   test('Ignores emoji shorthand codes in html attributes', async () => {
     await docsifyInit({
       markdown: {
-        homepage: /* html */ `<a href="http://domain.com/:smile:/"> <img src='http://domain.com/:smile:/file.png'> <script src=http://domain.com/:smile:/file.js></script>`,
+        homepage:
+          /* html */ '<a href="http://domain.com/:smile:/"> <img src=\'http://domain.com/:smile:/file.png\'> <script src=http://domain.com/:smile:/file.js></script>',
       },
       // _logHTML: true,
     });
@@ -150,7 +151,8 @@ describe('Emoji', function () {
   test('Ignores emoji shorthand codes in style url() values', async () => {
     await docsifyInit({
       markdown: {
-        homepage: /* html */ `<style>@import url(http://domain.com/:smile/file.css);</style>`,
+        homepage:
+          /* html */ '<style>@import url(http://domain.com/:smile/file.css);</style>',
       },
       // _logHTML: true,
     });

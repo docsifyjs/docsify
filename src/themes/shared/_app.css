@@ -1,0 +1,153 @@
+/* App */
+/* ========================================================================== */
+body {
+  > .progress {
+    position: fixed;
+    z-index: var(--z-progress);
+    inset: 0 0 auto 0;
+    height: 2px;
+    width: 0%;
+    background: var(--theme-color);
+    transition:
+      width var(--duration-medium) ease,
+      opacity calc(var(--duration-medium) * 2);
+  }
+}
+
+main {
+  display: block;
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+
+  /* Overlay */
+  &::before {
+    content: '';
+    position: fixed;
+    z-index: var(--z-main-overlay);
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: transparent;
+    transition:
+      width 0s var(--duration-medium),
+      background var(--duration-medium);
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  > .content {
+    position: absolute;
+    inset: 0;
+    transition: left var(--duration-medium) ease;
+
+    body:has(.sidebar.show) & {
+      left: var(--sidebar-width);
+    }
+
+    /* hideSidebar: true */
+    body:not:has(.sidebar) & {
+      position: static;
+    }
+  }
+}
+
+.github-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: var(--z-github-corner);
+  border-bottom: 0;
+  text-decoration: none;
+
+  &:hover {
+    .octo-arm {
+      animation: github-corner 560ms ease-in-out;
+    }
+  }
+
+  svg {
+    height: var(--navbar-height);
+    width: var(--navbar-height);
+    color: var(--color-bg);
+    fill: var(--theme-color);
+  }
+}
+
+@keyframes github-corner {
+  0%,
+  100% {
+    rotate: 0;
+  }
+  20%,
+  60% {
+    rotate: -25deg;
+  }
+  40%,
+  80% {
+    rotate: 10deg;
+  }
+}
+
+.loading:empty /* Block: <div class="loading"></div>  */,
+.loading:not(:empty)::before /* Pseudo: <div class="loading">Content</div>  */ {
+  --_gradient: no-repeat
+    radial-gradient(farthest-side, var(--theme-color) 92%, #0000);
+
+  content: '';
+  display: block;
+  width: 36px;
+  aspect-ratio: 1;
+  background:
+    var(--_gradient) top,
+    var(--_gradient) left,
+    var(--_gradient) right,
+    var(--_gradient) bottom;
+  background-size: 10px 10px;
+  animation: loading 1s infinite;
+}
+
+.loading:not(:empty)::before {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+@keyframes loading {
+  to {
+    rotate: 0.5turn;
+  }
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75em;
+  height: 100vh;
+  padding-inline: 50px;
+}
+
+#skip-to-content {
+  position: fixed;
+  z-index: var(--z-skip-to-content);
+  top: 0;
+  left: 50%;
+  opacity: 0;
+  translate: -50% -100%;
+  transition-property: opacity, translate;
+  transition-duration: 0s, var(--duration-medium);
+  transition-delay: var(--duration-medium), 0s;
+  transition-timing-function: ease;
+
+  &:focus {
+    opacity: 1;
+    translate: -50% 0.75rem;
+    transition-duration: 0s, var(--duration-medium);
+    transition-delay: 0s, 0s;
+  }
+}
