@@ -191,6 +191,7 @@ Read more in the [Stormkit Documentation](https://stormkit.io/docs).
   ```
 
 ## Kinsta Static Site Hosting
+
 You can deploy **Docsify** as a Static Site on [Kinsta](https://kinsta.com/static-site-hosting/).
 
 1. Login or create an account to view your [MyKinsta](https://my.kinsta.com/) dashboard.
