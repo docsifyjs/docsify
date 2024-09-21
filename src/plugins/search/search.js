@@ -2,6 +2,7 @@ import {
   getAndRemoveConfig,
   getAndRemoveDocsifyIgnoreConfig,
 } from '../../core/render/utils.js';
+import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
 
 let INDEXES = {};
@@ -134,7 +135,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: token.text || '',
+          body: markdownToTxt(token.text || ''),
           path: path,
           indexKey: indexKey,
         };
@@ -150,12 +151,12 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body += '\n' + (token.text || '');
+        index[slug].body += '\n' + markdownToTxt(token.text || '');
       } else {
         token.text = getTableData(token);
         token.text = getListData(token);
 
-        index[slug].body = token.text || '';
+        index[slug].body = markdownToTxt(token.text || '');
       }
 
       index[slug].path = path;
@@ -229,8 +230,8 @@ export function search(query) {
           start = indexContent < 11 ? 0 : indexContent - 10;
           end = start === 0 ? 100 : indexContent + keyword.length + 90;
 
-          if (postContent && end > postContent.length) {
-            end = postContent.length;
+          if (handlePostContent && end > handlePostContent.length) {
+            end = handlePostContent.length;
           }
 
           const matchContent =
