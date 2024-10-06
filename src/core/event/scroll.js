@@ -78,11 +78,11 @@ function highlight(path) {
     const curOffset = 0;
     const cur = active.offsetTop + active.clientHeight + 40;
     const isInView =
-      active.offsetTop >= wrap.scrollTop && cur <= wrap.scrollTop + height;
-    const notThan = cur - curOffset < height;
+      cur >= sidebar.scrollTop && cur <= sidebar.scrollTop + height;
+    const notThan = active.offsetTop - curOffset < height;
 
     sidebar.scrollTop = isInView
-      ? wrap.scrollTop
+      ? sidebar.scrollTop
       : notThan
       ? curOffset
       : cur - height;
