@@ -76,15 +76,16 @@ function highlight(path) {
   if (!hoverOver && dom.body.classList.contains('sticky')) {
     const height = sidebar.clientHeight;
     const curOffset = 0;
-    const cur = active.offsetTop + active.clientHeight + 40;
+    const activeHeight = active.clientHeight + 40;
+    const cur = active.offsetTop + activeHeight;
     const isInView =
-      cur >= sidebar.scrollTop && cur <= sidebar.scrollTop + height;
-    const notThan = active.offsetTop - curOffset < height;
+      active.offsetTop >= sidebar.scrollTop && cur <= sidebar.scrollTop + height;
+    const notThan = cur - curOffset < height;
 
     sidebar.scrollTop = isInView
       ? sidebar.scrollTop
       : notThan
-      ? curOffset
+      ? cur - curOffset - activeHeight
       : cur - height;
   }
 }
