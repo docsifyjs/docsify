@@ -99,11 +99,16 @@ export function Events(Base) {
           if (headingsInView.size === 1) {
             activeHeading = headingsInView.values().next().value;
           } else if (headingsInView.size > 1) {
-            activeHeading = Array.from(headingsInView).reduce((closest, current) => {
-              return !closest || (closest.compareDocumentPosition(current) & Node.DOCUMENT_POSITION_FOLLOWING)
-                ? current
-                : closest;
-            }, null);
+            activeHeading = Array.from(headingsInView).reduce(
+              (closest, current) => {
+                return !closest ||
+                  closest.compareDocumentPosition(current) &
+                    Node.DOCUMENT_POSITION_FOLLOWING
+                  ? current
+                  : closest;
+              },
+              null,
+            );
           }
 
           if (activeHeading) {
