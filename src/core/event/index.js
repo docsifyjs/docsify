@@ -95,10 +95,14 @@ export function Events(Base) {
             headingsInView[op](entry.target);
           }
 
-          let activeHeading = undefined;
+          let activeHeading;
           if (headingsInView.size === 1) {
+            // Get first and only item in set.
+            // May be undefined if no headings are in view.
             activeHeading = headingsInView.values().next().value;
           } else if (headingsInView.size > 1) {
+            // Find the closest heading to the top of the viewport
+            // Reduce over the Set of headings currently in view (headingsInView) to determine the closest heading.
             activeHeading = Array.from(headingsInView).reduce(
               (closest, current) => {
                 return !closest ||
