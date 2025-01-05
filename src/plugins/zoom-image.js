@@ -10,13 +10,17 @@ function install(hook) {
       ),
     );
 
+    Docsify.dom.style(
+      `.medium-zoom-image--opened,.medium-zoom-overlay{z-index:999}`,
+    );
+
     elms = elms.filter(elm => !elm.matches('a img'));
 
     if (zoom) {
       zoom.detach();
     }
 
-    zoom = mediumZoom(elms);
+    zoom = mediumZoom(elms, { background: 'var(--color-bg)' });
   });
 }
 
