@@ -181,7 +181,7 @@ export class Compiler {
   }
 
   /**
-   * Compile sidebar, it uses  _sidebar.md ( or specific file) or the content's headings toc to render sidebar.
+   * Compile sidebar, it uses _sidebar.md (or specific file) or the content's headings toc to render sidebar.
    * @param {String} text Text content from the sidebar file, maybe empty
    * @param {Number} level Type of heading (h<level> tag)
    * @returns {String} Sidebar element
