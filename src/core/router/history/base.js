@@ -32,9 +32,12 @@ export class History {
   }
 
   #getFileName(path, ext) {
-    const [basePath, query] = path.split("?");
+    const [basePath, query] = path.split('?');
 
-    const hasValidExt = new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(basePath);
+    const hasValidExt = new RegExp(
+      `\\.(${ext.replace(/^\./, '')}|html)$`,
+      'g',
+    ).test(basePath);
 
     const updatedPath = hasValidExt
       ? basePath
