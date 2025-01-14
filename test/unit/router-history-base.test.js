@@ -84,7 +84,7 @@ describe('router/history/base', () => {
     });
     test('path is url, but with parameters', () => {
       const file = history.getFile(
-        'https://some/raw/url/README.md?token=Mytoken'
+        'https://some/raw/url/README.md?token=Mytoken',
       );
 
       expect(file).toBe('https://some/raw/url/README.md?token=Mytoken');
