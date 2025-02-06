@@ -60,7 +60,7 @@
     "cross-env": "^7.0.3",
     "cssnano": "^7.0.1",
     "eslint": "^9.3.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-jest": "^28.5.0",
     "eslint-plugin-playwright": "^2.1.0",
     "eslint-plugin-prettier": "^5.1.3",
