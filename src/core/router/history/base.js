@@ -35,8 +35,7 @@ export class History {
     const [basePath, query] = path.split('?');
 
     const hasValidExt = new RegExp(
-      `\\.(${ext.replace(/^\./, '')}|html)$`,
-      'g',
+      `\\.(${ext.replace(/^\./, '')}|html)$`
     ).test(basePath);
 
     const updatedPath = hasValidExt
