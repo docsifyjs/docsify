@@ -399,6 +399,7 @@ export default {
     "cookie": "unicode/1f36a.png?v8",
     "cool": "unicode/1f192.png?v8",
     "cop": "unicode/1f46e.png?v8",
+    "copilot": "copilot.png?v8",
     "copyright": "unicode/00a9.png?v8",
     "coral": "unicode/1fab8.png?v8",
     "corn": "unicode/1f33d.png?v8",

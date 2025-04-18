@@ -790,6 +790,8 @@ Below is a complete list of emoji shorthand codes. Docsify can be configured to 
 
 :cop: `:cop:`
 
+:copilot: `:copilot:`
+
 :copyright: `:copyright:`
 
 :coral: `:coral:`
