@@ -115,6 +115,7 @@
     "test:integration": "npm run test:jest -- --selectProjects integration",
     "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "test:unit": "npm run test:jest -- --selectProjects unit",
+    "test:update:snapshot": "npm run test:jest -- --updateSnapshot",
     "test": "run-s test:jest test:e2e",
     "watch:css": "run-p 'build:css -- --watch' 'build:css:min -- --watch'",
     "watch:js": "npm run build:js -- --watch"
