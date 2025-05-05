@@ -25,10 +25,6 @@ Check out the [Showcase](https://github.com/docsifyjs/awesome-docsify#showcase) 
 
 Please consider donating if you think docsify is helpful to you or that my work is valuable. I am happy if you can help me [buy a cup of coffee](https://github.com/QingWei-Li/donate). :heart:
 
-### Gold sponsors
-
-[![](_images/Route4Me.png ':size=200')](https://route4me.com/ 'Best Route Planning and Route Optimization Software')
-
 ## Community
 
 Users and the development team are usually in the [Discord server](https://discord.gg/3NwKFyR).
