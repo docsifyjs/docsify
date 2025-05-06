@@ -25,7 +25,7 @@ docs/zh-cn/guide.md   => http://domain.com/#/zh-cn/guide
 
 ## Sidebar
 
-In order to have a sidebar, you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/master/docs/_sidebar.md) for an example):
+In order to have a sidebar, you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/main/docs/_sidebar.md) for an example):
 
 First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#loadsidebar).
 

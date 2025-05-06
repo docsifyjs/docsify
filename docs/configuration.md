@@ -43,7 +43,7 @@ window.$docsify = {
     '/foo/(.*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
-      'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+      'https://raw.githubusercontent.com/docsifyjs/docsify/main/CHANGELOG',
 
     // You may need this if you use routerMode:'history'.
     '/.*/_sidebar.md': '/_sidebar.md', // See #301
@@ -284,7 +284,7 @@ window.$docsify = {
 
   // Or use the readme in your repo
   homepage:
-    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md',
+    'https://raw.githubusercontent.com/docsifyjs/docsify/main/README.md',
 };
 ```
 
