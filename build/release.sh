@@ -17,6 +17,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # test
   npm run test
+  # update snapshot
+  npm run test:update:snapshot
 
   # commit
   git add -A
