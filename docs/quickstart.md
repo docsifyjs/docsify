@@ -138,7 +138,7 @@ You should set the `data-app` attribute if you changed `el`:
 </script>
 ```
 
-Compare [el configuration](configuration.md#el).
+Compare [el configuration](configuration#el).
 
 <script>
   (function() {

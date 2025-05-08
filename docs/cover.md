@@ -1,6 +1,6 @@
 # Cover
 
-Activate the cover feature by setting `coverpage` to **true**. See [coverpage configuration](configuration.md#coverpage).
+Activate the cover feature by setting `coverpage` to **true**. See [coverpage configuration](configuration#coverpage).
 
 ## Basic usage
 
@@ -60,7 +60,7 @@ Alternatively, a background color or image can be specified in the cover page ma
 
 ## Coverpage as homepage
 
-Normally, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [`onlyCover`](configuration.md#onlycover) option.
+Normally, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [`onlyCover`](configuration#onlycover) option.
 
 ## Multiple covers
 
