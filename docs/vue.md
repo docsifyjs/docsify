@@ -51,7 +51,7 @@ Docsify ignores Vue template syntax within code blocks by default:
 
 ````markdown
 ```
-{{ message}}
+{{ message }}
 ```
 ````
 
@@ -61,7 +61,7 @@ To process Vue template syntax within a code block, wrap the code block in an el
 <div v-template>
 
 ```
-{{ message}}
+{{ message }}
 ```
 
 </div>

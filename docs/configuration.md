@@ -480,7 +480,7 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-Render emoji shorthand codes using GitHub-style emoji images or platform-native emoji characters.
+Render emoji shorthand codes using GitHub-style emoji images or native emoji characters.
 
 ```js
 window.$docsify = {
@@ -506,7 +506,7 @@ GitHub-style images when `false`:
   <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
 </output>
 
-Platform-native characters when `true`:
+Native characters when `true`:
 
 <output data-lang="output">
   <span class="emoji">😄︎</span>
@@ -581,7 +581,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 
 ## notFoundPage
 
-- Type: `Boolean` | `String` | `Object`
+- Type: `Boolean|String|Object`
 - Default: `false`
 
 Display default "404 - Not Found" message:

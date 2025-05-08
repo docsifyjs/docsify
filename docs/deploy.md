@@ -78,7 +78,7 @@ server {
 
 1.  Login to your [Netlify](https://www.netlify.com/) account.
 2.  In the [dashboard](https://app.netlify.com/) page, click **Add New Site**.
-3.  Select Github.
+3.  Select GitHub.
 4.  Choose the repository where you store your docs, in the **Base Directory** add the subfolder where the files are stored. For example, it should be `docs`.
 5.  In the **Build Command** area leave it blank.
 6.  In the **Publish directory** area, if you have added the `docs` in the **Base Directory** you will see the publish directory populated with `docs/`

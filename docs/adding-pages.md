@@ -27,7 +27,7 @@ docs/zh-cn/guide.md   => http://domain.com/#/zh-cn/guide
 
 In order to have a sidebar, you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/main/docs/_sidebar.md) for an example):
 
-First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#loadsidebar).
+First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration#loadsidebar).
 
 ```html
 <!-- index.html -->
@@ -115,7 +115,7 @@ A page's `title` tag is generated from the _selected_ sidebar item name. For bet
 
 Once you've created `_sidebar.md`, the sidebar content is automatically generated based on the headers in the markdown files.
 
-A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [subMaxLevel configuration](configuration.md#submaxlevel).
+A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [subMaxLevel configuration](configuration#submaxlevel).
 
 ```html
 <!-- index.html -->
