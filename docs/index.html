@@ -79,7 +79,7 @@
           '/ru-ru/(.*)':
             'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
           '/zh-cn/(.*)':
-            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
+            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@release-v4/$1',
         },
         auto2top: true,
         coverpage: true,
@@ -184,10 +184,10 @@
               } else if (/jsdelivr\.net/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('cdn.jsdelivr.net/gh', 'github.com')
-                  .replace('@master', '/blob/master');
+                  .replace('@release-v4', '/blob/release-v4');
               } else {
                 url =
-                  'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
+                  'https://github.com/docsifyjs/docsify/blob/release-v4/docs/' +
                   vm.route.file;
               }
               var editHtml = '[:memo: Edit Document](' + url + ')\n';
