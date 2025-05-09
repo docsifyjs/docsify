@@ -119,4 +119,4 @@ _index.html_
 
 ## Enjoy it
 
-Release your website and start experiencing the magical offline feature. :ghost: You can turn off Wi-Fi and refresh the current site to experience it.
+Release your website and start experiencing the magical offline feature.

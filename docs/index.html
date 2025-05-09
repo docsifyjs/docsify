@@ -103,7 +103,7 @@
             'https://raw.githubusercontent.com/docsifyjs/docsify/main/CHANGELOG.md',
           '/.*/_navbar.md': '/_navbar.md',
           '/zh-cn/(.*)':
-            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
+            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@main/$1',
         },
         auto2top: true,
         coverpage: true,
@@ -203,11 +203,12 @@
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
-                  .replace(/\/master/, '/blob/master');
+                  .replace(/\/master/, '/blob/master')
+                  .replace(/\/main/, '/blob/main');
               } else if (/jsdelivr\.net/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('cdn.jsdelivr.net/gh', 'github.com')
-                  .replace('@master', '/blob/master');
+                  .replace('@main', '/blob/main');
               } else {
                 url =
                   'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
