@@ -1,20 +1,18 @@
 <p align="center">
   <a href="https://docsify.js.org">
-    <img alt="docsify" src="./docs/_media/icon.svg">
+    <img alt="Docsify" src="./docs/_media/icon.svg" width="100">
   </a>
 </p>
 
-<p align="center">
-  A magical documentation site generator.
-</p>
+<h2 align="center">Docsify</h2>
+<p align="center">A magical documentation site generator.</p>
 
 <p align="center">
   <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/docsify/backers/badge.svg?style=flat-square"></a>
-  <a href="#sponsors">
-    <img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
+  <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
   <a href="https://github.com/docsifyjs/docsify/actions/workflows/test.yml"><img src="https://github.com/docsifyjs/docsify/actions/workflows/test.yml/badge.svg" alt="Build & Test"></a>
   <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
-  <a href="https://discord.gg/3NwKFyR"><img alt="Join Discord community and chat about Docsify" src="https://img.shields.io/discord/713647066802421792.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2&cacheSeconds=60"></a>
+  <a href="https://discord.gg/3NwKFyR"><img alt="Join Discord community" src="https://img.shields.io/discord/713647066802421792.svg?logo=discord&color=7389D8"></a>
   <a href="https://gitpod.io/#https://github.com/docsifyjs/docsify"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"></a>
 </p>
 
@@ -26,58 +24,83 @@
   </a>
 </p>
 
-Docsify turns one or more Markdown files into a Website, with no build process required.
+---
 
-## Features
+## 📝 What is Docsify?
 
-- No statically built html files
-- Simple and lightweight
-- Smart full-text search plugin
+> **Docsify** turns one or more Markdown files into a documentation website — no static site generator build step required.
+
+---
+
+## 🚀 Features
+
+- No build step or static HTML generation
+- Loads Markdown files on demand
+- Full-text search plugin
 - Multiple themes
-- Useful plugin API
-- Emoji support
+- Plugin API support
+- Emoji support 🎉
 
-## Quick Start
+---
 
-Get going fast by using a static web server or GitHub Pages with this ready-to-use [Docsify Template](https://github.com/docsifyjs/docsify-template), review the [quick start tutorial](https://docsify.js.org/#/quickstart) or jump right into a CodeSandbox example site with the button below.
+## ⚡ Quick Start
 
-[![Edit 307qqv236](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
+Use the ready-to-go [Docsify Template](https://github.com/docsifyjs/docsify-template), or try it instantly in CodeSandbox:
 
-## Showcase
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
 
-A large collection of showcase projects are included in [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase).
+Or review the [quick start tutorial](https://docsify.js.org/#/quickstart).
 
-## Links
+---
 
-- [Documentation](https://docsify.js.org)
-- [Docsify CLI (Command Line Interface)](https://github.com/docsifyjs/docsify-cli)
-- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
-- [`develop` branch preview](https://docsify-preview.vercel.app/)
-- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
-- [Community chat](https://discord.gg/3NwKFyR)
+## 🌟 Showcase
 
-## Contributing
+Explore example sites built with Docsify in the [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase) collection.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+---
 
-## Backers
+## 🔗 Useful Links
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/docsify/contribute)]
+- [📚 Documentation](https://docsify.js.org)
+- [📦 Docsify CLI](https://github.com/docsifyjs/docsify-cli)
+- [📡 CDN Links](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
+- [`develop` branch live preview](https://docsify-preview.vercel.app/)
+- [Awesome Docsify List](https://github.com/docsifyjs/awesome-docsify)
+- [💬 Community Chat (Discord)](https://discord.gg/3NwKFyR)
 
-<a href="https://opencollective.com/docsify#backers" target="_blank"><img src="https://opencollective.com/docsify/backers.svg?width=890"></a>
+---
 
-## Sponsors
+## 🤝 Contributing
 
-Thank you for supporting this project! ❤️ [[Become a sponsor](https://opencollective.com/docsify/contribute)]
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to help.
+
+---
+
+## 💖 Backers
+
+Thank you to all our backers! 🙏 [Become a backer](https://opencollective.com/docsify/contribute)
+
+<a href="https://opencollective.com/docsify#backers"><img src="https://opencollective.com/docsify/backers.svg?width=890"></a>
+
+---
+
+## 💎 Sponsors
+
+[Become a sponsor](https://opencollective.com/docsify/contribute)
 
 <img src="https://opencollective.com/docsify/sponsors.svg?width=890" />
 
-## Contributors
+---
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+## 👥 Contributors
+
+This project exists thanks to all the people who contribute. [Contribute](CONTRIBUTING.md)
 
 <a href="https://github.com/docsifyjs/docsify/graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
 
-## License
+---
 
-[MIT](LICENSE)
+## 📄 License
+
+[MIT License](LICENSE)
+
