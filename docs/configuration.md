@@ -776,6 +776,19 @@ without the `#` in the URL and SEO optimization.
 > };
 > ```
 
+## rtl
+
+- Type: `Boolean`
+- Default: `false`
+
+Enables Right-to-Left (RTL) layout for the documentation. When set to `true`, the sidebar will appear on the right, text will be aligned to the right, and the overall layout will be mirrored for RTL languages.
+
+```js
+window.$docsify = {
+  rtl: true,
+};
+```
+
 ## routes
 
 - Type: `Object`

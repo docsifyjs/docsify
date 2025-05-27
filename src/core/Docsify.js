@@ -25,6 +25,11 @@ export class Docsify extends Fetch(
     this.initRender(); // Render base DOM
     this.initEvent(); // Bind events
     this.initFetch(); // Fetch data
+
+    if (this.config.rtl) {
+      document.body.classList.add('rtl');
+    }
+
     this.callHook('mounted');
   }
 
