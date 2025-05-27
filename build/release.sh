@@ -12,32 +12,30 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
-  # build
-  VERSION=$VERSION npm run build
+  # Update version (don't commit or tag yet)
+  npm --no-git-tag-version version "$VERSION" --message "[release] $VERSION $RELEASE_TAG"
 
-  # test
-  npm run test
-  # update snapshot
+  # Build and test
+  npm run build
   npm run test:update:snapshot
+  npm run test
 
-  # commit
+  # Changelog
+  npx conventional-changelog -p angular -i CHANGELOG.md -s
+
+  # Commit all changes
   git add -A
-  git commit -m "[build] $VERSION $RELEASE_TAG"
-  npm --no-git-tag-version version $VERSION --message "[release] $VERSION $RELEASE_TAG"
+  git commit -m "[release] $VERSION $RELEASE_TAG"
 
-  # changelog
-  node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s
-
-  git add .
-  git commit -m "chore: add changelog $VERSION"
-
-  # publish
-  git tag v$VERSION
-  git push origin refs/tags/v$VERSION
+  # Tag and push
+  git tag "v$VERSION"
+  git push origin "v$VERSION"
   git push
+
+  # Publish to npm
   if [[ -z $RELEASE_TAG ]]; then
     npm publish
   else
-    npm publish --tag $RELEASE_TAG
+    npm publish --tag "$RELEASE_TAG"
   fi
 fi

@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.13.1",
+  "version": "5.0.0-rc.1",
   "description": "A magical documentation generator.",
   "homepage": "https://docsify.js.org",
   "repository": "github:docsifyjs/docsify",

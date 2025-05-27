@@ -2,7 +2,7 @@
 
 ![logo](_media/icon.svg)
 
-# docsify <small>4.13.1</small>
+# docsify <small>5.0.0-rc.1</small>
 
 > A magical documentation site generator
 
