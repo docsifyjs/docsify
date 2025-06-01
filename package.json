@@ -78,7 +78,7 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.7",
     "rollup": "^4.17.2",
-    "rollup-plugin-import-css": "^3.5.0",
+    "rollup-plugin-import-css": "^4.0.1",
     "vue": "^3.4.27",
     "xhr-mock": "^2.5.1"
   },
