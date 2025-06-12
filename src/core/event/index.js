@@ -343,8 +343,7 @@ export function Events(Base) {
     onNavigate(source) {
       const { auto2top, topMargin } = this.config;
       const { path, query } = this.route;
-
-      this.#markSidebarActiveElm();
+      const activeSidebarElm = this.#markSidebarActiveElm();
 
       // Note: Scroll position set by browser on forward/back (i.e. "history")
       if (source !== 'history') {
@@ -371,13 +370,20 @@ export function Events(Base) {
         }
       }
 
+      const isNavigate = source === 'navigate';
+      const hasId = 'id' in query;
+      const noSubSidebar = !activeSidebarElm?.querySelector('.app-sub-sidebar');
+
       // Clicked anchor link
-      if (path === '/' || (query.id && source === 'navigate')) {
-        isMobile() && this.#toggleSidebar(false);
+      const shouldCloseSidebar =
+        path === '/' || (isNavigate && (hasId || noSubSidebar));
+
+      if (shouldCloseSidebar && isMobile()) {
+        this.#toggleSidebar(false);
       }
 
       // Clicked anchor link or page load with anchor ID
-      if (query.id || source === 'navigate') {
+      if (hasId || isNavigate) {
         this.#focusContent();
       }
     }
