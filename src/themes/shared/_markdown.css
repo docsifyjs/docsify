@@ -276,9 +276,11 @@
 
   h2 {
     --_spacing: 0.5em;
+    --_line-height-muliplier: 0.9;
 
     margin-bottom: calc(
-      var(--_spacing) + (var(--heading-line-height) - var(--font-size-xxl))
+      var(--_spacing) + (1lh * var(--_line-height-muliplier)) -
+        var(--font-size-xxl)
     );
     padding-bottom: var(--_spacing);
     border-bottom: 1px solid var(--border-color);
