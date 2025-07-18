@@ -259,7 +259,7 @@
 
   h1,
   h2 {
-    margin-top: 2.5rem;
+    margin-top: calc(2.5rem - (1lh - 1.275em));
   }
 
   :is(h1, h2, h3, h4, h5, h6) + * {
@@ -275,14 +275,8 @@
   }
 
   h2 {
-    --_spacing: 0.5em;
-    --_line-height-muliplier: 0.9;
-
-    margin-bottom: calc(
-      var(--_spacing) + (1lh * var(--_line-height-muliplier)) -
-        var(--font-size-xxl)
-    );
-    padding-bottom: var(--_spacing);
+    margin-bottom: 0.65em;
+    padding-bottom: calc(0.5em - (1lh - 1.275em));
     border-bottom: 1px solid var(--border-color);
     font-size: var(--font-size-xxl);
   }
