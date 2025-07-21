@@ -285,7 +285,7 @@ describe('render', function () {
       );
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass,anotherCssClass">alt text</a></p>"`,
+        `"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass anotherCssClass">alt text</a></p>"`,
       );
     });
 
