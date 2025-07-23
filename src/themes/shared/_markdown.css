@@ -251,7 +251,6 @@
 
     /* Prevent long titles from causing horizontal scrolling */
     &[id] a {
-      display: block;
       overflow: hidden;
       text-overflow: ellipsis;
     }
