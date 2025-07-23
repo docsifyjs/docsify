@@ -252,14 +252,15 @@
     /* Prevent long titles from causing horizontal scrolling */
     &[id] a {
       display: block;
-      overflow: hidden;
+      overflow-x: clip;
+      overflow-y: visible;
       text-overflow: ellipsis;
     }
   }
 
   h1,
   h2 {
-    margin-top: calc(2.5rem - (1lh - 1.275em));
+    margin-top: 2.5rem;
   }
 
   :is(h1, h2, h3, h4, h5, h6) + * {
@@ -275,8 +276,10 @@
   }
 
   h2 {
-    margin-bottom: 0.65em;
-    padding-bottom: calc(0.5em - (1lh - 1.275em));
+    --_spacing: 0.5em;
+
+    margin-bottom: calc(var(--_spacing) + (1lh - 1em));
+    padding-bottom: var(--_spacing);
     border-bottom: 1px solid var(--border-color);
     font-size: var(--font-size-xxl);
   }
