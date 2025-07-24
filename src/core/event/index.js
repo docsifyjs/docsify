@@ -414,7 +414,11 @@ export function Events(Base) {
           dom.find('#main');
 
       // Move focus to content area
-      focusEl?.focus(settings);
+      if (focusEl) {
+        focusEl.focus(settings);
+
+        focusEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
 
       return focusEl;
     }

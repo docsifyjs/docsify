@@ -1,17 +1,19 @@
-# [5.0.0-rc.1](https://github.com/docsifyjs/docsify/compare/v4.13.1...v5.0.0-rc.1) (2025-05-27)
+# Changelog
+
+## [5.0.0-rc.1](https://github.com/docsifyjs/docsify/compare/v4.13.1...v5.0.0-rc.1) (2025-05-27)
 
 
 ### Bug Fixes
 
 * auto header config heading generate func ([#2474](https://github.com/docsifyjs/docsify/issues/2474)) ([4bc5062](https://github.com/docsifyjs/docsify/commit/4bc5062fc13a3a43c7ed432f1b585fdab41f1447))
 * carbon broken ([#2387](https://github.com/docsifyjs/docsify/issues/2387)) ([87fd55d](https://github.com/docsifyjs/docsify/commit/87fd55d7125539b929f3260fca92e666e988b6da))
-* **ci:** run test action for pull requsts ([#2445](https://github.com/docsifyjs/docsify/issues/2445)) ([15ed3b7](https://github.com/docsifyjs/docsify/commit/15ed3b76b00eac06cc4230b1f592993adf2a893b))
-* correct loadSider=false render structure issue ([#2470](https://github.com/docsifyjs/docsify/issues/2470)) ([7cbd532](https://github.com/docsifyjs/docsify/commit/7cbd5322d056bb87b4340bdb19909a9c32d19abb))
+* **ci:** run test action for pull requests ([#2445](https://github.com/docsifyjs/docsify/issues/2445)) ([15ed3b7](https://github.com/docsifyjs/docsify/commit/15ed3b76b00eac06cc4230b1f592993adf2a893b))
+* correct loadSidebar=false render structure issue ([#2470](https://github.com/docsifyjs/docsify/issues/2470)) ([7cbd532](https://github.com/docsifyjs/docsify/commit/7cbd5322d056bb87b4340bdb19909a9c32d19abb))
 * dev mode hot reload and add sourcemaps ([#2402](https://github.com/docsifyjs/docsify/issues/2402)) ([947d8de](https://github.com/docsifyjs/docsify/commit/947d8decb8c5c62f3ce50d0c6ac0e27bb6c7a6b5))
 * enhancement of isExternal ([#2093](https://github.com/docsifyjs/docsify/issues/2093)) ([7f13ba0](https://github.com/docsifyjs/docsify/commit/7f13ba0f9841776008d0707f027bd80c4e3cbf0c))
 * fix cross-origin links in history router mode ([#1967](https://github.com/docsifyjs/docsify/issues/1967)) ([ef6905b](https://github.com/docsifyjs/docsify/commit/ef6905b53a5c1587c3ebf870f0d11ff111a2350d))
 * fix dependabot.yml ([a321e83](https://github.com/docsifyjs/docsify/commit/a321e8373b3c6afc9d0b08714e34bd8bd68716d9))
-* fix docisify-render denpendency. ([#1915](https://github.com/docsifyjs/docsify/issues/1915)) ([c73f858](https://github.com/docsifyjs/docsify/commit/c73f8587b2f67e28c228e521518110ff504cefeb))
+* fix docsify-server-renderer dependency. ([#1915](https://github.com/docsifyjs/docsify/issues/1915)) ([c73f858](https://github.com/docsifyjs/docsify/commit/c73f8587b2f67e28c228e521518110ff504cefeb))
 * fix id with pure number. ([#2021](https://github.com/docsifyjs/docsify/issues/2021)) ([f4f21a3](https://github.com/docsifyjs/docsify/commit/f4f21a3f74d265f16b1e658feda417bf851458da))
 * genIndex error for search ([#1933](https://github.com/docsifyjs/docsify/issues/1933)) ([a8f9fc1](https://github.com/docsifyjs/docsify/commit/a8f9fc1d5f5c7808efe65e5ca9359f38014b1bcd))
 * husky can not auto install issue after upgrade. ([#2325](https://github.com/docsifyjs/docsify/issues/2325)) ([cec43d7](https://github.com/docsifyjs/docsify/commit/cec43d71774556d38fa9746f4df4319a6ad768c2))
@@ -86,8 +88,8 @@
 * Add escapeHtml for search ([#1551](https://github.com/docsifyjs/docsify/issues/1551)) ([c24f7f6](https://github.com/docsifyjs/docsify/commit/c24f7f6f0b87a87f6dd3755f69eb0969ebb029c9))
 * allow also " inside of an embed ([ec16e4a](https://github.com/docsifyjs/docsify/commit/ec16e4a9d5718ac4f4c25bb3dcaea3b7551372e0))
 * buble theme missing generic fallback font ([#1568](https://github.com/docsifyjs/docsify/issues/1568)) ([37d9f0e](https://github.com/docsifyjs/docsify/commit/37d9f0e1214276e93b2a11ed87390aafa1bdbcec))
-* Cannot read property 'classList' of null ([#1527](https://github.com/docsifyjs/docsify/issues/1527)) ([d6df2b8](https://github.com/docsifyjs/docsify/commit/d6df2b85a99371bb9a87402a10dd515bb734182e)), closes [/github.com/docsifyjs/docsify/pull/1527#issuecomment-793455105](https://github.com//github.com/docsifyjs/docsify/pull/1527/issues/issuecomment-793455105)
-* Cannot read property 'tagName' of null ([#1655](https://github.com/docsifyjs/docsify/issues/1655)) ([c3cdadc](https://github.com/docsifyjs/docsify/commit/c3cdadc37137edcd9e219359973902d2fc8b66ff)), closes [#1154](https://github.com/docsifyjs/docsify/issues/1154) [/github.com/docsifyjs/docsify/blob/develop/src/core/router/history/html5.js#L25-L27](https://github.com//github.com/docsifyjs/docsify/blob/develop/src/core/router/history/html5.js/issues/L25-L27) [/github.com/docsifyjs/docsify/blob/develop/src/core/router/history/hash.js#L47-L49](https://github.com//github.com/docsifyjs/docsify/blob/develop/src/core/router/history/hash.js/issues/L47-L49)
+* Cannot read property 'classList' of null ([#1527](https://github.com/docsifyjs/docsify/issues/1527)) ([d6df2b8](https://github.com/docsifyjs/docsify/commit/d6df2b85a99371bb9a87402a10dd515bb734182e))
+* Cannot read property 'tagName' of null ([#1655](https://github.com/docsifyjs/docsify/issues/1655)) ([c3cdadc](https://github.com/docsifyjs/docsify/commit/c3cdadc37137edcd9e219359973902d2fc8b66ff))
 * upgrade debug from 4.3.2 to 4.3.3 ([#1692](https://github.com/docsifyjs/docsify/issues/1692)) ([40e7749](https://github.com/docsifyjs/docsify/commit/40e77490c68b4143c75dfaebcd0b7f640581306b))
 * Upgrade docsify from 4.12.0 to 4.12.1 ([#1544](https://github.com/docsifyjs/docsify/issues/1544)) ([d607f6d](https://github.com/docsifyjs/docsify/commit/d607f6d71c35b50f586806a832f65061f5e3427e))
 * upgrade dompurify from 2.2.6 to 2.2.7 ([#1552](https://github.com/docsifyjs/docsify/issues/1552)) ([407e4d4](https://github.com/docsifyjs/docsify/commit/407e4d4f3de78bebd639a3fdae751f8045728e57))
@@ -937,7 +939,7 @@ Fix the last release files has the old version marked...
 
 ### Bug Fixes
 
-- get file path, fixed jrappen/sublime-distractionless/commit/81bfadd391428823191cc03eca956a2312e04d13#commitcomment-22427070 ([e8117e5](https://github.com/QingWei-Li/docsify/commit/e8117e5)), closes [jrappen/sublime-distractionless/commit/81bfadd391428823191cc03eca956a2312e04d13#commitcomment-22427070](https://github.com/jrappen/sublime-distractionless/commit/81bfadd391428823191cc03eca956a2312e04d13/issues/commitcomment-22427070)
+- get file path ([e8117e5](https://github.com/QingWei-Li/docsify/commit/e8117e5))
 
 ### Features
 
@@ -1086,5 +1088,5 @@ Fix the last release files has the old version marked...
 ### Features
 
 - finish ssr ([3444884](https://github.com/QingWei-Li/docsify/commit/3444884))
-- init ocsify-server-renderer ([6dea685](https://github.com/QingWei-Li/docsify/commit/6dea685))
+- init docsify-server-renderer ([6dea685](https://github.com/QingWei-Li/docsify/commit/6dea685))
 - support history mode ([f095eb8](https://github.com/QingWei-Li/docsify/commit/f095eb8))

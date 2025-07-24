@@ -29,8 +29,7 @@
     "./*": "./*"
   },
   "files": [
-    "dist",
-    "themes"
+    "dist"
   ],
   "lint-staged": {
     "*.js": "eslint --fix"
