@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import { getParentPath, stringifyQuery } from '../router/util.js';
 import { noop, isExternal } from '../util/core.js';
 import { get } from '../util/ajax.js';
@@ -262,8 +262,6 @@ export function Fetch(Base) {
     }
 
     initFetch() {
-      const { loadSidebar } = this.config;
-
       this.$fetch(_ => this.callHook('ready'));
     }
   };
