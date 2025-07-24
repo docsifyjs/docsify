@@ -1,4 +1,3 @@
- 
 import { getParentPath, stringifyQuery } from '../router/util.js';
 import { noop, isExternal } from '../util/core.js';
 import { get } from '../util/ajax.js';
