@@ -33,7 +33,7 @@ export const linkCompiler = ({
         attrs.push(`target="${linkTarget}"`);
       }
     } else {
-      if (!isAbsolute && !isNotCompilable && href.startsWith('./')) {
+      if (!isAbsolute && href.startsWith('./')) {
         href = router
           .toURL(href, null, router.getCurrentPath())
           .replace(/^#\//, '/');
