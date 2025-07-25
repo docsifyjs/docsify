@@ -229,7 +229,7 @@ describe('render', function () {
       const output = window.marked('[alt text](http://url)');
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener">alt text</a></p>"',
+        `"<p><a href="http://url" target="_blank" rel="noopener">alt text</a></p>"`,
       );
     });
 
@@ -241,7 +241,7 @@ describe('render', function () {
       const output = window.marked('[alt text](http://www.example.com)');
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://www.example.com" target="_blank"  rel="noopener">alt text</a></p>"',
+        `"<p><a href="http://www.example.com" target="_blank" rel="noopener">alt text</a></p>"`,
       );
     });
 
@@ -249,7 +249,7 @@ describe('render', function () {
       const output = window.marked("[alt text](http://url ':disabled')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="javascript:void(0)" target="_blank"  rel="noopener" disabled>alt text</a></p>"',
+        `"<p><a href="javascript:void(0)" target="_blank" rel="noopener" disabled>alt text</a></p>"`,
       );
     });
 
@@ -257,7 +257,7 @@ describe('render', function () {
       const output = window.marked("[alt text](http://url ':target=_self')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_self" >alt text</a></p>"',
+        `"<p><a href="http://url" target="_self">alt text</a></p>"`,
       );
     });
 
@@ -275,7 +275,7 @@ describe('render', function () {
       );
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass">alt text</a></p>"',
+        `"<p><a href="http://url" target="_blank" rel="noopener" class="someCssClass">alt text</a></p>"`,
       );
     });
 
@@ -285,7 +285,7 @@ describe('render', function () {
       );
 
       expect(output).toMatchInlineSnapshot(
-        `"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass anotherCssClass">alt text</a></p>"`,
+        `"<p><a href="http://url" target="_blank" rel="noopener" class="someCssClass anotherCssClass">alt text</a></p>"`,
       );
     });
 
@@ -293,7 +293,7 @@ describe('render', function () {
       const output = window.marked("[alt text](http://url ':id=someCssID')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener" id="someCssID">alt text</a></p>"',
+        `"<p><a href="http://url" target="_blank" rel="noopener" id="someCssID">alt text</a></p>"`,
       );
     });
   });
