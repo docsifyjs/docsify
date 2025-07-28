@@ -244,9 +244,9 @@ export function Events(Base) {
       dom.on(sidebarElm, 'click', ({ target }) => {
         const linkElm = target.closest('a');
         const linkParent = linkElm?.closest('li');
-        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+        const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
-        if (subSidebar) {
+        if (hasSubSidebar) {
           dom.toggleClass(linkParent, 'collapse');
         }
       });
