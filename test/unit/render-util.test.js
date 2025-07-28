@@ -87,6 +87,45 @@ describe('core/render/utils', () => {
       });
     });
 
+    test('parse config with key arguments img', () => {
+      const result = getAndRemoveConfig(
+        "![logo](https://docsify.js.org/_media/icon.svg ' :size=50x100 ')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          size: '50x100',
+        },
+        str: "![logo](https://docsify.js.org/_media/icon.svg ' ')",
+      });
+    });
+
+    test('parse config with key arguments', () => {
+      const result = getAndRemoveConfig(
+        "[filename](_media/example.md ' :class=foo ')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          class: 'foo',
+        },
+        str: "[filename](_media/example.md ' ')",
+      });
+    });
+
+    test('parse config with same key arguments', () => {
+      const result = getAndRemoveConfig(
+        "[filename](_media/example.md ' :class=foo :class=bar :bb=aa ')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          class: ['foo', 'bar'],
+        },
+        str: "[filename](_media/example.md ' ')",
+      });
+    });
+
     test('parse config with double quotes', () => {
       const result = getAndRemoveConfig(
         '[filename](_media/example.md ":include")',
