@@ -3,6 +3,29 @@ import { get } from '../util/ajax.js';
 
 const cached = {};
 
+/**
+ * Extracts the content between matching fragment markers in the text.
+ *
+ * Supported markers:
+ * - ### [fragment] ... ### [fragment]
+ * - /// [fragment] ... /// [fragment]
+ *
+ * @param {string} text - The input text that may contain embedded fragments.
+ * @param {string} fragment - The fragment identifier to search for.
+ * @returns {string} - The extracted and demented content, or an empty string if not found.
+ */
+function extractFragmentContent(text, fragment) {
+  if (!fragment) {
+    return text;
+  }
+
+  const pattern = new RegExp(
+    `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*?)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`,
+  );
+  const match = text.match(pattern);
+  return stripIndent((match || [])[1] || '').trim();
+}
+
 function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   let token;
   let step = 0;
@@ -44,14 +67,14 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             text = $docsify.frontMatter.parseMarkdown(text);
           }
 
+          if (currentToken.embed.fragment) {
+            text = extractFragmentContent(text, currentToken.embed.fragment);
+          }
+
           embedToken = compile.lexer(text);
         } else if (currentToken.embed.type === 'code') {
           if (currentToken.embed.fragment) {
-            const fragment = currentToken.embed.fragment;
-            const pattern = new RegExp(
-              `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`,
-            );
-            text = stripIndent((text.match(pattern) || [])[1] || '').trim();
+            text = extractFragmentContent(text, currentToken.embed.fragment);
           }
 
           embedToken = compile.lexer(
