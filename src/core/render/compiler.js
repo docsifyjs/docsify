@@ -5,7 +5,7 @@ import { tree as treeTpl } from './tpl.js';
 import { genTree } from './gen-tree.js';
 import { slugify } from './slugify.js';
 import { emojify } from './emojify.js';
-import { getAndRemoveConfig, maybeUnwrapTopLevelPWithA } from './utils.js';
+import { getAndRemoveConfig } from './utils.js';
 import { imageCompiler } from './compiler/image.js';
 import { headingCompiler } from './compiler/heading.js';
 import { highlightCodeCompiler } from './compiler/code.js';
@@ -193,8 +193,7 @@ export class Compiler {
 
     // compile sidebar from _sidebar.md
     if (text) {
-      html = this.compile(text);
-      return maybeUnwrapTopLevelPWithA(html);
+      return this.compile(text);
     }
     // compile sidebar from content's headings toc
     for (let i = 0; i < toc.length; i++) {
