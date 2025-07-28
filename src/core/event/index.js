@@ -244,9 +244,9 @@ export function Events(Base) {
       dom.on(sidebarElm, 'click', ({ target }) => {
         const linkElm = target.closest('a');
         const linkParent = linkElm?.closest('li');
-        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+        const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
-        if (subSidebar) {
+        if (hasSubSidebar) {
           dom.toggleClass(linkParent, 'collapse');
         }
       });
@@ -414,7 +414,11 @@ export function Events(Base) {
           dom.find('#main');
 
       // Move focus to content area
-      focusEl?.focus(settings);
+      if (focusEl) {
+        focusEl.focus(settings);
+
+        focusEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
 
       return focusEl;
     }

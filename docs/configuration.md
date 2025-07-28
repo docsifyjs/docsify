@@ -917,7 +917,7 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor ⚠️
+## themeColor ⚠️ :id=themecolor
 
 !> Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
@@ -931,7 +931,7 @@ window.$docsify = {
 };
 ```
 
-## topMargin ⚠️
+## topMargin ⚠️ :id=topmargin
 
 !> Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
 

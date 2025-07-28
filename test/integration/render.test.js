@@ -279,6 +279,16 @@ describe('render', function () {
       );
     });
 
+    test('multi class config', async function () {
+      const output = window.marked(
+        "[alt text](http://url ':class=someCssClass :class=anotherCssClass')",
+      );
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass anotherCssClass">alt text</a></p>"`,
+      );
+    });
+
     test('id', async function () {
       const output = window.marked("[alt text](http://url ':id=someCssID')");
 

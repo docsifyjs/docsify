@@ -54,7 +54,11 @@ export const linkCompiler = ({
     }
 
     if (config.class) {
-      attrs.push(`class="${config.class}"`);
+      let classes = config.class;
+      if (Array.isArray(config.class)) {
+        classes = config.class.join(' ');
+      }
+      attrs.push(`class="${classes}"`);
     }
 
     if (config.id) {
