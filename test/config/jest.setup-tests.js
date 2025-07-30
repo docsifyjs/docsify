@@ -71,7 +71,7 @@ beforeAll(async () => {
     Object.defineProperty(window.HTMLElement.prototype, 'scrollIntoView', {
       configurable: true,
       writable: true,
-      value: function () {},
+      value: () => {},
     });
   }
 });
