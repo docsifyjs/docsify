@@ -1,6 +1,6 @@
-const base = require('@playwright/test');
+import { test as _test, expect as _expect } from '@playwright/test';
 
-exports.test = base.test.extend({
+export const test = _test.extend({
   page: async ({ page }, use) => {
     global.page = page;
 
@@ -13,4 +13,5 @@ exports.test = base.test.extend({
     await use(page);
   },
 });
-exports.expect = base.expect;
+
+export const expect = _expect;

@@ -1,3 +1,4 @@
+<!-- Historical history file (do not edit). -->
 
 <a name="3.7.3"></a>
 ## [3.7.3](https://github.com/QingWei-Li/docsify/compare/v3.7.2...v3.7.3) (2017-05-22)

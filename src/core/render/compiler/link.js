@@ -1,33 +1,38 @@
-import { getAndRemoveConfig } from '../utils';
-import { isAbsolutePath } from '../../router/util';
+import { getAndRemoveConfig } from '../utils.js';
+import { isAbsolutePath } from '../../router/util.js';
 
 export const linkCompiler = ({
   renderer,
   router,
   linkTarget,
   linkRel,
-  compilerClass,
+  compiler,
 }) =>
-  (renderer.link = (href, title = '', text) => {
-    let attrs = [];
+  (renderer.link = function ({ href, title = '', tokens }) {
+    const attrs = [];
+    const text = this.parser.parseInline(tokens) || '';
     const { str, config } = getAndRemoveConfig(title);
     linkTarget = config.target || linkTarget;
     linkRel =
       linkTarget === '_blank'
-        ? compilerClass.config.externalLinkRel || 'noopener'
+        ? compiler.config.externalLinkRel || 'noopener'
         : '';
     title = str;
 
     if (
       !isAbsolutePath(href) &&
-      !compilerClass._matchNotCompileLink(href) &&
+      !compiler._matchNotCompileLink(href) &&
       !config.ignore
     ) {
-      if (href === compilerClass.config.homepage) {
+      if (href === compiler.config.homepage) {
         href = 'README';
       }
 
       href = router.toURL(href, null, router.getCurrentPath());
+
+      if (config.target) {
+        href.indexOf('mailto:') !== 0 && attrs.push(`target="${linkTarget}"`);
+      }
     } else {
       if (!isAbsolutePath(href) && href.slice(0, 2) === './') {
         href =
@@ -38,20 +43,9 @@ export const linkCompiler = ({
         href.indexOf('mailto:') === 0
           ? ''
           : linkRel !== ''
-          ? ` rel="${linkRel}"`
-          : ''
+            ? ` rel="${linkRel}"`
+            : '',
       );
-    }
-
-    // special case to check crossorigin urls
-    if (
-      config.crossorgin &&
-      linkTarget === '_self' &&
-      compilerClass.config.routerMode === 'history'
-    ) {
-      if (compilerClass.config.crossOriginLinks.indexOf(href) === -1) {
-        compilerClass.config.crossOriginLinks.push(href);
-      }
     }
 
     if (config.disabled) {
@@ -60,7 +54,11 @@ export const linkCompiler = ({
     }
 
     if (config.class) {
-      attrs.push(`class="${config.class}"`);
+      let classes = config.class;
+      if (Array.isArray(config.class)) {
+        classes = config.class.join(' ');
+      }
+      attrs.push(`class="${classes}"`);
     }
 
     if (config.id) {
@@ -71,5 +69,5 @@ export const linkCompiler = ({
       attrs.push(`title="${title}"`);
     }
 
-    return `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
+    return /* html */ `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
   });

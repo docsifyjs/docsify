@@ -26,11 +26,11 @@ Currently, file extensions are automatically recognized and embedded in differen
 
 These types are supported:
 
-* **iframe** `.html`, `.htm`
-* **markdown** `.markdown`, `.md`
-* **audio** `.mp3`
-* **video** `.mp4`, `.ogg`
-* **code** other file extension
+- **iframe** `.html`, `.htm`
+- **markdown** `.markdown`, `.md`
+- **audio** `.mp3`
+- **video** `.mp4`, `.ogg`
+- **code** other file extension
 
 Of course, you can force the specified type. For example, a Markdown file can be embedded as a code block by setting `:type=code`.
 
@@ -43,6 +43,8 @@ You will get:
 [filename](_media/example.md ':include :type=code')
 
 ## Markdown with YAML Front Matter
+
+Front Matter, commonly utilized in blogging systems like Jekyll, serves to define metadata for a document. The [front-matter.js](https://www.npmjs.com/package/front-matter) package facilitates the extraction of metadata (front matter) from documents.
 
 When using Markdown, YAML front matter will be stripped from the rendered content. The attributes cannot be used in this case.
 
@@ -74,6 +76,7 @@ Example:
 If you embed the file as `iframe`, `audio` and `video`, then you may need to set the attributes of these tags.
 
 ?> Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want add more attributes, the `controls` attribute need to be added manually if need be.
+
 ```md
 [filename](_media/example.mp4 ':include :type=video controls width=100%')
 ```
@@ -114,11 +117,11 @@ Start by viewing a gist on `gist.github.com`. For the purposes of this guide, we
 
 Identify the following items from the gist:
 
-Field               | Example                            | Description
----                 | ---                                | ---
-**Username**        | `anikethsaha`                      | The gist's owner.
-**Gist ID**         | `c2bece08f27c4277001f123898d16a7c` | Identifier for the gist. This is fixed for the gist's lifetime.
-**Filename**        | `content.md`                       | Select a name of a file in the gist. This needed even on a single-file gist for embedding to work.
+| Field        | Example                            | Description                                                                                        |
+| ------------ | ---------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Username** | `anikethsaha`                      | The gist's owner.                                                                                  |
+| **Gist ID**  | `c2bece08f27c4277001f123898d16a7c` | Identifier for the gist. This is fixed for the gist's lifetime.                                    |
+| **Filename** | `content.md`                       | Select a name of a file in the gist. This needed even on a single-file gist for embedding to work. |
 
 You will need those to build the _raw gist URL_ for the target file. This has the following format:
 

@@ -4,7 +4,8 @@
 
 First, thank you for considering contributing to docsify! It's people like you that make the open source community such a great community! 😊
 
-We welcome any type of contribution, not only code. You can help with 
+We welcome any type of contribution, not only code. You can help with
+
 - **QA**: file bug reports, the more details you can give the better (e.g. screenshots with the console open)
 - **Marketing**: writing blog posts, howto's, printing stickers, ...
 - **Community**: presenting the project at meetups, organizing a dedicated meetup for the local community, ...
@@ -13,11 +14,49 @@ We welcome any type of contribution, not only code. You can help with
 
 ## Your First Contribution
 
-Working on your first Pull Request? You can learn how from this *free* series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
+Working on your first Pull Request ever? You can learn how from this _free_ series, [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
+
+## Online one-click setup for Contributing
+
+You can use Gitpod (a free online VS Code-like IDE) for contributing. With a single click it'll launch a workspace and automatically:
+
+- clone the docsify repo.
+- install the dependencies.
+- start `npm run dev`.
+
+```bash
+npm install && npm run dev
+```
+
+So that you can start straight away.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/docsifyjs/docsify)
+
+- Fork it!
+- Create your feature branch: `git checkout -b my-new-feature`
+- Commit your changes: `git add . && git commit -m 'Add some feature'`
+- Push to the branch: `git push origin my-new-feature`
+- Submit a pull request
 
 ## Submitting code
 
 Any code change should be submitted as a pull request. The description should explain what the code does and give steps to execute it. The pull request should also contain tests.
+
+## Testing
+
+Ensure that things work by running:
+
+```sh
+npm test
+```
+
+## Test Snapshots
+
+If a snapshot fails, or to add new snapshots, run:
+
+```sh
+npx jest --updateSnapshot
+```
 
 ## Code review process
 
@@ -41,13 +80,11 @@ You can also reach us at hello@docsify.opencollective.com.
 Thank you to all the people who have already contributed to docsify!
 <a href="graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
 
-
 ### Backers
 
 Thank you to all our backers! [[Become a backer](https://opencollective.com/docsify#backer)]
 
 <a href="https://opencollective.com/docsify#backers" target="_blank"><img src="https://opencollective.com/docsify/backers.svg?width=890"></a>
-
 
 ### Sponsors
 

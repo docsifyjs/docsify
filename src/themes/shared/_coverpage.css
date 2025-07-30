@@ -1,0 +1,73 @@
+/* Cover */
+/* ========================================================================== */
+.cover {
+  display: none;
+  position: relative;
+  z-index: var(--z-cover);
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  background: var(--cover-bg);
+  color: var(--cover-color);
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0 0 0 0;
+    background: var(--cover-bg-overlay);
+    -webkit-backdrop-filter: brightness(var(--cover-bg-brightness));
+    backdrop-filter: brightness(var(--cover-bg-brightness));
+  }
+
+  &.show {
+    display: flex;
+  }
+
+  a:not(.anchor) {
+    text-decoration-color: var(--theme-color);
+  }
+
+  blockquote {
+    font-size: var(--font-size-xl);
+    line-height: var(--heading-line-height);
+    text-align: center;
+
+    &,
+    & > p {
+      margin-block: 1rem;
+    }
+  }
+
+  h1 {
+    position: relative;
+    color: var(--cover-title-color);
+    font: var(--cover-title-font);
+
+    a {
+      &,
+      &:hover {
+        text-decoration-color: transparent;
+      }
+    }
+
+    small {
+      font-weight: var(--font-weight);
+      position: absolute;
+      bottom: 0;
+    }
+  }
+
+  ul {
+    margin-bottom: 1.5rem;
+    padding: 0;
+    list-style-type: none;
+  }
+}
+
+.cover-main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  margin: 5vh var(--content-margin-inline);
+  text-align: center;
+}

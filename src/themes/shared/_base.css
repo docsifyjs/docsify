@@ -1,0 +1,63 @@
+/* Base */
+/* ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border: 0;
+  font: inherit;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1; /* NOTE: Fix for Chrome */
+  font-optical-sizing: auto;
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+  scroll-padding-top: var(--scroll-padding-top);
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+
+  &:not(.ready) {
+    overflow: hidden;
+
+    [data-cloak],
+    .app-nav,
+    > nav {
+      display: none;
+    }
+  }
+
+  /* Loading animation */
+  &.loading {
+    &::before {
+      position: fixed;
+    }
+
+    /* Content or cover loaded */
+    &:has(:where(#main, .cover-main):not(:empty)) {
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+
+[tabindex='-1']:focus {
+  outline: none !important;
+}

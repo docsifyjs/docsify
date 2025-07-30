@@ -1,5 +1,4 @@
-import { isFn } from '../util/core';
-import { inBrowser } from './env';
+import { isFn } from '../util/core.js';
 
 const cacheNode = {};
 
@@ -7,7 +6,7 @@ const cacheNode = {};
  * Get Node
  * @param  {String|Element} el A DOM element
  * @param  {Boolean} noCache Flag to use or not use the cache
- * @return {Element} The found node element
+ * @return {HTMLElement | SVGElement} The found node element
  */
 export function getNode(el, noCache = false) {
   if (typeof el === 'string') {
@@ -21,11 +20,24 @@ export function getNode(el, noCache = false) {
   return el;
 }
 
-export const $ = inBrowser && document;
+/**
+ *
+ * @param {*} el the targt element or the selector
+ * @param {*} content the content to be rendered as HTML
+ * @param {*} replace To replace the content (true) or insert instead (false) , default is false
+ */
+export function setHTML(el, content, replace) {
+  const node = getNode(el);
+  if (node) {
+    node[replace ? 'outerHTML' : 'innerHTML'] = content;
+  }
+}
 
-export const body = inBrowser && $.body;
+export const $ = document;
 
-export const head = inBrowser && $.head;
+export const body = $.body;
+
+export const head = $.head;
 
 /**
  * Find elements
@@ -46,13 +58,11 @@ export function find(el, node) {
  * @param {Element} node The query
  * @returns {Array<Element>} An array of DOM elements
  * @example
- * findAll('a') => [].slice.call(document.querySelectorAll('a'))
- * findAll(nav, 'a') => [].slice.call(nav.querySelectorAll('a'))
+ * findAll('a') => Array.from(document.querySelectorAll('a'))
+ * findAll(nav, 'a') => Array.from(nav.querySelectorAll('a'))
  */
 export function findAll(el, node) {
-  return [].slice.call(
-    node ? el.querySelectorAll(node) : $.querySelectorAll(el)
-  );
+  return Array.from(node ? el.querySelectorAll(node) : $.querySelectorAll(el));
 }
 
 export function create(node, tpl) {
@@ -86,8 +96,8 @@ export function off(el, type, handler) {
 
 /**
  * Toggle class
- * @param {String|Element} el The element that needs the class to be toggled
- * @param {Element} type The type of action to be performed on the classList (toggle by default)
+ * @param {Element|null} el The element that needs the class to be toggled
+ * @param {string} type The type of action to be performed on the classList (toggle by default)
  * @param {String} val Name of the class to be toggled
  * @void
  * @example
@@ -105,7 +115,7 @@ export function style(content) {
 /**
  * Fork https://github.com/bendrucker/document-ready/blob/master/index.js
  * @param {Function} callback The callbacack to be called when the page is loaded
- * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
+ * @returns {Number|void} If the page is already loaded returns the result of the setTimeout callback,
  *  otherwise it only attaches the callback to the DOMContentLoaded event
  */
 export function documentReady(callback, doc = document) {

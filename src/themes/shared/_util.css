@@ -1,0 +1,32 @@
+/* Utility */
+/* ========================================================================== */
+[class*='clamp-'] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:not(.clamp-1) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+}
+
+.clamp-1 {
+  white-space: nowrap;
+}
+
+.clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.clamp-3 {
+  -webkit-line-clamp: 3;
+}
+
+.visually-hidden {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

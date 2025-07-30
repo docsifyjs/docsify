@@ -1,5 +1,5 @@
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Security - Cross Site Scripting (XSS)', () => {
   const sharedOptions = {
@@ -12,7 +12,7 @@ test.describe('Security - Cross Site Scripting (XSS)', () => {
   };
   const slashStrings = ['//', '///'];
 
-  for (let slashString of slashStrings) {
+  for (const slashString of slashStrings) {
     const hash = `#${slashString}domain.com/file.md`;
 
     test(`should not load remote content from hash (${hash})`, async ({

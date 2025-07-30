@@ -1,0 +1,36 @@
+/* prettier-ignore */
+:root {
+  /* Color */
+  --color-bg  : #1f2428;
+  --color-text: #ddd;
+
+  /* Cover */
+  --cover-bg-brightness: 0.75;
+
+  /* Elements */
+  --codeblock-comment    : #516e7a;
+  --codeblock-function   : #f07178;
+  --codeblock-keyword    : #c2e78c;
+  --codeblock-operator   : #ffcb6b;
+  --codeblock-punctuation: #89ddff;
+  --codeblock-selector   : #ffcb6b;
+  --codeblock-tag        : #f07178;
+  --codeblock-variable   : #ffcb6b;
+  --heading-color        : var(--strong-color);
+  --mark-bg              : #fde047;
+  --mark-color           : var(--color-bg);
+  --strong-color         : color-mix(in srgb, var(--color-text), white 35%);
+
+  /* Sidebar */
+  --sidebar-toggle-bg   : var(--color-mono-3);
+  --sidebar-toggle-color: var(--color-mono-5);
+
+  color-scheme: dark;
+}
+
+.cover-main {
+  a.button.secondary {
+    color: var(--color-text);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}

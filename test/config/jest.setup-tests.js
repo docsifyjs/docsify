@@ -1,6 +1,8 @@
 /* global afterEach, beforeAll, beforeEach */
 
-import mock from 'xhr-mock';
+import _mock from 'xhr-mock';
+
+const mock = _mock.default;
 
 const sideEffects = {
   document: {
@@ -19,8 +21,32 @@ const sideEffects = {
   },
 };
 
+class IntersectionObserver {
+  constructor() {}
+
+  root = null;
+  rootMargin = '';
+  thresholds = [];
+
+  disconnect() {
+    return null;
+  }
+
+  observe() {
+    return null;
+  }
+
+  takeRecords() {
+    return [];
+  }
+
+  unobserve() {
+    return null;
+  }
+}
+
 // Lifecycle Hooks
-// -----------------------------------------------------------------------------
+// =============================================================================
 beforeAll(async () => {
   // Spy addEventListener
   ['document', 'window'].forEach(obj => {
@@ -42,12 +68,15 @@ beforeAll(async () => {
   });
 });
 
-// Reset JSDOM. This attempts to remove side effects from tests, however it does
-// not reset all changes made to globals like the window and document
-// objects. Tests requiring a full JSDOM reset should be stored in separate
-// files, which is only way to do a complete JSDOM reset with Jest.
 beforeEach(async () => {
   const rootElm = document.documentElement;
+
+  // Reset JSDOM
+  // -----------------------------------------------------------------------------
+  // This attempts to remove side effects from tests, however it does not reset
+  // all changes made to globals like the window and document objects. Tests
+  // requiring a full JSDOM reset should be stored in separate files, which is
+  // only way to do a complete JSDOM reset with Jest.
 
   // Remove attributes on root element
   [...rootElm.attributes].forEach(attr => rootElm.removeAttribute(attr.name));
@@ -77,6 +106,12 @@ beforeEach(async () => {
 
   // Restore base elements
   rootElm.innerHTML = '<head></head><body></body>';
+
+  // Mock IntersectionObserver
+  // -----------------------------------------------------------------------------
+  [global, window].forEach(
+    obj => (obj.IntersectionObserver = IntersectionObserver),
+  );
 });
 
 afterEach(async () => {

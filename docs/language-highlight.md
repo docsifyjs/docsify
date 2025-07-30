@@ -1,35 +1,35 @@
 # Language highlighting
 
-Docsify uses [Prism](https://prismjs.com) to highlight code blocks in your pages. Prism supports the following languages by default:
+## Prism
 
-* Markup - `markup`, `html`, `xml`, `svg`, `mathml`, `ssml`, `atom`, `rss`
-* CSS - `css`
-* C-like - `clike`
-* JavaScript - `javascript`, `js`
+Docsify uses [Prism](https://prismjs.com) for syntax highlighting within code blocks. Prism supports the following languages by default (additional [language support](#language-support) also available):
 
-Support for [additional languages](https://prismjs.com/#supported-languages) is available by loading the language-specific [grammar files](https://cdn.jsdelivr.net/npm/prismjs@1/components/) via CDN:
+- Markup: HTML, XML, SVG, MathML, SSML, Atom, RSS
+- CSS
+- C-like
+- JavaScript
 
-```html
-<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
-```
+To enable syntax highlighting, create a markdown codeblock using backticks (` ``` `) with a [language](https://prismjs.com/#supported-languages) specified on the first line (e.g., `html`, `css`, `js`):
 
-To enable syntax highlighting, wrap each code block in triple backticks with the [language](https://prismjs.com/#supported-languages) specified on the first line:
-
-````
+````text
 ```html
 <p>This is a paragraph</p>
 <a href="//docsify.js.org/">Docsify</a>
 ```
+````
 
-```bash
-echo "hello"
+````text
+```css
+p {
+  color: red;
+}
 ```
+````
 
-```php
-function getAdder(int $x): int 
-{
-    return 123;
+````text
+```js
+function add(a, b) {
+  return a + b;
 }
 ```
 ````
@@ -41,23 +41,100 @@ The above markdown will be rendered as:
 <a href="//docsify.js.org/">Docsify</a>
 ```
 
-```bash
-echo "hello"
-```
-
-```php
-function getAdder(int $x): int 
-{
-    return 123;
+```css
+p {
+  color: red;
 }
 ```
 
-## Highlighting Dynamic Content
-Code blocks [dynamically created from javascript](https://docsify.js.org/#/configuration?id=executescript) can be highlighted using the method `Prism.highlightElement` like so:
+```js
+function add(a, b) {
+  return a + b;
+}
+```
 
-```javascript
-var code = document.createElement("code");
+## Language support
+
+Support for additional [languages](https://prismjs.com/#supported-languages) is available by loading the Prism [grammar files](https://cdn.jsdelivr.net/npm/prismjs@1/components/):
+
+!> Prism grammar files must be loaded after Docsify.
+
+```html
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-docker.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-git.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-jsx.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-rust.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-swift.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+```
+
+## Theme support
+
+Docsify's official [themes](themes) are compatible with Prism syntax highlighting themes.
+
+!> Prism themes must be loaded after Docsify themes.
+
+```html
+<!-- Light and dark mode -->
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/prism-themes@1/themes/prism-one-light.min.css"
+/>
+```
+
+Themes can be applied in light and/or dark mode
+
+```html
+<!-- Dark mode only -->
+<link
+  rel="stylesheet"
+  media="(prefers-color-scheme: dark)"
+  href="//cdn.jsdelivr.net/npm/prism-themes@1/themes/prism-one-dark.min.css"
+/>
+
+<!-- Light mode only -->
+<link
+  rel="stylesheet"
+  media="(prefers-color-scheme: light)"
+  href="//cdn.jsdelivr.net/npm/prism-themes@1/themes/prism-one-light.min.css"
+/>
+```
+
+The following Docsify [theme properties](themes#theme-properties) will override Prism theme styles by default:
+
+```text
+--border-radius
+--font-family-mono
+--font-size-mono
+```
+
+To use the values specified in the Prism theme, set the desired theme property to `unset`:
+
+<!-- prettier-ignore -->
+```html
+<style>
+  :root {
+    --border-radius   : unset;
+    --font-family-mono: unset;
+    --font-size-mono  : unset;
+  }
+</style>
+```
+
+## Dynamic content
+
+Dynamically generated Code blocks can be highlighted using Prism's [`highlightElement()`](https://prismjs.com/docs/Prism.html#.highlightElement) method:
+
+```js
+const code = document.createElement('code');
 code.innerHTML = "console.log('Hello World!')";
-code.setAttribute("class", "lang-javascript");
+code.setAttribute('class', 'language-javascript');
 Prism.highlightElement(code);
 ```

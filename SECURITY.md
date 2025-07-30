@@ -6,7 +6,7 @@ If you believe you have found a security vulnerability in docsify, please report
 
 **Please do not report security vulnerabilities through our public GitHub issues.**
 
-Send email via :email: maintainers@docsifyjs.org to us.  
+Send email to us via :email: maintainers@docsifyjs.org.
 
 Please include as much of the following information as possible to help us better understand the possible issue:
 

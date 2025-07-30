@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // From https://github.com/egoist/vue-ga/blob/master/src/index.js
 function appendScript() {
   const script = document.createElement('script');
@@ -30,6 +29,7 @@ function collect() {
 
 const install = function (hook) {
   if (!$docsify.ga) {
+    // eslint-disable-next-line no-console
     console.error('[Docsify] ga is required.');
     return;
   }
@@ -37,4 +37,5 @@ const install = function (hook) {
   hook.beforeEach(collect);
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

@@ -1,4 +1,4 @@
-import { cached } from '../util/core';
+import { cached } from '../util/core.js';
 
 const decode = decodeURIComponent;
 const encode = encodeURIComponent;
@@ -13,7 +13,7 @@ export function parseQuery(query) {
   }
 
   // Simple parse
-  query.split('&').forEach(function (param) {
+  query.split('&').forEach(param => {
     const parts = param.replace(/\+/g, ' ').split('=');
 
     res[parts[0]] = parts[1] && decode(parts[1]);
@@ -33,7 +33,7 @@ export function stringifyQuery(obj, ignores = []) {
     qs.push(
       obj[key]
         ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
-        : encode(key)
+        : encode(key),
     );
   }
 
@@ -63,9 +63,8 @@ export const cleanPath = cached(path => {
 
 export const resolvePath = cached(path => {
   const segments = path.replace(/^\//, '').split('/');
-  let resolved = [];
-  for (let i = 0, len = segments.length; i < len; i++) {
-    const segment = segments[i];
+  const resolved = [];
+  for (const segment of segments) {
     if (segment === '..') {
       resolved.pop();
     } else if (segment !== '.') {
@@ -113,7 +112,3 @@ export function getPath(...args) {
 export const replaceSlug = cached(path => {
   return path.replace('#', '?id=');
 });
-
-export function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}

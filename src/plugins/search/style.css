@@ -1,0 +1,159 @@
+/* prettier-ignore */
+:root {
+  --plugin-search-input-bg           : var(--form-element-bg);
+  --plugin-search-input-border-color : var(--sidebar-border-color);
+  --plugin-search-input-border-radius: var(--form-element-border-radius);
+  --plugin-search-input-color        : var(--form-element-color);
+  --plugin-search-kbd-bg             : var(--color-bg);
+  --plugin-search-kbd-border         : 1px solid var(--color-mono-3);
+  --plugin-search-kbd-border-radius  : 4px;
+  --plugin-search-kbd-color          : var(--color-mono-5);
+  --plugin-search-margin             : 10px;
+  --plugin-search-reset-bg           : var(--theme-color);
+  --plugin-search-reset-border       : transparent;
+  --plugin-search-reset-border-radius: var(--border-radius);
+  --plugin-search-reset-color        : #fff;
+}
+
+.search {
+  margin: var(--plugin-search-margin);
+}
+
+/* Input */
+/* ================================== */
+.search .input-wrap {
+  position: relative;
+}
+
+.search input {
+  width: 100%;
+  padding-inline-end: 36px;
+  border: 1px solid var(--plugin-search-input-border-color);
+  border-radius: var(--plugin-search-input-border-radius);
+  background: var(--plugin-search-input-bg);
+  color: var(--plugin-search-input-color);
+}
+
+.search input::-webkit-search-decoration,
+.search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.search .clear-button,
+.search .kbd-group {
+  visibility: hidden;
+  display: flex;
+  gap: 0.15em;
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  opacity: 0;
+  translate: 0 -50%;
+  transition-property: opacity, visibility;
+  transition-duration: var(--duration-medium);
+}
+
+/* Note: invalid = empty, valid = not empty */
+.search input:valid ~ .clear-button,
+.search input:invalid:where(:focus, :hover) ~ .kbd-group,
+.search .kbd-group:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+.search .clear-button {
+  --_button-size: 20px;
+  --_content-size: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--_button-size);
+  width: var(--_button-size);
+  border: var(--plugin-search-reset-border);
+  border-radius: var(--plugin-search-reset-border-radius);
+  background: var(--plugin-search-reset-bg);
+  cursor: pointer;
+}
+
+.search .clear-button::before,
+.search .clear-button::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: var(--_content-size);
+  color: var(--plugin-search-reset-color);
+  background: var(--plugin-search-reset-color);
+}
+
+.search .clear-button::before {
+  rotate: 45deg;
+}
+
+.search .clear-button::after {
+  rotate: -45deg;
+}
+
+.search kbd {
+  border: var(--plugin-search-kbd-border);
+  border-radius: var(--plugin-search-kbd-border-radius);
+  background: var(--plugin-search-kbd-bg);
+  color: var(--plugin-search-kbd-color);
+  font-size: var(--font-size-s);
+}
+
+/* Results */
+/* ================================== */
+.search a:hover {
+  color: var(--theme-color);
+}
+
+.search .results-panel:empty {
+  display: none;
+}
+
+/* Hide other sidebar items when results are shown */
+.search:has(.results-panel:not(:empty)) ~ * {
+  display: none;
+}
+
+/* Dim other sidebar items when no results are found */
+.search:where(:has(input:valid:focus), :has(.results-panel::empty)) ~ * {
+  opacity: 0.2;
+}
+
+.search .matching-post {
+  overflow: hidden;
+  padding: 1em 0 1.2em 0;
+  border-bottom: 1px solid var(--color-mono-2);
+}
+
+.search .matching-post:hover a {
+  text-decoration-color: transparent;
+}
+
+.search .matching-post:hover .title {
+  text-decoration: inherit;
+  text-decoration-color: var(--link-underline-color-hover);
+}
+
+.search .matching-post .title {
+  margin: 0 0 0.5em 0;
+  line-height: 1.4;
+}
+
+.search .matching-post .content {
+  margin: 0;
+  color: var(--color-mono-6);
+  font-size: var(--font-size-s);
+}
+
+.search .results-status {
+  margin-bottom: 0;
+  color: var(--color-mono-6);
+  font-size: var(--font-size-s);
+}
+
+.search .results-status:empty {
+  display: none;
+}

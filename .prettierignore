@@ -1,0 +1,11 @@
+# Directories
+_playwright-*
+dist
+lib
+
+# Files
+_vars.css
+_vars-advanced.css
+CHANGELOG.md
+emoji-data.*
+HISTORY.md

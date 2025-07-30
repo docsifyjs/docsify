@@ -1,5 +1,5 @@
-const server = require('./server.js');
+import { stopServer } from './server.js';
 
-module.exports = async config => {
-  server.stop();
+export default async config => {
+  stopServer();
 };

@@ -7,18 +7,18 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run tests",
+      "name": "Run unit tests",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test"],
+      "runtimeArgs": ["test"],
       "console": "integratedTerminal"
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Run current test file",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test"],
-      "args": ["--", "-i", "${relativeFile}", "--testPathIgnorePatterns"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["jest"],
+      "args": ["-i", "${relativeFile}", "--testPathIgnorePatterns"],
       "console": "integratedTerminal"
     },
     {
@@ -41,10 +41,9 @@
       "type": "node",
       "request": "launch",
       "name": "Update current test file snapshot(s)",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["jest"],
       "args": [
-        "--",
         "-i",
         "${relativeFile}",
         "--updateSnapshot",
@@ -56,8 +55,8 @@
       "type": "node",
       "request": "launch",
       "name": "Update selected test name snapshot(s)",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "test"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["jest"],
       "args": [
         "--",
         "-i",

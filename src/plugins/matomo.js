@@ -9,7 +9,7 @@ function init(options) {
   window._paq = window._paq || [];
   window._paq.push(['trackPageView']);
   window._paq.push(['enableLinkTracking']);
-  setTimeout(function () {
+  setTimeout(() => {
     appendScript(options);
     window._paq.push(['setTrackerUrl', options.host + '/matomo.php']);
     window._paq.push(['setSiteId', String(options.id)]);
@@ -36,4 +36,5 @@ const install = function (hook) {
   hook.beforeEach(collect);
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+$docsify.plugins = [install, ...($docsify.plugins || [])];

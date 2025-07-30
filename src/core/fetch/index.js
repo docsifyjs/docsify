@@ -1,89 +1,90 @@
-/* eslint-disable no-unused-vars */
-import { getParentPath, stringifyQuery } from '../router/util';
-import { noop, isExternal } from '../util/core';
-import { getAndActive } from '../event/sidebar';
-import { get } from './ajax';
+import { getParentPath, stringifyQuery } from '../router/util.js';
+import { noop, isExternal } from '../util/core.js';
+import { get } from '../util/ajax.js';
 
-function loadNested(path, qs, file, next, vm, first) {
-  path = first ? path : path.replace(/\/$/, '');
-  path = getParentPath(path);
-
-  if (!path) {
-    return;
-  }
-
-  get(
-    vm.router.getFile(path + file) + qs,
-    false,
-    vm.config.requestHeaders
-  ).then(next, _ => loadNested(path, qs, file, next, vm));
-}
-
-/** @typedef {import('../Docsify').Constructor} Constructor */
+/** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /**
  * @template {!Constructor} T
  * @param {T} Base - The class to extend
  */
 export function Fetch(Base) {
-  let last;
+  return class Fetch extends Base {
+    #loadNested(path, qs, file, next, vm, first) {
+      path = first ? path : path.replace(/\/$/, '');
+      path = getParentPath(path);
 
-  const abort = () => last && last.abort && last.abort();
-  const request = (url, hasbar, requestHeaders) => {
-    abort();
-    last = get(url, true, requestHeaders);
-    return last;
-  };
+      if (!path) {
+        return;
+      }
 
-  const get404Path = (path, config) => {
-    const { notFoundPage, ext } = config;
-    const defaultPath = '_404' + (ext || '.md');
-    let key;
-    let path404;
-
-    switch (typeof notFoundPage) {
-      case 'boolean':
-        path404 = defaultPath;
-        break;
-      case 'string':
-        path404 = notFoundPage;
-        break;
-
-      case 'object':
-        key = Object.keys(notFoundPage)
-          .sort((a, b) => b.length - a.length)
-          .filter(k => path.match(new RegExp('^' + k)))[0];
-
-        path404 = (key && notFoundPage[key]) || defaultPath;
-        break;
-
-      default:
-        break;
+      get(
+        vm.router.getFile(path + file) + qs,
+        false,
+        vm.config.requestHeaders,
+      ).then(next, _error => this.#loadNested(path, qs, file, next, vm));
     }
 
-    return path404;
-  };
+    #last;
 
-  return class Fetch extends Base {
+    #abort = () => this.#last && this.#last.abort && this.#last.abort();
+
+    #request = (url, requestHeaders) => {
+      this.#abort();
+      this.#last = get(url, true, requestHeaders);
+      return this.#last;
+    };
+
+    #get404Path = (path, config) => {
+      const { notFoundPage, ext } = config;
+      const defaultPath = '_404' + (ext || '.md');
+      let key;
+      let path404;
+
+      switch (typeof notFoundPage) {
+        case 'boolean':
+          path404 = defaultPath;
+          break;
+        case 'string':
+          path404 = notFoundPage;
+          break;
+
+        case 'object':
+          key = Object.keys(notFoundPage)
+            .sort((a, b) => b.length - a.length)
+            .filter(k => path.match(new RegExp('^' + k)))[0];
+
+          path404 = (key && notFoundPage[key]) || defaultPath;
+          break;
+
+        default:
+          break;
+      }
+
+      return path404;
+    };
+
     _loadSideAndNav(path, qs, loadSidebar, cb) {
       return () => {
-        if (!loadSidebar) {
-          return cb();
-        }
-
-        const fn = result => {
+        const renderSidebar = result => {
           this._renderSidebar(result);
           cb();
         };
 
-        // Load sidebar
-        loadNested(path, qs, loadSidebar, fn, this, true);
+        if (!loadSidebar) {
+          // Although, we don't load sidebar from sidebar file, we still need call the render to auto generate sidebar from headings toc
+          renderSidebar();
+          return;
+        }
+
+        // Load sidebar from the sidebar file
+        this.#loadNested(path, qs, loadSidebar, renderSidebar, this, true);
       };
     }
 
     _fetch(cb = noop) {
       const { query } = this.route;
-      let { path } = this.route;
+      const { path } = this.route;
 
       // Prevent loading remote content via URL hash
       // Ex: https://foo.com/#//bar.com/file.md
@@ -96,35 +97,56 @@ export function Fetch(Base) {
         // Abort last request
 
         const file = this.router.getFile(path);
-        const req = request(file + qs, true, requestHeaders);
 
         this.isRemoteUrl = isExternal(file);
         // Current page is html
         this.isHTML = /\.html$/g.test(file);
 
-        // Load main content
-        req.then(
-          (text, opt) =>
-            this._renderMain(
-              text,
-              opt,
-              this._loadSideAndNav(path, qs, loadSidebar, cb)
-            ),
-          _ => {
-            this._fetchFallbackPage(path, qs, cb) ||
-              this._fetch404(file, qs, cb);
-          }
-        );
+        // create a handler that should be called if content was fetched successfully
+        const contentFetched = (text, opt, response) => {
+          this.route.response = response;
+          this._renderMain(
+            text,
+            opt,
+            this._loadSideAndNav(path, qs, loadSidebar, cb),
+          );
+        };
+
+        // and a handler that is called if content failed to fetch
+        const contentFailedToFetch = (_error, response) => {
+          this.route.response = response;
+          this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
+        };
+
+        // attempt to fetch content from a virtual route, and fallback to fetching the actual file
+        if (!this.isRemoteUrl) {
+          this.matchVirtualRoute(path).then(contents => {
+            if (typeof contents === 'string') {
+              contentFetched(contents);
+            } else {
+              this.#request(file + qs, requestHeaders).then(
+                contentFetched,
+                contentFailedToFetch,
+              );
+            }
+          });
+        } else {
+          // if the requested url is not local, just fetch the file
+          this.#request(file + qs, requestHeaders).then(
+            contentFetched,
+            contentFailedToFetch,
+          );
+        }
 
         // Load nav
         loadNavbar &&
-          loadNested(
+          this.#loadNested(
             path,
             qs,
             loadNavbar,
             text => this._renderNav(text),
             this,
-            true
+            true,
           );
       }
     }
@@ -153,7 +175,7 @@ export function Fetch(Base) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
           get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-            text => this._renderCover(text, coverOnly)
+            text => this._renderCover(text, coverOnly),
           );
         } else {
           this._renderCover(null, coverOnly);
@@ -163,7 +185,7 @@ export function Fetch(Base) {
       }
     }
 
-    $fetch(cb = noop, $resetEvents = this.$resetEvents.bind(this)) {
+    $fetch(cb = noop, onNavigate = this.onNavigate.bind(this)) {
       const done = () => {
         this.callHook('doneEach');
         cb();
@@ -175,7 +197,7 @@ export function Fetch(Base) {
         done();
       } else {
         this._fetch(() => {
-          $resetEvents();
+          onNavigate();
           done();
         });
       }
@@ -195,18 +217,18 @@ export function Fetch(Base) {
       }
 
       const newPath = this.router.getFile(
-        path.replace(new RegExp(`^/${local}`), '')
+        path.replace(new RegExp(`^/${local}`), ''),
       );
-      const req = request(newPath + qs, true, requestHeaders);
+      const req = this.#request(newPath + qs, requestHeaders);
 
       req.then(
         (text, opt) =>
           this._renderMain(
             text,
             opt,
-            this._loadSideAndNav(path, qs, loadSidebar, cb)
+            this._loadSideAndNav(path, qs, loadSidebar, cb),
           ),
-        () => this._fetch404(path, qs, cb)
+        _error => this._fetch404(path, qs, cb),
       );
 
       return true;
@@ -225,11 +247,11 @@ export function Fetch(Base) {
 
       const fnLoadSideAndNav = this._loadSideAndNav(path, qs, loadSidebar, cb);
       if (notFoundPage) {
-        const path404 = get404Path(path, this.config);
+        const path404 = this.#get404Path(path, this.config);
 
-        request(this.router.getFile(path404), true, requestHeaders).then(
+        this.#request(this.router.getFile(path404), requestHeaders).then(
           (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
-          () => this._renderMain(null, {}, fnLoadSideAndNav)
+          _error => this._renderMain(null, {}, fnLoadSideAndNav),
         );
         return true;
       }
@@ -239,22 +261,7 @@ export function Fetch(Base) {
     }
 
     initFetch() {
-      const { loadSidebar } = this.config;
-
-      // Server-Side Rendering
-      if (this.rendered) {
-        const activeEl = getAndActive(this.router, '.sidebar-nav', true, true);
-        if (loadSidebar && activeEl) {
-          activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
-        }
-
-        this._bindEventOnRendered(activeEl);
-        this.$resetEvents();
-        this.callHook('doneEach');
-        this.callHook('ready');
-      } else {
-        this.$fetch(_ => this.callHook('ready'));
-      }
+      this.$fetch(_ => this.callHook('ready'));
     }
   };
 }

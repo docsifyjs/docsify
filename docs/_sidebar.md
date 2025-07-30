@@ -1,9 +1,11 @@
+<!-- markdownlint-disable first-line-h1 -->
+
 - Getting started
 
   - [Quick start](quickstart.md)
-  - [Writing more pages](more-pages.md)
-  - [Custom navbar](custom-navbar.md)
+  - [Adding pages](adding-pages.md)
   - [Cover page](cover.md)
+  - [Custom navbar](custom-navbar.md)
 
 - Customization
 
@@ -22,8 +24,8 @@
   - [Vue compatibility](vue.md)
   - [CDN](cdn.md)
   - [Offline Mode (PWA)](pwa.md)
-  - [Server-Side Rendering (SSR)](ssr.md)
   - [Embed Files](embed-files.md)
+  - [UI Kit](ui-kit.md)
 
-- [Awesome docsify](awesome.md)
-- [Changelog](changelog.md)
+* [Awesome docsify](awesome.md)
+* [Changelog](changelog.md)

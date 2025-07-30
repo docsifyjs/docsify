@@ -1,4 +1,5 @@
-const docsifyInit = require('../helpers/docsify-init');
+import { jest } from '@jest/globals';
+import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -12,7 +13,7 @@ describe('Docs Site', function () {
 
     await docsifyInit({
       config: {
-        coverpage: 'docs/_coverpage.md',
+        coverpage: '_coverpage.md',
       },
       markdown: {
         homepage: '# Hello World',
@@ -31,7 +32,7 @@ describe('Docs Site', function () {
   test('sidebar renders and is unchanged', async () => {
     await docsifyInit({
       config: {
-        loadSidebar: 'docs/_sidebar.md',
+        loadSidebar: '_sidebar.md',
       },
       markdown: {
         homepage: '# Hello World',
@@ -49,7 +50,7 @@ describe('Docs Site', function () {
   test('navbar renders and is unchanged', async () => {
     await docsifyInit({
       config: {
-        loadNavbar: 'docs/_navbar.md',
+        loadNavbar: '_navbar.md',
       },
       markdown: {
         homepage: '# Hello World',

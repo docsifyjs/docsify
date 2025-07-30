@@ -1,3 +1,85 @@
+# Changelog
+
+## [5.0.0-rc.1](https://github.com/docsifyjs/docsify/compare/v4.13.1...v5.0.0-rc.1) (2025-05-27)
+
+
+### Bug Fixes
+
+* auto header config heading generate func ([#2474](https://github.com/docsifyjs/docsify/issues/2474)) ([4bc5062](https://github.com/docsifyjs/docsify/commit/4bc5062fc13a3a43c7ed432f1b585fdab41f1447))
+* carbon broken ([#2387](https://github.com/docsifyjs/docsify/issues/2387)) ([87fd55d](https://github.com/docsifyjs/docsify/commit/87fd55d7125539b929f3260fca92e666e988b6da))
+* **ci:** run test action for pull requests ([#2445](https://github.com/docsifyjs/docsify/issues/2445)) ([15ed3b7](https://github.com/docsifyjs/docsify/commit/15ed3b76b00eac06cc4230b1f592993adf2a893b))
+* correct loadSidebar=false render structure issue ([#2470](https://github.com/docsifyjs/docsify/issues/2470)) ([7cbd532](https://github.com/docsifyjs/docsify/commit/7cbd5322d056bb87b4340bdb19909a9c32d19abb))
+* dev mode hot reload and add sourcemaps ([#2402](https://github.com/docsifyjs/docsify/issues/2402)) ([947d8de](https://github.com/docsifyjs/docsify/commit/947d8decb8c5c62f3ce50d0c6ac0e27bb6c7a6b5))
+* enhancement of isExternal ([#2093](https://github.com/docsifyjs/docsify/issues/2093)) ([7f13ba0](https://github.com/docsifyjs/docsify/commit/7f13ba0f9841776008d0707f027bd80c4e3cbf0c))
+* fix cross-origin links in history router mode ([#1967](https://github.com/docsifyjs/docsify/issues/1967)) ([ef6905b](https://github.com/docsifyjs/docsify/commit/ef6905b53a5c1587c3ebf870f0d11ff111a2350d))
+* fix dependabot.yml ([a321e83](https://github.com/docsifyjs/docsify/commit/a321e8373b3c6afc9d0b08714e34bd8bd68716d9))
+* fix docsify-server-renderer dependency. ([#1915](https://github.com/docsifyjs/docsify/issues/1915)) ([c73f858](https://github.com/docsifyjs/docsify/commit/c73f8587b2f67e28c228e521518110ff504cefeb))
+* fix id with pure number. ([#2021](https://github.com/docsifyjs/docsify/issues/2021)) ([f4f21a3](https://github.com/docsifyjs/docsify/commit/f4f21a3f74d265f16b1e658feda417bf851458da))
+* genIndex error for search ([#1933](https://github.com/docsifyjs/docsify/issues/1933)) ([a8f9fc1](https://github.com/docsifyjs/docsify/commit/a8f9fc1d5f5c7808efe65e5ca9359f38014b1bcd))
+* husky can not auto install issue after upgrade. ([#2325](https://github.com/docsifyjs/docsify/issues/2325)) ([cec43d7](https://github.com/docsifyjs/docsify/commit/cec43d71774556d38fa9746f4df4319a6ad768c2))
+* parse heading error ([#2526](https://github.com/docsifyjs/docsify/issues/2526)) ([561c777](https://github.com/docsifyjs/docsify/commit/561c777df898a71f8b44b25e5946b56eb1d2c106))
+* Prevent initial unnecessary IntersectionObserver callback execution ([#2523](https://github.com/docsifyjs/docsify/issues/2523)) ([a73e07e](https://github.com/docsifyjs/docsify/commit/a73e07eac06a70f63896e2bb7f0c205534dc21c8))
+* prevent unnecessary themeColor deprecation notice ([#2403](https://github.com/docsifyjs/docsify/issues/2403)) ([a3ab2be](https://github.com/docsifyjs/docsify/commit/a3ab2be0b070a1bacc4fec3c2d2f0ffe279bada0))
+* **search:** clean markdown elements in search contents ([#2457](https://github.com/docsifyjs/docsify/issues/2457)) ([95901eb](https://github.com/docsifyjs/docsify/commit/95901eb8a829865c883a4374c53a0b8909b53c41))
+* skip-to-content scroll behavior ([#2401](https://github.com/docsifyjs/docsify/issues/2401)) ([2d986fe](https://github.com/docsifyjs/docsify/commit/2d986feb34fcdb2a2731cff7b29b0a4d0563787e))
+* sync the page title regarding the title config ([#2478](https://github.com/docsifyjs/docsify/issues/2478)) ([2eec7c4](https://github.com/docsifyjs/docsify/commit/2eec7c4884146add6e0c8142e463cfad34fb7637))
+* upgrade debug from 4.3.3 to 4.3.4 ([#1919](https://github.com/docsifyjs/docsify/issues/1919)) ([0c9221e](https://github.com/docsifyjs/docsify/commit/0c9221e5a425984470ebc89ffb682e988b08b06e))
+* upgrade medium-zoom from 1.0.6 to 1.0.7 ([#1934](https://github.com/docsifyjs/docsify/issues/1934)) ([2601392](https://github.com/docsifyjs/docsify/commit/26013929ccf1927cc6a46c5455fb70f71d90492f))
+* upgrade medium-zoom from 1.0.7 to 1.0.8 ([#1939](https://github.com/docsifyjs/docsify/issues/1939)) ([81fc1b7](https://github.com/docsifyjs/docsify/commit/81fc1b7dce15d74bb025d3f95bfa5dae55540a10))
+* upgrade node-fetch from 2.6.8 to 2.6.9 ([#1996](https://github.com/docsifyjs/docsify/issues/1996)) ([bb88d63](https://github.com/docsifyjs/docsify/commit/bb88d6302b22b2484cca6436c7b4279d5e7fc5ea))
+* When alias contains parameters, append ext error ([#1855](https://github.com/docsifyjs/docsify/issues/1855)) ([1a32fb7](https://github.com/docsifyjs/docsify/commit/1a32fb73347308696f6e82c0757ba081a4e7b8de))
+
+
+### Features
+
+* Add "Skip to main content" link and update nav behavior ([#2253](https://github.com/docsifyjs/docsify/issues/2253)) ([50b84f7](https://github.com/docsifyjs/docsify/commit/50b84f74b25c27f1a3a102055e7f099db31155f8))
+* add google analytics gtag.js plugin ([#1702](https://github.com/docsifyjs/docsify/issues/1702)) ([29f3c82](https://github.com/docsifyjs/docsify/commit/29f3c82faaffb817d2149d23a0e3a884cd1cc843))
+* Allow top nav to receive keyboard focus ([#2269](https://github.com/docsifyjs/docsify/issues/2269)) ([4d5bf5a](https://github.com/docsifyjs/docsify/commit/4d5bf5ac48499c57cfdffd98bfaa29bf20d85260))
+* Keyboard bindings ([#2279](https://github.com/docsifyjs/docsify/issues/2279)) ([cf61192](https://github.com/docsifyjs/docsify/commit/cf61192f9a467c96372bce9e4e371a3f0c6a1780))
+* **search:** use dexie.js instead of localStorage ([#2464](https://github.com/docsifyjs/docsify/issues/2464)) ([42f2548](https://github.com/docsifyjs/docsify/commit/42f25482fa1ea6ec666800145f6da33e9119aa8c))
+* Support dark mode for zoom-image plugin ([#2524](https://github.com/docsifyjs/docsify/issues/2524)) ([5826863](https://github.com/docsifyjs/docsify/commit/58268632c8ebc2855c38305a05b8326727e388c1))
+* support prism langs dependencies import validation ([#2489](https://github.com/docsifyjs/docsify/issues/2489)) ([87e43f1](https://github.com/docsifyjs/docsify/commit/87e43f157f749dda01b54e33117ef851b12bda7c))
+* support relative path with target config. ([#1751](https://github.com/docsifyjs/docsify/issues/1751)) ([e15ad0c](https://github.com/docsifyjs/docsify/commit/e15ad0c7d530287692e98ca587f8f07d90624919))
+* v5 style overhaul ([#2469](https://github.com/docsifyjs/docsify/issues/2469)) ([77d93fa](https://github.com/docsifyjs/docsify/commit/77d93fae7886346e739285630ea865ac8197149e))
+
+
+
+## [4.13.1](https://github.com/docsifyjs/docsify/compare/v4.13.0...v4.13.1) (2023-06-24)
+
+
+### Bug Fixes
+
+* enhancement of isExternal ([#2093](https://github.com/docsifyjs/docsify/issues/2093)) ([6a7d15b](https://github.com/docsifyjs/docsify/commit/6a7d15b1d5b93e19d3cf9a328cdbf5f1a166b5bd))
+* fix cross-origin links in history router mode ([#1967](https://github.com/docsifyjs/docsify/issues/1967)) ([2312fee](https://github.com/docsifyjs/docsify/commit/2312feef459211a8bcdcbf9164a9ffe051609b70))
+* genIndex error for search ([#1933](https://github.com/docsifyjs/docsify/issues/1933)) ([68d8735](https://github.com/docsifyjs/docsify/commit/68d873587c29d694ece466177984aa5fd739dd4b))
+
+
+
+# [4.13.0](https://github.com/docsifyjs/docsify/compare/v4.12.4...v4.13.0) (2022-10-26)
+
+
+### Bug Fixes
+
+* cornerExternalLinkTarget config. ([#1814](https://github.com/docsifyjs/docsify/issues/1814)) ([54cc5f9](https://github.com/docsifyjs/docsify/commit/54cc5f939b9499ae56604f589eef4e3f1c13cdc5))
+* correctly fix missing +1, -1 ([#1722](https://github.com/docsifyjs/docsify/issues/1722)) ([719dcbe](https://github.com/docsifyjs/docsify/commit/719dcbea5cb0c8b0835f8e9fc473b094feecb7ec))
+* Coverpage when content > viewport height ([#1744](https://github.com/docsifyjs/docsify/issues/1744)) ([301b516](https://github.com/docsifyjs/docsify/commit/301b5169613e95765eda335a4b21d0f9f9cbbbfd)), closes [#381](https://github.com/docsifyjs/docsify/issues/381)
+* filter null node first. ([#1909](https://github.com/docsifyjs/docsify/issues/1909)) ([d27af3d](https://github.com/docsifyjs/docsify/commit/d27af3dd09a882fce4f1e2774065de57a3501858))
+* fix docsify-ignore in search title. ([#1872](https://github.com/docsifyjs/docsify/issues/1872)) ([9832805](https://github.com/docsifyjs/docsify/commit/9832805681cc6099e9c78deecf6dc0c6fb61fd9b))
+* fix search with no content. ([#1878](https://github.com/docsifyjs/docsify/issues/1878)) ([9b74744](https://github.com/docsifyjs/docsify/commit/9b74744299ece0108573a142e5a2e949dc569254))
+* Ignore emoji shorthand codes in URIs ([#1847](https://github.com/docsifyjs/docsify/issues/1847)) ([3c9b3d9](https://github.com/docsifyjs/docsify/commit/3c9b3d9702bb05a5ff45a4ce4233e144cf1ebecb)), closes [#1823](https://github.com/docsifyjs/docsify/issues/1823)
+* Legacy bugs (styles, site plugin error, and dev server error) ([#1743](https://github.com/docsifyjs/docsify/issues/1743)) ([fa6df6d](https://github.com/docsifyjs/docsify/commit/fa6df6d58487ec294e22be04ac159dfb5745bd66))
+* package.json & package-lock.json to reduce vulnerabilities ([#1756](https://github.com/docsifyjs/docsify/issues/1756)) ([2dc5b12](https://github.com/docsifyjs/docsify/commit/2dc5b12b715e3ad1922a6401e3fd9837a99ef9c0))
+* packages/docsify-server-renderer/package.json & packages/docsify-server-renderer/package-lock.json to reduce vulnerabilities ([#1715](https://github.com/docsifyjs/docsify/issues/1715)) ([c1227b2](https://github.com/docsifyjs/docsify/commit/c1227b22cb8a3fb6c362ca8ac109082ab2251cc3))
+
+
+### Features
+
+* Emoji build ([#1766](https://github.com/docsifyjs/docsify/issues/1766)) ([ba5ee26](https://github.com/docsifyjs/docsify/commit/ba5ee26f00e957b58173f96b1901f6ffd3d8e5f5))
+* Native emoji w/ image-based fallbacks and improved parsing ([#1746](https://github.com/docsifyjs/docsify/issues/1746)) ([35002c9](https://github.com/docsifyjs/docsify/commit/35002c92b762f0d12e51582d7de7914fa380596a)), closes [#779](https://github.com/docsifyjs/docsify/issues/779)
+* Plugin error handling ([#1742](https://github.com/docsifyjs/docsify/issues/1742)) ([63b2535](https://github.com/docsifyjs/docsify/commit/63b2535a45a98945ec897277f4fbddec2ddba887))
+
+
+
 ## [4.12.2](https://github.com/docsifyjs/docsify/compare/v4.12.1...v4.12.2) (2022-01-06)
 
 
@@ -6,8 +88,8 @@
 * Add escapeHtml for search ([#1551](https://github.com/docsifyjs/docsify/issues/1551)) ([c24f7f6](https://github.com/docsifyjs/docsify/commit/c24f7f6f0b87a87f6dd3755f69eb0969ebb029c9))
 * allow also " inside of an embed ([ec16e4a](https://github.com/docsifyjs/docsify/commit/ec16e4a9d5718ac4f4c25bb3dcaea3b7551372e0))
 * buble theme missing generic fallback font ([#1568](https://github.com/docsifyjs/docsify/issues/1568)) ([37d9f0e](https://github.com/docsifyjs/docsify/commit/37d9f0e1214276e93b2a11ed87390aafa1bdbcec))
-* Cannot read property 'classList' of null ([#1527](https://github.com/docsifyjs/docsify/issues/1527)) ([d6df2b8](https://github.com/docsifyjs/docsify/commit/d6df2b85a99371bb9a87402a10dd515bb734182e)), closes [/github.com/docsifyjs/docsify/pull/1527#issuecomment-793455105](https://github.com//github.com/docsifyjs/docsify/pull/1527/issues/issuecomment-793455105)
-* Cannot read property 'tagName' of null ([#1655](https://github.com/docsifyjs/docsify/issues/1655)) ([c3cdadc](https://github.com/docsifyjs/docsify/commit/c3cdadc37137edcd9e219359973902d2fc8b66ff)), closes [#1154](https://github.com/docsifyjs/docsify/issues/1154) [/github.com/docsifyjs/docsify/blob/develop/src/core/router/history/html5.js#L25-L27](https://github.com//github.com/docsifyjs/docsify/blob/develop/src/core/router/history/html5.js/issues/L25-L27) [/github.com/docsifyjs/docsify/blob/develop/src/core/router/history/hash.js#L47-L49](https://github.com//github.com/docsifyjs/docsify/blob/develop/src/core/router/history/hash.js/issues/L47-L49)
+* Cannot read property 'classList' of null ([#1527](https://github.com/docsifyjs/docsify/issues/1527)) ([d6df2b8](https://github.com/docsifyjs/docsify/commit/d6df2b85a99371bb9a87402a10dd515bb734182e))
+* Cannot read property 'tagName' of null ([#1655](https://github.com/docsifyjs/docsify/issues/1655)) ([c3cdadc](https://github.com/docsifyjs/docsify/commit/c3cdadc37137edcd9e219359973902d2fc8b66ff))
 * upgrade debug from 4.3.2 to 4.3.3 ([#1692](https://github.com/docsifyjs/docsify/issues/1692)) ([40e7749](https://github.com/docsifyjs/docsify/commit/40e77490c68b4143c75dfaebcd0b7f640581306b))
 * Upgrade docsify from 4.12.0 to 4.12.1 ([#1544](https://github.com/docsifyjs/docsify/issues/1544)) ([d607f6d](https://github.com/docsifyjs/docsify/commit/d607f6d71c35b50f586806a832f65061f5e3427e))
 * upgrade dompurify from 2.2.6 to 2.2.7 ([#1552](https://github.com/docsifyjs/docsify/issues/1552)) ([407e4d4](https://github.com/docsifyjs/docsify/commit/407e4d4f3de78bebd639a3fdae751f8045728e57))
@@ -520,7 +602,7 @@ Fix the last release files has the old version marked...
 - **compiler:** support embedded markdown, html, video, etc files, close [#383](https://github.com/QingWei-Li/docsify/issues/383), close [#333](https://github.com/QingWei-Li/docsify/issues/333) ([524f52f](https://github.com/QingWei-Li/docsify/commit/524f52f))
 - **cover:** add onlyCover option, close [#382](https://github.com/QingWei-Li/docsify/issues/382) ([b265fdd](https://github.com/QingWei-Li/docsify/commit/b265fdd))
 - **fetch:** add requestHeaders option, fixed [#336](https://github.com/QingWei-Li/docsify/issues/336) ([54ab4c9](https://github.com/QingWei-Li/docsify/commit/54ab4c9))
-- **render:** add ext option for custom file extenstion, close [#340](https://github.com/QingWei-Li/docsify/issues/340) ([248aa72](https://github.com/QingWei-Li/docsify/commit/248aa72))
+- **render:** add ext option for custom file extension, close [#340](https://github.com/QingWei-Li/docsify/issues/340) ([248aa72](https://github.com/QingWei-Li/docsify/commit/248aa72))
 - **render:** mutilple coverpage, close [#315](https://github.com/QingWei-Li/docsify/issues/315) ([f68ddf5](https://github.com/QingWei-Li/docsify/commit/f68ddf5))
 
 <a name="4.5.9"></a>
@@ -857,7 +939,7 @@ Fix the last release files has the old version marked...
 
 ### Bug Fixes
 
-- get file path, fixed jrappen/sublime-distractionless/commit/81bfadd391428823191cc03eca956a2312e04d13#commitcomment-22427070 ([e8117e5](https://github.com/QingWei-Li/docsify/commit/e8117e5)), closes [jrappen/sublime-distractionless/commit/81bfadd391428823191cc03eca956a2312e04d13#commitcomment-22427070](https://github.com/jrappen/sublime-distractionless/commit/81bfadd391428823191cc03eca956a2312e04d13/issues/commitcomment-22427070)
+- get file path ([e8117e5](https://github.com/QingWei-Li/docsify/commit/e8117e5))
 
 ### Features
 
@@ -1006,5 +1088,5 @@ Fix the last release files has the old version marked...
 ### Features
 
 - finish ssr ([3444884](https://github.com/QingWei-Li/docsify/commit/3444884))
-- init ocsify-server-renderer ([6dea685](https://github.com/QingWei-Li/docsify/commit/6dea685))
+- init docsify-server-renderer ([6dea685](https://github.com/QingWei-Li/docsify/commit/6dea685))
 - support history mode ([f095eb8](https://github.com/QingWei-Li/docsify/commit/f095eb8))

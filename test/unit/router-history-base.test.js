@@ -1,4 +1,4 @@
-const { History } = require('../../src/core/router/history/base');
+import { History } from '../../src/core/router/history/base.js';
 
 class MockHistory extends History {
   parse(path) {
@@ -64,6 +64,37 @@ describe('router/history/base', () => {
       const url = history.toURL('README', {}, '/zh-ch/');
 
       expect(url).toBe('/README');
+    });
+  });
+
+  // getFile test
+  // ---------------------------------------------------------------------------
+  describe('getFile', () => {
+    // Tests
+    // -------------------------------------------------------------------------
+    test('path is url', () => {
+      const file = history.getFile('https://some/raw/url/README.md');
+
+      expect(file).toBe('https://some/raw/url/README.md');
+    });
+    test('path is url, but ext is .html', () => {
+      const file = history.getFile('https://foo.com/index.html');
+
+      expect(file).toBe('https://foo.com/index.html');
+    });
+    test('path is url, but with parameters', () => {
+      const file = history.getFile(
+        'https://some/raw/url/README.md?token=Mytoken',
+      );
+
+      expect(file).toBe('https://some/raw/url/README.md?token=Mytoken');
+    });
+    test('path is url, but ext is different', () => {
+      history = new MockHistory({ ext: '.ext' });
+
+      const file = history.getFile('https://some/raw/url/README.md');
+
+      expect(file).toBe('https://some/raw/url/README.md.ext');
     });
   });
 });

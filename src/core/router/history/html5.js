@@ -1,13 +1,10 @@
-import { noop } from '../../util/core';
-import { on } from '../../util/dom';
-import { parseQuery, getPath } from '../util';
-import { History } from './base';
+import { isExternal, noop } from '../../util/core.js';
+import { on } from '../../util/dom.js';
+import { parseQuery, getPath } from '../util.js';
+import { History } from './base.js';
 
 export class HTML5History extends History {
-  constructor(config) {
-    super(config);
-    this.mode = 'history';
-  }
+  mode = 'history';
 
   getCurrentPath() {
     const base = this.getBasePath();
@@ -24,15 +21,10 @@ export class HTML5History extends History {
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
-      if (el && el.tagName === 'A' && !/_blank/.test(el.target)) {
+      if (el && el.tagName === 'A' && !isExternal(el.href)) {
         e.preventDefault();
         const url = el.href;
-        // solve history.pushState cross-origin issue
-        if (this.config.crossOriginLinks.indexOf(url) !== -1) {
-          window.open(url, '_self');
-        } else {
-          window.history.pushState({ key: url }, '', url);
-        }
+        window.history.pushState({ key: url }, '', url);
         cb({ event: e, source: 'navigate' });
       }
     });
@@ -67,6 +59,7 @@ export class HTML5History extends History {
       path,
       file: this.getFile(path),
       query: parseQuery(query),
+      response: {},
     };
   }
 }

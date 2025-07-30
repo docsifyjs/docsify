@@ -1,4 +1,4 @@
-const docsifyInit = require('../helpers/docsify-init');
+import docsifyInit from '../helpers/docsify-init.js';
 
 // Suite
 // -----------------------------------------------------------------------------
@@ -107,10 +107,65 @@ describe('Emoji', function () {
     expect(mainElm.innerHTML).toMatchSnapshot();
   });
 
+  test('Ignores emoji shorthand codes in URIs', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage:
+          'Url https://docsify.js.org/:foo:/ http://docsify.js.org/:100:/ ftp://docsify.js.org/:smile:/',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores emoji shorthand codes in URIs while handling anchor content', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: 'Achor tags [:100:](http://docsify.js.org/:100:/)',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores emoji shorthand codes in html attributes', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage:
+          /* html */ '<a href="http://domain.com/:smile:/"> <img src=\'http://domain.com/:smile:/file.png\'> <script src=http://domain.com/:smile:/file.js></script>',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
+  test('Ignores emoji shorthand codes in style url() values', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage:
+          /* html */ '<style>@import url(http://domain.com/:smile/file.css);</style>',
+      },
+      // _logHTML: true,
+    });
+
+    const mainElm = document.querySelector('#main');
+
+    expect(mainElm.innerHTML).toMatchSnapshot();
+  });
+
   test('Ignores emoji shorthand codes in code, pre, script, and template tags', async () => {
     await docsifyInit({
       markdown: {
-        homepage: `
+        homepage: /* html */ `
           <pre>:100:</pre>
 
           <code>:100:</code>

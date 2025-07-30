@@ -7,12 +7,12 @@ window.$docsify = {
   markdown: {
     smartypants: true,
     renderer: {
-      link: function() {
+      link() {
         // ...
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
 
 ?> Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
@@ -21,36 +21,40 @@ You can completely customize the parsing rules.
 
 ```js
 window.$docsify = {
-  markdown: function(marked, renderer) {
+  markdown(marked, renderer) {
     // ...
 
-    return marked
-  }
-}
+    return marked;
+  },
+};
 ```
 
 ## Supports mermaid
 
-```js
-// Import mermaid
-//  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-//  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+!> Currently, docsify doesn't support the async mermaid render (the latest mermaid version supported is `v9.3.0`).
 
-var num = 0;
+```js
+//  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+//  <script src="//cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
+
+let num = 0;
 mermaid.initialize({ startOnLoad: false });
 
 window.$docsify = {
   markdown: {
     renderer: {
-      code: function(code, lang) {
-        if (lang === "mermaid") {
-          return (
-            '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
-          );
+      code({ text, lang }) {
+        if (lang === 'mermaid') {
+          return /* html */ `
+            <div class="mermaid">${mermaid.render(
+              'mermaid-svg-' + num++,
+              text,
+            )}</div>
+          `;
         }
         return this.origin.code.apply(this, arguments);
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
