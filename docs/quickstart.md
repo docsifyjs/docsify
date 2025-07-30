@@ -114,30 +114,6 @@ cd docs && python -m SimpleHTTPServer 3000
 cd docs && python -m http.server 3000
 ```
 
-## Loading dialog
-
-If you want, you can show a loading dialog before docsify starts to render your documentation:
-
-```html
-<!-- index.html -->
-
-<div id="app">Please wait...</div>
-```
-
-By default, the `id` attribute of the main container is `app`. If you want to use a different id, you must also set the `data-app` attribute, and [configure](configuration.md#el) the `el` parameter accordingly:
-
-```html
-<!-- index.html -->
-
-<div data-app id="main">Please wait...</div>
-
-<script>
-  window.$docsify = {
-    el: '#main',
-  };
-</script>
-```
-
 <script>
   (function() {
     const linkElm = document.querySelector('#template a[download="index.html"]');
