@@ -1,4 +1,4 @@
-import { search } from './search.js';
+import { escapeHtml, search } from './search.js';
 import cssText from './style.css';
 
 let NO_DATA_TEXT = '';
@@ -75,11 +75,11 @@ function bindEvents() {
   let timeId;
 
   /**
-    Prevent to Fold sidebar.
-
-    When searching on the mobile end,
-    the sidebar is collapsed when you click the INPUT box,
-    making it impossible to search.
+   * Prevent to Fold sidebar.
+   *
+   * When searching on the mobile end,
+   * the sidebar is collapsed when you click the INPUT box,
+   * making it impossible to search.
    */
   Docsify.dom.on(
     $search,
@@ -129,10 +129,10 @@ export function init(opts, vm) {
     return;
   }
 
-  const keywords = vm.router.parse().query.s;
+  const keywords = vm.router.parse().query.s || '';
 
   Docsify.dom.style(cssText);
-  tpl(vm, keywords);
+  tpl(vm, escapeHtml(keywords));
   bindEvents();
   keywords && setTimeout(_ => doSearch(keywords), 500);
 }
