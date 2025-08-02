@@ -56,7 +56,7 @@
     "browser-sync": "^3.0.2",
     "common-tags": "^1.8.0",
     "conventional-changelog-cli": "^3.0.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "cssnano": "^7.0.1",
     "eslint": "^9.3.0",
     "eslint-config-prettier": "^10.0.1",
