@@ -72,7 +72,9 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. See [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML — but only if the page does not already contain an H1 heading.
+
+For more details, see [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
