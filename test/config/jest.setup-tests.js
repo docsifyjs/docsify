@@ -67,8 +67,8 @@ beforeAll(async () => {
     global[obj].addEventListener = addEventListenerSpy;
   });
 
-  if (!window.HTMLElement.prototype.scrollIntoView) {
-    Object.defineProperty(window.HTMLElement.prototype, 'scrollIntoView', {
+  if (!global.HTMLElement.prototype.scrollIntoView) {
+    Object.defineProperty(global.HTMLElement.prototype, 'scrollIntoView', {
       configurable: true,
       writable: true,
       value: () => {},
