@@ -308,21 +308,13 @@ The following properties are available in all official Docsify themes. Default v
 
 Below are the most commonly modified theme properties. [Advanced](#advanced) theme properties are also available for use but typically do not need to be modified.
 
-<!-- TODO: Replace TBD with include CSS include below -->
-
-**TBD**
-
-<!-- [vars.css](https://raw.githubusercontent.com/docsifyjs/docsify/main/src/themes/shared/_vars.css ':include') -->
+[\_vars.css](https://raw.githubusercontent.com/docsifyjs/docsify/refs/heads/develop/src/themes/shared/_vars.css ':include')
 
 ### Advanced
 
 Advanced theme properties are also available for use but typically do not need to be modified. Values derived from [common](#common) theme properties but can be set explicitly if preferred.
 
-<!-- TODO: Replace TBD with include CSS include below -->
-
-**TBD**
-
-<!-- [vars.css](https://raw.githubusercontent.com/docsifyjs/docsify/main/src/themes/shared/_vars.css ':include') -->
+[\_vars-advanced.css](https://raw.githubusercontent.com/docsifyjs/docsify/refs/heads/develop/src/themes/shared/_vars-advanced.css ':include')
 
 ## Community
 
