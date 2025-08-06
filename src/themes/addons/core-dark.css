@@ -34,3 +34,11 @@
     border-color: rgba(255, 255, 255, 0.5);
   }
 }
+
+/* Force light mode for iframes in dark theme */
+iframe,
+iframe *,
+iframe[src],
+iframe[src] * {
+  color-scheme: light;
+}
