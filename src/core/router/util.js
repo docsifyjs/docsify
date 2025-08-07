@@ -40,6 +40,22 @@ export function stringifyQuery(obj, ignores = []) {
   return qs.length ? `?${qs.join('&')}` : '';
 }
 
+export function stripUrlExceptId(str) {
+  const [path, queryString] = str.split('?');
+  if (!queryString) {
+    return str;
+  }
+
+  const params = new URLSearchParams(queryString);
+  const id = params.get('id');
+
+  if (id !== null) {
+    return `${path}?id=${id}`;
+  }
+
+  return path;
+}
+
 export const isAbsolutePath = cached(path => {
   return /(:|(\/{2}))/g.test(path);
 });

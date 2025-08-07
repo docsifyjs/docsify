@@ -1,5 +1,6 @@
 import { isMobile, mobileBreakpoint } from '../util/env.js';
 import * as dom from '../util/dom.js';
+import { stripUrlExceptId } from '../router/util.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -473,6 +474,8 @@ export function Events(Base) {
       if (!sidebar) {
         return;
       }
+
+      href = stripUrlExceptId(href);
 
       const oldActive = dom.find(sidebar, 'li.active');
       const newActive = dom

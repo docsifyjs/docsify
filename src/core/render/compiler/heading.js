@@ -4,6 +4,7 @@ import {
   getAndRemoveDocsifyIgnoreConfig,
 } from '../utils.js';
 import { slugify } from '../slugify.js';
+import { stripUrlExceptId } from '../../router/util.js';
 
 export const headingCompiler = ({ renderer, router, compiler }) =>
   (renderer.heading = function ({ tokens, depth }) {
@@ -20,7 +21,7 @@ export const headingCompiler = ({ renderer, router, compiler }) =>
     nextToc.ignoreSubHeading = ignoreSubHeading;
     const slug = slugify(config.id || str);
     const url = router.toURL(router.getCurrentPath(), { id: slug });
-    nextToc.slug = url;
+    nextToc.slug = stripUrlExceptId(url);
     compiler.toc.push(nextToc);
 
     // Note: tabindex="-1" allows programmatically focusing on heading
