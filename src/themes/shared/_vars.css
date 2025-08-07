@@ -95,7 +95,7 @@
   --callout-charm-translate       : -50% -50%;
   --callout-color                 : ;
   --callout-padding               : 1em 1em 1em var(--callout-charm-size);
-  --code-bg                       : var(--color-mono-1);
+  --code-bg                       : var(--color-mono-2);
   --code-color                    : ;
   --codeblock-bg                  : var(--code-bg);
   --codeblock-color               : var(--code-color);

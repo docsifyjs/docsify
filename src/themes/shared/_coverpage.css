@@ -48,6 +48,7 @@
       &:hover {
         text-decoration-color: transparent;
       }
+      color: var(--cover-title-color);
     }
 
     small {
