@@ -416,9 +416,16 @@ export function Events(Base) {
 
       // Move focus to content area
       if (focusEl) {
-        focusEl.focus(settings);
+        if (!focusEl.hasAttribute('tabindex')) {
+          focusEl.setAttribute('tabindex', '-1');
+          focusEl.setAttribute('data-added-tabindex', 'true');
+        }
 
-        focusEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (focusEl.hasAttribute('data-added-tabindex')) {
+          focusEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        focusEl.focus(settings);
       }
 
       return focusEl;
