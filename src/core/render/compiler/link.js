@@ -12,6 +12,10 @@ export const linkCompiler = ({
     const attrs = [];
     const text = this.parser.parseInline(tokens) || '';
     const { str, config } = getAndRemoveConfig(title);
+    const isAbsolute = isAbsolutePath(href);
+    const isNotCompilable = compiler._matchNotCompileLink(href);
+    const isMailto = href.startsWith('mailto:');
+
     linkTarget = config.target || linkTarget;
     linkRel =
       linkTarget === '_blank'
@@ -19,33 +23,28 @@ export const linkCompiler = ({
         : '';
     title = str;
 
-    if (
-      !isAbsolutePath(href) &&
-      !compiler._matchNotCompileLink(href) &&
-      !config.ignore
-    ) {
+    if (!isAbsolute && !isNotCompilable && !config.ignore) {
       if (href === compiler.config.homepage) {
         href = 'README';
       }
-
       href = router.toURL(href, null, router.getCurrentPath());
 
-      if (config.target) {
-        href.indexOf('mailto:') !== 0 && attrs.push(`target="${linkTarget}"`);
+      if (config.target && !isMailto) {
+        attrs.push(`target="${linkTarget}"`);
       }
     } else {
-      if (!isAbsolutePath(href) && href.slice(0, 2) === './') {
-        href =
-          document.URL.replace(/\/(?!.*\/).*/, '/').replace('#/./', '') + href;
+      if (!isAbsolute && href.startsWith('./')) {
+        href = router
+          .toURL(href, null, router.getCurrentPath())
+          .replace(/^#\//, '/');
       }
-      attrs.push(href.indexOf('mailto:') === 0 ? '' : `target="${linkTarget}"`);
-      attrs.push(
-        href.indexOf('mailto:') === 0
-          ? ''
-          : linkRel !== ''
-            ? ` rel="${linkRel}"`
-            : '',
-      );
+
+      if (!isMailto) {
+        attrs.push(`target="${linkTarget}"`);
+        if (linkRel !== '') {
+          attrs.push(`rel="${linkRel}"`);
+        }
+      }
     }
 
     if (config.disabled) {
