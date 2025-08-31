@@ -1,6 +1,7 @@
 import {
   getAndRemoveConfig,
   getAndRemoveDocsifyIgnoreConfig,
+  removeAtag,
 } from '../../core/render/utils.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
@@ -110,16 +111,11 @@ export function genIndex(path, content = '', router, depth, indexKey) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = getAndRemoveDocsifyIgnoreConfig(token.text).content;
-
-      if (config.id) {
-        slug = router.toURL(path, { id: slugify(config.id) });
-      } else {
-        slug = router.toURL(path, { id: slugify(escapeHtml(text)) });
-      }
+      slug = router.toURL(path, { id: slugify(config.id || token.text) });
 
       if (str) {
         title = getAndRemoveDocsifyIgnoreConfig(str).content;
+        title = removeAtag(title.trim());
       }
 
       index[slug] = {
