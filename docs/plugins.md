@@ -123,7 +123,7 @@ Install the plugin and configure the track id.
 
 Renders a larger collection of emoji shorthand codes. Without this plugin, Docsify is able to render only a limited number of emoji shorthand codes.
 
-!> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
+> [!IMPORTANT] Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js"></script>

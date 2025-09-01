@@ -126,13 +126,29 @@
       text-align: center;
     }
 
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+
     code,
     strong {
       color: inherit;
     }
 
     code {
-      background: rgba(0, 0, 0, 0.08);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    pre:where([data-lang]) {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .callout {
+      margin-block: var(--margin-block);
     }
   }
 
@@ -226,7 +242,7 @@
       padding: 0 !important;
       padding-block: 1.5rem !important;
       padding-inline: 1.5rem !important;
-      background: inherit;
+      background: transparent;
       color: inherit;
       font-size: inherit;
       white-space: inherit;

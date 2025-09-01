@@ -6,35 +6,69 @@ docsify extends Markdown syntax to make your documents more readable.
 
 ## Callouts
 
-### Important content
+Docsify supports [GitHub style](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) callouts (also known as "admonitions" or "alerts").
 
-Important content like:
+<!-- prettier-ignore -->
+> [!CAUTION]
+> **Caution** callouts communicate negative potential consequences of an action.
 
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> **Important** callouts communicate information necessary for users to succeed.
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> **Note** callouts communicate information that users should take into account.
+
+<!-- prettier-ignore -->
+> [!TIP]
+> **Tip** callouts communicate optional information to help a user be more successful.
+
+<!-- prettier-ignore -->
+> [!WARNING]
+> **Warning** callouts communicate potential risks user should be aware of.
+
+**Markdown**
+
+<!-- prettier-ignore -->
 ```markdown
-!> **Time** is money, my friend!
+> [!CAUTION]
+> **Caution** callouts communicate negative potential consequences of an action.
+
+> [!IMPORTANT]
+> **Important** callouts communicate information necessary for users to succeed.
+
+> [!NOTE]
+> **Note** callouts communicate information that users should take into account.
+
+> [!TIP]
+> **Tip** callouts communicate optional information to help a user be more successful.
+
+> [!WARNING]
+> **Warning** callouts communicate potential risks user should be aware of.
 ```
 
-is rendered as:
+### Legacy Style ⚠️
 
-!> **Time** is money, my friend!
+The following Docsify v4 callout syntax has been deprecated and will be removed in a future version.
 
-### Tips
+!> Legacy **Important** callouts are deprecated.
 
-General tips like:
+?> Legacy **Tip** callouts are deprecated.
+
+**Markdown**
 
 ```markdown
-?> _TODO_ unit test
+!> Legacy **Important** callouts are deprecated.
+
+?> Legacy **Tip** callouts are deprecated.
 ```
-
-are rendered as:
-
-?> _TODO_ unit test
 
 ## Link attributes
 
 ### disabled
 
-```md
+```markdown
 [link](/demo ':disabled')
 ```
 
@@ -42,7 +76,7 @@ are rendered as:
 
 Sometimes we will use some other relative path for the link, and we have to tell docsify that we don't need to compile this link. For example:
 
-```md
+```markdown
 [link](/demo/)
 ```
 
@@ -50,13 +84,13 @@ It will be compiled to `<a href="/#/demo/">link</a>` and will load `/demo/README
 
 Now you can do that
 
-```md
+```markdown
 [link](/demo/ ':ignore')
 ```
 
 You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set the title for the link.
 
-```md
+```markdown
 [link](/demo/ ':ignore title')
 
 <a href="/demo/" title="title">link</a>
@@ -64,14 +98,14 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 
 ### target
 
-```md
+```markdown
 [link](/demo ':target=_blank')
 [link](/demo2 ':target=_self')
 ```
 
 ## Task lists
 
-```md
+```markdown
 - [ ] foo
 - bar
 - [x] baz
@@ -91,7 +125,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 
 ### Class names
 
-```md
+```markdown
 ![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass')
 
 <!-- Multiple class names -->
@@ -101,13 +135,13 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 
 ### IDs
 
-```md
+```markdown
 ![logo](https://docsify.js.org/_media/icon.svg ':id=someCssId')
 ```
 
 ### Sizes
 
-```md
+```markdown
 ![logo](https://docsify.js.org/_media/icon.svg ':size=WIDTHxHEIGHT')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
@@ -123,7 +157,7 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 
 ## Heading IDs
 
-```md
+```markdown
 ### Hello, world! :id=hello-world
 ```
 

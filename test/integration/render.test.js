@@ -7,12 +7,52 @@ import { waitForText } from '../helpers/wait-for.js';
 describe('render', function () {
   // Helpers
   // ---------------------------------------------------------------------------
-  describe('helpers', () => {
+  describe('callouts', () => {
     beforeEach(async () => {
       await docsifyInit();
     });
 
-    test('important content', () => {
+    test('caution', () => {
+      const output = window.marked('> [!CAUTION]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout caution"><p>Text</p></div>"`,
+      );
+    });
+
+    test('important', () => {
+      const output = window.marked('> [!IMPORTANT]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout important"><p>Text</p></div>"`,
+      );
+    });
+
+    test('note', () => {
+      const output = window.marked('> [!NOTE]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout note"><p>Text</p></div>"`,
+      );
+    });
+
+    test('tip', () => {
+      const output = window.marked('> [!TIP]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout tip"><p>Text</p></div>"`,
+      );
+    });
+
+    test('warning', () => {
+      const output = window.marked('> [!WARNING]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout warning"><p>Text</p></div>"`,
+      );
+    });
+
+    test('important (legacy)', () => {
       const output = window.marked('!> Important content');
 
       expect(output).toMatchInlineSnapshot(
@@ -20,7 +60,7 @@ describe('render', function () {
       );
     });
 
-    test('general tip', () => {
+    test('tip (legacy)', () => {
       const output = window.marked('?> General tip');
 
       expect(output).toMatchInlineSnapshot(

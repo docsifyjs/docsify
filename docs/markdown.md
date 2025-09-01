@@ -15,7 +15,7 @@ window.$docsify = {
 };
 ```
 
-?> Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
+> [!TIP] Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
 
 You can completely customize the parsing rules.
 
@@ -31,7 +31,7 @@ window.$docsify = {
 
 ## Supports mermaid
 
-!> Currently, docsify doesn't support the async mermaid render (the latest mermaid version supported is `v9.3.0`).
+> [!IMPORTANT] Currently, docsify doesn't support the async mermaid render (the latest mermaid version supported is `v9.3.0`).
 
 ```js
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">

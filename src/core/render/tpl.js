@@ -112,6 +112,9 @@ export function tree(
   return tpl.replace('{inner}', innerHTML);
 }
 
+/**
+ * @deprecated
+ */
 export function helper(className, content) {
   return /* html */ `<p class="${className}">${content.slice(5).trim()}</p>`;
 }

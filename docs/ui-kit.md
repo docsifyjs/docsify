@@ -53,11 +53,54 @@
 
 ## Callouts
 
-!> **Important** callout with `inline code` and additional placeholder text used
-to force the content to wrap and span multiple lines.
+<!-- prettier-ignore -->
+> [!CAUTION]
+> **Caution** callout with `inline code`.
 
-?> **Tip** callout with `inline code` and additional placeholder text used to
-force the content to wrap and span multiple lines.
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> **Important** callout with `inline code`.
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> **Note** callout with `inline code`.
+
+<!-- prettier-ignore -->
+> [!TIP]
+> **Tip** callout with `inline code`.
+
+<!-- prettier-ignore -->
+> [!WARNING]
+> **Warning** callout with `inline code`.
+
+**Multi Line**
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> - List item 1
+> - List item 2
+>
+> Text
+>
+> ```html
+> <p>Hello, World!</p>
+> ```
+
+**Nested**
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> Level 1
+> > [!NOTE]
+> > Level 2
+> > > [!NOTE]
+> > > Level 3
+
+**Legacy Style**
+
+!> Legacy **Important** callout with `inline code`.
+
+?> Legacy **Tip** with `inline code`.
 
 ## Code
 

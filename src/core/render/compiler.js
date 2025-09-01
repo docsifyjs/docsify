@@ -10,6 +10,7 @@ import { imageCompiler } from './compiler/image.js';
 import { headingCompiler } from './compiler/heading.js';
 import { highlightCodeCompiler } from './compiler/code.js';
 import { paragraphCompiler } from './compiler/paragraph.js';
+import { blockquoteCompiler } from './compiler/blockquote.js';
 import { taskListCompiler } from './compiler/taskList.js';
 import { taskListItemCompiler } from './compiler/taskListItem.js';
 import { linkCompiler } from './compiler/link.js';
@@ -156,12 +157,13 @@ export class Compiler {
     // Supports mermaid
     const origin = {};
 
-    // renderer customizers
+    // Renderer customizers
     origin.heading = headingCompiler({
       renderer,
       router,
       compiler: this,
     });
+    origin.blockquoteCompiler = blockquoteCompiler({ renderer });
     origin.code = highlightCodeCompiler({ renderer });
     origin.link = linkCompiler({
       renderer,

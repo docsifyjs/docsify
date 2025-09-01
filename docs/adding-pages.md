@@ -67,7 +67,7 @@ To create section headers:
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
-!> Docsify only looks for `_sidebar.md` in the current folder, and uses that, otherwise it falls back to the one configured using `window.$docsify.loadSidebar` config.
+> [!IMPORTANT] Docsify only looks for `_sidebar.md` in the current folder, and uses that, otherwise it falls back to the one configured using `window.$docsify.loadSidebar` config.
 
 Example file structure:
 
@@ -98,7 +98,7 @@ You can specify `alias` to avoid unnecessary fallback.
 </script>
 ```
 
-!> You can create a `README.md` file in a subdirectory to use it as the landing page for the route.
+> [!IMPORTANT] You can create a `README.md` file in a subdirectory to use it as the landing page for the route.
 
 ## Set Page Titles from Sidebar Selection
 
