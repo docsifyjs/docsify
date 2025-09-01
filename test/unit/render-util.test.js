@@ -179,7 +179,7 @@ describe('core/render/slugify', () => {
     expect(nestedHtmlStrippedSlug).toBe('another-broken-example');
 
     const emojiRemovedSlug = slugify('emoji test ⚠️🔥✅');
-    expect(emojiRemovedSlug).toBe('emoji-test-️');
+    expect(emojiRemovedSlug).toBe('emoji-test-');
 
     const multiSpaceSlug = slugify('Title    with   multiple spaces');
     expect(multiSpaceSlug).toBe('title----with---multiple-spaces');
