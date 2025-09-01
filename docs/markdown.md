@@ -1,6 +1,6 @@
 # Markdown configuration
 
-**docsify** uses [marked v13+](https://github.com/markedjs/marked) as its Markdown parser. You can customize how it renders your Markdown content to HTML by customizing `renderer`:
+**docsify** uses [marked](https://github.com/markedjs/marked) as its Markdown parser. You can customize how it renders your Markdown content to HTML by customizing `renderer`:
 
 ```js
 window.$docsify = {

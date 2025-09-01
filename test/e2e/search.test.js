@@ -57,11 +57,11 @@ test.describe('Search Plugin Tests', () => {
 
             ## GitHub Pages ignore1 <!-- {docsify-ignore} -->
 
-            There're three places to populate your docs for your Github repository1.
+            There're three places to populate your docs for your GitHub repository1.
 
             ## GitHub Pages ignore2 {docsify-ignore}
 
-            There're three places to populate your docs for your Github repository2.
+            There're three places to populate your docs for your GitHub repository2.
           `,
       },
       scriptURLs: ['/dist/plugins/search.js'],
@@ -288,7 +288,7 @@ console.log('Hello World');
       markdown: {
         homepage: `
 # Hello World
-         
+
 - [ ] Task 1
 - [x] SearchHere
 - [ ] Task 3

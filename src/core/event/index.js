@@ -1,5 +1,6 @@
 import { isMobile, mobileBreakpoint } from '../util/env.js';
 import * as dom from '../util/dom.js';
+import { stripUrlExceptId } from '../router/util.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -45,7 +46,7 @@ export function Events(Base) {
     // =========================================================================
     /**
      * Initialize cover observer
-     * Toggles sticky behavior when when cover is not in view
+     * Toggles sticky behavior when cover is not in view
      * @void
      */
     #initCover() {
@@ -74,11 +75,17 @@ export function Events(Base) {
     #initHeadings() {
       const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5)');
       const headingsInView = new Set();
+      let isInitialLoad = true;
 
       // Mark sidebar active item on heading intersection
       this.#intersectionObserver?.disconnect();
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
+          if (isInitialLoad) {
+            isInitialLoad = false;
+            return;
+          }
+
           if (this.#isScrolling) {
             return;
           }
@@ -89,18 +96,25 @@ export function Events(Base) {
             headingsInView[op](entry.target);
           }
 
-          const activeHeading =
-            headingsInView.size > 1
-              ? // Sort headings by proximity to viewport top and select first
-                Array.from(headingsInView).sort((a, b) =>
-                  a.compareDocumentPosition(b) &
-                  Node.DOCUMENT_POSITION_FOLLOWING
-                    ? -1
-                    : 1,
-                )[0]
-              : // Get first and only item in set.
-                // May be undefined if no headings are in view.
-                headingsInView.values().next().value;
+          let activeHeading;
+          if (headingsInView.size === 1) {
+            // Get first and only item in set.
+            // May be undefined if no headings are in view.
+            activeHeading = headingsInView.values().next().value;
+          } else if (headingsInView.size > 1) {
+            // Find the closest heading to the top of the viewport
+            // Reduce over the Set of headings currently in view (headingsInView) to determine the closest heading.
+            activeHeading = Array.from(headingsInView).reduce(
+              (closest, current) => {
+                return !closest ||
+                  closest.compareDocumentPosition(current) &
+                    Node.DOCUMENT_POSITION_FOLLOWING
+                  ? current
+                  : closest;
+              },
+              null,
+            );
+          }
 
           if (activeHeading) {
             const id = activeHeading.getAttribute('id');
@@ -231,9 +245,9 @@ export function Events(Base) {
       dom.on(sidebarElm, 'click', ({ target }) => {
         const linkElm = target.closest('a');
         const linkParent = linkElm?.closest('li');
-        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+        const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
-        if (subSidebar) {
+        if (hasSubSidebar) {
           dom.toggleClass(linkParent, 'collapse');
         }
       });
@@ -330,8 +344,7 @@ export function Events(Base) {
     onNavigate(source) {
       const { auto2top, topMargin } = this.config;
       const { path, query } = this.route;
-
-      this.#markSidebarActiveElm();
+      const activeSidebarElm = this.#markSidebarActiveElm();
 
       // Note: Scroll position set by browser on forward/back (i.e. "history")
       if (source !== 'history') {
@@ -358,13 +371,20 @@ export function Events(Base) {
         }
       }
 
+      const isNavigate = source === 'navigate';
+      const hasId = 'id' in query;
+      const noSubSidebar = !activeSidebarElm?.querySelector('.app-sub-sidebar');
+
       // Clicked anchor link
-      if (path === '/' || (query.id && source === 'navigate')) {
-        isMobile() && this.#toggleSidebar(false);
+      const shouldCloseSidebar =
+        path === '/' || (isNavigate && (hasId || noSubSidebar));
+
+      if (shouldCloseSidebar && isMobile()) {
+        this.#toggleSidebar(false);
       }
 
       // Clicked anchor link or page load with anchor ID
-      if (query.id || source === 'navigate') {
+      if (hasId || isNavigate) {
         this.#focusContent();
       }
     }
@@ -395,7 +415,18 @@ export function Events(Base) {
           dom.find('#main');
 
       // Move focus to content area
-      focusEl?.focus(settings);
+      if (focusEl) {
+        if (!focusEl.hasAttribute('tabindex')) {
+          focusEl.setAttribute('tabindex', '-1');
+          focusEl.setAttribute('data-added-tabindex', 'true');
+        }
+
+        if (focusEl.hasAttribute('data-added-tabindex')) {
+          focusEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        focusEl.focus(settings);
+      }
 
       return focusEl;
     }
@@ -450,6 +481,8 @@ export function Events(Base) {
       if (!sidebar) {
         return;
       }
+
+      href = stripUrlExceptId(href);
 
       const oldActive = dom.find(sidebar, 'li.active');
       const newActive = dom

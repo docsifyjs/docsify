@@ -71,3 +71,11 @@
     }
   }
 }
+
+/* Force light mode for iframes in dark theme */
+iframe,
+iframe *,
+iframe[src],
+iframe[src] * {
+  color-scheme: light;
+}

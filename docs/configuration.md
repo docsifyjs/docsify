@@ -43,7 +43,7 @@ window.$docsify = {
     '/foo/(.*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
-      'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+      'https://raw.githubusercontent.com/docsifyjs/docsify/main/CHANGELOG',
 
     // You may need this if you use routerMode:'history'.
     '/.*/_sidebar.md': '/_sidebar.md', // See #301
@@ -72,7 +72,9 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. See [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML — but only if the page does not already contain an H1 heading.
+
+For more details, see [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -284,7 +286,7 @@ window.$docsify = {
 
   // Or use the readme in your repo
   homepage:
-    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md',
+    'https://raw.githubusercontent.com/docsifyjs/docsify/main/README.md',
 };
 ```
 
@@ -480,7 +482,7 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-Render emoji shorthand codes using GitHub-style emoji images or platform-native emoji characters.
+Render emoji shorthand codes using GitHub-style emoji images or native emoji characters.
 
 ```js
 window.$docsify = {
@@ -506,7 +508,7 @@ GitHub-style images when `false`:
   <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
 </output>
 
-Platform-native characters when `true`:
+Native characters when `true`:
 
 <output data-lang="output">
   <span class="emoji">😄︎</span>
@@ -581,7 +583,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 
 ## notFoundPage
 
-- Type: `Boolean` | `String` | `Object`
+- Type: `Boolean|String|Object`
 - Default: `false`
 
 Display default "404 - Not Found" message:
@@ -917,7 +919,7 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor ⚠️
+## themeColor ⚠️ :id=themecolor
 
 > [!IMPORTANT] Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
@@ -931,7 +933,7 @@ window.$docsify = {
 };
 ```
 
-## topMargin ⚠️
+## topMargin ⚠️ :id=topmargin
 
 > [!IMPORTANT] Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
 

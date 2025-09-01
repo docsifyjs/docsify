@@ -1,11 +1,12 @@
 import {
   getAndRemoveConfig,
   getAndRemoveDocsifyIgnoreConfig,
+  removeAtag,
 } from '../../core/render/utils.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
 
-let INDEXES = {};
+let INDEXES = [];
 
 const db = new Dexie('docsify');
 db.version(1).stores({
@@ -48,7 +49,7 @@ function resolveIndexKey(namespace) {
     : LOCAL_STORAGE.INDEX_KEY;
 }
 
-function escapeHtml(string) {
+export function escapeHtml(string) {
   const entityMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -102,7 +103,7 @@ function getListData(token) {
 export function genIndex(path, content = '', router, depth, indexKey) {
   const tokens = window.marked.lexer(content);
   const slugify = window.Docsify.slugify;
-  const index = {};
+  const index = [];
   let slug;
   let title = '';
 
@@ -110,16 +111,11 @@ export function genIndex(path, content = '', router, depth, indexKey) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = getAndRemoveDocsifyIgnoreConfig(token.text).content;
-
-      if (config.id) {
-        slug = router.toURL(path, { id: slugify(config.id) });
-      } else {
-        slug = router.toURL(path, { id: slugify(escapeHtml(text)) });
-      }
+      slug = router.toURL(path, { id: slugify(config.id || token.text) });
 
       if (str) {
         title = getAndRemoveDocsifyIgnoreConfig(str).content;
+        title = removeAtag(title.trim());
       }
 
       index[slug] = {
@@ -299,7 +295,7 @@ export async function init(config, vm) {
   INDEXES = await getData(indexKey);
 
   if (isExpired) {
-    INDEXES = {};
+    INDEXES = [];
   } else if (!isAuto) {
     return;
   }

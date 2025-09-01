@@ -4,11 +4,12 @@ import {
   getAndRemoveDocsifyIgnoreConfig,
 } from '../utils.js';
 import { slugify } from '../slugify.js';
+import { stripUrlExceptId } from '../../router/util.js';
 
 export const headingCompiler = ({ renderer, router, compiler }) =>
-  (renderer.heading = function ({ tokens, depth }) {
-    const text = this.parser.parseInline(tokens);
-    let { str, config } = getAndRemoveConfig(text);
+  (renderer.heading = function ({ tokens, depth, text }) {
+    const parsedText = this.parser.parseInline(tokens);
+    let { str, config } = getAndRemoveConfig(parsedText);
     const nextToc = { depth, title: str };
 
     const { content, ignoreAllSubs, ignoreSubHeading } =
@@ -18,9 +19,9 @@ export const headingCompiler = ({ renderer, router, compiler }) =>
     nextToc.title = removeAtag(str);
     nextToc.ignoreAllSubs = ignoreAllSubs;
     nextToc.ignoreSubHeading = ignoreSubHeading;
-    const slug = slugify(config.id || str);
+    const slug = slugify(config.id || text);
     const url = router.toURL(router.getCurrentPath(), { id: slug });
-    nextToc.slug = url;
+    nextToc.slug = stripUrlExceptId(url);
     compiler.toc.push(nextToc);
 
     // Note: tabindex="-1" allows programmatically focusing on heading

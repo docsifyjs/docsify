@@ -27,5 +27,5 @@
   - [Embed Files](embed-files.md)
   - [UI Kit](ui-kit.md)
 
-- [Awesome docsify](awesome.md)
-- [Changelog](changelog.md)
+* [Awesome docsify](awesome.md)
+* [Changelog](changelog.md)

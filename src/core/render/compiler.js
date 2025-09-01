@@ -183,7 +183,7 @@ export class Compiler {
   }
 
   /**
-   * Compile sidebar, it uses  _sidebar.md ( or specific file) or the content's headings toc to render sidebar.
+   * Compile sidebar, it uses _sidebar.md (or specific file) or the content's headings toc to render sidebar.
    * @param {String} text Text content from the sidebar file, maybe empty
    * @param {Number} level Type of heading (h<level> tag)
    * @returns {String} Sidebar element
@@ -202,13 +202,10 @@ export class Compiler {
       if (toc[i].ignoreSubHeading) {
         const deletedHeaderLevel = toc[i].depth;
         toc.splice(i, 1);
-        // Remove headers who are under current header
-        for (
-          let j = i;
-          j < toc.length && deletedHeaderLevel < toc[j].depth;
-          j++
-        ) {
-          toc.splice(j, 1) && j-- && i++;
+
+        // Remove all following headings with greater depth
+        while (i < toc.length && toc[i].depth > deletedHeaderLevel) {
+          toc.splice(i, 1);
         }
 
         i--;

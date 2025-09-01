@@ -342,11 +342,15 @@ export function Render(Base) {
 
       if (autoHeader && activeEl) {
         const main = dom.getNode('#main');
-        const firstNode = main.children[0];
-        if (firstNode && firstNode.tagName !== 'H1') {
-          const h1 = this.compiler.header(activeEl.innerText, 1);
-          const wrapper = dom.create('div', h1);
-          dom.before(main, wrapper.children[0]);
+        const hasH1 = main.querySelector('h1');
+
+        if (!hasH1) {
+          const h1HTML = this.compiler.header(activeEl.innerText, 1);
+          const h1Node = dom.create('div', h1HTML).firstElementChild;
+
+          if (h1Node) {
+            dom.before(main, h1Node);
+          }
         }
       }
     }

@@ -131,7 +131,7 @@ body.sidebar-chevron-right {
 /* ========================================================================== */
 body.sidebar-link-clamp {
   .sidebar {
-    a {
+    a:not(.app-name-link) {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

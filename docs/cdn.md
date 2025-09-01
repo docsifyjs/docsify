@@ -34,7 +34,7 @@ Specifying the latest major version allows your site to receive all non-breaking
 <!-- prettier-ignore -->
 ```html
 <!-- Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/vue.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css" />
 
 <!-- Docsify -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
@@ -49,7 +49,7 @@ Specifying an exact version prevents any future updates from affecting your site
 <!-- prettier-ignore -->
 ```html
 <!-- Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5.0.0/themes/vue.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5.0.0/dist/themes/addons/vue.min.css" />
 
 <!-- Docsify -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5.0.0/dist/docsify.min.js"></script>

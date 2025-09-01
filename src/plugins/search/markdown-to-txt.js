@@ -59,7 +59,7 @@ const markdownToTxtRenderer = {
   },
 
   heading({ tokens }) {
-    return this.parser?.parse(tokens) || '';
+    return this.parser?.parseInline(tokens) || '';
   },
 
   hr() {

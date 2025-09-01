@@ -127,6 +127,10 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 
 ```markdown
 ![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass')
+
+<!-- Multiple class names -->
+
+![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass :class=anotherCssClass')
 ```
 
 ### IDs

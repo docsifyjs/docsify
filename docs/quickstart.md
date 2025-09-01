@@ -51,7 +51,7 @@ Download or create an `index.html` template using the following markup:
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <!-- Core Theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css">
   </head>
   <body class="loading">
     <div id="app"></div>
@@ -83,7 +83,7 @@ Specifying a major version in the URL (`@5`) will allow your site to receive non
 <!-- prettier-ignore -->
 ```html
 <!-- Core Theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/themes/core.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css">
 
 <!-- Docsify -->
 <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
@@ -113,32 +113,6 @@ cd docs && python -m SimpleHTTPServer 3000
 # Python 3
 cd docs && python -m http.server 3000
 ```
-
-## Loading dialog
-
-If you want, you can show a loading dialog before docsify starts to render your documentation:
-
-```html
-<!-- index.html -->
-
-<div id="app">Please wait...</div>
-```
-
-You should set the `data-app` attribute if you changed `el`:
-
-```html
-<!-- index.html -->
-
-<div data-app id="main">Please wait...</div>
-
-<script>
-  window.$docsify = {
-    el: '#main',
-  };
-</script>
-```
-
-Compare [el configuration](configuration.md#el).
 
 <script>
   (function() {

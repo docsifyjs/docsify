@@ -2,7 +2,7 @@
 
 ## Full text search
 
-By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
+By default, the hyperlink on the current page is recognized and the content is saved in `IndexedDB`. You can also specify the path to the files.
 
 <!-- prettier-ignore -->
 ```html
@@ -188,7 +188,7 @@ Disqus comments. https://disqus.com/
 
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on GitHub Issue and Preact.
 
 ```html
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css" />
@@ -197,12 +197,12 @@ Disqus comments. https://disqus.com/
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
   const gitalk = new Gitalk({
-    clientID: 'Github Application Client ID',
-    clientSecret: 'Github Application Client Secret',
-    repo: 'Github repo',
-    owner: 'Github repo owner',
+    clientID: 'GitHub Application Client ID',
+    clientSecret: 'GitHub Application Client Secret',
+    repo: 'GitHub repo',
+    owner: 'GitHub repo owner',
     admin: [
-      'Github repo collaborators, only these guys can initialize github issues',
+      'GitHub repo collaborators, only these guys can initialize github issues',
     ],
     // facebook-like distraction free mode
     distractionFreeMode: false,

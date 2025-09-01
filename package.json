@@ -1,6 +1,6 @@
 {
   "name": "docsify",
-  "version": "4.13.0",
+  "version": "5.0.0-rc.1",
   "description": "A magical documentation generator.",
   "homepage": "https://docsify.js.org",
   "repository": "github:docsifyjs/docsify",
@@ -29,14 +29,13 @@
     "./*": "./*"
   },
   "files": [
-    "dist",
-    "themes"
+    "dist"
   ],
   "lint-staged": {
     "*.js": "eslint --fix"
   },
   "dependencies": {
-    "dexie": "^4.0.8",
+    "dexie": "^4.0.11",
     "medium-zoom": "^1.1.0",
     "opencollective-postinstall": "^2.0.2",
     "prismjs": "^1.29.0",
@@ -48,8 +47,8 @@
     "@eslint/js": "^10.0.0",
     "@playwright/test": "^1.44.0",
     "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.1",
     "@rollup/plugin-terser": "^0.4.3",
     "@types/eslint": "^8.40.2",
@@ -57,20 +56,20 @@
     "browser-sync": "^3.0.2",
     "common-tags": "^1.8.0",
     "conventional-changelog-cli": "^3.0.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "cssnano": "^7.0.1",
     "eslint": "^9.3.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-jest": "^28.5.0",
-    "eslint-plugin-playwright": "^1.6.1",
+    "eslint-plugin-playwright": "^2.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "glob": "^10.3.15",
-    "globals": "^15.3.0",
+    "glob": "^11.0.1",
+    "globals": "^16.0.0",
     "husky": "^9.0.11",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "lint-staged": "^15.2.2",
-    "marked": "^14.1.0",
+    "jest": "^30.0.4",
+    "jest-environment-jsdom": "^30.0.5",
+    "lint-staged": "^16.1.0",
+    "marked": "^16.0.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
@@ -78,7 +77,7 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.7",
     "rollup": "^4.17.2",
-    "rollup-plugin-import-css": "^3.5.0",
+    "rollup-plugin-import-css": "^4.0.1",
     "vue": "^3.4.27",
     "xhr-mock": "^2.5.1"
   },
@@ -115,6 +114,7 @@
     "test:integration": "npm run test:jest -- --selectProjects integration",
     "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "test:unit": "npm run test:jest -- --selectProjects unit",
+    "test:update:snapshot": "npm run test:jest -- --updateSnapshot",
     "test": "run-s test:jest test:e2e",
     "watch:css": "run-p 'build:css -- --watch' 'build:css:min -- --watch'",
     "watch:js": "npm run build:js -- --watch"
