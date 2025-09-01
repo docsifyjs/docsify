@@ -15,56 +15,41 @@ describe('render', function () {
     test('caution', () => {
       const output = window.marked('> [!CAUTION]\n> Text');
 
-      expect(output).toMatchInlineSnapshot(`
-"<blockquote>
-<p>[!CAUTION]
-Text</p></blockquote>
-"
-`);
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout caution"><p>Text</p></div>"`,
+      );
     });
 
     test('important', () => {
       const output = window.marked('> [!IMPORTANT]\n> Text');
 
-      expect(output).toMatchInlineSnapshot(`
-"<blockquote>
-<p>[!IMPORTANT]
-Text</p></blockquote>
-"
-`);
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout important"><p>Text</p></div>"`,
+      );
     });
 
     test('note', () => {
       const output = window.marked('> [!NOTE]\n> Text');
 
-      expect(output).toMatchInlineSnapshot(`
-"<blockquote>
-<p>[!NOTE]
-Text</p></blockquote>
-"
-`);
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout note"><p>Text</p></div>"`,
+      );
     });
 
     test('tip', () => {
       const output = window.marked('> [!TIP]\n> Text');
 
-      expect(output).toMatchInlineSnapshot(`
-"<blockquote>
-<p>[!TIP]
-Text</p></blockquote>
-"
-`);
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout tip"><p>Text</p></div>"`,
+      );
     });
 
     test('warning', () => {
       const output = window.marked('> [!WARNING]\n> Text');
 
-      expect(output).toMatchInlineSnapshot(`
-"<blockquote>
-<p>[!WARNING]
-Text</p></blockquote>
-"
-`);
+      expect(output).toMatchInlineSnapshot(
+        `"<div class="callout warning"><p>Text</p></div>"`,
+      );
     });
 
     test('important (legacy)', () => {
