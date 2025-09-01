@@ -12,7 +12,7 @@ export function slugify(str) {
 
   let slug = str
     .trim()
-    .normalize('NFKD')
+    .normalize('NFC')
     .replace(/\uFE0F/g, '')
     .replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
     .replace(/[A-Z]+/g, lower)
