@@ -8,7 +8,7 @@ Docsify turns your Markdown files into a documentation website instantly. Unlike
 
 ## Features
 
-- No statically built html files
+- No statically built HTML files
 - Simple and lightweight
 - Smart full-text search plugin
 - Multiple themes
