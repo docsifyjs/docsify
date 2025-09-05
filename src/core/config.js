@@ -36,6 +36,7 @@ export default function (vm) {
       repo: '',
       routes: {},
       routerMode: 'hash',
+      rtl: false,
       subMaxLevel: 0,
       // themeColor: '',
       topMargin: 0,

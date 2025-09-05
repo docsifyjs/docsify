@@ -1,0 +1,23 @@
+/* RTL specific styles */
+body.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Adjust sidebar for RTL */
+body.rtl .sidebar {
+  left: auto;
+  right: 0;
+}
+
+body.rtl .content {
+  margin-left: auto;
+  margin-right: 300px; /* Assuming default sidebar width is 300px */
+}
+
+body.rtl .app-nav {
+  left: auto;
+  right: 0;
+}
+
+/* Add more specific RTL adjustments as needed */
