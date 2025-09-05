@@ -1,3 +1,28 @@
+# [5.0.0-rc.2](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.1...v5.0.0-rc.2) (2025-09-05)
+
+
+### Bug Fixes
+
+* enhance focus handling ([#2595](https://github.com/docsifyjs/docsify/issues/2595)) ([22ac7e8](https://github.com/docsifyjs/docsify/commit/22ac7e855de24b13280e9904930e58af58dbd6a7))
+* enhance focus handling by adding smooth scroll to content area ([#2569](https://github.com/docsifyjs/docsify/issues/2569)) ([20d095b](https://github.com/docsifyjs/docsify/commit/20d095b53c827c4d0590dee5fd377ba21560d7fb))
+* escape HTML in search keywords ([#2586](https://github.com/docsifyjs/docsify/issues/2586)) ([743e9cb](https://github.com/docsifyjs/docsify/commit/743e9cb484cc70859a582fb74d78ea1f52ef2c2a))
+* exclude app-name-link from sidebar text overflow styling ([#2564](https://github.com/docsifyjs/docsify/issues/2564)) ([375c058](https://github.com/docsifyjs/docsify/commit/375c058e3e1b12f3507d97a41b3fd8d6c4e904b0))
+* handle hash navigation to prevent duplicate callbacks ([#2575](https://github.com/docsifyjs/docsify/issues/2575)) ([72569de](https://github.com/docsifyjs/docsify/commit/72569dee8db92a01e8de5448e05c32afbd090fb2))
+* heading link overflow style ([#2568](https://github.com/docsifyjs/docsify/issues/2568)) ([be21637](https://github.com/docsifyjs/docsify/commit/be2163725ae314de3aa9a56c1216ce8c774cfcc6))
+* improve slug generation ([#2581](https://github.com/docsifyjs/docsify/issues/2581)) ([9bc58c9](https://github.com/docsifyjs/docsify/commit/9bc58c9ca24db513a90a06752181954aab0628ca))
+* remove block display from anchor links to prevent layout issues ([#2576](https://github.com/docsifyjs/docsify/issues/2576)) ([6e45024](https://github.com/docsifyjs/docsify/commit/6e4502416886b9494cd7b510968c351c7e6fc3cd))
+* **sidebar:** remove ignored headings and children ([#2580](https://github.com/docsifyjs/docsify/issues/2580)) ([2a49bd0](https://github.com/docsifyjs/docsify/commit/2a49bd0aa4bb17eeb3d9f363c6f2b01e61e778ac))
+* update relative link handling ([#2579](https://github.com/docsifyjs/docsify/issues/2579)) ([eeacfcc](https://github.com/docsifyjs/docsify/commit/eeacfcce2a3df4e4146b5b54275553452b317352))
+
+
+### Features
+
+* GitHub style callouts ([#2487](https://github.com/docsifyjs/docsify/issues/2487)) ([2e59b0f](https://github.com/docsifyjs/docsify/commit/2e59b0f50cf8123b98e4c97c3053aa6985ae13a2))
+* support config helper multi keys if supported ([#2571](https://github.com/docsifyjs/docsify/issues/2571)) ([a2f734f](https://github.com/docsifyjs/docsify/commit/a2f734f223cae475aefe7d41995a2030a1f9c0a2))
+* support extract content between fragment markers from Markdown ([#2582](https://github.com/docsifyjs/docsify/issues/2582)) ([32aa74e](https://github.com/docsifyjs/docsify/commit/32aa74e0d2fcd89705e5c30fc8b8e2562e7b774e))
+
+
+
 # Changelog
 
 ## [5.0.0-rc.1](https://github.com/docsifyjs/docsify/compare/v4.13.1...v5.0.0-rc.1) (2025-05-27)

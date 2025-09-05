@@ -7,13 +7,21 @@ else
   VERSION=$1
 fi
 
+RELEASE_TAG=${RELEASE_TAG:-""}
+
+if [[ -n "$RELEASE_TAG" && "$VERSION" != *"$RELEASE_TAG"* ]]; then
+  RELEASE_MSG="$VERSION ($RELEASE_TAG)"
+else
+  RELEASE_MSG="$VERSION"
+fi
+
 read -p "Releasing $VERSION $RELEASE_TAG - are you sure? (y/n) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Releasing $VERSION ..."
 
   # Update version (don't commit or tag yet)
-  npm --no-git-tag-version version "$VERSION" --message "[release] $VERSION $RELEASE_TAG"
+  npm --no-git-tag-version version "$VERSION"
 
   # Build and test
   npm run build
@@ -25,7 +33,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Commit all changes
   git add -A
-  git commit -m "[release] $VERSION $RELEASE_TAG"
+  git commit -m "[release] $RELEASE_MSG"
 
   # Tag and push
   git tag "v$VERSION"

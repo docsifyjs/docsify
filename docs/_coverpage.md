@@ -2,7 +2,7 @@
 
 ![logo](_media/icon.svg)
 
-# docsify <small>5.0.0-rc.1</small> :id=docsify
+# docsify <small>5.0.0-rc.2</small> :id=docsify
 
 > A magical documentation site generator
 
