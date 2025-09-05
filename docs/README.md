@@ -4,7 +4,7 @@
 
 ## What it is
 
-Docsify turns your Markdown files into a documentation website instantly. Unlike most other documentation site generator tools, it doesn't need to build HTML files. Instead, it dynamically loads and parses your Markdown files and displays them as a website. To get started, just create an `index.html` file and [deploy it on GitHub Pages](deploy.md) (for more details see our [Quick start](quickstart.md) guide).
+Docsify turns your Markdown files into a documentation website instantly. Unlike most other documentation site generator tools, it doesn't need to build HTML files. Instead, it dynamically loads and parses your Markdown files and displays them as a website. To get started, create an `index.html` file and [deploy it on GitHub Pages](deploy.md) (for more details see our [Quick start](quickstart.md) guide).
 
 ## Features
 
