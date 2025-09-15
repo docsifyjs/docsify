@@ -43,7 +43,7 @@ export function main(config) {
     ? ''
     : `
     <button class="sidebar-toggle" tabindex="-1" title="Press \\ to toggle">
-      <div class="sidebar-toggle-button" tabindex="0" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
+      <div class="sidebar-toggle-button" tabindex="0" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar" role="button">
         <span></span><span></span><span></span>
       </div>
     </button>
