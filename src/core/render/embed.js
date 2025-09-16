@@ -98,7 +98,14 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
         }
       }
 
-      cb({ token: currentToken, embedToken });
+      cb({
+        token: currentToken,
+        embedToken,
+        rowIndex: currentToken.rowIndex,
+        cellIndex: currentToken.cellIndex,
+        tokenRef: currentToken.tokenRef,
+      });
+
       if (++count >= embedTokens.length) {
         cb({});
       }
@@ -126,23 +133,45 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const linkRE = compile.Lexer.rules.inline.normal.link;
   const links = tokens.links;
 
+  const linkMatcher = new RegExp(linkRE.source, 'g');
+
   tokens.forEach((token, index) => {
     if (token.type === 'paragraph') {
       token.text = token.text.replace(
-        new RegExp(linkRE.source, 'g'),
+        linkMatcher,
         (src, filename, href, title) => {
           const embed = compiler.compileEmbed(href, title);
-
           if (embed) {
             embedTokens.push({
               index,
+              tokenRef: token,
               embed,
             });
           }
-
           return src;
         },
       );
+    } else if (token.type === 'table') {
+      token.rows.forEach((row, rowIndex) => {
+        row.forEach((cell, cellIndex) => {
+          cell.text = cell.text.replace(
+            linkMatcher,
+            (src, filename, href, title) => {
+              const embed = compiler.compileEmbed(href, title);
+              if (embed) {
+                embedTokens.push({
+                  index,
+                  tokenRef: token,
+                  rowIndex,
+                  cellIndex,
+                  embed,
+                });
+              }
+              return src;
+            },
+          );
+        });
+      });
     }
   });
 
@@ -150,27 +179,36 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   // so that we know where to insert the embedded tokens as they
   // are returned
   const moves = [];
-  walkFetchEmbed({ compile, embedTokens, fetch }, ({ embedToken, token }) => {
-    if (token) {
-      // iterate through the array of previously inserted tokens
-      // to determine where the current embedded tokens should be inserted
-      let index = token.index;
-      moves.forEach(pos => {
-        if (index > pos.start) {
-          index += pos.length;
+  walkFetchEmbed(
+    { compile, embedTokens, fetch },
+    ({ embedToken, token, rowIndex, cellIndex, tokenRef }) => {
+      if (token) {
+        if (typeof rowIndex === 'number' && typeof cellIndex === 'number') {
+          const cell = tokenRef.rows[rowIndex][cellIndex];
+
+          cell.embedTokens = embedToken;
+        } else {
+          // iterate through the array of previously inserted tokens
+          // to determine where the current embedded tokens should be inserted
+          let index = token.index;
+          moves.forEach(pos => {
+            if (index > pos.start) {
+              index += pos.length;
+            }
+          });
+
+          Object.assign(links, embedToken.links);
+
+          tokens = tokens
+            .slice(0, index)
+            .concat(embedToken, tokens.slice(index + 1));
+          moves.push({ start: index, length: embedToken.length - 1 });
         }
-      });
-
-      Object.assign(links, embedToken.links);
-
-      tokens = tokens
-        .slice(0, index)
-        .concat(embedToken, tokens.slice(index + 1));
-      moves.push({ start: index, length: embedToken.length - 1 });
-    } else {
-      cached[raw] = tokens.concat();
-      tokens.links = cached[raw].links = links;
-      done(tokens);
-    }
-  });
+      } else {
+        cached[raw] = tokens.concat();
+        tokens.links = cached[raw].links = links;
+        done(tokens);
+      }
+    },
+  );
 }
