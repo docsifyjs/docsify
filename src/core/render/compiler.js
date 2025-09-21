@@ -15,6 +15,7 @@ import { taskListCompiler } from './compiler/taskList.js';
 import { taskListItemCompiler } from './compiler/taskListItem.js';
 import { linkCompiler } from './compiler/link.js';
 import { compileMedia } from './compiler/media.js';
+import { tableCellCompiler } from './compiler/tableCell.js';
 
 const cachedLinks = {};
 
@@ -176,6 +177,7 @@ export class Compiler {
     origin.image = imageCompiler({ renderer, contentBase, router });
     origin.list = taskListCompiler({ renderer });
     origin.listitem = taskListItemCompiler({ renderer });
+    origin.tablecell = tableCellCompiler({ renderer, compiler: this });
 
     renderer.origin = origin;
 
