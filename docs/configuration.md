@@ -240,6 +240,22 @@ window.$docsify = {
 };
 ```
 
+## fallbackDefaultLanguage
+
+- Type: `String`
+- Default: `''`
+
+When a page is requested and it doesn't exist for the given locale, Docsify will fallback to the language specified by this option.
+
+For example, in the scenario described above, if `/de/overview` does not exist and `fallbackDefaultLanguage` is configured as `zh-cn`, Docsify will fetch `/zh-cn/overview` instead of `/overview`.
+
+```js
+window.$docsify = {
+  fallbackLanguages: ['fr', 'de'],
+  fallbackDefaultLanguage: 'zh-cn', // default: ''
+};
+```
+
 ## formatUpdated
 
 - Type: `String|Function`
@@ -262,7 +278,7 @@ window.$docsify = {
 ## hideSidebar
 
 - Type : `Boolean`
-- Default: `true`
+- Default: `false`
 
 This option will completely hide your sidebar and won't render any content on the side.
 

@@ -204,7 +204,12 @@ export function Fetch(Base) {
     }
 
     _fetchFallbackPage(path, qs, cb = noop) {
-      const { requestHeaders, fallbackLanguages, loadSidebar } = this.config;
+      const {
+        requestHeaders,
+        fallbackLanguages,
+        fallbackDefaultLanguage,
+        loadSidebar,
+      } = this.config;
 
       if (!fallbackLanguages) {
         return false;
@@ -217,7 +222,7 @@ export function Fetch(Base) {
       }
 
       const newPath = this.router.getFile(
-        path.replace(new RegExp(`^/${local}`), ''),
+        path.replace(new RegExp(`^/${local}`), fallbackDefaultLanguage),
       );
       const req = this.#request(newPath + qs, requestHeaders);
 
