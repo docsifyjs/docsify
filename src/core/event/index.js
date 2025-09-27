@@ -548,9 +548,11 @@ export function Events(Base) {
 
       // Set aria-expanded attribute
       ariaElms.forEach(toggleElm => {
+        const expanded = force ?? sidebarElm.classList.contains('show');
+        toggleElm.setAttribute('aria-expanded', expanded);
         toggleElm.setAttribute(
-          'aria-expanded',
-          force ?? sidebarElm.classList.contains('show'),
+          'aria-label',
+          expanded ? 'Hide primary navigation' : 'Show primary navigation',
         );
       });
 
