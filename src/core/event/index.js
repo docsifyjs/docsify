@@ -313,11 +313,13 @@ export function Events(Base) {
      * @void
      */
     onRender() {
-      const { name } = this.config;
       const currentPath = this.router.toURL(this.router.getCurrentPath());
       const currentSection = dom
         .find(`.sidebar a[href='${currentPath}']`)
         ?.getAttribute('title');
+      let { name } = this.config;
+
+      name = name ? name.replace(/<[^>]+>/g, '') : name;
 
       const currentTitle = name
         ? currentSection
