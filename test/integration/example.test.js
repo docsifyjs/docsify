@@ -134,4 +134,60 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     ).toBeTruthy();
     expect(await waitForText('#main', 'This is a custom route')).toBeTruthy();
   });
+
+  test('embed file code fragment renders', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Embed Test
+
+          [filename](_media/example1.js ':include :type=code :fragment=demo')
+          
+          [filename](_media/example2.js ':include :type=code :fragment=demo')
+        `,
+      },
+      routes: {
+        // Serve the example.js file so the embed fetch can retrieve it
+        '_media/example1.js': `
+            let myURL = 'https://api.example.com/data';
+            /// [demo]
+            const result = fetch(myURL)
+              .then(response => {
+                return response.json();
+              })
+              .then(myJson => {
+                console.log(JSON.stringify(myJson));
+              });
+            /// [demo]
+
+            result.then(console.log).catch(console.error);
+        `,
+        '_media/example2.js': `
+            let myURL = 'https://api.example.com/data';
+            ### [demo]
+            const result = fetch(myURL)
+              .then(response => {
+                return response.json();
+              })
+              .then(myJson => {
+                console.log(JSON.stringify(myJson));
+              });
+            ### [demo]
+
+            result.then(console.log).catch(console.error);
+        `,
+      },
+    });
+
+    // Wait for the embedded fragment to be fetched and rendered into #main
+    expect(
+      await waitForText('#main', 'console.log(JSON.stringify(myJson));'),
+    ).toBeTruthy();
+    // Ensure the URL outside the fragment is NOT included in the embedded code
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).not.toContain('https://api.example.com/data');
+    expect(mainText).not.toContain(
+      'result.then(console.log).catch(console.error);',
+    );
+  });
 });
