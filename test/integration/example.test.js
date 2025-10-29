@@ -142,12 +142,9 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
           # Embed Test
 
           [filename](_media/example1.js ':include :type=code :fragment=demo')
-          
-          [filename](_media/example2.js ':include :type=code :fragment=demo')
         `,
       },
       routes: {
-        // Serve the example.js file so the embed fetch can retrieve it
         '_media/example1.js': `
             let myURL = 'https://api.example.com/data';
             /// [demo]
@@ -159,21 +156,6 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
                 console.log(JSON.stringify(myJson));
               });
             /// [demo]
-
-            result.then(console.log).catch(console.error);
-        `,
-        '_media/example2.js': `
-            let myURL = 'https://api.example.com/data';
-            ### [demo]
-            const result = fetch(myURL)
-              .then(response => {
-                return response.json();
-              })
-              .then(myJson => {
-                console.log(JSON.stringify(myJson));
-              });
-            ### [demo]
-
             result.then(console.log).catch(console.error);
         `,
       },
@@ -183,11 +165,65 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     expect(
       await waitForText('#main', 'console.log(JSON.stringify(myJson));'),
     ).toBeTruthy();
-    // Ensure the URL outside the fragment is NOT included in the embedded code
+
     const mainText = document.querySelector('#main').textContent;
     expect(mainText).not.toContain('https://api.example.com/data');
     expect(mainText).not.toContain(
       'result.then(console.log).catch(console.error);',
     );
+  });
+
+  test('embed multiple file code fragments', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Embed Test
+
+          [filename](_media/example1.js ':include :type=code :fragment=demo')
+          
+          [filename](_media/example2.js ":include :type=code :fragment=something")
+          
+          # Text between
+          
+          [filename](_media/example3.js ':include :fragment=something_else_not_code')
+
+          # Text after
+        `,
+      },
+      routes: {
+        '_media/example1.js': `
+            let example1 = 1;
+            /// [demo]
+            example1 += 10;
+            /// [demo]
+            console.log(example1);`,
+        '_media/example2.js': `
+            let example1 = 1;
+            ### [something]
+            example2 += 10;
+            ### [something]
+            console.log(example2);`,
+        '_media/example3.js': `
+            let example3 = 1;
+            ### [something_else_not_code]
+            example3 += 10;
+            /// [something_else_not_code]
+            console.log(example3);`,
+      },
+    });
+
+    expect(await waitForText('#main', 'example1 += 10;')).toBeTruthy();
+    expect(await waitForText('#main', 'example2 += 10;')).toBeTruthy();
+    expect(await waitForText('#main', 'example3 += 10;')).toBeTruthy();
+
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).toContain('Text between');
+    expect(mainText).toContain('Text after');
+    expect(mainText).not.toContain('let example1 = 1;');
+    expect(mainText).not.toContain('let example2 = 1;');
+    expect(mainText).not.toContain('let example3 = 1;');
+    expect(mainText).not.toContain('console.log(example1);');
+    expect(mainText).not.toContain('console.log(example2);');
+    expect(mainText).not.toContain('console.log(example3);');
   });
 });
