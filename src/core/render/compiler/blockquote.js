@@ -20,17 +20,10 @@ export const blockquoteCompiler = ({ renderer }) =>
         token[key] = token[key].replace(calloutMark, '').trimStart();
       });
 
-      // Remove empty paragraph
-      if (tokens.length > 1 && !token.raw.trim()) {
-        tokens = tokens.slice(1);
-      }
-
       openTag = `<div class="callout ${calloutType}">`;
       closeTag = `</div>`;
     }
 
     const body = this.parser.parse(tokens);
-    const html = `${openTag}${body}${closeTag}`;
-
-    return html;
+    return `${openTag}${body}${closeTag}`;
   });
