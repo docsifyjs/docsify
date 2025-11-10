@@ -19,7 +19,7 @@ function extractFragmentContent(text, fragment, fullLine) {
   if (!fragment) {
     return text;
   }
-  let fragmentRegex = `###|\\/\\/\\/)\\s*\\[${fragment}\\]`;
+  let fragmentRegex = `###|\\/\\/\\/\\s*\\[${fragment}\\]`;
   const contentRegex = `[\\s\\S]*?`;
   if (fullLine) {
     // Match full line for fragment
