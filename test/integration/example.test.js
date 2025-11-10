@@ -173,6 +173,48 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     );
   });
 
+  test('embed file full line fragment identifier', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Embed Test
+
+          [filename](_media/example1.html ':include :type=code :fragment=demo :fragmentFullLine')
+        `,
+      },
+      routes: {
+        '_media/example1.html': `
+            <script>
+            let myURL = 'https://api.example.com/data';
+            /// [demo] Full line fragment identifier (all of these words here should not be included in fragment)
+            const result = fetch(myURL)
+              .then(response => {
+                return response.json();
+              })
+              .then(myJson => {
+                console.log(JSON.stringify(myJson));
+              });
+            <!-- /// [demo] -->
+            result.then(console.log).catch(console.error);
+            </script>
+        `,
+      },
+    });
+
+    // Wait for the embedded fragment to be fetched and rendered into #main
+    expect(
+      await waitForText('#main', 'console.log(JSON.stringify(myJson));'),
+    ).toBeTruthy();
+
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).not.toContain('https://api.example.com/data');
+    expect(mainText).not.toContain('Full line fragment identifier');
+    expect(mainText).not.toContain('-->');
+    expect(mainText).not.toContain(
+      'result.then(console.log).catch(console.error);',
+    );
+  });
+
   test('embed multiple file code fragments', async () => {
     await docsifyInit({
       markdown: {

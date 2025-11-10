@@ -18,12 +18,12 @@ export const compileMedia = {
   },
   video(url, title) {
     return {
-      html: `<video src="${url}" ${title || 'controls'}>Not Support</video>`,
+      html: `<video src="${url}" ${title || 'controls'}>Not Supported</video>`,
     };
   },
   audio(url, title) {
     return {
-      html: `<audio src="${url}" ${title || 'controls'}>Not Support</audio>`,
+      html: `<audio src="${url}" ${title || 'controls'}>Not Supported</audio>`,
     };
   },
   code(url, title) {
