@@ -16,11 +16,17 @@ export const blockquoteCompiler = ({ renderer }) =>
         const calloutType = calloutData[2].toLowerCase(); // "tip"
 
         // Remove the callout mark from the paragraph raw text
-        firstParagraph.raw = firstParagraph.raw.replace(calloutMark, '').trimStart();
+        firstParagraph.raw = firstParagraph.raw
+          .replace(calloutMark, '')
+          .trimStart();
         if (firstParagraph.tokens && firstParagraph.tokens.length > 0) {
           firstParagraph.tokens.forEach(t => {
-            if (t.raw) {t.raw = t.raw.replace(calloutMark, '').trimStart();}
-            if (t.text) {t.text = t.text.replace(calloutMark, '').trimStart();}
+            if (t.raw) {
+              t.raw = t.raw.replace(calloutMark, '').trimStart();
+            }
+            if (t.text) {
+              t.text = t.text.replace(calloutMark, '').trimStart();
+            }
           });
         }
 
