@@ -70,7 +70,7 @@ Anyone can file an expense. If the expense makes sense for the development of th
 
 ## Questions
 
-If you have any questions, create an [issue](issue) (protip: do a quick search first to see if someone else didn't ask the same question before!).
+If you have any questions, create an [issue](https://github.com/docsifyjs/docsify/issues) (protip: do a quick search first to see if someone else didn't ask the same question before!).
 You can also reach us at hello@docsify.opencollective.com.
 
 ## Credits
