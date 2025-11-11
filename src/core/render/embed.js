@@ -12,7 +12,7 @@ const cached = {};
  *
  * @param {string} text - The input text that may contain embedded fragments.
  * @param {string} fragment - The fragment identifier to search for.
- * @param {boolean} fullLine - The fragment identifier to search for.
+ * @param {boolean} fullLine - Boolean flag to enable full-line matching of fragment identifiers.
  * @returns {string} - The extracted and demented content, or an empty string if not found.
  */
 function extractFragmentContent(text, fragment, fullLine) {
