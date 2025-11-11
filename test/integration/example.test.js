@@ -228,7 +228,9 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
           # Text between
           
           [filename](_media/example3.js ':include :fragment=something_else_not_code')
-
+          
+          [filename](_media/example4.js ':include :fragment=demo')
+          
           # Text after
         `,
       },
@@ -251,6 +253,12 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
             example3 += 10;
             /// [something_else_not_code]
             console.log(example3);`,
+        '_media/example4.js': `
+            let example4 = 1;
+            ### No fragment here
+            example4 += 10;
+            /// No fragment here
+            console.log(example4);`,
       },
     });
 
@@ -267,5 +275,8 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     expect(mainText).not.toContain('console.log(example1);');
     expect(mainText).not.toContain('console.log(example2);');
     expect(mainText).not.toContain('console.log(example3);');
+    expect(mainText).not.toContain('console.log(example4);');
+    expect(mainText).not.toContain('example4 += 10;');
+    expect(mainText).not.toContain('No fragment here');
   });
 });
