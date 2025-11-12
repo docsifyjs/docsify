@@ -22,10 +22,10 @@ export const blockquoteCompiler = ({ renderer }) =>
         if (firstParagraph.tokens && firstParagraph.tokens.length > 0) {
           firstParagraph.tokens.forEach(t => {
             if (t.raw) {
-              t.raw = t.raw.replace(calloutMark, '').trimStart();
+              t.raw = t.raw.replace(calloutMark, '');
             }
             if (t.text) {
-              t.text = t.text.replace(calloutMark, '').trimStart();
+              t.text = t.text.replace(calloutMark, '');
             }
           });
         }
