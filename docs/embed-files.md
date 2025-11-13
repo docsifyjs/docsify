@@ -65,7 +65,7 @@ Sometimes you don't want to embed a whole file. Maybe because you need just a fe
 ```
 
 In your code file you need to surround the fragment between `/// [demo]` lines (before and after the fragment).
-Alternatively you can use `### [demo]`. If you want the full line containing the fragment identifier you can add the option `:fragmentFullLine`.
+Alternatively you can use `### [demo]`. If you want the full line containing the identifier to be omitted in the fragment output you can add the option `:fragmentFullLine`.
 
 Example:
 
