@@ -213,3 +213,30 @@ You can deploy **Docsify** as a Static Site on [Kinsta](https://kinsta.com/stati
    - Publish directory: `docs`
 
 6. Click the **Create site**.
+
+## DeployHQ
+
+[DeployHQ](https://www.deployhq.com/) is a deployment automation platform that deploys your code to SSH/SFTP servers, FTP servers, cloud storage (Amazon S3, Cloudflare R2), and modern hosting platforms (Netlify, Heroku).
+
+> [!IMPORTANT] DeployHQ does not host your site. It automates deploying your Docsify files to your chosen hosting provider or server.
+
+To deploy your Docsify site using DeployHQ:
+
+1. Sign up for a [DeployHQ account](https://www.deployhq.com/) and verify your email.
+
+2. Create your first project by clicking on **Projects** and **New Project**. Connect your Git repository (GitHub, GitLab, Bitbucket, or any private repository). Authorize DeployHQ to access your repository.
+
+3. Add a server and enter your server details:
+
+   - Give your server a name
+   - Select your protocol (SSH/SFTP, FTP, or cloud platform)
+   - Enter your server hostname, username, and password/SSH key
+   - Set **Deployment Path** to your web root (e.g., `public_html/`)
+
+4. Since Docsify doesn't require a build step, you can deploy your files directly. If your Docsify files are in a `docs/` folder, configure the **Source Path** in your server settings to `docs/`.
+
+5. Click **Deploy Project**, then select your server and click **Deploy** to start your first deployment.
+
+Your Docsify site will be deployed to your server. You can enable automatic deployments to deploy on every Git push, or schedule deployments for specific times.
+
+For more information on advanced deployment features, see [DeployHQ's documentation](https://www.deployhq.com/support).
