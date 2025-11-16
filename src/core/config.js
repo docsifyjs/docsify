@@ -1,4 +1,4 @@
-import stripIndent from 'strip-indent';
+import { stripIndent } from 'common-tags';
 import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;
@@ -57,12 +57,13 @@ const currentScript = document.currentScript;
 export default function (vm, config = {}) {
   if (window.$docsify) {
     console.warn(
-      'DEPRECATION: The global $docsify config variable is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart'
+      'DEPRECATION: The global $docsify config variable is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart',
     );
   }
 
   config = Object.assign(
     {
+      alias: {},
       auto2top: false,
       autoHeader: false,
       basePath: '',
@@ -74,12 +75,16 @@ export default function (vm, config = {}) {
       ext: '.md',
       externalLinkRel: 'noopener',
       externalLinkTarget: '_blank',
+      fallbackLanguages: null,
+      fallbackDefaultLanguage: '',
       formatUpdated: '',
-      ga: '',
+      hideSidebar: false,
       homepage: 'README.md',
       keyBindings: {},
       loadNavbar: null,
       loadSidebar: null,
+      logo: false,
+      markdown: null,
       maxLevel: 6,
       mergeNavbar: false,
       name: '',
@@ -88,11 +93,14 @@ export default function (vm, config = {}) {
       noCompileLinks: [],
       noEmoji: false,
       notFoundPage: false,
+      onlyCover: false,
       plugins: [],
       relativePath: false,
       repo: '',
-      routes: {},
+      requestHeaders: {},
       routerMode: 'hash',
+      routes: {},
+      skipLink: 'Skip to main content',
       subMaxLevel: 0,
       topMargin: 0,
 
@@ -103,17 +111,21 @@ export default function (vm, config = {}) {
         return this.__themeColor;
       },
       set themeColor(value) {
-        this.__themeColor = value;
-        console.warn(
-          stripIndent(/* html */ `
-            $docsify.themeColor is deprecated. Use a --theme-color property in your style sheet. Example:
-            <style>
-              :root {
-                --theme-color: deeppink;
-              }
-            </style>
-          `).trim()
-        );
+        if (value) {
+          this.__themeColor = value;
+
+          // eslint-disable-next-line no-console
+          console.warn(
+            stripIndent(`
+              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
+              <style>
+                :root {
+                  --theme-color: deeppink;
+                }
+              </style>
+            `).trim(),
+          );
+        }
       },
     },
 
@@ -121,7 +133,7 @@ export default function (vm, config = {}) {
       ? window.$docsify(vm)
       : window.$docsify,
 
-    config
+    config,
   );
 
   // Merge default and user-specified key bindings
@@ -132,24 +144,23 @@ export default function (vm, config = {}) {
         toggleSidebar: {
           bindings: ['\\'],
           callback(e) {
-            const toggleElm = document.querySelector('.sidebar-toggle');
+            const toggleElm = document.querySelector('.sidebar-toggle-button');
 
             if (toggleElm) {
               toggleElm.click();
-              toggleElm.focus();
             }
           },
         },
       },
       // User-specified
-      config.keyBindings
+      config.keyBindings,
     );
   }
 
   const script =
     currentScript ||
     Array.from(document.getElementsByTagName('script')).filter(n =>
-      /docsify\./.test(n.src)
+      /docsify\./.test(n.src),
     )[0];
 
   if (script) {
@@ -160,7 +171,7 @@ export default function (vm, config = {}) {
         console.warn(
           `DEPRECATION: data-* attributes on the docsify global script (f.e. ${
             'data-' + hyphenate(prop)
-          }) are deprecated.`
+          }) are deprecated.`,
         );
         config[prop] = val === '' ? true : val;
       }

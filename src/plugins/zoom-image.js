@@ -6,8 +6,12 @@ function install(hook) {
   hook.doneEach(_ => {
     let elms = Array.from(
       document.querySelectorAll(
-        '.markdown-section img:not(.emoji):not([data-no-zoom])'
-      )
+        '.markdown-section img:not(.emoji):not([data-no-zoom])',
+      ),
+    );
+
+    Docsify.dom.style(
+      `.medium-zoom-image--opened,.medium-zoom-overlay{z-index:999}`,
     );
 
     elms = elms.filter(elm => !elm.matches('a img'));
@@ -16,7 +20,7 @@ function install(hook) {
       zoom.detach();
     }
 
-    zoom = mediumZoom(elms);
+    zoom = mediumZoom(elms, { background: 'var(--color-bg)' });
   });
 }
 

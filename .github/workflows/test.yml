@@ -1,6 +1,11 @@
 name: Build & Test
 
-on: [push]
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -9,9 +14,9 @@ jobs:
       matrix:
         node-version: ['lts/*']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -30,9 +35,9 @@ jobs:
         node-version: ['lts/*']
         os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -51,9 +56,9 @@ jobs:
       matrix:
         node-version: ['lts/*']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -66,7 +71,7 @@ jobs:
       - name: E2E Tests (Playwright)
         run: npm run test:e2e
       - name: Store artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: ${{ matrix.os }}-${{ matrix.node-version }}-artifacts

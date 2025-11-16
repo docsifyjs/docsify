@@ -1,9 +1,11 @@
-CHANGELOG.md
-HISTORY.md
-lib/
-themes/
-_playwright-*/
-emoji-data.*
+# Directories
+_playwright-*
+dist
+lib
 
-# for some reason this is needed in CI, although locally Prettier ignored dist/ already.
-dist/
+# Files
+_vars.css
+_vars-advanced.css
+CHANGELOG.md
+emoji-data.*
+HISTORY.md

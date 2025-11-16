@@ -1,0 +1,122 @@
+/* Nav Bar */
+/* ========================================================================== */
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1em;
+  position: absolute;
+  z-index: var(--z-app-nav);
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--navbar-height);
+  padding-inline: var(--content-margin-inline);
+  transition: left var(--duration-medium) ease;
+
+  &:has(~ .github-corner) {
+    padding-inline-end: calc(var(--navbar-height) + 1em);
+  }
+
+  body:where(:has(.sidebar.show)) & {
+    left: var(--sidebar-width);
+  }
+
+  a {
+    color: var(--navbar-link-color);
+    text-decoration-color: transparent;
+
+    &:hover {
+      translate: 0; /* HACK: Force Safari to render text-decoration */
+      text-decoration-color: var(--navbar-link-color-active);
+    }
+
+    .active & {
+      color: var(--navbar-link-color-active);
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  > ul {
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: 0 1em;
+  }
+
+  li {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+
+    /* Dropdown */
+    ul {
+      position: absolute;
+      z-index: 1;
+      top: -9999vh;
+      right: 50%;
+      translate: 50% 0;
+      overflow-y: auto;
+      max-height: calc(100vh - 61px);
+      padding: 1em;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      background: var(--color-bg);
+
+      li:last-child & {
+        right: calc(0px - var(--content-margin-inline) / 2);
+        translate: 0;
+      }
+    }
+
+    li {
+      display: block;
+      margin-block: var(--navbar-drop-link-spacing);
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+        margin: 0;
+
+        &:hover {
+          color: var(--navbar-link-color-active);
+        }
+      }
+    }
+
+    &:focus-within,
+    &:hover {
+      ul {
+        top: 100%;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  > :where(a, p),
+  > ul > li > :where(a, p) {
+    white-space: nowrap;
+  }
+}
+
+.app-nav-merged {
+  display: none;
+}

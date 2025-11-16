@@ -1,4 +1,4 @@
-# More pages
+# Adding pages
 
 If you need more pages, you can simply create more markdown files in your docsify directory. If you create a file named `guide.md`, then it is accessible via `/#/guide`.
 
@@ -25,9 +25,9 @@ docs/zh-cn/guide.md   => http://domain.com/#/zh-cn/guide
 
 ## Sidebar
 
-In order to have a sidebar, you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/master/docs/_sidebar.md) for an example):
+In order to have a sidebar, you can create your own `_sidebar.md` (see [this documentation's sidebar](https://github.com/docsifyjs/docsify/blob/main/docs/_sidebar.md) for an example):
 
-First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration.md#loadsidebar).
+First, you need to set `loadSidebar` to **true**. Details are available in the [configuration paragraph](configuration#loadsidebar).
 
 ```html
 <!-- index.html -->
@@ -37,7 +37,7 @@ First, you need to set `loadSidebar` to **true**. Details are available in the [
     loadSidebar: true,
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 Create the `_sidebar.md`:
@@ -46,12 +46,28 @@ Create the `_sidebar.md`:
 <!-- docs/_sidebar.md -->
 
 - [Home](/)
-- [Guide](guide.md)
+- [Page 1](page-1.md)
+```
+
+To create section headers:
+
+```markdown
+<!-- docs/_sidebar.md -->
+
+- Section Header 1
+
+  - [Home](/)
+  - [Page 1](page-1.md)
+
+- Section Header 2
+
+  - [Page 2](page-2.md)
+  - [Page 3](page-3.md)
 ```
 
 You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
-!> Docsify only looks for `_sidebar.md` in the current folder, and uses that, otherwise it falls back to the one configured using `window.$docsify.loadSidebar` config.
+> [!IMPORTANT] Docsify only looks for `_sidebar.md` in the current folder, and uses that, otherwise it falls back to the one configured using `window.$docsify.loadSidebar` config.
 
 Example file structure:
 
@@ -82,7 +98,7 @@ You can specify `alias` to avoid unnecessary fallback.
 </script>
 ```
 
-!> You can create a `README.md` file in a subdirectory to use it as the landing page for the route.
+> [!IMPORTANT] You can create a `README.md` file in a subdirectory to use it as the landing page for the route.
 
 ## Set Page Titles from Sidebar Selection
 
@@ -99,7 +115,7 @@ A page's `title` tag is generated from the _selected_ sidebar item name. For bet
 
 Once you've created `_sidebar.md`, the sidebar content is automatically generated based on the headers in the markdown files.
 
-A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [subMaxLevel configuration](configuration.md#submaxlevel).
+A custom sidebar can also automatically generate a table of contents by setting a `subMaxLevel`, compare [subMaxLevel configuration](configuration#submaxlevel).
 
 ```html
 <!-- index.html -->
@@ -110,7 +126,7 @@ A custom sidebar can also automatically generate a table of contents by setting 
     subMaxLevel: 2,
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ## Ignoring Subheaders

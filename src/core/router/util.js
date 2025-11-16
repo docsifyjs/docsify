@@ -33,11 +33,27 @@ export function stringifyQuery(obj, ignores = []) {
     qs.push(
       obj[key]
         ? `${encode(key)}=${encode(obj[key])}`.toLowerCase()
-        : encode(key)
+        : encode(key),
     );
   }
 
   return qs.length ? `?${qs.join('&')}` : '';
+}
+
+export function stripUrlExceptId(str) {
+  const [path, queryString] = str.split('?');
+  if (!queryString) {
+    return str;
+  }
+
+  const params = new URLSearchParams(queryString);
+  const id = params.get('id');
+
+  if (id !== null) {
+    return `${path}?id=${id}`;
+  }
+
+  return path;
 }
 
 export const isAbsolutePath = cached(path => {
@@ -63,7 +79,7 @@ export const cleanPath = cached(path => {
 
 export const resolvePath = cached(path => {
   const segments = path.replace(/^\//, '').split('/');
-  let resolved = [];
+  const resolved = [];
   for (const segment of segments) {
     if (segment === '..') {
       resolved.pop();

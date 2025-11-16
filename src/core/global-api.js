@@ -7,12 +7,14 @@ import { slugify } from './render/slugify.js';
 import { get } from './util/ajax.js';
 
 /**
- * @deprecated This will be removed in a major release. Import what you need
- * from using ES Modules as per the docs.
+ * @deprecated This is deprecated, kept for backwards compatibility. It will be
+ * Removed in a major release. Get everything from the DOCSIFY global when using
+ * the global build, but we highly recommend to import Docsify using standard
+ * import syntax.
  */
 export default function initGlobalAPI() {
   console.warn(
-    'DEPRECATION: The Docsify global script is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart'
+    'DEPRECATION: The Docsify global script is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart',
   );
 
   window.Docsify = {

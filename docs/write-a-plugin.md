@@ -230,7 +230,7 @@ window.$docsify = {
 
       hook.beforeEach(html => {
         const url =
-          'https://github.com/docsifyjs/docsify/blob/master/docs/' +
+          'https://github.com/docsifyjs/docsify/blob/main/docs/' +
           vm.route.file;
         const editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n';
 

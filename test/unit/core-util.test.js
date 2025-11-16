@@ -27,7 +27,7 @@ describe('core/util', () => {
 
     test('non external local url with more /', () => {
       const result = isExternal(
-        `//////////////////${location.host}/docsify/demo.md`
+        `//////////////////${location.host}/docsify/demo.md`,
       );
 
       expect(result).toBeFalsy();
@@ -54,7 +54,7 @@ describe('core/util', () => {
 
     test('external url with more /', () => {
       const result = isExternal(
-        '//////////////////example.github.io/docsify/demo.md'
+        '//////////////////example.github.io/docsify/demo.md',
       );
 
       expect(result).toBeTruthy();

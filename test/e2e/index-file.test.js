@@ -12,7 +12,7 @@ test.describe('Index file hosting', () => {
   test('should serve from index file', async ({ page }) => {
     await docsifyInit(sharedOptions);
     await expect(page.locator('#main')).toContainText(
-      'A magical documentation site generator'
+      'A magical documentation site generator',
     );
     expect(page.url()).toMatch(/index\.html#\/$/);
   });

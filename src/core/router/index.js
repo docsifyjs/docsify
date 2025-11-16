@@ -43,17 +43,16 @@ export function Router(Base) {
       this.updateRender();
       lastRoute = this.route;
 
-      // eslint-disable-next-line no-unused-vars
       router.onchange(params => {
         this.updateRender();
         this._updateRender();
 
         if (lastRoute.path === this.route.path) {
-          this.$resetEvents(params.source);
+          this.onNavigate(params.source);
           return;
         }
 
-        this.$fetch(noop, this.$resetEvents.bind(this, params.source));
+        this.$fetch(noop, this.onNavigate.bind(this, params.source));
         lastRoute = this.route;
       });
     }

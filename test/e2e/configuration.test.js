@@ -159,11 +159,11 @@ test.describe('keyBindings', () => {
 
     await docsifyInit(docsifyInitConfig);
 
-    const bodyElm = page.locator('body');
+    const sidebarElm = page.locator('.sidebar');
 
-    await expect(bodyElm).not.toHaveClass(/close/);
+    await expect(sidebarElm).toHaveClass(/show/);
     await page.keyboard.press('\\');
-    await expect(bodyElm).toHaveClass(/close/);
+    await expect(sidebarElm).not.toHaveClass(/show/);
   });
 
   test('handles custom binding', async ({ page }) => {

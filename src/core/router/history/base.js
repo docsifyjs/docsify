@@ -1,10 +1,10 @@
 import {
+  cleanPath,
   getPath,
   isAbsolutePath,
-  stringifyQuery,
-  cleanPath,
   replaceSlug,
   resolvePath,
+  stringifyQuery,
 } from '../util.js';
 import { noop } from '../../util/core.js';
 
@@ -26,17 +26,25 @@ export class History {
       ? this.#getAlias(
           path.replace(this.#cached[match], alias[match]),
           alias,
-          path
+          path,
         )
       : path;
   }
 
   #getFileName(path, ext) {
-    return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-      ? path
-      : /\/$/g.test(path)
-      ? `${path}README${ext}`
-      : `${path}${ext}`;
+    const [basePath, query] = path.split('?');
+
+    const hasValidExt = new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`).test(
+      basePath,
+    );
+
+    const updatedPath = hasValidExt
+      ? basePath
+      : /\/$/g.test(basePath)
+        ? `${basePath}README${ext}`
+        : `${basePath}${ext}`;
+
+    return query ? `${updatedPath}?${query}` : updatedPath;
   }
 
   getBasePath() {
@@ -88,7 +96,7 @@ export class History {
     if (this.config.relativePath && path.indexOf('/') !== 0) {
       const currentDir = currentRoute.substring(
         0,
-        currentRoute.lastIndexOf('/') + 1
+        currentRoute.lastIndexOf('/') + 1,
       );
       return cleanPath(resolvePath(currentDir + path));
     }

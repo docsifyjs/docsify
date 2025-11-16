@@ -21,11 +21,11 @@ test.describe('Search Plugin Tests', () => {
           This is a custom route.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -57,18 +57,18 @@ test.describe('Search Plugin Tests', () => {
 
             ## GitHub Pages ignore1 <!-- {docsify-ignore} -->
 
-            There're three places to populate your docs for your Github repository1.
+            There're three places to populate your docs for your GitHub repository1.
 
             ## GitHub Pages ignore2 {docsify-ignore}
 
-            There're three places to populate your docs for your Github repository2.
+            There're three places to populate your docs for your GitHub repository2.
           `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -99,11 +99,11 @@ test.describe('Search Plugin Tests', () => {
           This is a custom route.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
     const resultElm = page.locator('.matching-post');
 
     await docsifyInit(docsifyInitConfig);
@@ -125,11 +125,11 @@ test.describe('Search Plugin Tests', () => {
           docsify genera su sitio web de documentación sobre la marcha. A diferencia de GitBook, no genera archivos estáticos html. En cambio, carga y analiza de forma inteligente sus archivos de Markdown y los muestra como sitio web. Todo lo que necesita hacer es crear un index.html para comenzar y desplegarlo en GitHub Pages.
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -159,11 +159,11 @@ test.describe('Search Plugin Tests', () => {
           hello, this is a changelog
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -186,11 +186,11 @@ test.describe('Search Plugin Tests', () => {
           ---
         `,
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type=search]');
-    const resultsHeadingElm = page.locator('.results-panel h2');
+    const resultsHeadingElm = page.locator('.results-panel .title');
 
     await docsifyInit(docsifyInitConfig);
 
@@ -200,7 +200,7 @@ test.describe('Search Plugin Tests', () => {
 
   test('handles default focusSearch binding', async ({ page }) => {
     const docsifyInitConfig = {
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type="search"]');
@@ -219,7 +219,7 @@ test.describe('Search Plugin Tests', () => {
           keyBindings: ['z'],
         },
       },
-      scriptURLs: ['/lib/plugins/search.min.js'],
+      scriptURLs: ['/dist/plugins/search.js'],
     };
 
     const searchFieldElm = page.locator('input[type="search"]');
@@ -231,5 +231,106 @@ test.describe('Search Plugin Tests', () => {
     await expect(searchFieldElm).not.toBeFocused();
     await page.keyboard.press('z');
     await expect(searchFieldElm).toBeFocused();
+  });
+  test('search result should remove markdown code block', async ({ page }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+# Hello World
+
+searchHere
+\`\`\`js
+console.log('Hello World');
+\`\`\`
+        `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .content');
+
+    await docsifyInit(docsifyInitConfig);
+    await searchFieldElm.fill('searchHere');
+    // there is a newline after searchHere and the markdown part ```js ``` it should be removed
+    expect(await resultsHeadingElm.textContent()).toContain(
+      "...searchHere\nconsole.log('Hello World');...",
+    );
+  });
+
+  test('search result should remove file markdown and keep href attribution for files', async ({
+    page,
+  }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+# Hello World
+![filename](_media/example.js ':include :type=code :fragment=demo')
+        `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .content');
+
+    await docsifyInit(docsifyInitConfig);
+    await searchFieldElm.fill('filename');
+    expect(await resultsHeadingElm.textContent()).toContain(
+      '...filename _media/example.js :include :type=code :fragment=demo...',
+    );
+  });
+
+  test('search result should remove checkbox markdown and keep related values', async ({
+    page,
+  }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+# Hello World
+
+- [ ] Task 1
+- [x] SearchHere
+- [ ] Task 3
+          `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .content');
+
+    await docsifyInit(docsifyInitConfig);
+    await searchFieldElm.fill('SearchHere');
+    // remove the checkbox markdown and keep the related values
+    expect(await resultsHeadingElm.textContent()).toContain(
+      '...Task 1 SearchHere Task 3...',
+    );
+  });
+
+  test('search result should remove docsify self helper markdown and keep related values', async ({
+    page,
+  }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+# Hello World
+
+!> SearchHere to check it!
+
+          `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .content');
+
+    await docsifyInit(docsifyInitConfig);
+    await searchFieldElm.fill('SearchHere');
+    // remove the helper markdown and keep the related values
+    expect(await resultsHeadingElm.textContent()).toContain(
+      '...SearchHere to check it!...',
+    );
   });
 });

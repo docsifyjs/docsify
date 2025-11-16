@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
 import { getPath, isAbsolutePath } from '../router/util.js';
-import { isMobile, inBrowser } from '../util/env.js';
+import { isMobile } from '../util/env.js';
 import { isPrimitive } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
@@ -17,6 +16,14 @@ import { prerenderEmbed } from './embed.js';
 export function Render(Base) {
   return class Render extends Base {
     #vueGlobalData;
+
+    #addTextAsTitleAttribute(cssSelector) {
+      dom.findAll(cssSelector).forEach(elm => {
+        if (!elm.title && elm.innerText) {
+          elm.title = elm.innerText;
+        }
+      });
+    }
 
     #executeScript() {
       const script = dom
@@ -39,8 +46,8 @@ export function Render(Base) {
         typeof fn === 'function'
           ? fn(updated)
           : typeof fn === 'string'
-          ? tinydate(fn)(new Date(updated))
-          : updated;
+            ? tinydate(fn)(new Date(updated))
+            : updated;
 
       return html.replace(/{docsify-updated}/g, updated);
     }
@@ -75,10 +82,7 @@ export function Render(Base) {
         }
       }
 
-      this._renderTo(markdownElm, html);
-
-      // Render sidebar with the TOC
-      !docsifyConfig.loadSidebar && this._renderSidebar();
+      dom.setHTML(markdownElm, html);
 
       // Execute markdown <script>
       if (
@@ -93,7 +97,7 @@ export function Render(Base) {
         const vueGlobalOptions = docsifyConfig.vueGlobalOptions || {};
         const vueMountData = [];
         const vueComponentNames = Object.keys(
-          docsifyConfig.vueComponents || {}
+          docsifyConfig.vueComponents || {},
         );
 
         // Register global vueComponents
@@ -123,7 +127,7 @@ export function Render(Base) {
               dom.find(markdownElm, cssSelector),
               docsifyConfig.vueMounts[cssSelector],
             ])
-            .filter(([elm, vueConfig]) => elm)
+            .filter(([elm, vueConfig]) => elm),
         );
 
         // Template syntax, vueComponents, vueGlobalOptions ...
@@ -181,7 +185,7 @@ export function Render(Base) {
               }
 
               return [elm, vueConfig];
-            })
+            }),
         );
 
         // Not found mounts but import Vue resource
@@ -194,7 +198,7 @@ export function Render(Base) {
           const isVueAttr = 'data-isvue';
           const isSkipElm =
             // Is an invalid tag
-            mountElm.matches('pre, script') ||
+            mountElm.matches('pre, :not([v-template]):has(pre), script') ||
             // Is a mounted instance
             isMountedVue(mountElm) ||
             // Has mounted instance(s)
@@ -236,7 +240,7 @@ export function Render(Base) {
         el.setAttribute('href', nameLink);
       } else if (typeof nameLink === 'object') {
         const match = Object.keys(nameLink).filter(
-          key => path.indexOf(key) > -1
+          key => path.indexOf(key) > -1,
         )[0];
 
         el.setAttribute('href', nameLink[match]);
@@ -254,7 +258,7 @@ export function Render(Base) {
 
         if (skipLink?.constructor === Object) {
           const matchingPath = Object.keys(skipLink).find(path =>
-            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`)
+            vm.route.path.startsWith(path.startsWith('/') ? path : `/${path}`),
           );
           const matchingText = matchingPath && skipLink[matchingPath];
 
@@ -264,75 +268,104 @@ export function Render(Base) {
         if (el) {
           el.innerHTML = skipLinkText;
         } else {
-          const html = `<button id="skip-to-content">${skipLinkText}</button>`;
+          const html = `<button type="button" id="skip-to-content" class="primary">${skipLinkText}</button>`;
           dom.body.insertAdjacentHTML('afterbegin', html);
         }
-      }
-    }
-
-    _renderTo(el, content, replace) {
-      const node = dom.getNode(el);
-      if (node) {
-        node[replace ? 'outerHTML' : 'innerHTML'] = content;
       }
     }
 
     _renderSidebar(text) {
       const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
       const sidebarEl = dom.getNode('aside.sidebar');
+      const sidebarNavEl = dom.getNode('.sidebar-nav');
       const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
-        dom.body.classList.add('hidesidebar');
         sidebarEl?.remove(sidebarEl);
         sidebarToggleEl?.remove(sidebarToggleEl);
 
         return null;
       }
 
-      this._renderTo('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
-      sidebarToggleEl.setAttribute('aria-expanded', !isMobile);
+      dom.setHTML('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
 
-      const activeEl = this.__getAndActive(
-        this.router,
-        '.sidebar-nav',
-        true,
-        true
-      );
+      sidebarToggleEl.setAttribute('aria-expanded', !isMobile());
+
+      const activeElmHref = this.router.toURL(this.route.path);
+      const activeEl = dom.find(`.sidebar-nav a[href="${activeElmHref}"]`);
+
+      this.#addTextAsTitleAttribute('.sidebar-nav a');
 
       if (loadSidebar && activeEl) {
         activeEl.parentNode.innerHTML +=
           this.compiler.subSidebar(subMaxLevel) || '';
       } else {
-        // Reset toc
-        this.compiler.subSidebar();
+        this.compiler.resetToc();
       }
 
       // Bind event
       this._bindEventOnRendered(activeEl);
+
+      // Mark page links and groups
+      const pageLinks = dom.findAll(
+        sidebarNavEl,
+        'a:is(li > a, li > p > a):not(.section-link, [target="_blank"])',
+      );
+      const pageLinkGroups = dom
+        // NOTE: Using filter() method as a replacement for :has() selector. It
+        // would be preferable to use only 'li:not(:has(> a, > p > a))' selector
+        // but the :has() selector is not supported by our Jest test environment
+        // See: https://github.com/jsdom/jsdom/issues/3506#issuecomment-1769782333
+        .findAll(sidebarEl, 'li')
+        .filter(
+          elm =>
+            elm.querySelector(':scope > ul') &&
+            !elm.querySelectorAll(':scope > a, :scope > p > a').length,
+        );
+
+      pageLinks.forEach(elm => {
+        elm.classList.add('page-link');
+      });
+
+      pageLinkGroups.forEach(elm => {
+        elm.classList.add('group');
+        elm
+          .querySelector(':scope > p:not(:has(> *))')
+          ?.classList.add('group-title');
+      });
     }
 
     _bindEventOnRendered(activeEl) {
       const { autoHeader } = this.config;
 
-      this.__scrollActiveSidebar(this.router);
+      this.onRender();
 
       if (autoHeader && activeEl) {
         const main = dom.getNode('#main');
-        const firstNode = main.children[0];
-        if (firstNode && firstNode.tagName !== 'H1') {
-          const h1 = this.compiler.header(activeEl.innerText, 1);
-          const wrapper = dom.create('div', h1);
-          dom.before(main, wrapper.children[0]);
+        const hasH1 = main.querySelector('h1');
+
+        if (!hasH1) {
+          const h1HTML = this.compiler.header(activeEl.innerText, 1);
+          const h1Node = dom.create('div', h1HTML).firstElementChild;
+
+          if (h1Node) {
+            dom.before(main, h1Node);
+          }
         }
       }
     }
 
     _renderNav(text) {
-      text && this._renderTo('nav', this.compiler.compile(text));
-      if (this.config.loadNavbar) {
-        this.__getAndActive(this.router, 'nav');
+      if (!text) {
+        return;
       }
+
+      const html = this.compiler.compile(text);
+
+      ['.app-nav', '.app-nav-merged'].forEach(selector => {
+        dom.setHTML(selector, html);
+        this.#addTextAsTitleAttribute(`${selector} a`);
+      });
     }
 
     _renderMain(text, opt = {}, next) {
@@ -351,7 +384,7 @@ export function Render(Base) {
             html = this.#formatUpdated(
               html,
               opt.updatedAt,
-              this.config.formatUpdated
+              this.config.formatUpdated,
             );
           }
 
@@ -373,7 +406,7 @@ export function Render(Base) {
             tokens => {
               html = this.compiler.compile(tokens);
               callback();
-            }
+            },
           );
         }
       });
@@ -381,12 +414,15 @@ export function Render(Base) {
 
     _renderCover(text, coverOnly) {
       const el = dom.getNode('.cover');
+      const rootElm = document.documentElement;
+      const coverBg = getComputedStyle(rootElm).getPropertyValue('--cover-bg');
 
       dom.toggleClass(
         dom.getNode('main'),
         coverOnly ? 'add' : 'remove',
-        'hidden'
+        'hidden',
       );
+
       if (!text) {
         dom.toggleClass(el, 'remove', 'show');
         return;
@@ -396,31 +432,90 @@ export function Render(Base) {
 
       let html = this.coverIsHTML ? text : this.compiler.cover(text);
 
-      const m = html
-        .trim()
-        .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
+      if (!coverBg) {
+        const mdBgMatch = html
+          .trim()
+          .match(
+            '<p><img.*?data-origin="(.*?)".*?alt="(.*?)"[^>]*?>([^<]*?)</p>$',
+          );
 
-      if (m) {
-        if (m[2] === 'color') {
-          el.style.background = m[1] + (m[3] || '');
-        } else {
-          let path = m[1];
+        let mdCoverBg;
 
-          dom.toggleClass(el, 'add', 'has-mask');
-          if (!isAbsolutePath(m[1])) {
-            path = getPath(this.router.getBasePath(), m[1]);
+        if (mdBgMatch) {
+          const [bgMatch, bgValue, bgType] = mdBgMatch;
+
+          // Color
+          if (bgType === 'color') {
+            mdCoverBg = bgValue;
+          }
+          // Image
+          else {
+            const path = !isAbsolutePath(bgValue)
+              ? getPath(this.router.getBasePath(), bgValue)
+              : bgValue;
+
+            mdCoverBg = `center center / cover url(${path})`;
           }
 
-          el.style.backgroundImage = `url(${path})`;
-          el.style.backgroundSize = 'cover';
-          el.style.backgroundPosition = 'center center';
+          html = html.replace(bgMatch, '');
+        }
+        // Gradient background
+        else {
+          const degrees = Math.round((Math.random() * 120) / 2);
+
+          let hue1 = Math.round(Math.random() * 360);
+          let hue2 = Math.round(Math.random() * 360);
+
+          // Ensure hue1 and hue2 are at least 50 degrees apart
+          if (Math.abs(hue1 - hue2) < 50) {
+            const hueShift = Math.round(Math.random() * 25) + 25;
+
+            hue1 = Math.max(hue1, hue2) + hueShift;
+            hue2 = Math.min(hue1, hue2) - hueShift;
+          }
+
+          // OKLCH color
+          if (window?.CSS?.supports('color', 'oklch(0 0 0 / 1%)')) {
+            const l = 90; // Lightness
+            const c = 20; // Chroma
+
+            // prettier-ignore
+            mdCoverBg = `linear-gradient(
+              ${degrees}deg,
+              oklch(${l}% ${c}% ${hue1}) 0%,
+              oklch(${l}% ${c}% ${hue2}) 100%
+            )`.replace(/\s+/g, ' ');
+          }
+          // HSL color (Legacy)
+          else {
+            const s = 100; // Saturation
+            const l = 85; // Lightness
+            const o = 100; // Opacity
+
+            // prettier-ignore
+            mdCoverBg = `linear-gradient(
+              ${degrees}deg,
+              hsl(${hue1} ${s}% ${l}% / ${o}%) 0%,
+              hsl(${hue2} ${s}% ${l}% / ${o}%) 100%
+            )`.replace(/\s+/g, ' ');
+          }
         }
 
-        html = html.replace(m[0], '');
+        rootElm.style.setProperty('--cover-bg', mdCoverBg);
       }
 
-      this._renderTo('.cover-main', html);
-      this.__sticky();
+      dom.setHTML('.cover-main', html);
+
+      // Button styles
+      dom
+        .findAll('.cover-main > p:last-of-type > a:not([class])')
+        .forEach(elm => {
+          const buttonType = elm.matches(':first-child')
+            ? 'primary'
+            : 'secondary';
+
+          elm.classList.add('button', buttonType);
+        });
     }
 
     _updateRender() {
@@ -436,10 +531,7 @@ export function Render(Base) {
 
       // Init markdown compiler
       this.compiler = new Compiler(config, this.router);
-      if (inBrowser) {
-        /* eslint-disable-next-line camelcase */
-        window.__current_docsify_compiler__ = this.compiler;
-      }
+      window.__current_docsify_compiler__ = this.compiler;
 
       const id = config.el || '#app';
       const el = dom.find(id);
@@ -468,7 +560,7 @@ export function Render(Base) {
         html += tpl.main(config);
 
         // Render main app
-        this._renderTo(el, html, true);
+        dom.setHTML(el, html, true);
       } else {
         this.rendered = true;
       }
@@ -476,22 +568,25 @@ export function Render(Base) {
       // Add nav
       if (config.loadNavbar) {
         const navEl = dom.find('nav') || dom.create('nav');
-        const isMergedSidebar = config.mergeNavbar && isMobile;
+        const isMergedSidebar = config.mergeNavbar;
 
+        navEl.classList.add('app-nav');
         navEl.setAttribute('aria-label', 'secondary');
+        dom.body.prepend(navEl);
 
         if (isMergedSidebar) {
-          dom.find('.sidebar').prepend(navEl);
-        } else {
-          dom.body.prepend(navEl);
-          navEl.classList.add('app-nav');
-          navEl.classList.toggle('no-badge', !config.repo);
+          const mergedNavEl = dom.create('div');
+          const sidebarEl = dom.find('.sidebar');
+          const sidebarNavEl = dom.find('.sidebar-nav');
+
+          mergedNavEl?.classList.add('app-nav-merged');
+          sidebarEl?.insertBefore(mergedNavEl, sidebarNavEl);
         }
       }
 
       if (config.themeColor) {
         dom.$.head.appendChild(
-          dom.create('div', tpl.theme(config.themeColor)).firstElementChild
+          dom.create('div', tpl.theme(config.themeColor)).firstElementChild,
         );
       }
 

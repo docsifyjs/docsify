@@ -11,7 +11,6 @@ describe('Docsify', function () {
       expect(vm).toBeInstanceOf(Object);
       expect(vm.constructor.name).toBe('Docsify');
       expect(vm.$fetch).toBeInstanceOf(Function);
-      expect(vm.$resetEvents).toBeInstanceOf(Function);
       expect(vm.route).toBeInstanceOf(Object);
     });
 

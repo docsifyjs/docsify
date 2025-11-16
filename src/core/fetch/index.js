@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { getParentPath, stringifyQuery } from '../router/util.js';
 import { noop, isExternal } from '../util/core.js';
 import { get } from '../util/ajax.js';
@@ -22,7 +21,7 @@ export function Fetch(Base) {
       get(
         vm.router.getFile(path + file) + qs,
         false,
-        vm.config.requestHeaders
+        vm.config.requestHeaders,
       ).then(next, _error => this.#loadNested(path, qs, file, next, vm));
     }
 
@@ -67,23 +66,25 @@ export function Fetch(Base) {
 
     _loadSideAndNav(path, qs, loadSidebar, cb) {
       return () => {
-        if (!loadSidebar) {
-          return cb();
-        }
-
-        const fn = result => {
+        const renderSidebar = result => {
           this._renderSidebar(result);
           cb();
         };
 
-        // Load sidebar
-        this.#loadNested(path, qs, loadSidebar, fn, this, true);
+        if (!loadSidebar) {
+          // Although, we don't load sidebar from sidebar file, we still need call the render to auto generate sidebar from headings toc
+          renderSidebar();
+          return;
+        }
+
+        // Load sidebar from the sidebar file
+        this.#loadNested(path, qs, loadSidebar, renderSidebar, this, true);
       };
     }
 
     _fetch(cb = noop) {
       const { query } = this.route;
-      let { path } = this.route;
+      const { path } = this.route;
 
       // Prevent loading remote content via URL hash
       // Ex: https://foo.com/#//bar.com/file.md
@@ -107,7 +108,7 @@ export function Fetch(Base) {
           this._renderMain(
             text,
             opt,
-            this._loadSideAndNav(path, qs, loadSidebar, cb)
+            this._loadSideAndNav(path, qs, loadSidebar, cb),
           );
         };
 
@@ -125,7 +126,7 @@ export function Fetch(Base) {
             } else {
               this.#request(file + qs, requestHeaders).then(
                 contentFetched,
-                contentFailedToFetch
+                contentFailedToFetch,
               );
             }
           });
@@ -133,7 +134,7 @@ export function Fetch(Base) {
           // if the requested url is not local, just fetch the file
           this.#request(file + qs, requestHeaders).then(
             contentFetched,
-            contentFailedToFetch
+            contentFailedToFetch,
           );
         }
 
@@ -145,7 +146,7 @@ export function Fetch(Base) {
             loadNavbar,
             text => this._renderNav(text),
             this,
-            true
+            true,
           );
       }
     }
@@ -174,7 +175,7 @@ export function Fetch(Base) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
           get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-            text => this._renderCover(text, coverOnly)
+            text => this._renderCover(text, coverOnly),
           );
         } else {
           this._renderCover(null, coverOnly);
@@ -184,7 +185,7 @@ export function Fetch(Base) {
       }
     }
 
-    $fetch(cb = noop, $resetEvents = this.$resetEvents.bind(this)) {
+    $fetch(cb = noop, onNavigate = this.onNavigate.bind(this)) {
       const done = () => {
         this.callHook('doneEach');
         cb();
@@ -196,14 +197,19 @@ export function Fetch(Base) {
         done();
       } else {
         this._fetch(() => {
-          $resetEvents();
+          onNavigate();
           done();
         });
       }
     }
 
     _fetchFallbackPage(path, qs, cb = noop) {
-      const { requestHeaders, fallbackLanguages, loadSidebar } = this.config;
+      const {
+        requestHeaders,
+        fallbackLanguages,
+        fallbackDefaultLanguage,
+        loadSidebar,
+      } = this.config;
 
       if (!fallbackLanguages) {
         return false;
@@ -216,7 +222,7 @@ export function Fetch(Base) {
       }
 
       const newPath = this.router.getFile(
-        path.replace(new RegExp(`^/${local}`), '')
+        path.replace(new RegExp(`^/${local}`), fallbackDefaultLanguage),
       );
       const req = this.#request(newPath + qs, requestHeaders);
 
@@ -225,9 +231,9 @@ export function Fetch(Base) {
           this._renderMain(
             text,
             opt,
-            this._loadSideAndNav(path, qs, loadSidebar, cb)
+            this._loadSideAndNav(path, qs, loadSidebar, cb),
           ),
-        _error => this._fetch404(path, qs, cb)
+        _error => this._fetch404(path, qs, cb),
       );
 
       return true;
@@ -250,7 +256,7 @@ export function Fetch(Base) {
 
         this.#request(this.router.getFile(path404), requestHeaders).then(
           (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
-          _error => this._renderMain(null, {}, fnLoadSideAndNav)
+          _error => this._renderMain(null, {}, fnLoadSideAndNav),
         );
         return true;
       }
@@ -260,27 +266,7 @@ export function Fetch(Base) {
     }
 
     initFetch() {
-      const { loadSidebar } = this.config;
-
-      // Server-Side Rendering
-      if (this.rendered) {
-        const activeEl = this.__getAndActive(
-          this.router,
-          '.sidebar-nav',
-          true,
-          true
-        );
-        if (loadSidebar && activeEl) {
-          activeEl.parentNode.innerHTML += window.__SUB_SIDEBAR__;
-        }
-
-        this._bindEventOnRendered(activeEl);
-        this.$resetEvents();
-        this.callHook('doneEach');
-        this.callHook('ready');
-      } else {
-        this.$fetch(_ => this.callHook('ready'));
-      }
+      this.$fetch(_ => this.callHook('ready'));
     }
   };
 }

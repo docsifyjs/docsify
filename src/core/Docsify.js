@@ -20,10 +20,8 @@ export { get } from './util/ajax.js';
 /** @typedef {new (...args: any[]) => any} Constructor */
 /** @typedef {import('./config.js').DocsifyConfig} DocsifyConfig */
 
-// eslint-disable-next-line new-cap
 export class Docsify extends Fetch(
-  // eslint-disable-next-line new-cap
-  Events(Render(VirtualRoutes(Router(Lifecycle(Object)))))
+  Events(Render(VirtualRoutes(Router(Lifecycle(Object))))),
 ) {
   /** @type {DocsifyConfig} */
   config;
@@ -51,6 +49,8 @@ export class Docsify extends Fetch(
       } catch (err) {
         if (this.config.catchPluginErrors) {
           const errTitle = 'Docsify plugin error';
+
+          // eslint-disable-next-line no-console
           console.error(errTitle, err);
         } else {
           throw err;

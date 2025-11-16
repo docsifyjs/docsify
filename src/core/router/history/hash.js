@@ -47,6 +47,15 @@ export class HashHistory extends History {
 
       if (el && el.tagName === 'A' && !isExternal(el.href)) {
         navigating = true;
+
+        // Do not compare hash containing these classes.
+        if (['app-name-link', 'page-link'].includes(el.className)) {
+          return;
+        }
+
+        if (el.hash === location.hash) {
+          cb({ event: e, source: 'navigate' });
+        }
       }
     });
 
@@ -71,7 +80,7 @@ export class HashHistory extends History {
 
   /**
    * Parse the url
-   * @param {string} [path=location.herf] URL to be parsed
+   * @param {string} [path=location.href] URL to be parsed
    * @return {object} { path, query }
    */
   parse(path = location.href) {

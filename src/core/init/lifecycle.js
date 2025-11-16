@@ -47,6 +47,7 @@ export function Lifecycle(Base) {
               });
             } catch (err) {
               if (catchPluginErrors) {
+                // eslint-disable-next-line no-console
                 console.error(errTitle, err);
               } else {
                 throw err;
@@ -62,6 +63,7 @@ export function Lifecycle(Base) {
               step(index + 1);
             } catch (err) {
               if (catchPluginErrors) {
+                // eslint-disable-next-line no-console
                 console.error(errTitle, err);
               } else {
                 throw err;

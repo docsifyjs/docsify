@@ -12,7 +12,7 @@ test.describe('Security - Cross Site Scripting (XSS)', () => {
   };
   const slashStrings = ['//', '///'];
 
-  for (let slashString of slashStrings) {
+  for (const slashString of slashStrings) {
     const hash = `#${slashString}domain.com/file.md`;
 
     test(`should not load remote content from hash (${hash})`, async ({

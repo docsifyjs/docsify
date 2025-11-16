@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 // Production (CDN URLs, watch disabled)
 export const prodConfig = {
+  ghostMode: false,
   hostname: '127.0.0.1',
   notify: false,
   open: false,
@@ -21,14 +22,16 @@ export const prodConfig = {
 // Development (local URLs, watch enabled)
 export const devConfig = {
   ...prodConfig,
-  files: ['CHANGELOG.md', 'docs/**/*', 'lib/**/*'],
+  files: ['CHANGELOG.md', 'docs/**/*', 'dist/**/*'],
   port: 3000,
   rewriteRules,
+  reloadDebounce: 1000,
+  reloadOnRestart: true,
   server: {
     ...prodConfig.server,
     routes: {
       '/changelog.md': path.resolve(__dirname, 'CHANGELOG.md'),
-      '/lib': path.resolve(__dirname, 'lib'),
+      '/dist': path.resolve(__dirname, 'dist'),
       '/node_modules': path.resolve(__dirname, 'node_modules'), // Required for automated Vue tests
     },
   },
@@ -47,7 +50,7 @@ export const testConfig = {
         route: '/_blank.html',
         handle(req, res, next) {
           res.setHeader('Content-Type', 'text/html');
-          res.end('');
+          res.end('<!DOCTYPE html><html><body></body></html>');
           next();
         },
       },

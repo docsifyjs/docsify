@@ -51,16 +51,15 @@ function collect() {
 
   // usage: https://developers.google.com/analytics/devguides/collection/gtagjs/pages
   window.gtag('event', 'page_view', {
-    /* eslint-disable camelcase */
     page_title: document.title,
     page_location: location.href,
     page_path: location.pathname,
-    /* eslint-disable camelcase */
   });
 }
 
 const install = function (hook) {
   if (!$docsify.gtag) {
+    // eslint-disable-next-line no-console
     console.error('[Docsify] gtag is required.');
     return;
   }

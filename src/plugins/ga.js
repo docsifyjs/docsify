@@ -29,6 +29,7 @@ function collect() {
 
 const install = function (hook) {
   if (!$docsify.ga) {
+    // eslint-disable-next-line no-console
     console.error('[Docsify] ga is required.');
     return;
   }

@@ -26,12 +26,21 @@ export function getAndRemoveConfig(str = '') {
       .replace(/^('|")/, '')
       .replace(/('|")$/, '')
       .replace(/(?:^|\s):([\w-]+:?)=?([\w-%]+)?/g, (m, key, value) => {
-        if (key.indexOf(':') === -1) {
-          config[key] = (value && value.replace(/&quot;/g, '')) || true;
-          return '';
+        if (key.indexOf(':') !== -1) {
+          return m;
         }
 
-        return m;
+        value = (value && value.replace(/&quot;/g, '')) || true;
+
+        if (value !== true && config[key] !== undefined) {
+          if (!Array.isArray(config[key]) && value !== config[key]) {
+            config[key] = [config[key]];
+          }
+          config[key].includes(value) || config[key].push(value);
+        } else {
+          config[key] = value;
+        }
+        return '';
       })
       .trim();
   }
@@ -55,7 +64,7 @@ export function removeAtag(str = '') {
  *
  * @return {{content: string, ignoreAllSubs: boolean, ignoreSubHeading: boolean}} The string after delete the docsifyIgnore configs, and whether to ignore some or all.
  */
-export function getAndRemoveDocisfyIgnoreConfig(content = '') {
+export function getAndRemoveDocsifyIgnoreConfig(content = '') {
   let ignoreAllSubs, ignoreSubHeading;
   if (/<!-- {docsify-ignore} -->/g.test(content)) {
     content = content.replace('<!-- {docsify-ignore} -->', '');

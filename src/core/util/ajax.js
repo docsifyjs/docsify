@@ -1,5 +1,5 @@
 // @ts-check
-/* eslint-disable no-unused-vars */
+
 import progressbar from '../render/progressbar.js';
 import { noop } from './core.js';
 
@@ -53,7 +53,7 @@ export function get(url, hasBar = false, headers = {}) {
             progressbar({
               step: Math.floor(Math.random() * 5 + 1),
             }),
-          500
+          500,
         );
 
         xhr.addEventListener('progress', progressbar);
