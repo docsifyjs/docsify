@@ -8,7 +8,9 @@ import { noop } from '../util/core.js';
  */
 export function Lifecycle(Base) {
   return class Lifecycle extends Base {
+    /** @type {Record<string, Function[]>} */
     _hooks = {};
+    /** @type {Record<string, Function>} */
     _lifecycle = {};
 
     initLifecycle() {
@@ -21,16 +23,25 @@ export function Lifecycle(Base) {
         'ready',
       ];
 
-      hooks.forEach(hook => {
+      hooks.forEach((/** @type {string} */ hook) => {
+        /** @type {Function[]} */
         const arr = (this._hooks[hook] = []);
-        this._lifecycle[hook] = fn => arr.push(fn);
+        this._lifecycle[hook] = (/** @type {Function} */ fn) => arr.push(fn);
       });
     }
 
+    /**
+     * @param {string} hookName
+     * @param {any} [data]
+     * @param {Function} [next]
+     */
     callHook(hookName, data, next = noop) {
       const queue = this._hooks[hookName];
       const catchPluginErrors = this.config.catchPluginErrors;
 
+      /**
+       * @param {number} index
+       */
       const step = function (index) {
         const hookFn = queue[index];
 
@@ -41,10 +52,13 @@ export function Lifecycle(Base) {
 
           if (hookFn.length === 2) {
             try {
-              hookFn(data, result => {
-                data = result;
-                step(index + 1);
-              });
+              hookFn(
+                data,
+                /** @param {any} result */ result => {
+                  data = result;
+                  step(index + 1);
+                },
+              );
             } catch (err) {
               if (catchPluginErrors) {
                 // eslint-disable-next-line no-console

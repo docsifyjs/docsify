@@ -1,4 +1,4 @@
-import Prism from 'prismjs';
+import * as Prism from 'prismjs';
 // See https://github.com/PrismJS/prism/pull/1367
 import 'prismjs/components/prism-markup-templating.js';
 import checkLangDependenciesAllLoaded from '../../util/prism.js';

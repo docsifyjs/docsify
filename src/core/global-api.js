@@ -1,4 +1,4 @@
-import prism from 'prismjs';
+import * as prism from 'prismjs';
 import { marked } from 'marked';
 import * as util from './util/index.js';
 import * as dom from './util/dom.js';

@@ -10,6 +10,14 @@ import { get } from '../util/ajax.js';
  */
 export function Fetch(Base) {
   return class Fetch extends Base {
+    /**
+     * @param {any} path
+     * @param {any} qs
+     * @param {any} file
+     * @param {any} next
+     * @param {any} vm
+     * @param {any} [first]
+     */
     #loadNested(path, qs, file, next, vm, first) {
       path = first ? path : path.replace(/\/$/, '');
       path = getParentPath(path);
@@ -25,16 +33,25 @@ export function Fetch(Base) {
       ).then(next, _error => this.#loadNested(path, qs, file, next, vm));
     }
 
+    /** @type {any} */
     #last;
 
     #abort = () => this.#last && this.#last.abort && this.#last.abort();
 
+    /**
+     * @param {any} url
+     * @param {any} requestHeaders
+     */
     #request = (url, requestHeaders) => {
       this.#abort();
       this.#last = get(url, true, requestHeaders);
       return this.#last;
     };
 
+    /**
+     * @param {any} path
+     * @param {any} config
+     */
     #get404Path = (path, config) => {
       const { notFoundPage, ext } = config;
       const defaultPath = '_404' + (ext || '.md');
@@ -64,8 +81,17 @@ export function Fetch(Base) {
       return path404;
     };
 
+    /**
+     * @param {any} path
+     * @param {any} qs
+     * @param {any} loadSidebar
+     * @param {any} cb
+     */
     _loadSideAndNav(path, qs, loadSidebar, cb) {
       return () => {
+        /**
+         * @param {any} result
+         */
         const renderSidebar = result => {
           this._renderSidebar(result);
           cb();
@@ -73,7 +99,7 @@ export function Fetch(Base) {
 
         if (!loadSidebar) {
           // Although, we don't load sidebar from sidebar file, we still need call the render to auto generate sidebar from headings toc
-          renderSidebar();
+          renderSidebar(null);
           return;
         }
 
@@ -103,6 +129,11 @@ export function Fetch(Base) {
         this.isHTML = /\.html$/g.test(file);
 
         // create a handler that should be called if content was fetched successfully
+        /**
+         * @param {any} text
+         * @param {any} [opt]
+         * @param {any} [response]
+         */
         const contentFetched = (text, opt, response) => {
           this.route.response = response;
           this._renderMain(
@@ -113,6 +144,10 @@ export function Fetch(Base) {
         };
 
         // and a handler that is called if content failed to fetch
+        /**
+         * @param {any} _error
+         * @param {any} [response]
+         */
         const contentFailedToFetch = (_error, response) => {
           this.route.response = response;
           this._fetchFallbackPage(path, qs, cb) || this._fetch404(file, qs, cb);
@@ -120,7 +155,7 @@ export function Fetch(Base) {
 
         // attempt to fetch content from a virtual route, and fallback to fetching the actual file
         if (!this.isRemoteUrl) {
-          this.matchVirtualRoute(path).then(contents => {
+          this.matchVirtualRoute(path).then((/** @type {any} */ contents) => {
             if (typeof contents === 'string') {
               contentFetched(contents);
             } else {
@@ -144,7 +179,7 @@ export function Fetch(Base) {
             path,
             qs,
             loadNavbar,
-            text => this._renderNav(text),
+            (/** @type {string} */ text) => this._renderNav(text),
             this,
             true,
           );
@@ -203,6 +238,11 @@ export function Fetch(Base) {
       }
     }
 
+    /**
+     * @param {any} path
+     * @param {any} qs
+     * @param {any} [cb]
+     */
     _fetchFallbackPage(path, qs, cb = noop) {
       const {
         requestHeaders,
@@ -227,12 +267,17 @@ export function Fetch(Base) {
       const req = this.#request(newPath + qs, requestHeaders);
 
       req.then(
+        /**
+         * @param {any} text
+         * @param {any} [opt]
+         */
         (text, opt) =>
           this._renderMain(
             text,
             opt,
             this._loadSideAndNav(path, qs, loadSidebar, cb),
           ),
+        /** @param {any} _error */
         _error => this._fetch404(path, qs, cb),
       );
 
@@ -245,7 +290,6 @@ export function Fetch(Base) {
      * @param {*} qs TODO: define
      * @param {Function} cb Callback
      * @returns {Boolean} True if the requested page is not found
-     * @private
      */
     _fetch404(path, qs, cb = noop) {
       const { loadSidebar, requestHeaders, notFoundPage } = this.config;
@@ -255,7 +299,12 @@ export function Fetch(Base) {
         const path404 = this.#get404Path(path, this.config);
 
         this.#request(this.router.getFile(path404), requestHeaders).then(
+          /**
+           * @param {any} text
+           * @param {any} [opt]
+           */
           (text, opt) => this._renderMain(text, opt, fnLoadSideAndNav),
+          /** @param {any} _error */
           _error => this._renderMain(null, {}, fnLoadSideAndNav),
         );
         return true;
@@ -266,7 +315,7 @@ export function Fetch(Base) {
     }
 
     initFetch() {
-      this.$fetch(_ => this.callHook('ready'));
+      this.$fetch(() => this.callHook('ready'));
     }
   };
 }

@@ -51,7 +51,9 @@
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.1",
     "@rollup/plugin-terser": "^0.4.3",
+    "@types/common-tags": "^1.8.4",
     "@types/eslint": "^8.40.2",
+    "@types/prismjs": "^1.26.5",
     "axios": "^1.5.0",
     "browser-sync": "^3.0.2",
     "common-tags": "^1.8.0",
@@ -78,6 +80,7 @@
     "rimraf": "^6.1.0",
     "rollup": "^4.17.2",
     "rollup-plugin-import-css": "^4.0.1",
+    "typescript": "^5.9.3",
     "vue": "^3.4.27",
     "xhr-mock": "^2.5.1"
   },

@@ -86,5 +86,9 @@ export function getAndRemoveDocsifyIgnoreConfig(content = '') {
     ignoreAllSubs = true;
   }
 
-  return { content, ignoreAllSubs, ignoreSubHeading };
+  return /** @type {{content: string, ignoreAllSubs: boolean, ignoreSubHeading: boolean}} */ ({
+    content,
+    ignoreAllSubs,
+    ignoreSubHeading,
+  });
 }

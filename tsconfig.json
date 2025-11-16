@@ -3,14 +3,27 @@
     "allowJs": true,
     "checkJs": true,
 
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ESNext",
-    "lib": ["DOM", "ESNext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2023",
+    "lib": ["ES2023", "DOM", "DOM.AsyncIterable", "DOM.Iterable"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "resolveJsonModule": true,
-    "outDir": "dist/"
+    "outDir": "dist/",
+
+    "strict": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+
+    // TODO: Remove once tinydate import is refactored to non-default, or replace/delete non-standards-aligned libs.
+    // Enables default import interop for CJS modules like tinydate
+    "allowSyntheticDefaultImports": true,
+
+    // TODO: Remove this once all implicit any errors are fixed with proper JSDoc types
+    // Currently suppressing ~600 implicit any errors across the codebase
+    // See: https://github.com/docsifyjs/docsify/pull/2392
+    "noImplicitAny": false
   },
-  "include": ["src/**/*.js", "src/core/module.min.js"]
+  "include": ["src/**/*.js", "src/**/*.d.ts"]
 }

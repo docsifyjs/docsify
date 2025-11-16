@@ -3,6 +3,8 @@ import { hyphenate, isPrimitive } from './util/core.js';
 
 const currentScript = document.currentScript;
 
+/** @typedef {any} TODO */
+
 /**
 @typedef {
   {
@@ -18,6 +20,7 @@ const currentScript = document.currentScript;
       externalLinkRel: 'noopener' | string
       externalLinkTarget: '_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'
       formatUpdated: string
+      frontMatter: Record<string, TODO>
       ga: string
       homepage: string
       keyBindings: false | {
@@ -129,10 +132,13 @@ export default function (vm, config = {}) {
       },
     },
 
-    typeof window.$docsify === 'function'
-      ? window.$docsify(vm)
-      : window.$docsify,
+    // Handle non-function configs no matter what (f.e. plugins assign options onto it)
+    window.$docsify,
 
+    // Also handle function config (the app can specificy a function, and plugins will assign options onto it)
+    typeof window.$docsify === 'function' ? window.$docsify(vm) : undefined,
+
+    // Finally, user config passed directly to the instance has priority.
     config,
   );
 
@@ -143,8 +149,10 @@ export default function (vm, config = {}) {
       {
         toggleSidebar: {
           bindings: ['\\'],
-          callback(e) {
-            const toggleElm = document.querySelector('.sidebar-toggle-button');
+          callback(/** @type {KeyboardEvent} */ e) {
+            const toggleElm = /** @type {HTMLElement} */ (
+              document.querySelector('.sidebar-toggle-button')
+            );
 
             if (toggleElm) {
               toggleElm.click();
@@ -164,7 +172,9 @@ export default function (vm, config = {}) {
     )[0];
 
   if (script) {
-    for (const prop of Object.keys(config)) {
+    for (const prop of /** @type {(keyof DocsifyConfig)[]} */ (
+      Object.keys(config)
+    )) {
       const val = script.getAttribute('data-' + hyphenate(prop));
 
       if (isPrimitive(val)) {
@@ -173,6 +183,8 @@ export default function (vm, config = {}) {
             'data-' + hyphenate(prop)
           }) are deprecated.`,
         );
+
+        // @ts-expect-error too dynamic for TS
         config[prop] = val === '' ? true : val;
       }
     }

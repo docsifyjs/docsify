@@ -25,7 +25,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       insertBefore: '.sidebar-nav', // CSS selector in .sidebar scope
 
       maxAge: 86400000, // Expiration time, the default one day
-      paths: [], // or 'auto'
+      paths: [], // string[] of files to search in, or 'auto' for discovery based on your sidebar
       placeholder: 'Type to search',
 
       // Localization

@@ -9,7 +9,7 @@
  */
 export function createNextFunction() {
   /** @type {CB} */
-  let storedCb = () => null;
+  let storedCb = () => {};
 
   function next(value) {
     storedCb(value);
