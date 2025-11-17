@@ -49,6 +49,8 @@ jobs:
         run: npm run test:unit -- --ci --runInBand
       - name: Integration Tests
         run: npm run test:integration -- --ci --runInBand
+      - name: Consumption Tests
+        run: npm run test:consume-types
 
   test-playwright:
     runs-on: ubuntu-latest

@@ -123,7 +123,7 @@
     "test:unit": "npm run test:jest -- --selectProjects unit",
     "test:update:snapshot": "npm run test:jest -- --updateSnapshot",
     "test:consume-types": "cd test/consume-types && npm clean-install --install-links && npm run typecheck",
-    "test": "run-s test:jest test:e2e",
+    "test": "run-s test:jest test:e2e test:consume-types",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch",
     "watch:css": "run-p 'build:css -- --watch' 'build:css:min -- --watch'",
