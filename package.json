@@ -94,7 +94,7 @@
     "build:js": "rollup -c",
     "build:types": "tsc",
     "build": "run-s clean build:types build:js build:css build:css:min build:cover",
-    "clean": "rimraf --glob 'dist/**' 'themes/**' '_playwright*/**' 'src/**/*.d.ts' 'src/**/*.d.ts.map'",
+    "clean": "rimraf --glob \"dist/**\" \"themes/**\" \"_playwright*/**\" \"src/**/*.d.ts\" \"src/**/*.d.ts.map\"",
     "dev": "run-p serve:dev watch:*",
     "docker:build:test": "npm run docker:cli -- build:test",
     "docker:build": "docker build -f Dockerfile -t docsify-test:local .",
