@@ -8,9 +8,14 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM", "DOM.AsyncIterable", "DOM.Iterable"],
     "declaration": true,
+    "declarationMap": true, // This (along with also shipping src/, not only dist/), makes "Go To Definition" go to the source files in IDEs for a better DX.
     "emitDeclarationOnly": true,
     "resolveJsonModule": true,
-    "outDir": "dist/",
+
+    // Output declarations next to source files (the default when outDir is not
+    // defined), rather than in dist/, to avoid conflicting with the global
+    // build in dist/.
+    // "outDir": "dist/",
 
     "strict": true,
     "skipLibCheck": true,
@@ -25,5 +30,5 @@
     // See: https://github.com/docsifyjs/docsify/pull/2392
     "noImplicitAny": false
   },
-  "include": ["src/**/*.js", "src/**/*.d.ts"]
+  "include": ["src/**/*.js", "src/core/modules.ts", "src/core/globals.ts"]
 }

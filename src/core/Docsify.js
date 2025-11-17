@@ -1,12 +1,9 @@
-import * as prism from 'prismjs';
+import prism from 'prismjs';
 import { Router } from './router/index.js';
 import { Render } from './render/index.js';
 import { Fetch } from './fetch/index.js';
 import { Events } from './event/index.js';
 import { VirtualRoutes } from './virtual-routes/index.js';
-
-// CONTINUE Prism type
-console.log('##### Prism:', prism);
 
 import config from './config.js';
 import { isFn } from './util/core.js';

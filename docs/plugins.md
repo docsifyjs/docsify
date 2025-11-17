@@ -1,5 +1,9 @@
 # List of Plugins
 
+These are built-in and external plugins for Docsify.
+
+See also how to [Write a Plugin](./write-a-plugin.md).
+
 ## Full text search
 
 By default, the hyperlink on the current page is recognized and the content is saved in `IndexedDB`. You can also specify the path to the files.

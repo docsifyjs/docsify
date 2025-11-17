@@ -16,9 +16,10 @@
  *
  * @param {string}   str   The string to parse.
  *
- * @return {{str: string, config: object}} The original string formatted, and parsed object, { str, config }.
+ * @return {{str: string, config: Record<string, string | string[]>}} The original string formatted, and parsed object, { str, config }.
  */
 export function getAndRemoveConfig(str = '') {
+  /** @type {Record<string, string | string[]>} */
   const config = {};
 
   if (str) {
@@ -36,7 +37,8 @@ export function getAndRemoveConfig(str = '') {
           if (!Array.isArray(config[key]) && value !== config[key]) {
             config[key] = [config[key]];
           }
-          config[key].includes(value) || config[key].push(value);
+          config[key].includes(value) ||
+            /** @type {string[]} */ (config[key]).push(value);
         } else {
           config[key] = value;
         }

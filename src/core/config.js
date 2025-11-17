@@ -1,56 +1,97 @@
 import { stripIndent } from 'common-tags';
 import { hyphenate, isPrimitive } from './util/core.js';
+/** @import { Docsify } from './Docsify.js' */
+/** @import { Hooks } from './init/lifecycle.js' */
 
 const currentScript = document.currentScript;
 
-/** @typedef {any} TODO */
+const defaultDocsifyConfig = () => ({
+  alias: /** @type {Record<string, string>} */ ({}),
+  auto2top: false,
+  autoHeader: false,
+  basePath: '',
+  catchPluginErrors: true,
+  cornerExternalLinkTarget:
+    /** @type {'_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'} */ (
+      '_blank'
+    ),
+  coverpage: /** @type {boolean | string} */ (''),
+  el: '#app',
+  executeScript: /** @type {null | boolean} */ (null),
+  ext: '.md',
+  externalLinkRel: /** @type {'noopener' | string} */ ('noopener'), // TODO string union type based on spec
+  externalLinkTarget:
+    /** @type {'_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'} */ (
+      '_blank'
+    ),
+  fallbackLanguages: /** @type {null | string[]} */ (null),
+  fallbackDefaultLanguage: '',
+  formatUpdated: /** @type {string | ((updatedAt: string) => string)} */ (''),
+  /** For the frontmatter plugin. */
+  frontMatter: /** @type {Record<string, TODO> | null} */ (null),
+  hideSidebar: false,
+  homepage: 'README.md',
+  keyBindings:
+    /** @type {false | { [commandName: string]: { bindings: string[]; callback: Function } }} */ ({}),
+  loadNavbar: /** @type {null | boolean | string} */ (null),
+  loadSidebar: /** @type {null | boolean | string} */ (null),
+  logo: false,
+  markdown: null,
+  maxLevel: 6,
+  mergeNavbar: false,
+  name: /** @type {boolean | string} */ (''),
+  nameLink: window.location.pathname,
+  nativeEmoji: false,
+  noCompileLinks: /** @type {string[]} */ ([]),
+  noEmoji: false,
+  notFoundPage: /** @type {boolean | string | Record<string, string>} */ (
+    false
+  ),
+  onlyCover: false,
+  plugins: /** @type {Plugin[]} */ ([]),
+  relativePath: false,
+  repo: /** @type {boolean | string} */ (''),
+  requestHeaders: /** @type {Record<string, string>} */ ({}),
+  routerMode: /** @type {'hash' | 'history'} */ 'hash',
+  routes: /** @type {Record<string, string | RouteHandler>} */ ({}),
+  skipLink: /** @type {false | string | Record<string, string>} */ (
+    'Skip to main content'
+  ),
+  subMaxLevel: 0,
+  vueComponents: /** @type {Record<string, TODO>} */ ({}),
+  vueGlobalOptions: /** @type {Record<string, TODO>} */ ({}),
+  vueMounts: /** @type {Record<string, TODO>} */ ({}),
 
-/**
-@typedef {
-  {
-      auto2top: boolean
-      autoHeader: boolean
-      basePath: string
-      catchPluginErrors: boolean
-      cornerExternalLinkTarget: '_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'
-      coverpage: boolean | string
-      el: string
-      executeScript: null | boolean
-      ext: string
-      externalLinkRel: 'noopener' | string
-      externalLinkTarget: '_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'
-      formatUpdated: string
-      frontMatter: Record<string, TODO>
-      ga: string
-      homepage: string
-      keyBindings: false | {
-        [commandName: string]: {
-          bindings: string[]
-          callback: Function
-        }
-      }
-      loadNavbar: null | boolean | string
-      loadSidebar: null | boolean | string
-      maxLevel: number
-      mergeNavbar: boolean
-      name: boolean | string
-      nameLink: string
-      nativeEmoji: boolean
-      noCompileLinks: string[]
-      noEmoji: boolean
-      notFoundPage: boolean | string | Record<string, string>
-      plugins: Function[]
-      relativePath: boolean
-      repo: boolean | string
-      routes: Record<string, string | Function>
-      routerMode: 'hash' | 'history'
-      subMaxLevel: number,
-      topMargin: number,
+  // Deprecations //////////////////
 
-      themeColor: string,
-  }
-} DocsifyConfig
-*/
+  /** @deprecated */
+  topMargin: 0,
+
+  /** @deprecated */
+  get themeColor() {
+    return this.__themeColor;
+  },
+  set themeColor(value) {
+    if (value) {
+      this.__themeColor = value;
+
+      // eslint-disable-next-line no-console
+      console.warn(
+        stripIndent(`
+              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
+              <style>
+                :root {
+                  --theme-color: deeppink;
+                }
+              </style>
+            `).trim(),
+      );
+    }
+  },
+  __themeColor: '',
+});
+
+/** @typedef {ReturnType<typeof defaultDocsifyConfig>} DocsifyConfig */
 
 /**
  * @param {import('./Docsify.js').Docsify} vm
@@ -65,72 +106,9 @@ export default function (vm, config = {}) {
   }
 
   config = Object.assign(
-    {
-      alias: {},
-      auto2top: false,
-      autoHeader: false,
-      basePath: '',
-      catchPluginErrors: true,
-      cornerExternalLinkTarget: '_blank',
-      coverpage: '',
-      el: '#app',
-      executeScript: null,
-      ext: '.md',
-      externalLinkRel: 'noopener',
-      externalLinkTarget: '_blank',
-      fallbackLanguages: null,
-      fallbackDefaultLanguage: '',
-      formatUpdated: '',
-      hideSidebar: false,
-      homepage: 'README.md',
-      keyBindings: {},
-      loadNavbar: null,
-      loadSidebar: null,
-      logo: false,
-      markdown: null,
-      maxLevel: 6,
-      mergeNavbar: false,
-      name: '',
-      nameLink: window.location.pathname,
-      nativeEmoji: false,
-      noCompileLinks: [],
-      noEmoji: false,
-      notFoundPage: false,
-      onlyCover: false,
-      plugins: [],
-      relativePath: false,
-      repo: '',
-      requestHeaders: {},
-      routerMode: 'hash',
-      routes: {},
-      skipLink: 'Skip to main content',
-      subMaxLevel: 0,
-      topMargin: 0,
+    {},
 
-      // Deprecations //////////////////
-
-      __themeColor: '',
-      get themeColor() {
-        return this.__themeColor;
-      },
-      set themeColor(value) {
-        if (value) {
-          this.__themeColor = value;
-
-          // eslint-disable-next-line no-console
-          console.warn(
-            stripIndent(`
-              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
-              <style>
-                :root {
-                  --theme-color: deeppink;
-                }
-              </style>
-            `).trim(),
-          );
-        }
-      },
-    },
+    defaultDocsifyConfig(),
 
     // Handle non-function configs no matter what (f.e. plugins assign options onto it)
     window.$docsify,
@@ -202,6 +180,7 @@ export default function (vm, config = {}) {
     config.coverpage = '_coverpage' + config.ext;
   }
 
+  // CONTINUE Why are we checking for `true` here and setting an empty string (which behaves the same as false)?
   if (config.repo === true) {
     config.repo = '';
   }
@@ -212,3 +191,24 @@ export default function (vm, config = {}) {
 
   return /** @type {DocsifyConfig} */ (config);
 }
+
+/** @typedef {any} TODO */
+
+/** @typedef {(hooks: Hooks, vm: Docsify) => void} Plugin */
+
+/**
+ @typedef {(
+    ((route: string, matched: RegExpMatchArray) => string) |
+    ((route: string, matched: RegExpMatchArray, next: (markdown?: string) => void) => void)
+ )} RouteHandler - Given a route, provides the markdown to render for that route.
+ */
+
+/**
+@typedef {
+  {
+    subMaxLevel: number,
+    themeColor: string,
+    topMargin: number,
+  }
+} DocsifyConfigOld
+*/

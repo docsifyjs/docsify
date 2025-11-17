@@ -36,6 +36,7 @@ declare global {
   const Docsify: Window['Docsify'];
   const DocsifyCompiler: Window['DocsifyCompiler'];
   const marked: Window['marked'];
+  // @ts-expect-error Prism types are wonky
   const Prism: Window['Prism'];
   const Vue: Window['Vue'];
 }
