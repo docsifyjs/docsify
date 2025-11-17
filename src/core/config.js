@@ -65,9 +65,6 @@ const defaultDocsifyConfig = () => ({
   // Deprecations //////////////////
 
   /** @deprecated */
-  topMargin: 0,
-
-  /** @deprecated */
   get themeColor() {
     return this.__themeColor;
   },
@@ -78,17 +75,40 @@ const defaultDocsifyConfig = () => ({
       // eslint-disable-next-line no-console
       console.warn(
         stripIndent(`
-              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
-              <style>
-                :root {
-                  --theme-color: deeppink;
-                }
-              </style>
-            `).trim(),
+          $docsify.themeColor is deprecated as of v5. Use the "--theme-color" CSS property to customize your theme color.
+          <style>
+            :root {
+              --theme-color: deeppink;
+            }
+          </style>
+        `).trim(),
       );
     }
   },
   __themeColor: '',
+
+  /** @deprecated */
+  get topMargin() {
+    return this.__topMargin;
+  },
+  set topMargin(value) {
+    if (value) {
+      this.__topMargin = value;
+
+      // eslint-disable-next-line no-console
+      console.warn(
+        stripIndent(`
+          $docsify.topMargin is deprecated as of v5. Use the "--scroll-padding-top" CSS property to specify a scroll margin when using a sticky navbar.
+          <style>
+            :root {
+              --scroll-padding-top: 10px;
+            }
+          </style>
+        `).trim(),
+      );
+    }
+  },
+  __topMargin: 0,
 });
 
 /** @typedef {ReturnType<typeof defaultDocsifyConfig>} DocsifyConfig */
@@ -100,14 +120,13 @@ const defaultDocsifyConfig = () => ({
  */
 export default function (vm, config = {}) {
   if (window.$docsify) {
+    // eslint-disable-next-line no-console
     console.warn(
       'DEPRECATION: The global $docsify config variable is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart',
     );
   }
 
   config = Object.assign(
-    {},
-
     defaultDocsifyConfig(),
 
     // Handle non-function configs no matter what (f.e. plugins assign options onto it)
@@ -156,6 +175,7 @@ export default function (vm, config = {}) {
       const val = script.getAttribute('data-' + hyphenate(prop));
 
       if (isPrimitive(val)) {
+        // eslint-disable-next-line no-console
         console.warn(
           `DEPRECATION: data-* attributes on the docsify global script (f.e. ${
             'data-' + hyphenate(prop)

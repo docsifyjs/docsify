@@ -41,7 +41,11 @@ test.describe('Configuration options', () => {
     test('false (throws uncaught errors)', async ({ page }) => {
       let consoleMsg, errorMsg;
 
-      page.on('console', msg => (consoleMsg = msg.text()));
+      page.on('console', msg => {
+        const text = msg.text();
+        if (text.startsWith('DEPRECATION:')) {return;} // ignore expected deprecation warnings
+        consoleMsg = text;
+      });
       page.on('pageerror', err => (errorMsg = err.message));
 
       await docsifyInit({
