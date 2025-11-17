@@ -177,7 +177,7 @@ export class Compiler {
     origin.image = imageCompiler({ renderer, contentBase, router });
     origin.list = taskListCompiler({ renderer });
     origin.listitem = taskListItemCompiler({ renderer });
-    origin.tablecell = tableCellCompiler({ renderer, compiler: this });
+    origin.tablecell = tableCellCompiler({ renderer });
 
     renderer.origin = origin;
 

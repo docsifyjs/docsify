@@ -180,11 +180,11 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
           # Embed Test
 
           [filename](_media/example1.js ':include :type=code :fragment=demo')
-          
+
           [filename](_media/example2.js ":include :type=code :fragment=something")
-          
+
           # Text between
-          
+
           [filename](_media/example3.js ':include :fragment=something_else_not_code')
 
           # Text after
@@ -225,5 +225,29 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     expect(mainText).not.toContain('console.log(example1);');
     expect(mainText).not.toContain('console.log(example2);');
     expect(mainText).not.toContain('console.log(example3);');
+  });
+
+  test('embed file table cell', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Embed Test
+
+Command | Description | Parameters
+---: | --- | ---
+**Something** | |
+\`do-something\` | Does something. | [include content](_media/content.md ':include')
+**Something else** | |
+\`etc.\` | Etc. | |
+        `,
+      },
+      routes: {
+        '_media/content.md': `this is include content`,
+      },
+    });
+
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).toContain('Something');
+    expect(mainText).toContain('this is include content');
   });
 });
