@@ -18,7 +18,9 @@ test.describe('Plugins', () => {
 
     page.on('console', msg => {
       const text = msg.text();
-      if (text.startsWith('DEPRECATION:')) {return;} // ignore expected deprecation warnings
+      if (text.startsWith('DEPRECATION:')) {
+        return;
+      } // ignore expected deprecation warnings
       consoleMsgs.push(text);
     });
 
@@ -170,8 +172,9 @@ test.describe('Plugins', () => {
       page.on('console', async msg => {
         for (const arg of msg.args()) {
           const val = await arg.jsonValue();
-          if (typeof val === 'string' && val.startsWith('DEPRECATION:'))
-            {continue;}
+          if (typeof val === 'string' && val.startsWith('DEPRECATION:')) {
+            continue;
+          }
           try {
             const obj = typeof val === 'string' ? JSON.parse(val) : val;
             obj && obj.response && (routeData = obj);

@@ -43,7 +43,9 @@ test.describe('Configuration options', () => {
 
       page.on('console', msg => {
         const text = msg.text();
-        if (text.startsWith('DEPRECATION:')) {return;} // ignore expected deprecation warnings
+        if (text.startsWith('DEPRECATION:')) {
+          return;
+        } // ignore expected deprecation warnings
         consoleMsg = text;
       });
       page.on('pageerror', err => (errorMsg = err.message));
