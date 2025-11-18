@@ -252,7 +252,7 @@ export function Events(Base) {
         const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
         if (hasSubSidebar) {
-          dom.body.classList.toggle('collapse');
+          linkParent.classList.toggle('collapse');
         }
       });
     }
