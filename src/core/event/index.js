@@ -248,7 +248,9 @@ export function Events(Base) {
       // Collapse toggle
       dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
         const linkElm = /** @type {HTMLElement} */ (target).closest('a');
-        const linkParent = linkElm?.closest('li');
+        const linkParent = /** @type {HTMLLIElement} */ (
+          linkElm?.closest('li')
+        );
         const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
         if (hasSubSidebar) {
