@@ -12,7 +12,6 @@ const cacheNode = {};
 export function getNode(el, noCache = false) {
   if (typeof el === 'string') {
     if (typeof window.Vue !== 'undefined') {
-      window.Vue.version;
       return find(el);
     }
 
