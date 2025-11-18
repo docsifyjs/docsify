@@ -19,7 +19,7 @@ Run type checking for the project.
 
 ### `npm run serve`
 
-Serve the example at http://localhost:5500 to verifiy vanilla ESM usage works.
+Serve the example at http://localhost:5500 to verify vanilla ESM usage works.
 
 ## Notes
 
