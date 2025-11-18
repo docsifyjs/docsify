@@ -50,7 +50,7 @@ const defaultDocsifyConfig = () => ({
   onlyCover: false,
   plugins: /** @type {Plugin[]} */ ([]),
   relativePath: false,
-  repo: /** @type {boolean | string} */ (''),
+  repo: /** @type {string} */ (''),
   requestHeaders: /** @type {Record<string, string>} */ ({}),
   routerMode: /** @type {'hash' | 'history'} */ 'hash',
   routes: /** @type {Record<string, string | RouteHandler>} */ ({}),
@@ -198,11 +198,6 @@ export default function (vm, config = {}) {
 
   if (config.coverpage === true) {
     config.coverpage = '_coverpage' + config.ext;
-  }
-
-  // CONTINUE Why are we checking for `true` here and setting an empty string (which behaves the same as false)?
-  if (config.repo === true) {
-    config.repo = '';
   }
 
   if (config.name === true) {

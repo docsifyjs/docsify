@@ -714,7 +714,7 @@ window.$docsify = {
 
 ## repo
 
-- Type: `false | String`
+- Type: `String`
 
 Configure the repository url, or a string of `username/repo`, to add the [GitHub Corner](http://tholman.com/github-corners/) widget in the top right corner of the site.
 
@@ -726,7 +726,7 @@ window.$docsify = {
 };
 ```
 
-If `false` or empty, no GitHub corner will be displayed.
+If undefined or empty, no GitHub corner will be displayed.
 
 ## requestHeaders
 
