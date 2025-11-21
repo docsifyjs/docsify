@@ -22,7 +22,7 @@ function extractFragmentContent(text, fragment, fullLine) {
   let fragmentRegex = `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`;
   const contentRegex = `[\\s\\S]*?`;
   if (fullLine) {
-    // Match full line for fragment
+    // Match full line containing fragment identifier (e.g. /// [demo])
     fragmentRegex = `.*${fragmentRegex}.*\n`;
   }
   const pattern = new RegExp(
