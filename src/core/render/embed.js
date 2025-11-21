@@ -77,7 +77,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             text = extractFragmentContent(
               text,
               currentToken.embed.fragment,
-              currentToken.embed.fragmentFullLine,
+              currentToken.embed.omitFragmentLine,
             );
           }
 
@@ -87,7 +87,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
             text = extractFragmentContent(
               text,
               currentToken.embed.fragment,
-              currentToken.embed.fragmentFullLine,
+              currentToken.embed.omitFragmentLine,
             );
           }
 

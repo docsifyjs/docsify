@@ -179,7 +179,7 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
         homepage: `
           # Embed Test
 
-          [filename](_media/example1.html ':include :type=code :fragment=demo :fragmentFullLine')
+          [filename](_media/example1.html ':include :type=code :fragment=demo :omitFragmentLine')
         `,
       },
       routes: {
