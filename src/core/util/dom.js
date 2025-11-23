@@ -22,7 +22,7 @@ export function getNode(el, noCache = false) {
 
 /**
  *
- * @param {*} el the targt element or the selector
+ * @param {*} el the target element or the selector
  * @param {*} content the content to be rendered as HTML
  * @param {*} replace To replace the content (true) or insert instead (false) , default is false
  */
