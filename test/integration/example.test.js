@@ -173,6 +173,48 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     );
   });
 
+  test('embed file full line fragment identifier', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Embed Test
+
+          [filename](_media/example1.html ':include :type=code :fragment=demo :omitFragmentLine')
+        `,
+      },
+      routes: {
+        '_media/example1.html': `
+            <script>
+            let myURL = 'https://api.example.com/data';
+            /// [demo] Full line fragment identifier (all of these words here should not be included in fragment)
+            const result = fetch(myURL)
+              .then(response => {
+                return response.json();
+              })
+              .then(myJson => {
+                console.log(JSON.stringify(myJson));
+              });
+            <!-- /// [demo] -->
+            result.then(console.log).catch(console.error);
+            </script>
+        `,
+      },
+    });
+
+    // Wait for the embedded fragment to be fetched and rendered into #main
+    expect(
+      await waitForText('#main', 'console.log(JSON.stringify(myJson));'),
+    ).toBeTruthy();
+
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).not.toContain('https://api.example.com/data');
+    expect(mainText).not.toContain('Full line fragment identifier');
+    expect(mainText).not.toContain('-->');
+    expect(mainText).not.toContain(
+      'result.then(console.log).catch(console.error);',
+    );
+  });
+
   test('embed multiple file code fragments', async () => {
     await docsifyInit({
       markdown: {
@@ -186,7 +228,9 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
           # Text between
 
           [filename](_media/example3.js ':include :fragment=something_else_not_code')
-
+          
+          [filename](_media/example4.js ':include :fragment=demo')
+          
           # Text after
         `,
       },
@@ -209,6 +253,12 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
             example3 += 10;
             /// [something_else_not_code]
             console.log(example3);`,
+        '_media/example4.js': `
+            let example4 = 1;
+            ### No fragment here
+            example4 += 10;
+            /// No fragment here
+            console.log(example4);`,
       },
     });
 
@@ -225,6 +275,9 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
     expect(mainText).not.toContain('console.log(example1);');
     expect(mainText).not.toContain('console.log(example2);');
     expect(mainText).not.toContain('console.log(example3);');
+    expect(mainText).not.toContain('console.log(example4);');
+    expect(mainText).not.toContain('example4 += 10;');
+    expect(mainText).not.toContain('No fragment here');
   });
 
   test('embed file table cell', async () => {
