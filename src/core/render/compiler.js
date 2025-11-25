@@ -135,6 +135,7 @@ export class Compiler {
       }
 
       embed.fragment = config.fragment;
+      embed.omitFragmentLine = config.omitFragmentLine;
 
       return embed;
     }
