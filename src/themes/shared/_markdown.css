@@ -188,6 +188,7 @@
   code,
   samp {
     white-space: pre-wrap;
+    word-break: break-word;
   }
 
   code {
