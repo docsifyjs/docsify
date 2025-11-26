@@ -57,12 +57,17 @@ export function Events(Base) {
         return;
       }
 
-      const observer = new IntersectionObserver(entries => {
-        const isIntersecting = entries[0].isIntersecting;
-        const op = isIntersecting ? 'remove' : 'add';
+      const observer = new IntersectionObserver(
+        entries => {
+          const isIntersecting = entries[0].isIntersecting;
+          const op = isIntersecting ? 'remove' : 'add';
 
-        dom.toggleClass(dom.body, op, 'sticky');
-      });
+          dom.toggleClass(dom.body, op, 'sticky');
+        },
+        {
+          threshold: 0.01,
+        },
+      );
 
       observer.observe(coverElm);
     }
