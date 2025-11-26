@@ -185,10 +185,10 @@
     }
   }
 
-  code,
+  :not(pre) > code,
   samp {
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   code {
