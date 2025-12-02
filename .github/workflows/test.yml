@@ -14,7 +14,7 @@ jobs:
       matrix:
         node-version: ['lts/*']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v6
         with:
@@ -35,7 +35,7 @@ jobs:
         node-version: ['lts/*']
         os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v6
         with:
@@ -56,7 +56,7 @@ jobs:
       matrix:
         node-version: ['lts/*']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v6
         with:
