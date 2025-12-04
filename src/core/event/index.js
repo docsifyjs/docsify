@@ -10,8 +10,8 @@ import { stripUrlExceptId } from '../router/util.js';
  */
 export function Events(Base) {
   return class Events extends Base {
-    #intersectionObserver;
-    #isScrolling;
+    #intersectionObserver = new IntersectionObserver(() => {});
+    #isScrolling = false;
     #title = dom.$.title;
 
     // Initialization
@@ -53,7 +53,7 @@ export function Events(Base) {
       const coverElm = dom.find('section.cover');
 
       if (!coverElm) {
-        dom.toggleClass(dom.body, 'add', 'sticky');
+        dom.body.classList.add('sticky');
         return;
       }
 
@@ -62,11 +62,9 @@ export function Events(Base) {
           const isIntersecting = entries[0].isIntersecting;
           const op = isIntersecting ? 'remove' : 'add';
 
-          dom.toggleClass(dom.body, op, 'sticky');
+          dom.body.classList[op]('sticky');
         },
-        {
-          threshold: 0.01,
-        },
+        { threshold: 0.01 },
       );
 
       observer.observe(coverElm);
@@ -170,32 +168,35 @@ export function Events(Base) {
 
           // Convert key sequences to sorted arrays (modifiers first)
           // Ex: ['alt+t', 't+ctrl'] => [['alt', 't'], ['ctrl', 't']]
-          bindingConfig.bindings = bindingConfig.bindings.map(keys => {
-            const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
+          bindingConfig.bindings = bindingConfig.bindings.map(
+            (/** @type {string | string[]} */ keys) => {
+              /** @type {string[][]} */
+              const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
 
-            if (typeof keys === 'string') {
-              keys = keys.split('+');
-            }
+              if (typeof keys === 'string') {
+                keys = keys.split('+');
+              }
 
-            keys.forEach(key => {
-              const isModifierKey = modifierKeys.includes(key);
-              const targetArray = sortedKeys[isModifierKey ? 0 : 1];
-              const newKeyValue = key.trim().toLowerCase();
+              keys.forEach(key => {
+                const isModifierKey = modifierKeys.includes(key);
+                const targetArray = sortedKeys[isModifierKey ? 0 : 1];
+                const newKeyValue = key.trim().toLowerCase();
 
-              targetArray.push(newKeyValue);
-            });
+                targetArray.push(newKeyValue);
+              });
 
-            sortedKeys.forEach(arr => arr.sort());
+              sortedKeys.forEach(arr => arr.sort());
 
-            return sortedKeys.flat();
-          });
+              return sortedKeys.flat();
+            },
+          );
         });
 
         // Handle keyboard events
-        dom.on('keydown', e => {
-          const isTextEntry = document.activeElement.matches(
-            'input, select, textarea',
-          );
+        dom.on('keydown', (/** @type {KeyboardEvent} */ e) => {
+          const isTextEntry = /** @type {HTMLElement} */ (
+            document.activeElement
+          ).matches('input, select, textarea');
 
           if (isTextEntry) {
             return;
@@ -203,15 +204,16 @@ export function Events(Base) {
 
           const bindingConfigs = Object.values(keyBindings || []);
           const matchingConfigs = bindingConfigs.filter(
-            ({ bindings }) =>
+            (/** @type {{ bindings: string[][] }} */ { bindings }) =>
               bindings &&
               // bindings: [['alt', 't'], ['ctrl', 't']]
-              bindings.some(keys =>
+              bindings.some((/** @type {string[]} */ keys) =>
                 // keys: ['alt', 't']
                 keys.every(
                   // k: 'alt'
                   k =>
-                    (modifierKeys.includes(k) && e[k + 'Key']) ||
+                    (modifierKeys.includes(k) &&
+                      e[/** @type {keyof KeyboardEvent} */ (k + 'Key')]) ||
                     e.key === k || // Ex: " ", "a"
                     e.code.toLowerCase() === k || // "space"
                     e.code.toLowerCase() === `key${k}`, // "keya"
@@ -247,13 +249,15 @@ export function Events(Base) {
         });
 
       // Collapse toggle
-      dom.on(sidebarElm, 'click', ({ target }) => {
-        const linkElm = target.closest('a');
-        const linkParent = linkElm?.closest('li');
+      dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
+        const linkElm = /** @type {HTMLElement} */ (target).closest('a');
+        const linkParent = /** @type {HTMLLIElement} */ (
+          linkElm?.closest('li')
+        );
         const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
         if (hasSubSidebar) {
-          dom.toggleClass(linkParent, 'collapse');
+          linkParent.classList.toggle('collapse');
         }
       });
     }
@@ -271,19 +275,20 @@ export function Events(Base) {
         return;
       }
 
+      /** @type {HTMLElement | null} */
       let lastContentFocusElm;
 
       // Store last focused content element (restored via #toggleSidebar)
-      dom.on(contentElm, 'focusin', e => {
+      dom.on(contentElm, 'focusin', (/** @type {FocusEvent} */ e) => {
         const focusAttr = 'data-restore-focus';
 
         lastContentFocusElm?.removeAttribute(focusAttr);
-        lastContentFocusElm = e.target;
+        lastContentFocusElm = /** @type {HTMLElement} */ (e.target);
         lastContentFocusElm.setAttribute(focusAttr, '');
       });
 
       // Toggle sidebar
-      dom.on(toggleElm, 'click', e => {
+      dom.on(toggleElm, 'click', (/** @type {MouseEvent} */ e) => {
         e.stopPropagation();
         this.#toggleSidebar();
       });
@@ -371,7 +376,8 @@ export function Events(Base) {
         else if (source === 'navigate') {
           // Scroll to top
           if (auto2top) {
-            document.scrollingElement.scrollTop = topMargin ?? 0;
+            /** @type {Element} */ (document.scrollingElement).scrollTop =
+              topMargin ?? 0;
           }
         }
       }
@@ -411,13 +417,15 @@ export function Events(Base) {
         ...options,
       };
       const { query } = this.route;
-      const focusEl = query.id
-        ? // Heading ID
-          dom.find(`#${query.id}`)
-        : // First heading
-          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
-          // Content container
-          dom.find('#main');
+      const focusEl = /** @type {HTMLElement|null} */ (
+        query.id
+          ? // Heading ID
+            dom.find(`#${query.id}`)
+          : // First heading
+            dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+            // Content container
+            dom.find('#main')
+      );
 
       // Move focus to content area
       if (focusEl) {
@@ -438,10 +446,6 @@ export function Events(Base) {
 
     /**
      * Marks the active app nav item
-     *
-     * @param {string} [href] Matching element HREF value. If unspecified,
-     * defaults to the current path (without query params)
-     * @void
      */
     #markAppNavActiveElm() {
       const href = decodeURIComponent(this.router.toURL(this.route.path));
@@ -453,13 +457,16 @@ export function Events(Base) {
           return;
         }
 
-        const newActive = dom
-          .findAll(navElm, 'a')
+        const newActive = /** @type {HTMLAnchorElement[]} */ (
+          dom.findAll(navElm, 'a')
+        )
           .sort((a, b) => b.href.length - a.href.length)
           .find(
             a =>
-              href.includes(a.getAttribute('href')) ||
-              href.includes(decodeURI(a.getAttribute('href'))),
+              href.includes(/** @type {string} */ (a.getAttribute('href'))) ||
+              href.includes(
+                decodeURI(/** @type {string} */ (a.getAttribute('href'))),
+              ),
           )
           ?.closest('li');
         const oldActive = dom.find(navElm, 'li.active');
@@ -493,7 +500,7 @@ export function Events(Base) {
       const newActive = dom
         .find(
           sidebar,
-          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
+          `a[href="${href}"], a[href="${decodeURIComponent(/** @type {string} */ (href))}"]`,
         )
         ?.closest('li');
 
@@ -526,7 +533,7 @@ export function Events(Base) {
       const newPage = dom
         .find(
           sidebar,
-          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`,
+          `a[href="${path}"], a[href="${decodeURIComponent(/** @type {string} */ (path))}"]`,
         )
         ?.closest('li');
 
@@ -538,8 +545,11 @@ export function Events(Base) {
       return newPage;
     }
 
+    /**
+     * @param {boolean} [force]
+     */
     #toggleSidebar(force) {
-      const sidebarElm = dom.find('.sidebar');
+      const sidebarElm = /** @type {HTMLElement|null} */ (dom.find('.sidebar'));
 
       if (!sidebarElm) {
         return;
@@ -554,7 +564,7 @@ export function Events(Base) {
       // Set aria-expanded attribute
       ariaElms.forEach(toggleElm => {
         const expanded = force ?? sidebarElm.classList.contains('show');
-        toggleElm.setAttribute('aria-expanded', expanded);
+        toggleElm.setAttribute('aria-expanded', String(expanded));
         toggleElm.setAttribute(
           'aria-label',
           expanded ? 'Hide primary navigation' : 'Show primary navigation',
@@ -575,8 +585,8 @@ export function Events(Base) {
       }
       // Restore focus
       else {
-        const restoreElm = document.querySelector(
-          'main > .content [data-restore-focus]',
+        const restoreElm = /** @type {HTMLElement|null} */ (
+          document.querySelector('main > .content [data-restore-focus]')
         );
 
         if (restoreElm) {
@@ -609,6 +619,9 @@ export function Events(Base) {
           }
           // Browsers w/o native scrollend event support (Safari)
           else {
+            /** @type {any} */
+            let scrollTimer;
+
             const callback = () => {
               clearTimeout(scrollTimer);
 
@@ -617,8 +630,6 @@ export function Events(Base) {
                 this.#isScrolling = false;
               }, 100);
             };
-
-            let scrollTimer;
 
             document.addEventListener('scroll', callback, false);
           }

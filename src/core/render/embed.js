@@ -67,10 +67,9 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
           });
 
           // This may contain YAML front matter and will need to be stripped.
-          const frontMatterInstalled =
-            ($docsify.frontMatter || {}).installed || false;
-          if (frontMatterInstalled === true) {
-            text = $docsify.frontMatter.parseMarkdown(text);
+          const frontMatterInstalled = $docsify?.frontMatter?.installed;
+          if (frontMatterInstalled) {
+            text = $docsify.frontMatter?.parseMarkdown(text);
           }
 
           if (currentToken.embed.fragment) {
@@ -105,10 +104,10 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
               text: /* html */ `<div class="mermaid">\n${text}\n</div>`,
             },
           ];
-          embedToken.links = {};
+          /** @type {any} */ (embedToken).links = {};
         } else {
           embedToken = [{ type: 'html', text }];
-          embedToken.links = {};
+          /** @type {any} */ (embedToken).links = {};
         }
       }
 

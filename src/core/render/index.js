@@ -9,18 +9,28 @@ import { prerenderEmbed } from './embed.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
+// TODO replace with Vue types if available
+/** @typedef {{ _isVue?: boolean, $destroy?: () => void }} Vue2Instance */
+/** @typedef {{ __vue__?: Vue2Instance }} WithVue2 */
+/** @typedef {{ __v_skip?: boolean }} VNode3 */
+/** @typedef {{ _vnode?: VNode3, __vue_app__?: { unmount: () => void } }} WithVue3 */
+/** @typedef {Element & WithVue2 & WithVue3} VueMountElement */
+
 /**
  * @template {!Constructor} T
  * @param {T} Base - The class to extend
  */
 export function Render(Base) {
   return class Render extends Base {
+    /** @type {Compiler | undefined} */
+    compiler;
     #vueGlobalData;
 
     #addTextAsTitleAttribute(cssSelector) {
       dom.findAll(cssSelector).forEach(elm => {
-        if (!elm.title && elm.innerText) {
-          elm.title = elm.innerText;
+        const e = /** @type {HTMLElement} */ (elm);
+        if (!e.title && e.innerText) {
+          e.title = e.innerText;
         }
       });
     }
@@ -28,12 +38,14 @@ export function Render(Base) {
     #executeScript() {
       const script = dom
         .findAll('.markdown-section>script')
-        .filter(s => !/template/.test(s.type))[0];
+        .filter(
+          s => !/template/.test(/** @type {HTMLScriptElement} */ (s).type),
+        )[0];
       if (!script) {
         return false;
       }
 
-      const code = script.innerText.trim();
+      const code = /** @type {HTMLElement} */ (script).innerText.trim();
       if (!code) {
         return false;
       }
@@ -60,6 +72,9 @@ export function Render(Base) {
         window.Vue.version &&
         Number(window.Vue.version.charAt(0));
 
+      /**
+       * @param {VueMountElement} elm
+       */
       const isMountedVue = elm => {
         const isVue2 = Boolean(elm.__vue__ && elm.__vue__._isVue);
         const isVue3 = Boolean(elm._vnode && elm._vnode.__v_skip);
@@ -75,9 +90,9 @@ export function Render(Base) {
         // Destroy/unmount existing Vue instances
         for (const mountedElm of mountedElms) {
           if (vueVersion === 2) {
-            mountedElm.__vue__.$destroy();
+            /** @type {VueMountElement} */ (mountedElm).__vue__?.$destroy?.();
           } else if (vueVersion === 3) {
-            mountedElm.__vue_app__.unmount();
+            /** @type {VueMountElement} */ (mountedElm).__vue_app__?.unmount();
           }
         }
       }
@@ -159,12 +174,16 @@ export function Render(Base) {
             .filter(elm => !vueMountData.some(([e, c]) => e === elm))
             // Detect Vue content
             .filter(elm => {
+              const selector = vueComponentNames.join(',');
+              const hasComponents = selector
+                ? Boolean(elm.querySelector(selector))
+                : false;
               const isVueMount =
                 // is a component
                 elm.tagName.toLowerCase() in
                   (docsifyConfig.vueComponents || {}) ||
                 // has a component(s)
-                elm.querySelector(vueComponentNames.join(',') || null) ||
+                hasComponents ||
                 // has curly braces
                 reHasBraces.test(elm.outerHTML) ||
                 // has content directive
@@ -281,24 +300,30 @@ export function Render(Base) {
       const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
 
       if (hideSidebar) {
-        sidebarEl?.remove(sidebarEl);
-        sidebarToggleEl?.remove(sidebarToggleEl);
+        sidebarEl?.remove();
+        sidebarToggleEl?.remove();
 
         return null;
       }
 
+      if (!this.compiler) {
+        throw new Error('Compiler is not initialized');
+      }
+
       dom.setHTML('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
 
-      sidebarToggleEl.setAttribute('aria-expanded', !isMobile());
+      sidebarToggleEl.setAttribute('aria-expanded', String(!isMobile()));
 
       const activeElmHref = this.router.toURL(this.route.path);
-      const activeEl = dom.find(`.sidebar-nav a[href="${activeElmHref}"]`);
+      const activeEl = /** @type {HTMLElement | null} */ (
+        dom.find(`.sidebar-nav a[href="${activeElmHref}"]`)
+      );
 
       this.#addTextAsTitleAttribute('.sidebar-nav a');
 
       if (loadSidebar && activeEl) {
-        activeEl.parentNode.innerHTML +=
-          this.compiler.subSidebar(subMaxLevel) || '';
+        const parent = /** @type {HTMLElement} */ (activeEl.parentElement);
+        parent.innerHTML += this.compiler.subSidebar(subMaxLevel) || '';
       } else {
         this.compiler.resetToc();
       }
@@ -335,6 +360,9 @@ export function Render(Base) {
       });
     }
 
+    /**
+     * @param {HTMLElement | null} activeEl
+     */
     _bindEventOnRendered(activeEl) {
       const { autoHeader } = this.config;
 
@@ -345,7 +373,10 @@ export function Render(Base) {
         const hasH1 = main.querySelector('h1');
 
         if (!hasH1) {
-          const h1HTML = this.compiler.header(activeEl.innerText, 1);
+          const h1HTML = /** @type {Compiler} */ (this.compiler).header(
+            activeEl.innerText,
+            1,
+          );
           const h1Node = dom.create('div', h1HTML).firstElementChild;
 
           if (h1Node) {
@@ -360,7 +391,7 @@ export function Render(Base) {
         return;
       }
 
-      const html = this.compiler.compile(text);
+      const html = /** @type {Compiler} */ (this.compiler).compile(text);
 
       ['.app-nav', '.app-nav-merged'].forEach(selector => {
         dom.setHTML(selector, html);
@@ -400,11 +431,12 @@ export function Render(Base) {
         } else {
           prerenderEmbed(
             {
-              compiler: this.compiler,
+              compiler: /** @type {Compiler} */ (this.compiler),
               raw: result,
+              fetch: undefined,
             },
             tokens => {
-              html = this.compiler.compile(tokens);
+              html = /** @type {Compiler} */ (this.compiler).compile(tokens);
               callback();
             },
           );
@@ -417,20 +449,18 @@ export function Render(Base) {
       const rootElm = document.documentElement;
       const coverBg = getComputedStyle(rootElm).getPropertyValue('--cover-bg');
 
-      dom.toggleClass(
-        dom.getNode('main'),
-        coverOnly ? 'add' : 'remove',
-        'hidden',
-      );
+      dom.getNode('main').classList[coverOnly ? 'add' : 'remove']('hidden');
 
       if (!text) {
-        dom.toggleClass(el, 'remove', 'show');
+        el.classList.remove('show');
         return;
       }
 
-      dom.toggleClass(el, 'add', 'show');
+      el.classList.add('show');
 
-      let html = this.coverIsHTML ? text : this.compiler.cover(text);
+      let html = this.coverIsHTML
+        ? text
+        : /** @type {Compiler} */ (this.compiler).cover(text);
 
       if (!coverBg) {
         const mdBgMatch = html
@@ -585,13 +615,17 @@ export function Render(Base) {
       }
 
       if (config.themeColor) {
-        dom.$.head.appendChild(
-          dom.create('div', tpl.theme(config.themeColor)).firstElementChild,
-        );
+        const themeNode = dom.create(
+          'div',
+          tpl.theme(config.themeColor),
+        ).firstElementChild;
+        if (themeNode) {
+          dom.$.head.appendChild(themeNode);
+        }
       }
 
       this._updateRender();
-      dom.toggleClass(dom.body, 'ready');
+      dom.body.classList.add('ready');
     }
   };
 }

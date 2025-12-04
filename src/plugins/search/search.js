@@ -18,17 +18,22 @@ async function saveData(maxAge, expireKey) {
   INDEXES = Object.values(INDEXES).flatMap(innerData =>
     Object.values(innerData),
   );
-  await db.search.bulkPut(INDEXES);
-  await db.expires.put({ key: expireKey, value: Date.now() + maxAge });
+  await /** @type {any} */ (db).search.bulkPut(INDEXES);
+  await /** @type {any} */ (db).expires.put({
+    key: expireKey,
+    value: Date.now() + maxAge,
+  });
 }
 
 async function getData(key, isExpireKey = false) {
   if (isExpireKey) {
-    const item = await db.expires.get(key);
+    const item = await /** @type {any} */ (db).expires.get(key);
     return item ? item.value : 0;
   }
 
-  const item = await db.search.where({ indexKey: key }).toArray();
+  const item = await /** @type {any} */ (db).search
+    .where({ indexKey: key })
+    .toArray();
   return item ? item : null;
 }
 
@@ -67,8 +72,10 @@ function getAllPaths(router) {
   Docsify.dom
     .findAll('.sidebar-nav a:not(.section-link):not([data-nosearch])')
     .forEach(node => {
-      const href = node.href;
-      const originHref = node.getAttribute('href');
+      const href = /** @type {HTMLAnchorElement} */ (node).href;
+      const originHref = /** @type {HTMLAnchorElement} */ (node).getAttribute(
+        'href',
+      );
       const path = router.parse(href).path;
 
       if (
@@ -103,7 +110,8 @@ function getListData(token) {
 export function genIndex(path, content = '', router, depth, indexKey) {
   const tokens = window.marked.lexer(content);
   const slugify = window.Docsify.slugify;
-  const index = [];
+  /** @type {Record<string, any>} */
+  const index = {};
   let slug;
   let title = '';
 
@@ -131,7 +139,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: markdownToTxt(token.text || ''),
+          body: markdownToTxt(/** @type {any} */ (token).text || ''),
           path: path,
           indexKey: indexKey,
         };
@@ -144,14 +152,20 @@ export function genIndex(path, content = '', router, depth, indexKey) {
       if (!index[slug]) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
+        // @ts-expect-error
         token.text = getTableData(token);
+        // @ts-expect-error
         token.text = getListData(token);
 
+        // @ts-expect-error
         index[slug].body += '\n' + markdownToTxt(token.text || '');
       } else {
+        // @ts-expect-error
         token.text = getTableData(token);
+        // @ts-expect-error
         token.text = getListData(token);
 
+        // @ts-expect-error
         index[slug].body = markdownToTxt(token.text || '');
       }
 

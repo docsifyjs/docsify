@@ -51,7 +51,11 @@ export class History {
     return this.config.basePath;
   }
 
-  getFile(path = this.getCurrentPath(), isRelative) {
+  /**
+   * @param {string} path
+   * @param {boolean} isRelative
+   */
+  getFile(path = this.getCurrentPath(), isRelative = false) {
     const { config } = this;
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
@@ -72,11 +76,24 @@ export class History {
     cb();
   }
 
-  getCurrentPath() {}
+  /**
+   * @return {string}
+   */
+  getCurrentPath() {
+    throw new Error('Subclass should implement');
+  }
 
-  normalize() {}
+  normalize() {
+    throw new Error('Subclass should implement');
+  }
 
-  parse() {}
+  /**
+   * @param {string} path
+   * @return {import('../index.js').Route} { path, query, file, response }
+   */
+  parse(path) {
+    throw new Error('Subclass should implement');
+  }
 
   toURL(path, params, currentRoute) {
     const local = currentRoute && path[0] === '#';

@@ -1,82 +1,142 @@
 import { stripIndent } from 'common-tags';
 import { hyphenate, isPrimitive } from './util/core.js';
+/** @import { Docsify } from './Docsify.js' */
+/** @import { Hooks } from './init/lifecycle.js' */
 
 const currentScript = document.currentScript;
 
-/** @param {import('./Docsify.js').Docsify} vm */
-export default function (vm) {
-  const config = Object.assign(
-    {
-      alias: {},
-      auto2top: false,
-      autoHeader: false,
-      basePath: '',
-      catchPluginErrors: true,
-      cornerExternalLinkTarget: '_blank',
-      coverpage: '',
-      el: '#app',
-      executeScript: null,
-      ext: '.md',
-      externalLinkRel: 'noopener',
-      externalLinkTarget: '_blank',
-      fallbackLanguages: null,
-      fallbackDefaultLanguage: '',
-      formatUpdated: '',
-      hideSidebar: false,
-      homepage: 'README.md',
-      keyBindings: {},
-      loadNavbar: null,
-      loadSidebar: null,
-      logo: false,
-      markdown: null,
-      maxLevel: 6,
-      mergeNavbar: false,
-      name: '',
-      nameLink: window.location.pathname,
-      nativeEmoji: false,
-      noCompileLinks: [],
-      noEmoji: false,
-      notFoundPage: false,
-      onlyCover: false,
-      plugins: [],
-      relativePath: false,
-      repo: '',
-      requestHeaders: {},
-      routerMode: 'hash',
-      routes: {},
-      skipLink: 'Skip to main content',
-      subMaxLevel: 0,
-      // themeColor: '',
-      topMargin: 0,
+const defaultDocsifyConfig = () => ({
+  alias: /** @type {Record<string, string>} */ ({}),
+  auto2top: false,
+  autoHeader: false,
+  basePath: '',
+  catchPluginErrors: true,
+  cornerExternalLinkTarget:
+    /** @type {'_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'} */ (
+      '_blank'
+    ),
+  coverpage: /** @type {boolean | string} */ (''),
+  el: '#app',
+  executeScript: /** @type {null | boolean} */ (null),
+  ext: '.md',
+  externalLinkRel: /** @type {'noopener' | string} */ ('noopener'), // TODO string union type based on spec
+  externalLinkTarget:
+    /** @type {'_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'} */ (
+      '_blank'
+    ),
+  fallbackLanguages: /** @type {null | string[]} */ (null),
+  fallbackDefaultLanguage: '',
+  formatUpdated: /** @type {string | ((updatedAt: string) => string)} */ (''),
+  /** For the frontmatter plugin. */
+  frontMatter: /** @type {Record<string, TODO> | null} */ (null),
+  hideSidebar: false,
+  homepage: 'README.md',
+  keyBindings:
+    /** @type {false | { [commandName: string]: { bindings: string[]; callback: Function } }} */ ({}),
+  loadNavbar: /** @type {null | boolean | string} */ (null),
+  loadSidebar: /** @type {null | boolean | string} */ (null),
+  logo: false,
+  markdown: null,
+  maxLevel: 6,
+  mergeNavbar: false,
+  name: /** @type {boolean | string} */ (''),
+  nameLink: window.location.pathname,
+  nativeEmoji: false,
+  noCompileLinks: /** @type {string[]} */ ([]),
+  noEmoji: false,
+  notFoundPage: /** @type {boolean | string | Record<string, string>} */ (
+    false
+  ),
+  onlyCover: false,
+  plugins: /** @type {Plugin[]} */ ([]),
+  relativePath: false,
+  repo: /** @type {string} */ (''),
+  requestHeaders: /** @type {Record<string, string>} */ ({}),
+  routerMode: /** @type {'hash' | 'history'} */ 'hash',
+  routes: /** @type {Record<string, string | RouteHandler>} */ ({}),
+  skipLink: /** @type {false | string | Record<string, string>} */ (
+    'Skip to main content'
+  ),
+  subMaxLevel: 0,
+  vueComponents: /** @type {Record<string, TODO>} */ ({}),
+  vueGlobalOptions: /** @type {Record<string, TODO>} */ ({}),
+  vueMounts: /** @type {Record<string, TODO>} */ ({}),
 
-      // Deprecations //////////////////
+  // Deprecations //////////////////
 
-      __themeColor: '',
-      get themeColor() {
-        return this.__themeColor;
-      },
-      set themeColor(value) {
-        if (value) {
-          this.__themeColor = value;
+  /** @deprecated */
+  get themeColor() {
+    return this.__themeColor;
+  },
+  set themeColor(value) {
+    if (value) {
+      this.__themeColor = value;
 
-          // eslint-disable-next-line no-console
-          console.warn(
-            stripIndent(`
-              $docsify.themeColor is deprecated. Use the "--theme-color" theme property to set your theme color.
-              <style>
-                :root {
-                  --theme-color: deeppink;
-                }
-              </style>
-            `).trim(),
-          );
-        }
-      },
-    },
+      // eslint-disable-next-line no-console
+      console.warn(
+        stripIndent(`
+          $docsify.themeColor is deprecated as of v5. Use the "--theme-color" CSS property to customize your theme color.
+          <style>
+            :root {
+              --theme-color: deeppink;
+            }
+          </style>
+        `).trim(),
+      );
+    }
+  },
+  __themeColor: '',
 
-    typeof window.$docsify === 'function'
-      ? window.$docsify(vm)
-      : window.$docsify,
+  /** @deprecated */
+  get topMargin() {
+    return this.__topMargin;
+  },
+  set topMargin(value) {
+    if (value) {
+      this.__topMargin = value;
+
+      // eslint-disable-next-line no-console
+      console.warn(
+        stripIndent(`
+          $docsify.topMargin is deprecated as of v5. Use the "--scroll-padding-top" CSS property to specify a scroll margin when using a sticky navbar.
+          <style>
+            :root {
+              --scroll-padding-top: 10px;
+            }
+          </style>
+        `).trim(),
+      );
+    }
+  },
+  __topMargin: 0,
+});
+
+/** @typedef {ReturnType<typeof defaultDocsifyConfig>} DocsifyConfig */
+
+/**
+ * @param {import('./Docsify.js').Docsify} vm
+ * @param {Partial<DocsifyConfig>} config
+ * @returns {DocsifyConfig}
+ */
+export default function (vm, config = {}) {
+  if (window.$docsify) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'DEPRECATION: The global $docsify config variable is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart',
+    );
+  }
+
+  config = Object.assign(
+    defaultDocsifyConfig(),
+
+    // Handle non-function configs no matter what (f.e. plugins assign options onto it)
+    window.$docsify,
+
+    // Also handle function config (the app can specificy a function, and plugins will assign options onto it)
+    typeof window.$docsify === 'function' ? window.$docsify(vm) : undefined,
+
+    // Finally, user config passed directly to the instance has priority.
+    config,
   );
 
   // Merge default and user-specified key bindings
@@ -86,8 +146,10 @@ export default function (vm) {
       {
         toggleSidebar: {
           bindings: ['\\'],
-          callback(e) {
-            const toggleElm = document.querySelector('.sidebar-toggle-button');
+          callback(/** @type {KeyboardEvent} */ e) {
+            const toggleElm = /** @type {HTMLElement} */ (
+              document.querySelector('.sidebar-toggle-button')
+            );
 
             if (toggleElm) {
               toggleElm.click();
@@ -107,10 +169,20 @@ export default function (vm) {
     )[0];
 
   if (script) {
-    for (const prop of Object.keys(config)) {
+    for (const prop of /** @type {(keyof DocsifyConfig)[]} */ (
+      Object.keys(config)
+    )) {
       const val = script.getAttribute('data-' + hyphenate(prop));
 
       if (isPrimitive(val)) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `DEPRECATION: data-* attributes on the docsify global script (f.e. ${
+            'data-' + hyphenate(prop)
+          }) are deprecated.`,
+        );
+
+        // @ts-expect-error too dynamic for TS
         config[prop] = val === '' ? true : val;
       }
     }
@@ -128,15 +200,30 @@ export default function (vm) {
     config.coverpage = '_coverpage' + config.ext;
   }
 
-  if (config.repo === true) {
-    config.repo = '';
-  }
-
   if (config.name === true) {
     config.name = '';
   }
 
-  window.$docsify = config;
-
-  return config;
+  return /** @type {DocsifyConfig} */ (config);
 }
+
+/** @typedef {any} TODO */
+
+/** @typedef {(hooks: Hooks, vm: Docsify) => void} Plugin */
+
+/**
+ @typedef {(
+    ((route: string, matched: RegExpMatchArray) => string) |
+    ((route: string, matched: RegExpMatchArray, next: (markdown?: string) => void) => void)
+ )} RouteHandler - Given a route, provides the markdown to render for that route.
+ */
+
+/**
+@typedef {
+  {
+    subMaxLevel: number,
+    themeColor: string,
+    topMargin: number,
+  }
+} DocsifyConfigOld
+*/

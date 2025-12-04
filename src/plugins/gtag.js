@@ -7,6 +7,8 @@ function appendScript(id) {
   document.body.appendChild(script);
 }
 
+const window = /** @type {any} */ (globalThis);
+
 // global site tag instance initialized
 function initGlobalSiteTag(id) {
   appendScript(id);
@@ -46,7 +48,7 @@ function init(ids) {
 
 function collect() {
   if (!window.gtag) {
-    init($docsify.gtag);
+    init(window.$docsify.gtag);
   }
 
   // usage: https://developers.google.com/analytics/devguides/collection/gtagjs/pages
@@ -58,7 +60,7 @@ function collect() {
 }
 
 const install = function (hook) {
-  if (!$docsify.gtag) {
+  if (!window.$docsify.gtag) {
     // eslint-disable-next-line no-console
     console.error('[Docsify] gtag is required.');
     return;
@@ -68,4 +70,6 @@ const install = function (hook) {
 };
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

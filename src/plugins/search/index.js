@@ -4,6 +4,19 @@ import {
 } from './component.js';
 import { init as initSearch } from './search.js';
 
+/**
+ * @type {{
+ *   placeholder: string;
+ *   noData: string;
+ *   paths: string[] | 'auto';
+ *   depth: number;
+ *   maxAge: number;
+ *   namespace?: string;
+ *   pathNamespaces?: RegExp | string[];
+ *   keyBindings: string[];
+ *   insertAfter?: string;
+ *   insertBefore?: string;
+ * }} */
 const CONFIG = {
   placeholder: 'Type to search',
   noData: 'No Results!',
@@ -45,9 +58,14 @@ const install = function (hook, vm) {
         bindings: CONFIG.keyBindings,
         callback(e) {
           const sidebarElm = document.querySelector('.sidebar');
-          const sidebarToggleElm = document.querySelector('.sidebar-toggle');
-          const searchElm = sidebarElm?.querySelector('input[type="search"]');
-          const isSidebarHidden = sidebarElm?.getBoundingClientRect().x < 0;
+          const sidebarToggleElm = /** @type {HTMLElement} */ (
+            document.querySelector('.sidebar-toggle')
+          );
+          const searchElm = /** @type {HTMLInputElement | null} */ (
+            sidebarElm?.querySelector('input[type="search"]')
+          );
+          const isSidebarHidden =
+            (sidebarElm?.getBoundingClientRect().x ?? 0) < 0;
 
           isSidebarHidden && sidebarToggleElm?.click();
 
@@ -67,4 +85,4 @@ const install = function (hook, vm) {
 };
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];

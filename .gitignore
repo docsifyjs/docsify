@@ -4,8 +4,6 @@
 .vercel
 _playwright-report
 _playwright-results
-dist
-lib
 node_modules
 
 # Files
@@ -14,3 +12,10 @@ node_modules
 
 # Exceptions
 !.gitkeep
+
+# Output folder for the global build only
+dist
+
+# TypeScript declaration files for standard ESM consumption
+src/**/*.d.ts
+src/**/*.d.ts.map

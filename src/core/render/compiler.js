@@ -96,7 +96,7 @@ export class Compiler {
    * @param {string}   href   The href to the file to embed in the page.
    * @param {string}   title  Title of the link used to make the embed.
    *
-   * @return {type} Return value description.
+   * @return {any} Return value description.
    */
   compileEmbed(href, title) {
     const { str, config } = getAndRemoveConfig(title);
@@ -180,6 +180,7 @@ export class Compiler {
     origin.listitem = taskListItemCompiler({ renderer });
     origin.tablecell = tableCellCompiler({ renderer });
 
+    // @ts-expect-error
     renderer.origin = origin;
 
     return renderer;
@@ -266,6 +267,7 @@ export class Compiler {
       text: text,
       tokens: [{ type: 'text', raw: text, text: text }],
     };
+    // @ts-expect-error
     return this.renderer.heading(tokenHeading);
   }
 
