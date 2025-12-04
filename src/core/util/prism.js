@@ -1,4 +1,4 @@
-import Prism from 'prismjs';
+import * as Prism from 'prismjs';
 /**
  *
  * The dependencies map which syncs from
@@ -292,7 +292,7 @@ const prettryPrint = (depTree, level) => {
   let cur = `${'  '.repeat(level * 3)} ${depTree.cur} ${depTree.loaded ? '(+)' : '(-)'}`;
   if (depTree.dependencies.length) {
     depTree.dependencies.forEach(dep => {
-      cur += prettryPrint(dep, level + 1, cur);
+      cur += prettryPrint(dep, level + 1);
     });
   }
   return '\n' + cur;

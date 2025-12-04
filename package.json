@@ -24,18 +24,22 @@
   },
   "type": "module",
   "main": "dist/docsify.js",
+  "types": "src/core/Docsify.d.ts",
   "exports": {
     ".": "./src/core/Docsify.js",
     "./*": "./*"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "lint-staged": {
     "*.js": "eslint --fix"
   },
   "dependencies": {
+    "common-tags": "^1.8.0",
     "dexie": "^4.0.11",
+    "marked": "^16.0.0",
     "medium-zoom": "^1.1.0",
     "opencollective-postinstall": "^2.0.2",
     "prismjs": "^1.29.0",
@@ -51,10 +55,11 @@
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.1",
     "@rollup/plugin-terser": "^0.4.3",
+    "@types/common-tags": "^1.8.4",
     "@types/eslint": "^8.40.2",
+    "@types/prismjs": "^1.26.5",
     "axios": "^1.5.0",
     "browser-sync": "^3.0.2",
-    "common-tags": "^1.8.0",
     "conventional-changelog-cli": "^3.0.0",
     "cross-env": "^10.0.0",
     "cssnano": "^7.0.1",
@@ -69,7 +74,6 @@
     "jest": "^30.0.4",
     "jest-environment-jsdom": "^30.0.5",
     "lint-staged": "^16.1.0",
-    "marked": "^16.0.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
@@ -78,6 +82,7 @@
     "rimraf": "^6.1.0",
     "rollup": "^4.17.2",
     "rollup-plugin-import-css": "^4.0.1",
+    "typescript": "^5.9.3",
     "vue": "^3.4.27",
     "xhr-mock": "^2.5.1"
   },
@@ -87,8 +92,9 @@
     "build:css:min": "cross-env NODE_ENV='production' npm run build:css -- --ext .min.css",
     "build:emoji": "node ./build/emoji.js",
     "build:js": "rollup -c",
-    "build": "run-s clean build:js build:css build:css:min build:cover",
-    "clean": "rimraf --glob dist/** themes/** _playwright*/**",
+    "build:types": "tsc",
+    "build": "run-s clean build:types build:js build:css build:css:min build:cover",
+    "clean": "rimraf --glob \"dist/**\" \"themes/**\" \"_playwright*/**\" \"src/**/*.d.ts\" \"src/**/*.d.ts.map\"",
     "dev": "run-p serve:dev watch:*",
     "docker:build:test": "npm run docker:cli -- build:test",
     "docker:build": "docker build -f Dockerfile -t docsify-test:local .",
@@ -111,11 +117,15 @@
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project='chromium'",
     "test:e2e:ui": "playwright test --ui",
+    "test:e2e:consume-types": "echo TODO: test the consume-types example with ESM modules",
     "test:integration": "npm run test:jest -- --selectProjects integration",
     "test:jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "test:unit": "npm run test:jest -- --selectProjects unit",
     "test:update:snapshot": "npm run test:jest -- --updateSnapshot",
-    "test": "run-s test:jest test:e2e",
+    "test:consume-types": "cd test/consume-types && npm clean-install --install-links && npm run typecheck",
+    "test": "run-s test:jest test:e2e test:consume-types",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch",
     "watch:css": "run-p 'build:css -- --watch' 'build:css:min -- --watch'",
     "watch:js": "npm run build:js -- --watch"
   }

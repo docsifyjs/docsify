@@ -17,6 +17,7 @@ export class HTML5History extends History {
     return (path || '/') + window.location.search + window.location.hash;
   }
 
+  /** @param {(params: any) => void} [cb] */
   onchange(cb = noop) {
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
@@ -37,7 +38,7 @@ export class HTML5History extends History {
   /**
    * Parse the url
    * @param {string} [path=location.href] URL to be parsed
-   * @return {object} { path, query }
+   * @return {import('../index.js').Route} { path, query, file, response }
    */
   parse(path = location.href) {
     let query = '';

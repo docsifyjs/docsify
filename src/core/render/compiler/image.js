@@ -18,7 +18,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
     }
 
     if (config.size) {
-      const [width, height] = config.size.split('x');
+      const [width, height] = /** @type {string} */ (config.size).split('x');
       if (height) {
         attrs.push(`width="${width}" height="${height}"`);
       } else {

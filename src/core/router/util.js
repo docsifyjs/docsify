@@ -3,7 +3,12 @@ import { cached } from '../util/core.js';
 const decode = decodeURIComponent;
 const encode = encodeURIComponent;
 
+/**
+ * @param {string} query
+ * @return {Record<string, string>}
+ */
 export function parseQuery(query) {
+  /** @type {Record<string, string>} */
   const res = {};
 
   query = query.trim().replace(/^(\?|#|&)/, '');

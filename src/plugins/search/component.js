@@ -21,8 +21,10 @@ function tpl(vm, defaultValue = '') {
   `;
   const sidebarElm = Docsify.dom.find('.sidebar');
   const searchElm = Docsify.dom.create('section', html);
-  const insertElm = sidebarElm.querySelector(
-    `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+  const insertElm = /** @type {HTMLElement} */ (
+    sidebarElm.querySelector(
+      `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+    )
   );
 
   searchElm.classList.add('search');
@@ -69,7 +71,9 @@ function doSearch(value) {
 
 function bindEvents() {
   const $search = Docsify.dom.find('.search');
-  const $input = Docsify.dom.find($search, 'input');
+  const $input = /** @type {HTMLInputElement} */ (
+    Docsify.dom.find($search, 'input')
+  );
   const $clear = Docsify.dom.find($search, '.clear-button');
 
   let timeId;
@@ -90,7 +94,10 @@ function bindEvents() {
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
+    timeId = setTimeout(
+      _ => doSearch(/** @type {HTMLInputElement} */ (e.target).value.trim()),
+      100,
+    );
   });
   Docsify.dom.on($clear, 'click', e => {
     $input.value = '';
@@ -99,7 +106,9 @@ function bindEvents() {
 }
 
 function updatePlaceholder(text, path) {
-  const $input = Docsify.dom.getNode('.search input[type="search"]');
+  const $input = /** @type {HTMLInputElement | null} */ (
+    Docsify.dom.getNode('.search input[type="search"]')
+  );
 
   if (!$input) {
     return;

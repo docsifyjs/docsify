@@ -456,7 +456,7 @@ window.$docsify = {
 
 ## name
 
-- Type: `String`
+- Type: `Boolean | String`
 
 Website name as it appears in the sidebar.
 
@@ -471,6 +471,22 @@ The name field can also contain custom HTML for easier customization:
 ```js
 window.$docsify = {
   name: '<span>docsify</span>',
+};
+```
+
+If `true`, the website name will be inferred from the document's `<title>` tag.
+
+```js
+window.$docsify = {
+  name: true,
+};
+```
+
+If `false` or empty, no name will be displayed.
+
+```js
+window.$docsify = {
+  name: false,
 };
 ```
 
@@ -652,6 +668,10 @@ window.$docsify = {
 };
 ```
 
+## plugins
+
+See [Plugins](./plugins.md).
+
 ## relativePath
 
 - Type: `Boolean`
@@ -705,6 +725,8 @@ window.$docsify = {
   repo: 'https://github.com/docsifyjs/docsify/',
 };
 ```
+
+If undefined or empty, no GitHub corner will be displayed.
 
 ## requestHeaders
 
@@ -887,9 +909,9 @@ window.$docsify = {
 Determines if/how the site's [skip navigation link](https://webaim.org/techniques/skipnav/) will be rendered.
 
 ```js
-// Render skip link for all routes (default)
+// Render skip link for all routes
 window.$docsify = {
-  skipLink: 'Skip to main content',
+  skipLink: 'Skip to content',
 };
 ```
 
@@ -909,6 +931,13 @@ window.$docsify = {
 // Do not render skip link
 window.$docsify = {
   skipLink: false,
+};
+```
+
+```js
+// Use default
+window.$docsify = {
+  skipLink: true, // "Skip to main content"
 };
 ```
 
