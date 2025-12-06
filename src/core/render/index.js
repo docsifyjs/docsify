@@ -484,7 +484,7 @@ export function Render(Base) {
           html = html.replace(m[0], '');
         }
 
-        this._renderTo('.cover-main', html);
+        dom.setHTML('.cover-main', html);
         next();
       };
 
