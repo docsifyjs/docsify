@@ -21,7 +21,7 @@ export const taskListItemCompiler = ({ renderer }) =>
             text: checkbox + ' ',
           });
         }
-      } 
+      }
     }
 
     text += this.parser?.parse(item.tokens, !!item.loose);
