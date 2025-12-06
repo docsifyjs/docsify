@@ -119,13 +119,6 @@ const defaultDocsifyConfig = () => ({
  * @returns {DocsifyConfig}
  */
 export default function (vm, config = {}) {
-  if (window.$docsify) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'DEPRECATION: The global $docsify config variable is deprecated. See the latest getting started docs. https://docsify.js.org/#/quickstart',
-    );
-  }
-
   config = Object.assign(
     defaultDocsifyConfig(),
 
