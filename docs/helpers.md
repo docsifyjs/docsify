@@ -4,35 +4,79 @@ docsify extends Markdown syntax to make your documents more readable.
 
 > Note: For the special code syntax cases, it's better to put them within code backticks to avoid any conflict from configurations or emojis.
 
-## Important content
+## Callouts
 
-Important content like:
+Docsify supports [GitHub style](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) callouts (also known as "admonitions" or "alerts").
 
+<!-- prettier-ignore -->
+> [!CAUTION]
+> **Caution** callouts communicate negative potential consequences of an action.
+
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> **Important** callouts communicate information necessary for users to succeed.
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> **Note** callouts communicate information that users should take into account.
+
+<!-- prettier-ignore -->
+> [!TIP]
+> **Tip** callouts communicate optional information to help a user be more successful.
+
+<!-- prettier-ignore -->
+> [!WARNING]
+> **Warning** callouts communicate potential risks user should be aware of.
+
+**Markdown**
+
+<!-- prettier-ignore -->
 ```markdown
-!> **Time** is money, my friend!
+> [!CAUTION]
+> **Caution** callouts communicate negative potential consequences of an action.
+
+> [!IMPORTANT]
+> **Important** callouts communicate information necessary for users to succeed.
+
+> [!NOTE]
+> **Note** callouts communicate information that users should take into account.
+
+> [!TIP]
+> **Tip** callouts communicate optional information to help a user be more successful.
+
+> [!WARNING]
+> **Warning** callouts communicate potential risks user should be aware of.
 ```
 
-is rendered as:
+### Legacy Style ⚠️
 
-!> **Time** is money, my friend!
+The following Docsify v4 callout syntax has been deprecated and will be removed in a future version.
 
-## General tips
+!> Legacy **Important** callouts are deprecated.
 
-General tips like:
+?> Legacy **Tip** callouts are deprecated.
+
+**Markdown**
 
 ```markdown
-?> _TODO_ unit test
+!> Legacy **Important** callouts are deprecated.
+
+?> Legacy **Tip** callouts are deprecated.
 ```
 
-are rendered as:
+## Link attributes
 
-?> _TODO_ unit test
+### disabled
 
-## Ignore to compile link
+```markdown
+[link](/demo ':disabled')
+```
+
+### href
 
 Sometimes we will use some other relative path for the link, and we have to tell docsify that we don't need to compile this link. For example:
 
-```md
+```markdown
 [link](/demo/)
 ```
 
@@ -40,34 +84,28 @@ It will be compiled to `<a href="/#/demo/">link</a>` and will load `/demo/README
 
 Now you can do that
 
-```md
+```markdown
 [link](/demo/ ':ignore')
 ```
 
 You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set the title for the link.
 
-```md
+```markdown
 [link](/demo/ ':ignore title')
 
 <a href="/demo/" title="title">link</a>
 ```
 
-## Set target attribute for link
+### target
 
-```md
+```markdown
 [link](/demo ':target=_blank')
 [link](/demo2 ':target=_self')
 ```
 
-## Disable link
+## Task lists
 
-```md
-[link](/demo ':disabled')
-```
-
-## GitHub Task Lists
-
-```md
+```markdown
 - [ ] foo
 - bar
 - [x] baz
@@ -83,11 +121,27 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
   - [ ] bim
   - [ ] lim
 
-## Image
+## Images
 
-### Resizing
+### Class names
 
-```md
+```markdown
+![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass')
+
+<!-- Multiple class names -->
+
+![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass :class=anotherCssClass')
+```
+
+### IDs
+
+```markdown
+![logo](https://docsify.js.org/_media/icon.svg ':id=someCssId')
+```
+
+### Sizes
+
+```markdown
 ![logo](https://docsify.js.org/_media/icon.svg ':size=WIDTHxHEIGHT')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=50x100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
@@ -101,25 +155,13 @@ You will get `<a href="/demo/">link</a>`html. Do not worry, you can still set th
 ![logo](https://docsify.js.org/_media/icon.svg ':size=100')
 ![logo](https://docsify.js.org/_media/icon.svg ':size=10%')
 
-### Customise class
+## Heading IDs
 
-```md
-![logo](https://docsify.js.org/_media/icon.svg ':class=someCssClass')
-```
-
-### Customise ID
-
-```md
-![logo](https://docsify.js.org/_media/icon.svg ':id=someCssId')
-```
-
-## Customise ID for headings
-
-```md
+```markdown
 ### Hello, world! :id=hello-world
 ```
 
-## Markdown in html tag
+## Markdown + HTML
 
 You need to insert a space between the html and markdown content.
 This is useful for rendering markdown content in the details element.
@@ -156,7 +198,8 @@ Markdown content can also be wrapped in html tags.
 
 <div style='color: red'>
 
-- Abc
-- Abc
+- listitem
+- listitem
+- listitem
 
 </div>

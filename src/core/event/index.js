@@ -1,5 +1,6 @@
-import { isMobile } from '../util/env.js';
+import { isMobile, mobileBreakpoint } from '../util/env.js';
 import * as dom from '../util/dom.js';
+import { stripUrlExceptId } from '../router/util.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -9,8 +10,8 @@ import * as dom from '../util/dom.js';
  */
 export function Events(Base) {
   return class Events extends Base {
-    #intersectionObserver;
-    #isScrolling;
+    #intersectionObserver = new IntersectionObserver(() => {});
+    #isScrolling = false;
     #title = dom.$.title;
 
     // Initialization
@@ -25,16 +26,19 @@ export function Events(Base) {
 
       // Apply topMargin to scrolled content
       if (topMargin) {
+        const value =
+          typeof topMargin === 'number' ? `${topMargin}px` : topMargin;
+
         document.documentElement.style.setProperty(
-          'scroll-padding-top',
-          `${topMargin}px`,
+          '--scroll-padding-top',
+          value,
         );
       }
 
       this.#initCover();
-      this.#initSkipToContent('#skip-to-content');
-      this.#initSidebarCollapse('.sidebar');
-      this.#initSidebarToggle('button.sidebar-toggle');
+      this.#initSkipToContent();
+      this.#initSidebar();
+      this.#initSidebarToggle();
       this.#initKeyBindings();
     }
 
@@ -42,23 +46,26 @@ export function Events(Base) {
     // =========================================================================
     /**
      * Initialize cover observer
-     * Toggles sticky behavior when when cover is not in view
+     * Toggles sticky behavior when cover is not in view
      * @void
      */
     #initCover() {
       const coverElm = dom.find('section.cover');
 
       if (!coverElm) {
-        dom.toggleClass(dom.body, 'add', 'sticky');
+        dom.body.classList.add('sticky');
         return;
       }
 
-      const observer = new IntersectionObserver(entries => {
-        const isIntersecting = entries[0].isIntersecting;
-        const op = isIntersecting ? 'remove' : 'add';
+      const observer = new IntersectionObserver(
+        entries => {
+          const isIntersecting = entries[0].isIntersecting;
+          const op = isIntersecting ? 'remove' : 'add';
 
-        dom.toggleClass(dom.body, op, 'sticky');
-      });
+          dom.body.classList[op]('sticky');
+        },
+        { threshold: 0.01 },
+      );
 
       observer.observe(coverElm);
     }
@@ -71,11 +78,17 @@ export function Events(Base) {
     #initHeadings() {
       const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5)');
       const headingsInView = new Set();
+      let isInitialLoad = true;
 
       // Mark sidebar active item on heading intersection
       this.#intersectionObserver?.disconnect();
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
+          if (isInitialLoad) {
+            isInitialLoad = false;
+            return;
+          }
+
           if (this.#isScrolling) {
             return;
           }
@@ -86,18 +99,25 @@ export function Events(Base) {
             headingsInView[op](entry.target);
           }
 
-          const activeHeading =
-            headingsInView.size > 1
-              ? // Sort headings by proximity to viewport top and select first
-                Array.from(headingsInView).sort((a, b) =>
-                  a.compareDocumentPosition(b) &
-                  Node.DOCUMENT_POSITION_FOLLOWING
-                    ? -1
-                    : 1,
-                )[0]
-              : // Get first and only item in set.
-                // May be undefined if no headings are in view.
-                headingsInView.values().next().value;
+          let activeHeading;
+          if (headingsInView.size === 1) {
+            // Get first and only item in set.
+            // May be undefined if no headings are in view.
+            activeHeading = headingsInView.values().next().value;
+          } else if (headingsInView.size > 1) {
+            // Find the closest heading to the top of the viewport
+            // Reduce over the Set of headings currently in view (headingsInView) to determine the closest heading.
+            activeHeading = Array.from(headingsInView).reduce(
+              (closest, current) => {
+                return !closest ||
+                  closest.compareDocumentPosition(current) &
+                    Node.DOCUMENT_POSITION_FOLLOWING
+                  ? current
+                  : closest;
+              },
+              null,
+            );
+          }
 
           if (activeHeading) {
             const id = activeHeading.getAttribute('id');
@@ -148,32 +168,35 @@ export function Events(Base) {
 
           // Convert key sequences to sorted arrays (modifiers first)
           // Ex: ['alt+t', 't+ctrl'] => [['alt', 't'], ['ctrl', 't']]
-          bindingConfig.bindings = bindingConfig.bindings.map(keys => {
-            const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
+          bindingConfig.bindings = bindingConfig.bindings.map(
+            (/** @type {string | string[]} */ keys) => {
+              /** @type {string[][]} */
+              const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
 
-            if (typeof keys === 'string') {
-              keys = keys.split('+');
-            }
+              if (typeof keys === 'string') {
+                keys = keys.split('+');
+              }
 
-            keys.forEach(key => {
-              const isModifierKey = modifierKeys.includes(key);
-              const targetArray = sortedKeys[isModifierKey ? 0 : 1];
-              const newKeyValue = key.trim().toLowerCase();
+              keys.forEach(key => {
+                const isModifierKey = modifierKeys.includes(key);
+                const targetArray = sortedKeys[isModifierKey ? 0 : 1];
+                const newKeyValue = key.trim().toLowerCase();
 
-              targetArray.push(newKeyValue);
-            });
+                targetArray.push(newKeyValue);
+              });
 
-            sortedKeys.forEach(arr => arr.sort());
+              sortedKeys.forEach(arr => arr.sort());
 
-            return sortedKeys.flat();
-          });
+              return sortedKeys.flat();
+            },
+          );
         });
 
         // Handle keyboard events
-        dom.on('keydown', e => {
-          const isTextEntry = document.activeElement.matches(
-            'input, select, textarea',
-          );
+        dom.on('keydown', (/** @type {KeyboardEvent} */ e) => {
+          const isTextEntry = /** @type {HTMLElement} */ (
+            document.activeElement
+          ).matches('input, select, textarea');
 
           if (isTextEntry) {
             return;
@@ -181,15 +204,16 @@ export function Events(Base) {
 
           const bindingConfigs = Object.values(keyBindings || []);
           const matchingConfigs = bindingConfigs.filter(
-            ({ bindings }) =>
+            (/** @type {{ bindings: string[][] }} */ { bindings }) =>
               bindings &&
               // bindings: [['alt', 't'], ['ctrl', 't']]
-              bindings.some(keys =>
+              bindings.some((/** @type {string[]} */ keys) =>
                 // keys: ['alt', 't']
                 keys.every(
                   // k: 'alt'
                   k =>
-                    (modifierKeys.includes(k) && e[k + 'Key']) ||
+                    (modifierKeys.includes(k) &&
+                      e[/** @type {keyof KeyboardEvent} */ (k + 'Key')]) ||
                     e.key === k || // Ex: " ", "a"
                     e.code.toLowerCase() === k || // "space"
                     e.code.toLowerCase() === `key${k}`, // "keya"
@@ -206,26 +230,34 @@ export function Events(Base) {
     }
 
     /**
-     * Initialize sidebar content expand/collapse toggle behavior
+     * Initialize sidebar event listeners
      *
-     * @param {Element|string} elm Sidebar Element or CSS selector
      * @void
      */
-    #initSidebarCollapse(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebar() {
+      const sidebarElm = document.querySelector('.sidebar');
 
-      if (!elm) {
+      if (!sidebarElm) {
         return;
       }
 
-      dom.on(elm, 'click', ({ target }) => {
-        if (
-          target.nodeName === 'A' &&
-          target.nextSibling &&
-          target.nextSibling.classList &&
-          target.nextSibling.classList.contains('app-sub-sidebar')
-        ) {
-          dom.toggleClass(target.parentNode, 'collapse');
+      // Auto-toggle on resolution change
+      window
+        ?.matchMedia?.(`(max-width: ${mobileBreakpoint})`)
+        .addEventListener('change', evt => {
+          this.#toggleSidebar(!evt.matches);
+        });
+
+      // Collapse toggle
+      dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
+        const linkElm = /** @type {HTMLElement} */ (target).closest('a');
+        const linkParent = /** @type {HTMLLIElement} */ (
+          linkElm?.closest('li')
+        );
+        const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
+
+        if (hasSubSidebar) {
+          linkParent.classList.toggle('collapse');
         }
       });
     }
@@ -233,58 +265,54 @@ export function Events(Base) {
     /**
      * Initialize sidebar show/hide toggle behavior
      *
-     * @param {Element|string} elm Toggle Element or CSS selector
      * @void
      */
-    #initSidebarToggle(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSidebarToggle() {
+      const contentElm = dom.find('main > .content');
+      const toggleElm = dom.find('button.sidebar-toggle');
 
-      if (!elm) {
+      if (!toggleElm) {
         return;
       }
 
-      const toggle = () => {
-        dom.body.classList.toggle('close');
+      /** @type {HTMLElement | null} */
+      let lastContentFocusElm;
 
-        const isClosed = isMobile
-          ? dom.body.classList.contains('close')
-          : !dom.body.classList.contains('close');
+      // Store last focused content element (restored via #toggleSidebar)
+      dom.on(contentElm, 'focusin', (/** @type {FocusEvent} */ e) => {
+        const focusAttr = 'data-restore-focus';
 
-        elm.setAttribute('aria-expanded', isClosed);
-      };
-
-      dom.on(elm, 'click', e => {
-        e.stopPropagation();
-        toggle();
+        lastContentFocusElm?.removeAttribute(focusAttr);
+        lastContentFocusElm = /** @type {HTMLElement} */ (e.target);
+        lastContentFocusElm.setAttribute(focusAttr, '');
       });
 
-      isMobile &&
-        dom.on(
-          dom.body,
-          'click',
-          () => dom.body.classList.contains('close') && toggle(),
-        );
+      // Toggle sidebar
+      dom.on(toggleElm, 'click', (/** @type {MouseEvent} */ e) => {
+        e.stopPropagation();
+        this.#toggleSidebar();
+      });
     }
 
     /**
      * Initialize skip to content behavior
      *
-     * @param {Element|string} elm Skip link Element or CSS selector
      * @void
      */
-    #initSkipToContent(elm) {
-      elm = typeof elm === 'string' ? document.querySelector(elm) : elm;
+    #initSkipToContent() {
+      const skipElm = document.querySelector('#skip-to-content');
 
-      if (!elm) {
+      if (!skipElm) {
         return;
       }
 
-      elm.addEventListener('click', evt => {
+      skipElm.addEventListener('click', evt => {
+        const focusElm = this.#focusContent();
+
         evt.preventDefault();
-        dom.find('main')?.scrollIntoView({
+        focusElm?.scrollIntoView({
           behavior: 'smooth',
         });
-        this.#focusContent();
       });
     }
 
@@ -295,10 +323,17 @@ export function Events(Base) {
      * @void
      */
     onRender() {
+      const { name } = this.config;
       const currentPath = this.router.toURL(this.router.getCurrentPath());
-      const currentTitle = dom.find(
-        `.sidebar a[href='${currentPath}']`,
-      )?.innerText;
+      const currentSection = dom
+        .find(`.sidebar a[href='${currentPath}']`)
+        ?.getAttribute('title');
+
+      const currentTitle = name
+        ? currentSection
+          ? `${currentSection} - ${name}`
+          : name
+        : currentSection;
 
       // Update page title
       dom.$.title = currentTitle || this.#title;
@@ -318,9 +353,8 @@ export function Events(Base) {
      */
     onNavigate(source) {
       const { auto2top, topMargin } = this.config;
-      const { query } = this.route;
-
-      this.#markSidebarActiveElm();
+      const { path, query } = this.route;
+      const activeSidebarElm = this.#markSidebarActiveElm();
 
       // Note: Scroll position set by browser on forward/back (i.e. "history")
       if (source !== 'history') {
@@ -342,13 +376,26 @@ export function Events(Base) {
         else if (source === 'navigate') {
           // Scroll to top
           if (auto2top) {
-            document.scrollingElement.scrollTop = topMargin ?? 0;
+            /** @type {Element} */ (document.scrollingElement).scrollTop =
+              topMargin ?? 0;
           }
         }
       }
 
-      // Move focus to content
-      if (query.id || source === 'navigate') {
+      const isNavigate = source === 'navigate';
+      const hasId = 'id' in query;
+      const noSubSidebar = !activeSidebarElm?.querySelector('.app-sub-sidebar');
+
+      // Clicked anchor link
+      const shouldCloseSidebar =
+        path === '/' || (isNavigate && (hasId || noSubSidebar));
+
+      if (shouldCloseSidebar && isMobile()) {
+        this.#toggleSidebar(false);
+      }
+
+      // Clicked anchor link or page load with anchor ID
+      if (hasId || isNavigate) {
         this.#focusContent();
       }
     }
@@ -361,6 +408,7 @@ export function Events(Base) {
      *
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
      * @param {Object} options HTMLElement focus() method options
+     * @returns HTMLElement|undefined
      * @void
      */
     #focusContent(options = {}) {
@@ -369,49 +417,65 @@ export function Events(Base) {
         ...options,
       };
       const { query } = this.route;
-      const focusEl = query.id
-        ? // Heading ID
-          dom.find(`#${query.id}`)
-        : // First heading
-          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
-          // Content container
-          dom.find('#main');
+      const focusEl = /** @type {HTMLElement|null} */ (
+        query.id
+          ? // Heading ID
+            dom.find(`#${query.id}`)
+          : // First heading
+            dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+            // Content container
+            dom.find('#main')
+      );
 
       // Move focus to content area
-      focusEl?.focus(settings);
+      if (focusEl) {
+        if (!focusEl.hasAttribute('tabindex')) {
+          focusEl.setAttribute('tabindex', '-1');
+          focusEl.setAttribute('data-added-tabindex', 'true');
+        }
+
+        if (focusEl.hasAttribute('data-added-tabindex')) {
+          focusEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        focusEl.focus(settings);
+      }
+
+      return focusEl;
     }
 
     /**
      * Marks the active app nav item
-     *
-     * @param {string} [href] Matching element HREF value. If unspecified,
-     * defaults to the current path (without query params)
-     * @returns Element|undefined
      */
     #markAppNavActiveElm() {
       const href = decodeURIComponent(this.router.toURL(this.route.path));
-      const navElm = dom.find('nav.app-nav');
 
-      if (!navElm) {
-        return;
-      }
+      ['.app-nav', '.app-nav-merged'].forEach(selector => {
+        const navElm = dom.find(selector);
 
-      const newActive = dom
-        .findAll(navElm, 'a')
-        .sort((a, b) => b.href.length - a.href.length)
-        .find(
-          a =>
-            href.includes(a.getAttribute('href')) ||
-            href.includes(decodeURI(a.getAttribute('href'))),
-        );
-      const oldActive = dom.find(navElm, 'li.active');
+        if (!navElm) {
+          return;
+        }
 
-      if (newActive && newActive !== oldActive) {
-        oldActive?.classList.remove('active');
-        newActive.classList.add('active');
-      }
+        const newActive = /** @type {HTMLAnchorElement[]} */ (
+          dom.findAll(navElm, 'a')
+        )
+          .sort((a, b) => b.href.length - a.href.length)
+          .find(
+            a =>
+              href.includes(/** @type {string} */ (a.getAttribute('href'))) ||
+              href.includes(
+                decodeURI(/** @type {string} */ (a.getAttribute('href'))),
+              ),
+          )
+          ?.closest('li');
+        const oldActive = dom.find(navElm, 'li.active');
 
-      return newActive;
+        if (newActive && newActive !== oldActive) {
+          oldActive?.classList.remove('active');
+          newActive.classList.add('active');
+        }
+      });
     }
 
     /**
@@ -430,11 +494,13 @@ export function Events(Base) {
         return;
       }
 
+      href = stripUrlExceptId(href);
+
       const oldActive = dom.find(sidebar, 'li.active');
       const newActive = dom
         .find(
           sidebar,
-          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
+          `a[href="${href}"], a[href="${decodeURIComponent(/** @type {string} */ (href))}"]`,
         )
         ?.closest('li');
 
@@ -467,7 +533,7 @@ export function Events(Base) {
       const newPage = dom
         .find(
           sidebar,
-          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`,
+          `a[href="${path}"], a[href="${decodeURIComponent(/** @type {string} */ (path))}"]`,
         )
         ?.closest('li');
 
@@ -477,6 +543,58 @@ export function Events(Base) {
       }
 
       return newPage;
+    }
+
+    /**
+     * @param {boolean} [force]
+     */
+    #toggleSidebar(force) {
+      const sidebarElm = /** @type {HTMLElement|null} */ (dom.find('.sidebar'));
+
+      if (!sidebarElm) {
+        return;
+      }
+
+      const ariaElms = dom.findAll('[aria-controls="__sidebar"]');
+      const inertElms = dom.findAll(
+        'body > *:not(main, script), main > .content',
+      );
+      const isShow = sidebarElm.classList.toggle('show', force);
+
+      // Set aria-expanded attribute
+      ariaElms.forEach(toggleElm => {
+        const expanded = force ?? sidebarElm.classList.contains('show');
+        toggleElm.setAttribute('aria-expanded', String(expanded));
+        toggleElm.setAttribute(
+          'aria-label',
+          expanded ? 'Hide primary navigation' : 'Show primary navigation',
+        );
+      });
+
+      // Add inert attributes (focus trap)
+      if (isShow && isMobile()) {
+        inertElms.forEach(elm => elm.setAttribute('inert', ''));
+      }
+      // Remove inert attributes
+      else {
+        inertElms.forEach(elm => elm.removeAttribute('inert'));
+      }
+
+      if (isShow) {
+        sidebarElm.focus();
+      }
+      // Restore focus
+      else {
+        const restoreElm = /** @type {HTMLElement|null} */ (
+          document.querySelector('main > .content [data-restore-focus]')
+        );
+
+        if (restoreElm) {
+          restoreElm.focus({
+            preventScroll: true,
+          });
+        }
+      }
     }
 
     /**
@@ -501,6 +619,9 @@ export function Events(Base) {
           }
           // Browsers w/o native scrollend event support (Safari)
           else {
+            /** @type {any} */
+            let scrollTimer;
+
             const callback = () => {
               clearTimeout(scrollTimer);
 
@@ -509,8 +630,6 @@ export function Events(Base) {
                 this.#isScrolling = false;
               }, 100);
             };
-
-            let scrollTimer;
 
             document.addEventListener('scroll', callback, false);
           }

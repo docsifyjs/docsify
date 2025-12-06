@@ -14,8 +14,8 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
       };
     });
 
-    // Inject docsify theme (vue.css)
-    await page.addStyleTag({ url: '/dist/themes/vue.css' });
+    // Inject docsify theme
+    await page.addStyleTag({ url: '/dist/themes/core.css' });
 
     // Inject docsify.js
     await page.addScriptTag({ url: '/dist/docsify.js' });
@@ -96,7 +96,7 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
           background: red !important;
         }
       `,
-      styleURLs: ['/dist/themes/vue.css'],
+      styleURLs: ['/dist/themes/core.css'],
     };
 
     await docsifyInit({
@@ -214,7 +214,7 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
   //         upon billions upon billions upon billions upon billions.
   //       `,
   //     },
-  //     styleURLs: [`/dist/themes/vue.css`],
+  //     styleURLs: [`/dist/themes/core.css`],
   //     // _logHTML: true,
   //   });
 

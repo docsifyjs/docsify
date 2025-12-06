@@ -41,7 +41,13 @@ test.describe('Configuration options', () => {
     test('false (throws uncaught errors)', async ({ page }) => {
       let consoleMsg, errorMsg;
 
-      page.on('console', msg => (consoleMsg = msg.text()));
+      page.on('console', msg => {
+        const text = msg.text();
+        if (text.startsWith('DEPRECATION:')) {
+          return;
+        } // ignore expected deprecation warnings
+        consoleMsg = text;
+      });
       page.on('pageerror', err => (errorMsg = err.message));
 
       await docsifyInit({
@@ -159,11 +165,11 @@ test.describe('keyBindings', () => {
 
     await docsifyInit(docsifyInitConfig);
 
-    const bodyElm = page.locator('body');
+    const sidebarElm = page.locator('.sidebar');
 
-    await expect(bodyElm).not.toHaveClass(/close/);
+    await expect(sidebarElm).toHaveClass(/show/);
     await page.keyboard.press('\\');
-    await expect(bodyElm).toHaveClass(/close/);
+    await expect(sidebarElm).not.toHaveClass(/show/);
   });
 
   test('handles custom binding', async ({ page }) => {

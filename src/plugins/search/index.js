@@ -4,16 +4,30 @@ import {
 } from './component.js';
 import { init as initSearch } from './search.js';
 
+/**
+ * @type {{
+ *   placeholder: string;
+ *   noData: string;
+ *   paths: string[] | 'auto';
+ *   depth: number;
+ *   maxAge: number;
+ *   namespace?: string;
+ *   pathNamespaces?: RegExp | string[];
+ *   keyBindings: string[];
+ *   insertAfter?: string;
+ *   insertBefore?: string;
+ * }} */
 const CONFIG = {
   placeholder: 'Type to search',
   noData: 'No Results!',
   paths: 'auto',
   depth: 2,
   maxAge: 86400000, // 1 day
-  hideOtherSidebarContent: false,
   namespace: undefined,
   pathNamespaces: undefined,
   keyBindings: ['/', 'meta+k', 'ctrl+k'],
+  insertAfter: undefined, // CSS selector
+  insertBefore: undefined, // CSS selector
 };
 
 const install = function (hook, vm) {
@@ -28,8 +42,6 @@ const install = function (hook, vm) {
     CONFIG.placeholder = opts.placeholder || CONFIG.placeholder;
     CONFIG.noData = opts.noData || CONFIG.noData;
     CONFIG.depth = opts.depth || CONFIG.depth;
-    CONFIG.hideOtherSidebarContent =
-      opts.hideOtherSidebarContent || CONFIG.hideOtherSidebarContent;
     CONFIG.namespace = opts.namespace || CONFIG.namespace;
     CONFIG.pathNamespaces = opts.pathNamespaces || CONFIG.pathNamespaces;
     CONFIG.keyBindings = opts.keyBindings || CONFIG.keyBindings;
@@ -46,9 +58,14 @@ const install = function (hook, vm) {
         bindings: CONFIG.keyBindings,
         callback(e) {
           const sidebarElm = document.querySelector('.sidebar');
-          const sidebarToggleElm = document.querySelector('.sidebar-toggle');
-          const searchElm = sidebarElm?.querySelector('input[type="search"]');
-          const isSidebarHidden = sidebarElm?.getBoundingClientRect().x < 0;
+          const sidebarToggleElm = /** @type {HTMLElement} */ (
+            document.querySelector('.sidebar-toggle')
+          );
+          const searchElm = /** @type {HTMLInputElement | null} */ (
+            sidebarElm?.querySelector('input[type="search"]')
+          );
+          const isSidebarHidden =
+            (sidebarElm?.getBoundingClientRect().x ?? 0) < 0;
 
           isSidebarHidden && sidebarToggleElm?.click();
 
@@ -68,4 +85,4 @@ const install = function (hook, vm) {
 };
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];

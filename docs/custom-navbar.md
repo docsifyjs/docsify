@@ -4,7 +4,7 @@
 
 If you need custom navigation, you can create a HTML-based navigation bar.
 
-!> Note that documentation links begin with `#/`.
+> [!IMPORTANT] Note that documentation links begin with `#/`.
 
 ```html
 <!-- index.html -->
@@ -20,7 +20,7 @@ If you need custom navigation, you can create a HTML-based navigation bar.
 
 ## Markdown
 
-Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [loadNavbar configuration](configuration.md#loadnavbar).
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [loadNavbar configuration](configuration#loadnavbar).
 
 ```html
 <!-- index.html -->
@@ -40,7 +40,18 @@ Alternatively, you can create a custom markdown-based navigation file by setting
 - [chinese](/zh-cn/)
 ```
 
-!> You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
+To create drop-down menus:
+
+```markdown
+<!-- _navbar.md -->
+
+- Translations
+
+  - [En](/)
+  - [chinese](/zh-cn/)
+```
+
+> [!IMPORTANT] You need to create a `.nojekyll` in `./docs` to prevent GitHub Pages from ignoring files that begin with an underscore.
 
 `_navbar.md` is loaded from each level directory. If the current directory doesn't have `_navbar.md`, it will fall back to the parent directory. If, for example, the current path is `/guide/quick-start`, the `_navbar.md` will be loaded from `/guide/_navbar.md`.
 
@@ -59,6 +70,7 @@ You can create sub-lists by indenting items that are under a certain parent.
   - [Cover page](cover.md)
 
 - Configuration
+
   - [Configuration](configuration.md)
   - [Themes](themes.md)
   - [Using plugins](plugins.md)

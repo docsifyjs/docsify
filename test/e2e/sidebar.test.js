@@ -69,3 +69,89 @@ test.describe('Sidebar Tests', () => {
     expect(page.url()).toMatch(/\/test%3Efoo$/);
   });
 });
+
+test.describe('Configuration: autoHeader', () => {
+  test('autoHeader=false', async ({ page }) => {
+    const docsifyInitConfig = {
+      config: {
+        loadSidebar: '_sidebar.md',
+        autoHeader: false,
+      },
+      markdown: {
+        sidebar: `
+            - [QuickStartAutoHeader](quickstart.md)
+          `,
+      },
+      routes: {
+        '/quickstart.md': `
+            the content of quickstart space
+            ## In the main content there is no h1
+          `,
+      },
+    };
+
+    await docsifyInit(docsifyInitConfig);
+
+    await page.click('a[href="#/quickstart"]');
+    expect(page.url()).toMatch(/\/quickstart$/);
+    // not heading
+    await expect(page.locator('#quickstart')).toBeHidden();
+  });
+
+  test('autoHeader=true', async ({ page }) => {
+    const docsifyInitConfig = {
+      config: {
+        loadSidebar: '_sidebar.md',
+        autoHeader: true,
+      },
+      markdown: {
+        sidebar: `
+            - [QuickStartAutoHeader](quickstart.md )
+          `,
+      },
+      routes: {
+        '/quickstart.md': `
+            the content of quickstart space
+            ## In the main content there is no h1
+          `,
+      },
+    };
+
+    await docsifyInit(docsifyInitConfig);
+
+    await page.click('a[href="#/quickstart"]');
+    expect(page.url()).toMatch(/\/quickstart$/);
+
+    // auto generate default heading id
+    const autoHeader = page.locator('#quickstartautoheader');
+    expect(await autoHeader.innerText()).toContain('QuickStartAutoHeader');
+  });
+
+  test('autoHeader=true and custom headingId', async ({ page }) => {
+    const docsifyInitConfig = {
+      config: {
+        loadSidebar: '_sidebar.md',
+        autoHeader: true,
+      },
+      markdown: {
+        sidebar: `
+            - [QuickStartAutoHeader](quickstart.md ":id=quickstartId")
+          `,
+      },
+      routes: {
+        '/quickstart.md': `
+            the content of quickstart space
+            ## In the main content there is no h1
+          `,
+      },
+    };
+
+    await docsifyInit(docsifyInitConfig);
+
+    await page.click('a[href="#/quickstart"]');
+    expect(page.url()).toMatch(/\/quickstart$/);
+    // auto generate custom heading id
+    const autoHeader = page.locator('#quickstartId');
+    expect(await autoHeader.innerText()).toContain('QuickStartAutoHeader');
+  });
+});

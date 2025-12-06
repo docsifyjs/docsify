@@ -1,6 +1,8 @@
+import { isMobile } from '../util/env.js';
+
 /**
  * Render github corner
- * @param  {Object} data URL for the View Source on Github link
+ * @param  {Object} data URL for the View Source on GitHub link
  * @param {String} cornerExternalLinkTarget value of the target attribute of the link
  * @return {String} SVG element as string
  */
@@ -18,7 +20,7 @@ export function corner(data, cornerExternalLinkTarget) {
   cornerExternalLinkTarget = cornerExternalLinkTarget || '_blank';
 
   return /* html */ `
-    <a href="${data}" target="${cornerExternalLinkTarget}" class="github-corner" aria-label="View source on Github">
+    <a href="${data}" target="${cornerExternalLinkTarget}" class="github-corner" aria-label="View source on GitHub">
       <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
         <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
@@ -34,15 +36,18 @@ export function corner(data, cornerExternalLinkTarget) {
  * @returns {String} HTML of the main content
  */
 export function main(config) {
-  const name = config.name ? config.name : '';
+  const { hideSidebar, name } = config;
+  // const name = config.name ? config.name : '';
 
-  const aside = /* html */ `
-    <button class="sidebar-toggle" title="Press \\ to toggle" aria-label="Toggle primary navigation" aria-keyshortcuts="\\" aria-controls="__sidebar">
-      <div class="sidebar-toggle-button" aria-hidden="true">
+  const aside = /* html */ hideSidebar
+    ? ''
+    : `
+    <button class="sidebar-toggle" tabindex="-1" title="Press \\ to toggle">
+      <div class="sidebar-toggle-button" tabindex="0" aria-label="Hide primary navigation" aria-keyshortcuts="Use shortcut key \\" aria-controls="__sidebar" role="button">
         <span></span><span></span><span></span>
       </div>
     </button>
-    <aside id="__sidebar" class="sidebar" role="none">
+    <aside id="__sidebar" class="sidebar${!isMobile() ? ' show' : ''}" tabindex="-1" role="none">
       ${
         config.name
           ? /* html */ `
@@ -57,7 +62,8 @@ export function main(config) {
   `;
 
   return /* html */ `
-    <main role="presentation">${aside}
+    <main role="presentation">
+      ${aside}
       <section class="content">
         <article id="main" class="markdown-section" role="main" tabindex="-1"><!--main--></article>
       </section>
@@ -70,17 +76,8 @@ export function main(config) {
  * @returns {String} Cover page
  */
 export function cover() {
-  const SL = ', 100%, 85%';
-  const bgc = `
-    linear-gradient(
-      to left bottom,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 0%,
-      hsl(${Math.floor(Math.random() * 255) + SL}) 100%
-    )
-  `;
-
   return /* html */ `
-    <section class="cover show" role="complementary" aria-label="cover" style="background: ${bgc}">
+    <section class="cover show" role="complementary" aria-label="cover">
       <div class="mask"></div>
       <div class="cover-main"><!--cover--></div>
     </section>
@@ -104,14 +101,20 @@ export function tree(
   let innerHTML = '';
   toc.forEach(node => {
     const title = node.title.replace(/(<([^>]+)>)/g, '');
-    innerHTML += /* html */ `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a></li>`;
+    let current = `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a></li>`;
     if (node.children) {
-      innerHTML += tree(node.children, tpl);
+      // when current node has children, we need put them all in parent's <li> block without the `class="app-sub-sidebar"` attribute
+      const children = tree(node.children, '<ul>{inner}</ul>');
+      current = `<li><a class="section-link" href="${node.slug}" title="${title}">${node.title}</a>${children}</li>`;
     }
+    innerHTML += current;
   });
   return tpl.replace('{inner}', innerHTML);
 }
 
+/**
+ * @deprecated
+ */
 export function helper(className, content) {
   return /* html */ `<p class="${className}">${content.slice(5).trim()}</p>`;
 }

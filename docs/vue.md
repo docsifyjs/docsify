@@ -51,7 +51,7 @@ Docsify ignores Vue template syntax within code blocks by default:
 
 ````markdown
 ```
-{{ message}}
+{{ message }}
 ```
 ````
 
@@ -61,7 +61,7 @@ To process Vue template syntax within a code block, wrap the code block in an el
 <div v-template>
 
 ```
-{{ message}}
+{{ message }}
 ```
 
 </div>
@@ -311,7 +311,7 @@ window.$docsify = {
 
 Vue content can mounted using a `<script>` tag in your markdown pages.
 
-!> Only the first `<script>` tag in a markdown file is executed. If you wish to mount multiple Vue instances using a script tag, all instances must be mounted within the first script tag in your markdown.
+> [!IMPORTANT] Only the first `<script>` tag in a markdown file is executed. If you wish to mount multiple Vue instances using a script tag, all instances must be mounted within the first script tag in your markdown.
 
 ```html
 <script>

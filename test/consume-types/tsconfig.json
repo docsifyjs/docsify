@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "strict": true,
+    "noEmit": true,
+    "lib": ["DOM", "ESNext", "WebWorker"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  }
+}

@@ -1,3 +1,4 @@
+import prism from 'prismjs';
 import { Router } from './router/index.js';
 import { Render } from './render/index.js';
 import { Fetch } from './fetch/index.js';
@@ -8,15 +9,28 @@ import config from './config.js';
 import { isFn } from './util/core.js';
 import { Lifecycle } from './init/lifecycle.js';
 
+export { prism };
+export { marked } from 'marked';
+export * as util from './util/index.js';
+export * as dom from './util/dom.js';
+export { Compiler } from './render/compiler.js';
+export { slugify } from './render/slugify.js';
+export { get } from './util/ajax.js';
+
 /** @typedef {new (...args: any[]) => any} Constructor */
+/** @typedef {import('./config.js').DocsifyConfig} DocsifyConfig */
 
 export class Docsify extends Fetch(
   Events(Render(VirtualRoutes(Router(Lifecycle(Object))))),
 ) {
-  config = config(this);
+  /** @type {DocsifyConfig} */
+  config;
 
-  constructor() {
+  /** @param {Partial<DocsifyConfig>} conf */
+  constructor(conf = {}) {
     super();
+
+    this.config = config(this, conf);
 
     this.initLifecycle(); // Init hooks
     this.initPlugin(); // Install plugins
@@ -45,3 +59,5 @@ export class Docsify extends Fetch(
     });
   }
 }
+
+export const version = '__VERSION__';

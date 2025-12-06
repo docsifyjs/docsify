@@ -12,11 +12,13 @@ export function slugify(str) {
 
   let slug = str
     .trim()
+    .normalize('NFC')
+    .replace(/\uFE0F/g, '')
+    .replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
     .replace(/[A-Z]+/g, lower)
     .replace(/<[^>]+>/g, '')
     .replace(re, '')
     .replace(/\s/g, '-')
-    .replace(/-+/g, '-')
     .replace(/^(\d)/, '_$1');
   let count = cache[slug];
 

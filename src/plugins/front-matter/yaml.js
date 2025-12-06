@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Forked from https://github.com/egoist/docute/blob/master/src/utils/yaml.js
  */
@@ -54,7 +55,6 @@ var errors = [],
 /**
  * @class A block of lines of a given level.
  * @param {int} lvl The block's level.
- * @private
  */
 function Block(lvl) {
   return {

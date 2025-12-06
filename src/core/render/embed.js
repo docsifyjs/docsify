@@ -3,6 +3,35 @@ import { get } from '../util/ajax.js';
 
 const cached = {};
 
+/**
+ * Extracts the content between matching fragment markers in the text.
+ *
+ * Supported markers:
+ * - ### [fragment] ... ### [fragment]
+ * - /// [fragment] ... /// [fragment]
+ *
+ * @param {string} text - The input text that may contain embedded fragments.
+ * @param {string} fragment - The fragment identifier to search for.
+ * @param {boolean} fullLine - Boolean flag to enable full-line matching of fragment identifiers.
+ * @returns {string} - The extracted and dedented content, or an empty string if not found.
+ */
+function extractFragmentContent(text, fragment, fullLine) {
+  if (!fragment) {
+    return text;
+  }
+  let fragmentRegex = `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`;
+  const contentRegex = `[\\s\\S]*?`;
+  if (fullLine) {
+    // Match full line containing fragment identifier (e.g. /// [demo])
+    fragmentRegex = `.*${fragmentRegex}.*\n`;
+  }
+  const pattern = new RegExp(
+    `(?:${fragmentRegex})(${contentRegex})(?:${fragmentRegex})`,
+  ); // content is the capture group
+  const match = text.match(pattern);
+  return stripIndent((match || [])[1] || '').trim();
+}
+
 function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   let token;
   let step = 0;
@@ -38,20 +67,27 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
           });
 
           // This may contain YAML front matter and will need to be stripped.
-          const frontMatterInstalled =
-            ($docsify.frontMatter || {}).installed || false;
-          if (frontMatterInstalled === true) {
-            text = $docsify.frontMatter.parseMarkdown(text);
+          const frontMatterInstalled = $docsify?.frontMatter?.installed;
+          if (frontMatterInstalled) {
+            text = $docsify.frontMatter?.parseMarkdown(text);
+          }
+
+          if (currentToken.embed.fragment) {
+            text = extractFragmentContent(
+              text,
+              currentToken.embed.fragment,
+              currentToken.embed.omitFragmentLine,
+            );
           }
 
           embedToken = compile.lexer(text);
         } else if (currentToken.embed.type === 'code') {
           if (currentToken.embed.fragment) {
-            const fragment = currentToken.embed.fragment;
-            const pattern = new RegExp(
-              `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`,
+            text = extractFragmentContent(
+              text,
+              currentToken.embed.fragment,
+              currentToken.embed.omitFragmentLine,
             );
-            text = stripIndent((text.match(pattern) || [])[1] || '').trim();
           }
 
           embedToken = compile.lexer(
@@ -68,14 +104,21 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
               text: /* html */ `<div class="mermaid">\n${text}\n</div>`,
             },
           ];
-          embedToken.links = {};
+          /** @type {any} */ (embedToken).links = {};
         } else {
           embedToken = [{ type: 'html', text }];
-          embedToken.links = {};
+          /** @type {any} */ (embedToken).links = {};
         }
       }
 
-      cb({ token: currentToken, embedToken });
+      cb({
+        token: currentToken,
+        embedToken,
+        rowIndex: currentToken.rowIndex,
+        cellIndex: currentToken.cellIndex,
+        tokenRef: currentToken.tokenRef,
+      });
+
       if (++count >= embedTokens.length) {
         cb({});
       }
@@ -103,23 +146,45 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const linkRE = compile.Lexer.rules.inline.normal.link;
   const links = tokens.links;
 
+  const linkMatcher = new RegExp(linkRE.source, 'g');
+
   tokens.forEach((token, index) => {
     if (token.type === 'paragraph') {
       token.text = token.text.replace(
-        new RegExp(linkRE.source, 'g'),
+        linkMatcher,
         (src, filename, href, title) => {
           const embed = compiler.compileEmbed(href, title);
-
           if (embed) {
             embedTokens.push({
               index,
+              tokenRef: token,
               embed,
             });
           }
-
           return src;
         },
       );
+    } else if (token.type === 'table') {
+      token.rows.forEach((row, rowIndex) => {
+        row.forEach((cell, cellIndex) => {
+          cell.text = cell.text.replace(
+            linkMatcher,
+            (src, filename, href, title) => {
+              const embed = compiler.compileEmbed(href, title);
+              if (embed) {
+                embedTokens.push({
+                  index,
+                  tokenRef: token,
+                  rowIndex,
+                  cellIndex,
+                  embed,
+                });
+              }
+              return src;
+            },
+          );
+        });
+      });
     }
   });
 
@@ -127,27 +192,36 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   // so that we know where to insert the embedded tokens as they
   // are returned
   const moves = [];
-  walkFetchEmbed({ compile, embedTokens, fetch }, ({ embedToken, token }) => {
-    if (token) {
-      // iterate through the array of previously inserted tokens
-      // to determine where the current embedded tokens should be inserted
-      let index = token.index;
-      moves.forEach(pos => {
-        if (index > pos.start) {
-          index += pos.length;
+  walkFetchEmbed(
+    { compile, embedTokens, fetch },
+    ({ embedToken, token, rowIndex, cellIndex, tokenRef }) => {
+      if (token) {
+        if (typeof rowIndex === 'number' && typeof cellIndex === 'number') {
+          const cell = tokenRef.rows[rowIndex][cellIndex];
+
+          cell.embedTokens = embedToken;
+        } else {
+          // iterate through the array of previously inserted tokens
+          // to determine where the current embedded tokens should be inserted
+          let index = token.index;
+          moves.forEach(pos => {
+            if (index > pos.start) {
+              index += pos.length;
+            }
+          });
+
+          Object.assign(links, embedToken.links);
+
+          tokens = tokens
+            .slice(0, index)
+            .concat(embedToken, tokens.slice(index + 1));
+          moves.push({ start: index, length: embedToken.length - 1 });
         }
-      });
-
-      Object.assign(links, embedToken.links);
-
-      tokens = tokens
-        .slice(0, index)
-        .concat(embedToken, tokens.slice(index + 1));
-      moves.push({ start: index, length: embedToken.length - 1 });
-    } else {
-      cached[raw] = tokens.concat();
-      tokens.links = cached[raw].links = links;
-      done(tokens);
-    }
-  });
+      } else {
+        cached[raw] = tokens.concat();
+        tokens.links = cached[raw].links = links;
+        done(tokens);
+      }
+    },
+  );
 }

@@ -43,7 +43,7 @@ window.$docsify = {
     '/foo/(.*)': '/bar/$1', // supports regexp
     '/zh-cn/changelog': '/changelog',
     '/changelog':
-      'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG',
+      'https://raw.githubusercontent.com/docsifyjs/docsify/main/CHANGELOG',
 
     // You may need this if you use routerMode:'history'.
     '/.*/_sidebar.md': '/_sidebar.md', // See #301
@@ -72,7 +72,9 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML. See [#78](https://github.com/docsifyjs/docsify/issues/78).
+If `loadSidebar` and `autoHeader` are both enabled, for each link in `_sidebar.md`, prepend a header to the page before converting it to HTML — but only if the page does not already contain an H1 heading.
+
+For more details, see [#78](https://github.com/docsifyjs/docsify/issues/78).
 
 ```js
 window.$docsify = {
@@ -238,6 +240,22 @@ window.$docsify = {
 };
 ```
 
+## fallbackDefaultLanguage
+
+- Type: `String`
+- Default: `''`
+
+When a page is requested and it doesn't exist for the given locale, Docsify will fallback to the language specified by this option.
+
+For example, in the scenario described above, if `/de/overview` does not exist and `fallbackDefaultLanguage` is configured as `zh-cn`, Docsify will fetch `/zh-cn/overview` instead of `/overview`.
+
+```js
+window.$docsify = {
+  fallbackLanguages: ['fr', 'de'],
+  fallbackDefaultLanguage: 'zh-cn', // default: ''
+};
+```
+
 ## formatUpdated
 
 - Type: `String|Function`
@@ -260,7 +278,7 @@ window.$docsify = {
 ## hideSidebar
 
 - Type : `Boolean`
-- Default: `true`
+- Default: `false`
 
 This option will completely hide your sidebar and won't render any content on the side.
 
@@ -284,7 +302,7 @@ window.$docsify = {
 
   // Or use the readme in your repo
   homepage:
-    'https://raw.githubusercontent.com/docsifyjs/docsify/master/README.md',
+    'https://raw.githubusercontent.com/docsifyjs/docsify/main/README.md',
 };
 ```
 
@@ -301,7 +319,7 @@ Key `bindings` are defined as case insensitive string values separated by `+`. M
 
 The `callback` function receive a [keydown event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) as an argument.
 
-!> Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
+> [!IMPORTANT] Let site visitors know your custom key bindings are available! If a binding is associated with a DOM element, consider inserting a `<kbd>` element as a visual cue (e.g., <kbd>alt</kbd> + <kbd>a</kbd>) or adding [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-keyshortcuts](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts) attributes for hover/focus hints.
 
 ```js
 window.$docsify = {
@@ -376,7 +394,7 @@ window.$docsify = {
 
 Website logo as it appears in the sidebar. You can resize it using CSS.
 
-!> Logo will only bee visible if `name` prop is also set. See [name](#name) configuration.
+> [!IMPORTANT] Logo will only be visible if `name` prop is also set. See [name](#name) configuration.
 
 ```js
 window.$docsify = {
@@ -438,7 +456,7 @@ window.$docsify = {
 
 ## name
 
-- Type: `String`
+- Type: `Boolean | String`
 
 Website name as it appears in the sidebar.
 
@@ -453,6 +471,22 @@ The name field can also contain custom HTML for easier customization:
 ```js
 window.$docsify = {
   name: '<span>docsify</span>',
+};
+```
+
+If `true`, the website name will be inferred from the document's `<title>` tag.
+
+```js
+window.$docsify = {
+  name: true,
+};
+```
+
+If `false` or empty, no name will be displayed.
+
+```js
+window.$docsify = {
+  name: false,
 };
 ```
 
@@ -480,7 +514,7 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `false`
 
-Render emoji shorthand codes using GitHub-style emoji images or platform-native emoji characters.
+Render emoji shorthand codes using GitHub-style emoji images or native emoji characters.
 
 ```js
 window.$docsify = {
@@ -506,7 +540,7 @@ GitHub-style images when `false`:
   <img class="emoji" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png" alt="-1">
 </output>
 
-Platform-native characters when `true`:
+Native characters when `true`:
 
 <output data-lang="output">
   <span class="emoji">😄︎</span>
@@ -581,7 +615,7 @@ To disable emoji parsing of individual shorthand codes, replace `:` characters w
 
 ## notFoundPage
 
-- Type: `Boolean` | `String` | `Object`
+- Type: `Boolean|String|Object`
 - Default: `false`
 
 Display default "404 - Not Found" message:
@@ -633,6 +667,10 @@ window.$docsify = {
   onlyCover: false,
 };
 ```
+
+## plugins
+
+See [Plugins](./plugins.md).
 
 ## relativePath
 
@@ -687,6 +725,8 @@ window.$docsify = {
   repo: 'https://github.com/docsifyjs/docsify/',
 };
 ```
+
+If undefined or empty, no GitHub corner will be displayed.
 
 ## requestHeaders
 
@@ -869,9 +909,9 @@ window.$docsify = {
 Determines if/how the site's [skip navigation link](https://webaim.org/techniques/skipnav/) will be rendered.
 
 ```js
-// Render skip link for all routes (default)
+// Render skip link for all routes
 window.$docsify = {
-  skipLink: 'Skip to main content',
+  skipLink: 'Skip to content',
 };
 ```
 
@@ -891,6 +931,13 @@ window.$docsify = {
 // Do not render skip link
 window.$docsify = {
   skipLink: false,
+};
+```
+
+```js
+// Use default
+window.$docsify = {
+  skipLink: true, // "Skip to main content"
 };
 ```
 
@@ -917,17 +964,9 @@ If you have a link to the homepage in the sidebar and want it to be shown as act
 
 For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
-## themeColor (_deprecated_)
+## themeColor ⚠️ :id=themecolor
 
-> **Warning** Deprecated. Use the CSS var `--theme-color` in your `<style>` sheet. Example:
->
-> ```html
-> <style>
->   :root {
->     --theme-color: deeppink;
->   }
-> </style>
-> ```
+> [!IMPORTANT] Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
 
 - Type: `String`
 
@@ -939,16 +978,18 @@ window.$docsify = {
 };
 ```
 
-## topMargin
+## topMargin ⚠️ :id=topmargin
 
-- Type: `Number`
+> [!IMPORTANT] Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
+
+- Type: `Number|String`
 - Default: `0`
 
-Adds a space on top when scrolling the content page to reach the selected section. This is useful in case you have a _sticky-header_ layout and you want to align anchors to the end of your header.
+Adds scroll padding to the top of the viewport. This is useful when you have added a sticky or "fixed" element and would like auto scrolling to align with the bottom of your element.
 
 ```js
 window.$docsify = {
-  topMargin: 90, // default: 0
+  topMargin: 90, // 90, '90px', '2rem', etc.
 };
 ```
 

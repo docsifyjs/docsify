@@ -34,7 +34,7 @@ export class HashHistory extends History {
     return index === -1 ? '' : href.slice(index + 1);
   }
 
-  /** @param {((params: {source: TODO}) => void)} [cb] */
+  /** @param {(params: {source: any, event?: any}) => void} [cb] */
   onchange(cb = noop) {
     // The hashchange event does not tell us if it originated from
     // a clicked link or by moving back/forward in the history;
@@ -47,6 +47,15 @@ export class HashHistory extends History {
 
       if (el && el.tagName === 'A' && !isExternal(el.href)) {
         navigating = true;
+
+        // Do not compare hash containing these classes.
+        if (['app-name-link', 'page-link'].includes(el.className)) {
+          return;
+        }
+
+        if (el.hash === location.hash) {
+          cb({ event: e, source: 'navigate' });
+        }
       }
     });
 
@@ -71,8 +80,8 @@ export class HashHistory extends History {
 
   /**
    * Parse the url
-   * @param {string} [path=location.herf] URL to be parsed
-   * @return {object} { path, query }
+   * @param {string} path URL to be parsed
+   * @return {import('../index.js').Route} { path, query, file, response }
    */
   parse(path = location.href) {
     let query = '';

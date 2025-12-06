@@ -1,7 +1,7 @@
 import {
   removeAtag,
   getAndRemoveConfig,
-  getAndRemoveDocisfyIgnoreConfig,
+  getAndRemoveDocsifyIgnoreConfig,
 } from '../../src/core/render/utils.js';
 import { tree } from '../../src/core/render/tpl.js';
 import { slugify } from '../../src/core/render/slugify.js';
@@ -19,12 +19,12 @@ describe('core/render/utils', () => {
     });
   });
 
-  // getAndRemoveDocisfyIgnorConfig()
+  // getAndRemoveDocsifyIgnoreConfig()
   // ---------------------------------------------------------------------------
-  describe('getAndRemoveDocisfyIgnorConfig()', () => {
-    test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore} -->', () => {
+  describe('getAndRemoveDocsifyIgnoreConfig()', () => {
+    test('getAndRemoveDocsifyIgnoreConfig from <!-- {docsify-ignore} -->', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnoreConfig(
+        getAndRemoveDocsifyIgnoreConfig(
           'My Ignore Title<!-- {docsify-ignore} -->',
         );
       expect(content).toBe('My Ignore Title');
@@ -32,9 +32,9 @@ describe('core/render/utils', () => {
       expect(ignoreAllSubs === undefined).toBeTruthy();
     });
 
-    test('getAndRemoveDocisfyIgnorConfig from <!-- {docsify-ignore-all} -->', () => {
+    test('getAndRemoveDocsifyIgnoreConfig from <!-- {docsify-ignore-all} -->', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnoreConfig(
+        getAndRemoveDocsifyIgnoreConfig(
           'My Ignore Title<!-- {docsify-ignore-all} -->',
         );
       expect(content).toBe('My Ignore Title');
@@ -42,17 +42,17 @@ describe('core/render/utils', () => {
       expect(ignoreSubHeading === undefined).toBeTruthy();
     });
 
-    test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore}', () => {
+    test('getAndRemoveDocsifyIgnoreConfig from {docsify-ignore}', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnoreConfig('My Ignore Title{docsify-ignore}');
+        getAndRemoveDocsifyIgnoreConfig('My Ignore Title{docsify-ignore}');
       expect(content).toBe('My Ignore Title');
       expect(ignoreSubHeading).toBeTruthy();
       expect(ignoreAllSubs === undefined).toBeTruthy();
     });
 
-    test('getAndRemoveDocisfyIgnorConfig from {docsify-ignore-all}', () => {
+    test('getAndRemoveDocsifyIgnoreConfig from {docsify-ignore-all}', () => {
       const { content, ignoreAllSubs, ignoreSubHeading } =
-        getAndRemoveDocisfyIgnoreConfig('My Ignore Title{docsify-ignore-all}');
+        getAndRemoveDocsifyIgnoreConfig('My Ignore Title{docsify-ignore-all}');
       expect(content).toBe('My Ignore Title');
       expect(ignoreAllSubs).toBeTruthy();
       expect(ignoreSubHeading === undefined).toBeTruthy();
@@ -84,6 +84,45 @@ describe('core/render/utils', () => {
           baz: true,
         },
         str: "[filename](_media/example.md ':include test')",
+      });
+    });
+
+    test('parse config with key arguments img', () => {
+      const result = getAndRemoveConfig(
+        "![logo](https://docsify.js.org/_media/icon.svg ' :size=50x100 ')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          size: '50x100',
+        },
+        str: "![logo](https://docsify.js.org/_media/icon.svg ' ')",
+      });
+    });
+
+    test('parse config with key arguments', () => {
+      const result = getAndRemoveConfig(
+        "[filename](_media/example.md ' :class=foo ')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          class: 'foo',
+        },
+        str: "[filename](_media/example.md ' ')",
+      });
+    });
+
+    test('parse config with same key arguments', () => {
+      const result = getAndRemoveConfig(
+        "[filename](_media/example.md ' :class=foo :class=bar :bb=aa ')",
+      );
+
+      expect(result).toMatchObject({
+        config: {
+          class: ['foo', 'bar'],
+        },
+        str: "[filename](_media/example.md ' ')",
       });
     });
 
@@ -129,13 +168,49 @@ describe('core/render/tpl', () => {
 
 describe('core/render/slugify', () => {
   test('slugify()', () => {
-    const result = slugify(
+    const htmlStrippedSlug = slugify(
       'Bla bla bla <svg aria-label="broken" class="broken" viewPort="0 0 1 1"><circle cx="0.5" cy="0.5"/></svg>',
     );
-    const result2 = slugify(
+    expect(htmlStrippedSlug).toBe('bla-bla-bla-');
+
+    const nestedHtmlStrippedSlug = slugify(
       'Another <span style="font-size: 1.2em" class="foo bar baz">broken <span class="aaa">example</span></span>',
     );
-    expect(result).toBe('bla-bla-bla-');
-    expect(result2).toBe('another-broken-example');
+    expect(nestedHtmlStrippedSlug).toBe('another-broken-example');
+
+    const emojiRemovedSlug = slugify('emoji test ⚠️🔥✅');
+    expect(emojiRemovedSlug).toBe('emoji-test-');
+
+    const multiSpaceSlug = slugify('Title    with   multiple spaces');
+    expect(multiSpaceSlug).toBe('title----with---multiple-spaces');
+
+    const numberLeadingSlug = slugify('123abc');
+    expect(numberLeadingSlug).toBe('_123abc');
+
+    const firstDuplicate = slugify('duplicate');
+    expect(firstDuplicate).toBe('duplicate');
+
+    const secondDuplicate = slugify('duplicate');
+    expect(secondDuplicate).toBe('duplicate-1');
+
+    const thirdDuplicate = slugify('duplicate');
+    expect(thirdDuplicate).toBe('duplicate-2');
+
+    const mixedCaseSlug = slugify('This Is Mixed CASE');
+    expect(mixedCaseSlug).toBe('this-is-mixed-case');
+
+    const chinesePreservedSlug = slugify('你好 world');
+    expect(chinesePreservedSlug).toBe('你好-world');
+
+    const specialCharSlug = slugify('C++ vs. Java & Python!');
+    expect(specialCharSlug).toBe('c-vs-java--python');
+
+    const docsifyIgnoreSlug = slugify(
+      'Ignore Heading <!-- {docsify-ignore} -->',
+    );
+    expect(docsifyIgnoreSlug).toBe('ignore-heading-');
+
+    const quoteCleanedSlug = slugify('"The content"');
+    expect(quoteCleanedSlug).toBe('the-content');
   });
 });

@@ -1,10 +1,10 @@
 import {
+  cleanPath,
   getPath,
   isAbsolutePath,
-  stringifyQuery,
-  cleanPath,
   replaceSlug,
   resolvePath,
+  stringifyQuery,
 } from '../util.js';
 import { noop } from '../../util/core.js';
 
@@ -32,18 +32,30 @@ export class History {
   }
 
   #getFileName(path, ext) {
-    return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-      ? path
-      : /\/$/g.test(path)
-        ? `${path}README${ext}`
-        : `${path}${ext}`;
+    const [basePath, query] = path.split('?');
+
+    const hasValidExt = new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`).test(
+      basePath,
+    );
+
+    const updatedPath = hasValidExt
+      ? basePath
+      : /\/$/g.test(basePath)
+        ? `${basePath}README${ext}`
+        : `${basePath}${ext}`;
+
+    return query ? `${updatedPath}?${query}` : updatedPath;
   }
 
   getBasePath() {
     return this.config.basePath;
   }
 
-  getFile(path = this.getCurrentPath(), isRelative) {
+  /**
+   * @param {string} path
+   * @param {boolean} isRelative
+   */
+  getFile(path = this.getCurrentPath(), isRelative = false) {
     const { config } = this;
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
@@ -64,11 +76,24 @@ export class History {
     cb();
   }
 
-  getCurrentPath() {}
+  /**
+   * @return {string}
+   */
+  getCurrentPath() {
+    throw new Error('Subclass should implement');
+  }
 
-  normalize() {}
+  normalize() {
+    throw new Error('Subclass should implement');
+  }
 
-  parse() {}
+  /**
+   * @param {string} path
+   * @return {import('../index.js').Route} { path, query, file, response }
+   */
+  parse(path) {
+    throw new Error('Subclass should implement');
+  }
 
   toURL(path, params, currentRoute) {
     const local = currentRoute && path[0] === '#';

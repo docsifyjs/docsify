@@ -1,0 +1,72 @@
+/* Media */
+/* ========================================================================== */
+:root {
+  --_mobile-breakpoint: 640px; /* JS Accessible. Match with MQ below. */
+}
+
+@media (prefers-reduced-motion) {
+  :root {
+    --duration-slow: 0s;
+    --duration-medium: 0s;
+    --duration-fast: 0s;
+  }
+}
+
+@media print {
+  .app-nav,
+  .github-corner,
+  .sidebar,
+  .sidebar-toggle {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 640px) {
+  .app-nav-merged {
+    display: block;
+  }
+
+  body:has(.sidebar.show) {
+    .app-nav,
+    .github-corner {
+      pointer-events: none;
+    }
+
+    .app-nav {
+      left: 0;
+    }
+
+    main {
+      &::before {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.15);
+        transition:
+          width 0s,
+          background var(--duration-medium);
+      }
+    }
+
+    .sidebar-toggle {
+      width: calc(100% - var(--sidebar-width));
+
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    main > .content {
+      left: 0;
+    }
+  }
+
+  body:has(.app-nav-merged) {
+    .app-nav {
+      display: none;
+    }
+
+    .markdown-section {
+      margin-top: var(--content-margin-inline);
+    }
+  }
+}

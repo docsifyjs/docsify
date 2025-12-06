@@ -16,7 +16,13 @@ test.describe('Plugins', () => {
       'ready',
     ];
 
-    page.on('console', msg => consoleMsgs.push(msg.text()));
+    page.on('console', msg => {
+      const text = msg.text();
+      if (text.startsWith('DEPRECATION:')) {
+        return;
+      } // ignore expected deprecation warnings
+      consoleMsgs.push(text);
+    });
 
     await docsifyInit({
       config: {
@@ -234,8 +240,15 @@ test.describe('Plugins', () => {
       page.on('console', async msg => {
         for (const arg of msg.args()) {
           const val = await arg.jsonValue();
-          const obj = JSON.parse(val);
-          obj.response && (routeData = obj);
+          if (typeof val === 'string' && val.startsWith('DEPRECATION:')) {
+            continue;
+          }
+          try {
+            const obj = typeof val === 'string' ? JSON.parse(val) : val;
+            obj && obj.response && (routeData = obj);
+          } catch {
+            // ignore non-JSON console messages
+          }
         }
       });
     });

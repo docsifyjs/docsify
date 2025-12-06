@@ -15,7 +15,7 @@ window.$docsify = {
 };
 ```
 
-?> Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
+> [!TIP] Configuration Options Reference: [marked documentation](https://marked.js.org/#/USING_ADVANCED.md)
 
 You can completely customize the parsing rules.
 
@@ -31,10 +31,11 @@ window.$docsify = {
 
 ## Supports mermaid
 
+> [!IMPORTANT] Currently, docsify doesn't support the async mermaid render (the latest mermaid version supported is `v9.3.0`).
+
 ```js
-// Import mermaid
 //  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-//  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+//  <script src="//cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
 
 let num = 0;
 mermaid.initialize({ startOnLoad: false });
@@ -42,12 +43,12 @@ mermaid.initialize({ startOnLoad: false });
 window.$docsify = {
   markdown: {
     renderer: {
-      code(code, lang) {
+      code({ text, lang }) {
         if (lang === 'mermaid') {
           return /* html */ `
             <div class="mermaid">${mermaid.render(
               'mermaid-svg-' + num++,
-              code,
+              text,
             )}</div>
           `;
         }

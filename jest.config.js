@@ -6,10 +6,11 @@ const sharedConfig = {
   errorOnDeprecated: true,
   globalSetup: './test/config/jest.setup.js',
   globalTeardown: './test/config/jest.teardown.js',
+  prettierPath: null, // Fix for Jest v29 and Prettier v3 (https://github.com/jestjs/jest/issues/14305)
   resetModules: true,
   restoreMocks: true,
   setupFilesAfterEnv: ['<rootDir>/test/config/jest.setup-tests.js'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
   testEnvironmentOptions: {
     url: `${TEST_HOST}/_blank.html`,
   },

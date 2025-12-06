@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>docsify</title>
     <link rel="icon" href="_media/favicon.ico" />
     <meta
@@ -15,52 +15,80 @@
     <meta name="description" content="A magical documentation generator." />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <!-- Core Theme -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css"
+    />
+
+    <!-- Theme Add-on(s) -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+      data-group="addon"
+      data-sheet="core-dark-auto"
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/vue.min.css"
-      title="vue"
-    />
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dark.min.css"
-      title="dark"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
+      data-group="addon"
+      data-sheet="core-dark"
       disabled
     />
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/buble.min.css"
-      title="buble"
+      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css"
+      data-group="addon"
+      data-sheet="vue"
       disabled
     />
-    <link
+
+    <!-- Prism Theme -->
+    <!-- <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/pure.min.css"
-      title="pure"
-      disabled
-    />
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/dolphin.min.css"
-      title="dolphin"
-      disabled
-    />
+      href="//cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-twilight.min.css"
+    /> -->
+
+    <!-- Site styles -->
     <style>
-      nav.app-nav li ul {
-        min-width: 100px;
+      /* Plugin: Carbon Ads */
+      #carbonads > :last-child {
+        margin-block: calc((1em * var(--line-height)) / 2);
       }
 
-      #carbonads {
-        box-shadow: none !important;
-        width: auto !important;
+      /* UI Kit */
+      .ui-kit-color {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: var(--font-size-s);
+      }
+
+      .ui-kit-color figure {
+        flex-grow: 1;
+        margin: 0;
+        padding: 0;
+      }
+
+      .ui-kit-color figure div {
+        height: 4rem;
+        border-radius: var(--border-radius);
+      }
+
+      .ui-kit-color figcaption {
+        text-align: center;
+        padding: 0.5em 0;
       }
     </style>
     <script>
+      // Set html "lang" attribute based on URL
       (function () {
-        const lang = location.hash.match(/#\/(de-de|es|ru-ru|zh-cn)\//);
+        const lang = location.hash.match(/#\/(zh-cn)\//);
 
-        // Set html "lang" attribute based on URL
         if (lang) {
           document.documentElement.setAttribute('lang', lang[1]);
         }
@@ -68,8 +96,8 @@
     </script>
   </head>
 
-  <body>
-    <div id="app">Loading ...</div>
+  <body class="loading sidebar-chevron-right sidebar-group-box">
+    <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/docsify-plugin-carbon@1"></script>
     <script>
       // Docsify configuration
@@ -78,60 +106,48 @@
           '.*?/awesome':
             'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
           '.*?/changelog':
-            'https://raw.githubusercontent.com/docsifyjs/docsify/master/CHANGELOG.md',
+            'https://raw.githubusercontent.com/docsifyjs/docsify/main/CHANGELOG.md',
           '/.*/_navbar.md': '/_navbar.md',
-          '/es/(.*)':
-            'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1',
-          '/de-de/(.*)':
-            'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
-          '/ru-ru/(.*)':
-            'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
           '/zh-cn/(.*)':
-            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@master/$1',
+            'https://cdn.jsdelivr.net/gh/docsifyjs/docs-zh@main/$1',
         },
         auto2top: true,
         coverpage: true,
         executeScript: true,
+        // hideSidebar: true,
         loadSidebar: true,
         loadNavbar: true,
-        mergeNavbar: true,
+        // mergeNavbar: true,
         maxLevel: 4,
+        // repo: 'docsifyjs/docsify',
+        // routerMode: 'history',
         subMaxLevel: 2,
-        ga: 'UA-106147152-1',
+        gtag: 'G-H77Y58DS3L',
         matomo: {
           host: '//matomo.thunderwave.de',
           id: 6,
         },
         name: 'docsify',
         nameLink: {
-          '/es/': '#/es/',
-          '/de-de/': '#/de-de/',
-          '/ru-ru/': '#/ru-ru/',
           '/zh-cn/': '#/zh-cn/',
           '/': '#/',
         },
         search: {
+          // insertAfter: '.app-name',
+          // insertBefore: '.sidebar-nav',
           noData: {
-            '/es/': '¡No hay resultados!',
-            '/de-de/': 'Keine Ergebnisse!',
-            '/ru-ru/': 'Никаких результатов!',
             '/zh-cn/': '没有结果!',
             '/': 'No results!',
           },
           paths: 'auto',
           placeholder: {
-            '/es/': 'Buscar',
-            '/de-de/': 'Suche',
-            '/ru-ru/': 'Поиск',
             '/zh-cn/': '搜索',
             '/': 'Search',
           },
-          pathNamespaces: ['/es', '/de-de', '/ru-ru', '/zh-cn'],
+          pathNamespaces: ['/zh-cn'],
+          depth: 6,
         },
         skipLink: {
-          '/es/': 'Saltar al contenido principal',
-          '/de-de/': 'Ga naar de hoofdinhoud',
-          '/ru-ru/': 'Перейти к основному содержанию',
           '/zh-cn/': '跳到主要内容',
         },
         vueComponents: {
@@ -188,28 +204,33 @@
         },
         plugins: [
           DocsifyCarbon.create('CEBI6KQE', 'docsifyjsorg'),
+          // Plugin: Footer
           function (hook, vm) {
             hook.beforeEach(html => {
               if (/githubusercontent\.com/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('raw.githubusercontent.com', 'github.com')
-                  .replace(/\/master/, '/blob/master');
+                  .replace(/\/master/, '/blob/master')
+                  .replace(/\/main/, '/blob/main');
               } else if (/jsdelivr\.net/.test(vm.route.file)) {
                 url = vm.route.file
                   .replace('cdn.jsdelivr.net/gh', 'github.com')
-                  .replace('@master', '/blob/master');
+                  .replace('@main', '/blob/main');
               } else {
                 url =
                   'https://github.com/docsifyjs/docsify/blob/develop/docs/' +
                   vm.route.file;
               }
-              const editHtml = '[:memo: Edit Document](' + url + ')\n';
-              return (
-                editHtml +
-                html +
-                '\n\n----\n\n' +
-                '<a href="https://docsify.js.org" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by docsify</a>'
-              );
+
+              const footerHTML = [
+                '<hr>',
+                '<div style="display: flex; align-items: center; justify-content: space-between;">',
+                '  <span>Powered by <a href="/">Docsify.js</a></span>',
+                `  <a href="${url}" style="display: inline-flex; align-items: center; gap: 0.25em;">:memo: Edit Page</a>`,
+                '</div>',
+              ].join('\n');
+
+              return html + footerHTML;
             });
           },
         ],
@@ -218,7 +239,7 @@
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/front-matter.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/gtag.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/matomo.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>

@@ -39,7 +39,7 @@ const getFixedUrl = req => {
   url.protocol = self.location.protocol;
 
   // 2. add query for caching-busting.
-  // Github Pages served with Cache-Control: max-age=600
+  // GitHub Pages served with Cache-Control: max-age=600
   // max-age on mutable content is error-prone, with SW life of bugs can even extend.
   // Until cache mode of Fetch API landed, we have to workaround cache-busting with query string.
   // Cache-Control-Bug: https://bugs.chromium.org/p/chromium/issues/detail?id=453190
@@ -119,4 +119,4 @@ _index.html_
 
 ## Enjoy it
 
-Release your website and start experiencing the magical offline feature. :ghost: You can turn off Wi-Fi and refresh the current site to experience it.
+Release your website and start experiencing the magical offline feature.

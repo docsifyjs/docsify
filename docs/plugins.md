@@ -1,8 +1,12 @@
 # List of Plugins
 
+These are built-in and external plugins for Docsify.
+
+See also how to [Write a Plugin](./write-a-plugin.md).
+
 ## Full text search
 
-By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
+By default, the hyperlink on the current page is recognized and the content is saved in `IndexedDB`. You can also specify the path to the files.
 
 <!-- prettier-ignore -->
 ```html
@@ -17,10 +21,15 @@ By default, the hyperlink on the current page is recognized and the content is s
       '/zh-cn/',      // => /zh-cn/README.md
     ],
 
-    // complete configuration parameters
+    // Complete configuration parameters
     search: {
+      // Location in sidebar (default: prepended as first child)
+      // Optionally specify insertAfter or insertBefore (not both)
+      insertAfter: '.app-name', // CSS selector in .sidebar scope
+      insertBefore: '.sidebar-nav', // CSS selector in .sidebar scope
+
       maxAge: 86400000, // Expiration time, the default one day
-      paths: [], // or 'auto'
+      paths: [], // string[] of files to search in, or 'auto' for discovery based on your sidebar
       placeholder: 'Type to search',
 
       // Localization
@@ -40,7 +49,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Headline depth, 1 - 6
       depth: 2,
 
-      hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+      hideOtherSidebarContent: true, // Deprecated as of v5
 
       // To avoid search index collision
       // between multiple websites under the same domain
@@ -118,7 +127,7 @@ Install the plugin and configure the track id.
 
 Renders a larger collection of emoji shorthand codes. Without this plugin, Docsify is able to render only a limited number of emoji shorthand codes.
 
-!> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
+> [!IMPORTANT] Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js"></script>
@@ -183,7 +192,7 @@ Disqus comments. https://disqus.com/
 
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on GitHub Issue and Preact.
 
 ```html
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css" />
@@ -192,12 +201,12 @@ Disqus comments. https://disqus.com/
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
   const gitalk = new Gitalk({
-    clientID: 'Github Application Client ID',
-    clientSecret: 'Github Application Client Secret',
-    repo: 'Github repo',
-    owner: 'Github repo owner',
+    clientID: 'GitHub Application Client ID',
+    clientSecret: 'GitHub Application Client Secret',
+    repo: 'GitHub repo',
+    owner: 'GitHub repo owner',
     admin: [
-      'Github repo collaborators, only these guys can initialize github issues',
+      'GitHub repo collaborators, only these guys can initialize github issues',
     ],
     // facebook-like distraction free mode
     distractionFreeMode: false,

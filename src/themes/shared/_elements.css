@@ -1,0 +1,332 @@
+/* Elements */
+/* ========================================================================== */
+small,
+sub,
+sup {
+  display: inline-block;
+  font-size: var(--font-size-s);
+}
+
+a {
+  color: var(--link-color);
+
+  /* NOTE: Safari may require a forced redraw when changing text-decoration
+  values (e.g., :hover). One way to do this is via translate: 0 0 0. */
+  &:not(.button) {
+    text-decoration-color: var(--link-underline-color);
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: var(--link-underline-thickness);
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--link-color-hover);
+      text-decoration-color: var(--link-underline-color-hover);
+      text-decoration-thickness: var(--link-underline-thickness-hover);
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  line-height: var(--heading-line-height);
+}
+
+hr {
+  margin-block: 1em;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+ins {
+  text-decoration: underline;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 2em;
+  padding: 0.3em 0.5em;
+  border: var(--kbd-border);
+  border-radius: var(--kbd-border-radius);
+  background: var(--kbd-bg);
+  color: var(--kbd-color);
+  font-size: var(--font-size-s);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+mark {
+  padding-inline: 1px;
+  border-radius: 1px;
+  background: var(--mark-bg);
+  color: var(--mark-color);
+}
+
+strong {
+  color: var(--strong-color);
+  font-weight: var(--strong-font-weight);
+}
+
+summary {
+  cursor: pointer;
+
+  > * {
+    display: inline;
+  }
+}
+
+:disabled {
+  cursor: not-allowed;
+}
+
+/* Buttons */
+/* ---------------------------------- */
+a.button,
+button[type],
+input.button,
+input:is([type='button'], [type='reset'], [type='submit']) {
+  display: inline-block;
+  margin-block: 0.35em;
+  border: 2px solid var(--color-mono-2);
+  box-shadow: 0 0 0 3px transparent;
+  background: var(--color-mono-2);
+  color: var(--color-text);
+  cursor: pointer;
+  vertical-align: middle;
+  transition: outline-color var(--duration-fast);
+
+  &:not(:focus-visible) {
+    outline-color: transparent;
+  }
+
+  &:hover {
+    outline: 3px solid var(--theme-color-3);
+    outline-offset: 1px;
+  }
+
+  + & {
+    margin-left: 0.25em;
+  }
+
+  &.primary,
+  &.secondary {
+    border-color: var(--button-bg);
+  }
+
+  /* Primary Button */
+  &.primary {
+    background: var(--button-bg);
+    color: var(--button-color);
+  }
+
+  /* Secondary Button */
+  &.secondary {
+    background: transparent;
+    color: var(--button-bg);
+  }
+}
+
+a.button,
+button[type],
+input:where([type='button'], [type='reset'], [type='submit']) {
+  padding: var(--button-padding);
+  border-radius: var(--button-border-radius);
+  text-decoration: none;
+}
+
+button[type],
+input.button,
+input:where([type='button'], [type='reset'], [type='submit']) {
+  &:disabled {
+    opacity: 0.6;
+    filter: grayscale(100%);
+    pointer-events: none;
+  }
+}
+
+button:not([type]) {
+  color: inherit;
+}
+
+/* Emoji */
+/* ---------------------------------- */
+.emoji {
+  &:where(img) {
+    height: 1.2em;
+    vertical-align: middle;
+  }
+
+  &:where(span) {
+    font-family: var(--font-family-emoji);
+    font-size: var(--font-size-emoji);
+    vertical-align: middle;
+  }
+}
+
+/* Form Elements
+/* ---------------------------------- */
+fieldset,
+input:not([type='checkbox']),
+optgroup,
+option,
+select,
+textarea {
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+fieldset,
+input,
+select,
+textarea {
+  max-width: 100%;
+  border-radius: var(--form-element-border-radius);
+}
+
+input,
+select,
+textarea {
+  padding: 0.25em 0.5em;
+  border: 1px solid var(--form-element-border-color);
+}
+
+input,
+select,
+textarea {
+  background: var(--form-element-bg);
+  color: var(--form-element-color);
+}
+
+input,
+label,
+select {
+  vertical-align: middle;
+}
+
+fieldset {
+  padding: 1em;
+  border: 1px solid var(--color-mono-2);
+
+  > :first-child,
+  > legend + * {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+input:where([type='checkbox'], [type='radio']) {
+  --_size: 1.1em;
+
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  top: -0.1em;
+  height: var(--_size);
+  width: var(--_size);
+  margin: 0;
+  padding: 0;
+
+  &.toggle {
+    --_inset: 2px;
+    --_handle-size: calc(var(--_size) - (var(--_inset) * 2));
+
+    height: calc(var(--_size) + 2px);
+    width: calc(var(--_size) * 1.9);
+    border-radius: 100vh;
+
+    &::before,
+    &::after {
+      all: unset;
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: var(--_inset);
+      left: var(--_inset);
+      height: var(--_handle-size);
+      width: var(--_handle-size);
+      border-radius: 100vh;
+      background: var(--color-mono-3);
+      transition: all var(--duration-fast);
+    }
+
+    &:checked {
+      background: var(--theme-color);
+      border-color: var(--theme-color);
+
+      &::before {
+        left: calc(100% - var(--_handle-size) - var(--_inset));
+        background: var(--color-bg);
+      }
+    }
+  }
+
+  label & {
+    margin-right: 0.25em;
+  }
+}
+
+input:where([type='checkbox']):not(.toggle) {
+  border-radius: min(var(--form-element-border-radius), 3px);
+
+  &::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    rotate: 40deg;
+    translate: -50% -50%;
+    height: 0.7em;
+    width: 0.4em;
+    border-bottom: 2px solid transparent;
+    border-right: 2px solid transparent;
+  }
+
+  &:checked {
+    border-color: var(--theme-color);
+    background: var(--theme-color);
+
+    &::before {
+      border-color: var(--color-bg);
+    }
+  }
+}
+
+input:where([type='radio']):not(.toggle) {
+  border-radius: 100vh;
+
+  &:checked {
+    border-color: var(--theme-color);
+    box-shadow: inset 0 0 0 0.25em var(--theme-color);
+  }
+}
+
+label {
+  display: inline-block;
+}
+
+select {
+  appearance: none;
+  padding-right: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.95 10'%3E%3Cpolygon fill='black' opacity='0.5' points='1.41 4.67 2.48 3.18 3.54 4.67 1.41 4.67'/%3E%3Cpolygon fill='black' opacity='0.5' points='3.54 5.33 2.48 6.82 1.41 5.33 3.54 5.33'/%3E%3C/svg%3E");
+  background-position: right 2px center;
+  background-repeat: no-repeat;
+  font-weight: normal; /* Fix for Safari using serif font is weight is bold */
+
+  @media screen and (prefers-color-scheme: dark) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4.95 10'%3E%3Cpolygon fill='white' opacity='0.4' points='1.41 4.67 2.48 3.18 3.54 4.67 1.41 4.67'/%3E%3Cpolygon fill='white' opacity='0.4' points='3.54 5.33 2.48 6.82 1.41 5.33 3.54 5.33'/%3E%3C/svg%3E");
+  }
+}
