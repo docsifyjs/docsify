@@ -433,7 +433,6 @@ export function Render(Base) {
             {
               compiler: /** @type {Compiler} */ (this.compiler),
               raw: result,
-              fetch: undefined,
             },
             tokens => {
               html = /** @type {Compiler} */ (this.compiler).compile(tokens);
@@ -445,8 +444,10 @@ export function Render(Base) {
     }
 
     _renderCover(text, coverOnly, next) {
-      const el = dom.getNode('.cover');
+      const el = /** @type {HTMLElement} */ (dom.getNode('.cover'));
       const rootElm = document.documentElement;
+      // TODO this is now unused. What did we break?
+      // eslint-disable-next-line no-unused-vars
       const coverBg = getComputedStyle(rootElm).getPropertyValue('--cover-bg');
 
       dom.getNode('main').classList[coverOnly ? 'add' : 'remove']('hidden');
@@ -470,7 +471,7 @@ export function Render(Base) {
           } else {
             let path = m[1];
 
-            dom.toggleClass(el, 'add', 'has-mask');
+            el.classList.add('has-mask');
             if (!isAbsolutePath(m[1])) {
               path = getPath(this.router.getBasePath(), m[1]);
             }
@@ -495,12 +496,16 @@ export function Render(Base) {
       if (this.coverIsHTML) {
         callback(text);
       } else {
+        const compiler = this.compiler;
+        if (!compiler) {
+          throw new Error('Compiler is not initialized');
+        }
         prerenderEmbed(
           {
-            compiler: this.compiler,
+            compiler,
             raw: text,
           },
-          tokens => callback(this.compiler.cover(tokens)),
+          tokens => callback(compiler.cover(tokens)),
         );
       }
     }

@@ -33,9 +33,10 @@ export function isPrimitive(value) {
 
 /**
  * Performs no operation.
- * @void
+ * @param  {...any} args Any arguments ignored.
+ * @returns {void}
  */
-export function noop() {}
+export function noop(...args) {}
 
 /**
  * Check if value is function
