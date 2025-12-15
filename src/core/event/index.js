@@ -76,7 +76,7 @@ export function Events(Base) {
      * @void
      */
     #initHeadings() {
-      const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5)');
+      const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5, h6)');
       const headingsInView = new Set();
       let isInitialLoad = true;
 
@@ -361,7 +361,7 @@ export function Events(Base) {
         // Anchor link
         if (query.id) {
           const headingElm = dom.find(
-            `.markdown-section :where(h1, h2, h3, h4, h5)[id="${query.id}"]`,
+            `.markdown-section :where(h1, h2, h3, h4, h5, h6)[id="${query.id}"]`,
           );
 
           if (headingElm) {
