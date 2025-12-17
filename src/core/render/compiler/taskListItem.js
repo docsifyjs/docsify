@@ -21,8 +21,6 @@ export const taskListItemCompiler = ({ renderer }) =>
             text: checkbox + ' ',
           });
         }
-      } else {
-        text += checkbox + ' ';
       }
     }
 
