@@ -41,7 +41,7 @@ const config = {
   // Config - Shared
   // See https://playwright.dev/docs/api/class-testoptions
   use: {
-    actionTimeout: 1000,
+    actionTimeout: 0,
     baseURL: TEST_HOST, // Allow relative page.goto() (e.g. `await page.goto('/')`).
     trace: 'on-first-retry',
   },

@@ -114,7 +114,7 @@
     "pub": "sh build/release.sh",
     "serve:dev": "npm run serve -- --dev",
     "serve": "node server",
-    "test:e2e": "DEBUG=pw:api,pw:browser* npx playwright test",
+    "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project='chromium'",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:consume-types": "echo TODO: test the consume-types example with ESM modules",
