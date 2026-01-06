@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['lts/*']
+        node-version: ['24.11.1']
     steps:
       - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
