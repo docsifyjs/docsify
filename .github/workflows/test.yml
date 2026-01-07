@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 20, 22, 24 ]
+        node-version: ['lts/*']
     steps:
       - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['lts/*']
+        node-version: [ 20, 22, 24 ]
     steps:
       - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
