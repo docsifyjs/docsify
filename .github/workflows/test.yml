@@ -70,6 +70,8 @@ jobs:
         run: npm run build
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - name: output version
+        run: npx playwright --version
       - name: E2E Tests (Playwright)
         run: npm run test:e2e
       - name: Store artifacts
