@@ -27,5 +27,6 @@
   - [Embed Files](embed-files.md)
   - [UI Kit](ui-kit.md)
 
+* [v5 Upgrade Notes](v5-upgrade-notes.md)
 * [Awesome docsify](awesome.md)
 * [Changelog](changelog.md)
