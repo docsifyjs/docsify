@@ -102,6 +102,7 @@ View [Classes](themes.md?id=classes) for more details.
 - Your configuration in `window.$docsify` stays the same
 - All your markdown content remains unchanged
 - The upgrade is non-breaking for most sites (however, legacy browsers like Internet Explorer 11 are no longer supported)
-- The v5 core theme can be customized using CSS variables - view [Customization](themes.md?id=customization) for more details.
+- Custom CSS that targeted v4 theme-specific classes or elements may need to be updated for v5
+- The v5 core theme can be customized using CSS variables - view [Customization](themes.md?id=customization) for more details
 
 That's it! Your Docsify site should now be running on v5.
