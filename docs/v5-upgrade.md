@@ -36,12 +36,12 @@ If your site uses URLs without `@4` or a specific version number, follow the sam
 <!-- Core Theme -->
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css"
+  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css"
 />
 <!-- Optional: Dark Mode Support -->
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
+  href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
   media="(prefers-color-scheme: dark)"
 />
 ```
