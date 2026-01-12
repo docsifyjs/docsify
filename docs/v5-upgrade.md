@@ -101,7 +101,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 
 <!-- v5 -->
-<script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/zoom.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/zoom.min.js"></script>
 ```
 
 **Note:** If you're using additional Docsify plugins (such as emoji, external-script, front-matter, etc.), you'll need to update those URLs as well following the same pattern:
