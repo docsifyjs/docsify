@@ -89,7 +89,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.js"></script>
 
 <!-- v5 -->
-<script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
 ```
 
 **Zoom Plugin:**
