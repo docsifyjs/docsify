@@ -75,7 +75,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 **To:**
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
 
 ### 4. Update Plugin URLs
