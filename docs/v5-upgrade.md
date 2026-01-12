@@ -5,6 +5,7 @@ The main changes when upgrading a Docsify v4 site to v5 involve updating CDN URL
 ## Before You Begin
 
 Some older Docsify sites may use non-version-locked URLs like:
+
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 ```
@@ -18,18 +19,31 @@ If your site uses URLs without `@4` or a specific version number, follow the sam
 **Replace the theme (v4):**
 
 ```html
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
+/>
 <!-- OR if you have non-versioned URL: -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css"
+/>
 ```
 
 **With this (v5):**
 
 ```html
 <!-- Core Theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css"
+/>
 <!-- Optional: Dark Mode Support -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" media="(prefers-color-scheme: dark)" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css"
+  media="(prefers-color-scheme: dark)"
+/>
 ```
 
 **Note:** If you were using a different v4 theme (buble, dark, pure), the v5 core theme replaces these, though Vue and Dark themes are available as add-ons if preferred.
@@ -39,8 +53,9 @@ View [Themes](themes.md) for more details.
 ### 2. Add Optional Body Class (for styling)
 
 **Update your opening body tag:**
+
 ```html
-<body class="sidebar-chevron-right">
+<body class="sidebar-chevron-right"></body>
 ```
 
 This adds a chevron indicator to the sidebar. You can omit this if you prefer.
@@ -50,6 +65,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 ### 3. Update the Main Docsify Script
 
 **Change:**
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
 <!-- OR if you have non-versioned URL: -->
@@ -57,6 +73,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 ```
 
 **To:**
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 ```
@@ -64,6 +81,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 ### 4. Update Plugin URLs
 
 **Search Plugin:**
+
 ```html
 <!-- v4 -->
 <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
@@ -75,6 +93,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 ```
 
 **Zoom Plugin:**
+
 ```html
 <!-- v4 -->
 <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
@@ -86,6 +105,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 ```
 
 **Note:** If you're using additional Docsify plugins (such as emoji, external-script, front-matter, etc.), you'll need to update those URLs as well following the same pattern:
+
 - Change `/lib/plugins/` to `/dist/plugins/`
 - Update version from `@4` (or non-versioned) to `@5`
 - Example: `//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js` becomes `https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js`
