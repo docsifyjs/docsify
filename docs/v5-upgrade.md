@@ -122,6 +122,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 - Your configuration in `window.$docsify` stays the same
 - All your markdown content remains unchanged
 - The upgrade is non-breaking for most sites (however, legacy browsers like Internet Explorer 11 are no longer supported)
+- To maintain the same visual styling as Docsify v4, the [Vue theme (Add-on)](themes.md?id=vue-theme-add-on) is available
 - Custom CSS targeting v4 theme-specific classes or elements may need to be updated for v5
 - The v5 core theme can be customized using CSS variables - view [Theme Customization](themes.md?id=customization) for more details
 
