@@ -108,7 +108,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 
 - Change `/lib/plugins/` to `/dist/plugins/`
 - Update version from `@4` (or non-versioned) to `@5`
-- Example: `//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js` becomes `https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js`
+- Example: `//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js` becomes `//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js`
 
 ## Key Differences Summary
 
