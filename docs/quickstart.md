@@ -22,7 +22,7 @@ After the `init` is complete, you can see the file list in the `./docs` subdirec
 - `README.md` as the home page
 - `.nojekyll` prevents GitHub Pages from ignoring files that begin with an underscore
 
-You can easily update the documentation in `./docs/README.md`, of course you can add [more pages](adding-pages.md).
+You can easily update the documentation in `./docs/README.md`, and of course you can add [more pages](adding-pages.md).
 
 ## Preview your site
 
@@ -76,9 +76,14 @@ Download or create an `index.html` template using the following markup:
 
 ### Specifying docsify versions
 
-> [!TIP] Note that in both of the examples below, docsify URLs will need to be manually updated when a new major version of docsify is released (e.g. `v5.x.x` => `v6.x.x`). Check the docsify website periodically to see if a new major version has been released.
+> [!TIP] Note that in both of the examples below, docsify URLs will need to be
+> manually updated when a new major version of docsify is released (e.g. `v5.x.x`
+> => `v6.x.x`). Check the docsify website periodically to see if a new major
+> version has been released.
 
-Specifying a major version in the URL (`@5`) will allow your site to receive non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch" updates) automatically. This is the recommended way to load docsify resources.
+Specifying a major version in the URL (`@5`) will allow your site to receive
+non-breaking enhancements (i.e. "minor" updates) and bug fixes (i.e. "patch"
+updates) automatically. This is the recommended way to load docsify resources.
 
 <!-- prettier-ignore -->
 ```html
@@ -89,7 +94,11 @@ Specifying a major version in the URL (`@5`) will allow your site to receive non
 <script src="//cdn.jsdelivr.net/npm/docsify@5"></script>
 ```
 
-If you prefer to lock docsify to a specific version, specify the full version after the `@` symbol in the URL. This is the safest way to ensure your site will look and behave the same way regardless of any changes made to future versions of docsify.
+If you'd like to ensure absolutely no possibility of changes that will break
+your site (non-major updates can unintentionally introduce breaking changes
+despite that they aim not to), specify the full version after the `@` symbol in
+the URL. This is the safest way to ensure your site will look and behave the
+same way regardless of any changes made to future versions of docsify.
 
 <!-- prettier-ignore -->
 ```html
@@ -100,9 +109,17 @@ If you prefer to lock docsify to a specific version, specify the full version af
 <script src="//cdn.jsdelivr.net/npm/docsify@5.0.0"></script>
 ```
 
+JSDelivr supports [npm-compatible semver ranges](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#dependencies),
+so you can also use version syntax such as `@^5.0.0` for the latest v5 release,
+`@5.0.x` for the latest v5.0 patch release (f.e. you will receive 5.0.4 but
+not 5.1.0), `@5.x` for the latest v5 minor and patch releases (which is
+effectively the same as `@5` and `@^5.0.0`), etc.
+
 ### Manually preview your site
 
-If you have Python installed on your system, you can easily use it to run a static server to preview your site.
+If you have Python installed on your system, you can easily use it to run a
+static server to preview your site instead of using `docsify serve` from
+`docsify-cli`.
 
 ```python
 # Python 2

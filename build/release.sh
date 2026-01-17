@@ -27,6 +27,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   npm run build
   npm run test:update:snapshot
   npm run test
+  npm run build:v4 # builds legacy v4 lib/ and themes/ folders for backwards compat while people transition to v5.
 
   # Changelog
   npx conventional-changelog -p angular -i CHANGELOG.md -s
@@ -46,4 +47,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   else
     npm publish --tag "$RELEASE_TAG"
   fi
+
+  npm run clean:v4 # clean up legacy v4 build files
 fi

@@ -14,7 +14,11 @@ node_modules
 !.gitkeep
 
 # Output folder for the global build only
-dist
+dist/
+
+# Output folders for the legacy v4 build
+lib/
+themes/
 
 # TypeScript declaration files for standard ESM consumption
 src/**/*.d.ts
