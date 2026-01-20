@@ -48,6 +48,10 @@ const colorReplacements = {
   // Strong colors
   'color-mix(in srgb, var(--color-text), black 35%)': '#212121',
   'color-mix(in srgb, var(--color-text), white 35%)': '#e9e9e9',
+
+  // Sidebar toggle with transparency: 10% theme color with 90% transparent
+  'color-mix( in srgb, var(--sidebar-toggle-bg-hover) 10%, transparent )':
+    'rgba(11, 133, 215, 0.1)',
 };
 
 // Normalize whitespace in color-mix functions for matching
@@ -65,18 +69,9 @@ module.exports = () => {
       if (value.includes('color-mix')) {
         const normalized = normalizeColorMix(value);
 
-        // Try to find a direct match
+        // Replace with pre-computed value if found
         if (colorReplacements[normalized]) {
           decl.value = colorReplacements[normalized];
-        }
-        // Handle the sidebar toggle hover case with transparency
-        else if (
-          normalized.includes('color-mix') &&
-          normalized.includes('var(--sidebar-toggle-bg-hover)') &&
-          normalized.includes('transparent')
-        ) {
-          // Replace with semi-transparent version of theme color
-          decl.value = 'rgba(11, 133, 215, 0.1)';
         }
       }
     },
