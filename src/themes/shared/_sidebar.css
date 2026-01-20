@@ -221,11 +221,7 @@
 
   @media screen and (any-hover) {
     &:hover {
-      background: color-mix(
-        in srgb,
-        var(--sidebar-toggle-bg-hover) 10%,
-        transparent
-      );
+      background: var(--sidebar-toggle-bg-hover-alpha);
     }
   }
 

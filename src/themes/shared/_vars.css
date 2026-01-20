@@ -8,27 +8,27 @@
 
   /* Color: Monochromatic */
   --color-mono-min: var(--color-bg);
-  --color-mono-1  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 5%);
-  --color-mono-2  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 10%);
-  --color-mono-3  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 20%);
-  --color-mono-4  : color-mix(in srgb, var(--color-mono-min), var(--color-mono-max) 32%);
-  --color-mono-5  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 50%);
-  --color-mono-6  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 32%);
-  --color-mono-7  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 20%);
-  --color-mono-8  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 10%);
-  --color-mono-9  : color-mix(in srgb, var(--color-mono-max), var(--color-mono-min) 5%);
+  --color-mono-1  : #f5f5f5;
+  --color-mono-2  : #ebebeb;
+  --color-mono-3  : #d6d6d6;
+  --color-mono-4  : #bebebe;
+  --color-mono-5  : #999999;
+  --color-mono-6  : #747474;
+  --color-mono-7  : #5c5c5c;
+  --color-mono-8  : #474747;
+  --color-mono-9  : #3d3d3d;
   --color-mono-max: var(--color-text);
 
   /* Color: Theme Shades (darker) & Tints (lighter)*/
   /* NOTE: Values derived from --theme-color */
-  --theme-color-1: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 90%);
-  --theme-color-2: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 75%);
-  --theme-color-3: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 55%);
-  --theme-color-4: color-mix(in srgb, var(--theme-color), var(--color-mono-min) 30%);
-  --theme-color-5: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 30%);
-  --theme-color-6: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 55%);
-  --theme-color-7: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 75%);
-  --theme-color-8: color-mix(in srgb, var(--theme-color), var(--color-mono-max) 90%);
+  --theme-color-1: #e7f3fb;
+  --theme-color-2: #c2e1f5;
+  --theme-color-3: #91c8ed;
+  --theme-color-4: #54aae3;
+  --theme-color-5: #176ca6;
+  --theme-color-6: #21587d;
+  --theme-color-7: #29485c;
+  --theme-color-8: #2f3b43;
 
   /* Typography */
   --font-family      : system-ui, sans-serif;
@@ -133,7 +133,7 @@
   --link-underline-thickness-hover: var(--link-underline-thickness);
   --mark-bg                       : #fef08a;
   --mark-color                    : ;
-  --strong-color                  : color-mix(in srgb, var(--color-text), black 35%);
+  --strong-color                  : #212121;
   --strong-font-weight            : 600;
   --table-row-alt-bg              : var(--color-mono-1);
 
@@ -171,6 +171,7 @@
   --sidebar-toggle-alignment        : center; /* start center end */
   --sidebar-toggle-bg               : var(--color-mono-2);
   --sidebar-toggle-bg-hover         : var(--button-bg);
+  --sidebar-toggle-bg-hover-alpha   : rgba(11, 133, 215, 0.1);
   --sidebar-toggle-color            : var(--color-mono-4);
   --sidebar-toggle-color-hover      : var(--button-color);
   --sidebar-toggle-height           : 80px;
