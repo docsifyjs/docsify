@@ -179,7 +179,7 @@
   --sidebar-toggle-bg               : var(--color-mono-2);
   --sidebar-toggle-bg-hover         : var(--button-bg);
   /* NOTE: Hardcoded RGBA from --theme-color (#0b85d7) at 10% opacity for compatibility.
-     Modern rgba(from var(--theme-color) r g b / 0.1) syntax not widely supported yet.
+     CSS Color Module Level 5 rgba(from var(--theme-color) r g b / 0.1) syntax not widely supported yet.
      If --theme-color changes, update this to: rgba(R, G, B, 0.1) */
   --sidebar-toggle-bg-hover-alpha   : rgba(11, 133, 215, 0.1);
   --sidebar-toggle-color            : var(--color-mono-4);
