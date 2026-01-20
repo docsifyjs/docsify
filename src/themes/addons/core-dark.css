@@ -19,7 +19,7 @@
   --heading-color        : var(--strong-color);
   --mark-bg              : #fde047;
   --mark-color           : var(--color-bg);
-  --strong-color         : #e9e9e9;
+  --strong-color         : #e9e9e9; /* 35% lighter than --color-text (#ddd) */
 
   /* Sidebar */
   --sidebar-toggle-bg   : var(--color-mono-3);

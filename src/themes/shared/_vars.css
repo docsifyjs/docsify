@@ -7,28 +7,35 @@
   --theme-color: #0b85d7;
 
   /* Color: Monochromatic */
+  /* NOTE: Static color values computed from --color-bg (#fff) and --color-text (#333)
+     These replace color-mix() for browser compatibility. If base colors change,
+     recalculate using: mix(#fff, #333, percentage) in sRGB color space.
+     Formula: newColor = color1 * (1 - p) + color2 * p */
   --color-mono-min: var(--color-bg);
-  --color-mono-1  : #f5f5f5;
-  --color-mono-2  : #ebebeb;
-  --color-mono-3  : #d6d6d6;
-  --color-mono-4  : #bebebe;
-  --color-mono-5  : #999999;
-  --color-mono-6  : #747474;
-  --color-mono-7  : #5c5c5c;
-  --color-mono-8  : #474747;
-  --color-mono-9  : #3d3d3d;
+  --color-mono-1  : #f5f5f5; /* 5% mix of --color-text with --color-bg */
+  --color-mono-2  : #ebebeb; /* 10% mix of --color-text with --color-bg */
+  --color-mono-3  : #d6d6d6; /* 20% mix of --color-text with --color-bg */
+  --color-mono-4  : #bebebe; /* 32% mix of --color-text with --color-bg */
+  --color-mono-5  : #999999; /* 50/50 mix of --color-text and --color-bg */
+  --color-mono-6  : #747474; /* 68% mix of --color-text with --color-bg */
+  --color-mono-7  : #5c5c5c; /* 80% mix of --color-text with --color-bg */
+  --color-mono-8  : #474747; /* 90% mix of --color-text with --color-bg */
+  --color-mono-9  : #3d3d3d; /* 95% mix of --color-text with --color-bg */
   --color-mono-max: var(--color-text);
 
   /* Color: Theme Shades (darker) & Tints (lighter)*/
-  /* NOTE: Values derived from --theme-color */
-  --theme-color-1: #e7f3fb;
-  --theme-color-2: #c2e1f5;
-  --theme-color-3: #91c8ed;
-  --theme-color-4: #54aae3;
-  --theme-color-5: #176ca6;
-  --theme-color-6: #21587d;
-  --theme-color-7: #29485c;
-  --theme-color-8: #2f3b43;
+  /* NOTE: Static color values computed from --theme-color (#0b85d7)
+     These replace color-mix() for browser compatibility. If --theme-color changes,
+     recalculate using: mix(#0b85d7, target, percentage) in sRGB color space.
+     Tints (1-4) mix with --color-bg (#fff), Shades (5-8) mix with --color-text (#333) */
+  --theme-color-1: #e7f3fb; /* 10% --theme-color, 90% white (lightest tint) */
+  --theme-color-2: #c2e1f5; /* 25% --theme-color, 75% white */
+  --theme-color-3: #91c8ed; /* 45% --theme-color, 55% white */
+  --theme-color-4: #54aae3; /* 70% --theme-color, 30% white */
+  --theme-color-5: #176ca6; /* 70% --theme-color, 30% dark gray */
+  --theme-color-6: #21587d; /* 45% --theme-color, 55% dark gray */
+  --theme-color-7: #29485c; /* 25% --theme-color, 75% dark gray */
+  --theme-color-8: #2f3b43; /* 10% --theme-color, 90% dark gray (darkest shade) */
 
   /* Typography */
   --font-family      : system-ui, sans-serif;
@@ -133,7 +140,7 @@
   --link-underline-thickness-hover: var(--link-underline-thickness);
   --mark-bg                       : #fef08a;
   --mark-color                    : ;
-  --strong-color                  : #212121;
+  --strong-color                  : #212121; /* 35% darker than --color-text (#333) */
   --strong-font-weight            : 600;
   --table-row-alt-bg              : var(--color-mono-1);
 
@@ -171,6 +178,9 @@
   --sidebar-toggle-alignment        : center; /* start center end */
   --sidebar-toggle-bg               : var(--color-mono-2);
   --sidebar-toggle-bg-hover         : var(--button-bg);
+  /* NOTE: Hardcoded RGBA from --theme-color (#0b85d7) at 10% opacity for compatibility.
+     Modern rgba(from var(--theme-color) r g b / 0.1) syntax not widely supported yet.
+     If --theme-color changes, update this to: rgba(R, G, B, 0.1) */
   --sidebar-toggle-bg-hover-alpha   : rgba(11, 133, 215, 0.1);
   --sidebar-toggle-color            : var(--color-mono-4);
   --sidebar-toggle-color-hover      : var(--button-color);
