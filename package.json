@@ -3,7 +3,10 @@
   "version": "5.0.0-rc.3",
   "description": "A magical documentation generator.",
   "homepage": "https://docsify.js.org",
-  "repository": "github:docsifyjs/docsify",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/docsifyjs/docsify.git"
+  },
   "authors": "https://github.com/docsifyjs/docsify/graphs/contributors",
   "license": "MIT",
   "collective": {
@@ -95,7 +98,7 @@
     "build:emoji": "node ./build/emoji.js",
     "build:js": "rollup -c",
     "build:types": "tsc",
-    "build:v4": "git checkout v4 && npm clean-install && git checkout docs/emoji.md src/core/render/emoji-data.js && rimraf packages/ && git checkout - && npm clean-install && npm run build:v4:deprecate -- lib/docsify.js && npm run build:v4:deprecate -- lib/docsify.min.js",
+    "build:v4": "git checkout release-v4 && npm clean-install && git checkout docs/emoji.md src/core/render/emoji-data.js && rimraf packages/ && git checkout - && npm clean-install && npm run build:v4:deprecate -- lib/docsify.js && npm run build:v4:deprecate -- lib/docsify.min.js",
     "build:v4:deprecate": "echo ';console.warn(\"Docsify v4 is no longer supported. See https://docsify.js.org for the latest version.\")' >> ",
     "build": "run-s clean build:types build:js build:css build:css:min build:cover",
     "clean": "rimraf --glob \"dist/**\" \"_playwright*/**\" \"src/**/*.d.ts\" \"src/**/*.d.ts.map\"",
