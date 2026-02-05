@@ -325,18 +325,37 @@ export async function init(config, vm) {
       return count++;
     }
 
+    const saveIfCompleted = () => {
+      if (len === ++count) {
+        saveData(config.maxAge, expireKey).catch(err => {
+          // eslint-disable-next-line no-console
+          console.warn('Search plugin: failed to save index data', err);
+        });
+      }
+    };
+
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      async result => {
-        INDEXES[path] = genIndex(
-          path,
-          result,
-          vm.router,
-          config.depth,
-          indexKey,
-        );
-        if (len === ++count) {
-          await saveData(config.maxAge, expireKey);
+      result => {
+        try {
+          INDEXES[path] = genIndex(
+            path,
+            result,
+            vm.router,
+            config.depth,
+            indexKey,
+          );
+        } finally {
+          saveIfCompleted();
         }
+      },
+      err => {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'Search plugin: failed to load a file for indexing',
+          path,
+          err,
+        );
+        saveIfCompleted();
       },
     );
   });
