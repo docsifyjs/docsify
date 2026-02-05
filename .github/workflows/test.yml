@@ -72,6 +72,25 @@ jobs:
         run: npx playwright install --with-deps
       - name: E2E Tests (Playwright)
         run: npm run test:e2e
+
+      # In the interest of not having to modify GitHub settings to update required
+      # builds for passing, I stuck this test here.
+      - name: Test v4 build
+        run: |
+          git fetch --tags
+          npm run build:v4
+          # ensure v4 build files exist:
+          test -f lib/docsify.js
+          test -f themes/pure.css
+          # ensure no git changes after building v4:
+          git diff --exit-code
+          npm run clean:v4
+          # ensure v4 build files are removed:
+          test ! -f lib/docsify.js
+          test ! -f themes/pure.css
+          # ensure no git changes after cleaning v4:
+          git diff --exit-code
+
       - name: Store artifacts
         uses: actions/upload-artifact@v6
         if: failure()
