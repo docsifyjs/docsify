@@ -92,6 +92,35 @@ When using the HTML5 router, you need to set up redirect rules that redirect all
 /*    /index.html   200
 ```
 
+## Cloudflare Pages
+
+Cloudflare Pages provides free static hosting with built-in support for
+single-page applications.
+
+If you are using `routerMode: 'history'`, ensure that all routes fall back to
+`index.html`.
+
+Cloudflare Pages automatically handles SPA routing when deploying a static
+site, so no additional rewrite rules are usually required.
+
+
+## Azure Static Web Apps
+
+Azure Static Web Apps offers free static site hosting with support for SPAs.
+
+When using `routerMode: 'history'`, configure a navigation fallback so that
+all routes are served by `index.html`.
+
+Example `staticwebapp.config.json`:
+
+```json
+{
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  }
+}
+```
+
 ## Vercel
 
 1. Install [Vercel CLI](https://vercel.com/download), `npm i -g vercel`
