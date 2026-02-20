@@ -395,7 +395,9 @@ export function Events(Base) {
       }
 
       // Clicked anchor link or page load with anchor ID
-      if (hasId || isNavigate) {
+      // On desktop, preserve sidebar focus when navigating via sidebar links
+      // so keyboard users don't lose their place (see #2600)
+      if (hasId || (isNavigate && isMobile())) {
         this.#focusContent();
       }
     }
