@@ -92,7 +92,7 @@ jobs:
           git diff --exit-code
 
       - name: Store artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: ${{ matrix.os }}-${{ matrix.node-version }}-artifacts
