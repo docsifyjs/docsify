@@ -329,10 +329,11 @@ export function Events(Base) {
         .find(`.sidebar a[href='${currentPath}']`)
         ?.getAttribute('title');
 
-      const currentTitle = name
+      const plainName = name ? name.replace(/<[^>]+>/g, '').trim() : name;
+      const currentTitle = plainName
         ? currentSection
-          ? `${currentSection} - ${name}`
-          : name
+          ? `${currentSection} - ${plainName}`
+          : plainName
         : currentSection;
 
       // Update page title
