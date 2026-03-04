@@ -338,6 +338,11 @@ export async function init(config, vm) {
           await saveData(config.maxAge, expireKey);
         }
       },
+      async _error => {
+        if (len === ++count) {
+          await saveData(config.maxAge, expireKey);
+        }
+      },
     );
   });
 }
