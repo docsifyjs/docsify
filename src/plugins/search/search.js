@@ -339,7 +339,9 @@ export async function init(config, vm) {
         }
       },
       async (_event, response) => {
-        console.warn(`[Docsify] Failed to fetch ${path} for search indexing (${response?.status || 'network error'})`);
+        console.warn(
+          `[Docsify] Failed to fetch ${path} for search indexing (${response?.status || 'network error'})`,
+        );
         if (len === ++count) {
           await saveData(config.maxAge, expireKey);
         }
