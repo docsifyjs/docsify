@@ -22,7 +22,7 @@ export const headingCompiler = ({ renderer, router, compiler }) =>
     const slug = slugify(config.id || text);
     const url = router.toURL(router.getCurrentPath(), { id: slug });
     nextToc.slug = stripUrlExceptId(url);
-    if (!compiler.insideBlockquote) {
+    if (!compiler.blockquoteDepth) {
       compiler.toc.push(nextToc);
     }
 

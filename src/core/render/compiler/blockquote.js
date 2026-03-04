@@ -40,8 +40,11 @@ export const blockquoteCompiler = ({ renderer, compiler }) =>
       }
     }
 
-    compiler.insideBlockquote = true;
-    const body = this.parser.parse(tokens);
-    compiler.insideBlockquote = false;
-    return `${openTag}${body}${closeTag}`;
+    compiler.blockquoteDepth++;
+    try {
+      const body = this.parser.parse(tokens);
+      return `${openTag}${body}${closeTag}`;
+    } finally {
+      compiler.blockquoteDepth--;
+    }
   });

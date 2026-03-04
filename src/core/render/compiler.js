@@ -25,6 +25,7 @@ export class Compiler {
     this.router = router;
     this.cacheTree = {};
     this.toc = [];
+    this.blockquoteDepth = 0;
     this.cacheTOC = {};
     this.linkTarget = config.externalLinkTarget || '_blank';
     this.linkRel =
