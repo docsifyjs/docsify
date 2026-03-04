@@ -338,7 +338,8 @@ export async function init(config, vm) {
           await saveData(config.maxAge, expireKey);
         }
       },
-      async _error => {
+      async error => {
+        console.warn(`[Docsify] Failed to fetch ${path} for search indexing`, error);
         if (len === ++count) {
           await saveData(config.maxAge, expireKey);
         }
