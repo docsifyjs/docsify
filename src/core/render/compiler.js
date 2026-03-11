@@ -1,6 +1,7 @@
 import { marked } from 'marked';
+/** @import {TokensList, Marked} from 'marked' */
 import { isAbsolutePath, getPath, getParentPath } from '../router/util.js';
-import { isFn, cached, isPrimitive } from '../util/core.js';
+import { isFn, cached } from '../util/core.js';
 import { tree as treeTpl } from './tpl.js';
 import { genTree } from './gen-tree.js';
 import { slugify } from './slugify.js';
@@ -32,6 +33,7 @@ export class Compiler {
     this.contentBase = router.getBasePath();
 
     this.renderer = this._initRenderer();
+    /** @type {typeof marked & Marked} */
     let compile;
     const mdConf = config.markdown || {};
 
@@ -43,10 +45,14 @@ export class Compiler {
           renderer: Object.assign(this.renderer, mdConf.renderer),
         }),
       );
+      // @ts-expect-error FIXME temporary ugly Marked types
       compile = marked;
     }
 
+    /** @type {typeof marked & Marked} */
     this._marked = compile;
+
+    /** @param {string | TokensList} text */
     this.compile = text => {
       let isCached = true;
 
@@ -59,8 +65,8 @@ export class Compiler {
           return text;
         }
 
-        if (isPrimitive(text)) {
-          html = compile(text);
+        if (typeof text === 'string') {
+          html = /** @type {string} */ (compile(text));
         } else {
           html = compile.parser(text);
         }
@@ -113,7 +119,8 @@ export class Compiler {
       }
 
       let media;
-      if (config.type && (media = compileMedia[config.type])) {
+      const configType = /** @type {string | undefined} */ (config.type);
+      if (configType && (media = compileMedia[configType])) {
         embed = media.call(this, href, title);
         embed.type = config.type;
       } else {
@@ -273,8 +280,8 @@ export class Compiler {
 
   /**
    * Compile cover page
-   * @param {Text} text Text content
-   * @returns {String} Cover page
+   * @param {TokensList} text Text content
+   * @returns {string} Cover page
    */
   cover(text) {
     const cacheToc = this.toc.slice();

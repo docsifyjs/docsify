@@ -1,5 +1,7 @@
 import { stripIndent } from 'common-tags';
 import { get } from '../util/ajax.js';
+/** @import { Compiler } from '../Docsify.js' */
+/** @import {TokensList} from 'marked' */
 
 const cached = {};
 
@@ -32,7 +34,7 @@ function extractFragmentContent(text, fragment, fullLine) {
   return stripIndent((match || [])[1] || '').trim();
 }
 
-function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
+function walkFetchEmbed({ embedTokens, compile }, cb) {
   let token;
   let step = 0;
   let count = 0;
@@ -132,7 +134,13 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
   }
 }
 
-export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
+/**
+ * @param {Object} options
+ * @param {Compiler} options.compiler
+ * @param {string} [options.raw]
+ * @param {Function} done
+ */
+export function prerenderEmbed({ compiler, raw = '' }, done) {
   const hit = cached[raw];
   if (hit) {
     const copy = hit.slice();
@@ -193,7 +201,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   // are returned
   const moves = [];
   walkFetchEmbed(
-    { compile, embedTokens, fetch },
+    { compile, embedTokens },
     ({ embedToken, token, rowIndex, cellIndex, tokenRef }) => {
       if (token) {
         if (typeof rowIndex === 'number' && typeof cellIndex === 'number') {
@@ -212,9 +220,14 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
 
           Object.assign(links, embedToken.links);
 
+          // FIXME This is an actual code error caught by TypeScript, but
+          // apparently we've not been effected by deleting the `.links` property
+          // yet.
+          // @ts-expect-error
           tokens = tokens
-            .slice(0, index)
+            .slice(0, index) // This deletes the original .links by returning a new array, so now we have Tokens[] instead of TokensList
             .concat(embedToken, tokens.slice(index + 1));
+
           moves.push({ start: index, length: embedToken.length - 1 });
         }
       } else {

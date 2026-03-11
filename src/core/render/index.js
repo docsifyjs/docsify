@@ -433,7 +433,6 @@ export function Render(Base) {
             {
               compiler: /** @type {Compiler} */ (this.compiler),
               raw: result,
-              fetch: undefined,
             },
             tokens => {
               html = /** @type {Compiler} */ (this.compiler).compile(tokens);
@@ -444,108 +443,71 @@ export function Render(Base) {
       });
     }
 
-    _renderCover(text, coverOnly) {
-      const el = dom.getNode('.cover');
+    _renderCover(text, coverOnly, next) {
+      const el = /** @type {HTMLElement} */ (dom.getNode('.cover'));
       const rootElm = document.documentElement;
+      // TODO this is now unused. What did we break?
+      // eslint-disable-next-line no-unused-vars
       const coverBg = getComputedStyle(rootElm).getPropertyValue('--cover-bg');
 
       dom.getNode('main').classList[coverOnly ? 'add' : 'remove']('hidden');
 
       if (!text) {
         el.classList.remove('show');
+        next();
         return;
       }
 
       el.classList.add('show');
 
-      let html = this.coverIsHTML
-        ? text
-        : /** @type {Compiler} */ (this.compiler).cover(text);
-
-      if (!coverBg) {
-        const mdBgMatch = html
+      const callback = html => {
+        const m = html
           .trim()
-          .match(
-            '<p><img.*?data-origin="(.*?)".*?alt="(.*?)"[^>]*?>([^<]*?)</p>$',
-          );
+          .match('<p><img.*?data-origin="(.*?)"[^a]+alt="(.*?)">([^<]*?)</p>$');
 
-        let mdCoverBg;
+        if (m) {
+          if (m[2] === 'color') {
+            el.style.background = m[1] + (m[3] || '');
+          } else {
+            let path = m[1];
 
-        if (mdBgMatch) {
-          const [bgMatch, bgValue, bgType] = mdBgMatch;
+            el.classList.add('has-mask');
+            if (!isAbsolutePath(m[1])) {
+              path = getPath(this.router.getBasePath(), m[1]);
+            }
 
-          // Color
-          if (bgType === 'color') {
-            mdCoverBg = bgValue;
-          }
-          // Image
-          else {
-            const path = !isAbsolutePath(bgValue)
-              ? getPath(this.router.getBasePath(), bgValue)
-              : bgValue;
-
-            mdCoverBg = `center center / cover url(${path})`;
+            el.style.backgroundImage = `url(${path})`;
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center center';
           }
 
-          html = html.replace(bgMatch, '');
-        }
-        // Gradient background
-        else {
-          const degrees = Math.round((Math.random() * 120) / 2);
-
-          let hue1 = Math.round(Math.random() * 360);
-          let hue2 = Math.round(Math.random() * 360);
-
-          // Ensure hue1 and hue2 are at least 50 degrees apart
-          if (Math.abs(hue1 - hue2) < 50) {
-            const hueShift = Math.round(Math.random() * 25) + 25;
-
-            hue1 = Math.max(hue1, hue2) + hueShift;
-            hue2 = Math.min(hue1, hue2) - hueShift;
-          }
-
-          // OKLCH color
-          if (window?.CSS?.supports('color', 'oklch(0 0 0 / 1%)')) {
-            const l = 90; // Lightness
-            const c = 20; // Chroma
-
-            // prettier-ignore
-            mdCoverBg = `linear-gradient(
-              ${degrees}deg,
-              oklch(${l}% ${c}% ${hue1}) 0%,
-              oklch(${l}% ${c}% ${hue2}) 100%
-            )`.replace(/\s+/g, ' ');
-          }
-          // HSL color (Legacy)
-          else {
-            const s = 100; // Saturation
-            const l = 85; // Lightness
-            const o = 100; // Opacity
-
-            // prettier-ignore
-            mdCoverBg = `linear-gradient(
-              ${degrees}deg,
-              hsl(${hue1} ${s}% ${l}% / ${o}%) 0%,
-              hsl(${hue2} ${s}% ${l}% / ${o}%) 100%
-            )`.replace(/\s+/g, ' ');
-          }
+          html = html.replace(m[0], '');
         }
 
-        rootElm.style.setProperty('--cover-bg', mdCoverBg);
+        dom.setHTML('.cover-main', html);
+        next();
+      };
+
+      // TODO: Call the 'beforeEach' and 'afterEach' hooks.
+      // However, when the cover and the home page are on the same page,
+      // the 'beforeEach' and 'afterEach' hooks are called multiple times.
+      // It is difficult to determine the target of the hook within the
+      // hook functions. We might need to make some changes.
+      if (this.coverIsHTML) {
+        callback(text);
+      } else {
+        const compiler = this.compiler;
+        if (!compiler) {
+          throw new Error('Compiler is not initialized');
+        }
+        prerenderEmbed(
+          {
+            compiler,
+            raw: text,
+          },
+          tokens => callback(compiler.cover(tokens)),
+        );
       }
-
-      dom.setHTML('.cover-main', html);
-
-      // Button styles
-      dom
-        .findAll('.cover-main > p:last-of-type > a:not([class])')
-        .forEach(elm => {
-          const buttonType = elm.matches(':first-child')
-            ? 'primary'
-            : 'secondary';
-
-          elm.classList.add('button', buttonType);
-        });
     }
 
     _updateRender() {
