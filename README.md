@@ -81,3 +81,27 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 ## License
 
 [MIT](LICENSE)
+
+
+
+## Hosting Your Docsify Site for Free
+
+Docsify websites can be hosted easily on free platforms. Here are some popular options:
+
+### 1. GitHub Pages
+- Upload your Docsify project to a GitHub repository.
+- In `Settings` → `Pages`, select the branch to deploy.
+- Your site will be available at `https://<username>.github.io/<repo-name>/`.
+
+### 2. Netlify
+- Drag and drop your Docsify folder into [Netlify Drop](https://app.netlify.com/drop).
+- Your site will be live instantly with a free Netlify URL.
+- Supports custom domains and continuous deployment via Git.
+
+### 3. Cloudflare Pages
+- Connect your GitHub repository to [Cloudflare Pages](https://pages.cloudflare.com/).
+- Cloudflare will automatically build and host your Docsify site for free.
+- Provides fast global CDN and HTTPS by default.
+
+### 4. Other Options
+- Vercel, Surge.sh, and Firebase Hosting can also host Docsify sites for free.

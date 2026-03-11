@@ -51,12 +51,20 @@ export function Router(Base) {
         this.updateRender();
         this._updateRender();
 
+        dom.restoreFocusAfterNavigation();
+
         if (lastRoute.path === this.route.path) {
           this.onNavigate(params.source);
           return;
         }
 
-        this.$fetch(noop, this.onNavigate.bind(this, params.source));
+        // Fetch new page content
+        this.$fetch(noop, () => {
+          this.onNavigate(params.source);
+          
+          dom.restoreFocusAfterNavigation();
+        });
+
         lastRoute = this.route;
       });
     }
