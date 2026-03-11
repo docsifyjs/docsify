@@ -1,4 +1,4 @@
-export const blockquoteCompiler = ({ renderer }) =>
+export const blockquoteCompiler = ({ renderer, compiler }) =>
   (renderer.blockquote = function ({ tokens }) {
     let openTag = '<blockquote>';
     let closeTag = '</blockquote>';
@@ -40,6 +40,11 @@ export const blockquoteCompiler = ({ renderer }) =>
       }
     }
 
-    const body = this.parser.parse(tokens);
-    return `${openTag}${body}${closeTag}`;
+    compiler.blockquoteDepth++;
+    try {
+      const body = this.parser.parse(tokens);
+      return `${openTag}${body}${closeTag}`;
+    } finally {
+      compiler.blockquoteDepth--;
+    }
   });

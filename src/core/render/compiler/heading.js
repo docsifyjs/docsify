@@ -22,7 +22,9 @@ export const headingCompiler = ({ renderer, router, compiler }) =>
     const slug = slugify(config.id || text);
     const url = router.toURL(router.getCurrentPath(), { id: slug });
     nextToc.slug = stripUrlExceptId(url);
-    compiler.toc.push(nextToc);
+    if (!compiler.blockquoteDepth) {
+      compiler.toc.push(nextToc);
+    }
 
     // Note: tabindex="-1" allows programmatically focusing on heading
     // elements after navigation. This is preferred over focusing on the link

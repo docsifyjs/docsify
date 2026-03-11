@@ -25,6 +25,7 @@ export class Compiler {
     this.router = router;
     this.cacheTree = {};
     this.toc = [];
+    this.blockquoteDepth = 0;
     this.cacheTOC = {};
     this.linkTarget = config.externalLinkTarget || '_blank';
     this.linkRel =
@@ -165,7 +166,10 @@ export class Compiler {
       router,
       compiler: this,
     });
-    origin.blockquoteCompiler = blockquoteCompiler({ renderer });
+    origin.blockquoteCompiler = blockquoteCompiler({
+      renderer,
+      compiler: this,
+    });
     origin.code = highlightCodeCompiler({ renderer });
     origin.link = linkCompiler({
       renderer,
