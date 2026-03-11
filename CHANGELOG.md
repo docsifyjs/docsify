@@ -1,3 +1,25 @@
+# [5.0.0-rc.4](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.3...v5.0.0-rc.4) (2026-03-11)
+
+
+### Bug Fixes
+
+* adjust intersection observer threshold for sticky class toggle ([#2637](https://github.com/docsifyjs/docsify/issues/2637)) ([4e8be38](https://github.com/docsifyjs/docsify/commit/4e8be38304ad5fcf64c585f42afef46c72adabb7))
+* enhance accessibility for sidebar toggle button ([#2604](https://github.com/docsifyjs/docsify/issues/2604)) ([3014945](https://github.com/docsifyjs/docsify/commit/3014945e4d677d24124a3a01fe88ec82951ebfa7))
+* improve word breaking for code blocks in markdown ([#2636](https://github.com/docsifyjs/docsify/issues/2636)) ([73d41e9](https://github.com/docsifyjs/docsify/commit/73d41e9e48ab7effae4c5dffd4aec4bd4e1b9168))
+* include h6 headings in heading element selection ([#2649](https://github.com/docsifyjs/docsify/issues/2649)) ([44326ca](https://github.com/docsifyjs/docsify/commit/44326ca423b25ddbb12b172ab7180edd553c61f4))
+* strip HTML tags from config.name when setting page title ([#2690](https://github.com/docsifyjs/docsify/issues/2690)) ([0cfee34](https://github.com/docsifyjs/docsify/commit/0cfee34dbc0d511a272070e4124eb2f3102d988e)), closes [#2610](https://github.com/docsifyjs/docsify/issues/2610)
+* typo ([#2632](https://github.com/docsifyjs/docsify/issues/2632)) ([2d45376](https://github.com/docsifyjs/docsify/commit/2d45376bb8dc3f7a07c633a7be4d38af3a56501b))
+
+
+### Features
+
+* add fallback default language support ([#2607](https://github.com/docsifyjs/docsify/issues/2607)) ([1abe3a9](https://github.com/docsifyjs/docsify/commit/1abe3a9ea48cd3a96ee65cd958090bf2936de3c9))
+* enhance embed handling for table cells ([#2606](https://github.com/docsifyjs/docsify/issues/2606)) ([422a745](https://github.com/docsifyjs/docsify/commit/422a745acc4783c325d55413c5349ca70c42c67c))
+* Fragment identifier full line ignore ([#2626](https://github.com/docsifyjs/docsify/issues/2626)) ([e811756](https://github.com/docsifyjs/docsify/commit/e8117563eae4aa9468c36b76fe83c5ce3f7423ea))
+* output type definitions, and allow `new Docsify(opts)` to accept options for ESM usage ([#2392](https://github.com/docsifyjs/docsify/issues/2392)) ([b960519](https://github.com/docsifyjs/docsify/commit/b960519608747015d1ab974c9ed809c21f3b1bda))
+
+
+
 # [5.0.0-rc.3](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.1...v5.0.0-rc.3) (2025-09-05)
 
 

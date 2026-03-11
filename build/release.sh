@@ -27,7 +27,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   npm run build
   npm run test:update:snapshot
   npm run test
+  git stash
   npm run build:v4 # builds legacy v4 lib/ and themes/ folders for backwards compat while people transition to v5.
+  git stash pop
 
   # Changelog
   npx conventional-changelog -p angular -i CHANGELOG.md -s
