@@ -333,4 +333,36 @@ console.log('Hello World');
       '...SearchHere to check it!...',
     );
   });
+
+  test('search should work if some page failed to load', async ({ page }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+          # Hello World
+
+          This is the homepage.
+        `,
+        sidebar: `
+          - [Test Page](test)
+          - [Broken Page](broken)
+        `,
+      },
+      routes: {
+        '/test.md': `
+          # Test Page
+
+          This is a custom route.
+        `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .title');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await searchFieldElm.fill('hello');
+    await expect(resultsHeadingElm).toHaveText('Hello World');
+  });
 });
