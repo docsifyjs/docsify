@@ -212,5 +212,10 @@ describe('core/render/slugify', () => {
 
     const quoteCleanedSlug = slugify('"The content"');
     expect(quoteCleanedSlug).toBe('the-content');
+
+    const markdownLinkSlug = slugify(
+      '[5.0.0-rc.4](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.3...v5.0.0-rc.4) (2026-03-11)',
+    );
+    expect(markdownLinkSlug).toBe('_500-rc4-2026-03-11');
   });
 });
