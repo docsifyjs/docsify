@@ -336,8 +336,8 @@ export function Events(Base) {
         typeof pageTitleFormatter === 'function'
           ? pageTitleFormatter(name)
           : name
-          ? name.replace(/<[^>]+>/g, '').trim()
-          : name;
+            ? name.replace(/<[^>]+>/g, '').trim()
+            : name;
       const currentTitle = plainName
         ? currentSection
           ? `${currentSection} - ${plainName}`
