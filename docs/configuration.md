@@ -277,7 +277,7 @@ window.$docsify = {
 
 ## pageTitleFormatter
 
-- Type: `Function | null`
+- Type: `Function`
 - Default: `null`
 
 Optional function to customize how the site `name` is used when composing the document title. If provided, Docsify will call this function with the configured `name` (which may contain HTML) and use the returned string as the title portion for the site name — Docsify will not automatically strip HTML or otherwise modify the value. If not provided, Docsify falls back to the default behavior of stripping HTML tags from `name`.
@@ -474,7 +474,7 @@ window.$docsify = {
 
 ## name
 
-- Type: `Boolean | String`
+- Type: `Boolean|String`
 
 Website name as it appears in the sidebar.
 
