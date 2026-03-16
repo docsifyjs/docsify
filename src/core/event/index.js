@@ -333,7 +333,7 @@ export function Events(Base) {
       // (no automatic HTML stripping). Otherwise, default to stripping
       // HTML tags from the configured name.
       const plainName =
-        typeof pageTitleFormatter === 'function'
+        typeof pageTitleFormatter === 'function' && typeof name === 'string'
           ? pageTitleFormatter(name)
           : name
             ? name.replace(/<[^>]+>/g, '').trim()
