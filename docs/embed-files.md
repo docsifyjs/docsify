@@ -94,10 +94,10 @@ If you embed the file as `iframe`, `audio` and `video`, then you may need to set
 ```
 
 ```markdown
-[cinwell website](https://google.com ':include :type=iframe width=100% height=400px')
+[cinwell website](https://cinwell.com ':include :type=iframe width=100% height=400px')
 ```
 
-[cinwell website](https://google.com ':include :type=iframe width=100% height=400px')
+[cinwell website](https://cinwell.com ':include :type=iframe width=100% height=400px')
 
 Did you see it? You only need to write directly. You can check [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) for these attributes.
 
