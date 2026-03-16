@@ -323,13 +323,21 @@ export function Events(Base) {
      * @void
      */
     onRender() {
-      const { name } = this.config;
+      const { name, pageTitleFormatter } = this.config;
       const currentPath = this.router.toURL(this.router.getCurrentPath());
       const currentSection = dom
         .find(`.sidebar a[href='${currentPath}']`)
         ?.getAttribute('title');
 
-      const plainName = name ? name.replace(/<[^>]+>/g, '').trim() : name;
+      // If a pageTitleFormatter is provided, let the user format the name
+      // (no automatic HTML stripping). Otherwise, default to stripping
+      // HTML tags from the configured name.
+      const plainName =
+        typeof pageTitleFormatter === 'function'
+          ? pageTitleFormatter(name)
+          : name
+          ? name.replace(/<[^>]+>/g, '').trim()
+          : name;
       const currentTitle = plainName
         ? currentSection
           ? `${currentSection} - ${plainName}`

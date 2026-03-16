@@ -27,6 +27,7 @@ const defaultDocsifyConfig = () => ({
   fallbackLanguages: /** @type {null | string[]} */ (null),
   fallbackDefaultLanguage: '',
   formatUpdated: /** @type {string | ((updatedAt: string) => string)} */ (''),
+  pageTitleFormatter: /** @type {null | ((name: string) => string)} */ (null),
   /** For the frontmatter plugin. */
   frontMatter: /** @type {Record<string, TODO> | null} */ (null),
   hideSidebar: false,
