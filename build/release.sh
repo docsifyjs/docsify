@@ -32,7 +32,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   git stash pop
 
   # Changelog
-  npx conventional-changelog -p angular -i CHANGELOG.md -s
+  npx standard-version --skip.bump --skip.commit --skip.tag
 
   # Commit all changes
   git add -A
