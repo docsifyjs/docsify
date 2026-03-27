@@ -1,6 +1,6 @@
 import { isExternal, noop } from '../../util/core.js';
 import { on } from '../../util/dom.js';
-import { parseQuery, getPath } from '../util.js';
+import { parseQuery, getPath, replaceSlug, cleanPath } from '../util.js';
 import { History } from './base.js';
 
 export class HTML5History extends History {
@@ -62,5 +62,28 @@ export class HTML5History extends History {
       query: parseQuery(query),
       response: {},
     };
+  }
+
+  /**
+   * Normalize the current path
+   * Handles slug replacement and ensures path is properly formatted
+   */
+  normalize() {
+    let path = this.getCurrentPath();
+
+    path = replaceSlug(path);
+
+    if (path.charAt(0) !== '/') {
+      path = '/' + path;
+    }
+
+    // Update the URL if needed (without reloading)
+    const currentPath = this.getCurrentPath();
+    if (currentPath !== path) {
+      const url = window.location.pathname.replace(currentPath, path) + 
+                  window.location.search + 
+                  window.location.hash;
+      window.history.replaceState(window.history.state, '', cleanPath(url));
+    }
   }
 }
