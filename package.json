@@ -59,7 +59,7 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-replace": "^6.0.1",
-    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-terser": "^1.0.0",
     "@types/common-tags": "^1.8.4",
     "@types/eslint": "^8.40.2",
     "@types/prismjs": "^1.26.5",
