@@ -117,6 +117,107 @@ View [Theme Classes](themes.md?id=classes) for more details.
 - **Themes**: v5 uses a core theme (with optional add-ons available)
 - **Plugin Names**: `zoom-image` → `zoom`
 
+## Migrating Custom Markdown Renderer Overrides
+
+If you were customizing the Markdown renderer in v4 using the `window.$docsify.markdown` configuration option, you'll need to update your approach for v5.
+
+### v4 Approach (Deprecated)
+
+In v4, you could customize the marked renderer like this:
+
+```javascript
+window.$docsify = {
+  markdown: function (marked, renderer) {
+    marked.setOptions({
+      smartypants: true,
+      renderer: Object.assign(renderer, {
+        paragraph(text) {
+          // Custom paragraph rendering
+          return marked.Renderer.prototype.paragraph.apply(null, [text]);
+        },
+        text(text) {
+          // Custom text rendering
+          return marked.Renderer.prototype.text.apply(null, [text]);
+        },
+      }),
+    });
+    return marked;
+  },
+};
+```
+
+### v5 Approach
+
+In v5, Docsify uses **marked v13+**, which has a different architecture. The `window.$docsify.markdown` option is no longer supported. Instead, use one of these approaches:
+
+#### Option 1: Using marked Extensions (Recommended)
+
+Load your marked extension before Docsify and register it in the configuration:
+
+```html
+<!-- Load your marked extension -->
+<script src="https://cdn.jsdelivr.net/npm/marked-footnote@1.2.0/dist/index.umd.min.js"></script>
+
+<script>
+window.$docsify = {
+  marked: {
+    extensions: [markedFootnote()], // Register the extension
+  },
+};
+</script>
+```
+
+#### Option 2: Using a Docsify Plugin
+
+Create a plugin that customizes the renderer after Docsify initializes:
+
+```javascript
+window.$docsify = {
+  // ... your other config
+};
+
+// Add a custom plugin
+window.$docsify.plugins = [
+  function (hook, vm) {
+    hook.doneEach(function () {
+      // Access the marked instance
+      const marked = vm.config.marked;
+      if (marked) {
+        const { Renderer } = marked;
+
+        // Create a custom renderer
+        const renderer = new Renderer();
+        const originalParagraph = renderer.paragraph.bind(renderer);
+        const originalText = renderer.text.bind(renderer);
+
+        // Override methods
+        renderer.paragraph = function (text) {
+          // Apply your custom transformations here
+          return originalParagraph(text);
+        };
+
+        renderer.text = function (text) {
+          // Apply your custom transformations here
+          return originalText(text);
+        };
+
+        // Update marked options
+        marked.setOptions({ renderer });
+      }
+    });
+  },
+];
+```
+
+#### Key Changes
+
+- ✅ Docsify v5 uses **marked v13+** with a hooks-based architecture
+- ✅ The `window.$docsify.markdown` config option is **deprecated**
+- ✅ Use `window.$docsify.marked` for passing marked options and extensions
+- ✅ Custom renderers should use the **extensions system** or a **Docsify plugin**
+
+For more details on marked extensions, see the [marked documentation](https://marked.js.org/using_advanced#extensions).
+
 ## Additional Notes
 
 - Your configuration in `window.$docsify` stays the same
