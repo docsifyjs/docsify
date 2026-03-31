@@ -314,12 +314,11 @@ export function Render(Base) {
 
       sidebarToggleEl.setAttribute('aria-expanded', String(!isMobile()));
 
-      const activeElmHref = this.router.toURL(this.route.path);
-      const decodedHref = decodeURIComponent(activeElmHref);
+      const activeElmHref = decodeURIComponent(
+        this.router.toURL(this.route.path),
+      );
       const activeEl = /** @type {HTMLElement | null} */ (
-        dom.find(
-          `.sidebar-nav a[href="${activeElmHref}"]${activeElmHref !== decodedHref ? `, .sidebar-nav a[href="${decodedHref}"]` : ''}`,
-        )
+        dom.find(`.sidebar-nav a[href="${activeElmHref}"]`)
       );
 
       this.#addTextAsTitleAttribute('.sidebar-nav a');
