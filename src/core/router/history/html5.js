@@ -63,4 +63,6 @@ export class HTML5History extends History {
       response: {},
     };
   }
+
+  normalize() {}
 }
