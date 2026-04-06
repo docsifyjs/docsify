@@ -3,7 +3,7 @@ const path = require('path');
 
 const docsDir = path.join(__dirname, '..', 'docs');
 const sitemapPath = path.join(__dirname, '..', 'sitemap.xml');
-const siteUrl = 'https://docsify.js.org/#/';
+const siteUrl = 'https://docsify.js.org/#/'; /
 
 function walk(dir) {
   let files = [];
@@ -21,9 +21,10 @@ function walk(dir) {
 
 const files = walk(docsDir);
 const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
 const urls = files.map(f => `
   <url>
-    <loc>${siteUrl}${f}</loc>
+    <loc>${siteUrl}${f.replace(/ /g, '%20')}</loc>
     <lastmod>${now}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -36,4 +37,4 @@ ${urls}
 </urlset>`;
 
 fs.writeFileSync(sitemapPath, sitemapXml);
-console.log('Sitemap XML generated:', sitemapPath);
+console.log('✅ Sitemap XML generated:', sitemapPath);
