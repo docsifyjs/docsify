@@ -11,7 +11,6 @@ on:
 jobs:
   sitemap:
     runs-on: ubuntu-latest
-    # 核心：添加写权限
     permissions:
       contents: write
 
@@ -22,14 +21,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' 
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci 
+        run: npm install 
 
       - name: Generate Sitemap XML
-        run: node scripts/generateSitemap.js
+        run: node generateSitemap.js
 
       - name: Commit and push sitemap
         uses: stefanzweifel/git-auto-commit-action@v5
