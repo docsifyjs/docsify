@@ -3,14 +3,20 @@ name: Generate Sitemap
 on:
   push:
     paths:
-      - 'docs/**'
+      - 'docs/**'     
+  workflow_dispatch: {} # 手动触发
+  schedule:
+    - cron: '0 0 * * *' 
 
 jobs:
   sitemap:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -20,11 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate sitemap
-        run: npm run generate-sitemap
+      - name: Generate Sitemap XML
+        run: node scripts/generateSitemap.js
 
       - name: Commit and push sitemap
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update sitemap"
+          commit_message: "Update sitemap.xml"
           branch: sitemap
