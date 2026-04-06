@@ -11,20 +11,22 @@ on:
 jobs:
   sitemap:
     runs-on: ubuntu-latest
+    # 核心：添加写权限
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: true
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20' 
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci 
 
       - name: Generate Sitemap XML
         run: node scripts/generateSitemap.js
@@ -32,5 +34,4 @@ jobs:
       - name: Commit and push sitemap
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update sitemap.xml"
-          branch: sitemap
+          commit_message: "chore: update sitemap.xml [skip ci]"
