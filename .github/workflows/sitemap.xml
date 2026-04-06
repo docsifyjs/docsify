@@ -1,0 +1,30 @@
+name: Generate Sitemap
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate sitemap
+        run: npm run generate-sitemap
+
+      - name: Commit and push sitemap
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update sitemap"
+          branch: develop
