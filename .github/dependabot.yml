@@ -11,6 +11,11 @@ updates:
     schedule:
       interval: monthly
     ignore:
+      # Ignore ALL dependency updates for the /test/consume-types directory
+      - dependency-name: '*'
+        dependency-type: 'all'
+        directory: '/test/consume-types'
+
       # For all dependencies, trigger pull requests only for semver-major updates (ignore minor and patch).
       - dependency-name: '*'
         update-types:
