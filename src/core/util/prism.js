@@ -1,4 +1,5 @@
 import * as Prism from 'prismjs';
+import { escapeHtml } from '../render/utils.js';
 /**
  *
  * The dependencies map which syncs from
@@ -221,6 +222,28 @@ const lang_aliases = {
 const depTreeCache = {};
 
 /**
+ * Normalizes the declared code-block language and provides a safe HTML value.
+ *
+ * - `codeLang`: normalized user-declared language (fallback: `markup`)
+ * - `prismLang`: resolved Prism language key used for dependency/highlight lookup
+ * - `escapedLang`: escaped language for safe insertion into HTML attributes
+ *
+ * @param {*} lang
+ * @returns {{codeLang: string, prismLang: any|string, escapedLang: string}}
+ */
+export const sanitizeCodeLang = lang => {
+  const codeLang =
+    typeof lang === 'string' && lang.trim().length ? lang.trim() : 'markup';
+  const prismLang = lang_aliases[codeLang] || codeLang;
+
+  return {
+    codeLang,
+    prismLang,
+    escapedLang: escapeHtml(codeLang),
+  };
+};
+
+/**
  * PrismJs language dependencies required a specific order to load.
  * Try to check and print a warning message if some dependencies missing or in wrong order.
  * @param {*} lang current lang to check dependencies
@@ -254,11 +277,11 @@ export default function checkLangDependenciesAllLoaded(lang) {
     depTreeCache[lang] = depTree;
 
     if (!dummy.loaded) {
-      const prettyOutput = prettryPrint(depTree, 1);
+      const prettyOutput = prettyPrint(depTree, 1);
       // eslint-disable-next-line no-console
       console.warn(
         `The language '${lang}' required dependencies for code block highlighting are not satisfied.`,
-        `Priority dependencies from low to high, consider to place all the necessary dependencie by priority (higher first): \n`,
+        `Priority dependencies from low to high, consider to place all the necessary dependencies by priority (higher first): \n`,
         prettyOutput,
       );
     }
@@ -288,11 +311,11 @@ const buildAndCheckDepTree = (lang, parent, dummy) => {
   parent.dependencies.push(cur);
 };
 
-const prettryPrint = (depTree, level) => {
+const prettyPrint = (depTree, level) => {
   let cur = `${'  '.repeat(level * 3)} ${depTree.cur} ${depTree.loaded ? '(+)' : '(-)'}`;
   if (depTree.dependencies.length) {
     depTree.dependencies.forEach(dep => {
-      cur += prettryPrint(dep, level + 1);
+      cur += prettyPrint(dep, level + 1);
     });
   }
   return '\n' + cur;

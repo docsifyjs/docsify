@@ -1,5 +1,6 @@
-import { escapeHtml, search } from './search.js';
+import { search } from './search.js';
 import cssText from './style.css';
+import { escapeHtml } from '../../core/render/utils.js';
 
 let NO_DATA_TEXT = '';
 

@@ -94,3 +94,21 @@ export function getAndRemoveDocsifyIgnoreConfig(content = '') {
     ignoreSubHeading,
   });
 }
+
+/**
+ * Escape HTML special characters in a string to prevent XSS attacks.
+ *
+ * @param string
+ * @returns {string}
+ */
+export function escapeHtml(string) {
+  const entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+}

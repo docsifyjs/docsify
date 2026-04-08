@@ -145,6 +145,42 @@ Text</p></div>"
     });
   });
 
+  // Code
+  // ---------------------------------------------------------------------------
+  describe('code', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
+    test('escapes language metadata to prevent attribute injection', async function () {
+      const output = window.marked(stripIndent`
+        \`\`\`js" onmouseover="alert(1)
+        const answer = 42;
+        \`\`\`
+      `);
+
+      expect(output).not.toContain('" onmouseover="alert(1)');
+      expect(output).toContain(
+        'data-lang="js&quot; onmouseover=&quot;alert(1)"',
+      );
+      expect(output).toContain(
+        'class="language-js&quot; onmouseover=&quot;alert(1)"',
+      );
+    });
+
+    test('keeps declared language class for normal fences', async function () {
+      const output = window.marked(stripIndent`
+        \`\`\`js
+        const answer = 42;
+        \`\`\`
+      `);
+
+      expect(output).toContain('data-lang="js"');
+      expect(output).toContain('class="language-js"');
+      expect(output).toContain('token keyword');
+    });
+  });
+
   // Images
   // ---------------------------------------------------------------------------
   describe('images', function () {
