@@ -241,6 +241,16 @@ Text</p></div>"
         '"<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" /></p>"',
       );
     });
+
+    test('escapes image alt and title to prevent attribute injection', async function () {
+      const output = window.marked(
+        '![alt" onerror="alert(1)](http://imageUrl \'title" onerror="alert(1)\')',
+      );
+
+      expect(output).not.toContain(' onerror="alert(1)"');
+      expect(output).toContain('alt="alt&quot; onerror=&quot;alert(1)"');
+      expect(output).toContain('title="title&quot; onerror=&quot;alert(1)"');
+    });
   });
 
   // Headings
@@ -376,6 +386,15 @@ Text</p></div>"
       expect(output).toMatchInlineSnapshot(
         `"<p><a href="http://url" target="_blank" rel="noopener" id="someCssID">alt text</a></p>"`,
       );
+    });
+
+    test('escapes link title to prevent attribute injection', async function () {
+      const output = window.marked(
+        `[alt text](http://url 'title" onclick="alert(1)')`,
+      );
+
+      expect(output).not.toContain(' onclick="alert(1)"');
+      expect(output).toContain('title="title&quot; onclick=&quot;alert(1)"');
     });
   });
 

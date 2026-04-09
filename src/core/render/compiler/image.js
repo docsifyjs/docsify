@@ -1,4 +1,4 @@
-import { getAndRemoveConfig } from '../utils.js';
+import { escapeHtml, getAndRemoveConfig } from '../utils.js';
 import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
 
 export const imageCompiler = ({ renderer, contentBase, router }) =>
@@ -14,7 +14,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
     }
 
     if (title) {
-      attrs.push(`title="${title}"`);
+      attrs.push(`title="${escapeHtml(title)}"`);
     }
 
     if (config.size) {
@@ -42,7 +42,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
       url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
     }
 
-    return /* html */ `<img src="${url}" data-origin="${href}" alt="${text}" ${attrs.join(
+    return /* html */ `<img src="${escapeHtml(url)}" data-origin="${escapeHtml(href)}" alt="${escapeHtml(text)}" ${attrs.join(
       ' ',
     )} />`;
   });
