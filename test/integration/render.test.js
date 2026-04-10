@@ -145,6 +145,42 @@ Text</p></div>"
     });
   });
 
+  // Code
+  // ---------------------------------------------------------------------------
+  describe('code', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
+    test('escapes language metadata to prevent attribute injection', async function () {
+      const output = window.marked(stripIndent`
+        \`\`\`js" onmouseover="alert(1)
+        const answer = 42;
+        \`\`\`
+      `);
+
+      expect(output).not.toContain('" onmouseover="alert(1)');
+      expect(output).toContain(
+        'data-lang="js&quot; onmouseover=&quot;alert(1)"',
+      );
+      expect(output).toContain(
+        'class="language-js&quot; onmouseover=&quot;alert(1)"',
+      );
+    });
+
+    test('keeps declared language class for normal fences', async function () {
+      const output = window.marked(stripIndent`
+        \`\`\`js
+        const answer = 42;
+        \`\`\`
+      `);
+
+      expect(output).toContain('data-lang="js"');
+      expect(output).toContain('class="language-js"');
+      expect(output).toContain('token keyword');
+    });
+  });
+
   // Images
   // ---------------------------------------------------------------------------
   describe('images', function () {
@@ -204,6 +240,16 @@ Text</p></div>"
       expect(output).toMatchInlineSnapshot(
         '"<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" /></p>"',
       );
+    });
+
+    test('escapes image alt and title to prevent attribute injection', async function () {
+      const output = window.marked(
+        '![alt" onerror="alert(1)](http://imageUrl \'title" onerror="alert(1)\')',
+      );
+
+      expect(output).not.toContain(' onerror="alert(1)"');
+      expect(output).toContain('alt="alt&quot; onerror=&quot;alert(1)"');
+      expect(output).toContain('title="title&quot; onerror=&quot;alert(1)"');
     });
   });
 
@@ -340,6 +386,15 @@ Text</p></div>"
       expect(output).toMatchInlineSnapshot(
         `"<p><a href="http://url" target="_blank" rel="noopener" id="someCssID">alt text</a></p>"`,
       );
+    });
+
+    test('escapes link title to prevent attribute injection', async function () {
+      const output = window.marked(
+        `[alt text](http://url 'title" onclick="alert(1)')`,
+      );
+
+      expect(output).not.toContain(' onclick="alert(1)"');
+      expect(output).toContain('title="title&quot; onclick=&quot;alert(1)"');
     });
   });
 

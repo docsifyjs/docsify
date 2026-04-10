@@ -1,3 +1,5 @@
+import { escapeHtml } from '../utils';
+
 export const compileMedia = {
   markdown(url) {
     return {
@@ -11,19 +13,19 @@ export const compileMedia = {
   },
   iframe(url, title) {
     return {
-      html: `<iframe src="${url}" ${
+      html: `<iframe src="${escapeHtml(url)}" ${
         title || 'width=100% height=400'
       }></iframe>`,
     };
   },
   video(url, title) {
     return {
-      html: `<video src="${url}" ${title || 'controls'}>Not Supported</video>`,
+      html: `<video src="${escapeHtml(url)}" ${title || 'controls'}>Not Supported</video>`,
     };
   },
   audio(url, title) {
     return {
-      html: `<audio src="${url}" ${title || 'controls'}>Not Supported</audio>`,
+      html: `<audio src="${escapeHtml(url)}" ${title || 'controls'}>Not Supported</audio>`,
     };
   },
   code(url, title) {

@@ -228,9 +228,9 @@ describe('Creating a Docsify site (integration tests in Jest)', function () {
           # Text between
 
           [filename](_media/example3.js ':include :fragment=something_else_not_code')
-          
+
           [filename](_media/example4.js ':include :fragment=demo')
-          
+
           # Text after
         `,
       },
@@ -302,5 +302,27 @@ Command | Description | Parameters
     const mainText = document.querySelector('#main').textContent;
     expect(mainText).toContain('Something');
     expect(mainText).toContain('this is include content');
+  });
+
+  test.each([
+    { type: 'iframe', selector: 'iframe' },
+    { type: 'video', selector: 'video' },
+    { type: 'audio', selector: 'audio' },
+  ])('embed %s escapes URL for XSS safety', async ({ type, selector }) => {
+    const dangerousUrl = 'https://example.com/?q="><svg/onload=alert(1)>';
+
+    await docsifyInit({
+      markdown: {
+        homepage: `[media](${dangerousUrl} ':include :type=${type}')`,
+      },
+    });
+
+    expect(
+      await waitForFunction(() => !!document.querySelector(selector)),
+    ).toBe(true);
+
+    const mediaElm = document.querySelector(selector);
+    expect(mediaElm.getAttribute('src')).toBe(dangerousUrl);
+    expect(mediaElm.hasAttribute('onload')).toBe(false);
   });
 });
