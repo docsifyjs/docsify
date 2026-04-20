@@ -186,7 +186,7 @@ export function Fetch(Base) {
       }
     }
 
-    _fetchCover() {
+    _fetchCover(cb = noop) {
       const { coverpage, requestHeaders } = this.config;
       const query = this.route.query;
       const root = getParentPath(this.route.path);
@@ -206,17 +206,26 @@ export function Fetch(Base) {
         }
 
         const coverOnly = Boolean(path) && this.config.onlyCover;
+        const next = () => cb(coverOnly);
         if (path) {
           path = this.router.getFile(root + path);
           this.coverIsHTML = /\.html$/g.test(path);
           get(path + stringifyQuery(query, ['id']), false, requestHeaders).then(
-            text => this._renderCover(text, coverOnly),
+            text => this._renderCover(text, coverOnly, next),
+            (event, response) => {
+              this.coverIsHTML = false;
+              this._renderCover(
+                `# ${response.status} - ${response.statusText}`,
+                coverOnly,
+                next,
+              );
+            },
           );
         } else {
-          this._renderCover(null, coverOnly);
+          this._renderCover(null, coverOnly, next);
         }
-
-        return coverOnly;
+      } else {
+        cb(false);
       }
     }
 
@@ -226,16 +235,16 @@ export function Fetch(Base) {
         cb();
       };
 
-      const onlyCover = this._fetchCover();
-
-      if (onlyCover) {
-        done();
-      } else {
-        this._fetch(() => {
-          onNavigate();
+      this._fetchCover(onlyCover => {
+        if (onlyCover) {
           done();
-        });
-      }
+        } else {
+          this._fetch(() => {
+            onNavigate();
+            done();
+          });
+        }
+      });
     }
 
     /**
