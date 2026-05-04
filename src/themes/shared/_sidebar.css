@@ -114,6 +114,15 @@
     translate var(--duration-medium) ease,
     visibility var(--duration-medium);
 
+  /* Right sidebar position */
+  [data-sidebar-position='right'] & {
+    left: auto;
+    right: 0;
+    translate: calc(0px + var(--sidebar-width));
+    border-right: none;
+    border-left: 1px solid var(--sidebar-border-color);
+  }
+
   /* Non-webkit browsers: style scrollbar for consistency */
   @supports (scrollbar-width: auto) {
     &::-webkit-scrollbar {
@@ -231,6 +240,23 @@
 
   body:where(:has(.sidebar.show)) & {
     translate: var(--sidebar-width);
+    transition:
+      background 0s,
+      translate var(--duration-medium) ease;
+  }
+
+  /* Right sidebar position */
+  body[data-sidebar-position='right'] & {
+    left: auto;
+    right: 0;
+
+    &.show {
+      translate: calc(0px - var(--sidebar-width));
+    }
+  }
+
+  body[data-sidebar-position='right']:has(.sidebar.show) & {
+    translate: calc(0px - var(--sidebar-width));
     transition:
       background 0s,
       translate var(--duration-medium) ease;

@@ -626,6 +626,11 @@ export function Render(Base) {
         }
       }
 
+      // Set sidebar position on body
+      if (config.sidebarPosition === 'right') {
+        dom.$.body.setAttribute('data-sidebar-position', 'right');
+      }
+
       this._updateRender();
       dom.body.classList.add('ready');
     }

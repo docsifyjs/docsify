@@ -49,6 +49,7 @@ const defaultDocsifyConfig = () => ({
     false
   ),
   onlyCover: false,
+  sidebarPosition: /** @type {'left' | 'right'} */ ('left'),
   plugins: /** @type {Plugin[]} */ ([]),
   relativePath: false,
   repo: /** @type {string} */ (''),

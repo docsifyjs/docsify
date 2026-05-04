@@ -58,6 +58,19 @@
     main > .content {
       left: 0;
     }
+
+    /* Right sidebar on mobile */
+    body[data-sidebar-position='right']:has(.sidebar.show) {
+      .app-nav {
+        left: auto;
+        right: 0;
+      }
+
+      main > .content {
+        left: auto;
+        right: 0;
+      }
+    }
   }
 
   body:has(.app-nav-merged) {
