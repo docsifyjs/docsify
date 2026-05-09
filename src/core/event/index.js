@@ -1,4 +1,5 @@
 import { isMobile, mobileBreakpoint } from '../util/env.js';
+import { noop } from '../util/core.js';
 import * as dom from '../util/dom.js';
 import { stripUrlExceptId } from '../router/util.js';
 
@@ -12,6 +13,7 @@ export function Events(Base) {
   return class Events extends Base {
     #intersectionObserver = new IntersectionObserver(() => {});
     #isScrolling = false;
+    #cancelAnchorScroll = noop;
     #title = dom.$.title;
 
     // Initialization
@@ -374,11 +376,7 @@ export function Events(Base) {
           );
 
           if (headingElm) {
-            this.#watchNextScroll();
-            headingElm.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
+            this.#scrollToHeading(headingElm);
           }
         }
         // User click/tap
@@ -604,6 +602,79 @@ export function Events(Base) {
           });
         }
       }
+    }
+
+    /**
+     * Scroll an anchor target into view and keep it aligned while late-loading
+     * content above the target changes the page height.
+     *
+     * @param {Element} headingElm Heading element to scroll to
+     * @void
+     */
+    #scrollToHeading(headingElm) {
+      this.#cancelAnchorScroll();
+
+      const contentElm = dom.find('.markdown-section');
+      const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
+      /** @type {{ max?: ReturnType<typeof setTimeout>, settle?: ReturnType<typeof setTimeout> }} */
+      const timers = {};
+      let cancel = noop;
+
+      const removeUserListeners = () => {
+        userEvents.forEach(eventName => {
+          window.removeEventListener(eventName, cancel);
+        });
+      };
+
+      /** @param {ScrollBehavior} [behavior] */
+      const scrollToHeading = (behavior = 'smooth') => {
+        if (!document.contains(headingElm)) {
+          cancel();
+          return;
+        }
+
+        this.#watchNextScroll();
+        headingElm.scrollIntoView({
+          behavior,
+          block: 'start',
+        });
+      };
+
+      const resync = () => {
+        scrollToHeading('instant');
+        clearTimeout(timers.settle);
+        timers.settle = setTimeout(cancel, 500);
+      };
+
+      scrollToHeading();
+
+      if (!contentElm || !('ResizeObserver' in window)) {
+        return;
+      }
+
+      const resizeObserver = new ResizeObserver(resync);
+
+      cancel = () => {
+        resizeObserver.disconnect();
+        clearTimeout(timers.settle);
+        clearTimeout(timers.max);
+        removeUserListeners();
+        window.removeEventListener('load', resync);
+        this.#cancelAnchorScroll = noop;
+      };
+
+      resizeObserver.observe(contentElm);
+      userEvents.forEach(eventName => {
+        window.addEventListener(eventName, cancel, {
+          once: true,
+          passive: true,
+        });
+      });
+      window.addEventListener('load', resync, { once: true });
+      timers.max = setTimeout(cancel, 3000);
+      requestAnimationFrame(() => requestAnimationFrame(resync));
+
+      this.#cancelAnchorScroll = cancel;
     }
 
     /**
