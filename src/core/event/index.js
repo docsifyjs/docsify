@@ -618,6 +618,9 @@ export function Events(Base) {
       const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
       /** @type {{ max?: ReturnType<typeof setTimeout>, settle?: ReturnType<typeof setTimeout> }} */
       const timers = {};
+      /** @type {number[]} */
+      const animationFrames = [];
+      let cancelled = false;
       let cancel = noop;
 
       const removeUserListeners = () => {
@@ -628,12 +631,19 @@ export function Events(Base) {
 
       /** @param {ScrollBehavior} [behavior] */
       const scrollToHeading = (behavior = 'smooth') => {
+        if (cancelled) {
+          return;
+        }
+
         if (!document.contains(headingElm)) {
           cancel();
           return;
         }
 
-        this.#watchNextScroll();
+        if (behavior === 'smooth') {
+          this.#watchNextScroll();
+        }
+
         headingElm.scrollIntoView({
           behavior,
           block: 'start',
@@ -641,6 +651,10 @@ export function Events(Base) {
       };
 
       const resync = () => {
+        if (cancelled) {
+          return;
+        }
+
         scrollToHeading('instant');
         clearTimeout(timers.settle);
         timers.settle = setTimeout(cancel, 500);
@@ -655,7 +669,13 @@ export function Events(Base) {
       const resizeObserver = new ResizeObserver(resync);
 
       cancel = () => {
+        if (cancelled) {
+          return;
+        }
+
+        cancelled = true;
         resizeObserver.disconnect();
+        animationFrames.forEach(cancelAnimationFrame);
         clearTimeout(timers.settle);
         clearTimeout(timers.max);
         removeUserListeners();
@@ -672,7 +692,11 @@ export function Events(Base) {
       });
       window.addEventListener('load', resync, { once: true });
       timers.max = setTimeout(cancel, 3000);
-      requestAnimationFrame(() => requestAnimationFrame(resync));
+      animationFrames.push(
+        requestAnimationFrame(() => {
+          animationFrames.push(requestAnimationFrame(resync));
+        }),
+      );
 
       this.#cancelAnchorScroll = cancel;
     }

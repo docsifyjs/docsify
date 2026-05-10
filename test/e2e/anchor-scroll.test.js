@@ -63,12 +63,22 @@ test.describe('Anchor scrolling', () => {
       styleURLs: ['/dist/themes/core.css'],
     });
 
-    await expect
-      .poll(async () => {
-        return page.locator('#target-section').evaluate(el => {
-          return el.getBoundingClientRect().top;
-        });
-      })
-      .toBeLessThan(80);
+    await page.locator('img[alt="Slow image"]').waitFor();
+    await page.waitForFunction(() => {
+      const image = document.querySelector('img[alt="Slow image"]');
+      const target = document.querySelector('#target-section');
+      return (
+        image instanceof HTMLImageElement &&
+        image.complete &&
+        image.naturalHeight > 0 &&
+        target instanceof HTMLElement &&
+        target.getBoundingClientRect().top < 80
+      );
+    });
+
+    const targetTop = await page.locator('#target-section').evaluate(el => {
+      return el.getBoundingClientRect().top;
+    });
+    expect(targetTop).toBeLessThan(80);
   });
 });
