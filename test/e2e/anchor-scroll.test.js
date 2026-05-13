@@ -8,11 +8,20 @@ test.describe('Anchor scrolling', () => {
     await page.addInitScript(() => {
       const originalScrollIntoView = Element.prototype.scrollIntoView;
 
+      window.__scrollendEvents = [];
+      window.__scrollEvents = [];
       window.__scrollIntoViewCalls = [];
+      document.addEventListener('scroll', () => {
+        window.__scrollEvents.push({ time: performance.now() });
+      });
+      document.addEventListener('scrollend', () => {
+        window.__scrollendEvents.push({ time: performance.now() });
+      });
       Element.prototype.scrollIntoView = function (options) {
         window.__scrollIntoViewCalls.push({
           id: this.id,
           behavior: options?.behavior,
+          time: performance.now(),
         });
 
         return originalScrollIntoView.call(this, options);
@@ -24,7 +33,7 @@ test.describe('Anchor scrolling', () => {
         homepage: `
           # Anchor Scroll
 
-          [Jump to target](#/?id=target-section)
+          [Jump to target](#target-section)
 
           ## Middle Section
 
@@ -58,18 +67,39 @@ test.describe('Anchor scrolling', () => {
         requestAnimationFrame(() => requestAnimationFrame(resolve));
       });
     });
+    await page.waitForFunction(() => {
+      const scrollendTime = window.__scrollendEvents[0]?.time;
+      const lastScrollTime = window.__scrollEvents.at(-1)?.time;
+      const readyTime =
+        scrollendTime ??
+        (lastScrollTime === undefined ? undefined : lastScrollTime + 700);
 
-    const targetCalls = await page.evaluate(() => {
-      return window.__scrollIntoViewCalls.filter(
-        call => call.id === 'target-section',
+      return readyTime !== undefined && performance.now() > readyTime;
+    });
+
+    const { readyTime, targetCalls } = await page.evaluate(() => {
+      const scrollendTime = window.__scrollendEvents[0]?.time;
+      const lastScrollTime = window.__scrollEvents.at(-1)?.time;
+
+      return {
+        readyTime:
+          scrollendTime ??
+          (lastScrollTime === undefined ? undefined : lastScrollTime + 700),
+        targetCalls: window.__scrollIntoViewCalls.filter(
+          call => call.id === 'target-section',
+        ),
+      };
+    });
+    const earlyInstantCalls = targetCalls.filter(call => {
+      return (
+        call.behavior === 'instant' &&
+        (readyTime === undefined || call.time < readyTime)
       );
     });
 
     expect(targetCalls.length).toBeGreaterThan(0);
     expect(targetCalls[0]).toMatchObject({ behavior: 'smooth' });
-    expect(targetCalls).not.toContainEqual(
-      expect.objectContaining({ behavior: 'instant' }),
-    );
+    expect(earlyInstantCalls).toEqual([]);
   });
 
   test('keeps direct anchor targets aligned after images above them load', async ({
