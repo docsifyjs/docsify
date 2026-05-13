@@ -616,17 +616,24 @@ export function Events(Base) {
 
       const contentElm = dom.find('.markdown-section');
       const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
-      /** @type {{ max?: ReturnType<typeof setTimeout>, settle?: ReturnType<typeof setTimeout> }} */
+      /** @type {{ max?: ReturnType<typeof setTimeout>, ready?: ReturnType<typeof setTimeout>, settle?: ReturnType<typeof setTimeout> }} */
       const timers = {};
       /** @type {number[]} */
       const animationFrames = [];
       let cancelled = false;
       let cancel = noop;
+      let resyncReady = false;
+      let resyncPending = false;
 
       const removeUserListeners = () => {
         userEvents.forEach(eventName => {
           window.removeEventListener(eventName, cancel);
         });
+      };
+
+      const clearReadyTimer = () => {
+        clearTimeout(timers.ready);
+        delete timers.ready;
       };
 
       /** @param {ScrollBehavior} [behavior] */
@@ -655,9 +662,38 @@ export function Events(Base) {
           return;
         }
 
+        if (!resyncReady) {
+          resyncPending = true;
+          return;
+        }
+
         scrollToHeading('instant');
         clearTimeout(timers.settle);
         timers.settle = setTimeout(cancel, 500);
+      };
+
+      const scheduleReady = () => {
+        if (cancelled || resyncReady) {
+          return;
+        }
+
+        clearReadyTimer();
+        timers.ready = setTimeout(enableResync, 700);
+      };
+
+      const enableResync = () => {
+        if (cancelled || resyncReady) {
+          return;
+        }
+
+        clearReadyTimer();
+        document.removeEventListener('scroll', scheduleReady);
+        document.removeEventListener('scrollend', enableResync);
+        resyncReady = true;
+        if (resyncPending) {
+          resyncPending = false;
+          resync();
+        }
       };
 
       scrollToHeading();
@@ -677,9 +713,12 @@ export function Events(Base) {
         resizeObserver.disconnect();
         animationFrames.forEach(cancelAnimationFrame);
         clearTimeout(timers.settle);
+        clearReadyTimer();
         clearTimeout(timers.max);
         removeUserListeners();
         window.removeEventListener('load', resync);
+        document.removeEventListener('scroll', scheduleReady);
+        document.removeEventListener('scrollend', enableResync);
         this.#cancelAnchorScroll = noop;
       };
 
@@ -691,7 +730,10 @@ export function Events(Base) {
         });
       });
       window.addEventListener('load', resync, { once: true });
+      document.addEventListener('scrollend', enableResync, { once: true });
+      document.addEventListener('scroll', scheduleReady, { passive: true });
       timers.max = setTimeout(cancel, 3000);
+      scheduleReady();
       animationFrames.push(
         requestAnimationFrame(() => {
           animationFrames.push(requestAnimationFrame(resync));

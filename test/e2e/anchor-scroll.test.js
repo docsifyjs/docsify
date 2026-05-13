@@ -2,6 +2,76 @@ import docsifyInit from '../helpers/docsify-init.js';
 import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Anchor scrolling', () => {
+  test('keeps smooth scrolling for same-page anchor clicks', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      const originalScrollIntoView = Element.prototype.scrollIntoView;
+
+      window.__scrollIntoViewCalls = [];
+      Element.prototype.scrollIntoView = function (options) {
+        window.__scrollIntoViewCalls.push({
+          id: this.id,
+          behavior: options?.behavior,
+        });
+
+        return originalScrollIntoView.call(this, options);
+      };
+    });
+
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Anchor Scroll
+
+          [Jump to target](#/?id=target-section)
+
+          ## Middle Section
+
+          This section keeps the target below the fold.
+
+          ## Target Section
+
+          This is the linked section.
+        `,
+      },
+      style: `
+        .markdown-section {
+          padding-bottom: 1200px;
+        }
+
+        #middle-section {
+          margin-top: 900px;
+        }
+      `,
+      styleURLs: ['/dist/themes/core.css'],
+    });
+
+    await page.getByRole('link', { name: 'Jump to target' }).click();
+    await page.waitForFunction(() => {
+      return window.__scrollIntoViewCalls.some(
+        call => call.id === 'target-section' && call.behavior === 'smooth',
+      );
+    });
+    await page.evaluate(() => {
+      return new Promise(resolve => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve));
+      });
+    });
+
+    const targetCalls = await page.evaluate(() => {
+      return window.__scrollIntoViewCalls.filter(
+        call => call.id === 'target-section',
+      );
+    });
+
+    expect(targetCalls.length).toBeGreaterThan(0);
+    expect(targetCalls[0]).toMatchObject({ behavior: 'smooth' });
+    expect(targetCalls).not.toContainEqual(
+      expect.objectContaining({ behavior: 'instant' }),
+    );
+  });
+
   test('keeps direct anchor targets aligned after images above them load', async ({
     page,
   }) => {
