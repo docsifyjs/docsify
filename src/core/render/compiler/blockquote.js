@@ -41,10 +41,13 @@ export const blockquoteCompiler = ({ renderer, compiler }) =>
     }
 
     compiler.blockquoteDepth++;
+    let body = '';
+
     try {
-      const body = this.parser.parse(tokens);
-      return `${openTag}${body}${closeTag}`;
+      body = this.parser.parse(tokens);
     } finally {
       compiler.blockquoteDepth--;
     }
+
+    return `${openTag}${body}${closeTag}`;
   });
