@@ -114,9 +114,13 @@ export class Compiler {
       }
 
       let media;
-      if (config.type && (media = compileMedia[config.type])) {
+      const mediaType = Array.isArray(config.type)
+        ? config.type[0]
+        : config.type;
+
+      if (mediaType && (media = compileMedia[mediaType])) {
         embed = media.call(this, href, title);
-        embed.type = config.type;
+        embed.type = mediaType;
       } else {
         let type = 'code';
         if (/\.(md|markdown)/.test(href)) {
