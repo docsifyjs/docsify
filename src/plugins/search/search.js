@@ -2,6 +2,7 @@ import {
   getAndRemoveConfig,
   getAndRemoveDocsifyIgnoreConfig,
   removeAtag,
+  escapeHtml,
 } from '../../core/render/utils.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
@@ -52,18 +53,6 @@ function resolveIndexKey(namespace) {
   return namespace
     ? `${LOCAL_STORAGE.INDEX_KEY}/${namespace}`
     : LOCAL_STORAGE.INDEX_KEY;
-}
-
-export function escapeHtml(string) {
-  const entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  };
-
-  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
 
 function getAllPaths(router) {

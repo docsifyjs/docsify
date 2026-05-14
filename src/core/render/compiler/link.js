@@ -1,4 +1,4 @@
-import { getAndRemoveConfig } from '../utils.js';
+import { escapeHtml, getAndRemoveConfig } from '../utils.js';
 import { isAbsolutePath } from '../../router/util.js';
 
 export const linkCompiler = ({
@@ -65,8 +65,8 @@ export const linkCompiler = ({
     }
 
     if (title) {
-      attrs.push(`title="${title}"`);
+      attrs.push(`title="${escapeHtml(title)}"`);
     }
 
-    return /* html */ `<a href="${href}" ${attrs.join(' ')}>${text}</a>`;
+    return /* html */ `<a href="${escapeHtml(href)}" ${attrs.join(' ')}>${text}</a>`;
   });

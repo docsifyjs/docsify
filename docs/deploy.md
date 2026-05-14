@@ -58,18 +58,34 @@ Your `firebase.json` file should look similar to this (I changed the deployment 
 
 Once finished, build the starting template by running `docsify init ./site` (replacing site with the deployment directory you determined when running `firebase init` - public by default). Add/edit the documentation, then run `firebase deploy` from the root project directory.
 
-## VPS
+## Nginx
 
-Use the following nginx config.
+Use the following Nginx configuration.
 
 ```nginx
 server {
   listen 80;
-  server_name  your.domain.com;
+  server_name your.domain.com;
 
   location / {
     alias /path/to/dir/of/docs/;
     index index.html;
+  }
+}
+```
+
+If [`routerMode`](configuration.md#routermode) is set to `history`, use this configuration instead:
+
+```nginx
+server {
+  listen 80;
+  server_name your.domain.com;
+
+  root /path/to/dir/of/docs;
+  index index.html;
+
+  location / {
+    try_files $uri $uri/ /index.html;
   }
 }
 ```
