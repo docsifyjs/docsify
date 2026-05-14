@@ -50,7 +50,82 @@ jobs:
       - name: Integration Tests
         run: npm run test:integration -- --ci --runInBand
       - name: Consumption Tests
+        if: ${{ matrix.os != 'windows-latest' }}
         run: npm run test:consume-types
+      - name: Consumption install
+        if: ${{ matrix.os == 'windows-latest' }}
+        id: consume_install
+        working-directory: test/consume-types
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          node --version
+          npm --version
+          npm config get cache
+          npm config get script-shell
+          npm config get install-links
+          npm clean-install --install-links
+          $code = $LASTEXITCODE
+          "exit_code=$code" >> $env:GITHUB_OUTPUT
+
+          if ($code -ne 0) {
+            $cache = (npm config get cache).Trim()
+            $logDir = Join-Path $cache "_logs"
+            if (Test-Path $logDir) {
+              Get-ChildItem $logDir -Filter "*.log" |
+                Sort-Object LastWriteTime -Descending |
+                Select-Object -First 5 |
+                ForEach-Object {
+                  Write-Host "::group::$($_.FullName)"
+                  Get-Content $_.FullName -Tail 300
+                  Write-Host "::endgroup::"
+                }
+            } else {
+              Write-Host "npm log directory not found: $logDir"
+            }
+          }
+
+          exit $code
+      - name: Consumption installed package info
+        if: ${{ always() && matrix.os == 'windows-latest' && steps.consume_install.outcome != 'skipped' }}
+        working-directory: test/consume-types
+        shell: pwsh
+        run: |
+          if (Test-Path package-lock.json) {
+            node -e "const lock = require('./package-lock.json'); console.log('lock docsify version:', lock.packages['node_modules/docsify']?.version)"
+          }
+
+          if (Test-Path node_modules/docsify/package.json) {
+            node -e "const fs = require('fs'); const p = 'node_modules/docsify'; const pkg = require('./node_modules/docsify/package.json'); console.log(JSON.stringify({ version: pkg.version, isSymlink: fs.lstatSync(p).isSymbolicLink(), realpath: fs.realpathSync(p) }, null, 2))"
+            npm ls docsify --all
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "npm ls exited $LASTEXITCODE"
+            }
+          } else {
+            Write-Host "node_modules/docsify/package.json is missing"
+          }
+
+          exit 0
+      - name: Consumption install ignore-scripts probe
+        if: ${{ always() && matrix.os == 'windows-latest' && steps.consume_install.outcome == 'failure' }}
+        working-directory: test/consume-types
+        shell: pwsh
+        run: |
+          npm clean-install --install-links --ignore-scripts
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+          npm run typecheck
+      - name: Consumption typecheck
+        if: ${{ matrix.os == 'windows-latest' && steps.consume_install.outcome == 'success' }}
+        working-directory: test/consume-types
+        run: npm run typecheck
+      - name: Consumption install status
+        if: ${{ always() && matrix.os == 'windows-latest' && steps.consume_install.outcome == 'failure' }}
+        run: |
+          echo "Consumption install failed. See npm debug log output above."
+          exit 1
 
   test-playwright:
     runs-on: ubuntu-latest
