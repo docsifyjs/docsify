@@ -119,7 +119,7 @@ describe('Test sidebar render toc structure', function () {
     expect(level2_A_tag.textContent).toContain('Level2');
   });
 
-  test('Render sidebar with loadSidebar=false should exclude headings in blockquote', async () => {
+  test('Render sidebar should ignore headings in blockquote by default', async () => {
     await docsifyInit({
       config: {
         loadSidebar: false,
