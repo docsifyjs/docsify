@@ -616,12 +616,14 @@ export function Events(Base) {
 
       const contentElm = dom.find('.markdown-section');
       const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
-      /** @type {{ max?: ReturnType<typeof setTimeout>, ready?: ReturnType<typeof setTimeout>, settle?: ReturnType<typeof setTimeout> }} */
+      /** @type {{ max?: ReturnType<typeof setTimeout>, ready?: ReturnType<typeof setTimeout> }} */
       const timers = {};
       /** @type {number[]} */
       const animationFrames = [];
       let cancelled = false;
       let cancel = noop;
+      /** @type {(options?: { stopScroll?: boolean }) => void} */
+      let cleanup = () => {};
       let resyncReady = false;
       let resyncPending = false;
 
@@ -667,9 +669,7 @@ export function Events(Base) {
           return;
         }
 
-        scrollToHeading('instant');
-        clearTimeout(timers.settle);
-        timers.settle = setTimeout(cancel, 500);
+        scrollToHeading('smooth');
       };
 
       const scheduleReady = () => {
@@ -704,15 +704,21 @@ export function Events(Base) {
 
       const resizeObserver = new ResizeObserver(resync);
 
-      cancel = () => {
+      cleanup = ({ stopScroll = false } = {}) => {
         if (cancelled) {
           return;
         }
 
         cancelled = true;
+        if (stopScroll) {
+          window.scrollTo({
+            behavior: 'instant',
+            left: window.scrollX,
+            top: window.scrollY,
+          });
+        }
         resizeObserver.disconnect();
         animationFrames.forEach(cancelAnimationFrame);
-        clearTimeout(timers.settle);
         clearReadyTimer();
         clearTimeout(timers.max);
         removeUserListeners();
@@ -721,6 +727,7 @@ export function Events(Base) {
         document.removeEventListener('scrollend', enableResync);
         this.#cancelAnchorScroll = noop;
       };
+      cancel = () => cleanup({ stopScroll: true });
 
       resizeObserver.observe(contentElm);
       userEvents.forEach(eventName => {
@@ -732,7 +739,7 @@ export function Events(Base) {
       window.addEventListener('load', resync, { once: true });
       document.addEventListener('scrollend', enableResync, { once: true });
       document.addEventListener('scroll', scheduleReady, { passive: true });
-      timers.max = setTimeout(cancel, 3000);
+      timers.max = setTimeout(cleanup, 3000);
       scheduleReady();
       animationFrames.push(
         requestAnimationFrame(() => {
