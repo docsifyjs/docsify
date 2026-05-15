@@ -616,7 +616,7 @@ export function Events(Base) {
 
       const contentElm = dom.find('.markdown-section');
       const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
-      /** @type {{ max?: ReturnType<typeof setTimeout>, ready?: ReturnType<typeof setTimeout> }} */
+      /** @type {{ max?: ReturnType<typeof setTimeout> }} */
       const timers = {};
       /** @type {number[]} */
       const animationFrames = [];
@@ -624,18 +624,12 @@ export function Events(Base) {
       let cancel = noop;
       /** @type {(options?: { stopScroll?: boolean }) => void} */
       let cleanup = () => {};
-      let resyncReady = false;
       let resyncPending = false;
 
       const removeUserListeners = () => {
         userEvents.forEach(eventName => {
           window.removeEventListener(eventName, cancel);
         });
-      };
-
-      const clearReadyTimer = () => {
-        clearTimeout(timers.ready);
-        delete timers.ready;
       };
 
       /** @param {ScrollBehavior} [behavior] */
@@ -664,36 +658,17 @@ export function Events(Base) {
           return;
         }
 
-        if (!resyncReady) {
-          resyncPending = true;
-          return;
-        }
-
-        scrollToHeading('smooth');
-      };
-
-      const scheduleReady = () => {
-        if (cancelled || resyncReady) {
-          return;
-        }
-
-        clearReadyTimer();
-        timers.ready = setTimeout(enableResync, 700);
-      };
-
-      const enableResync = () => {
-        if (cancelled || resyncReady) {
-          return;
-        }
-
-        clearReadyTimer();
-        document.removeEventListener('scroll', scheduleReady);
-        document.removeEventListener('scrollend', enableResync);
-        resyncReady = true;
         if (resyncPending) {
-          resyncPending = false;
-          resync();
+          return;
         }
+
+        resyncPending = true;
+        animationFrames.push(
+          requestAnimationFrame(() => {
+            resyncPending = false;
+            scrollToHeading('smooth');
+          }),
+        );
       };
 
       scrollToHeading();
@@ -719,12 +694,9 @@ export function Events(Base) {
         }
         resizeObserver.disconnect();
         animationFrames.forEach(cancelAnimationFrame);
-        clearReadyTimer();
         clearTimeout(timers.max);
         removeUserListeners();
         window.removeEventListener('load', resync);
-        document.removeEventListener('scroll', scheduleReady);
-        document.removeEventListener('scrollend', enableResync);
         this.#cancelAnchorScroll = noop;
       };
       cancel = () => cleanup({ stopScroll: true });
@@ -737,10 +709,7 @@ export function Events(Base) {
         });
       });
       window.addEventListener('load', resync, { once: true });
-      document.addEventListener('scrollend', enableResync, { once: true });
-      document.addEventListener('scroll', scheduleReady, { passive: true });
       timers.max = setTimeout(cleanup, 3000);
-      scheduleReady();
       animationFrames.push(
         requestAnimationFrame(() => {
           animationFrames.push(requestAnimationFrame(resync));
