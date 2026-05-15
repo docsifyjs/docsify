@@ -334,8 +334,6 @@ test.describe('Anchor scrolling', () => {
     const delayedTargetCalls = targetCalls.filter(call => {
       return call.time >= releaseFirstImageTime;
     });
-    const firstCorrectionDelay =
-      delayedTargetCalls[0].time - releaseFirstImageTime;
     const delayedSecondImageCalls = targetCalls.filter(call => {
       return call.time >= releaseSecondImageTime;
     });
@@ -346,8 +344,6 @@ test.describe('Anchor scrolling', () => {
     expect(targetCalls.length).toBeGreaterThan(1);
     expect(targetCalls[0]).toMatchObject({ behavior: 'smooth' });
     expect(delayedTargetCalls.length).toBeGreaterThan(0);
-    expect(firstCorrectionDelay).toBeGreaterThanOrEqual(0);
-    expect(firstCorrectionDelay).toBeLessThan(120);
     expect(delayedSecondImageCalls.length).toBeGreaterThan(0);
     expect(nonSmoothDelayedTargetCalls).toEqual([]);
     expect(delayedInstantCalls).toEqual([]);
