@@ -616,16 +616,16 @@ export function Events(Base) {
 
       const contentElm = dom.find('.markdown-section');
       const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
-      /** @type {{ max?: ReturnType<typeof setTimeout>, ready?: ReturnType<typeof setTimeout> }} */
+      /** @type {{ wait?: ReturnType<typeof setTimeout> }} */
       const timers = {};
-      /** @type {number[]} */
-      const animationFrames = [];
+      /** @type {number} */
+      let animationFrame = 0;
       let cancelled = false;
       let cancel = noop;
-      /** @type {(options?: { stopScroll?: boolean }) => void} */
+      /** @type {() => void} */
       let cleanup = () => {};
-      let resyncReady = false;
-      let resyncPending = false;
+      /** @type {{ image: HTMLImageElement, eventName: "load" | "error", listener: () => void }[]} */
+      const imageListeners = [];
 
       const removeUserListeners = () => {
         userEvents.forEach(eventName => {
@@ -633,13 +633,14 @@ export function Events(Base) {
         });
       };
 
-      const clearReadyTimer = () => {
-        clearTimeout(timers.ready);
-        delete timers.ready;
+      const removeImageListeners = () => {
+        imageListeners.forEach(({ image, eventName, listener }) => {
+          image.removeEventListener(eventName, listener);
+        });
+        imageListeners.length = 0;
       };
 
-      /** @param {ScrollBehavior} [behavior] */
-      const scrollToHeading = (behavior = 'smooth') => {
+      const scrollToHeading = () => {
         if (cancelled) {
           return;
         }
@@ -649,103 +650,86 @@ export function Events(Base) {
           return;
         }
 
-        if (behavior === 'smooth') {
-          this.#watchNextScroll();
-        }
-
+        this.#watchNextScroll();
         headingElm.scrollIntoView({
-          behavior,
+          behavior: 'smooth',
           block: 'start',
         });
+        cleanup();
       };
 
-      const resync = () => {
-        if (cancelled) {
-          return;
-        }
-
-        if (!resyncReady) {
-          resyncPending = true;
-          return;
-        }
-
-        scrollToHeading('smooth');
+      const scheduleScroll = () => {
+        clearTimeout(timers.wait);
+        animationFrame = requestAnimationFrame(scrollToHeading);
       };
 
-      const scheduleReady = () => {
-        if (cancelled || resyncReady) {
-          return;
-        }
-
-        clearReadyTimer();
-        timers.ready = setTimeout(enableResync, 700);
-      };
-
-      const enableResync = () => {
-        if (cancelled || resyncReady) {
-          return;
-        }
-
-        clearReadyTimer();
-        document.removeEventListener('scroll', scheduleReady);
-        document.removeEventListener('scrollend', enableResync);
-        resyncReady = true;
-        if (resyncPending) {
-          resyncPending = false;
-          resync();
-        }
-      };
-
-      scrollToHeading();
-
-      if (!contentElm || !('ResizeObserver' in window)) {
-        return;
-      }
-
-      const resizeObserver = new ResizeObserver(resync);
-
-      cleanup = ({ stopScroll = false } = {}) => {
+      cleanup = () => {
         if (cancelled) {
           return;
         }
 
         cancelled = true;
-        if (stopScroll) {
-          window.scrollTo({
-            behavior: 'instant',
-            left: window.scrollX,
-            top: window.scrollY,
-          });
-        }
-        resizeObserver.disconnect();
-        animationFrames.forEach(cancelAnimationFrame);
-        clearReadyTimer();
-        clearTimeout(timers.max);
+        cancelAnimationFrame(animationFrame);
+        clearTimeout(timers.wait);
+        removeImageListeners();
         removeUserListeners();
-        window.removeEventListener('load', resync);
-        document.removeEventListener('scroll', scheduleReady);
-        document.removeEventListener('scrollend', enableResync);
         this.#cancelAnchorScroll = noop;
       };
-      cancel = () => cleanup({ stopScroll: true });
+      cancel = cleanup;
 
-      resizeObserver.observe(contentElm);
+      const waitForImages = () => {
+        const images = /** @type {HTMLImageElement[]} */ (
+          contentElm ? Array.from(contentElm.querySelectorAll('img')) : []
+        ).filter(image => {
+          return (
+            !image.complete &&
+            image.compareDocumentPosition(headingElm) &
+              Node.DOCUMENT_POSITION_FOLLOWING
+          );
+        });
+
+        if (!images.length) {
+          scheduleScroll();
+          return;
+        }
+
+        let remaining = images.length;
+        const onImageSettled = () => {
+          remaining -= 1;
+          if (remaining === 0) {
+            scheduleScroll();
+          }
+        };
+
+        images.forEach(image => {
+          let settled = false;
+          const listener = () => {
+            if (settled) {
+              return;
+            }
+
+            settled = true;
+            onImageSettled();
+          };
+
+          image.addEventListener('load', listener, { once: true });
+          image.addEventListener('error', listener, { once: true });
+          imageListeners.push(
+            { image, eventName: 'load', listener },
+            { image, eventName: 'error', listener },
+          );
+        });
+
+        timers.wait = setTimeout(scheduleScroll, 300);
+      };
+
       userEvents.forEach(eventName => {
         window.addEventListener(eventName, cancel, {
           once: true,
           passive: true,
         });
       });
-      window.addEventListener('load', resync, { once: true });
-      document.addEventListener('scrollend', enableResync, { once: true });
-      document.addEventListener('scroll', scheduleReady, { passive: true });
-      timers.max = setTimeout(cleanup, 3000);
-      scheduleReady();
-      animationFrames.push(
-        requestAnimationFrame(() => {
-          animationFrames.push(requestAnimationFrame(resync));
-        }),
-      );
+      waitForImages();
 
       this.#cancelAnchorScroll = cancel;
     }

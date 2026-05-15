@@ -8,6 +8,21 @@ async function recordScrollIntoViewCalls(page) {
 
     window.__scrollIntoViewCalls = [];
     window.__scrollToCalls = [];
+    window.__imageLoadEvents = [];
+    document.addEventListener(
+      'load',
+      event => {
+        const image = event.target;
+
+        if (image instanceof HTMLImageElement) {
+          window.__imageLoadEvents.push({
+            alt: image.alt,
+            time: performance.now(),
+          });
+        }
+      },
+      true,
+    );
     Element.prototype.scrollIntoView = function (options) {
       window.__scrollIntoViewCalls.push({
         id: this.id,
@@ -111,7 +126,7 @@ test.describe('Anchor scrolling', () => {
 
     await page.getByRole('link', { name: 'Jump to target' }).click();
     await page.waitForFunction(() => {
-      return window.__scrollIntoViewCalls.some(
+      return window.__scrollIntoViewCalls?.some(
         call => call.id === 'target-section' && call.behavior === 'smooth',
       );
     });
@@ -138,7 +153,7 @@ test.describe('Anchor scrolling', () => {
         readyTime:
           scrollendTime ??
           (lastScrollTime === undefined ? undefined : lastScrollTime + 700),
-        targetCalls: window.__scrollIntoViewCalls.filter(
+        targetCalls: (window.__scrollIntoViewCalls ?? []).filter(
           call => call.id === 'target-section',
         ),
       };
@@ -155,14 +170,10 @@ test.describe('Anchor scrolling', () => {
     expect(earlyInstantCalls).toEqual([]);
   });
 
-  test('keeps direct anchor targets aligned after images above them load', async ({
+  test('waits for images above a direct anchor before smooth scrolling', async ({
     page,
   }) => {
     await recordScrollIntoViewCalls(page);
-    await page.addInitScript(() => {
-      window.__releaseFirstImageTime = undefined;
-      window.__releaseSecondImageTime = undefined;
-    });
 
     let releaseFirstImage = () => {};
     const firstImageReleased = new Promise(resolve => {
@@ -235,252 +246,122 @@ test.describe('Anchor scrolling', () => {
       styleURLs: ['/dist/themes/core.css'],
     });
 
-    await page.waitForFunction(() => {
-      return window.__scrollIntoViewCalls.some(
-        call => call.id === 'target-section',
-      );
+    await page.locator('#target-section').waitFor();
+    await page.locator('img[alt="Slow image 1"]').waitFor({
+      state: 'attached',
+    });
+    await page.locator('img[alt="Slow image 2"]').waitFor({
+      state: 'attached',
     });
     await page.evaluate(() => {
       return new Promise(resolve => {
         requestAnimationFrame(() => requestAnimationFrame(resolve));
       });
     });
-    await page.evaluate(() => {
-      window.__releaseFirstImageTime = performance.now();
-    });
-    releaseFirstImage();
-    await page.locator('img[alt="Slow image 1"]').waitFor();
-    await page.waitForFunction(() => {
-      const image = document.querySelector('img[alt="Slow image 1"]');
-      const target = document.querySelector('#target-section');
-      const targetCalls = window.__scrollIntoViewCalls.filter(
+
+    const targetCallsBeforeImages = await page.evaluate(() => {
+      return (window.__scrollIntoViewCalls ?? []).filter(
         call => call.id === 'target-section',
       );
-      const delayedTargetCalls = targetCalls.filter(
-        call => call.time >= window.__releaseFirstImageTime,
-      );
-      const targetTop = target?.getBoundingClientRect().top;
+    });
 
-      return (
-        image instanceof HTMLImageElement &&
-        image.complete &&
-        image.naturalHeight > 0 &&
-        delayedTargetCalls.length > 0 &&
-        targetTop >= -1 &&
-        targetTop < 80
-      );
-    });
-    await page.waitForFunction(() => {
-      const delayedTargetCalls = window.__scrollIntoViewCalls.filter(call => {
-        return (
-          call.id === 'target-section' &&
-          call.time >= window.__releaseFirstImageTime
-        );
-      });
-      const lastDelayedTargetCall = delayedTargetCalls.at(-1);
+    expect(targetCallsBeforeImages).toEqual([]);
 
-      return (
-        lastDelayedTargetCall &&
-        performance.now() - lastDelayedTargetCall.time > 700
-      );
-    });
-    await page.evaluate(() => {
-      window.__releaseSecondImageTime = performance.now();
-    });
+    releaseFirstImage();
     releaseSecondImage();
     await initPromise;
-    await page.locator('img[alt="Slow image 2"]').waitFor();
     await page.waitForFunction(() => {
-      const image = document.querySelector('img[alt="Slow image 2"]');
-      const target = document.querySelector('#target-section');
-      const targetCalls = window.__scrollIntoViewCalls.filter(
-        call => call.id === 'target-section',
-      );
-      const delayedSecondImageCalls = targetCalls.filter(
-        call => call.time >= window.__releaseSecondImageTime,
-      );
-      const targetTop = target?.getBoundingClientRect().top;
+      const firstImage = document.querySelector('img[alt="Slow image 1"]');
+      const secondImage = document.querySelector('img[alt="Slow image 2"]');
+      const firstImageLoadTime = window.__imageLoadEvents.find(event => {
+        return event.alt === 'Slow image 1';
+      })?.time;
+      const secondImageLoadTime = window.__imageLoadEvents.find(event => {
+        return event.alt === 'Slow image 2';
+      })?.time;
 
       return (
-        image instanceof HTMLImageElement &&
-        image.complete &&
-        image.naturalHeight > 0 &&
-        delayedSecondImageCalls.length > 0 &&
-        targetTop >= -1 &&
-        targetTop < 80
+        firstImage instanceof HTMLImageElement &&
+        secondImage instanceof HTMLImageElement &&
+        firstImage.complete &&
+        secondImage.complete &&
+        firstImage.naturalHeight > 0 &&
+        secondImage.naturalHeight > 0 &&
+        firstImageLoadTime !== undefined &&
+        secondImageLoadTime !== undefined
       );
-    });
-
-    const {
-      releaseFirstImageTime,
-      releaseSecondImageTime,
-      targetCalls,
-      targetTop,
-    } = await page.evaluate(() => {
-      const target = document.querySelector('#target-section');
-
-      return {
-        releaseFirstImageTime: window.__releaseFirstImageTime,
-        releaseSecondImageTime: window.__releaseSecondImageTime,
-        targetCalls: window.__scrollIntoViewCalls.filter(
-          call => call.id === 'target-section',
-        ),
-        targetTop: target.getBoundingClientRect().top,
-      };
-    });
-    const delayedInstantCalls = targetCalls.filter(call => {
-      return call.behavior === 'instant' && call.time >= releaseFirstImageTime;
-    });
-    const delayedTargetCalls = targetCalls.filter(call => {
-      return call.time >= releaseFirstImageTime;
-    });
-    const delayedSecondImageCalls = targetCalls.filter(call => {
-      return call.time >= releaseSecondImageTime;
-    });
-    const nonSmoothDelayedTargetCalls = delayedTargetCalls.filter(call => {
-      return call.behavior !== 'smooth';
-    });
-
-    expect(targetCalls.length).toBeGreaterThan(1);
-    expect(targetCalls[0]).toMatchObject({ behavior: 'smooth' });
-    expect(delayedTargetCalls.length).toBeGreaterThan(0);
-    expect(delayedSecondImageCalls.length).toBeGreaterThan(0);
-    expect(nonSmoothDelayedTargetCalls).toEqual([]);
-    expect(delayedInstantCalls).toEqual([]);
-    expect(targetTop).toBeGreaterThanOrEqual(-1);
-    expect(targetTop).toBeLessThan(80);
-  });
-
-  test('does not stop a late smooth correction when observer cleanup expires', async ({
-    page,
-  }) => {
-    await recordScrollIntoViewCalls(page);
-    await page.addInitScript(() => {
-      window.__releaseImageTime = undefined;
-    });
-
-    let releaseImage = () => {};
-    const imageReleased = new Promise(resolve => {
-      releaseImage = resolve;
-    });
-
-    await routeDelayedImage(page, 'late-anchor-image.svg', imageReleased, 1800);
-
-    const initPromise = docsifyInit({
-      testURL: '/docsify-init.html#/?id=target-section',
-      markdown: {
-        homepage: `
-          # Anchor Scroll
-
-          ![Late image](/late-anchor-image.svg)
-
-          ## Middle Section
-
-          This section should not stay at the top after the image loads.
-
-          ## Target Section
-
-          This is the linked section.
-
-          Trailing content keeps the target scrollable.
-        `,
-      },
-      routes: {
-        '/docsify-init.html': `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta charset="UTF-8" />
-            </head>
-            <body>
-              <div id="app"></div>
-            </body>
-          </html>
-        `,
-      },
-      style: `
-        .markdown-section {
-          overflow-anchor: none;
-          padding-bottom: 3200px;
-        }
-
-        .markdown-section img {
-          display: block;
-          width: 100%;
-          height: auto;
-        }
-      `,
-      styleURLs: ['/dist/themes/core.css'],
-    });
-
-    await page.waitForFunction(() => {
-      return window.__scrollIntoViewCalls.some(
-        call => call.id === 'target-section',
-      );
-    });
-    await page.waitForFunction(() => {
-      const firstTargetCall = window.__scrollIntoViewCalls.find(
-        call => call.id === 'target-section',
-      );
-
-      return firstTargetCall && performance.now() - firstTargetCall.time > 2300;
-    });
-    await page.evaluate(() => {
-      window.__releaseImageTime = performance.now();
-    });
-    releaseImage();
-    await initPromise;
-    await page.locator('img[alt="Late image"]').waitFor();
-    await page.waitForFunction(() => {
-      return window.__scrollIntoViewCalls.some(call => {
-        return (
-          call.id === 'target-section' &&
-          call.behavior === 'smooth' &&
-          call.time >= window.__releaseImageTime
-        );
-      });
-    });
-    await page.waitForFunction(() => {
-      const firstTargetCall = window.__scrollIntoViewCalls.find(
-        call => call.id === 'target-section',
-      );
-
-      return firstTargetCall && performance.now() - firstTargetCall.time > 3600;
     });
     await page.waitForFunction(() => {
       const target = document.querySelector('#target-section');
+      const targetCalls = (window.__scrollIntoViewCalls ?? []).filter(
+        call => call.id === 'target-section',
+      );
       const targetTop = target?.getBoundingClientRect().top;
 
-      return targetTop >= -1 && targetTop < 80;
+      return targetCalls.length === 1 && targetTop >= -1 && targetTop < 80;
     });
 
-    const { instantStopsAfterRelease, targetTop } = await page.evaluate(() => {
-      const target = document.querySelector('#target-section');
+    const { firstImageLoadTime, secondImageLoadTime, targetCalls, targetTop } =
+      await page.evaluate(() => {
+        const target = document.querySelector('#target-section');
+        const firstImageLoadTime = window.__imageLoadEvents.find(event => {
+          return event.alt === 'Slow image 1';
+        })?.time;
+        const secondImageLoadTime = window.__imageLoadEvents.find(event => {
+          return event.alt === 'Slow image 2';
+        })?.time;
 
-      return {
-        instantStopsAfterRelease: window.__scrollToCalls.filter(call => {
-          return (
-            call.behavior === 'instant' &&
-            call.time >= window.__releaseImageTime
-          );
-        }),
-        targetTop: target.getBoundingClientRect().top,
-      };
+        return {
+          firstImageLoadTime,
+          secondImageLoadTime,
+          targetCalls: (window.__scrollIntoViewCalls ?? []).filter(
+            call => call.id === 'target-section',
+          ),
+          targetTop: target.getBoundingClientRect().top,
+        };
+      });
+
+    expect(firstImageLoadTime).not.toBeUndefined();
+    expect(secondImageLoadTime).not.toBeUndefined();
+
+    expect(targetCalls).toHaveLength(1);
+    expect(targetCalls[0]).toMatchObject({
+      behavior: 'smooth',
+      block: 'start',
     });
-
-    expect(instantStopsAfterRelease).toEqual([]);
+    expect(targetCalls[0].time).toBeGreaterThanOrEqual(firstImageLoadTime);
+    expect(targetCalls[0].time).toBeGreaterThanOrEqual(secondImageLoadTime);
     expect(targetTop).toBeGreaterThanOrEqual(-1);
     expect(targetTop).toBeLessThan(80);
   });
 
-  test('does not continue corrective smooth scrolling after user input', async ({
+  test('cancels a pending direct anchor scroll after user input', async ({
     page,
   }) => {
     await recordScrollIntoViewCalls(page);
     await page.addInitScript(() => {
-      window.__releaseImageTime = undefined;
       window.__wheelTime = undefined;
-      document.addEventListener(
+      window.__anchorWheelListenerAttachedTime = undefined;
+      const originalAddEventListener = window.addEventListener;
+
+      window.addEventListener = function (eventName, listener, options) {
+        if (
+          eventName === 'wheel' &&
+          options?.once === true &&
+          options?.passive === true
+        ) {
+          window.__anchorWheelListenerAttachedTime = performance.now();
+        }
+
+        return originalAddEventListener.call(
+          this,
+          eventName,
+          listener,
+          options,
+        );
+      };
+
+      window.addEventListener(
         'wheel',
         () => {
           window.__wheelTime = performance.now();
@@ -543,30 +424,12 @@ test.describe('Anchor scrolling', () => {
       styleURLs: ['/dist/themes/core.css'],
     });
 
+    await page.locator('#target-section').waitFor();
+    await page.locator('img[alt="Slow image"]').waitFor({
+      state: 'attached',
+    });
     await page.waitForFunction(() => {
-      return window.__scrollIntoViewCalls.some(
-        call => call.id === 'target-section',
-      );
-    });
-    await page.evaluate(() => {
-      return new Promise(resolve => {
-        requestAnimationFrame(() => requestAnimationFrame(resolve));
-      });
-    });
-    await page.evaluate(() => {
-      window.__releaseImageTime = performance.now();
-    });
-    releaseImage();
-    await initPromise;
-    await page.locator('img[alt="Slow image"]').waitFor();
-    await page.waitForFunction(() => {
-      return window.__scrollIntoViewCalls.some(call => {
-        return (
-          call.id === 'target-section' &&
-          call.behavior === 'smooth' &&
-          call.time >= window.__releaseImageTime
-        );
-      });
+      return window.__anchorWheelListenerAttachedTime !== undefined;
     });
 
     await page.mouse.wheel(0, 900);
@@ -574,34 +437,38 @@ test.describe('Anchor scrolling', () => {
       () => window.__wheelTime,
     );
     const wheelTime = await wheelTimeHandle.jsonValue();
-    await page.waitForFunction(wheelTime => {
-      const targetCallsAfterWheel = window.__scrollIntoViewCalls.filter(
-        call => call.id === 'target-section' && call.time >= wheelTime,
-      );
-      const instantStopsAfterWheel = window.__scrollToCalls.filter(call => {
-        return call.behavior === 'instant' && call.time >= wheelTime;
-      });
+    releaseImage();
+    await initPromise;
+    await page.waitForFunction(() => {
+      const image = document.querySelector('img[alt="Slow image"]');
 
       return (
-        targetCallsAfterWheel.length === 0 &&
-        instantStopsAfterWheel.length > 0 &&
-        performance.now() - wheelTime > 900
+        image instanceof HTMLImageElement &&
+        image.complete &&
+        image.naturalHeight > 0
       );
+    });
+    await page.waitForFunction(wheelTime => {
+      return performance.now() - wheelTime > 700;
     }, wheelTime);
 
-    const { instantStopsAfterWheel, targetCallsAfterWheel } =
+    const { scrollStopsAfterWheel, targetCalls, targetCallsAfterWheel } =
       await page.evaluate(wheelTime => {
         return {
-          instantStopsAfterWheel: window.__scrollToCalls.filter(call => {
-            return call.behavior === 'instant' && call.time >= wheelTime;
+          scrollStopsAfterWheel: (window.__scrollToCalls ?? []).filter(call => {
+            return call.time >= wheelTime;
           }),
-          targetCallsAfterWheel: window.__scrollIntoViewCalls.filter(
+          targetCalls: (window.__scrollIntoViewCalls ?? []).filter(
+            call => call.id === 'target-section',
+          ),
+          targetCallsAfterWheel: (window.__scrollIntoViewCalls ?? []).filter(
             call => call.id === 'target-section' && call.time >= wheelTime,
           ),
         };
       }, wheelTime);
 
-    expect(instantStopsAfterWheel.length).toBeGreaterThan(0);
+    expect(targetCalls).toEqual([]);
     expect(targetCallsAfterWheel).toEqual([]);
+    expect(scrollStopsAfterWheel).toEqual([]);
   });
 });
