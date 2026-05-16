@@ -335,6 +335,136 @@ test.describe('Anchor scrolling', () => {
     expect(targetTop).toBeLessThan(80);
   });
 
+  test('keeps a direct anchor aligned when images load after the fallback scroll', async ({
+    page,
+  }) => {
+    await recordScrollIntoViewCalls(page);
+
+    let releaseImage = () => {};
+    const imageReleased = new Promise(resolve => {
+      releaseImage = resolve;
+    });
+
+    await routeDelayedImage(
+      page,
+      'very-slow-anchor-image.svg',
+      imageReleased,
+      1200,
+    );
+
+    const initPromise = docsifyInit({
+      testURL: '/docsify-init.html#/?id=target-section',
+      markdown: {
+        homepage: `
+          # Anchor Scroll
+
+          ![Very slow image](/very-slow-anchor-image.svg)
+
+          ## Middle Section
+
+          This section should not stay at the top after the image loads.
+
+          ## Target Section
+
+          This is the linked section.
+
+          Trailing content keeps the target scrollable.
+        `,
+      },
+      routes: {
+        '/docsify-init.html': `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="UTF-8" />
+            </head>
+            <body>
+              <div id="app"></div>
+            </body>
+          </html>
+        `,
+      },
+      style: `
+        .markdown-section {
+          overflow-anchor: none;
+          padding-bottom: 2200px;
+        }
+
+        .markdown-section img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+      `,
+      styleURLs: ['/dist/themes/core.css'],
+    });
+
+    await page.locator('#target-section').waitFor();
+    await page.locator('img[alt="Very slow image"]').waitFor({
+      state: 'attached',
+    });
+    await page.waitForFunction(() => {
+      return (window.__scrollIntoViewCalls ?? []).some(
+        call => call.id === 'target-section',
+      );
+    });
+
+    const targetCallsBeforeImage = await page.evaluate(() => {
+      return (window.__scrollIntoViewCalls ?? []).filter(
+        call => call.id === 'target-section',
+      );
+    });
+
+    expect(targetCallsBeforeImage).toHaveLength(1);
+    expect(targetCallsBeforeImage[0]).toMatchObject({
+      behavior: 'smooth',
+      block: 'start',
+    });
+
+    releaseImage();
+    await initPromise;
+    await page.waitForFunction(() => {
+      const image = document.querySelector('img[alt="Very slow image"]');
+
+      return (
+        image instanceof HTMLImageElement &&
+        image.complete &&
+        image.naturalHeight > 0
+      );
+    });
+    await page.waitForFunction(() => {
+      const target = document.querySelector('#target-section');
+      const targetTop = target?.getBoundingClientRect().top;
+
+      return targetTop >= -1 && targetTop < 80;
+    });
+
+    const { imageLoadTime, targetCalls, targetTop } = await page.evaluate(
+      () => {
+        const target = document.querySelector('#target-section');
+
+        return {
+          imageLoadTime: window.__imageLoadEvents.find(event => {
+            return event.alt === 'Very slow image';
+          })?.time,
+          targetCalls: (window.__scrollIntoViewCalls ?? []).filter(
+            call => call.id === 'target-section',
+          ),
+          targetTop: target.getBoundingClientRect().top,
+        };
+      },
+    );
+
+    expect(imageLoadTime).toBeGreaterThanOrEqual(targetCalls[0].time);
+    expect(targetCalls).toHaveLength(1);
+    expect(targetCalls[0]).toMatchObject({
+      behavior: 'smooth',
+      block: 'start',
+    });
+    expect(targetTop).toBeGreaterThanOrEqual(-1);
+    expect(targetTop).toBeLessThan(80);
+  });
+
   test('cancels a pending direct anchor scroll after user input', async ({
     page,
   }) => {
@@ -470,5 +600,148 @@ test.describe('Anchor scrolling', () => {
     expect(targetCalls).toEqual([]);
     expect(targetCallsAfterWheel).toEqual([]);
     expect(scrollStopsAfterWheel).toEqual([]);
+  });
+
+  test('does not pull back after user input following a fallback scroll', async ({
+    page,
+  }) => {
+    await recordScrollIntoViewCalls(page);
+    await page.addInitScript(() => {
+      window.__wheelTime = undefined;
+
+      window.addEventListener(
+        'wheel',
+        () => {
+          window.__wheelTime = performance.now();
+        },
+        { capture: true },
+      );
+    });
+
+    let releaseImage = () => {};
+    const imageReleased = new Promise(resolve => {
+      releaseImage = resolve;
+    });
+
+    await routeDelayedImage(
+      page,
+      'post-scroll-slow-image.svg',
+      imageReleased,
+      1200,
+    );
+
+    const initPromise = docsifyInit({
+      testURL: '/docsify-init.html#/?id=target-section',
+      markdown: {
+        homepage: `
+          # Anchor Scroll
+
+          ![Post-scroll slow image](/post-scroll-slow-image.svg)
+
+          ## Middle Section
+
+          This section should not pull the user back after wheel input.
+
+          ## Target Section
+
+          This is the linked section.
+
+          Trailing content keeps the target scrollable.
+        `,
+      },
+      routes: {
+        '/docsify-init.html': `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="UTF-8" />
+            </head>
+            <body>
+              <div id="app"></div>
+            </body>
+          </html>
+        `,
+      },
+      style: `
+        .markdown-section {
+          overflow-anchor: none;
+          padding-bottom: 3200px;
+        }
+
+        .markdown-section img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+      `,
+      styleURLs: ['/dist/themes/core.css'],
+    });
+
+    await page.locator('#target-section').waitFor();
+    await page.locator('img[alt="Post-scroll slow image"]').waitFor({
+      state: 'attached',
+    });
+    await page.waitForFunction(() => {
+      return (window.__scrollIntoViewCalls ?? []).some(
+        call => call.id === 'target-section',
+      );
+    });
+
+    const scrollYBeforeWheel = await page.evaluate(() => scrollY);
+    await page.mouse.wheel(0, 900);
+    const wheelTimeHandle = await page.waitForFunction(
+      () => window.__wheelTime,
+    );
+    const wheelTime = await wheelTimeHandle.jsonValue();
+    await page.waitForFunction(
+      scrollYBeforeWheel => Math.abs(scrollY - scrollYBeforeWheel) > 100,
+      scrollYBeforeWheel,
+    );
+    const scrollYAfterWheel = await page.evaluate(() => scrollY);
+    await page.waitForFunction(wheelTime => {
+      return performance.now() - wheelTime > 200;
+    }, wheelTime);
+    const scrollYBeforeImage = await page.evaluate(() => scrollY);
+
+    releaseImage();
+    await initPromise;
+    await page.waitForFunction(() => {
+      const image = document.querySelector('img[alt="Post-scroll slow image"]');
+
+      return (
+        image instanceof HTMLImageElement &&
+        image.complete &&
+        image.naturalHeight > 0
+      );
+    });
+    await page.waitForFunction(() => {
+      const imageLoadTime = window.__imageLoadEvents.find(event => {
+        return event.alt === 'Post-scroll slow image';
+      })?.time;
+
+      return (
+        imageLoadTime !== undefined && performance.now() - imageLoadTime > 300
+      );
+    });
+
+    const { scrollStopsAfterWheel, scrollYAfterImage, targetCallsAfterWheel } =
+      await page.evaluate(wheelTime => {
+        return {
+          scrollStopsAfterWheel: (window.__scrollToCalls ?? []).filter(call => {
+            return call.time >= wheelTime;
+          }),
+          scrollYAfterImage: scrollY,
+          targetCallsAfterWheel: (window.__scrollIntoViewCalls ?? []).filter(
+            call => call.id === 'target-section' && call.time >= wheelTime,
+          ),
+        };
+      }, wheelTime);
+
+    expect(Math.abs(scrollYAfterWheel - scrollYBeforeWheel)).toBeGreaterThan(
+      100,
+    );
+    expect(targetCallsAfterWheel).toEqual([]);
+    expect(scrollStopsAfterWheel).toEqual([]);
+    expect(Math.abs(scrollYAfterImage - scrollYBeforeImage)).toBeLessThan(200);
   });
 });

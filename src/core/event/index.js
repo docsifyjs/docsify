@@ -620,12 +620,19 @@ export function Events(Base) {
       const timers = {};
       /** @type {number} */
       let animationFrame = 0;
+      /** @type {number} */
+      let correctionFrame = 0;
       let cancelled = false;
       let cancel = noop;
+      let hasScrolled = false;
+      let scrollScheduled = false;
+      let remainingImages = 0;
       /** @type {() => void} */
       let cleanup = () => {};
       /** @type {{ image: HTMLImageElement, eventName: "load" | "error", listener: () => void }[]} */
       const imageListeners = [];
+      /** @type {{ image: HTMLImageElement, previousHeight: number }[]} */
+      const pendingImageCorrections = [];
 
       const removeUserListeners = () => {
         userEvents.forEach(eventName => {
@@ -650,17 +657,105 @@ export function Events(Base) {
           return;
         }
 
+        hasScrolled = true;
         this.#watchNextScroll();
         headingElm.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
         });
-        cleanup();
+
+        if (remainingImages === 0) {
+          cleanup();
+        }
       };
 
       const scheduleScroll = () => {
+        if (hasScrolled || scrollScheduled) {
+          return;
+        }
+
+        scrollScheduled = true;
         clearTimeout(timers.wait);
         animationFrame = requestAnimationFrame(scrollToHeading);
+      };
+
+      /**
+       * Keep the heading visually anchored when late images above it resize
+       * after the fallback scroll has already started.
+       *
+       * @param {HTMLImageElement} image Image that changed height
+       * @param {number} previousHeight Height before the image settled
+       * @void
+       */
+      const scheduleCorrection = (image, previousHeight) => {
+        if (cancelled || !hasScrolled) {
+          return;
+        }
+
+        pendingImageCorrections.push({ image, previousHeight });
+
+        if (correctionFrame) {
+          return;
+        }
+
+        correctionFrame = requestAnimationFrame(() => {
+          correctionFrame = 0;
+
+          if (cancelled) {
+            return;
+          }
+
+          if (!document.contains(headingElm)) {
+            cleanup();
+            return;
+          }
+
+          let heightChange = 0;
+
+          for (const { image, previousHeight } of pendingImageCorrections) {
+            const isBeforeHeading =
+              image.compareDocumentPosition(headingElm) &
+              Node.DOCUMENT_POSITION_FOLLOWING;
+            const currentHeight = image.getBoundingClientRect().height;
+
+            if (isBeforeHeading) {
+              heightChange += currentHeight - previousHeight;
+            }
+          }
+          pendingImageCorrections.length = 0;
+
+          if (Math.abs(heightChange) < 1) {
+            if (remainingImages === 0) {
+              cleanup();
+            }
+
+            return;
+          }
+
+          const scrollingElm = document.scrollingElement;
+
+          if (!scrollingElm) {
+            cleanup();
+            return;
+          }
+
+          const headingTop = headingElm.getBoundingClientRect().top;
+
+          if (Math.abs(headingTop) < 1) {
+            if (remainingImages === 0) {
+              cleanup();
+            }
+
+            return;
+          }
+
+          this.#watchNextScroll();
+          scrollingElm.scrollTop += headingTop;
+
+          if (remainingImages === 0) {
+            cleanup();
+          }
+        });
       };
 
       cleanup = () => {
@@ -670,6 +765,7 @@ export function Events(Base) {
 
         cancelled = true;
         cancelAnimationFrame(animationFrame);
+        cancelAnimationFrame(correctionFrame);
         clearTimeout(timers.wait);
         removeImageListeners();
         removeUserListeners();
@@ -693,23 +789,31 @@ export function Events(Base) {
           return;
         }
 
-        let remaining = images.length;
-        const onImageSettled = () => {
-          remaining -= 1;
-          if (remaining === 0) {
+        remainingImages = images.length;
+        const onImageSettled = (image, previousHeight) => {
+          remainingImages -= 1;
+
+          if (hasScrolled) {
+            scheduleCorrection(image, previousHeight);
+          } else if (remainingImages === 0) {
             scheduleScroll();
+          }
+
+          if (remainingImages === 0 && hasScrolled && !correctionFrame) {
+            cleanup();
           }
         };
 
         images.forEach(image => {
           let settled = false;
+          const previousHeight = image.getBoundingClientRect().height;
           const listener = () => {
             if (settled) {
               return;
             }
 
             settled = true;
-            onImageSettled();
+            onImageSettled(image, previousHeight);
           };
 
           image.addEventListener('load', listener, { once: true });
