@@ -739,9 +739,12 @@ export function Events(Base) {
             return;
           }
 
+          const scrollPaddingTop =
+            parseFloat(getComputedStyle(scrollingElm).scrollPaddingTop) || 0;
           const headingTop = headingElm.getBoundingClientRect().top;
+          const scrollAdjustment = headingTop - scrollPaddingTop;
 
-          if (Math.abs(headingTop) < 1) {
+          if (Math.abs(scrollAdjustment) < 1) {
             if (remainingImages === 0) {
               cleanup();
             }
@@ -750,7 +753,7 @@ export function Events(Base) {
           }
 
           this.#watchNextScroll();
-          scrollingElm.scrollTop += headingTop;
+          scrollingElm.scrollTop += scrollAdjustment;
 
           if (remainingImages === 0) {
             cleanup();
@@ -873,6 +876,7 @@ export function Events(Base) {
             };
 
             document.addEventListener('scroll', callback, false);
+            callback();
           }
         },
         { once: true },

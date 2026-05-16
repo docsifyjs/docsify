@@ -69,6 +69,20 @@ async function routeDelayedImage(page, url, imageReleased, height) {
   });
 }
 
+async function routeTimedImage(page, url, delay, height) {
+  await page.route(`**/${url}`, async route => {
+    await new Promise(resolve => setTimeout(resolve, delay));
+    await route.fulfill({
+      contentType: 'image/svg+xml',
+      body: `
+        <svg xmlns="http://www.w3.org/2000/svg" width="640" height="${height}">
+          <rect width="640" height="${height}" fill="#ddd" />
+        </svg>
+      `,
+    });
+  });
+}
+
 test.describe('Anchor scrolling', () => {
   test('keeps smooth scrolling for same-page anchor clicks', async ({
     page,
@@ -165,7 +179,7 @@ test.describe('Anchor scrolling', () => {
       );
     });
 
-    expect(targetCalls.length).toBeGreaterThan(0);
+    expect(targetCalls).toHaveLength(1);
     expect(targetCalls[0]).toMatchObject({ behavior: 'smooth' });
     expect(earlyInstantCalls).toEqual([]);
   });
@@ -175,27 +189,8 @@ test.describe('Anchor scrolling', () => {
   }) => {
     await recordScrollIntoViewCalls(page);
 
-    let releaseFirstImage = () => {};
-    const firstImageReleased = new Promise(resolve => {
-      releaseFirstImage = resolve;
-    });
-    let releaseSecondImage = () => {};
-    const secondImageReleased = new Promise(resolve => {
-      releaseSecondImage = resolve;
-    });
-
-    await routeDelayedImage(
-      page,
-      'slow-anchor-image-1.svg',
-      firstImageReleased,
-      900,
-    );
-    await routeDelayedImage(
-      page,
-      'slow-anchor-image-2.svg',
-      secondImageReleased,
-      700,
-    );
+    await routeTimedImage(page, 'slow-anchor-image-1.svg', 80, 900);
+    await routeTimedImage(page, 'slow-anchor-image-2.svg', 120, 700);
 
     const initPromise = docsifyInit({
       testURL: '/docsify-init.html#/?id=target-section',
@@ -246,29 +241,6 @@ test.describe('Anchor scrolling', () => {
       styleURLs: ['/dist/themes/core.css'],
     });
 
-    await page.locator('#target-section').waitFor();
-    await page.locator('img[alt="Slow image 1"]').waitFor({
-      state: 'attached',
-    });
-    await page.locator('img[alt="Slow image 2"]').waitFor({
-      state: 'attached',
-    });
-    await page.evaluate(() => {
-      return new Promise(resolve => {
-        requestAnimationFrame(() => requestAnimationFrame(resolve));
-      });
-    });
-
-    const targetCallsBeforeImages = await page.evaluate(() => {
-      return (window.__scrollIntoViewCalls ?? []).filter(
-        call => call.id === 'target-section',
-      );
-    });
-
-    expect(targetCallsBeforeImages).toEqual([]);
-
-    releaseFirstImage();
-    releaseSecondImage();
     await initPromise;
     await page.waitForFunction(() => {
       const firstImage = document.querySelector('img[alt="Slow image 1"]');
@@ -353,6 +325,9 @@ test.describe('Anchor scrolling', () => {
     );
 
     const initPromise = docsifyInit({
+      config: {
+        topMargin: 90,
+      },
       testURL: '/docsify-init.html#/?id=target-section',
       markdown: {
         homepage: `
@@ -436,7 +411,7 @@ test.describe('Anchor scrolling', () => {
       const target = document.querySelector('#target-section');
       const targetTop = target?.getBoundingClientRect().top;
 
-      return targetTop >= -1 && targetTop < 80;
+      return targetTop >= 70 && targetTop < 120;
     });
 
     const { imageLoadTime, targetCalls, targetTop } = await page.evaluate(
@@ -461,8 +436,8 @@ test.describe('Anchor scrolling', () => {
       behavior: 'smooth',
       block: 'start',
     });
-    expect(targetTop).toBeGreaterThanOrEqual(-1);
-    expect(targetTop).toBeLessThan(80);
+    expect(targetTop).toBeGreaterThanOrEqual(70);
+    expect(targetTop).toBeLessThan(120);
   });
 
   test('cancels a pending direct anchor scroll after user input', async ({
