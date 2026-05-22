@@ -16,10 +16,29 @@ db.version(1).stores({
 });
 
 async function saveData(maxAge, expireKey) {
-  INDEXES = Object.values(INDEXES).flatMap(innerData =>
-    Object.values(innerData),
-  );
-  await /** @type {any} */ (db).search.bulkPut(INDEXES);
+  const records = [];
+
+  Object.values(INDEXES).forEach(entry => {
+    if (!entry || typeof entry !== 'object') {
+      return;
+    }
+
+    // Entry may already be a flat record read from IndexedDB.
+    if ('slug' in entry) {
+      records.push(entry);
+      return;
+    }
+
+    // Entry may be a per-path map of slug -> record produced by genIndex().
+    Object.values(entry).forEach(item => {
+      if (item && typeof item === 'object' && 'slug' in item) {
+        records.push(item);
+      }
+    });
+  });
+
+  INDEXES = records;
+  await /** @type {any} */ (db).search.bulkPut(records);
   await /** @type {any} */ (db).expires.put({
     key: expireKey,
     value: Date.now() + maxAge,
@@ -306,16 +325,23 @@ export async function init(config, vm) {
   const len = paths.length;
   let count = 0;
 
+  const markComplete = async () => {
+    if (len === ++count) {
+      await saveData(config.maxAge, expireKey);
+    }
+  };
+
   paths.forEach(path => {
     const pathExists = Array.isArray(INDEXES)
       ? INDEXES.some(obj => obj.path === path)
       : false;
     if (pathExists) {
-      return count++;
+      void markComplete();
+      return;
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      async result => {
+      result => {
         INDEXES[path] = genIndex(
           path,
           result,
@@ -323,9 +349,10 @@ export async function init(config, vm) {
           config.depth,
           indexKey,
         );
-        if (len === ++count) {
-          await saveData(config.maxAge, expireKey);
-        }
+        return markComplete();
+      },
+      () => {
+        return markComplete();
       },
     );
   });

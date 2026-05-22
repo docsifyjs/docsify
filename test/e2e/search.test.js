@@ -198,6 +198,130 @@ test.describe('Search Plugin Tests', () => {
     await expect(resultsHeadingElm).toHaveText('EmptyContent');
   });
 
+  test('keeps saving index when one auto path request fails with cached records', async ({
+    page,
+  }) => {
+    const indexKey = 'docsify.search.index';
+    const expireKey = 'docsify.search.expires';
+
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+
+    await page.evaluate(
+      ({ indexKey, expireKey }) => {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open('docsify', 1);
+
+          request.onupgradeneeded = () => {
+            const db = request.result;
+
+            if (!db.objectStoreNames.contains('search')) {
+              db.createObjectStore('search', { keyPath: 'slug' });
+            }
+
+            if (!db.objectStoreNames.contains('expires')) {
+              db.createObjectStore('expires', { keyPath: 'key' });
+            }
+          };
+
+          request.onerror = () => reject(request.error);
+          request.onsuccess = () => {
+            const db = request.result;
+            const tx = db.transaction(['search', 'expires'], 'readwrite');
+
+            tx.objectStore('search').put({
+              slug: '/cached',
+              title: 'Cached Page',
+              body: 'cached record',
+              path: '/cached',
+              indexKey,
+            });
+            tx.objectStore('expires').put({
+              key: expireKey,
+              value: Date.now() + 60 * 1000,
+            });
+
+            tx.oncomplete = () => {
+              db.close();
+              resolve();
+            };
+            tx.onerror = () => reject(tx.error);
+          };
+        });
+      },
+      { indexKey, expireKey },
+    );
+
+    await docsifyInit({
+      markdown: {
+        homepage: '# Home',
+        sidebar: `
+          - [Cached](cached)
+          - [Success](success)
+          - [Fail](fail)
+        `,
+      },
+      routes: {
+        '/success.md': '# Success\n\nregressionKeyword',
+        '/fail.md': {
+          status: 404,
+          body: 'Not Found',
+          contentType: 'text/markdown',
+        },
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    });
+
+    await expect
+      .poll(async () => {
+        return await page.evaluate(indexKey => {
+          return new Promise((resolve, reject) => {
+            const request = indexedDB.open('docsify');
+
+            request.onerror = () => reject(request.error);
+            request.onsuccess = () => {
+              const db = request.result;
+              const tx = db.transaction(['search', 'expires'], 'readonly');
+              const searchStore = tx.objectStore('search');
+              const expiresStore = tx.objectStore('expires');
+              const searchReq = searchStore.getAll();
+              const expiresReq = expiresStore.get('docsify.search.expires');
+
+              tx.onerror = () => reject(tx.error);
+              tx.oncomplete = () => {
+                const records = Array.isArray(searchReq.result)
+                  ? searchReq.result
+                  : [];
+                const hasSuccessRecord = records.some(
+                  record =>
+                    record &&
+                    record.indexKey === indexKey &&
+                    record.path === '/success',
+                );
+                const hasInvalidRecord = records.some(
+                  record => !record || typeof record.slug !== 'string',
+                );
+                const hasExpireRecord = Boolean(expiresReq.result?.value);
+
+                db.close();
+                resolve(
+                  hasSuccessRecord && hasExpireRecord && !hasInvalidRecord,
+                );
+              };
+            };
+          });
+        }, indexKey);
+      })
+      .toBe(true);
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .title');
+
+    await searchFieldElm.fill('regressionKeyword');
+    await expect(resultsHeadingElm).toHaveText('Success');
+    expect(pageErrors).toEqual([]);
+  });
+
   test('handles default focusSearch binding', async ({ page }) => {
     const docsifyInitConfig = {
       scriptURLs: ['/dist/plugins/search.js'],
