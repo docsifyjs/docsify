@@ -4,6 +4,7 @@ import {
   removeAtag,
   escapeHtml,
 } from '../../core/render/utils.js';
+import { getPath, getParentPath, isAbsolutePath } from '../../core/router/util.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
 
@@ -115,6 +116,104 @@ function getListData(token) {
   return token.text;
 }
 
+function extractFragmentContent(text, fragment, fullLine) {
+  if (!fragment) {
+    return text;
+  }
+
+  let fragmentRegex = `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`;
+  if (fullLine) {
+    fragmentRegex = `.*${fragmentRegex}.*\n`;
+  }
+
+  const pattern = new RegExp(`(?:${fragmentRegex})([\\s\\S]*?)(?:${fragmentRegex})`);
+  const match = text.match(pattern);
+  return ((match || [])[1] || '').trim();
+}
+
+function collectEmbedRequests(raw = '', path, vm) {
+  const tokens = window.marked.lexer(raw);
+  const requests = [];
+
+  const maybePushEmbed = inlineToken => {
+    if (!inlineToken || (inlineToken.type !== 'link' && inlineToken.type !== 'image')) {
+      return;
+    }
+
+    const { config } = getAndRemoveConfig(inlineToken.title || '');
+    if (!config.include || !inlineToken.href) {
+      return;
+    }
+
+    const href = isAbsolutePath(inlineToken.href)
+      ? inlineToken.href
+      : getPath(vm.router.getBasePath(), getParentPath(path), inlineToken.href);
+
+    let type = 'code';
+    if (/\.(md|markdown)/.test(href)) {
+      type = 'markdown';
+    } else if (/\.mmd/.test(href)) {
+      type = 'mermaid';
+    }
+
+    requests.push({
+      url: href,
+      type,
+      fragment: config.fragment,
+      omitFragmentLine: config.omitFragmentLine,
+    });
+  };
+
+  tokens.forEach(token => {
+    if (token.type === 'paragraph') {
+      (token.tokens || []).forEach(maybePushEmbed);
+    } else if (token.type === 'table') {
+      (token.header || []).forEach(cell => {
+        (cell.tokens || []).forEach(maybePushEmbed);
+      });
+      (token.rows || []).forEach(row => {
+        row.forEach(cell => {
+          (cell.tokens || []).forEach(maybePushEmbed);
+        });
+      });
+    }
+  });
+
+  return requests;
+}
+
+async function getEmbeddedContent(raw = '', path, vm) {
+  const requests = collectEmbedRequests(raw, path, vm);
+  if (!requests.length) {
+    return '';
+  }
+
+  const results = await Promise.all(
+    requests.map(
+      request =>
+        new Promise(resolve => {
+          Docsify.get(request.url, false, vm.config.requestHeaders).then(
+            text => {
+              let content = text || '';
+              if (request.fragment) {
+                content = extractFragmentContent(
+                  content,
+                  request.fragment,
+                  request.omitFragmentLine,
+                );
+              }
+
+              resolve(request.type === 'markdown' ? content : markdownToTxt(content));
+            },
+            () => resolve(''),
+          );
+        }),
+    ),
+  );
+
+  return results.filter(Boolean).join('\n');
+}
+
 export function genIndex(path, content = '', router, depth, indexKey) {
   const tokens = window.marked.lexer(content);
   const slugify = window.Docsify.slugify;
@@ -224,8 +323,6 @@ export function search(query) {
           ),
           'gi',
         );
-        let indexTitle = -1;
-        let indexContent = -1;
         handlePostTitle = postTitle
           ? escapeHtml(ignoreDiacriticalMarks(postTitle))
           : postTitle;
@@ -233,8 +330,8 @@ export function search(query) {
           ? escapeHtml(ignoreDiacriticalMarks(postContent))
           : postContent;
 
-        indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
-        indexContent = postContent ? handlePostContent.search(regEx) : -1;
+        const indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
+        let indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
         if (indexTitle >= 0 || indexContent >= 0) {
           matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
@@ -242,11 +339,8 @@ export function search(query) {
             indexContent = 0;
           }
 
-          let start = 0;
-          let end = 0;
-
-          start = indexContent < 11 ? 0 : indexContent - 10;
-          end = start === 0 ? 100 : indexContent + keyword.length + 90;
+          const start = indexContent < 11 ? 0 : indexContent - 10;
+          let end = start === 0 ? 100 : indexContent + keyword.length + 90;
 
           if (handlePostContent && end > handlePostContent.length) {
             end = handlePostContent.length;
@@ -341,10 +435,14 @@ export async function init(config, vm) {
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
-      result => {
+      async result => {
+        const embeddedContent = await getEmbeddedContent(result, path, vm);
+        const contentToIndex = embeddedContent
+          ? `${result}\n${embeddedContent}`
+          : result;
         INDEXES[path] = genIndex(
           path,
-          result,
+          contentToIndex,
           vm.router,
           config.depth,
           indexKey,

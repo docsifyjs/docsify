@@ -401,8 +401,62 @@ console.log('Hello World');
     await docsifyInit(docsifyInitConfig);
     await searchFieldElm.fill('filename');
     expect(await resultsHeadingElm.textContent()).toContain(
-      '...filename _media/example.js :include :type=code :fragment=demo...',
+      'filename _media/example.js :include :type=code :fragment=demo',
     );
+  });
+
+  test('search should index embedded include content', async ({ page }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: `
+# Include Search
+
+![snippet](snippet.js ':include :type=code')
+        `,
+      },
+      routes: {
+        '/snippet.js': `
+const embeddedSearchKeyword = 'ok';
+        `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .title');
+
+    await docsifyInit(docsifyInitConfig);
+    await searchFieldElm.fill('embeddedSearchKeyword');
+    await expect(resultsHeadingElm).toHaveText('Include Search');
+  });
+
+  test('search should index embedded include content from relative path', async ({
+    page,
+  }) => {
+    const docsifyInitConfig = {
+      markdown: {
+        homepage: '# Home',
+        sidebar: '- [Guide Intro](guide/intro)',
+      },
+      routes: {
+        '/guide/intro.md': `
+# Relative Include Search
+
+![snippet](./snippets/demo.js ':include :type=code')
+        `,
+        '/guide/snippets/demo.js': `
+const embeddedRelativeKeyword = 'ok';
+        `,
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .title');
+
+    await docsifyInit(docsifyInitConfig);
+    await searchFieldElm.fill('embeddedRelativeKeyword');
+    await expect(resultsHeadingElm).toHaveText('Relative Include Search');
   });
 
   test('search result should remove checkbox markdown and keep related values', async ({
