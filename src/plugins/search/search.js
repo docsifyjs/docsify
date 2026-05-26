@@ -4,7 +4,11 @@ import {
   removeAtag,
   escapeHtml,
 } from '../../core/render/utils.js';
-import { getPath, getParentPath, isAbsolutePath } from '../../core/router/util.js';
+import {
+  getPath,
+  getParentPath,
+  isAbsolutePath,
+} from '../../core/router/util.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
 
@@ -126,7 +130,9 @@ function extractFragmentContent(text, fragment, fullLine) {
     fragmentRegex = `.*${fragmentRegex}.*\n`;
   }
 
-  const pattern = new RegExp(`(?:${fragmentRegex})([\\s\\S]*?)(?:${fragmentRegex})`);
+  const pattern = new RegExp(
+    `(?:${fragmentRegex})([\\s\\S]*?)(?:${fragmentRegex})`,
+  );
   const match = text.match(pattern);
   return ((match || [])[1] || '').trim();
 }
@@ -136,7 +142,10 @@ function collectEmbedRequests(raw = '', path, vm) {
   const requests = [];
 
   const maybePushEmbed = inlineToken => {
-    if (!inlineToken || (inlineToken.type !== 'link' && inlineToken.type !== 'image')) {
+    if (
+      !inlineToken ||
+      (inlineToken.type !== 'link' && inlineToken.type !== 'image')
+    ) {
       return;
     }
 
@@ -203,7 +212,9 @@ async function getEmbeddedContent(raw = '', path, vm) {
                 );
               }
 
-              resolve(request.type === 'markdown' ? content : markdownToTxt(content));
+              resolve(
+                request.type === 'markdown' ? content : markdownToTxt(content),
+              );
             },
             () => resolve(''),
           );
