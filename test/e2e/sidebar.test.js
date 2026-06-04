@@ -677,6 +677,43 @@ test.describe('Mobile sidebar toggle', () => {
   });
 });
 
+test('keeps focus on activated sidebar page links', async ({ page }) => {
+  const docsifyInitConfig = {
+    markdown: {
+      homepage: `
+          # Home
+        `,
+      sidebar: `
+          - [Home](/)
+          - [Guide](guide)
+        `,
+    },
+    routes: {
+      '/guide.md': `
+          # Guide
+        `,
+    },
+  };
+
+  await docsifyInit(docsifyInitConfig);
+
+  const guideLinkElm = page.locator('.sidebar-nav a[href="#/guide"]');
+
+  await guideLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/guide$/);
+  await expect(page.locator('#guide')).toBeVisible();
+  await expect(guideLinkElm).toBeFocused();
+
+  const homeLinkElm = page.locator('.sidebar-nav a[href="#/"]');
+
+  await homeLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/$/);
+  await expect(page.locator('#home')).toBeVisible();
+  await expect(homeLinkElm).toBeFocused();
+});
+
 test.describe('Configuration: autoHeader', () => {
   test('autoHeader=false', async ({ page }) => {
     const docsifyInitConfig = {

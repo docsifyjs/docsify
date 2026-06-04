@@ -41,28 +41,39 @@ export class HashHistory extends History {
     // therefore we set a `navigating` flag when a link is clicked
     // to be able to tell these two scenarios apart
     let navigating = false;
+    let navigatingEvent;
 
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
 
       if (el && el.tagName === 'A' && !isExternal(el.href)) {
         navigating = true;
+        navigatingEvent = e;
 
         // Do not compare hash containing these classes.
         if (['app-name-link', 'page-link'].includes(el.className)) {
+          if (el.hash === location.hash) {
+            navigating = false;
+            navigatingEvent = undefined;
+          }
           return;
         }
 
         if (el.hash === location.hash) {
           cb({ event: e, source: 'navigate' });
+          navigating = false;
+          navigatingEvent = undefined;
         }
       }
     });
 
     on('hashchange', e => {
       const source = navigating ? 'navigate' : 'history';
+      const event = navigating ? navigatingEvent || e : e;
+
       navigating = false;
-      cb({ event: e, source });
+      navigatingEvent = undefined;
+      cb({ event, source });
     });
   }
 

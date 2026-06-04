@@ -52,11 +52,14 @@ export function Router(Base) {
         this._updateRender();
 
         if (lastRoute.path === this.route.path) {
-          this.onNavigate(params.source);
+          this.onNavigate(params.source, params.event);
           return;
         }
 
-        this.$fetch(noop, this.onNavigate.bind(this, params.source));
+        this.$fetch(
+          noop,
+          this.onNavigate.bind(this, params.source, params.event),
+        );
         lastRoute = this.route;
       });
     }

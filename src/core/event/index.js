@@ -1,5 +1,5 @@
 import { isMobile, mobileBreakpoint } from '../util/env.js';
-import { noop } from '../util/core.js';
+import { isExternal, noop } from '../util/core.js';
 import * as dom from '../util/dom.js';
 import { stripUrlExceptId } from '../router/util.js';
 
@@ -403,9 +403,10 @@ export function Events(Base) {
      * @param {undefined|"history"|"navigate"} source Type of navigation where
      * undefined is initial load, "history" is forward/back, and "navigate" is
      * user click/tap
+     * @param {Event} [event] Navigation event
      * @void
      */
-    onNavigate(source) {
+    onNavigate(source, event) {
       const { auto2top, topMargin } = this.config;
       const { path, query } = this.route;
       const activeSidebarElm = this.#markSidebarActiveElm();
@@ -446,7 +447,13 @@ export function Events(Base) {
 
       // Clicked anchor link or page load with anchor ID
       if (hasId || isNavigate) {
-        this.#focusContent();
+        const sidebarFocused =
+          isNavigate &&
+          this.#focusSidebarNavigation(this.#getSidebarNavigationHref(event));
+
+        if (!sidebarFocused) {
+          this.#focusContent();
+        }
       }
     }
 
@@ -492,6 +499,62 @@ export function Events(Base) {
       }
 
       return focusEl;
+    }
+
+    /**
+     * Get the clicked sidebar link HREF from a navigation event.
+     *
+     * @param {Event} [event] Navigation event
+     * @returns {string|undefined}
+     */
+    #getSidebarNavigationHref(event) {
+      const target = event?.target;
+      const linkElm =
+        target instanceof Element
+          ? /** @type {HTMLAnchorElement|null} */ (target.closest('a'))
+          : null;
+
+      if (
+        !linkElm ||
+        !linkElm.matches('.app-name-link, .page-link, .section-link') ||
+        isExternal(linkElm.href)
+      ) {
+        return;
+      }
+
+      return linkElm.getAttribute('href') || undefined;
+    }
+
+    /**
+     * Restore focus to the rendered sidebar link that initiated navigation.
+     *
+     * @param {string} [href] Sidebar link HREF
+     * @returns {boolean} True when focus was restored
+     */
+    #focusSidebarNavigation(href) {
+      if (!href || isMobile()) {
+        return false;
+      }
+
+      const sidebarElm = dom.find('.sidebar');
+
+      if (!sidebarElm) {
+        return false;
+      }
+
+      const focusElm = /** @type {HTMLElement|null} */ (
+        dom.find(
+          sidebarElm,
+          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
+        )
+      );
+
+      if (!focusElm) {
+        return false;
+      }
+
+      focusElm.focus({ preventScroll: true });
+      return true;
     }
 
     /**
