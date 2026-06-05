@@ -10,9 +10,9 @@ jobs:
     if: github.repository == 'docsifyjs/docsify'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: latest
           cache: 'npm'
@@ -25,7 +25,7 @@ jobs:
 
       - name: Commit
         id: auto-commit-action
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore: Sync emoji data with GitHub emoji API'
           branch: sync-emoji

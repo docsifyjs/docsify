@@ -5,11 +5,14 @@ import { HTML5History } from './history/html5.js';
 
 /**
  * @typedef {{
- *   path?: string
+ *   path: string
+ *   query: Record<string, string>;
+ *   file: string;
+ *   response: {}
  * }} Route
  */
 
-/** @type {Route} */
+/** @type {Partial<Route>} */
 let lastRoute = {};
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
@@ -20,12 +23,13 @@ let lastRoute = {};
  */
 export function Router(Base) {
   return class Router extends Base {
+    /** @type {Partial<Route>} */
     route = {};
 
     updateRender() {
-      this.router.normalize();
-      this.route = this.router.parse();
-      dom.body.setAttribute('data-page', this.route.file);
+      this.router?.normalize();
+      this.route = this.router?.parse() ?? {};
+      dom.body.setAttribute('data-page', this.route.file ?? '');
     }
 
     initRouter() {

@@ -66,6 +66,14 @@ beforeAll(async () => {
     // Replace addEventListener with mock
     global[obj].addEventListener = addEventListenerSpy;
   });
+
+  if (!global.HTMLElement.prototype.scrollIntoView) {
+    Object.defineProperty(global.HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      writable: true,
+      value: () => {},
+    });
+  }
 });
 
 beforeEach(async () => {

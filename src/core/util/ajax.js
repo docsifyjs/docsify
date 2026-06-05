@@ -20,6 +20,11 @@ const cache = {};
 // TODO update to using fetch() + Streams API instead of XMLHttpRequest. See an
 // example of download progress calculation using fetch() here:
 // https://streams.spec.whatwg.org/demos/
+/**
+ * @param {string} url
+ * @param {boolean} [hasBar]
+ * @param {Record<string, string>} [headers]
+ */
 export function get(url, hasBar = false, headers = {}) {
   const xhr = new XMLHttpRequest();
   const cached = cache[url];

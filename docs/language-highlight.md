@@ -57,7 +57,7 @@ function add(a, b) {
 
 Support for additional [languages](https://prismjs.com/#supported-languages) is available by loading the Prism [grammar files](https://cdn.jsdelivr.net/npm/prismjs@1/components/):
 
-!> Prism grammar files must be loaded after Docsify.
+> [!IMPORTANT] Prism grammar files must be loaded after Docsify.
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
@@ -79,7 +79,7 @@ Support for additional [languages](https://prismjs.com/#supported-languages) is 
 
 Docsify's official [themes](themes) are compatible with Prism syntax highlighting themes.
 
-!> Prism themes must be loaded after Docsify themes.
+> [!IMPORTANT] Prism themes must be loaded after Docsify themes.
 
 ```html
 <!-- Light and dark mode -->

@@ -1,0 +1,61 @@
+name: Bug Report
+description: Submit a bug report.
+labels: ['bug', 'Triage']
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! **Please write in English**.
+        Before creating an issue please make sure you are using the latest version of Docsify.
+
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is, and why you consider it to be a bug.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual behavior
+      description: A description of what is actually happening.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: |
+        A description with steps to reproduce the issue.
+        Provide a link to a public repository or create a reproducible [sandbox](https://codesandbox.io/s/307qqv236):
+      placeholder: |
+        1. Step 1
+        2. Step 2
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Environment
+      description: |
+        Please provide the following information if relevant to the issue:
+        ```markdown
+        - Your OS:
+        - Node.js version:
+        - npm/yarn version:
+        - Browser version:
+        - Docsify version:
+        - Docsify plugins (if the bug happens when plugins enabled, please try to isolate the issue):
+        ```
+
+  - type: checkboxes
+    attributes:
+      label: Additional Information
+      options:
+        - label: Bug still occurs when all/other plugins are disabled?

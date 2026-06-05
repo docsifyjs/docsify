@@ -29,7 +29,7 @@ Uncompressed resources are available by omitting the `.min` from the filename.
 
 Specifying the latest major version allows your site to receive all non-breaking enhancements ("minor" updates) and bug fixes ("patch" updates) as they are released. This is good option for those who prefer a zero-maintenance way of keeping their site up to date with minimal risk as new versions are published.
 
-?> When a new major version is released, you will need to manually update the major version number after the `@` symbol in your CDN URLs.
+> [!TIP] When a new major version is released, you will need to manually update the major version number after the `@` symbol in your CDN URLs.
 
 <!-- prettier-ignore -->
 ```html
@@ -44,7 +44,7 @@ Specifying the latest major version allows your site to receive all non-breaking
 
 Specifying an exact version prevents any future updates from affecting your site. This is good option for those who prefer to manually update their resources as new versions are published.
 
-?> When a new version is released, you will need to manually update the version number after the `@` symbol in your CDN URLs.
+> [!TIP] When a new version is released, you will need to manually update the version number after the `@` symbol in your CDN URLs.
 
 <!-- prettier-ignore -->
 ```html

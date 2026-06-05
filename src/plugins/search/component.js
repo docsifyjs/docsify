@@ -1,5 +1,6 @@
 import { search } from './search.js';
 import cssText from './style.css';
+import { escapeHtml } from '../../core/render/utils.js';
 
 let NO_DATA_TEXT = '';
 
@@ -21,8 +22,10 @@ function tpl(vm, defaultValue = '') {
   `;
   const sidebarElm = Docsify.dom.find('.sidebar');
   const searchElm = Docsify.dom.create('section', html);
-  const insertElm = sidebarElm.querySelector(
-    `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+  const insertElm = /** @type {HTMLElement} */ (
+    sidebarElm.querySelector(
+      `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+    )
   );
 
   searchElm.classList.add('search');
@@ -69,17 +72,19 @@ function doSearch(value) {
 
 function bindEvents() {
   const $search = Docsify.dom.find('.search');
-  const $input = Docsify.dom.find($search, 'input');
+  const $input = /** @type {HTMLInputElement} */ (
+    Docsify.dom.find($search, 'input')
+  );
   const $clear = Docsify.dom.find($search, '.clear-button');
 
   let timeId;
 
   /**
-    Prevent to Fold sidebar.
-
-    When searching on the mobile end,
-    the sidebar is collapsed when you click the INPUT box,
-    making it impossible to search.
+   * Prevent to Fold sidebar.
+   *
+   * When searching on the mobile end,
+   * the sidebar is collapsed when you click the INPUT box,
+   * making it impossible to search.
    */
   Docsify.dom.on(
     $search,
@@ -90,7 +95,10 @@ function bindEvents() {
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
+    timeId = setTimeout(
+      _ => doSearch(/** @type {HTMLInputElement} */ (e.target).value.trim()),
+      100,
+    );
   });
   Docsify.dom.on($clear, 'click', e => {
     $input.value = '';
@@ -99,7 +107,9 @@ function bindEvents() {
 }
 
 function updatePlaceholder(text, path) {
-  const $input = Docsify.dom.getNode('.search input[type="search"]');
+  const $input = /** @type {HTMLInputElement | null} */ (
+    Docsify.dom.getNode('.search input[type="search"]')
+  );
 
   if (!$input) {
     return;
@@ -129,10 +139,10 @@ export function init(opts, vm) {
     return;
   }
 
-  const keywords = vm.router.parse().query.s;
+  const keywords = vm.router.parse().query.s || '';
 
   Docsify.dom.style(cssText);
-  tpl(vm, keywords);
+  tpl(vm, escapeHtml(keywords));
   bindEvents();
   keywords && setTimeout(_ => doSearch(keywords), 500);
 }

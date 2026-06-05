@@ -79,7 +79,9 @@ const markdownToTxtRenderer = {
   listitem(item) {
     let itemBody = '';
     if (item.task) {
-      const checkbox = this.checkbox?.({ checked: !!item.checked });
+      const checkbox = this.checkbox?.({
+        checked: !!item.checked,
+      });
       if (item.loose) {
         if (item.tokens.length > 0 && item.tokens[0].type === 'paragraph') {
           item.tokens[0].text = checkbox + ' ' + item.tokens[0].text;
@@ -108,7 +110,11 @@ const markdownToTxtRenderer = {
     return `${itemBody || ''}`;
   },
 
-  checkbox() {
+  /**
+   * @param {{checked: boolean}} options
+   * @return {string}
+   */
+  checkbox(options) {
     return '';
   },
 
@@ -185,7 +191,10 @@ const markdownToTxtRenderer = {
       : token.text || '';
   },
 };
-const _marked = marked.setOptions({ renderer: markdownToTxtRenderer });
+const _marked = marked.setOptions({
+  // @ts-expect-error missing properties
+  renderer: markdownToTxtRenderer,
+});
 
 export function markdownToTxt(markdown) {
   const unmarked = _marked.parse(markdown);

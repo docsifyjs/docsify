@@ -4,7 +4,7 @@ import { createNextFunction } from './next.js';
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /** @typedef {Record<string, string | VirtualRouteHandler>} VirtualRoutesMap */
-/** @typedef {(route: string, match: RegExpMatchArray | null) => string | void | Promise<string | void> } VirtualRouteHandler */
+/** @typedef {(route: string, match: RegExpMatchArray | null, next?: (content: string | void | Promise<string | void>) => void) => string | void | Promise<string | void> } VirtualRouteHandler */
 
 /**
  * Allows users/plugins to introduce dynamically created content into their docsify
@@ -25,7 +25,7 @@ import { createNextFunction } from './next.js';
  * }
  * ```
  *
- * @template {!Constructor} T
+ * @template {Constructor} T
  * @param {T} Base - The class to extend
  */
 export function VirtualRoutes(Base) {
@@ -41,12 +41,13 @@ export function VirtualRoutes(Base) {
     /**
      * Attempts to match the given path with a virtual route.
      * @param {string} path the path of the route to match
-     * @returns {Promise<string | null>} resolves to string if route was matched, otherwise null
+     * @returns {PromiseLike<string | null>} resolves to string if route was matched, otherwise null
      */
     matchVirtualRoute(path) {
       const virtualRoutes = this.routes();
       const virtualRoutePaths = Object.keys(virtualRoutes);
 
+      /** @type {(value: string | null) => any} */
       let done = () => null;
 
       /**
@@ -101,7 +102,9 @@ export function VirtualRoutes(Base) {
       }
 
       return {
+        // @ts-expect-error types are screwed here
         then(cb) {
+          // @ts-expect-error types are screwed here
           done = cb;
           asyncMatchNextRoute();
         },

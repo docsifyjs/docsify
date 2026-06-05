@@ -16,9 +16,10 @@
  *
  * @param {string}   str   The string to parse.
  *
- * @return {{str: string, config: object}} The original string formatted, and parsed object, { str, config }.
+ * @return {{str: string, config: Record<string, string | string[]>}} The original string formatted, and parsed object, { str, config }.
  */
 export function getAndRemoveConfig(str = '') {
+  /** @type {Record<string, string | string[]>} */
   const config = {};
 
   if (str) {
@@ -26,12 +27,22 @@ export function getAndRemoveConfig(str = '') {
       .replace(/^('|")/, '')
       .replace(/('|")$/, '')
       .replace(/(?:^|\s):([\w-]+:?)=?([\w-%]+)?/g, (m, key, value) => {
-        if (key.indexOf(':') === -1) {
-          config[key] = (value && value.replace(/&quot;/g, '')) || true;
-          return '';
+        if (key.indexOf(':') !== -1) {
+          return m;
         }
 
-        return m;
+        value = (value && value.replace(/&quot;/g, '')) || true;
+
+        if (value !== true && config[key] !== undefined) {
+          if (!Array.isArray(config[key]) && value !== config[key]) {
+            config[key] = [config[key]];
+          }
+          config[key].includes(value) ||
+            /** @type {string[]} */ (config[key]).push(value);
+        } else {
+          config[key] = value;
+        }
+        return '';
       })
       .trim();
   }
@@ -77,5 +88,27 @@ export function getAndRemoveDocsifyIgnoreConfig(content = '') {
     ignoreAllSubs = true;
   }
 
-  return { content, ignoreAllSubs, ignoreSubHeading };
+  return /** @type {{content: string, ignoreAllSubs: boolean, ignoreSubHeading: boolean}} */ ({
+    content,
+    ignoreAllSubs,
+    ignoreSubHeading,
+  });
+}
+
+/**
+ * Escape HTML special characters in a string to prevent XSS attacks.
+ *
+ * @param string
+ * @returns {string}
+ */
+export function escapeHtml(string) {
+  const entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+
+  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }

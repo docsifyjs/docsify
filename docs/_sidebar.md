@@ -27,5 +27,9 @@
   - [Embed Files](embed-files.md)
   - [UI Kit](ui-kit.md)
 
-- [Awesome docsify](awesome.md)
-- [Changelog](changelog.md)
+- Upgrading
+
+  - [v4 to v5](v5-upgrade.md)
+
+* [Awesome docsify](awesome.md)
+* [Changelog](changelog.md)

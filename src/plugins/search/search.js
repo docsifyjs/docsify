@@ -1,11 +1,18 @@
 import {
   getAndRemoveConfig,
   getAndRemoveDocsifyIgnoreConfig,
+  removeAtag,
+  escapeHtml,
 } from '../../core/render/utils.js';
+import {
+  getPath,
+  getParentPath,
+  isAbsolutePath,
+} from '../../core/router/util.js';
 import { markdownToTxt } from './markdown-to-txt.js';
 import Dexie from 'dexie';
 
-let INDEXES = {};
+let INDEXES = [];
 
 const db = new Dexie('docsify');
 db.version(1).stores({
@@ -14,20 +21,44 @@ db.version(1).stores({
 });
 
 async function saveData(maxAge, expireKey) {
-  INDEXES = Object.values(INDEXES).flatMap(innerData =>
-    Object.values(innerData),
-  );
-  await db.search.bulkPut(INDEXES);
-  await db.expires.put({ key: expireKey, value: Date.now() + maxAge });
+  const records = [];
+
+  Object.values(INDEXES).forEach(entry => {
+    if (!entry || typeof entry !== 'object') {
+      return;
+    }
+
+    // Entry may already be a flat record read from IndexedDB.
+    if ('slug' in entry) {
+      records.push(entry);
+      return;
+    }
+
+    // Entry may be a per-path map of slug -> record produced by genIndex().
+    Object.values(entry).forEach(item => {
+      if (item && typeof item === 'object' && 'slug' in item) {
+        records.push(item);
+      }
+    });
+  });
+
+  INDEXES = records;
+  await /** @type {any} */ (db).search.bulkPut(records);
+  await /** @type {any} */ (db).expires.put({
+    key: expireKey,
+    value: Date.now() + maxAge,
+  });
 }
 
 async function getData(key, isExpireKey = false) {
   if (isExpireKey) {
-    const item = await db.expires.get(key);
+    const item = await /** @type {any} */ (db).expires.get(key);
     return item ? item.value : 0;
   }
 
-  const item = await db.search.where({ indexKey: key }).toArray();
+  const item = await /** @type {any} */ (db).search
+    .where({ indexKey: key })
+    .toArray();
   return item ? item : null;
 }
 
@@ -48,26 +79,16 @@ function resolveIndexKey(namespace) {
     : LOCAL_STORAGE.INDEX_KEY;
 }
 
-function escapeHtml(string) {
-  const entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  };
-
-  return String(string).replace(/[&<>"']/g, s => entityMap[s]);
-}
-
 function getAllPaths(router) {
   const paths = [];
 
   Docsify.dom
     .findAll('.sidebar-nav a:not(.section-link):not([data-nosearch])')
     .forEach(node => {
-      const href = node.href;
-      const originHref = node.getAttribute('href');
+      const href = /** @type {HTMLAnchorElement} */ (node).href;
+      const originHref = /** @type {HTMLAnchorElement} */ (node).getAttribute(
+        'href',
+      );
       const path = router.parse(href).path;
 
       if (
@@ -99,9 +120,115 @@ function getListData(token) {
   return token.text;
 }
 
+function extractFragmentContent(text, fragment, fullLine) {
+  if (!fragment) {
+    return text;
+  }
+
+  let fragmentRegex = `(?:###|\\/\\/\\/)\\s*\\[${fragment}\\]`;
+  if (fullLine) {
+    fragmentRegex = `.*${fragmentRegex}.*\n`;
+  }
+
+  const pattern = new RegExp(
+    `(?:${fragmentRegex})([\\s\\S]*?)(?:${fragmentRegex})`,
+  );
+  const match = text.match(pattern);
+  return ((match || [])[1] || '').trim();
+}
+
+function collectEmbedRequests(raw = '', path, vm) {
+  const tokens = window.marked.lexer(raw);
+  const requests = [];
+
+  const maybePushEmbed = inlineToken => {
+    if (
+      !inlineToken ||
+      (inlineToken.type !== 'link' && inlineToken.type !== 'image')
+    ) {
+      return;
+    }
+
+    const { config } = getAndRemoveConfig(inlineToken.title || '');
+    if (!config.include || !inlineToken.href) {
+      return;
+    }
+
+    const href = isAbsolutePath(inlineToken.href)
+      ? inlineToken.href
+      : getPath(vm.router.getBasePath(), getParentPath(path), inlineToken.href);
+
+    let type = 'code';
+    if (/\.(md|markdown)/.test(href)) {
+      type = 'markdown';
+    } else if (/\.mmd/.test(href)) {
+      type = 'mermaid';
+    }
+
+    requests.push({
+      url: href,
+      type,
+      fragment: config.fragment,
+      omitFragmentLine: config.omitFragmentLine,
+    });
+  };
+
+  tokens.forEach(token => {
+    if (token.type === 'paragraph') {
+      (token.tokens || []).forEach(maybePushEmbed);
+    } else if (token.type === 'table') {
+      (token.header || []).forEach(cell => {
+        (cell.tokens || []).forEach(maybePushEmbed);
+      });
+      (token.rows || []).forEach(row => {
+        row.forEach(cell => {
+          (cell.tokens || []).forEach(maybePushEmbed);
+        });
+      });
+    }
+  });
+
+  return requests;
+}
+
+async function getEmbeddedContent(raw = '', path, vm) {
+  const requests = collectEmbedRequests(raw, path, vm);
+  if (!requests.length) {
+    return '';
+  }
+
+  const results = await Promise.all(
+    requests.map(
+      request =>
+        new Promise(resolve => {
+          Docsify.get(request.url, false, vm.config.requestHeaders).then(
+            text => {
+              let content = text || '';
+              if (request.fragment) {
+                content = extractFragmentContent(
+                  content,
+                  request.fragment,
+                  request.omitFragmentLine,
+                );
+              }
+
+              resolve(
+                request.type === 'markdown' ? content : markdownToTxt(content),
+              );
+            },
+            () => resolve(''),
+          );
+        }),
+    ),
+  );
+
+  return results.filter(Boolean).join('\n');
+}
+
 export function genIndex(path, content = '', router, depth, indexKey) {
   const tokens = window.marked.lexer(content);
   const slugify = window.Docsify.slugify;
+  /** @type {Record<string, any>} */
   const index = {};
   let slug;
   let title = '';
@@ -110,16 +237,11 @@ export function genIndex(path, content = '', router, depth, indexKey) {
     if (token.type === 'heading' && token.depth <= depth) {
       const { str, config } = getAndRemoveConfig(token.text);
 
-      const text = getAndRemoveDocsifyIgnoreConfig(token.text).content;
-
-      if (config.id) {
-        slug = router.toURL(path, { id: slugify(config.id) });
-      } else {
-        slug = router.toURL(path, { id: slugify(escapeHtml(text)) });
-      }
+      slug = router.toURL(path, { id: slugify(config.id || token.text) });
 
       if (str) {
         title = getAndRemoveDocsifyIgnoreConfig(str).content;
+        title = removeAtag(title.trim());
       }
 
       index[slug] = {
@@ -135,7 +257,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: markdownToTxt(token.text || ''),
+          body: markdownToTxt(/** @type {any} */ (token).text || ''),
           path: path,
           indexKey: indexKey,
         };
@@ -148,14 +270,20 @@ export function genIndex(path, content = '', router, depth, indexKey) {
       if (!index[slug]) {
         index[slug] = { slug, title: '', body: '' };
       } else if (index[slug].body) {
+        // @ts-expect-error
         token.text = getTableData(token);
+        // @ts-expect-error
         token.text = getListData(token);
 
+        // @ts-expect-error
         index[slug].body += '\n' + markdownToTxt(token.text || '');
       } else {
+        // @ts-expect-error
         token.text = getTableData(token);
+        // @ts-expect-error
         token.text = getListData(token);
 
+        // @ts-expect-error
         index[slug].body = markdownToTxt(token.text || '');
       }
 
@@ -206,8 +334,6 @@ export function search(query) {
           ),
           'gi',
         );
-        let indexTitle = -1;
-        let indexContent = -1;
         handlePostTitle = postTitle
           ? escapeHtml(ignoreDiacriticalMarks(postTitle))
           : postTitle;
@@ -215,8 +341,8 @@ export function search(query) {
           ? escapeHtml(ignoreDiacriticalMarks(postContent))
           : postContent;
 
-        indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
-        indexContent = postContent ? handlePostContent.search(regEx) : -1;
+        const indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
+        let indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
         if (indexTitle >= 0 || indexContent >= 0) {
           matchesScore += indexTitle >= 0 ? 3 : indexContent >= 0 ? 2 : 0;
@@ -224,11 +350,8 @@ export function search(query) {
             indexContent = 0;
           }
 
-          let start = 0;
-          let end = 0;
-
-          start = indexContent < 11 ? 0 : indexContent - 10;
-          end = start === 0 ? 100 : indexContent + keyword.length + 90;
+          const start = indexContent < 11 ? 0 : indexContent - 10;
+          let end = start === 0 ? 100 : indexContent + keyword.length + 90;
 
           if (handlePostContent && end > handlePostContent.length) {
             end = handlePostContent.length;
@@ -299,7 +422,7 @@ export async function init(config, vm) {
   INDEXES = await getData(indexKey);
 
   if (isExpired) {
-    INDEXES = {};
+    INDEXES = [];
   } else if (!isAuto) {
     return;
   }
@@ -307,26 +430,38 @@ export async function init(config, vm) {
   const len = paths.length;
   let count = 0;
 
+  const markComplete = async () => {
+    if (len === ++count) {
+      await saveData(config.maxAge, expireKey);
+    }
+  };
+
   paths.forEach(path => {
     const pathExists = Array.isArray(INDEXES)
       ? INDEXES.some(obj => obj.path === path)
       : false;
     if (pathExists) {
-      return count++;
+      void markComplete();
+      return;
     }
 
     Docsify.get(vm.router.getFile(path), false, vm.config.requestHeaders).then(
       async result => {
+        const embeddedContent = await getEmbeddedContent(result, path, vm);
+        const contentToIndex = embeddedContent
+          ? `${result}\n${embeddedContent}`
+          : result;
         INDEXES[path] = genIndex(
           path,
-          result,
+          contentToIndex,
           vm.router,
           config.depth,
           indexKey,
         );
-        if (len === ++count) {
-          await saveData(config.maxAge, expireKey);
-        }
+        return markComplete();
+      },
+      () => {
+        return markComplete();
       },
     );
   });

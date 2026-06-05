@@ -1,5 +1,9 @@
 # List of Plugins
 
+These are built-in and external plugins for Docsify.
+
+See also how to [Write a Plugin](./write-a-plugin.md).
+
 ## Full text search
 
 By default, the hyperlink on the current page is recognized and the content is saved in `IndexedDB`. You can also specify the path to the files.
@@ -25,7 +29,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       insertBefore: '.sidebar-nav', // CSS selector in .sidebar scope
 
       maxAge: 86400000, // Expiration time, the default one day
-      paths: [], // or 'auto'
+      paths: [], // string[] of files to search in, or 'auto' for discovery based on your sidebar
       placeholder: 'Type to search',
 
       // Localization
@@ -123,7 +127,7 @@ Install the plugin and configure the track id.
 
 Renders a larger collection of emoji shorthand codes. Without this plugin, Docsify is able to render only a limited number of emoji shorthand codes.
 
-!> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
+> [!IMPORTANT] Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
 
 ```html
 <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js"></script>
@@ -153,7 +157,7 @@ Exclude the special image
 
 ## Edit on github
 
-Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Add `Edit on github` button on every page. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 ## Demo code with instant preview and jsfiddle integration
 

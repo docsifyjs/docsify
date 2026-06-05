@@ -1,6 +1,10 @@
+const window = /** @type {any} */ (globalThis);
+
 function handleExternalScript() {
   const container = Docsify.dom.getNode('#main');
-  const scripts = Docsify.dom.findAll(container, 'script');
+  const scripts = /** @type {HTMLScriptElement[]} */ (
+    Docsify.dom.findAll(container, 'script')
+  );
 
   for (const script of scripts) {
     if (script.src) {
@@ -10,8 +14,8 @@ function handleExternalScript() {
         newScript[attribute.name] = attribute.value;
       });
 
-      script.parentNode.insertBefore(newScript, script);
-      script.parentNode.removeChild(script);
+      script.before(newScript);
+      script.remove();
     }
   }
 }
@@ -21,4 +25,6 @@ const install = function (hook) {
 };
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

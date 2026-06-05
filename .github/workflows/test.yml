@@ -14,9 +14,9 @@ jobs:
       matrix:
         node-version: ['lts/*']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -35,9 +35,9 @@ jobs:
         node-version: ['lts/*']
         os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -49,6 +49,8 @@ jobs:
         run: npm run test:unit -- --ci --runInBand
       - name: Integration Tests
         run: npm run test:integration -- --ci --runInBand
+      - name: Consumption Tests
+        run: npm run test:consume-types
 
   test-playwright:
     runs-on: ubuntu-latest
@@ -56,9 +58,9 @@ jobs:
       matrix:
         node-version: ['lts/*']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -70,8 +72,27 @@ jobs:
         run: npx playwright install --with-deps
       - name: E2E Tests (Playwright)
         run: npm run test:e2e
+
+      # In the interest of not having to modify GitHub settings to update required
+      # builds for passing, I stuck this test here.
+      - name: Test v4 build
+        run: |
+          git fetch --tags
+          npm run build:v4
+          # ensure v4 build files exist:
+          test -f lib/docsify.js
+          test -f themes/pure.css
+          # ensure no git changes after building v4:
+          git diff --exit-code
+          npm run clean:v4
+          # ensure v4 build files are removed:
+          test ! -f lib/docsify.js
+          test ! -f themes/pure.css
+          # ensure no git changes after cleaning v4:
+          git diff --exit-code
+
       - name: Store artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: ${{ matrix.os }}-${{ matrix.node-version }}-artifacts

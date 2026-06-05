@@ -1,5 +1,7 @@
 import emojiData from '../core/render/emoji-data.js';
 
+const window = /** @type {any} */ (globalThis);
+
 // Deprecation notice
 if (window && window.console) {
   // eslint-disable-next-line no-console

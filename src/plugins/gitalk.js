@@ -1,4 +1,5 @@
-/* global gitalk */
+const window = /** @type {any} */ (globalThis);
+
 function install(hook) {
   const dom = Docsify.dom;
 
@@ -11,14 +12,18 @@ function install(hook) {
   });
 
   hook.doneEach(_ => {
-    const el = document.getElementById('gitalk-container');
+    const el = /** @type {HTMLElement} */ (
+      document.getElementById('gitalk-container')
+    );
     while (el.hasChildNodes()) {
-      el.removeChild(el.firstChild);
+      el.removeChild(/** @type {Node} */ (el.firstChild));
     }
 
-    gitalk.render('gitalk-container');
+    window.gitalk.render('gitalk-container');
   });
 }
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

@@ -7,12 +7,57 @@ import { waitForText } from '../helpers/wait-for.js';
 describe('render', function () {
   // Helpers
   // ---------------------------------------------------------------------------
-  describe('helpers', () => {
+  describe('callouts', () => {
     beforeEach(async () => {
       await docsifyInit();
     });
 
-    test('important content', () => {
+    test('caution', () => {
+      const output = window.marked('> [!CAUTION]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(`
+"<div class="callout caution"><p>
+Text</p></div>"
+`);
+    });
+
+    test('important', () => {
+      const output = window.marked('> [!IMPORTANT]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(`
+"<div class="callout important"><p>
+Text</p></div>"
+`);
+    });
+
+    test('note', () => {
+      const output = window.marked('> [!NOTE]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(`
+"<div class="callout note"><p>
+Text</p></div>"
+`);
+    });
+
+    test('tip', () => {
+      const output = window.marked('> [!TIP]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(`
+"<div class="callout tip"><p>
+Text</p></div>"
+`);
+    });
+
+    test('warning', () => {
+      const output = window.marked('> [!WARNING]\n> Text');
+
+      expect(output).toMatchInlineSnapshot(`
+"<div class="callout warning"><p>
+Text</p></div>"
+`);
+    });
+
+    test('important (legacy)', () => {
       const output = window.marked('!> Important content');
 
       expect(output).toMatchInlineSnapshot(
@@ -20,7 +65,7 @@ describe('render', function () {
       );
     });
 
-    test('general tip', () => {
+    test('tip (legacy)', () => {
       const output = window.marked('?> General tip');
 
       expect(output).toMatchInlineSnapshot(
@@ -100,6 +145,42 @@ describe('render', function () {
     });
   });
 
+  // Code
+  // ---------------------------------------------------------------------------
+  describe('code', function () {
+    beforeEach(async () => {
+      await docsifyInit();
+    });
+
+    test('escapes language metadata to prevent attribute injection', async function () {
+      const output = window.marked(stripIndent`
+        \`\`\`js" onmouseover="alert(1)
+        const answer = 42;
+        \`\`\`
+      `);
+
+      expect(output).not.toContain('" onmouseover="alert(1)');
+      expect(output).toContain(
+        'data-lang="js&quot; onmouseover=&quot;alert(1)"',
+      );
+      expect(output).toContain(
+        'class="language-js&quot; onmouseover=&quot;alert(1)"',
+      );
+    });
+
+    test('keeps declared language class for normal fences', async function () {
+      const output = window.marked(stripIndent`
+        \`\`\`js
+        const answer = 42;
+        \`\`\`
+      `);
+
+      expect(output).toContain('data-lang="js"');
+      expect(output).toContain('class="language-js"');
+      expect(output).toContain('token keyword');
+    });
+  });
+
   // Images
   // ---------------------------------------------------------------------------
   describe('images', function () {
@@ -159,6 +240,16 @@ describe('render', function () {
       expect(output).toMatchInlineSnapshot(
         '"<p><img src="http://imageUrl" data-origin="http://imageUrl" alt="alt text" width="50" /></p>"',
       );
+    });
+
+    test('escapes image alt and title to prevent attribute injection', async function () {
+      const output = window.marked(
+        '![alt" onerror="alert(1)](http://imageUrl \'title" onerror="alert(1)\')',
+      );
+
+      expect(output).not.toContain(' onerror="alert(1)"');
+      expect(output).toContain('alt="alt&quot; onerror=&quot;alert(1)"');
+      expect(output).toContain('title="title&quot; onerror=&quot;alert(1)"');
     });
   });
 
@@ -229,7 +320,7 @@ describe('render', function () {
       const output = window.marked('[alt text](http://url)');
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener">alt text</a></p>"',
+        `"<p><a href="http://url" target="_blank" rel="noopener">alt text</a></p>"`,
       );
     });
 
@@ -241,7 +332,7 @@ describe('render', function () {
       const output = window.marked('[alt text](http://www.example.com)');
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://www.example.com" target="_blank"  rel="noopener">alt text</a></p>"',
+        `"<p><a href="http://www.example.com" target="_blank" rel="noopener">alt text</a></p>"`,
       );
     });
 
@@ -249,7 +340,7 @@ describe('render', function () {
       const output = window.marked("[alt text](http://url ':disabled')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="javascript:void(0)" target="_blank"  rel="noopener" disabled>alt text</a></p>"',
+        `"<p><a href="javascript:void(0)" target="_blank" rel="noopener" disabled>alt text</a></p>"`,
       );
     });
 
@@ -257,7 +348,7 @@ describe('render', function () {
       const output = window.marked("[alt text](http://url ':target=_self')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_self" >alt text</a></p>"',
+        `"<p><a href="http://url" target="_self">alt text</a></p>"`,
       );
     });
 
@@ -275,7 +366,17 @@ describe('render', function () {
       );
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener" class="someCssClass">alt text</a></p>"',
+        `"<p><a href="http://url" target="_blank" rel="noopener" class="someCssClass">alt text</a></p>"`,
+      );
+    });
+
+    test('multi class config', async function () {
+      const output = window.marked(
+        "[alt text](http://url ':class=someCssClass :class=anotherCssClass')",
+      );
+
+      expect(output).toMatchInlineSnapshot(
+        `"<p><a href="http://url" target="_blank" rel="noopener" class="someCssClass anotherCssClass">alt text</a></p>"`,
       );
     });
 
@@ -283,8 +384,17 @@ describe('render', function () {
       const output = window.marked("[alt text](http://url ':id=someCssID')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="http://url" target="_blank"  rel="noopener" id="someCssID">alt text</a></p>"',
+        `"<p><a href="http://url" target="_blank" rel="noopener" id="someCssID">alt text</a></p>"`,
       );
+    });
+
+    test('escapes link title to prevent attribute injection', async function () {
+      const output = window.marked(
+        `[alt text](http://url 'title" onclick="alert(1)')`,
+      );
+
+      expect(output).not.toContain(' onclick="alert(1)"');
+      expect(output).toContain('title="title&quot; onclick=&quot;alert(1)"');
     });
   });
 

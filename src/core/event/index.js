@@ -1,5 +1,7 @@
 import { isMobile, mobileBreakpoint } from '../util/env.js';
+import { noop } from '../util/core.js';
 import * as dom from '../util/dom.js';
+import { stripUrlExceptId } from '../router/util.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -9,8 +11,9 @@ import * as dom from '../util/dom.js';
  */
 export function Events(Base) {
   return class Events extends Base {
-    #intersectionObserver;
-    #isScrolling;
+    #intersectionObserver = new IntersectionObserver(() => {});
+    #isScrolling = false;
+    #cancelAnchorScroll = noop;
     #title = dom.$.title;
 
     // Initialization
@@ -52,16 +55,19 @@ export function Events(Base) {
       const coverElm = dom.find('section.cover');
 
       if (!coverElm) {
-        dom.toggleClass(dom.body, 'add', 'sticky');
+        dom.body.classList.add('sticky');
         return;
       }
 
-      const observer = new IntersectionObserver(entries => {
-        const isIntersecting = entries[0].isIntersecting;
-        const op = isIntersecting ? 'remove' : 'add';
+      const observer = new IntersectionObserver(
+        entries => {
+          const isIntersecting = entries[0].isIntersecting;
+          const op = isIntersecting ? 'remove' : 'add';
 
-        dom.toggleClass(dom.body, op, 'sticky');
-      });
+          dom.body.classList[op]('sticky');
+        },
+        { threshold: 0.01 },
+      );
 
       observer.observe(coverElm);
     }
@@ -72,7 +78,7 @@ export function Events(Base) {
      * @void
      */
     #initHeadings() {
-      const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5)');
+      const headingElms = dom.findAll('#main :where(h1, h2, h3, h4, h5, h6)');
       const headingsInView = new Set();
       let isInitialLoad = true;
 
@@ -164,32 +170,35 @@ export function Events(Base) {
 
           // Convert key sequences to sorted arrays (modifiers first)
           // Ex: ['alt+t', 't+ctrl'] => [['alt', 't'], ['ctrl', 't']]
-          bindingConfig.bindings = bindingConfig.bindings.map(keys => {
-            const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
+          bindingConfig.bindings = bindingConfig.bindings.map(
+            (/** @type {string | string[]} */ keys) => {
+              /** @type {string[][]} */
+              const sortedKeys = [[], []]; // Modifier keys, non-modifier keys
 
-            if (typeof keys === 'string') {
-              keys = keys.split('+');
-            }
+              if (typeof keys === 'string') {
+                keys = keys.split('+');
+              }
 
-            keys.forEach(key => {
-              const isModifierKey = modifierKeys.includes(key);
-              const targetArray = sortedKeys[isModifierKey ? 0 : 1];
-              const newKeyValue = key.trim().toLowerCase();
+              keys.forEach(key => {
+                const isModifierKey = modifierKeys.includes(key);
+                const targetArray = sortedKeys[isModifierKey ? 0 : 1];
+                const newKeyValue = key.trim().toLowerCase();
 
-              targetArray.push(newKeyValue);
-            });
+                targetArray.push(newKeyValue);
+              });
 
-            sortedKeys.forEach(arr => arr.sort());
+              sortedKeys.forEach(arr => arr.sort());
 
-            return sortedKeys.flat();
-          });
+              return sortedKeys.flat();
+            },
+          );
         });
 
         // Handle keyboard events
-        dom.on('keydown', e => {
-          const isTextEntry = document.activeElement.matches(
-            'input, select, textarea',
-          );
+        dom.on('keydown', (/** @type {KeyboardEvent} */ e) => {
+          const isTextEntry = /** @type {HTMLElement} */ (
+            document.activeElement
+          ).matches('input, select, textarea');
 
           if (isTextEntry) {
             return;
@@ -197,15 +206,16 @@ export function Events(Base) {
 
           const bindingConfigs = Object.values(keyBindings || []);
           const matchingConfigs = bindingConfigs.filter(
-            ({ bindings }) =>
+            (/** @type {{ bindings: string[][] }} */ { bindings }) =>
               bindings &&
               // bindings: [['alt', 't'], ['ctrl', 't']]
-              bindings.some(keys =>
+              bindings.some((/** @type {string[]} */ keys) =>
                 // keys: ['alt', 't']
                 keys.every(
                   // k: 'alt'
                   k =>
-                    (modifierKeys.includes(k) && e[k + 'Key']) ||
+                    (modifierKeys.includes(k) &&
+                      e[/** @type {keyof KeyboardEvent} */ (k + 'Key')]) ||
                     e.key === k || // Ex: " ", "a"
                     e.code.toLowerCase() === k || // "space"
                     e.code.toLowerCase() === `key${k}`, // "keya"
@@ -241,13 +251,15 @@ export function Events(Base) {
         });
 
       // Collapse toggle
-      dom.on(sidebarElm, 'click', ({ target }) => {
-        const linkElm = target.closest('a');
-        const linkParent = linkElm?.closest('li');
-        const subSidebar = linkParent?.querySelector('.app-sub-sidebar');
+      dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
+        const linkElm = /** @type {HTMLElement} */ (target).closest('a');
+        const linkParent = /** @type {HTMLLIElement} */ (
+          linkElm?.closest('li')
+        );
+        const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
-        if (subSidebar) {
-          dom.toggleClass(linkParent, 'collapse');
+        if (hasSubSidebar) {
+          linkParent.classList.toggle('collapse');
         }
       });
     }
@@ -265,19 +277,20 @@ export function Events(Base) {
         return;
       }
 
+      /** @type {HTMLElement | null} */
       let lastContentFocusElm;
 
       // Store last focused content element (restored via #toggleSidebar)
-      dom.on(contentElm, 'focusin', e => {
+      dom.on(contentElm, 'focusin', (/** @type {FocusEvent} */ e) => {
         const focusAttr = 'data-restore-focus';
 
         lastContentFocusElm?.removeAttribute(focusAttr);
-        lastContentFocusElm = e.target;
+        lastContentFocusElm = /** @type {HTMLElement} */ (e.target);
         lastContentFocusElm.setAttribute(focusAttr, '');
       });
 
       // Toggle sidebar
-      dom.on(toggleElm, 'click', e => {
+      dom.on(toggleElm, 'click', (/** @type {MouseEvent} */ e) => {
         e.stopPropagation();
         this.#toggleSidebar();
       });
@@ -312,16 +325,25 @@ export function Events(Base) {
      * @void
      */
     onRender() {
-      const { name } = this.config;
+      const { name, pageTitleFormatter } = this.config;
       const currentPath = this.router.toURL(this.router.getCurrentPath());
       const currentSection = dom
         .find(`.sidebar a[href='${currentPath}']`)
         ?.getAttribute('title');
 
-      const currentTitle = name
-        ? currentSection
-          ? `${currentSection} - ${name}`
+      // If a pageTitleFormatter is provided, let the user format the name
+      // (no automatic HTML stripping). Otherwise, default to stripping
+      // HTML tags from the configured name.
+      const plainName =
+        typeof pageTitleFormatter === 'function' && typeof name === 'string'
+          ? pageTitleFormatter(name)
           : name
+            ? name.replace(/<[^>]+>/g, '').trim()
+            : name;
+      const currentTitle = plainName
+        ? currentSection
+          ? `${currentSection} - ${plainName}`
+          : plainName
         : currentSection;
 
       // Update page title
@@ -343,41 +365,44 @@ export function Events(Base) {
     onNavigate(source) {
       const { auto2top, topMargin } = this.config;
       const { path, query } = this.route;
-
-      this.#markSidebarActiveElm();
+      const activeSidebarElm = this.#markSidebarActiveElm();
 
       // Note: Scroll position set by browser on forward/back (i.e. "history")
       if (source !== 'history') {
         // Anchor link
         if (query.id) {
           const headingElm = dom.find(
-            `.markdown-section :where(h1, h2, h3, h4, h5)[id="${query.id}"]`,
+            `.markdown-section :where(h1, h2, h3, h4, h5, h6)[id="${query.id}"]`,
           );
 
           if (headingElm) {
-            this.#watchNextScroll();
-            headingElm.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
+            this.#scrollToHeading(headingElm);
           }
         }
         // User click/tap
         else if (source === 'navigate') {
           // Scroll to top
           if (auto2top) {
-            document.scrollingElement.scrollTop = topMargin ?? 0;
+            /** @type {Element} */ (document.scrollingElement).scrollTop =
+              topMargin ?? 0;
           }
         }
       }
 
+      const isNavigate = source === 'navigate';
+      const hasId = 'id' in query;
+      const noSubSidebar = !activeSidebarElm?.querySelector('.app-sub-sidebar');
+
       // Clicked anchor link
-      if (path === '/' || (query.id && source === 'navigate')) {
-        isMobile() && this.#toggleSidebar(false);
+      const shouldCloseSidebar =
+        path === '/' || (isNavigate && (hasId || noSubSidebar));
+
+      if (shouldCloseSidebar && isMobile()) {
+        this.#toggleSidebar(false);
       }
 
       // Clicked anchor link or page load with anchor ID
-      if (query.id || source === 'navigate') {
+      if (hasId || isNavigate) {
         this.#focusContent();
       }
     }
@@ -399,26 +424,35 @@ export function Events(Base) {
         ...options,
       };
       const { query } = this.route;
-      const focusEl = query.id
-        ? // Heading ID
-          dom.find(`#${query.id}`)
-        : // First heading
-          dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
-          // Content container
-          dom.find('#main');
+      const focusEl = /** @type {HTMLElement|null} */ (
+        query.id
+          ? // Heading ID
+            dom.find(`#${query.id}`)
+          : // First heading
+            dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
+            // Content container
+            dom.find('#main')
+      );
 
       // Move focus to content area
-      focusEl?.focus(settings);
+      if (focusEl) {
+        if (!focusEl.hasAttribute('tabindex')) {
+          focusEl.setAttribute('tabindex', '-1');
+          focusEl.setAttribute('data-added-tabindex', 'true');
+        }
+
+        if (focusEl.hasAttribute('data-added-tabindex')) {
+          focusEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        focusEl.focus(settings);
+      }
 
       return focusEl;
     }
 
     /**
      * Marks the active app nav item
-     *
-     * @param {string} [href] Matching element HREF value. If unspecified,
-     * defaults to the current path (without query params)
-     * @void
      */
     #markAppNavActiveElm() {
       const href = decodeURIComponent(this.router.toURL(this.route.path));
@@ -430,13 +464,16 @@ export function Events(Base) {
           return;
         }
 
-        const newActive = dom
-          .findAll(navElm, 'a')
+        const newActive = /** @type {HTMLAnchorElement[]} */ (
+          dom.findAll(navElm, 'a')
+        )
           .sort((a, b) => b.href.length - a.href.length)
           .find(
             a =>
-              href.includes(a.getAttribute('href')) ||
-              href.includes(decodeURI(a.getAttribute('href'))),
+              href.includes(/** @type {string} */ (a.getAttribute('href'))) ||
+              href.includes(
+                decodeURI(/** @type {string} */ (a.getAttribute('href'))),
+              ),
           )
           ?.closest('li');
         const oldActive = dom.find(navElm, 'li.active');
@@ -464,11 +501,13 @@ export function Events(Base) {
         return;
       }
 
+      href = stripUrlExceptId(href);
+
       const oldActive = dom.find(sidebar, 'li.active');
       const newActive = dom
         .find(
           sidebar,
-          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
+          `a[href="${href}"], a[href="${decodeURIComponent(/** @type {string} */ (href))}"]`,
         )
         ?.closest('li');
 
@@ -501,7 +540,7 @@ export function Events(Base) {
       const newPage = dom
         .find(
           sidebar,
-          `a[href="${path}"], a[href="${decodeURIComponent(path)}"]`,
+          `a[href="${path}"], a[href="${decodeURIComponent(/** @type {string} */ (path))}"]`,
         )
         ?.closest('li');
 
@@ -513,8 +552,11 @@ export function Events(Base) {
       return newPage;
     }
 
+    /**
+     * @param {boolean} [force]
+     */
     #toggleSidebar(force) {
-      const sidebarElm = dom.find('.sidebar');
+      const sidebarElm = /** @type {HTMLElement|null} */ (dom.find('.sidebar'));
 
       if (!sidebarElm) {
         return;
@@ -528,9 +570,11 @@ export function Events(Base) {
 
       // Set aria-expanded attribute
       ariaElms.forEach(toggleElm => {
+        const expanded = force ?? sidebarElm.classList.contains('show');
+        toggleElm.setAttribute('aria-expanded', String(expanded));
         toggleElm.setAttribute(
-          'aria-expanded',
-          force ?? sidebarElm.classList.contains('show'),
+          'aria-label',
+          expanded ? 'Hide primary navigation' : 'Show primary navigation',
         );
       });
 
@@ -548,8 +592,8 @@ export function Events(Base) {
       }
       // Restore focus
       else {
-        const restoreElm = document.querySelector(
-          'main > .content [data-restore-focus]',
+        const restoreElm = /** @type {HTMLElement|null} */ (
+          document.querySelector('main > .content [data-restore-focus]')
         );
 
         if (restoreElm) {
@@ -558,6 +602,243 @@ export function Events(Base) {
           });
         }
       }
+    }
+
+    /**
+     * Scroll an anchor target into view and keep it aligned while late-loading
+     * content above the target changes the page height.
+     *
+     * @param {Element} headingElm Heading element to scroll to
+     * @void
+     */
+    #scrollToHeading(headingElm) {
+      this.#cancelAnchorScroll();
+
+      const contentElm = dom.find('.markdown-section');
+      const userEvents = ['keydown', 'mousedown', 'touchstart', 'wheel'];
+      /** @type {{ wait?: ReturnType<typeof setTimeout> }} */
+      const timers = {};
+      /** @type {number} */
+      let animationFrame = 0;
+      /** @type {number} */
+      let correctionFrame = 0;
+      let cancelled = false;
+      let cancel = noop;
+      let hasScrolled = false;
+      let scrollScheduled = false;
+      let remainingImages = 0;
+      /** @type {() => void} */
+      let cleanup = () => {};
+      /** @type {{ image: HTMLImageElement, eventName: "load" | "error", listener: () => void }[]} */
+      const imageListeners = [];
+      /** @type {{ image: HTMLImageElement, previousHeight: number }[]} */
+      const pendingImageCorrections = [];
+
+      const removeUserListeners = () => {
+        userEvents.forEach(eventName => {
+          window.removeEventListener(eventName, cancel);
+        });
+      };
+
+      const removeImageListeners = () => {
+        imageListeners.forEach(({ image, eventName, listener }) => {
+          image.removeEventListener(eventName, listener);
+        });
+        imageListeners.length = 0;
+      };
+
+      const scrollToHeading = () => {
+        if (cancelled) {
+          return;
+        }
+
+        if (!document.contains(headingElm)) {
+          cancel();
+          return;
+        }
+
+        hasScrolled = true;
+        this.#watchNextScroll();
+        headingElm.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+
+        if (remainingImages === 0) {
+          cleanup();
+        }
+      };
+
+      const scheduleScroll = () => {
+        if (hasScrolled || scrollScheduled) {
+          return;
+        }
+
+        scrollScheduled = true;
+        clearTimeout(timers.wait);
+        animationFrame = requestAnimationFrame(scrollToHeading);
+      };
+
+      /**
+       * Keep the heading visually anchored when late images above it resize
+       * after the fallback scroll has already started.
+       *
+       * @param {HTMLImageElement} image Image that changed height
+       * @param {number} previousHeight Height before the image settled
+       * @void
+       */
+      const scheduleCorrection = (image, previousHeight) => {
+        if (cancelled || !hasScrolled) {
+          return;
+        }
+
+        pendingImageCorrections.push({ image, previousHeight });
+
+        if (correctionFrame) {
+          return;
+        }
+
+        correctionFrame = requestAnimationFrame(() => {
+          correctionFrame = 0;
+
+          if (cancelled) {
+            return;
+          }
+
+          if (!document.contains(headingElm)) {
+            cleanup();
+            return;
+          }
+
+          let heightChange = 0;
+
+          for (const { image, previousHeight } of pendingImageCorrections) {
+            const isBeforeHeading =
+              image.compareDocumentPosition(headingElm) &
+              Node.DOCUMENT_POSITION_FOLLOWING;
+            const currentHeight = image.getBoundingClientRect().height;
+
+            if (isBeforeHeading) {
+              heightChange += currentHeight - previousHeight;
+            }
+          }
+          pendingImageCorrections.length = 0;
+
+          if (Math.abs(heightChange) < 1) {
+            if (remainingImages === 0) {
+              cleanup();
+            }
+
+            return;
+          }
+
+          const scrollingElm = document.scrollingElement;
+
+          if (!scrollingElm) {
+            cleanup();
+            return;
+          }
+
+          const scrollPaddingTop =
+            parseFloat(getComputedStyle(scrollingElm).scrollPaddingTop) || 0;
+          const headingTop = headingElm.getBoundingClientRect().top;
+          const scrollAdjustment = headingTop - scrollPaddingTop;
+
+          if (Math.abs(scrollAdjustment) < 1) {
+            if (remainingImages === 0) {
+              cleanup();
+            }
+
+            return;
+          }
+
+          this.#watchNextScroll();
+          scrollingElm.scrollTop += scrollAdjustment;
+
+          if (remainingImages === 0) {
+            cleanup();
+          }
+        });
+      };
+
+      cleanup = () => {
+        if (cancelled) {
+          return;
+        }
+
+        cancelled = true;
+        cancelAnimationFrame(animationFrame);
+        cancelAnimationFrame(correctionFrame);
+        clearTimeout(timers.wait);
+        removeImageListeners();
+        removeUserListeners();
+        this.#cancelAnchorScroll = noop;
+      };
+      cancel = cleanup;
+
+      const waitForImages = () => {
+        const images = /** @type {HTMLImageElement[]} */ (
+          contentElm ? Array.from(contentElm.querySelectorAll('img')) : []
+        ).filter(image => {
+          return (
+            !image.complete &&
+            image.compareDocumentPosition(headingElm) &
+              Node.DOCUMENT_POSITION_FOLLOWING
+          );
+        });
+
+        if (!images.length) {
+          scheduleScroll();
+          return;
+        }
+
+        remainingImages = images.length;
+        const onImageSettled = (image, previousHeight) => {
+          remainingImages -= 1;
+
+          if (hasScrolled) {
+            scheduleCorrection(image, previousHeight);
+          } else if (remainingImages === 0) {
+            scheduleScroll();
+          }
+
+          if (remainingImages === 0 && hasScrolled && !correctionFrame) {
+            cleanup();
+          }
+        };
+
+        images.forEach(image => {
+          let settled = false;
+          const previousHeight = image.getBoundingClientRect().height;
+          const listener = () => {
+            if (settled) {
+              return;
+            }
+
+            settled = true;
+            onImageSettled(image, previousHeight);
+          };
+
+          image.addEventListener('load', listener, { once: true });
+          image.addEventListener('error', listener, { once: true });
+          imageListeners.push(
+            { image, eventName: 'load', listener },
+            { image, eventName: 'error', listener },
+          );
+        });
+
+        timers.wait = setTimeout(scheduleScroll, 300);
+      };
+
+      userEvents.forEach(eventName => {
+        window.addEventListener(eventName, cancel, {
+          once: true,
+          passive: true,
+        });
+      });
+      waitForImages();
+
+      this.#cancelAnchorScroll = cancel;
     }
 
     /**
@@ -582,6 +863,9 @@ export function Events(Base) {
           }
           // Browsers w/o native scrollend event support (Safari)
           else {
+            /** @type {any} */
+            let scrollTimer;
+
             const callback = () => {
               clearTimeout(scrollTimer);
 
@@ -591,9 +875,8 @@ export function Events(Base) {
               }, 100);
             };
 
-            let scrollTimer;
-
             document.addEventListener('scroll', callback, false);
+            callback();
           }
         },
         { once: true },

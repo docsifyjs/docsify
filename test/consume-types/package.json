@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "serve": "five-server . --open=false --ignorePattern=node_modules"
+  },
+  "dependencies": {
+    "docsify": "file:../../"
+  },
+  "devDependencies": {
+    "five-server": "^0.4.5",
+    "typescript": "^5.9.3"
+  }
+}

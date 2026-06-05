@@ -6,6 +6,8 @@ function appendScript() {
   document.body.appendChild(script);
 }
 
+const window = /** @type {any} */ (globalThis);
+
 function init(id) {
   appendScript();
   window.ga =
@@ -20,15 +22,14 @@ function init(id) {
 
 function collect() {
   if (!window.ga) {
-    init($docsify.ga);
+    init(window.$docsify.ga);
   }
-
   window.ga('set', 'page', location.hash);
   window.ga('send', 'pageview');
 }
 
 const install = function (hook) {
-  if (!$docsify.ga) {
+  if (!window.$docsify.ga) {
     // eslint-disable-next-line no-console
     console.error('[Docsify] ga is required.');
     return;
@@ -38,4 +39,6 @@ const install = function (hook) {
 };
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify?.plugins || [])];
+
+export {};

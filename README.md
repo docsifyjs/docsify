@@ -30,7 +30,7 @@ Docsify turns one or more Markdown files into a Website, with no build process r
 
 ## Features
 
-- No statically built html files
+- No statically built HTML files
 - Simple and lightweight
 - Smart full-text search plugin
 - Multiple themes

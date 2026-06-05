@@ -48,10 +48,11 @@ export function isFn(obj) {
 
 /**
  * Check if url is external
- * @param {String} string  url
+ * @param {String} url  url
  * @returns {Boolean} True if the passed-in url is external
  */
 export function isExternal(url) {
+  /** @type {any} */
   const match = url.match(
     /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/,
   );

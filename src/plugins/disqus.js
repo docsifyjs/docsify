@@ -3,6 +3,8 @@ if (fixedPath !== location.href) {
   location.href = fixedPath;
 }
 
+const window = /** @type {any} */ (globalThis);
+
 function install(hook, vm) {
   const dom = Docsify.dom;
   const disqus = vm.config.disqus;
@@ -11,11 +13,11 @@ function install(hook, vm) {
   }
 
   hook.init(_ => {
-    const script = dom.create('script');
+    const script = /** @type {HTMLScriptElement} */ (dom.create('script'));
 
     script.async = true;
     script.src = `https://${disqus}.disqus.com/embed.js`;
-    script.setAttribute('data-timestamp', Number(new Date()));
+    script.setAttribute('data-timestamp', String(Number(new Date())));
     dom.appendTo(dom.body, script);
   });
 
@@ -48,4 +50,6 @@ function install(hook, vm) {
 }
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

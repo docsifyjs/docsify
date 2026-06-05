@@ -1,0 +1,33 @@
+name: Feature Request
+description: Propose a new feature or improvement for this project.
+labels: ['feature request', 'Triage']
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature! Please provide as much detail as possible to help us understand your idea. **Write in English.**
+
+  - type: textarea
+    attributes:
+      label: Problem or Desire
+      description: What problem or need will this feature address? Why is it important?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Proposal
+      description: What is your proposed solution? How should this feature work?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Implementation Details
+      description: If you have any ideas about how this feature could be implemented, please share them here.
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or references that might help us understand your request.

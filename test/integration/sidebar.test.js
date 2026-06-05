@@ -63,11 +63,11 @@ describe('Test sidebar render toc structure', function () {
       },
       markdown: {
         homepage: `
-        # Getting started 
+        # Getting started
            some thing
-        ## Level1 
+        ## Level1
             foo
-        ### Level2 
+        ### Level2
             bar
         `,
       },
@@ -117,5 +117,29 @@ describe('Test sidebar render toc structure', function () {
     expect(level2_A_tag).not.toBeNull();
     expect(level1_A_tag.textContent).toContain('Level1');
     expect(level2_A_tag.textContent).toContain('Level2');
+  });
+
+  test('Render sidebar should ignore headings in blockquote by default', async () => {
+    await docsifyInit({
+      config: {
+        loadSidebar: false,
+      },
+      markdown: {
+        homepage: `
+        # Normal Title
+        > # Quoted Title
+        > #Quoted Title Without Space
+        ## Section Title
+        `,
+      },
+      waitForSelector: '.sidebar-nav > ul',
+    });
+
+    const sidebarText = document.querySelector('.sidebar-nav').textContent;
+
+    expect(sidebarText).toContain('Normal Title');
+    expect(sidebarText).toContain('Section Title');
+    expect(sidebarText).not.toContain('Quoted Title');
+    expect(sidebarText).not.toContain('Quoted Title Without Space');
   });
 });

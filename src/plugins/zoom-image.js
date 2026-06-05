@@ -4,10 +4,12 @@ function install(hook) {
   let zoom;
 
   hook.doneEach(_ => {
-    let elms = Array.from(
-      document.querySelectorAll(
-        '.markdown-section img:not(.emoji):not([data-no-zoom])',
-      ),
+    let elms = /** @type {HTMLElement[]} */ (
+      Array.from(
+        document.querySelectorAll(
+          '.markdown-section img:not(.emoji):not([data-no-zoom])',
+        ),
+      )
     );
 
     Docsify.dom.style(
@@ -25,4 +27,4 @@ function install(hook) {
 }
 
 window.$docsify = window.$docsify || {};
-$docsify.plugins = [install, ...($docsify.plugins || [])];
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];

@@ -19,7 +19,7 @@ export async function startServer() {
         console.log(
           `\nPort ${settings.port} not available. Exiting process.\n`,
         );
-        process.exit(0);
+        process.exit(1);
       }
 
       resolve(bsServer);

@@ -65,9 +65,21 @@ Sometimes you don't want to embed a whole file. Maybe because you need just a fe
 ```
 
 In your code file you need to surround the fragment between `/// [demo]` lines (before and after the fragment).
-Alternatively you can use `### [demo]`.
+Alternatively you can use `### [demo]`. By default, only identifiers are omitted. To omit the entire line containing the identifier in the fragment output, add the `:omitFragmentLine` option. This is useful if your code fragment is e.g. HTML and you want to hide the Docsify fragment identifier from showing in your HTML source. `<!-- /// [demo] -->` in your source file and `:omitFragmentLine` will make the `-->` not show up in your Docsify code fragment section.
 
-Example:
+Example: In the source file \_media/example.js, `/// [demo]` identifiers have been included:
+
+```markdown
+[filename](_media/example.js ':include :type=code')
+```
+
+[filename](_media/example.js ':include :type=code')
+
+Adding the `:fragment=demo` results in the following:
+
+```markdown
+[filename](_media/example.js ':include :type=code :fragment=demo')
+```
 
 [filename](_media/example.js ':include :type=code :fragment=demo')
 
@@ -75,7 +87,7 @@ Example:
 
 If you embed the file as `iframe`, `audio` and `video`, then you may need to set the attributes of these tags.
 
-?> Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want add more attributes, the `controls` attribute need to be added manually if need be.
+> [!TIP] Note, for the `audio` and `video` types, docsify adds the `controls` attribute by default. When you want add more attributes, the `controls` attribute need to be added manually if need be.
 
 ```md
 [filename](_media/example.mp4 ':include :type=video controls width=100%')
@@ -101,13 +113,13 @@ Embedding any type of source code file, you can specify the highlighted language
 
 [](_media/example.html ':include :type=code text')
 
-?> How to set highlight? You can see [here](language-highlight.md).
+> [!TIP] How to set highlight? You can see [here](language-highlight.md).
 
 ## Embed a gist
 
 You can embed a gist as markdown content or as a code block - this is based on the approach at the start of [Embed Files](#embed-files) section, but uses a raw gist URL as the target.
 
-?> **No** plugin or app config change is needed here to make this work. In fact, the "Embed" `script` tag that is copied from a gist will _not_ load even if you make plugin or config changes to allow an external script.
+> [!TIP] **No** plugin or app config change is needed here to make this work. In fact, the "Embed" `script` tag that is copied from a gist will _not_ load even if you make plugin or config changes to allow an external script.
 
 ### Identify the gist's metadata
 
@@ -132,7 +144,7 @@ Here are two examples based on the sample gist:
 - https://gist.githubusercontent.com/anikethsaha/f88893bb563bb7229d6e575db53a8c15/raw/content.md
 - https://gist.githubusercontent.com/anikethsaha/f88893bb563bb7229d6e575db53a8c15/raw/script.js
 
-?> Alternatively, you can get a raw URL directly clicking the _Raw_ button on a gist file. But, if you use that approach, just be sure to **remove** the revision number between `raw/` and the filename so that the URL matches the pattern above instead. Otherwise your embedded gist will **not** show the latest content when the gist is updated.
+> [!TIP] Alternatively, you can get a raw URL directly clicking the _Raw_ button on a gist file. But, if you use that approach, just be sure to **remove** the revision number between `raw/` and the filename so that the URL matches the pattern above instead. Otherwise your embedded gist will **not** show the latest content when the gist is updated.
 
 Continue with one of the sections below to embed the gist on a Docsify page.
 
