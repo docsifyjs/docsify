@@ -82,7 +82,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
     };
 
     if (token.embed.url) {
-      get(token.embed.url).then(next);
+      get(token.embed.url).then(next, _err => next(''));
     } else {
       next(token.embed.html);
     }

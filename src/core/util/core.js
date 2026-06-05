@@ -11,7 +11,7 @@ export function cached(fn) {
   return function (str) {
     const key = isPrimitive(str) ? str : JSON.stringify(str);
     const hit = cache[key];
-    return hit || (cache[key] = fn(str));
+    return hit !== undefined ? hit : (cache[key] = fn(str));
   };
 }
 
