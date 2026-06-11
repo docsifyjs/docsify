@@ -133,7 +133,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
 
 export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const hit = cached[raw];
-  if (hit !== undefined) {
+  if (hit) {
     const copy = hit.slice();
     copy.links = hit.links;
     return done(copy);
