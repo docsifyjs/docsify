@@ -281,7 +281,9 @@ Command | Description | Parameters
     });
 
     expect(await waitForText('#main', 'Text after missing embed')).toBeTruthy();
-    expect(await waitForText('#main', 'reachable include content')).toBeTruthy();
+    expect(
+      await waitForText('#main', 'reachable include content'),
+    ).toBeTruthy();
   });
 
   test('embed file table cell', async () => {
