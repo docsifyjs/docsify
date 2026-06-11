@@ -122,7 +122,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
     };
 
     if (currentToken.embed.url) {
-      get(currentToken.embed.url).then(next);
+      get(currentToken.embed.url).then(next, () => next());
     } else {
       next(currentToken.embed.html);
     }
@@ -133,7 +133,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
 
 export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const hit = cached[raw];
-  if (hit) {
+  if (hit !== undefined) {
     const copy = hit.slice();
     copy.links = hit.links;
     return done(copy);
@@ -205,7 +205,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   walkFetchEmbed(
     { compile, embedTokens, fetch },
     ({ embedToken, token, rowIndex, cellIndex, tokenRef }) => {
-      if (token) {
+      if (token && embedToken) {
         Object.assign(links, embedToken.links);
 
         if (typeof rowIndex === 'number' && typeof cellIndex === 'number') {
@@ -269,7 +269,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
             });
           }
         }
-      } else {
+      } else if (!token) {
         cached[raw] = tokens.concat();
         tokens.links = cached[raw].links = links;
         done(tokens);
