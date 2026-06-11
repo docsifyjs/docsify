@@ -276,6 +276,11 @@ Command | Description | Parameters
         `,
       },
       routes: {
+        '_media/missing.md': {
+          status: 404,
+          body: 'Not Found',
+          contentType: 'text/markdown',
+        },
         '_media/ok.md': 'reachable include content',
       },
     });
