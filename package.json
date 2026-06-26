@@ -66,7 +66,7 @@
     "axios": "^1.5.0",
     "browser-sync": "^3.0.2",
     "cross-env": "^10.0.0",
-    "cssnano": "^7.0.1",
+    "cssnano": "^8.0.2",
     "eslint": "^9.3.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-jest": "^29.2.1",
