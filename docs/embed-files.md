@@ -48,6 +48,10 @@ Front Matter, commonly utilized in blogging systems like Jekyll, serves to defin
 
 When using Markdown, YAML front matter will be stripped from the rendered content. The attributes cannot be used in this case.
 
+```html
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/front-matter.min.js"></script>
+```
+
 ```markdown
 [filename](_media/example-with-yaml.md ':include')
 ```

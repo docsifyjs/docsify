@@ -179,6 +179,40 @@ describe('Embed', function () {
     expect(mainText).not.toContain("_media/second.md ':include'");
   });
 
+  test('embed markdown file strips front matter when plugin is installed', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          ---
+          title: Homepage
+          ---
+
+          # Embed Test
+
+          [front matter include](_media/content.md ':include')
+        `,
+      },
+      routes: {
+        '_media/content.md': `
+          ---
+          title: Include
+          ---
+
+          included front matter content
+        `,
+      },
+      scriptURLs: ['/dist/plugins/front-matter.js'],
+    });
+
+    expect(
+      await waitForText('#main', 'included front matter content'),
+    ).toBeTruthy();
+
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).not.toContain('title: Homepage');
+    expect(mainText).not.toContain('title: Include');
+  });
+
   test('embed multiple include code fragments in same paragraph', async () => {
     await docsifyInit({
       markdown: {
