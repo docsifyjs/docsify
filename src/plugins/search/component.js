@@ -17,15 +17,23 @@ function stripEmoji(text) {
     .trim();
 }
 
+// User-authored links may contain malformed percent-encoding, on which
+// decodeURIComponent() throws.
+function safeDecode(uri) {
+  try {
+    return decodeURIComponent(uri);
+  } catch {
+    return uri;
+  }
+}
+
 function findSidebarLink(url) {
-  const base = decodeURIComponent((url || '').split('?')[0]);
+  const base = safeDecode((url || '').split('?')[0]);
 
   return Docsify.dom
     .findAll('.sidebar-nav a')
     .find(
-      a =>
-        decodeURIComponent((a.getAttribute('href') || '').split('?')[0]) ===
-        base,
+      a => safeDecode((a.getAttribute('href') || '').split('?')[0]) === base,
     );
 }
 

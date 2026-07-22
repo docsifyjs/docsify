@@ -16,7 +16,7 @@ import { init as initSearch } from './search.js';
  *   keyBindings: string[];
  *   insertAfter?: string;
  *   insertBefore?: string;
- *   resultSource: 'none' | 'page' | 'breadcrumb';
+ *   resultSource?: 'none' | 'page' | 'breadcrumb';
  * }} */
 const CONFIG = {
   placeholder: 'Type to search',

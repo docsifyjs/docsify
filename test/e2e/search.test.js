@@ -131,6 +131,12 @@ test.describe('Search Plugin Tests', () => {
       await searchFieldElm.fill('volcanoes');
       await expect(resultsHeadingElm).toHaveText('Deep Section');
       await expect(resultsPageElm).toHaveText('Guides › Test Page');
+
+      // A page absent from the sidebar falls back to its page title.
+      await page.click('.clear-button');
+      await searchFieldElm.fill('homepage');
+      await expect(resultsHeadingElm).toHaveText('Hello World');
+      await expect(resultsPageElm).toHaveText('Hello World');
     });
   });
 
