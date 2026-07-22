@@ -15,5 +15,8 @@
     "path-to-regexp": "^8.4.2",
     "qs": "^6.15.3",
     "ws": "^8.21.1"
+  },
+  "allowScripts": {
+    "docsify": true
   }
 }
