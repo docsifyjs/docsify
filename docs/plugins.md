@@ -65,6 +65,11 @@ By default, the hyperlink on the current page is recognized and the content is s
       // You can provide a regexp to match prefixes. In this case,
       // the matching substring will be used to identify the index
       pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/,
+
+      // Show where each result comes from (default: 'none')
+      // 'page': the page title, e.g. "Guide"
+      // 'breadcrumb': the sidebar path, e.g. "Basics › Guide"
+      resultSource: 'none',
     },
   };
 </script>

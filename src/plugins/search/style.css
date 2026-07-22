@@ -148,6 +148,13 @@
   font-size: var(--font-size-s);
 }
 
+.search .matching-post .search-breadcrumb {
+  margin: 0.35em 0 0 0;
+  color: var(--color-mono-7);
+  font-size: var(--font-size-s);
+  text-align: right;
+}
+
 .search .results-status {
   margin-bottom: 0;
   color: var(--color-mono-6);

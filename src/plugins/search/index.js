@@ -16,6 +16,7 @@ import { init as initSearch } from './search.js';
  *   keyBindings: string[];
  *   insertAfter?: string;
  *   insertBefore?: string;
+ *   resultSource: 'none' | 'page' | 'breadcrumb';
  * }} */
 const CONFIG = {
   placeholder: 'Type to search',
@@ -28,6 +29,7 @@ const CONFIG = {
   keyBindings: ['/', 'meta+k', 'ctrl+k'],
   insertAfter: undefined, // CSS selector
   insertBefore: undefined, // CSS selector
+  resultSource: 'none', // 'none' | 'page' | 'breadcrumb'
 };
 
 const install = function (hook, vm) {
@@ -45,6 +47,7 @@ const install = function (hook, vm) {
     CONFIG.namespace = opts.namespace || CONFIG.namespace;
     CONFIG.pathNamespaces = opts.pathNamespaces || CONFIG.pathNamespaces;
     CONFIG.keyBindings = opts.keyBindings || CONFIG.keyBindings;
+    CONFIG.resultSource = opts.resultSource || CONFIG.resultSource;
   }
 
   const isAuto = CONFIG.paths === 'auto';

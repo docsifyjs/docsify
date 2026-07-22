@@ -3,6 +3,118 @@ import cssText from './style.css';
 import { escapeHtml } from '../../core/render/utils.js';
 
 let NO_DATA_TEXT = '';
+let RESULT_SOURCE = 'none';
+
+// Strip emoji (pictographs, flags, variation selectors, ZWJ, keycaps) from
+// sidebar labels and page titles so source labels stay plain text.
+function stripEmoji(text) {
+  return (text || '')
+    .replace(
+      /(?:[\uD83C-\uD83E][\uDC00-\uDFFF])|[\u2600-\u27BF\u2B00-\u2BFF]|\uFE0E|\uFE0F|\u200D|\u20E3/g,
+      '',
+    )
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function findSidebarLink(url) {
+  const base = decodeURIComponent((url || '').split('?')[0]);
+
+  return Docsify.dom
+    .findAll('.sidebar-nav a')
+    .find(
+      a =>
+        decodeURIComponent((a.getAttribute('href') || '').split('?')[0]) ===
+        base,
+    );
+}
+
+// Label of a sidebar list item: its own text or link text, without the text
+// of the nested list of children.
+function groupLabel(li) {
+  for (const node of li.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+      return node.textContent.trim();
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.tagName === 'UL') {
+        break;
+      }
+
+      const text = node.textContent.trim();
+
+      if (text) {
+        return text;
+      }
+    }
+  }
+
+  return '';
+}
+
+// Walk the sidebar tree from the link matching the result URL up to the
+// root, collecting section labels along the way.
+function getBreadcrumb(url) {
+  const link = findSidebarLink(url);
+
+  if (!link) {
+    return null;
+  }
+
+  const parts = [link.textContent.trim()];
+  let li = link.closest('li');
+
+  while (li) {
+    const parentLi = li.parentElement ? li.parentElement.closest('li') : null;
+
+    if (parentLi) {
+      const label = groupLabel(parentLi);
+
+      if (label) {
+        parts.unshift(label);
+      }
+    }
+
+    li = parentLi;
+  }
+
+  return parts;
+}
+
+function resultSourceHtml(post) {
+  if (RESULT_SOURCE === 'breadcrumb') {
+    const parts = getBreadcrumb(post.url);
+
+    if (parts && parts.length) {
+      const crumbs = parts
+        .map((part, i) => {
+          const label = escapeHtml(stripEmoji(part));
+          // The page itself (last segment) stands out from its sections.
+          return i === parts.length - 1 ? `<strong>${label}</strong>` : label;
+        })
+        .join(' › ');
+
+      return /* html */ `<p class="search-breadcrumb clamp-1">${crumbs}</p>`;
+    }
+
+    // The page is not in the sidebar: fall back to its page title.
+    return post.page
+      ? /* html */ `<p class="search-breadcrumb clamp-1"><strong>${stripEmoji(post.page)}</strong></p>`
+      : '';
+  }
+
+  if (RESULT_SOURCE === 'page') {
+    // Skip the label when the matched title is the page title itself.
+    const page = post.page && post.page !== post.title ? post.page : '';
+
+    return page
+      ? /* html */ `<p class="search-breadcrumb clamp-1"><strong>${stripEmoji(page)}</strong></p>`
+      : '';
+  }
+
+  return '';
+}
 
 function tpl(vm, defaultValue = '') {
   const { insertAfter, insertBefore } = vm.config?.search || {};
@@ -59,6 +171,7 @@ function doSearch(value) {
         <a href="${post.url}" title="${title}">
           <p class="title clamp-1">${post.title}</p>
           <p class="content clamp-2">${content}</p>
+          ${resultSourceHtml(post)}
         </a>
       </div>
     `;
@@ -141,6 +254,7 @@ export function init(opts, vm) {
 
   const keywords = vm.router.parse().query.s || '';
 
+  RESULT_SOURCE = opts.resultSource || RESULT_SOURCE;
   Docsify.dom.style(cssText);
   tpl(vm, escapeHtml(keywords));
   bindEvents();
@@ -148,6 +262,7 @@ export function init(opts, vm) {
 }
 
 export function update(opts, vm) {
+  RESULT_SOURCE = opts.resultSource || RESULT_SOURCE;
   updatePlaceholder(opts.placeholder, vm.route.path);
   updateNoData(opts.noData, vm.route.path);
 }

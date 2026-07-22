@@ -36,6 +36,104 @@ test.describe('Search Plugin Tests', () => {
     await expect(resultsHeadingElm).toHaveText('Test Page');
   });
 
+  test.describe('resultSource option', () => {
+    const markdown = {
+      homepage: `
+        # Hello World
+
+        This is the homepage.
+      `,
+      sidebar: `
+        - Guides 📚
+          - [Test Page 🚀](test)
+      `,
+    };
+    const routes = {
+      '/test.md': `
+        # Test Page 🧪
+
+        This is a custom route.
+
+        ## Deep Section
+
+        Content about volcanoes.
+      `,
+    };
+
+    test('shows nothing by default', async ({ page }) => {
+      const docsifyInitConfig = {
+        markdown,
+        routes,
+        scriptURLs: ['/dist/plugins/search.js'],
+      };
+
+      const searchFieldElm = page.locator('input[type=search]');
+      const resultsHeadingElm = page.locator('.results-panel .title');
+      const resultsPageElm = page.locator('.results-panel .search-breadcrumb');
+
+      await docsifyInit(docsifyInitConfig);
+
+      await searchFieldElm.fill('volcanoes');
+      await expect(resultsHeadingElm).toHaveText('Deep Section');
+      await expect(resultsPageElm).toHaveCount(0);
+    });
+
+    test('page mode shows page title for section matches', async ({ page }) => {
+      const docsifyInitConfig = {
+        config: {
+          search: {
+            resultSource: 'page',
+          },
+        },
+        markdown,
+        routes,
+        scriptURLs: ['/dist/plugins/search.js'],
+      };
+
+      const searchFieldElm = page.locator('input[type=search]');
+      const resultsHeadingElm = page.locator('.results-panel .title');
+      const resultsPageElm = page.locator('.results-panel .search-breadcrumb');
+
+      await docsifyInit(docsifyInitConfig);
+
+      // A match inside a section shows which page it comes from,
+      // with emoji stripped from the page title.
+      await searchFieldElm.fill('volcanoes');
+      await expect(resultsHeadingElm).toHaveText('Deep Section');
+      await expect(resultsPageElm).toHaveText('Test Page');
+
+      // A match on the page title itself does not repeat the page title.
+      await page.click('.clear-button');
+      await searchFieldElm.fill('custom route');
+      await expect(resultsHeadingElm).toHaveText('Test Page 🧪');
+      await expect(resultsPageElm).toHaveCount(0);
+    });
+
+    test('breadcrumb mode shows sidebar path to the page', async ({ page }) => {
+      const docsifyInitConfig = {
+        config: {
+          search: {
+            resultSource: 'breadcrumb',
+          },
+        },
+        markdown,
+        routes,
+        scriptURLs: ['/dist/plugins/search.js'],
+      };
+
+      const searchFieldElm = page.locator('input[type=search]');
+      const resultsHeadingElm = page.locator('.results-panel .title');
+      const resultsPageElm = page.locator('.results-panel .search-breadcrumb');
+
+      await docsifyInit(docsifyInitConfig);
+
+      // Emoji from sidebar labels are stripped from the breadcrumb.
+      await searchFieldElm.fill('volcanoes');
+      await expect(resultsHeadingElm).toHaveText('Deep Section');
+      await expect(resultsPageElm).toHaveText('Guides › Test Page');
+    });
+  });
+
   test('search ignore title', async ({ page }) => {
     const docsifyInitConfig = {
       markdown: {
