@@ -10,6 +10,8 @@ updates:
     open-pull-requests-limit: 10
     schedule:
       interval: monthly
+    exclude-paths:
+      - 'test/consume-types/**'
     ignore:
       # For all dependencies, trigger pull requests only for semver-major updates (ignore minor and patch).
       - dependency-name: '*'
