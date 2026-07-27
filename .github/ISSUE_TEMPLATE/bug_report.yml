@@ -33,7 +33,7 @@ body:
       label: Steps to reproduce
       description: |
         A description with steps to reproduce the issue.
-        Provide a link to a public repository or create a reproducible [sandbox](https://codesandbox.io/s/307qqv236):
+        Provide a link to a public repository or create a reproducible [sandbox](https://sandbox.docsifyjs.org/):
       placeholder: |
         1. Step 1
         2. Step 2
