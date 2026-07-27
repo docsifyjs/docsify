@@ -41,7 +41,7 @@ Docsify turns one or more Markdown files into a Website, with no build process r
 
 Get going fast by using a static web server or GitHub Pages with this ready-to-use [Docsify Template](https://github.com/docsifyjs/docsify-template), review the [quick start tutorial](https://docsify.js.org/#/quickstart) or jump right into a CodeSandbox example site with the button below.
 
-[![Edit codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://sandbox.docsifyjs.org/)
+[![Edit in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://sandbox.docsifyjs.org/)
 
 ## Showcase
 
