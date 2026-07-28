@@ -58,6 +58,7 @@ const defaultDocsifyConfig = () => ({
   skipLink: /** @type {false | string | Record<string, string>} */ (
     'Skip to main content'
   ),
+  sidebarPosition: /** @type {'left' | 'right'} */ ('left'),
   subMaxLevel: 0,
   vueComponents: /** @type {Record<string, TODO>} */ ({}),
   vueGlobalOptions: /** @type {Record<string, TODO>} */ ({}),

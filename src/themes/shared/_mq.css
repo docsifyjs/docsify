@@ -60,6 +60,16 @@
     }
   }
 
+  body:has(.sidebar.sidebar-right.show) {
+    .app-nav {
+      right: 0;
+    }
+
+    main > .content {
+      right: 0;
+    }
+  }
+
   body:has(.app-nav-merged) {
     .app-nav {
       display: none;

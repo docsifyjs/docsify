@@ -41,10 +41,17 @@ main {
   > .content {
     position: absolute;
     inset: 0;
-    transition: left var(--duration-medium) ease;
+    transition:
+      left var(--duration-medium) ease,
+      right var(--duration-medium) ease;
 
     body:has(.sidebar.show) & {
       left: var(--sidebar-width);
+    }
+
+    body:has(.sidebar.sidebar-right.show) & {
+      right: var(--sidebar-width);
+      left: 0;
     }
 
     /* hideSidebar: true */

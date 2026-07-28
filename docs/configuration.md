@@ -306,6 +306,20 @@ window.$docsify = {
 };
 ```
 
+## sidebarPosition
+
+- Type: `String`
+- Default: `'left'`
+
+Controls which side of the page displays the sidebar. Set this to `'right'` to
+place the sidebar and its toggle on the right.
+
+```js
+window.$docsify = {
+  sidebarPosition: 'right',
+};
+```
+
 ## homepage
 
 - Type: `String`

@@ -22,6 +22,11 @@
     left: var(--sidebar-width);
   }
 
+  body:where(:has(.sidebar.sidebar-right.show)) & {
+    right: var(--sidebar-width);
+    left: 0;
+  }
+
   a {
     color: var(--navbar-link-color);
     text-decoration-color: transparent;
