@@ -115,7 +115,6 @@ View [Theme Classes](themes.md?id=classes) for more details.
 - **CDN Path**: Changed from `/lib/` to `/dist/`
 - **Version**: Updated from `@4` to `@5`
 - **Themes**: v5 uses a core theme (with optional add-ons available)
-- **Plugin Names**: `zoom-image` → `zoom`
 
 ## Additional Notes
 
