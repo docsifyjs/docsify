@@ -179,6 +179,40 @@ describe('Embed', function () {
     expect(mainText).not.toContain("_media/second.md ':include'");
   });
 
+  test('embed markdown file strips front matter when plugin is installed', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          ---
+          title: Homepage
+          ---
+
+          # Embed Test
+
+          [front matter include](_media/content.md ':include')
+        `,
+      },
+      routes: {
+        '_media/content.md': `
+          ---
+          title: Include
+          ---
+
+          included front matter content
+        `,
+      },
+      scriptURLs: ['/dist/plugins/front-matter.js'],
+    });
+
+    expect(
+      await waitForText('#main', 'included front matter content'),
+    ).toBeTruthy();
+
+    const mainText = document.querySelector('#main').textContent;
+    expect(mainText).not.toContain('title: Homepage');
+    expect(mainText).not.toContain('title: Include');
+  });
+
   test('embed multiple include code fragments in same paragraph', async () => {
     await docsifyInit({
       markdown: {
@@ -260,6 +294,35 @@ Command | Description | Parameters
     expect(middleIndex).toBeLessThan(secondIndex);
     expect(mainText).not.toContain("_media/first.md ':include'");
     expect(mainText).not.toContain("_media/second.md ':include'");
+  });
+
+  test('failed embed URL does not block page render', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Embed Test
+
+          [missing](_media/missing.md ':include')
+
+          Text after missing embed
+
+          [ok](_media/ok.md ':include')
+        `,
+      },
+      routes: {
+        '_media/missing.md': {
+          status: 404,
+          body: 'Not Found',
+          contentType: 'text/markdown',
+        },
+        '_media/ok.md': 'reachable include content',
+      },
+    });
+
+    expect(await waitForText('#main', 'Text after missing embed')).toBeTruthy();
+    expect(
+      await waitForText('#main', 'reachable include content'),
+    ).toBeTruthy();
   });
 
   test('embed file table cell', async () => {

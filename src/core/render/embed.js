@@ -32,7 +32,7 @@ function extractFragmentContent(text, fragment, fullLine) {
   return stripIndent((match || [])[1] || '').trim();
 }
 
-function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
+function walkFetchEmbed({ embedTokens, compile, fetch, frontMatter }, cb) {
   if (!embedTokens.length) {
     return cb({});
   }
@@ -62,9 +62,9 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
           });
 
           // This may contain YAML front matter and will need to be stripped.
-          const frontMatterInstalled = $docsify?.frontMatter?.installed;
+          const frontMatterInstalled = frontMatter?.installed;
           if (frontMatterInstalled) {
-            text = $docsify.frontMatter?.parseMarkdown(text);
+            text = frontMatter?.parseMarkdown(text);
           }
 
           if (currentToken.embed.fragment) {
@@ -122,7 +122,7 @@ function walkFetchEmbed({ embedTokens, compile, fetch }, cb) {
     };
 
     if (currentToken.embed.url) {
-      get(currentToken.embed.url).then(next);
+      get(currentToken.embed.url).then(next, () => next());
     } else {
       next(currentToken.embed.html);
     }
@@ -140,6 +140,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   }
 
   const compile = compiler._marked;
+  const frontMatter = compiler.config.frontMatter;
   let tokens = compile.lexer(raw);
   const embedTokens = [];
   const links = tokens.links;
@@ -203,9 +204,9 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
   const moves = [];
   const tokenInsertState = new WeakMap();
   walkFetchEmbed(
-    { compile, embedTokens, fetch },
+    { compile, embedTokens, fetch, frontMatter },
     ({ embedToken, token, rowIndex, cellIndex, tokenRef }) => {
-      if (token) {
+      if (token && embedToken) {
         Object.assign(links, embedToken.links);
 
         if (typeof rowIndex === 'number' && typeof cellIndex === 'number') {
@@ -269,7 +270,7 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
             });
           }
         }
-      } else {
+      } else if (!token) {
         cached[raw] = tokens.concat();
         tokens.links = cached[raw].links = links;
         done(tokens);

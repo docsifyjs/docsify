@@ -3,7 +3,7 @@
     "allowJs": true,
     "checkJs": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "target": "esnext",
     "strict": true,
     "noEmit": true,

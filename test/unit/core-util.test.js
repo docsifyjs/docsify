@@ -1,12 +1,38 @@
-import { isExternal } from '../../src/core/util/index.js';
+import { cached, isExternal } from '../../src/core/util/index.js';
 
 // Core util
 // -----------------------------------------------------------------------------
 describe('core/util', () => {
+  describe('cached()', () => {
+    test('memoizes falsy return values', () => {
+      let calls = 0;
+      const fn = cached(() => {
+        calls += 1;
+        return '';
+      });
+
+      expect(fn('same-key')).toBe('');
+      expect(fn('same-key')).toBe('');
+      expect(calls).toBe(1);
+    });
+
+    test('memoizes undefined return values', () => {
+      let calls = 0;
+      const fn = cached(() => {
+        calls += 1;
+        return undefined;
+      });
+
+      expect(fn('same-key')).toBeUndefined();
+      expect(fn('same-key')).toBeUndefined();
+      expect(calls).toBe(1);
+    });
+  });
+
   // isExternal()
   // ---------------------------------------------------------------------------
   describe('isExternal()', () => {
-    // cases non external
+    // cases non-external
     test('non external local url with one /', () => {
       const result = isExternal(`/${location.host}/docsify/demo.md`);
 

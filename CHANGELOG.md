@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.4...v5.0.0) (2026-07-23)
+
+
+### Features
+
+* add pageTitleFormatter config ([#2695](https://github.com/docsifyjs/docsify/issues/2695)) ([f3ab502](https://github.com/docsifyjs/docsify/commit/f3ab50255542559c8a5948f6a817c84c602d7938))
+* improve indexing and embedded search ([#2734](https://github.com/docsifyjs/docsify/issues/2734)) ([ab96d74](https://github.com/docsifyjs/docsify/commit/ab96d74a8d71668f1d5b15f2f71f1856db6e3ca1))
+
+
+### Bug Fixes
+
+* correct grammar in 'Edit on github' section of plugins.md ([18b03e4](https://github.com/docsifyjs/docsify/commit/18b03e49fab7d061089a5b7e3498005b7364df9d))
+* **embed:** strip front matter from included markdown ([#2752](https://github.com/docsifyjs/docsify/issues/2752)) ([e6ab47c](https://github.com/docsifyjs/docsify/commit/e6ab47cff0f3d201bb7f2504a5fa46419f4824eb))
+* enhance embed token handling in paragraphs and table cells ([870881a](https://github.com/docsifyjs/docsify/commit/870881a9d33ce0967cf75358d8e8e30dddc8e439))
+* enhance sidebar navigation link selection for decoded URLs ([#2708](https://github.com/docsifyjs/docsify/issues/2708)) ([72c0d63](https://github.com/docsifyjs/docsify/commit/72c0d63718073874de317dd6f952e38412943d98))
+* enhance slugify function to handle markdown links ([#2697](https://github.com/docsifyjs/docsify/issues/2697)) ([0784ebc](https://github.com/docsifyjs/docsify/commit/0784ebc8e4f571f6f9dfa4a97eb5e2fc5ed97beb))
+* escape HTML in image, link, and media components ([#2718](https://github.com/docsifyjs/docsify/issues/2718)) ([b8f7032](https://github.com/docsifyjs/docsify/commit/b8f70321b98d1747a025b2ce9ec0987971bd9be3))
+* exclude headings inside blockquotes from sidebar TOC ([#2691](https://github.com/docsifyjs/docsify/issues/2691)) ([09e85d4](https://github.com/docsifyjs/docsify/commit/09e85d4c34184e9ea0d7f090fdc8639a0fbe0942))
+* implement normalize method in html5.js ([#2712](https://github.com/docsifyjs/docsify/issues/2712)) ([ee6fef4](https://github.com/docsifyjs/docsify/commit/ee6fef4ffccbef9947a43228b106dad03781447a))
+* improve cache handling and error recovery ([#2744](https://github.com/docsifyjs/docsify/issues/2744)) ([cebb49f](https://github.com/docsifyjs/docsify/commit/cebb49fceb737fdc83ffe35841414a5a5bfce661))
+* keep anchor links aligned after layout changes ([#2731](https://github.com/docsifyjs/docsify/issues/2731)) ([ab54d53](https://github.com/docsifyjs/docsify/commit/ab54d53c31e48e95a8db24f4f10f1b3ab47057a8))
+* normalizing language input and escaping HTML ([#2716](https://github.com/docsifyjs/docsify/issues/2716)) ([f8ec7ac](https://github.com/docsifyjs/docsify/commit/f8ec7acb53731ddc9c07d248888ab85aea271e4f))
+* preserve callouts when revisiting pages ([#2757](https://github.com/docsifyjs/docsify/issues/2757)) ([d7df230](https://github.com/docsifyjs/docsify/commit/d7df230773946093625b54044dabc887b7fbf634))
+* update dependencies ([#2766](https://github.com/docsifyjs/docsify/issues/2766)) ([940d97f](https://github.com/docsifyjs/docsify/commit/940d97f813bb0ca6b1e23b96c19d106a7e650f4f))
+
 ## [5.0.0-rc.4](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.3...v5.0.0-rc.4) (2026-03-11)
 
 
