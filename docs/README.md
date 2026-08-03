@@ -17,7 +17,7 @@ Docsify turns your Markdown files into a documentation website instantly. Unlike
 
 ## Examples
 
-Check out the [Showcase](https://github.com/docsifyjs/awesome-docsify#showcase) to see docsify in use.
+Check out the [Showcase](awesome?id=showcase) to see docsify in use.
 
 ## Donate
 
