@@ -770,6 +770,19 @@ window.$docsify = {
 };
 ```
 
+## rightSidebar
+
+- Type : `Boolean`
+- Default: `false`
+
+Position the sidebar on the right side of the page instead of the left.
+
+```js
+window.$docsify = {
+  rightSidebar: true,
+};
+```
+
 ## routerMode
 
 Configure the URL format that the paths of your site will use.

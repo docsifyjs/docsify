@@ -246,6 +246,41 @@
   }
 }
 
+/* Right Sidebar */
+/* ========================================================================== */
+body.right-sidebar {
+  .sidebar {
+    left: auto;
+    right: 0;
+    translate: var(--sidebar-width);
+    border-right: 0;
+    border-left: 1px solid var(--sidebar-border-color);
+  }
+
+  .sidebar-toggle {
+    left: auto;
+    right: 0;
+  }
+
+  .sidebar-toggle-button {
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+  }
+
+  &:has(.sidebar.show) {
+    main > .content {
+      right: var(--sidebar-width);
+    }
+
+    .app-nav {
+      right: var(--sidebar-width);
+    }
+
+    .sidebar-toggle {
+      translate: calc(0px - var(--sidebar-width));
+    }
+  }
+}
+
 .sidebar-toggle-button {
   display: flex;
   flex-direction: column;

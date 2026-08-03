@@ -143,3 +143,30 @@ describe('Test sidebar render toc structure', function () {
     expect(sidebarText).not.toContain('Quoted Title Without Space');
   });
 });
+
+describe('Configuration: rightSidebar', () => {
+  test('rightSidebar=true adds the right-sidebar class to <body>', async () => {
+    await docsifyInit({
+      config: {
+        rightSidebar: true,
+      },
+      markdown: {
+        homepage: '# Hello World',
+      },
+      waitForSelector: '.sidebar',
+    });
+
+    expect(document.body.classList.contains('right-sidebar')).toBe(true);
+  });
+
+  test('rightSidebar=false (default) does not add the right-sidebar class', async () => {
+    await docsifyInit({
+      markdown: {
+        homepage: '# Hello World',
+      },
+      waitForSelector: '.sidebar',
+    });
+
+    expect(document.body.classList.contains('right-sidebar')).toBe(false);
+  });
+});

@@ -53,6 +53,7 @@ const defaultDocsifyConfig = () => ({
   relativePath: false,
   repo: /** @type {string} */ (''),
   requestHeaders: /** @type {Record<string, string>} */ ({}),
+  rightSidebar: false,
   routerMode: /** @type {'hash' | 'history'} */ 'hash',
   routes: /** @type {Record<string, string | RouteHandler>} */ ({}),
   skipLink: /** @type {false | string | Record<string, string>} */ (

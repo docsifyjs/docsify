@@ -561,6 +561,9 @@ export function Render(Base) {
     initRender() {
       const config = this.config;
 
+      // Position the sidebar on the right instead of the left
+      dom.body.classList.toggle('right-sidebar', !!config.rightSidebar);
+
       // Init markdown compiler
       this.compiler = new Compiler(config, this.router);
       window.__current_docsify_compiler__ = this.compiler;
