@@ -140,6 +140,44 @@ test.describe('Search Plugin Tests', () => {
     });
   });
 
+  test('updates the active sidebar anchor after clicking a heading result', async ({
+    page,
+  }) => {
+    const docsifyInitConfig = {
+      config: {
+        subMaxLevel: 2,
+        search: {
+          paths: ['/'],
+        },
+      },
+      markdown: {
+        homepage: `
+          # Home
+
+          ## Installation
+
+          Searchable installation content.
+        `,
+        sidebar: '- [Home](/)',
+      },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+
+    const searchFieldElm = page.locator('input[type=search]');
+    const resultsHeadingElm = page.locator('.results-panel .title');
+    const installationSidebarItem = page
+      .locator('.sidebar-nav a[href="#/?id=installation"]')
+      .locator('..');
+
+    await docsifyInit(docsifyInitConfig);
+
+    await searchFieldElm.fill('installation');
+    await expect(resultsHeadingElm).toHaveText('Installation');
+    await page.click('.matching-post a');
+
+    await expect(installationSidebarItem).toHaveClass(/active/);
+  });
+
   test('search ignore title', async ({ page }) => {
     const docsifyInitConfig = {
       markdown: {

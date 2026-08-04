@@ -504,12 +504,10 @@ export function Events(Base) {
       href = stripUrlExceptId(href);
 
       const oldActive = dom.find(sidebar, 'li.active');
-      const newActive = dom
-        .find(
-          sidebar,
-          `a[href="${href}"], a[href="${decodeURIComponent(/** @type {string} */ (href))}"]`,
-        )
-        ?.closest('li');
+      const sidebarSelector = `.sidebar-nav a[href="${href}"], .sidebar-nav a[href="${decodeURIComponent(
+        /** @type {string} */ (href),
+      )}"]`;
+      const newActive = dom.find(sidebar, sidebarSelector)?.closest('li');
 
       if (newActive && newActive !== oldActive) {
         oldActive?.classList.remove('active');
