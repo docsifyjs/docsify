@@ -501,6 +501,21 @@ window.$docsify = {
 };
 ```
 
+## navbarPreservePath
+
+- Type: `Boolean`
+- Default: `false`
+
+If **true**, appends the current document path to navbar links that point to a language root. This makes it possible to switch languages while staying on the corresponding document.
+
+For example, when the current path is `/quickstart`, a navbar link to `/zh-cn/` becomes `/zh-cn/quickstart`.
+
+```js
+window.$docsify = {
+  navbarPreservePath: true,
+};
+```
+
 ## name
 
 - Type: `Boolean|String`

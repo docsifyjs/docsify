@@ -1,8 +1,8 @@
 import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
-import { getPath, isAbsolutePath } from '../router/util.js';
+import { cleanPath, getPath, isAbsolutePath } from '../router/util.js';
 import { isMobile } from '../util/env.js';
-import { isPrimitive } from '../util/core.js';
+import { isExternal, isPrimitive } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
 import { prerenderEmbed } from './embed.js';
@@ -458,7 +458,56 @@ export function Render(Base) {
 
       ['.app-nav', '.app-nav-merged'].forEach(selector => {
         dom.setHTML(selector, html);
+        if (this.config.navbarPreservePath) {
+          this.#appendNavbarPath(selector);
+        }
         this.#addTextAsTitleAttribute(`${selector} a`);
+      });
+    }
+
+    #appendNavbarPath(selector) {
+      const nav = dom.find(selector);
+
+      if (!nav) {
+        return;
+      }
+
+      const links = dom.findAll(nav, 'a').reduce((links, link) => {
+        const anchor = /** @type {HTMLAnchorElement} */ (link);
+        const href = anchor.getAttribute('href');
+
+        if (
+          !href ||
+          isExternal(anchor.href) ||
+          (href.startsWith('#') && !href.startsWith('#/'))
+        ) {
+          return links;
+        }
+
+        const route = this.router.parse(href);
+        const path = cleanPath(`/${route.path}`);
+
+        if (route.query.id || (path !== '/' && !path.endsWith('/'))) {
+          return links;
+        }
+
+        links.push({ link: anchor, path, query: route.query });
+        return links;
+      }, /** @type {{link: HTMLAnchorElement, path: string, query: Record<string, string>}[]} */ ([]));
+
+      const currentPath = cleanPath(`/${this.route.path}`);
+      const currentRoot = links
+        .filter(({ path }) => currentPath.startsWith(path))
+        .sort((a, b) => b.path.length - a.path.length)[0];
+
+      if (!currentRoot) {
+        return;
+      }
+
+      const suffix = currentPath.slice(currentRoot.path.length);
+
+      links.forEach(({ link, path, query }) => {
+        link.setAttribute('href', this.router.toURL(`${path}${suffix}`, query));
       });
     }
 
