@@ -23,7 +23,7 @@ export function slugify(str) {
     .replace(/^(\d)/, '_$1');
   let count = cache[slug];
 
-  count = Object.keys(cache).includes(slug) ? count + 1 : 0;
+  count = Object.prototype.hasOwnProperty.call(cache, slug) ? count + 1 : 0;
   cache[slug] = count;
 
   if (count) {
