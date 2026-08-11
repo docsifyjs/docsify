@@ -310,6 +310,16 @@ export function Render(Base) {
         throw new Error('Compiler is not initialized');
       }
 
+      const collapsedGroupIds = new Set(
+        dom
+          .findAll(
+            sidebarNavEl,
+            'li.group.collapse > .group-title[role="button"][data-group-id]',
+          )
+          .map(elm => elm.getAttribute('data-group-id'))
+          .filter(Boolean),
+      );
+
       dom.setHTML('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
 
       sidebarToggleEl.setAttribute('aria-expanded', String(!isMobile()));
@@ -356,9 +366,47 @@ export function Render(Base) {
 
       pageLinkGroups.forEach(elm => {
         elm.classList.add('group');
-        elm
-          .querySelector(':scope > p:not(:has(> *))')
-          ?.classList.add('group-title');
+
+        let groupTitle = [...elm.children].find(
+          child => child.tagName === 'P' && !child.querySelector('a'),
+        );
+
+        if (!groupTitle) {
+          const sublist = [...elm.children].find(
+            child => child.tagName === 'UL',
+          );
+          const titleNodes = [];
+
+          for (const child of elm.childNodes) {
+            if (child === sublist) {
+              break;
+            }
+
+            titleNodes.push(child);
+          }
+
+          if (sublist && titleNodes.some(node => node.textContent?.trim())) {
+            const newGroupTitle = document.createElement('p');
+            titleNodes.forEach(node => newGroupTitle.append(node));
+            groupTitle = newGroupTitle;
+            elm.insertBefore(newGroupTitle, sublist);
+          }
+        }
+
+        groupTitle?.classList.add('group-title');
+
+        const rootList = elm.parentElement;
+
+        if (groupTitle && rootList?.parentElement === sidebarNavEl) {
+          const groupId = `${[...sidebarNavEl.children].indexOf(rootList)}:${[...rootList.children].indexOf(elm)}`;
+          const isCollapsed = collapsedGroupIds.has(groupId);
+
+          elm.classList.toggle('collapse', isCollapsed);
+          groupTitle.setAttribute('data-group-id', groupId);
+          groupTitle.setAttribute('role', 'button');
+          groupTitle.setAttribute('tabindex', '0');
+          groupTitle.setAttribute('aria-expanded', String(!isCollapsed));
+        }
       });
     }
 

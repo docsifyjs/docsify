@@ -252,6 +252,17 @@ export function Events(Base) {
 
       // Collapse toggle
       dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
+        const groupTitle = /** @type {HTMLElement | null} */ (
+          /** @type {HTMLElement} */ (target).closest(
+            '.group-title[role="button"]',
+          )
+        );
+
+        if (groupTitle) {
+          this.#toggleSidebarGroup(groupTitle);
+          return;
+        }
+
         const linkElm = /** @type {HTMLElement} */ (target).closest('a');
         const linkParent = /** @type {HTMLLIElement} */ (
           linkElm?.closest('li')
@@ -262,6 +273,38 @@ export function Events(Base) {
           linkParent.classList.toggle('collapse');
         }
       });
+
+      dom.on(sidebarElm, 'keydown', (/** @type {KeyboardEvent} */ event) => {
+        const groupTitle = /** @type {HTMLElement | null} */ (
+          /** @type {HTMLElement} */ (event.target).closest(
+            '.group-title[role="button"]',
+          )
+        );
+
+        if (groupTitle && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          this.#toggleSidebarGroup(groupTitle);
+        }
+      });
+    }
+
+    /**
+     * Toggle a root sidebar group and keep its accessible state in sync.
+     *
+     * @param {HTMLElement} groupTitle
+     * @void
+     */
+    #toggleSidebarGroup(groupTitle) {
+      const group = /** @type {HTMLLIElement | null} */ (
+        groupTitle.closest('li')
+      );
+
+      if (!group) {
+        return;
+      }
+
+      const isCollapsed = group.classList.toggle('collapse');
+      groupTitle.setAttribute('aria-expanded', String(!isCollapsed));
     }
 
     /**

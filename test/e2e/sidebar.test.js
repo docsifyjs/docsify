@@ -68,6 +68,69 @@ test.describe('Sidebar Tests', () => {
     await expect(activeLinkElm).toHaveText('Test >');
     expect(page.url()).toMatch(/\/test%3Efoo$/);
   });
+
+  test('collapses root sidebar groups', async ({ page }) => {
+    await docsifyInit({
+      styleURLs: ['/dist/themes/core.css'],
+      markdown: {
+        sidebar: `
+          - Getting started
+            - [Quick start](quickstart)
+          - Customization
+            - [Configuration](configuration)
+          - Standalone
+          - [Linked group](linked)
+            - [Linked child](linked-child)
+        `,
+      },
+      routes: {
+        '/quickstart.md': '# Quick start',
+        '/configuration.md': '# Configuration',
+        '/linked.md': '# Linked group',
+        '/linked-child.md': '# Linked child',
+      },
+    });
+
+    const group = page.locator('.sidebar-nav > ul > li').first();
+    const groupTitle = group.locator(':scope > p.group-title');
+    const childLink = group.locator(':scope > ul > li > a');
+
+    await expect(groupTitle).toHaveAttribute('role', 'button');
+    await expect(groupTitle).toHaveAttribute('tabindex', '0');
+    await expect(groupTitle).toHaveAttribute('aria-expanded', 'true');
+    await expect(childLink).toBeVisible();
+
+    const standalone = page.locator('.sidebar-nav > ul > li').nth(2);
+    await expect(standalone).not.toHaveClass(/group/);
+    await expect(standalone.locator('[role="button"]')).toHaveCount(0);
+
+    const linkedGroup = page.locator('.sidebar-nav > ul > li').nth(3);
+    const linkedGroupLink = linkedGroup.locator('a').first();
+    await expect(linkedGroupLink).toHaveAttribute('href', '#/linked');
+
+    await groupTitle.click();
+
+    await expect(group).toHaveClass(/collapse/);
+    await expect(groupTitle).toHaveAttribute('aria-expanded', 'false');
+    await expect(childLink).toBeHidden();
+
+    await linkedGroupLink.click();
+    expect(page.url()).toMatch(/\/linked$/);
+    await expect(group).toHaveClass(/collapse/);
+    await expect(groupTitle).toHaveAttribute('aria-expanded', 'false');
+    await expect(childLink).toBeHidden();
+
+    await groupTitle.press('Enter');
+
+    await expect(group).not.toHaveClass(/collapse/);
+    await expect(groupTitle).toHaveAttribute('aria-expanded', 'true');
+    await expect(childLink).toBeVisible();
+
+    await groupTitle.press('Space');
+    await expect(group).toHaveClass(/collapse/);
+    await groupTitle.press('Space');
+    await expect(group).not.toHaveClass(/collapse/);
+  });
 });
 
 test.describe('Configuration: autoHeader', () => {
