@@ -30,6 +30,8 @@
   }
 
   a {
+    overflow-wrap: anywhere;
+
     &.anchor {
       color: inherit;
 
