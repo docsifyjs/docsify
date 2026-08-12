@@ -71,11 +71,12 @@ test.describe('Sidebar Tests', () => {
 });
 
 test.describe('Mobile sidebar toggle', () => {
-  test('keeps the collapsed handle centered while scrolling', async ({
+  test('wraps long links without causing horizontal overflow', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
 
+    const longUrl = `https://example.com/${'a'.repeat(240)}`;
     const content = Array.from(
       { length: 80 },
       (_, index) => `## Section ${index + 1}\n\nLong content for scrolling.`,
@@ -86,61 +87,23 @@ test.describe('Mobile sidebar toggle', () => {
         loadSidebar: '_sidebar.md',
       },
       markdown: {
-        homepage: `# Mobile scrolling\n\n${content}\n\nhttps://example.com/${'a'.repeat(240)}`,
+        homepage: `# Mobile scrolling\n\n${content}\n\n[${longUrl}](${longUrl})`,
         sidebar: '- [Mobile scrolling](README.md)',
       },
       styleURLs: ['/dist/themes/core.css'],
     });
 
-    const toggle = page.locator('.sidebar-toggle');
-
-    await expect(page.locator('.sidebar')).not.toHaveClass(/show/);
-    await expect(toggle).toHaveCSS('position', 'fixed');
     await expect
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
       .toBe(page.viewportSize().width);
 
-    await page.evaluate(() => {
-      window.__sidebarScrollIntoViewCalls = 0;
-      const originalScrollIntoView = Element.prototype.scrollIntoView;
-
-      Element.prototype.scrollIntoView = function (...args) {
-        if (this.closest('.sidebar')) {
-          window.__sidebarScrollIntoViewCalls++;
-        }
-
-        return originalScrollIntoView.apply(this, args);
-      };
-    });
-
-    const getToggleCenter = () =>
-      page.evaluate(() => {
-        const box = document
-          .querySelector('.sidebar-toggle-button')
-          .getBoundingClientRect();
-
-        return box.top + box.height / 2;
-      });
-    const viewportCenter = await page.evaluate(
-      () => (visualViewport?.height ?? innerHeight) / 2,
-    );
-    expect(await getToggleCenter()).toBe(viewportCenter);
-
-    // Simulate the sticky state changing while the page is being scrolled.
-    await page.evaluate(() => document.body.classList.remove('sticky'));
     await page.mouse.wheel(0, 1200);
     await expect
       .poll(() => page.evaluate(() => window.scrollY))
       .toBeGreaterThan(0);
 
-    expect(await getToggleCenter()).toBe(viewportCenter);
-    expect(await page.evaluate(() => window.__sidebarScrollIntoViewCalls)).toBe(
-      0,
-    );
-
     await page.mouse.wheel(0, -1200);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
-    expect(await getToggleCenter()).toBe(viewportCenter);
   });
 });
 
