@@ -185,6 +185,7 @@
   body.sticky & {
     position: fixed;
     overflow-y: auto;
+    scrollbar-gutter: stable;
   }
 }
 
@@ -259,7 +260,7 @@
   }
 
   /* Increase tap target size on touch-only devices */
-  @media screen and not (any-hover) {
+  @media screen and (any-hover: none) {
     width: calc(var(--content-margin-inline) - 10px);
   }
 }

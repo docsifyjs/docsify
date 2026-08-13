@@ -131,6 +131,116 @@ test.describe('Sidebar Tests', () => {
     await groupTitle.press('Space');
     await expect(group).not.toHaveClass(/collapse/);
   });
+
+  test('supports chevrons on collapsible root groups', async ({ page }) => {
+    await docsifyInit({
+      styleURLs: ['/dist/themes/core.css'],
+      style: `
+        :root:has(body[class*='sidebar-chevron']) {
+          --sidebar-chevron-collapsed-color: rgb(1, 2, 3);
+          --sidebar-chevron-expanded-color: rgb(4, 5, 6);
+        }
+      `,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head><meta charset="UTF-8" /></head>
+          <body class="sidebar-chevron-right">
+            <div id="app"></div>
+          </body>
+        </html>
+      `,
+      markdown: {
+        sidebar: `
+          - Getting started
+            - [Quick start](quickstart)
+          - [Standalone](standalone)
+        `,
+      },
+      routes: {
+        '/quickstart.md': '# Quick start',
+        '/standalone.md': '# Standalone',
+      },
+    });
+
+    const groupTitle = page.locator('.group-title[role="button"]');
+    const standaloneLink = page.locator('a[href="#/standalone"]');
+    const background = await groupTitle.evaluate(
+      element => getComputedStyle(element).backgroundImage,
+    );
+    const [groupTitleBox, standaloneLinkBox] = await Promise.all([
+      groupTitle.boundingBox(),
+      standaloneLink.boundingBox(),
+    ]);
+
+    expect(background).not.toBe('none');
+    expect(background).toMatch(/rgb\(1,\s*2,\s*3\)/);
+    expect(background).not.toMatch(/rgb\(4,\s*5,\s*6\)/);
+    expect(groupTitleBox?.x + groupTitleBox?.width).toBe(
+      standaloneLinkBox?.x + standaloneLinkBox?.width,
+    );
+    await groupTitle.click();
+
+    await expect(groupTitle).toHaveAttribute('aria-expanded', 'false');
+    const collapsedBackground = await groupTitle.evaluate(
+      element => getComputedStyle(element).backgroundImage,
+    );
+    expect(collapsedBackground).not.toBe(background);
+    expect(collapsedBackground).toMatch(/rgb\(1,\s*2,\s*3\)/);
+    expect(collapsedBackground).not.toMatch(/rgb\(4,\s*5,\s*6\)/);
+  });
+
+  test('keeps group border spacing when the last group collapses', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      styleURLs: ['/dist/themes/core.css'],
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head><meta charset="UTF-8" /></head>
+          <body class="sidebar-group-box">
+            <div id="app"></div>
+          </body>
+        </html>
+      `,
+      markdown: {
+        sidebar: `
+          - Upgrading
+            - [v4 to v5](upgrade)
+
+          * [Awesome docsify](awesome)
+        `,
+      },
+      routes: {
+        '/upgrade.md': '# v4 to v5',
+        '/awesome.md': '# Awesome docsify',
+      },
+    });
+
+    const upgradingGroup = page.locator(
+      '.sidebar-nav > ul:first-of-type > li:last-child',
+    );
+    const groupTitle = upgradingGroup.locator(':scope > .group-title');
+
+    await groupTitle.click();
+
+    const spacing = await page.evaluate(() => {
+      const title = document.querySelector('.group-title');
+      const group = title.closest('li');
+      const awesome = document.querySelector('a[href="#/awesome"]');
+      const titleBox = title.getBoundingClientRect();
+      const groupBox = group.getBoundingClientRect();
+      const awesomeBox = awesome.getBoundingClientRect();
+
+      return {
+        borderToAwesome: awesomeBox.top - groupBox.bottom,
+        titleToBorder: groupBox.bottom - titleBox.bottom,
+      };
+    });
+
+    expect(spacing.titleToBorder).toBeGreaterThan(spacing.borderToAwesome);
+  });
 });
 
 test.describe('Configuration: autoHeader', () => {
