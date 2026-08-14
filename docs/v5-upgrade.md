@@ -110,6 +110,35 @@ View [Theme Classes](themes.md?id=classes) for more details.
 - Update version from `@4` (or non-versioned) to `@5`
 - Example: `//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js` becomes `//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js`
 
+### 5. Update the plugins you wrote
+
+The `toggleClass` function has been removed as it can be replaced effectively by the JavaScript native `Element` property `classList`. Therefore, you must make the replacement in your plugin if you used it.
+
+Examples:
+```js
+// v4
+window.Docsify.dom.toggleClass(element, 'className');
+
+// v5
+element.classList.toggle('className');
+```
+
+```js
+// v4
+window.Docsify.dom.toggleClass(element, 'action', 'className');
+
+// v5
+element.classList.action('className');
+```
+
+```js
+// v4
+window.Docsify.dom.toggleClass(element, isDark ? 'add' : 'remove', 'dark');
+
+// v5
+element.classList[isDark ? 'add' : 'remove']('dark');
+```
+
 ## Key Differences Summary
 
 - **CDN Path**: Changed from `/lib/` to `/dist/`
