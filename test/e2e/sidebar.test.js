@@ -68,6 +68,50 @@ test.describe('Sidebar Tests', () => {
     await expect(activeLinkElm).toHaveText('Test >');
     expect(page.url()).toMatch(/\/test%3Efoo$/);
   });
+
+  test('keeps a loose-list page link visible when collapsed', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      config: {
+        subMaxLevel: 2,
+      },
+      markdown: {
+        homepage: '# Home',
+        sidebar: `
+          - Getting started
+
+            - [Introduction](introduction.md)
+
+          - [Quick start](quickstart.md)
+        `,
+      },
+      routes: {
+        '/quickstart.md': `
+          # Quick start
+
+          ## Installation
+        `,
+      },
+      styleURLs: ['/dist/themes/core.css'],
+    });
+
+    const quickStartLink = page.locator('.sidebar-nav a[href="#/quickstart"]');
+
+    await quickStartLink.click();
+
+    const quickStartItem = page.locator(
+      '.sidebar-nav li:has(> p > a[href="#/quickstart"])',
+    );
+    const subSidebar = quickStartItem.locator(':scope > .app-sub-sidebar');
+    await expect(subSidebar).toBeVisible();
+
+    await quickStartLink.click();
+
+    await expect(quickStartItem).toHaveClass(/collapse/);
+    await expect(subSidebar).toBeHidden();
+    await expect(quickStartLink).toBeVisible();
+  });
 });
 
 test.describe('Mobile sidebar toggle', () => {

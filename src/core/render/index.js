@@ -324,8 +324,12 @@ export function Render(Base) {
       this.#addTextAsTitleAttribute('.sidebar-nav a');
 
       if (loadSidebar && activeEl) {
-        const parent = /** @type {HTMLElement} */ (activeEl.parentElement);
-        parent.innerHTML += this.compiler.subSidebar(subMaxLevel) || '';
+        activeEl
+          .closest('li')
+          ?.insertAdjacentHTML(
+            'beforeend',
+            this.compiler.subSidebar(subMaxLevel) || '',
+          );
       } else {
         this.compiler.resetToc();
       }
