@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: ${{ matrix.os }}-${{ matrix.node-version }}-artifacts
+          name: test-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             _playwright-results/
             _playwright-report/
