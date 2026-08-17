@@ -1,0 +1,14 @@
+/* Variables: Advanced */
+/* ========================================================================== */
+/* prettier-ignore */
+:root {
+  /* z-index */
+  --z-skip-to-content: 2147483647;
+  --z-progress       : 2147483637;
+  --z-sidebar        : 60;
+  --z-sidebar-toggle : 50;
+  --z-main-overlay   : 40;
+  --z-github-corner  : 30;
+  --z-app-nav        : 20;
+  --z-cover          : 10;
+}

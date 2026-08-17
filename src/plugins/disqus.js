@@ -1,8 +1,9 @@
-/* eslint-disable no-unused-vars */
 const fixedPath = location.href.replace('/-/', '/#/');
 if (fixedPath !== location.href) {
   location.href = fixedPath;
 }
+
+const window = /** @type {any} */ (globalThis);
 
 function install(hook, vm) {
   const dom = Docsify.dom;
@@ -12,11 +13,11 @@ function install(hook, vm) {
   }
 
   hook.init(_ => {
-    const script = dom.create('script');
+    const script = /** @type {HTMLScriptElement} */ (dom.create('script'));
 
     script.async = true;
     script.src = `https://${disqus}.disqus.com/embed.js`;
-    script.setAttribute('data-timestamp', Number(new Date()));
+    script.setAttribute('data-timestamp', String(Number(new Date())));
     dom.appendTo(dom.body, script);
   });
 
@@ -27,8 +28,7 @@ function install(hook, vm) {
     div.style = `width: ${main.clientWidth}px; margin: 0 auto 20px;`;
     dom.appendTo(dom.find('.content'), div);
 
-    // eslint-disable-next-line
-    window.disqus_config = function() {
+    window.disqus_config = function () {
       this.page.url = location.origin + '/-' + vm.route.path;
       this.page.identifier = vm.route.path;
       this.page.title = document.title;
@@ -39,7 +39,7 @@ function install(hook, vm) {
     if (typeof window.DISQUS !== 'undefined') {
       window.DISQUS.reset({
         reload: true,
-        config: function () {
+        config() {
           this.page.url = location.origin + '/-' + vm.route.path;
           this.page.identifier = vm.route.path;
           this.page.title = document.title;
@@ -49,4 +49,7 @@ function install(hook, vm) {
   });
 }
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

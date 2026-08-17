@@ -1,6 +1,6 @@
-import { isFn } from '../util/core';
-import { inBrowser } from './env';
+import { isFn } from '../util/core.js';
 
+/** @type {Record<string, Element>} */
 const cacheNode = {};
 
 /**
@@ -21,63 +21,112 @@ export function getNode(el, noCache = false) {
   return el;
 }
 
-export const $ = inBrowser && document;
+/**
+ *
+ * @param {*} el the target element or the selector
+ * @param {*} content the content to be rendered as HTML
+ * @param {*} replace To replace the content (true) or insert instead (false) , default is false
+ */
+/**
+ * @param {string|Element} el
+ * @param {string} content
+ * @param {boolean} [replace]
+ */
+export function setHTML(el, content, replace) {
+  const node = getNode(el);
+  if (node) {
+    node[replace ? 'outerHTML' : 'innerHTML'] = content;
+  }
+}
 
-export const body = inBrowser && $.body;
+export const $ = document;
 
-export const head = inBrowser && $.head;
+export const body = $.body;
+
+export const head = $.head;
 
 /**
- * Find elements
- * @param {String|Element} el The root element where to perform the search from
- * @param {Element} node The query
+ * Find the first matching element
+ * @param {string|Element} el The root element on which to perform the query
+ * from, or a query string to query from `document`.
+ * @param {string} [query] The query string to use on `el` if `el` is an
+ * element.
  * @returns {Element} The found DOM element
  * @example
  * find('nav') => document.querySelector('nav')
  * find(nav, 'a') => nav.querySelector('a')
  */
-export function find(el, node) {
-  return node ? el.querySelector(node) : $.querySelector(el);
-}
-
-/**
- * Find all elements
- * @param {String|Element} el The root element where to perform the search from
- * @param {Element} node The query
- * @returns {Array<Element>} An array of DOM elements
- * @example
- * findAll('a') => [].slice.call(document.querySelectorAll('a'))
- * findAll(nav, 'a') => [].slice.call(nav.querySelectorAll('a'))
- */
-export function findAll(el, node) {
-  return [].slice.call(
-    node ? el.querySelectorAll(node) : $.querySelectorAll(el)
+export function find(el, query = ':is()') {
+  return /** @type {Element} */ (
+    typeof el !== 'string' ? el.querySelector(query) : $.querySelector(el)
   );
 }
 
-export function create(node, tpl) {
-  node = $.createElement(node);
-  if (tpl) {
-    node.innerHTML = tpl;
-  }
-
-  return node;
+/**
+ * Find all matching elements
+ * @param {string|Element} el The root element on which to perform the query
+ * from, or a query string to query from `document`.
+ * @param {string} [query] The query string to use on `el` if `el` is an
+ * element.
+ * @returns {Array<Element>} An array of DOM elements
+ * @example
+ * findAll('a') => Array.from(document.querySelectorAll('a'))
+ * findAll(nav, 'a') => Array.from(nav.querySelectorAll('a'))
+ */
+export function findAll(el, query = ':is()') {
+  return Array.from(
+    typeof el !== 'string'
+      ? el.querySelectorAll(query)
+      : $.querySelectorAll(el),
+  );
 }
 
+/**
+ * @param {string} node
+ * @param {string} [tpl]
+ * @returns {HTMLElement}
+ */
+export function create(node, tpl) {
+  const element = $.createElement(node);
+  if (tpl) {
+    element.innerHTML = tpl;
+  }
+
+  return element;
+}
+
+/**
+ * @param {Element} target
+ * @param {Element} el
+ */
 export function appendTo(target, el) {
   return target.appendChild(el);
 }
 
+/**
+ * @param {Element} target
+ * @param {Element} el
+ */
 export function before(target, el) {
   return target.insertBefore(el, target.children[0]);
 }
 
+/**
+ * @param {any} el
+ * @param {any} type
+ * @param {any} [handler]
+ */
 export function on(el, type, handler) {
   isFn(type)
     ? window.addEventListener(el, type)
     : el.addEventListener(type, handler);
 }
 
+/**
+ * @param {any} el
+ * @param {any} type
+ * @param {any} [handler]
+ */
 export function off(el, type, handler) {
   isFn(type)
     ? window.removeEventListener(el, type)
@@ -85,27 +134,16 @@ export function off(el, type, handler) {
 }
 
 /**
- * Toggle class
- * @param {String|Element} el The element that needs the class to be toggled
- * @param {Element} type The type of action to be performed on the classList (toggle by default)
- * @param {String} val Name of the class to be toggled
- * @void
- * @example
- * toggleClass(el, 'active') => el.classList.toggle('active')
- * toggleClass(el, 'add', 'active') => el.classList.add('active')
+ * @param {string} content
  */
-export function toggleClass(el, type, val) {
-  el && el.classList[val ? type : 'toggle'](val || type);
-}
-
 export function style(content) {
-  appendTo(head, create('style', content));
+  appendTo(head, /** @type {Element} */ (create('style', content)));
 }
 
 /**
  * Fork https://github.com/bendrucker/document-ready/blob/master/index.js
- * @param {Function} callback The callbacack to be called when the page is loaded
- * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
+ * @param {(event: Event) => void} callback The callbacack to be called when the page is loaded
+ * @returns {number|void} If the page is already loaded returns the result of the setTimeout callback,
  *  otherwise it only attaches the callback to the DOMContentLoaded event
  */
 export function documentReady(callback, doc = document) {

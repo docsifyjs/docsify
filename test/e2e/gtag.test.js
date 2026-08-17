@@ -1,8 +1,5 @@
-// Modules, constants, and variables
-// npm run test:e2e gtag.test.js
-// -----------------------------------------------------------------------------
-const docsifyInit = require('../helpers/docsify-init');
-const { test, expect } = require('./fixtures/docsify-init-fixture');
+import docsifyInit from '../helpers/docsify-init.js';
+import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 const gtagList = [
   'AW-YYYYYY', // Google Ads
@@ -11,8 +8,6 @@ const gtagList = [
   'UA-XXXXXX', // Google Universal Analytics (GA3)
 ];
 
-// Suite
-// -----------------------------------------------------------------------------
 test.describe('Gtag Plugin Tests', () => {
   // page request listened, print collect url
   function pageRequestListened(page) {
@@ -35,8 +30,6 @@ test.describe('Gtag Plugin Tests', () => {
     });
   }
 
-  // Tests
-  // ---------------------------------------------------------------------------
   test('single gtag', async ({ page }) => {
     pageRequestListened(page);
 
@@ -44,8 +37,8 @@ test.describe('Gtag Plugin Tests', () => {
       config: {
         gtag: gtagList[0],
       },
-      scriptURLs: ['/lib/plugins/gtag.min.js'],
-      styleURLs: ['/lib/themes/vue.css'],
+      scriptURLs: ['/dist/plugins/gtag.js'],
+      styleURLs: ['/dist/themes/core.css'],
     };
 
     await docsifyInit({
@@ -70,8 +63,8 @@ test.describe('Gtag Plugin Tests', () => {
       config: {
         gtag: gtagList,
       },
-      scriptURLs: ['/lib/plugins/gtag.min.js'],
-      styleURLs: ['/lib/themes/vue.css'],
+      scriptURLs: ['/dist/plugins/gtag.js'],
+      styleURLs: ['/dist/themes/core.css'],
     };
 
     await docsifyInit({
@@ -87,11 +80,5 @@ test.describe('Gtag Plugin Tests', () => {
 
     // Tests
     expect($docsify.gtag).not.toEqual('');
-  });
-
-  test('data-ga attribute', async ({ page }) => {
-    pageRequestListened(page);
-
-    // TODO
   });
 });

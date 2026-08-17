@@ -1,13 +1,31 @@
-import { makeExactMatcher } from './exact-match';
-import { createNextFunction } from './next';
+import { makeExactMatcher } from './exact-match.js';
+import { createNextFunction } from './next.js';
 
-/** @typedef {import('../Docsify').Constructor} Constructor */
+/** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /** @typedef {Record<string, string | VirtualRouteHandler>} VirtualRoutesMap */
-/** @typedef {(route: string, match: RegExpMatchArray | null) => string | void | Promise<string | void> } VirtualRouteHandler */
+/** @typedef {(route: string, match: RegExpMatchArray | null, next?: (content: string | void | Promise<string | void>) => void) => string | void | Promise<string | void> } VirtualRouteHandler */
 
 /**
- * @template {!Constructor} T
+ * Allows users/plugins to introduce dynamically created content into their docsify
+ * websites. https://github.com/docsifyjs/docsify/issues/1737
+ *
+ * For instance:
+ *
+ * ```js
+ * window.$docsify = {
+ *   routes: {
+ *     '/items/(.+)': function (route, matched) {
+ *       return `
+ *         # Item Page: ${matched[1]}
+ *         This is an item
+ *       `;
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * @template {Constructor} T
  * @param {T} Base - The class to extend
  */
 export function VirtualRoutes(Base) {
@@ -23,12 +41,13 @@ export function VirtualRoutes(Base) {
     /**
      * Attempts to match the given path with a virtual route.
      * @param {string} path the path of the route to match
-     * @returns {Promise<string | null>} resolves to string if route was matched, otherwise null
+     * @returns {PromiseLike<string | null>} resolves to string if route was matched, otherwise null
      */
     matchVirtualRoute(path) {
       const virtualRoutes = this.routes();
       const virtualRoutePaths = Object.keys(virtualRoutes);
 
+      /** @type {(value: string | null) => any} */
       let done = () => null;
 
       /**
@@ -83,7 +102,9 @@ export function VirtualRoutes(Base) {
       }
 
       return {
-        then: function (cb) {
+        // @ts-expect-error types are screwed here
+        then(cb) {
+          // @ts-expect-error types are screwed here
           done = cb;
           asyncMatchNextRoute();
         },

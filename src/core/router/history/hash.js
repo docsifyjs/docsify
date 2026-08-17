@@ -1,18 +1,15 @@
-import { isExternal, noop } from '../../util/core';
-import { on } from '../../util/dom';
-import { endsWith } from '../../util/str';
-import { parseQuery, cleanPath, replaceSlug } from '../util';
-import { History } from './base';
+import { isExternal, noop } from '../../util/core.js';
+import { on } from '../../util/dom.js';
+import { parseQuery, cleanPath, replaceSlug } from '../util.js';
+import { History } from './base.js';
 
 function replaceHash(path) {
   const i = location.href.indexOf('#');
   location.replace(location.href.slice(0, i >= 0 ? i : 0) + '#' + path);
 }
+
 export class HashHistory extends History {
-  constructor(config) {
-    super(config);
-    this.mode = 'hash';
-  }
+  mode = 'hash';
 
   getBasePath() {
     const path = window.location.pathname || '';
@@ -23,7 +20,7 @@ export class HashHistory extends History {
     // prevents the `/index.html` part of the URI from being
     // remove during routing.
     // See here: https://github.com/docsifyjs/docsify/pull/1372
-    const basePath = endsWith(path, '.html')
+    const basePath = path.endsWith('.html')
       ? path + '#/' + base
       : path + '/' + base;
     return /^(\/|https?:)/g.test(base) ? base : cleanPath(basePath);
@@ -37,7 +34,7 @@ export class HashHistory extends History {
     return index === -1 ? '' : href.slice(index + 1);
   }
 
-  /** @param {((params: {source: TODO}) => void)} [cb] */
+  /** @param {(params: {source: any, event?: any}) => void} [cb] */
   onchange(cb = noop) {
     // The hashchange event does not tell us if it originated from
     // a clicked link or by moving back/forward in the history;
@@ -50,6 +47,15 @@ export class HashHistory extends History {
 
       if (el && el.tagName === 'A' && !isExternal(el.href)) {
         navigating = true;
+
+        // Do not compare hash containing these classes.
+        if (['app-name-link', 'page-link'].includes(el.className)) {
+          return;
+        }
+
+        if (el.hash === location.hash) {
+          cb({ event: e, source: 'navigate' });
+        }
       }
     });
 
@@ -74,8 +80,8 @@ export class HashHistory extends History {
 
   /**
    * Parse the url
-   * @param {string} [path=location.herf] URL to be parsed
-   * @return {object} { path, query }
+   * @param {string} path URL to be parsed
+   * @return {import('../index.js').Route} { path, query, file, response }
    */
   parse(path = location.href) {
     let query = '';
@@ -95,6 +101,7 @@ export class HashHistory extends History {
       path,
       file: this.getFile(path, true),
       query: parseQuery(query),
+      response: {},
     };
   }
 

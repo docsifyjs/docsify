@@ -1,50 +1,67 @@
 import {
+  cleanPath,
   getPath,
   isAbsolutePath,
-  stringifyQuery,
-  cleanPath,
   replaceSlug,
   resolvePath,
-} from '../util';
-import { noop, merge } from '../../util/core';
-
-const cached = {};
-
-function getAlias(path, alias, last) {
-  const match = Object.keys(alias).filter(key => {
-    const re = cached[key] || (cached[key] = new RegExp(`^${key}$`));
-    return re.test(path) && path !== last;
-  })[0];
-
-  return match
-    ? getAlias(path.replace(cached[match], alias[match]), alias, path)
-    : path;
-}
-
-function getFileName(path, ext) {
-  return new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`, 'g').test(path)
-    ? path
-    : /\/$/g.test(path)
-    ? `${path}README${ext}`
-    : `${path}${ext}`;
-}
+  stringifyQuery,
+} from '../util.js';
+import { noop } from '../../util/core.js';
 
 export class History {
+  #cached = {};
+
   constructor(config) {
     this.config = config;
+  }
+
+  #getAlias(path, alias, last) {
+    const match = Object.keys(alias).filter(key => {
+      const re =
+        this.#cached[key] || (this.#cached[key] = new RegExp(`^${key}$`));
+      return re.test(path) && path !== last;
+    })[0];
+
+    return match
+      ? this.#getAlias(
+          path.replace(this.#cached[match], alias[match]),
+          alias,
+          path,
+        )
+      : path;
+  }
+
+  #getFileName(path, ext) {
+    const [basePath, query] = path.split('?');
+
+    const hasValidExt = new RegExp(`\\.(${ext.replace(/^\./, '')}|html)$`).test(
+      basePath,
+    );
+
+    const updatedPath = hasValidExt
+      ? basePath
+      : /\/$/g.test(basePath)
+        ? `${basePath}README${ext}`
+        : `${basePath}${ext}`;
+
+    return query ? `${updatedPath}?${query}` : updatedPath;
   }
 
   getBasePath() {
     return this.config.basePath;
   }
 
-  getFile(path = this.getCurrentPath(), isRelative) {
+  /**
+   * @param {string} path
+   * @param {boolean} isRelative
+   */
+  getFile(path = this.getCurrentPath(), isRelative = false) {
     const { config } = this;
     const base = this.getBasePath();
     const ext = typeof config.ext === 'string' ? config.ext : '.md';
 
-    path = config.alias ? getAlias(path, config.alias) : path;
-    path = getFileName(path, ext);
+    path = config.alias ? this.#getAlias(path, config.alias) : path;
+    path = this.#getFileName(path, ext);
     path = path === `/README${ext}` ? config.homepage || path : path;
     path = isAbsolutePath(path) ? path : getPath(base, path);
 
@@ -59,17 +76,30 @@ export class History {
     cb();
   }
 
-  getCurrentPath() {}
+  /**
+   * @return {string}
+   */
+  getCurrentPath() {
+    throw new Error('Subclass should implement');
+  }
 
-  normalize() {}
+  normalize() {
+    throw new Error('Subclass should implement');
+  }
 
-  parse() {}
+  /**
+   * @param {string} path
+   * @return {import('../index.js').Route} { path, query, file, response }
+   */
+  parse(path) {
+    throw new Error('Subclass should implement');
+  }
 
   toURL(path, params, currentRoute) {
     const local = currentRoute && path[0] === '#';
     const route = this.parse(replaceSlug(path));
 
-    route.query = merge({}, route.query, params);
+    route.query = { ...route.query, ...params };
     path = route.path + stringifyQuery(route.query);
     path = path.replace(/\.md(\?)|\.md$/, '$1');
 
@@ -83,7 +113,7 @@ export class History {
     if (this.config.relativePath && path.indexOf('/') !== 0) {
       const currentDir = currentRoute.substring(
         0,
-        currentRoute.lastIndexOf('/') + 1
+        currentRoute.lastIndexOf('/') + 1,
       );
       return cleanPath(resolvePath(currentDir + path));
     }

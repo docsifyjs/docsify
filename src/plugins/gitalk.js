@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */
+const window = /** @type {any} */ (globalThis);
+
 function install(hook) {
   const dom = Docsify.dom;
 
@@ -11,14 +12,18 @@ function install(hook) {
   });
 
   hook.doneEach(_ => {
-    const el = document.getElementById('gitalk-container');
+    const el = /** @type {HTMLElement} */ (
+      document.getElementById('gitalk-container')
+    );
     while (el.hasChildNodes()) {
-      el.removeChild(el.firstChild);
+      el.removeChild(/** @type {Node} */ (el.firstChild));
     }
 
-    // eslint-disable-next-line
-    gitalk.render('gitalk-container');
+    window.gitalk.render('gitalk-container');
   });
 }
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

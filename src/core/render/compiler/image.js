@@ -1,10 +1,10 @@
-import { getAndRemoveConfig } from '../utils';
-import { isAbsolutePath, getPath, getParentPath } from '../../router/util';
+import { escapeHtml, getAndRemoveConfig } from '../utils.js';
+import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
 
 export const imageCompiler = ({ renderer, contentBase, router }) =>
-  (renderer.image = (href, title, text) => {
+  (renderer.image = ({ href, title, text }) => {
     let url = href;
-    let attrs = [];
+    const attrs = [];
 
     const { str, config } = getAndRemoveConfig(title);
     title = str;
@@ -14,11 +14,11 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
     }
 
     if (title) {
-      attrs.push(`title="${title}"`);
+      attrs.push(`title="${escapeHtml(title)}"`);
     }
 
     if (config.size) {
-      const [width, height] = config.size.split('x');
+      const [width, height] = /** @type {string} */ (config.size).split('x');
       if (height) {
         attrs.push(`width="${width}" height="${height}"`);
       } else {
@@ -27,7 +27,11 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
     }
 
     if (config.class) {
-      attrs.push(`class="${config.class}"`);
+      let classes = config.class;
+      if (Array.isArray(config.class)) {
+        classes = config.class.join(' ');
+      }
+      attrs.push(`class="${classes}"`);
     }
 
     if (config.id) {
@@ -38,11 +42,7 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
       url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
     }
 
-    if (attrs.length > 0) {
-      return `<img src="${url}" data-origin="${href}" alt="${text}" ${attrs.join(
-        ' '
-      )} />`;
-    }
-
-    return `<img src="${url}" data-origin="${href}" alt="${text}"${attrs}>`;
+    return /* html */ `<img src="${escapeHtml(url)}" data-origin="${escapeHtml(href)}" alt="${escapeHtml(text)}" ${attrs.join(
+      ' ',
+    )} />`;
   });

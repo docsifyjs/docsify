@@ -1,8 +1,12 @@
 # List of Plugins
 
+These are built-in and external plugins for Docsify.
+
+See also how to [Write a Plugin](./write-a-plugin.md).
+
 ## Full text search
 
-By default, the hyperlink on the current page is recognized and the content is saved in `localStorage`. You can also specify the path to the files.
+By default, the hyperlink on the current page is recognized and the content is saved in `IndexedDB`. You can also specify the path to the files.
 
 <!-- prettier-ignore -->
 ```html
@@ -17,10 +21,15 @@ By default, the hyperlink on the current page is recognized and the content is s
       '/zh-cn/',      // => /zh-cn/README.md
     ],
 
-    // complete configuration parameters
+    // Complete configuration parameters
     search: {
+      // Location in sidebar (default: prepended as first child)
+      // Optionally specify insertAfter or insertBefore (not both)
+      insertAfter: '.app-name', // CSS selector in .sidebar scope
+      insertBefore: '.sidebar-nav', // CSS selector in .sidebar scope
+
       maxAge: 86400000, // Expiration time, the default one day
-      paths: [], // or 'auto'
+      paths: [], // string[] of files to search in, or 'auto' for discovery based on your sidebar
       placeholder: 'Type to search',
 
       // Localization
@@ -40,7 +49,7 @@ By default, the hyperlink on the current page is recognized and the content is s
       // Headline depth, 1 - 6
       depth: 2,
 
-      hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+      hideOtherSidebarContent: true, // Deprecated as of v5
 
       // To avoid search index collision
       // between multiple websites under the same domain
@@ -56,18 +65,19 @@ By default, the hyperlink on the current page is recognized and the content is s
       // You can provide a regexp to match prefixes. In this case,
       // the matching substring will be used to identify the index
       pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/,
+
+      // Show where each result comes from (default: 'none')
+      // 'page': the page title, e.g. "Guide"
+      // 'breadcrumb': the sidebar path, e.g. "Basics › Guide"
+      resultSource: 'none',
     },
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
 ```
 
-This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café"). Legacy browsers like IE11 require the following [String.normalize()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) polyfill to ignore diacritical marks:
-
-```html
-<script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
-```
+This plugin ignores diacritical marks when performing a full text search (e.g., "cafe" will also match "café").
 
 ## Google Analytics
 
@@ -81,16 +91,16 @@ Install the plugin and configure the track id.
     ga: 'UA-XXXXX-Y',
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script>
 ```
 
 Configure by `data-ga`.
 
 <!-- prettier-ignore -->
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/ga.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js" data-ga="UA-XXXXX-Y"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/ga.min.js"></script>
 ```
 
 ## Google Analytics 4 (GA4)
@@ -114,18 +124,18 @@ Install the plugin and configure the track id.
     ],
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gtag.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/gtag.min.js"></script>
 ```
 
 ## Emoji
 
 Renders a larger collection of emoji shorthand codes. Without this plugin, Docsify is able to render only a limited number of emoji shorthand codes.
 
-!> Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
+> [!IMPORTANT] Deprecated as of v4.13. Docsify no longer requires this plugin for full emoji support.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/emoji.min.js"></script>
 ```
 
 ## External Script
@@ -133,7 +143,7 @@ Renders a larger collection of emoji shorthand codes. Without this plugin, Docsi
 If the script on the page is an external one (imports a js file via `src` attribute), you'll need this plugin to make it work.
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/external-script.min.js"></script>
 ```
 
 ## Zoom image
@@ -141,7 +151,7 @@ If the script on the page is an external one (imports a js file via `src` attrib
 Medium's image zoom. Based on [medium-zoom](https://github.com/francoischalifour/medium-zoom).
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/zoom-image.min.js"></script>
 ```
 
 Exclude the special image
@@ -152,7 +162,7 @@ Exclude the special image
 
 ## Edit on github
 
-Add `Edit on github` button on every pages. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
+Add `Edit on github` button on every page. Provided by [@njleonzhang](https://github.com/njleonzhang), see this [document](https://github.com/njleonzhang/docsify-edit-on-github)
 
 ## Demo code with instant preview and jsfiddle integration
 
@@ -182,26 +192,26 @@ Disqus comments. https://disqus.com/
     disqus: 'shortname',
   };
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/disqus.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/disqus.min.js"></script>
 ```
 
 ## Gitalk
 
-[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on Github Issue and Preact.
+[Gitalk](https://github.com/gitalk/gitalk) is a modern comment component based on GitHub Issue and Preact.
 
 ```html
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css" />
 
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/gitalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
   const gitalk = new Gitalk({
-    clientID: 'Github Application Client ID',
-    clientSecret: 'Github Application Client Secret',
-    repo: 'Github repo',
-    owner: 'Github repo owner',
+    clientID: 'GitHub Application Client ID',
+    clientSecret: 'GitHub Application Client Secret',
+    repo: 'GitHub repo',
+    owner: 'GitHub repo owner',
     admin: [
-      'Github repo collaborators, only these guys can initialize github issues',
+      'GitHub repo collaborators, only these guys can initialize github issues',
     ],
     // facebook-like distraction free mode
     distractionFreeMode: false,
@@ -214,7 +224,7 @@ Disqus comments. https://disqus.com/
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 ```
 

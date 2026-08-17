@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // From ./ga.js
 
 function appendScript(id) {
@@ -7,6 +6,8 @@ function appendScript(id) {
   script.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
   document.body.appendChild(script);
 }
+
+const window = /** @type {any} */ (globalThis);
 
 // global site tag instance initialized
 function initGlobalSiteTag(id) {
@@ -47,21 +48,20 @@ function init(ids) {
 
 function collect() {
   if (!window.gtag) {
-    init($docsify.gtag);
+    init(window.$docsify.gtag);
   }
 
   // usage: https://developers.google.com/analytics/devguides/collection/gtagjs/pages
   window.gtag('event', 'page_view', {
-    /* eslint-disable camelcase */
     page_title: document.title,
     page_location: location.href,
     page_path: location.pathname,
-    /* eslint-disable camelcase */
   });
 }
 
 const install = function (hook) {
-  if (!$docsify.gtag) {
+  if (!window.$docsify.gtag) {
+    // eslint-disable-next-line no-console
     console.error('[Docsify] gtag is required.');
     return;
   }
@@ -69,4 +69,7 @@ const install = function (hook) {
   hook.beforeEach(collect);
 };
 
-$docsify.plugins = [].concat(install, $docsify.plugins);
+window.$docsify = window.$docsify || {};
+window.$docsify.plugins = [install, ...(window.$docsify.plugins || [])];
+
+export {};

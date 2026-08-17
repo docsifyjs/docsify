@@ -1,13 +1,10 @@
-import { isExternal, noop } from '../../util/core';
-import { on } from '../../util/dom';
-import { parseQuery, getPath } from '../util';
-import { History } from './base';
+import { isExternal, noop } from '../../util/core.js';
+import { on } from '../../util/dom.js';
+import { parseQuery, getPath } from '../util.js';
+import { History } from './base.js';
 
 export class HTML5History extends History {
-  constructor(config) {
-    super(config);
-    this.mode = 'history';
-  }
+  mode = 'history';
 
   getCurrentPath() {
     const base = this.getBasePath();
@@ -20,6 +17,7 @@ export class HTML5History extends History {
     return (path || '/') + window.location.search + window.location.hash;
   }
 
+  /** @param {(params: any) => void} [cb] */
   onchange(cb = noop) {
     on('click', e => {
       const el = e.target.tagName === 'A' ? e.target : e.target.parentNode;
@@ -40,7 +38,7 @@ export class HTML5History extends History {
   /**
    * Parse the url
    * @param {string} [path=location.href] URL to be parsed
-   * @return {object} { path, query }
+   * @return {import('../index.js').Route} { path, query, file, response }
    */
   parse(path = location.href) {
     let query = '';
@@ -62,6 +60,9 @@ export class HTML5History extends History {
       path,
       file: this.getFile(path),
       query: parseQuery(query),
+      response: {},
     };
   }
+
+  normalize() {}
 }

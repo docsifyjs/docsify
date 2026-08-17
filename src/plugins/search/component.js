@@ -1,212 +1,236 @@
-/* eslint-disable no-unused-vars */
-import { search } from './search';
+import { search } from './search.js';
+import cssText from './style.css';
+import { escapeHtml } from '../../core/render/utils.js';
 
 let NO_DATA_TEXT = '';
-let options;
+let RESULT_SOURCE = 'none';
 
-function style() {
-  const code = `
-.sidebar {
-  padding-top: 0;
+// Strip emoji (pictographs, flags, variation selectors, ZWJ, keycaps) from
+// sidebar labels and page titles so source labels stay plain text.
+function stripEmoji(text) {
+  return (text || '')
+    .replace(
+      /(?:[\uD83C-\uD83E][\uDC00-\uDFFF])|[\u2600-\u27BF\u2B00-\u2BFF]|\uFE0E|\uFE0F|\u200D|\u20E3/g,
+      '',
+    )
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
-.search {
-  margin-bottom: 20px;
-  padding: 6px;
-  border-bottom: 1px solid #eee;
+// User-authored links may contain malformed percent-encoding, on which
+// decodeURIComponent() throws.
+function safeDecode(uri) {
+  try {
+    return decodeURIComponent(uri);
+  } catch {
+    return uri;
+  }
 }
 
-.search .input-wrap {
-  display: flex;
-  align-items: center;
+function findSidebarLink(url) {
+  const base = safeDecode((url || '').split('?')[0]);
+
+  return Docsify.dom
+    .findAll('.sidebar-nav a')
+    .find(
+      a => safeDecode((a.getAttribute('href') || '').split('?')[0]) === base,
+    );
 }
 
-.search .results-panel {
-  display: none;
+// Label of a sidebar list item: its own text or link text, without the text
+// of the nested list of children.
+function groupLabel(li) {
+  for (const node of li.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+      return node.textContent.trim();
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.tagName === 'UL') {
+        break;
+      }
+
+      const text = node.textContent.trim();
+
+      if (text) {
+        return text;
+      }
+    }
+  }
+
+  return '';
 }
 
-.search .results-panel.show {
-  display: block;
+// Walk the sidebar tree from the link matching the result URL up to the
+// root, collecting section labels along the way.
+function getBreadcrumb(url) {
+  const link = findSidebarLink(url);
+
+  if (!link) {
+    return null;
+  }
+
+  const parts = [link.textContent.trim()];
+  let li = link.closest('li');
+
+  while (li) {
+    const parentLi = li.parentElement ? li.parentElement.closest('li') : null;
+
+    if (parentLi) {
+      const label = groupLabel(parentLi);
+
+      if (label) {
+        parts.unshift(label);
+      }
+    }
+
+    li = parentLi;
+  }
+
+  return parts;
 }
 
-.search input {
-  outline: none;
-  border: none;
-  width: 100%;
-  padding: 0.6em 7px;
-  font-size: inherit;
-  border: 1px solid transparent;
+function resultSourceHtml(post) {
+  if (RESULT_SOURCE === 'breadcrumb') {
+    const parts = getBreadcrumb(post.url);
+
+    if (parts && parts.length) {
+      const crumbs = parts
+        .map((part, i) => {
+          const label = escapeHtml(stripEmoji(part));
+          // The page itself (last segment) stands out from its sections.
+          return i === parts.length - 1 ? `<strong>${label}</strong>` : label;
+        })
+        .join(' › ');
+
+      return /* html */ `<p class="search-breadcrumb clamp-1">${crumbs}</p>`;
+    }
+
+    // The page is not in the sidebar: fall back to its page title.
+    return post.page
+      ? /* html */ `<p class="search-breadcrumb clamp-1"><strong>${stripEmoji(post.page)}</strong></p>`
+      : '';
+  }
+
+  if (RESULT_SOURCE === 'page') {
+    // Skip the label when the matched title is the page title itself.
+    const page = post.page && post.page !== post.title ? post.page : '';
+
+    return page
+      ? /* html */ `<p class="search-breadcrumb clamp-1"><strong>${stripEmoji(page)}</strong></p>`
+      : '';
+  }
+
+  return '';
 }
 
-.search input:focus {
-  box-shadow: 0 0 5px var(--theme-color, #42b983);
-  border: 1px solid var(--theme-color, #42b983);
-}
-
-.search input::-webkit-search-decoration,
-.search input::-webkit-search-cancel-button,
-.search input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.search input::-ms-clear {
-  display: none;
-  height: 0;
-  width: 0;
-}
-
-.search .clear-button {
-  cursor: pointer;
-  width: 36px;
-  text-align: right;
-  display: none;
-}
-
-.search .clear-button.show {
-  display: block;
-}
-
-.search .clear-button svg {
-  transform: scale(.5);
-}
-
-.search h2 {
-  font-size: 17px;
-  margin: 10px 0;
-}
-
-.search a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.search .matching-post {
-  border-bottom: 1px solid #eee;
-}
-
-.search .matching-post:last-child {
-  border-bottom: 0;
-}
-
-.search p {
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.search p.empty {
-  text-align: center;
-}
-
-.app-name.hide, .sidebar-nav.hide {
-  display: none;
-}`;
-
-  Docsify.dom.style(code);
-}
-
-function tpl(defaultValue = '') {
-  const html = `<div class="input-wrap">
-      <input type="search" value="${defaultValue}" aria-label="Search text" />
-      <div class="clear-button">
-        <svg width="26" height="24">
-          <circle cx="12" cy="12" r="11" fill="#ccc" />
-          <path stroke="white" stroke-width="2" d="M8.25,8.25,15.75,15.75" />
-          <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />
-        </svg>
+function tpl(vm, defaultValue = '') {
+  const { insertAfter, insertBefore } = vm.config?.search || {};
+  const html = /* html */ `
+    <div class="input-wrap">
+      <input type="search" value="${defaultValue}" required aria-keyshortcuts="/ control+k meta+k" />
+      <button class="clear-button" title="Clear search">
+        <span class="visually-hidden">Clear search</span>
+      </button>
+      <div class="kbd-group">
+        <kbd title="Press / to search">/</kbd>
+        <kbd title="Press Control+K to search">⌃K</kbd>
       </div>
     </div>
+    <p class="results-status" aria-live="polite"></p>
     <div class="results-panel"></div>
-    </div>`;
-  const el = Docsify.dom.create('div', html);
-  const aside = Docsify.dom.find('aside');
+  `;
+  const sidebarElm = Docsify.dom.find('.sidebar');
+  const searchElm = Docsify.dom.create('section', html);
+  const insertElm = /** @type {HTMLElement} */ (
+    sidebarElm.querySelector(
+      `:scope ${insertAfter || insertBefore || '> :first-child'}`,
+    )
+  );
 
-  Docsify.dom.toggleClass(el, 'search');
-  Docsify.dom.before(aside, el);
+  searchElm.classList.add('search');
+  searchElm.setAttribute('role', 'search');
+  sidebarElm.insertBefore(
+    searchElm,
+    insertAfter ? insertElm.nextSibling : insertElm,
+  );
 }
 
 function doSearch(value) {
-  const $search = Docsify.dom.find('div.search');
+  const $search = Docsify.dom.find('.search');
   const $panel = Docsify.dom.find($search, '.results-panel');
-  const $clearBtn = Docsify.dom.find($search, '.clear-button');
-  const $sidebarNav = Docsify.dom.find('.sidebar-nav');
-  const $appName = Docsify.dom.find('.app-name');
+  const $status = Docsify.dom.find('.search .results-status');
 
   if (!value) {
-    $panel.classList.remove('show');
-    $clearBtn.classList.remove('show');
     $panel.innerHTML = '';
-
-    if (options.hideOtherSidebarContent) {
-      $sidebarNav && $sidebarNav.classList.remove('hide');
-      $appName && $appName.classList.remove('hide');
-    }
+    $status.textContent = '';
 
     return;
   }
 
-  const matchs = search(value);
+  const matches = search(value);
 
   let html = '';
-  matchs.forEach(post => {
-    html += `<div class="matching-post">
-<a href="${post.url}">
-<h2>${post.title}</h2>
-<p>${post.content}</p>
-</a>
-</div>`;
+  matches.forEach((post, i) => {
+    const content = post.content ? `...${post.content}...` : '';
+    const title = (post.title || '').replace(/<[^>]+>/g, '');
+    html += /* html */ `
+      <div class="matching-post" aria-label="search result ${i + 1}">
+        <a href="${post.url}" title="${title}">
+          <p class="title clamp-1">${post.title}</p>
+          <p class="content clamp-2">${content}</p>
+          ${resultSourceHtml(post)}
+        </a>
+      </div>
+    `;
   });
 
-  $panel.classList.add('show');
-  $clearBtn.classList.add('show');
-  $panel.innerHTML = html || `<p class="empty">${NO_DATA_TEXT}</p>`;
-  if (options.hideOtherSidebarContent) {
-    $sidebarNav && $sidebarNav.classList.add('hide');
-    $appName && $appName.classList.add('hide');
-  }
+  $panel.innerHTML = html || '';
+  $status.textContent = matches.length
+    ? `Found ${matches.length} results`
+    : NO_DATA_TEXT;
 }
 
 function bindEvents() {
-  const $search = Docsify.dom.find('div.search');
-  const $input = Docsify.dom.find($search, 'input');
-  const $inputWrap = Docsify.dom.find($search, '.input-wrap');
+  const $search = Docsify.dom.find('.search');
+  const $input = /** @type {HTMLInputElement} */ (
+    Docsify.dom.find($search, 'input')
+  );
+  const $clear = Docsify.dom.find($search, '.clear-button');
 
   let timeId;
 
   /**
-    Prevent to Fold sidebar.
-
-    When searching on the mobile end,
-    the sidebar is collapsed when you click the INPUT box,
-    making it impossible to search.
+   * Prevent to Fold sidebar.
+   *
+   * When searching on the mobile end,
+   * the sidebar is collapsed when you click the INPUT box,
+   * making it impossible to search.
    */
   Docsify.dom.on(
     $search,
     'click',
     e =>
       ['A', 'H2', 'P', 'EM'].indexOf(e.target.tagName) === -1 &&
-      e.stopPropagation()
+      e.stopPropagation(),
   );
   Docsify.dom.on($input, 'input', e => {
     clearTimeout(timeId);
-    timeId = setTimeout(_ => doSearch(e.target.value.trim()), 100);
+    timeId = setTimeout(
+      _ => doSearch(/** @type {HTMLInputElement} */ (e.target).value.trim()),
+      100,
+    );
   });
-  Docsify.dom.on($inputWrap, 'click', e => {
-    // Click input outside
-    if (e.target.tagName !== 'INPUT') {
-      $input.value = '';
-      doSearch();
-    }
+  Docsify.dom.on($clear, 'click', e => {
+    $input.value = '';
+    doSearch();
   });
 }
 
 function updatePlaceholder(text, path) {
-  const $input = Docsify.dom.getNode('.search input[type="search"]');
+  const $input = /** @type {HTMLInputElement | null} */ (
+    Docsify.dom.getNode('.search input[type="search"]')
+  );
 
   if (!$input) {
     return;
@@ -229,22 +253,24 @@ function updateNoData(text, path) {
   }
 }
 
-function updateOptions(opts) {
-  options = opts;
-}
-
 export function init(opts, vm) {
-  const keywords = vm.router.parse().query.s;
+  const sidebarElm = Docsify.dom.find('.sidebar');
 
-  updateOptions(opts);
-  style();
-  tpl(keywords);
+  if (!sidebarElm) {
+    return;
+  }
+
+  const keywords = vm.router.parse().query.s || '';
+
+  RESULT_SOURCE = opts.resultSource || RESULT_SOURCE;
+  Docsify.dom.style(cssText);
+  tpl(vm, escapeHtml(keywords));
   bindEvents();
   keywords && setTimeout(_ => doSearch(keywords), 500);
 }
 
 export function update(opts, vm) {
-  updateOptions(opts);
+  RESULT_SOURCE = opts.resultSource || RESULT_SOURCE;
   updatePlaceholder(opts.placeholder, vm.route.path);
   updateNoData(opts.noData, vm.route.path);
 }

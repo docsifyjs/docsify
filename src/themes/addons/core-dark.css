@@ -1,0 +1,81 @@
+/* prettier-ignore */
+:root {
+  /* Color */
+  --color-bg  : #1f2428;
+  --color-text: #ddd;
+
+  /* Cover */
+  --cover-bg-brightness: 0.75;
+
+  /* Elements */
+  --codeblock-comment    : #516e7a;
+  --codeblock-function   : #f07178;
+  --codeblock-keyword    : #c2e78c;
+  --codeblock-operator   : #ffcb6b;
+  --codeblock-punctuation: #89ddff;
+  --codeblock-selector   : #ffcb6b;
+  --codeblock-tag        : #f07178;
+  --codeblock-variable   : #ffcb6b;
+  --heading-color        : var(--strong-color);
+  --mark-bg              : #fde047;
+  --mark-color           : var(--color-bg);
+  --strong-color         : color-mix(in srgb, var(--color-text), white 35%);
+
+  /* Sidebar */
+  --sidebar-toggle-bg   : var(--color-mono-3);
+  --sidebar-toggle-color: var(--color-mono-5);
+
+  color-scheme: dark;
+}
+
+/* Cover */
+/* ========================================================================== */
+.cover-main {
+  a.button.secondary {
+    color: var(--color-text);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Markdown */
+/* ========================================================================== */
+.markdown-section {
+  .callout {
+    &[class] {
+      --callout-bg: unset;
+    }
+
+    &.caution {
+      --callout-border-color: #991b1b; /* Tailwind: red 800 */
+    }
+
+    &.important {
+      --callout-border-color: #5b21b6; /* Tailwind: violet 800 */
+    }
+
+    &.note {
+      --callout-border-color: var(--theme-color-4);
+    }
+
+    &.tip {
+      --callout-border-color: #115e59; /* Tailwind: teal 800 */
+    }
+
+    &.warning {
+      --callout-border-color: #a16207; /* Tailwind: yellow 700 */
+    }
+
+    code,
+    pre:where([data-lang]) {
+      background: var(--color-mono-min);
+    }
+  }
+}
+
+/* Force light mode for iframes in dark theme */
+iframe,
+iframe *,
+iframe[src],
+iframe[src] * {
+  color-scheme: light;
+}

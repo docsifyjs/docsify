@@ -1,6 +1,6 @@
-import { noop } from '../util/core';
+import { noop } from '../util/core.js';
 
-/** @typedef {import('../Docsify').Constructor} Constructor */
+/** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /**
  * @template {!Constructor} T
@@ -8,6 +8,11 @@ import { noop } from '../util/core';
  */
 export function Lifecycle(Base) {
   return class Lifecycle extends Base {
+    /** @type {Record<string, Function[]>} */
+    _hooks = {};
+
+    _lifecycle = /** @type {Hooks} */ ({});
+
     initLifecycle() {
       const hooks = [
         'init',
@@ -18,19 +23,25 @@ export function Lifecycle(Base) {
         'ready',
       ];
 
-      this._hooks = {};
-      this._lifecycle = {};
-
-      hooks.forEach(hook => {
+      hooks.forEach((/** @type {string} */ hook) => {
+        /** @type {Function[]} */
         const arr = (this._hooks[hook] = []);
-        this._lifecycle[hook] = fn => arr.push(fn);
+        this._lifecycle[hook] = (/** @type {Function} */ fn) => arr.push(fn);
       });
     }
 
+    /**
+     * @param {string} hookName
+     * @param {any} [data]
+     * @param {Function} [next]
+     */
     callHook(hookName, data, next = noop) {
       const queue = this._hooks[hookName];
       const catchPluginErrors = this.config.catchPluginErrors;
 
+      /**
+       * @param {number} index
+       */
       const step = function (index) {
         const hookFn = queue[index];
 
@@ -40,13 +51,16 @@ export function Lifecycle(Base) {
           const errTitle = 'Docsify plugin error';
 
           if (hookFn.length === 2) {
+            // FIXME this does not catch async errors. We can support async
+            // functions for this, or add a second arg to next() functions.
             try {
-              hookFn(data, result => {
-                data = result;
+              hookFn(data, (/** @type {string} */ result) => {
+                data = result === undefined ? data : result;
                 step(index + 1);
               });
             } catch (err) {
               if (catchPluginErrors) {
+                // eslint-disable-next-line no-console
                 console.error(errTitle, err);
               } else {
                 throw err;
@@ -62,6 +76,7 @@ export function Lifecycle(Base) {
               step(index + 1);
             } catch (err) {
               if (catchPluginErrors) {
+                // eslint-disable-next-line no-console
                 console.error(errTitle, err);
               } else {
                 throw err;
@@ -79,3 +94,20 @@ export function Lifecycle(Base) {
     }
   };
 }
+
+/**
+@typedef {{
+  init(): void
+  mounted(): void
+  beforeEach: (
+    ((markdown: string) => string) |
+    ((markdown: string, next: (markdown?: string) => void) => void)
+  )
+  afterEach: (
+    ((html: string) => string) |
+    ((html: string, next: (html?: string) => void) => void)
+  )
+  doneEach(): void
+  ready(): void
+}} Hooks
+*/

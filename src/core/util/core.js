@@ -1,15 +1,20 @@
 /**
- * Create a cached version of a pure function.
+ * Create a cached version of fn that given an input string returns a
+ * cached return value mapped from the string, regardless if fn is a new function every time.
+ * created.
  * @param {*} fn The function call to be cached
  * @void
  */
-
+// TODO Replace this with a proper memo(fn) based on args per function.
 export function cached(fn) {
   const cache = Object.create(null);
   return function (str) {
     const key = isPrimitive(str) ? str : JSON.stringify(str);
-    const hit = cache[key];
-    return hit || (cache[key] = fn(str));
+    if (key in cache) {
+      return cache[key];
+    }
+
+    return (cache[key] = fn(str));
   };
 }
 
@@ -20,33 +25,10 @@ export const hyphenate = cached(str => {
   return str.replace(/([A-Z])/g, m => '-' + m.toLowerCase());
 });
 
-export const hasOwn = Object.prototype.hasOwnProperty;
-
-/**
- * Simple Object.assign polyfill
- * @param {Object} to The object to be merged with
- * @returns {Object} The merged object
- */
-export const merge =
-  Object.assign ||
-  function (to) {
-    for (let i = 1; i < arguments.length; i++) {
-      const from = Object(arguments[i]);
-
-      for (const key in from) {
-        if (hasOwn.call(from, key)) {
-          to[key] = from[key];
-        }
-      }
-    }
-
-    return to;
-  };
-
 /**
  * Check if value is primitive
  * @param {*} value Checks if a value is primitive
- * @returns {Boolean} Result of the check
+ * @returns {value is string | number} Result of the check
  */
 export function isPrimitive(value) {
   return typeof value === 'string' || typeof value === 'number';
@@ -61,7 +43,7 @@ export function noop() {}
 /**
  * Check if value is function
  * @param {*} obj Any javascript object
- * @returns {Boolean} True if the passed-in value is a function
+ * @returns {obj is Function} True if the passed-in value is a function
  */
 export function isFn(obj) {
   return typeof obj === 'function';
@@ -69,12 +51,13 @@ export function isFn(obj) {
 
 /**
  * Check if url is external
- * @param {String} string  url
+ * @param {String} url  url
  * @returns {Boolean} True if the passed-in url is external
  */
 export function isExternal(url) {
-  let match = url.match(
-    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/
+  /** @type {any} */
+  const match = url.match(
+    /^([^:/?#]+:)?(?:\/{2,}([^/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/,
   );
 
   if (
@@ -89,9 +72,9 @@ export function isExternal(url) {
     match[2].length > 0 &&
     match[2].replace(
       new RegExp(
-        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$'
+        ':(' + { 'http:': 80, 'https:': 443 }[location.protocol] + ')?$',
       ),
-      ''
+      '',
     ) !== location.host
   ) {
     return true;

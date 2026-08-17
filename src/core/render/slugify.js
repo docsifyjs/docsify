@@ -1,5 +1,3 @@
-import { hasOwn } from '../util/core';
-
 let cache = {};
 const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g;
 
@@ -14,15 +12,18 @@ export function slugify(str) {
 
   let slug = str
     .trim()
+    .normalize('NFC')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/\uFE0F/g, '')
+    .replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
     .replace(/[A-Z]+/g, lower)
     .replace(/<[^>]+>/g, '')
     .replace(re, '')
     .replace(/\s/g, '-')
-    .replace(/-+/g, '-')
     .replace(/^(\d)/, '_$1');
   let count = cache[slug];
 
-  count = hasOwn.call(cache, slug) ? count + 1 : 0;
+  count = Object.prototype.hasOwnProperty.call(cache, slug) ? count + 1 : 0;
   cache[slug] = count;
 
   if (count) {

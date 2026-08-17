@@ -1,19 +1,21 @@
-import { supportsPushState } from '../util/env';
-import * as dom from '../util/dom';
-import { noop } from '../util/core';
-import { HashHistory } from './history/hash';
-import { HTML5History } from './history/html5';
+import * as dom from '../util/dom.js';
+import { noop } from '../util/core.js';
+import { HashHistory } from './history/hash.js';
+import { HTML5History } from './history/html5.js';
 
 /**
  * @typedef {{
- *   path?: string
+ *   path: string
+ *   query: Record<string, string>;
+ *   file: string;
+ *   response: {}
  * }} Route
  */
 
-/** @type {Route} */
+/** @type {Partial<Route>} */
 let lastRoute = {};
 
-/** @typedef {import('../Docsify').Constructor} Constructor */
+/** @typedef {import('../Docsify.js').Constructor} Constructor */
 
 /**
  * @template {!Constructor} T
@@ -21,17 +23,13 @@ let lastRoute = {};
  */
 export function Router(Base) {
   return class Router extends Base {
-    /** @param {any[]} args */
-    constructor(...args) {
-      super(...args);
-
-      this.route = {};
-    }
+    /** @type {Partial<Route>} */
+    route = {};
 
     updateRender() {
-      this.router.normalize();
-      this.route = this.router.parse();
-      dom.body.setAttribute('data-page', this.route.file);
+      this.router?.normalize();
+      this.route = this.router?.parse() ?? {};
+      dom.body.setAttribute('data-page', this.route.file ?? '');
     }
 
     initRouter() {
@@ -39,7 +37,7 @@ export function Router(Base) {
       const mode = config.routerMode || 'hash';
       let router;
 
-      if (mode === 'history' && supportsPushState) {
+      if (mode === 'history') {
         router = new HTML5History(config);
       } else {
         router = new HashHistory(config);
@@ -49,17 +47,16 @@ export function Router(Base) {
       this.updateRender();
       lastRoute = this.route;
 
-      // eslint-disable-next-line no-unused-vars
       router.onchange(params => {
         this.updateRender();
         this._updateRender();
 
         if (lastRoute.path === this.route.path) {
-          this.$resetEvents(params.source);
+          this.onNavigate(params.source);
           return;
         }
 
-        this.$fetch(noop, this.$resetEvents.bind(this, params.source));
+        this.$fetch(noop, this.onNavigate.bind(this, params.source));
         lastRoute = this.route;
       });
     }

@@ -1,11 +1,25 @@
-.DS_Store
+# Directories
+.husky/_
 .idea
-*.log
-/_playwright-report
-/_playwright-results
-/lib
-/node_modules
-/themes
+.vercel
+_playwright-report
+_playwright-results
+node_modules
 
-# exceptions
+# Files
+.DS_Store
+*.log
+
+# Exceptions
 !.gitkeep
+
+# Output folder for the global build only
+dist/
+
+# Output folders for the legacy v4 build
+lib/
+themes/
+
+# TypeScript declaration files for standard ESM consumption
+src/**/*.d.ts
+src/**/*.d.ts.map
