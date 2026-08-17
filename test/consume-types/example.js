@@ -33,6 +33,7 @@ const d = new Docsify({
   name: 'Vanilla ESM TypeScript Example',
   themeColor: 'deeppink',
   hideSidebar: false,
+  collapseSidebar: true,
 
   // @ts-expect-error invalid property to test that type checking works
   blahblah: 123,

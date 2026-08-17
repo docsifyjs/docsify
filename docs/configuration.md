@@ -306,6 +306,21 @@ window.$docsify = {
 };
 ```
 
+## collapseSidebar
+
+- Type: `Boolean`
+- Default: `false`
+
+Initially collapses all root sidebar groups. Visitors can still expand and
+collapse each group by selecting its title. Their choices are preserved while
+navigating between pages.
+
+```js
+window.$docsify = {
+  collapseSidebar: true,
+};
+```
+
 ## sidebarPosition
 
 - Type: `String`

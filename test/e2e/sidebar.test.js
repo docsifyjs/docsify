@@ -132,6 +132,52 @@ test.describe('Sidebar Tests', () => {
     await expect(group).not.toHaveClass(/collapse/);
   });
 
+  test('initially collapses root sidebar groups when configured', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      config: {
+        collapseSidebar: true,
+      },
+      styleURLs: ['/dist/themes/core.css'],
+      markdown: {
+        sidebar: `
+          - Getting started
+            - [Quick start](quickstart)
+          - Customization
+            - [Configuration](configuration)
+          - [Standalone](standalone)
+        `,
+      },
+      routes: {
+        '/quickstart.md': '# Quick start',
+        '/configuration.md': '# Configuration',
+        '/standalone.md': '# Standalone',
+      },
+    });
+
+    const groups = page.locator('.sidebar-nav > ul > li.group');
+    const firstGroup = groups.first();
+    const firstGroupTitle = firstGroup.locator(':scope > .group-title');
+    const firstGroupLink = firstGroup.locator(':scope > ul > li > a');
+    const secondGroup = groups.nth(1);
+
+    await expect(groups).toHaveCount(2);
+    await expect(firstGroup).toHaveClass(/collapse/);
+    await expect(secondGroup).toHaveClass(/collapse/);
+    await expect(firstGroupTitle).toHaveAttribute('aria-expanded', 'false');
+    await expect(firstGroupLink).toBeHidden();
+
+    await firstGroupTitle.click();
+    await expect(firstGroup).not.toHaveClass(/collapse/);
+    await firstGroupLink.click();
+
+    expect(page.url()).toMatch(/\/quickstart$/);
+    await expect(firstGroup).not.toHaveClass(/collapse/);
+    await expect(firstGroupTitle).toHaveAttribute('aria-expanded', 'true');
+    await expect(secondGroup).toHaveClass(/collapse/);
+  });
+
   test('supports chevrons on collapsible root groups', async ({ page }) => {
     await docsifyInit({
       styleURLs: ['/dist/themes/core.css'],

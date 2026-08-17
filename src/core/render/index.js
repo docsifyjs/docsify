@@ -294,7 +294,13 @@ export function Render(Base) {
     }
 
     _renderSidebar(text) {
-      const { maxLevel, subMaxLevel, loadSidebar, hideSidebar } = this.config;
+      const {
+        collapseSidebar,
+        maxLevel,
+        subMaxLevel,
+        loadSidebar,
+        hideSidebar,
+      } = this.config;
       const sidebarEl = dom.getNode('aside.sidebar');
       const sidebarNavEl = dom.getNode('.sidebar-nav');
       const sidebarToggleEl = dom.getNode('button.sidebar-toggle');
@@ -310,14 +316,16 @@ export function Render(Base) {
         throw new Error('Compiler is not initialized');
       }
 
-      const collapsedGroupIds = new Set(
+      const sidebarGroupStates = new Map(
         dom
           .findAll(
             sidebarNavEl,
-            'li.group.collapse > .group-title[role="button"][data-group-id]',
+            'li.group > .group-title[role="button"][data-group-id]',
           )
-          .map(elm => elm.getAttribute('data-group-id'))
-          .filter(Boolean),
+          .map(elm => [
+            elm.getAttribute('data-group-id'),
+            elm.closest('li')?.classList.contains('collapse'),
+          ]),
       );
 
       dom.setHTML('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
@@ -403,7 +411,8 @@ export function Render(Base) {
 
         if (groupTitle && rootList?.parentElement === sidebarNavEl) {
           const groupId = `${[...sidebarNavEl.children].indexOf(rootList)}:${[...rootList.children].indexOf(elm)}`;
-          const isCollapsed = collapsedGroupIds.has(groupId);
+          const isCollapsed =
+            sidebarGroupStates.get(groupId) ?? collapseSidebar;
 
           elm.classList.toggle('collapse', isCollapsed);
           groupTitle.setAttribute('data-group-id', groupId);
