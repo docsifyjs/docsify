@@ -306,7 +306,7 @@ window.$docsify = {
 };
 ```
 
-## collapseSidebar
+## collapseSidebarGroups
 
 - Type: `Boolean`
 - Default: `false`
@@ -317,7 +317,7 @@ navigating between pages.
 
 ```js
 window.$docsify = {
-  collapseSidebar: true,
+  collapseSidebarGroups: true,
 };
 ```
 

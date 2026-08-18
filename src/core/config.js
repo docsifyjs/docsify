@@ -11,7 +11,7 @@ const defaultDocsifyConfig = () => ({
   autoHeader: false,
   basePath: '',
   catchPluginErrors: true,
-  collapseSidebar: false,
+  collapseSidebarGroups: false,
   cornerExternalLinkTarget:
     /** @type {'_blank' | '_self' | '_parent' | '_top'  | '_unfencedTop'} */ (
       '_blank'

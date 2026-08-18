@@ -295,7 +295,7 @@ export function Render(Base) {
 
     _renderSidebar(text) {
       const {
-        collapseSidebar,
+        collapseSidebarGroups,
         maxLevel,
         subMaxLevel,
         loadSidebar,
@@ -412,7 +412,7 @@ export function Render(Base) {
         if (groupTitle && rootList?.parentElement === sidebarNavEl) {
           const groupId = `${[...sidebarNavEl.children].indexOf(rootList)}:${[...rootList.children].indexOf(elm)}`;
           const isCollapsed =
-            sidebarGroupStates.get(groupId) ?? collapseSidebar;
+            sidebarGroupStates.get(groupId) ?? collapseSidebarGroups;
 
           elm.classList.toggle('collapse', isCollapsed);
           groupTitle.setAttribute('data-group-id', groupId);

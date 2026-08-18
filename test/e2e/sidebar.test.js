@@ -137,7 +137,7 @@ test.describe('Sidebar Tests', () => {
   }) => {
     await docsifyInit({
       config: {
-        collapseSidebar: true,
+        collapseSidebarGroups: true,
       },
       styleURLs: ['/dist/themes/core.css'],
       markdown: {
