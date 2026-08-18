@@ -89,7 +89,7 @@
     }
 
     &.collapse {
-      > :not(a) {
+      > :not(a, p:has(> a.page-link)) {
         display: none;
       }
     }
