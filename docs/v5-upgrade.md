@@ -115,6 +115,7 @@ View [Theme Classes](themes.md?id=classes) for more details.
 If you've written a custom plugin that uses `window.Docsify.dom.toggleClass`, this helper has been removed in v5. Replace it with the native `Element.classList` API.
 
 Examples:
+
 ```js
 // v4
 window.Docsify.dom.toggleClass(element, 'className');
