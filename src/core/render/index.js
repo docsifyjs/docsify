@@ -35,6 +35,32 @@ export function Render(Base) {
       });
     }
 
+    /**
+     * Normalize links in loose Markdown lists from `<li><p><a>` to
+     * `<li><a>` so sidebar behavior and styling do not depend on list
+     * tightness.
+     *
+     * @param {Element} sidebarNavEl
+     */
+    #normalizeSidebarPageLinks(sidebarNavEl) {
+      dom.findAll(sidebarNavEl, 'li > p').forEach(paragraph => {
+        const link = paragraph.firstElementChild;
+        const onlyContainsLink = [...paragraph.childNodes].every(
+          node =>
+            node === link || (node.nodeType === 3 && !node.textContent?.trim()),
+        );
+
+        if (
+          !paragraph.attributes.length &&
+          paragraph.children.length === 1 &&
+          link?.tagName === 'A' &&
+          onlyContainsLink
+        ) {
+          paragraph.replaceWith(link);
+        }
+      });
+    }
+
     #executeScript() {
       const script = dom
         .findAll('.markdown-section>script')
@@ -329,6 +355,7 @@ export function Render(Base) {
       );
 
       dom.setHTML('.sidebar-nav', this.compiler.sidebar(text, maxLevel));
+      this.#normalizeSidebarPageLinks(sidebarNavEl);
 
       sidebarToggleEl.setAttribute('aria-expanded', String(!isMobile()));
 
@@ -358,18 +385,18 @@ export function Render(Base) {
       // Mark page links and groups
       const pageLinks = dom.findAll(
         sidebarNavEl,
-        'a:is(li > a, li > p > a):not(.section-link, [target="_blank"])',
+        'li > a:not(.section-link, [target="_blank"])',
       );
       const pageLinkGroups = dom
         // NOTE: Using filter() method as a replacement for :has() selector. It
-        // would be preferable to use only 'li:not(:has(> a, > p > a))' selector
+        // would be preferable to use only 'li:not(:has(> a))' selector
         // but the :has() selector is not supported by our Jest test environment
         // See: https://github.com/jsdom/jsdom/issues/3506#issuecomment-1769782333
         .findAll(sidebarEl, 'li')
         .filter(
           elm =>
             elm.querySelector(':scope > ul') &&
-            !elm.querySelectorAll(':scope > a, :scope > p > a').length,
+            !elm.querySelector(':scope > a'),
         );
 
       pageLinks.forEach(elm => {

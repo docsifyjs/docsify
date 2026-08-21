@@ -99,7 +99,7 @@
     }
 
     &.collapse {
-      > :not(a, p:has(> a.page-link)):not(.group-title) {
+      > :not(a, .group-title) {
         display: none;
       }
     }

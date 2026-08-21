@@ -236,6 +236,155 @@ test.describe('Sidebar Tests', () => {
     expect(collapsedBackground).not.toMatch(/rgb\(4,\s*5,\s*6\)/);
   });
 
+  test('normalizes loose-list page links and shows expanded chevrons', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      config: {
+        subMaxLevel: 2,
+      },
+      styleURLs: ['/dist/themes/core.css'],
+      style: `
+        :root:has(body[class*='sidebar-chevron']) {
+          --sidebar-chevron-collapsed-color: rgb(1, 2, 3);
+          --sidebar-chevron-expanded-color: rgb(4, 5, 6);
+          --sidebar-link-color-active: rgb(7, 8, 9);
+        }
+      `,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head><meta charset="UTF-8" /></head>
+          <body class="sidebar-chevron-right">
+            <div id="app"></div>
+          </body>
+        </html>
+      `,
+      markdown: {
+        homepage: '# Home',
+        sidebar: `
+          * [Test](test.md)
+          + [Quick start](quickstart.md)
+          - [Adding pages](adding-pages.md)
+
+          - Getting started
+
+            - [Cover page](cover.md)
+        `,
+      },
+      routes: {
+        '/test.md': '# Test',
+        '/quickstart.md': '# Quick start\n\n## Installation',
+        '/adding-pages.md': '# Adding pages\n\n## Sidebar',
+        '/cover.md': '# Cover page',
+      },
+    });
+
+    const quickStartLink = page.locator('a[href="#/quickstart"]');
+    const addingPagesLink = page.locator('a[href="#/adding-pages"]');
+    const quickStartItem = page.locator(
+      '.sidebar-nav li:has(> a[href="#/quickstart"])',
+    );
+    const addingPagesItem = page.locator(
+      '.sidebar-nav li:has(> a[href="#/adding-pages"])',
+    );
+
+    await expect(page.locator('.sidebar-nav li > p > a')).toHaveCount(0);
+
+    await quickStartLink.click();
+    await expect(
+      quickStartItem.locator(':scope > .app-sub-sidebar'),
+    ).toBeVisible();
+    const quickStartBackground = await quickStartLink.evaluate(
+      element => getComputedStyle(element).backgroundImage,
+    );
+
+    await addingPagesLink.click();
+    await expect(
+      addingPagesItem.locator(':scope > .app-sub-sidebar'),
+    ).toBeVisible();
+    const addingPagesBackground = await addingPagesLink.evaluate(
+      element => getComputedStyle(element).backgroundImage,
+    );
+
+    expect(addingPagesBackground).toBe(quickStartBackground);
+    expect(addingPagesBackground).toMatch(/rgb\(4,\s*5,\s*6\)/);
+    await expect(addingPagesLink).toHaveCSS('color', 'rgb(7, 8, 9)');
+
+    await addingPagesLink.click();
+    await expect(addingPagesItem).toHaveClass(/collapse/);
+    const collapsedBackground = await addingPagesLink.evaluate(
+      element => getComputedStyle(element).backgroundImage,
+    );
+
+    expect(collapsedBackground).not.toBe(addingPagesBackground);
+  });
+
+  test('hides root chevrons when configured by body class', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      config: {
+        subMaxLevel: 2,
+      },
+      styleURLs: ['/dist/themes/core.css'],
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head><meta charset="UTF-8" /></head>
+          <body class="sidebar-chevron-right sidebar-chevron-root-hidden">
+            <div id="app"></div>
+          </body>
+        </html>
+      `,
+      markdown: {
+        homepage: '# Home',
+        sidebar: `
+          + [Direct root page](direct.md)
+          - [Loose root page](loose.md)
+
+          - Getting started
+
+            - [Nested page](nested.md)
+        `,
+      },
+      routes: {
+        '/direct.md': '# Direct root page',
+        '/loose.md': '# Loose root page\n\n## Child heading',
+        '/nested.md': '# Nested page',
+      },
+    });
+
+    const directRootLink = page.locator('a[href="#/direct"]');
+    const looseRootLink = page.locator('a[href="#/loose"]');
+    const nestedLink = page.locator('a[href="#/nested"]');
+    const groupTitle = page.locator('.group-title[role="button"]');
+    const looseRootItem = page.locator(
+      '.sidebar-nav li:has(> a[href="#/loose"])',
+    );
+
+    for (const rootLink of [directRootLink, looseRootLink]) {
+      await expect(rootLink).toHaveCSS('background-image', 'none');
+    }
+
+    await expect(nestedLink).not.toHaveCSS('background-image', 'none');
+    await expect(groupTitle).toHaveCSS('background-image', 'none');
+
+    await groupTitle.click();
+    await expect(groupTitle).toHaveAttribute('aria-expanded', 'false');
+    await expect(groupTitle).toHaveCSS('background-image', 'none');
+
+    await looseRootLink.click();
+    await expect(
+      looseRootItem.locator(':scope > .app-sub-sidebar'),
+    ).toBeVisible();
+    await expect(looseRootLink).toHaveCSS('background-image', 'none');
+
+    await looseRootLink.click();
+    await expect(looseRootItem).toHaveClass(/collapse/);
+    await expect(looseRootLink).toHaveCSS('background-image', 'none');
+  });
+
   test('keeps group border spacing when the last group collapses', async ({
     page,
   }) => {
@@ -288,7 +437,7 @@ test.describe('Sidebar Tests', () => {
     expect(spacing.titleToBorder).toBeGreaterThan(spacing.borderToAwesome);
   });
 
-  test('keeps a loose-list page link visible when collapsed', async ({
+  test('keeps a normalized loose-list page link visible when collapsed', async ({
     page,
   }) => {
     await docsifyInit({
@@ -320,7 +469,7 @@ test.describe('Sidebar Tests', () => {
     await quickStartLink.click();
 
     const quickStartItem = page.locator(
-      '.sidebar-nav li:has(> p > a[href="#/quickstart"])',
+      '.sidebar-nav li:has(> a[href="#/quickstart"])',
     );
     const subSidebar = quickStartItem.locator(':scope > .app-sub-sidebar');
     await expect(subSidebar).toBeVisible();

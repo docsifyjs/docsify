@@ -94,6 +94,15 @@ body[class*='sidebar-chevron'] {
   }
 }
 
+body.sidebar-chevron-root-hidden {
+  .sidebar-nav > ul > li {
+    > a.page-link,
+    > p.group-title[role='button'][aria-expanded] {
+      background: none;
+    }
+  }
+}
+
 /* Left */
 /* -------------------------------------------------------------------------- */
 :root:has(body.sidebar-chevron-left) {
