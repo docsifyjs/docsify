@@ -346,7 +346,7 @@ export function Render(Base) {
         dom
           .findAll(
             sidebarNavEl,
-            'li.group > .group-title[role="button"][data-group-id]',
+            'li.group > .group-toggle[role="button"][data-group-id]',
           )
           .map(elm => [
             elm.getAttribute('data-group-id'),
@@ -409,6 +409,10 @@ export function Render(Base) {
         let groupTitle = [...elm.children].find(
           child => child.tagName === 'P' && !child.querySelector('a'),
         );
+        // Preserve the original styling behavior: only text-only paragraphs
+        // produced by Markdown receive the group-title class.
+        const styledGroupTitle =
+          groupTitle && !groupTitle.children.length ? groupTitle : null;
 
         if (!groupTitle) {
           const sublist = [...elm.children].find(
@@ -432,7 +436,7 @@ export function Render(Base) {
           }
         }
 
-        groupTitle?.classList.add('group-title');
+        styledGroupTitle?.classList.add('group-title');
 
         const rootList = elm.parentElement;
 
@@ -442,6 +446,7 @@ export function Render(Base) {
             sidebarGroupStates.get(groupId) ?? collapseSidebarGroups;
 
           elm.classList.toggle('collapse', isCollapsed);
+          groupTitle.classList.add('group-toggle');
           groupTitle.setAttribute('data-group-id', groupId);
           groupTitle.setAttribute('role', 'button');
           groupTitle.setAttribute('tabindex', '0');

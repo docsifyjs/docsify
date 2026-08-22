@@ -92,7 +92,7 @@ test.describe('Sidebar Tests', () => {
     });
 
     const group = page.locator('.sidebar-nav > ul > li').first();
-    const groupTitle = group.locator(':scope > p.group-title');
+    const groupTitle = group.locator(':scope > p.group-toggle');
     const childLink = group.locator(':scope > ul > li > a');
 
     await expect(groupTitle).toHaveAttribute('role', 'button');
@@ -158,7 +158,7 @@ test.describe('Sidebar Tests', () => {
 
     const groups = page.locator('.sidebar-nav > ul > li.group');
     const firstGroup = groups.first();
-    const firstGroupTitle = firstGroup.locator(':scope > .group-title');
+    const firstGroupTitle = firstGroup.locator(':scope > .group-toggle');
     const firstGroupLink = firstGroup.locator(':scope > ul > li > a');
     const secondGroup = groups.nth(1);
 
@@ -185,6 +185,7 @@ test.describe('Sidebar Tests', () => {
         :root:has(body[class*='sidebar-chevron']) {
           --sidebar-chevron-collapsed-color: rgb(1, 2, 3);
           --sidebar-chevron-expanded-color: rgb(4, 5, 6);
+          --sidebar-group-title-font-weight: 700;
         }
       `,
       html: `
@@ -201,15 +202,25 @@ test.describe('Sidebar Tests', () => {
           - Getting started
             - [Quick start](quickstart)
           - [Standalone](standalone)
+
+          1. Styled group
+
+             - [Styled child](styled-child)
         `,
       },
       routes: {
         '/quickstart.md': '# Quick start',
+        '/styled-child.md': '# Styled child',
         '/standalone.md': '# Standalone',
       },
     });
 
-    const groupTitle = page.locator('.group-title[role="button"]');
+    const groupTitle = page
+      .locator('.group-toggle[role="button"]')
+      .filter({ hasText: 'Getting started' });
+    const styledGroupTitle = page
+      .locator('.group-title.group-toggle')
+      .filter({ hasText: 'Styled group' });
     const standaloneLink = page.locator('a[href="#/standalone"]');
     const background = await groupTitle.evaluate(
       element => getComputedStyle(element).backgroundImage,
@@ -218,10 +229,18 @@ test.describe('Sidebar Tests', () => {
       groupTitle.boundingBox(),
       standaloneLink.boundingBox(),
     ]);
+    const [groupTitleFontWeight, standaloneLinkFontWeight] = await Promise.all([
+      groupTitle.evaluate(element => getComputedStyle(element).fontWeight),
+      standaloneLink.evaluate(element => getComputedStyle(element).fontWeight),
+    ]);
 
     expect(background).not.toBe('none');
     expect(background).toMatch(/rgb\(1,\s*2,\s*3\)/);
     expect(background).not.toMatch(/rgb\(4,\s*5,\s*6\)/);
+    await expect(groupTitle).not.toHaveClass(/group-title/);
+    expect(groupTitleFontWeight).toBe(standaloneLinkFontWeight);
+    await expect(styledGroupTitle).not.toHaveCSS('background-image', 'none');
+    await expect(styledGroupTitle).toHaveCSS('font-weight', '700');
     expect(groupTitleBox?.x + groupTitleBox?.width).toBe(
       standaloneLinkBox?.x + standaloneLinkBox?.width,
     );
@@ -358,7 +377,7 @@ test.describe('Sidebar Tests', () => {
     const directRootLink = page.locator('a[href="#/direct"]');
     const looseRootLink = page.locator('a[href="#/loose"]');
     const nestedLink = page.locator('a[href="#/nested"]');
-    const groupTitle = page.locator('.group-title[role="button"]');
+    const groupTitle = page.locator('.group-toggle[role="button"]');
     const looseRootItem = page.locator(
       '.sidebar-nav li:has(> a[href="#/loose"])',
     );
@@ -416,12 +435,12 @@ test.describe('Sidebar Tests', () => {
     const upgradingGroup = page.locator(
       '.sidebar-nav > ul:first-of-type > li:last-child',
     );
-    const groupTitle = upgradingGroup.locator(':scope > .group-title');
+    const groupTitle = upgradingGroup.locator(':scope > .group-toggle');
 
     await groupTitle.click();
 
     const spacing = await page.evaluate(() => {
-      const title = document.querySelector('.group-title');
+      const title = document.querySelector('.group-toggle');
       const group = title.closest('li');
       const awesome = document.querySelector('a[href="#/awesome"]');
       const titleBox = title.getBoundingClientRect();

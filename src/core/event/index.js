@@ -254,7 +254,7 @@ export function Events(Base) {
       dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
         const groupTitle = /** @type {HTMLElement | null} */ (
           /** @type {HTMLElement} */ (target).closest(
-            '.group-title[role="button"]',
+            '.group-toggle[role="button"]',
           )
         );
 
@@ -277,7 +277,7 @@ export function Events(Base) {
       dom.on(sidebarElm, 'keydown', (/** @type {KeyboardEvent} */ event) => {
         const groupTitle = /** @type {HTMLElement | null} */ (
           /** @type {HTMLElement} */ (event.target).closest(
-            '.group-title[role="button"]',
+            '.group-toggle[role="button"]',
           )
         );
 
