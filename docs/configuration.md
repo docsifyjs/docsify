@@ -306,18 +306,34 @@ window.$docsify = {
 };
 ```
 
+## collapsibleSidebarGroups
+
+- Type: `Boolean`
+- Default: `false`
+
+Enables visitors to expand and collapse root sidebar groups by selecting their
+titles or using the <kbd>Enter</kbd> and <kbd>Space</kbd> keys. Enabling a
+sidebar chevron theme class also displays chevrons on these group titles.
+
+```js
+window.$docsify = {
+  collapsibleSidebarGroups: true,
+};
+```
+
 ## collapseSidebarGroups
 
 - Type: `Boolean`
 - Default: `false`
 
-Initially collapses all root sidebar groups. Visitors can still expand and
-collapse each group by selecting its title. Their choices are preserved while
-navigating between pages.
+Initially collapses all root sidebar groups when `collapsibleSidebarGroups` is
+enabled. Visitors can still expand and collapse each group by selecting its
+title. Their choices are preserved while navigating between pages.
 
 ```js
 window.$docsify = {
   collapseSidebarGroups: true,
+  collapsibleSidebarGroups: true,
 };
 ```
 

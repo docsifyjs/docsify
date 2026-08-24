@@ -110,6 +110,10 @@ Display a loading animation while waiting for Docsify to initialize.
 
 Display expand/collapse icons on page links in the sidebar.
 
+Root group titles display chevrons only when
+[`collapsibleSidebarGroups`](configuration.md?id=collapsiblesidebargroups) is
+enabled.
+
 <label>
   <input class="toggle" type="checkbox" value="sidebar-chevron-right" data-class data-group="sidebar-chevron"> Preview <code>sidebar-chevron-right</code>
 </label>

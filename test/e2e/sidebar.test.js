@@ -69,8 +69,56 @@ test.describe('Sidebar Tests', () => {
     expect(page.url()).toMatch(/\/test%3Efoo$/);
   });
 
-  test('collapses root sidebar groups', async ({ page }) => {
+  test('does not collapse root sidebar groups by default', async ({ page }) => {
     await docsifyInit({
+      config: {
+        collapseSidebarGroups: true,
+      },
+      styleURLs: ['/dist/themes/core.css'],
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head><meta charset="UTF-8" /></head>
+          <body class="sidebar-chevron-right">
+            <div id="app"></div>
+          </body>
+        </html>
+      `,
+      markdown: {
+        sidebar: `
+          - Getting started
+            - [Quick start](quickstart)
+        `,
+      },
+      routes: {
+        '/quickstart.md': '# Quick start',
+      },
+    });
+
+    const group = page.locator('.sidebar-nav > ul > li.group');
+    const groupTitle = group.locator(':scope > p');
+    const childLink = group.locator(':scope > ul > li > a');
+
+    await expect(group).not.toHaveClass(/collapse/);
+    await expect(groupTitle).not.toHaveClass(/group-toggle/);
+    await expect(groupTitle).not.toHaveAttribute('role');
+    await expect(groupTitle).not.toHaveAttribute('tabindex');
+    await expect(groupTitle).not.toHaveAttribute('aria-expanded');
+    await expect(groupTitle).not.toHaveAttribute('data-group-id');
+    await expect(groupTitle).toHaveCSS('background-image', 'none');
+    await expect(groupTitle).toHaveCSS('cursor', 'auto');
+    await expect(childLink).toBeVisible();
+
+    await groupTitle.click();
+    await expect(group).not.toHaveClass(/collapse/);
+    await expect(childLink).toBeVisible();
+  });
+
+  test('collapses root sidebar groups when configured', async ({ page }) => {
+    await docsifyInit({
+      config: {
+        collapsibleSidebarGroups: true,
+      },
       styleURLs: ['/dist/themes/core.css'],
       markdown: {
         sidebar: `
@@ -138,6 +186,7 @@ test.describe('Sidebar Tests', () => {
     await docsifyInit({
       config: {
         collapseSidebarGroups: true,
+        collapsibleSidebarGroups: true,
       },
       styleURLs: ['/dist/themes/core.css'],
       markdown: {
@@ -180,6 +229,9 @@ test.describe('Sidebar Tests', () => {
 
   test('supports chevrons on collapsible root groups', async ({ page }) => {
     await docsifyInit({
+      config: {
+        collapsibleSidebarGroups: true,
+      },
       styleURLs: ['/dist/themes/core.css'],
       style: `
         :root:has(body[class*='sidebar-chevron']) {
@@ -344,6 +396,7 @@ test.describe('Sidebar Tests', () => {
   }) => {
     await docsifyInit({
       config: {
+        collapsibleSidebarGroups: true,
         subMaxLevel: 2,
       },
       styleURLs: ['/dist/themes/core.css'],
@@ -408,6 +461,9 @@ test.describe('Sidebar Tests', () => {
     page,
   }) => {
     await docsifyInit({
+      config: {
+        collapsibleSidebarGroups: true,
+      },
       styleURLs: ['/dist/themes/core.css'],
       html: `
         <!DOCTYPE html>

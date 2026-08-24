@@ -322,6 +322,7 @@ export function Render(Base) {
     _renderSidebar(text) {
       const {
         collapseSidebarGroups,
+        collapsibleSidebarGroups,
         maxLevel,
         subMaxLevel,
         loadSidebar,
@@ -440,7 +441,11 @@ export function Render(Base) {
 
         const rootList = elm.parentElement;
 
-        if (groupTitle && rootList?.parentElement === sidebarNavEl) {
+        if (
+          collapsibleSidebarGroups &&
+          groupTitle &&
+          rootList?.parentElement === sidebarNavEl
+        ) {
           const groupId = `${[...sidebarNavEl.children].indexOf(rootList)}:${[...rootList.children].indexOf(elm)}`;
           const isCollapsed =
             sidebarGroupStates.get(groupId) ?? collapseSidebarGroups;
