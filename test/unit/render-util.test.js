@@ -62,6 +62,20 @@ describe('core/render/utils', () => {
   // getAndRemoveConfig()
   // ---------------------------------------------------------------------------
   describe('getAndRemoveConfig()', () => {
+    test('parses URL paths in config values', () => {
+      const result = getAndRemoveConfig(
+        'image title :basepath=/assets/images/ :class=thumbnail',
+      );
+
+      expect(result).toEqual({
+        str: 'image title',
+        config: {
+          basepath: '/assets/images/',
+          class: 'thumbnail',
+        },
+      });
+    });
+
     test('parse simple config', () => {
       const result = getAndRemoveConfig(
         "[filename](_media/example.md ':include')",

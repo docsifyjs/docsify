@@ -336,7 +336,9 @@ export function Render(Base) {
         this.router.toURL(this.route.path),
       );
       const activeEl = /** @type {HTMLElement | null} */ (
-        dom.find(`.sidebar-nav a[href="${activeElmHref}"]`)
+        dom.find(`.sidebar-nav a[href="${activeElmHref}"]`) ||
+          (this.router.mode === 'hash' &&
+            dom.find(`.sidebar-nav a[href="/${activeElmHref}"]`))
       );
 
       this.#addTextAsTitleAttribute('.sidebar-nav a');

@@ -1,6 +1,8 @@
 import { History } from '../../src/core/router/history/base.js';
 
 class MockHistory extends History {
+  mode = 'hash';
+
   parse(path) {
     return { path };
   }
@@ -67,6 +69,21 @@ describe('router/history/base', () => {
     });
   });
 
+  describe('default path behavior', () => {
+    beforeEach(() => {
+      history = new MockHistory({ relativePath: true });
+    });
+
+    test('resolves relative links from the current page', () => {
+      expect(history.toURL('guide.md', {}, '/dir/page')).toBe('/dir/guide');
+      expect(history.toURL('../guide.md', {}, '/dir/page')).toBe('/guide');
+    });
+
+    test('keeps absolute links rooted', () => {
+      expect(history.toURL('/guide.md', {}, '/dir/page')).toBe('/guide');
+    });
+  });
+
   // getFile test
   // ---------------------------------------------------------------------------
   describe('getFile', () => {
@@ -95,6 +112,12 @@ describe('router/history/base', () => {
       const file = history.getFile('https://some/raw/url/README.md');
 
       expect(file).toBe('https://some/raw/url/README.md.ext');
+    });
+
+    test('does not duplicate a configured local base path', () => {
+      history = new MockHistory({ basePath: '/docs/' });
+
+      expect(history.getFile('/docs/guide')).toBe('/docs/guide.md');
     });
   });
 });

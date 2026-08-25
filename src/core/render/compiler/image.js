@@ -1,7 +1,7 @@
 import { escapeHtml, getAndRemoveConfig } from '../utils.js';
-import { isAbsolutePath, getPath, getParentPath } from '../../router/util.js';
+import { resolveResourcePath } from '../path.js';
 
-export const imageCompiler = ({ renderer, contentBase, router }) =>
+export const imageCompiler = ({ renderer, contentBase, router, compiler }) =>
   (renderer.image = ({ href, title, text }) => {
     let url = href;
     const attrs = [];
@@ -38,9 +38,12 @@ export const imageCompiler = ({ renderer, contentBase, router }) =>
       attrs.push(`id="${config.id}"`);
     }
 
-    if (!isAbsolutePath(href)) {
-      url = getPath(contentBase, getParentPath(router.getCurrentPath()), href);
-    }
+    url = resolveResourcePath(href, {
+      config: compiler.config,
+      contentBase,
+      currentPath: router.getCurrentPath(),
+      elementBasePath: config.basepath,
+    });
 
     return /* html */ `<img src="${escapeHtml(url)}" data-origin="${escapeHtml(href)}" alt="${escapeHtml(text)}" ${attrs.join(
       ' ',
