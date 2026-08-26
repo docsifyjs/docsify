@@ -184,8 +184,7 @@
 
   body.sticky & {
     position: fixed;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
+    overflow-y: scroll;
   }
 }
 

@@ -180,6 +180,89 @@ test.describe('Sidebar Tests', () => {
     await expect(group).not.toHaveClass(/collapse/);
   });
 
+  for (const viewport of [
+    {
+      name: 'desktop',
+      width: 1280,
+      height: 720,
+      prepareSidebar: async () => {},
+    },
+    {
+      name: 'mobile',
+      width: 390,
+      height: 500,
+      prepareSidebar: async (page, sidebar) => {
+        await page.locator('.sidebar-toggle-button').click();
+        await sidebar.evaluate(element =>
+          Promise.all(
+            element.getAnimations().map(animation => animation.finished),
+          ),
+        );
+      },
+    },
+  ]) {
+    test(`keeps sidebar content aligned when a root group removes the scrollbar on ${viewport.name}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize(viewport);
+
+      const childLinks = Array.from(
+        { length: 40 },
+        (_, index) => `  - [Page ${index + 1}](page-${index + 1})`,
+      ).join('\n');
+
+      await docsifyInit({
+        config: {
+          collapsibleSidebarGroups: true,
+        },
+        styleURLs: ['/dist/themes/core.css'],
+        markdown: {
+          homepage: '# Home',
+          sidebar: `- Root\n${childLinks}`,
+        },
+      });
+
+      const sidebar = page.locator('.sidebar');
+      const group = page.locator('.sidebar-nav > ul > li.group');
+      const groupTitle = group.locator(':scope > .group-toggle');
+
+      await viewport.prepareSidebar(page, sidebar);
+
+      await expect(sidebar).toHaveCSS('overflow-y', 'scroll');
+
+      const expandedLayout = await page.evaluate(() => {
+        const sidebar = document.querySelector('.sidebar');
+        const groupTitle = document.querySelector('.group-toggle');
+
+        return {
+          hasScrollbar: sidebar.scrollHeight > sidebar.clientHeight,
+          titleRight: groupTitle.getBoundingClientRect().right,
+          url: location.href,
+        };
+      });
+
+      expect(expandedLayout.hasScrollbar).toBe(true);
+
+      await groupTitle.click();
+      await expect(group).toHaveClass(/collapse/);
+
+      const collapsedLayout = await page.evaluate(() => {
+        const sidebar = document.querySelector('.sidebar');
+        const groupTitle = document.querySelector('.group-toggle');
+
+        return {
+          hasScrollbar: sidebar.scrollHeight > sidebar.clientHeight,
+          titleRight: groupTitle.getBoundingClientRect().right,
+          url: location.href,
+        };
+      });
+
+      expect(collapsedLayout.hasScrollbar).toBe(false);
+      expect(collapsedLayout.titleRight).toBe(expandedLayout.titleRight);
+      expect(collapsedLayout.url).toBe(expandedLayout.url);
+    });
+  }
+
   test('initially collapses root sidebar groups when configured', async ({
     page,
   }) => {
