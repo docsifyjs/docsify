@@ -79,6 +79,87 @@ test.describe('Plugins', () => {
     expect(consoleMsgs).toEqual(expectedMsgs);
   });
 
+  test('ready runs once when the initial sidebar is missing', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      config: {
+        loadSidebar: true,
+        name: 'Docsify',
+        nameLink: '#/',
+        plugins: [
+          function (hook) {
+            window.hookCalls = [];
+
+            hook.doneEach(() => {
+              window.hookCalls.push('doneEach');
+            });
+
+            hook.ready(() => {
+              window.hookCalls.push('ready');
+              document
+                .querySelector('.sidebar-nav')
+                .addEventListener('click', event => {
+                  const groupTitle = event.target.closest(
+                    '.sidebar-nav > ul > li > p',
+                  );
+
+                  groupTitle?.parentElement.classList.toggle('plugin-collapse');
+                });
+            });
+          },
+        ],
+      },
+      markdown: {
+        homepage: `
+          # Home
+
+          [Section](/section/)
+        `,
+      },
+      routes: {
+        '/section/README.md': '# Section',
+        '/section/_sidebar.md': `
+          - Group
+            - [Page](page)
+        `,
+      },
+    });
+
+    await expect
+      .poll(() => page.evaluate(() => window.hookCalls))
+      .toEqual(['doneEach', 'ready']);
+    await expect(page.locator('.sidebar-nav')).toBeEmpty();
+
+    await page.locator('a[href="#/section/"]').click();
+
+    const group = page.locator('.sidebar-nav > ul > li').first();
+    await expect(group.locator(':scope > p')).toHaveText('Group');
+
+    await group.locator(':scope > p').click();
+    await expect(group).toHaveClass(/plugin-collapse/);
+    await expect
+      .poll(() => page.evaluate(() => window.hookCalls))
+      .toEqual(['doneEach', 'ready', 'doneEach']);
+
+    await page.locator('.app-name-link').click();
+
+    await expect(page.locator('#main h1')).toHaveText('Home');
+    await expect(page.locator('.sidebar-nav')).toBeEmpty();
+    await expect
+      .poll(() => page.evaluate(() => window.hookCalls))
+      .toEqual(['doneEach', 'ready', 'doneEach', 'doneEach']);
+
+    await page.locator('a[href="#/section/"]').click();
+
+    await expect(group.locator(':scope > p')).toHaveText('Group');
+    await group.locator(':scope > p').click();
+    await expect(group).toHaveClass(/plugin-collapse/);
+    await expect
+      .poll(() => page.evaluate(() => window.hookCalls))
+      .toEqual(['doneEach', 'ready', 'doneEach', 'doneEach', 'doneEach']);
+  });
+
   test.describe('beforeEach()', () => {
     test('return value', async ({ page }) => {
       await docsifyInit({
