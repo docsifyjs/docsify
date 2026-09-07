@@ -82,6 +82,8 @@ test.describe('Plugins', () => {
   test('ready runs once when the initial sidebar is missing', async ({
     page,
   }) => {
+    await page.route('_sidebar.md', route => route.fulfill({ status: 404 }));
+
     await docsifyInit({
       config: {
         loadSidebar: true,
