@@ -12,6 +12,21 @@ You can configure Docsify by defining `window.$docsify` as an object:
 </script>
 ```
 
+Docsify is also available as an ES module. Import `Docsify` from a CDN and pass
+the configuration object to a new `Docsify` instance:
+
+```html
+<script type="module">
+  import { Docsify } from '//cdn.jsdelivr.net/npm/docsify@5/dist/docsify.module.min.js';
+
+  new Docsify({
+    repo: 'docsifyjs/docsify',
+    maxLevel: 3,
+    coverpage: true,
+  });
+</script>
+```
+
 The config can also be defined as a function, in which case the first argument is the Docsify `vm` instance. The function should return a config object. This can be useful for referencing `vm` in places like the markdown configuration:
 
 ```html

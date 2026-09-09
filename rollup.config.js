@@ -18,6 +18,13 @@ const docsifyConfig = {
   outputName: 'docsify',
   title: 'Docsify',
 };
+const docsifyEsmConfig = {
+  inputPath: 'src/core/module.js',
+  outputDir: 'dist',
+  outputName: 'docsify.module',
+  title: 'Docsify',
+  format: 'es',
+};
 
 // Plugins
 const pluginPaths = await glob(['src/plugins/*.js', 'src/plugins/*/index.js']);
@@ -65,8 +72,9 @@ const baseConfig = {
 const bundleConfigs = [];
 
 // Generate rollup configurations
-[docsifyConfig, ...pluginConfigs].forEach(bundleConfig => {
-  const { inputPath, outputDir, outputName, title } = bundleConfig;
+[docsifyConfig, docsifyEsmConfig, ...pluginConfigs].forEach(bundleConfig => {
+  const { inputPath, outputDir, outputName, title, format } = bundleConfig;
+  const outputFormat = format || baseConfig.output.format;
   // prettier-ignore
   const banner = stripIndent`
     /*!
@@ -83,6 +91,7 @@ const bundleConfigs = [];
       ...baseConfig.output,
       banner,
       file: path.join(outputDir, `${outputName}.min.js`),
+      format: outputFormat,
       sourcemap: true,
     },
     plugins: [
@@ -101,6 +110,7 @@ const bundleConfigs = [];
       ...baseConfig.output,
       banner,
       file: path.join(outputDir, `${outputName}.js`),
+      format: outputFormat,
     },
     plugins: [
       ...baseConfig.plugins,
