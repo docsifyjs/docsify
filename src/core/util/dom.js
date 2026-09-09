@@ -4,7 +4,6 @@ import { isFn } from '../util/core.js';
 const cacheNode = {};
 
 /**
- * Get Node
  * @param  {String|Element} el A DOM element
  * @param  {Boolean} noCache Flag to use or not use the cache
  * @return {Element} The found node element
@@ -154,4 +153,37 @@ export function documentReady(callback, doc = document) {
   }
 
   doc.addEventListener('DOMContentLoaded', callback);
+}
+
+/* ==========================
+   ACCESSIBILITY HELPERS FOR #2600
+   ========================== */
+
+/**
+ * Safely focus an element and add temporary tabindex if needed
+ * @param {Element} el
+ */
+export function focusElement(el) {
+  if (!el) return;
+  if (typeof el.focus === 'function') {
+    el.setAttribute('tabindex', '-1');
+    el.focus();
+  }
+}
+
+/**
+ * Get main content element for focus restoration
+ * @returns {Element}
+ */
+export function getMainContent() {
+  return document.querySelector('main') || document.body;
+}
+
+/**
+ * Convenience function to restore focus after navigation
+ * Call this after page content is loaded
+ */
+export function restoreFocusAfterNavigation() {
+  const main = getMainContent();
+  focusElement(main);
 }
