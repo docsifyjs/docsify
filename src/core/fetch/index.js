@@ -23,6 +23,7 @@ export function Fetch(Base) {
       path = getParentPath(path);
 
       if (!path) {
+        next('');
         return;
       }
 
