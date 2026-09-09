@@ -8,7 +8,7 @@ import { waitForSelector } from './wait-for.js';
 
 const mock = _mock.default;
 const docsifyPATH = '../../dist/docsify.js'; // JSDOM
-const docsifyURL = '/dist/docsify.js'; // Playwright
+const docsifyURL = '/dist/docsify.js?v=5.0.0'; // Playwright
 
 /**
  * Jest / Playwright helper for creating custom docsify test sites
