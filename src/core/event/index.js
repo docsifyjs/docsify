@@ -252,14 +252,14 @@ export function Events(Base) {
 
       // Collapse toggle
       dom.on(sidebarElm, 'click', (/** @type {MouseEvent} */ { target }) => {
-        const groupTitle = /** @type {HTMLElement | null} */ (
+        const groupToggle = /** @type {HTMLElement | null} */ (
           /** @type {HTMLElement} */ (target).closest(
-            '.group-title[role="button"]',
+            '.group-toggle[role="button"]',
           )
         );
 
-        if (groupTitle) {
-          this.#toggleSidebarGroup(groupTitle);
+        if (groupToggle) {
+          this.#toggleSidebarGroup(groupToggle);
           return;
         }
 
@@ -275,15 +275,15 @@ export function Events(Base) {
       });
 
       dom.on(sidebarElm, 'keydown', (/** @type {KeyboardEvent} */ event) => {
-        const groupTitle = /** @type {HTMLElement | null} */ (
+        const groupToggle = /** @type {HTMLElement | null} */ (
           /** @type {HTMLElement} */ (event.target).closest(
-            '.group-title[role="button"]',
+            '.group-toggle[role="button"]',
           )
         );
 
-        if (groupTitle && (event.key === 'Enter' || event.key === ' ')) {
+        if (groupToggle && (event.key === 'Enter' || event.key === ' ')) {
           event.preventDefault();
-          this.#toggleSidebarGroup(groupTitle);
+          this.#toggleSidebarGroup(groupToggle);
         }
       });
     }
@@ -291,12 +291,12 @@ export function Events(Base) {
     /**
      * Toggle a root sidebar group and keep its accessible state in sync.
      *
-     * @param {HTMLElement} groupTitle
+     * @param {HTMLElement} groupToggle
      * @void
      */
-    #toggleSidebarGroup(groupTitle) {
+    #toggleSidebarGroup(groupToggle) {
       const group = /** @type {HTMLLIElement | null} */ (
-        groupTitle.closest('li')
+        groupToggle.closest('li')
       );
 
       if (!group) {
@@ -304,7 +304,7 @@ export function Events(Base) {
       }
 
       const isCollapsed = group.classList.toggle('collapse');
-      groupTitle.setAttribute('aria-expanded', String(!isCollapsed));
+      groupToggle.setAttribute('aria-expanded', String(!isCollapsed));
     }
 
     /**

@@ -81,15 +81,24 @@
 }
 
 body[class*='sidebar-chevron'] {
-  .sidebar-nav :is(a.page-link, p.group-title[role='button']).no-chevron {
+  .sidebar-nav :is(a.page-link, p.group-toggle).no-chevron {
     background: none;
   }
 
-  .sidebar-nav p.group-title[role='button'] {
+  .sidebar-nav p.group-toggle {
     background: var(--sidebar-pagelink-bg);
 
     &[aria-expanded='true'] {
       background: var(--sidebar-group-title-bg-expanded);
+    }
+  }
+}
+
+body.sidebar-chevron-root-hidden {
+  .sidebar-nav > ul > li {
+    > a.page-link,
+    > p.group-toggle[aria-expanded] {
+      background: none;
     }
   }
 }
@@ -105,7 +114,7 @@ body.sidebar-chevron-left {
     --_inset: 18px;
 
     li {
-      :is(a.page-link, p.group-title[role='button']) {
+      :is(a.page-link, p.group-toggle) {
         padding-left: var(--_inset);
       }
 
@@ -128,12 +137,12 @@ body.sidebar-chevron-left {
 
 body.sidebar-chevron-right {
   .sidebar-nav {
-    p.group-title[role='button'] {
+    p.group-toggle {
       margin-right: 0;
     }
 
     li {
-      :is(a, p.group-title[role='button']) {
+      :is(a, p.group-toggle) {
         padding-right: calc(var(--_sidebar-inset) + 15px);
       }
     }

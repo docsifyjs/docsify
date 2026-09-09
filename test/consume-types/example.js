@@ -34,6 +34,7 @@ const d = new Docsify({
   themeColor: 'deeppink',
   hideSidebar: false,
   collapseSidebarGroups: true,
+  collapsibleSidebarGroups: true,
 
   // @ts-expect-error invalid property to test that type checking works
   blahblah: 123,

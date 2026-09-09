@@ -110,12 +110,20 @@ Display a loading animation while waiting for Docsify to initialize.
 
 Display expand/collapse icons on page links in the sidebar.
 
+Root group titles display chevrons only when
+[`collapsibleSidebarGroups`](configuration.md?id=collapsiblesidebargroups) is
+enabled.
+
 <label>
   <input class="toggle" type="checkbox" value="sidebar-chevron-right" data-class data-group="sidebar-chevron"> Preview <code>sidebar-chevron-right</code>
 </label>
 <br>
 <label>
   <input class="toggle" type="checkbox" value="sidebar-chevron-left" data-class data-group="sidebar-chevron"> Preview <code>sidebar-chevron-left</code>
+</label>
+<br>
+<label>
+  <input class="toggle" type="checkbox" value="sidebar-chevron-root-hidden" data-class> Hide root-level chevrons with <code>sidebar-chevron-root-hidden</code>
 </label>
 
 <!-- prettier-ignore -->
@@ -126,6 +134,14 @@ Display expand/collapse icons on page links in the sidebar.
 <!-- prettier-ignore -->
 ```html
 <body class="sidebar-chevron-left">
+```
+
+To hide chevrons on all root-level page links and group titles while retaining
+chevrons on nested page links, add the `sidebar-chevron-root-hidden` class:
+
+<!-- prettier-ignore -->
+```html
+<body class="sidebar-chevron-right sidebar-chevron-root-hidden">
 ```
 
 To prevent chevrons from displaying for specific page links, add a `no-chevron` class as follows:

@@ -124,6 +124,37 @@ window.$docsify = {
 
 Determines if Docsify should handle uncaught _synchronous_ plugin errors automatically. This can prevent plugin errors from affecting docsify's ability to properly render live site content.
 
+## collapseSidebarGroups
+
+- Type: `Boolean`
+- Default: `false`
+
+Initially collapses all root sidebar groups when `collapsibleSidebarGroups` is
+enabled. Visitors can still expand and collapse each group by selecting its
+title. Their choices are preserved while navigating between pages.
+
+```js
+window.$docsify = {
+  collapseSidebarGroups: true,
+  collapsibleSidebarGroups: true,
+};
+```
+
+## collapsibleSidebarGroups
+
+- Type: `Boolean`
+- Default: `false`
+
+Enables visitors to expand and collapse root sidebar groups by selecting their
+titles or using the <kbd>Enter</kbd> and <kbd>Space</kbd> keys. Enabling a
+sidebar chevron theme class also displays chevrons on these group titles.
+
+```js
+window.$docsify = {
+  collapsibleSidebarGroups: true,
+};
+```
+
 ## cornerExternalLinkTarget
 
 - Type: `String`
@@ -321,21 +352,6 @@ window.$docsify = {
 };
 ```
 
-## collapseSidebarGroups
-
-- Type: `Boolean`
-- Default: `false`
-
-Initially collapses all root sidebar groups. Visitors can still expand and
-collapse each group by selecting its title. Their choices are preserved while
-navigating between pages.
-
-```js
-window.$docsify = {
-  collapseSidebarGroups: true,
-};
-```
-
 ## sidebarPosition
 
 - Type: `String`
@@ -513,6 +529,21 @@ Navbar will be merged with the sidebar on smaller screens.
 ```js
 window.$docsify = {
   mergeNavbar: true,
+};
+```
+
+## navbarPreservePath
+
+- Type: `Boolean`
+- Default: `false`
+
+If **true**, appends the current document path to navbar links that point to a language root. This makes it possible to switch languages while staying on the corresponding document.
+
+For example, when the current path is `/quickstart`, a navbar link to `/zh-cn/` becomes `/zh-cn/quickstart`.
+
+```js
+window.$docsify = {
+  navbarPreservePath: true,
 };
 ```
 

@@ -67,15 +67,15 @@
         color: var(--sidebar-group-title-color);
         font-size: var(--sidebar-group-title-font-size);
         font-weight: var(--sidebar-group-title-font-weight);
+      }
 
-        &[role='button'] {
-          cursor: pointer;
-          user-select: none;
+      &.group-toggle {
+        cursor: pointer;
+        user-select: none;
 
-          &:focus-visible {
-            outline: 2px solid currentColor;
-            outline-offset: 2px;
-          }
+        &:focus-visible {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
         }
       }
     }
@@ -99,7 +99,7 @@
     }
 
     &.collapse {
-      > :not(a, p:has(> a.page-link)):not(.group-title) {
+      > :not(a, .group-toggle) {
         display: none;
       }
     }
@@ -184,8 +184,7 @@
 
   body.sticky & {
     position: fixed;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
+    overflow-y: scroll;
   }
 }
 
