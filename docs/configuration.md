@@ -98,11 +98,30 @@ window.$docsify = {
 };
 ```
 
+## absoluteBasePath
+
+- Type: `String|null`
+- Default: `null` (domain root `/`)
+
+Overrides [`basePath`](#basepath) when resolving paths that begin with `/`.
+By default, absolute links and resources are resolved from the domain root,
+including when Docsify is served from a nested directory.
+
+```js
+window.$docsify = {
+  absoluteBasePath: '/docs/',
+};
+```
+
 ## basePath
 
-- Type: `String`
+- Type: `String|null`
+- Default: `null`
 
-Base path of the website. You can set it to another directory or another domain name.
+Sets the source path for the website and the common base for relative and
+absolute resources. [`relativeBasePath`](#relativebasepath) and
+[`absoluteBasePath`](#absolutebasepath) take precedence when set. You can set
+it to another directory or another domain name.
 
 ```js
 window.$docsify = {
@@ -116,6 +135,18 @@ window.$docsify = {
     'https://raw.githubusercontent.com/ryanmcdermott/clean-code-javascript/master/',
 };
 ```
+
+Individual markdown links, images, and embedded resources can override the
+configured base with the `:basepath` attribute:
+
+```markdown
+[Guide](guide.md ':basepath=/shared/')
+![Logo](logo.png ':basepath=/assets/')
+[Example](example.js ':include :basepath=/examples/')
+```
+
+An invalid base-path value is ignored and the resource falls back to its
+default path, allowing the rest of the page to continue rendering.
 
 ## catchPluginErrors
 
@@ -765,12 +796,29 @@ window.$docsify = {
 
 See [Plugins](./plugins.md).
 
+## relativeBasePath
+
+- Type: `String|null`
+- Default: `null` (directory of the current page)
+
+Overrides [`basePath`](#basepath) when resolving relative links, images, and
+embedded resources. Without this option, relative paths follow standard web
+behavior and are resolved from the page where they are declared.
+
+```js
+window.$docsify = {
+  relativeBasePath: '/shared/',
+};
+```
+
 ## relativePath
 
 - Type: `Boolean`
-- Default: `false`
+- Default: `true`
 
-If **true**, links are relative to the current context.
+If **true**, links are relative to the page where they are declared. Set this
+to `false` only to preserve the legacy behavior that resolves relative links
+from the Docsify index route.
 
 For example, the directory structure is as follows:
 
@@ -797,10 +845,10 @@ config/example.md     => http://domain.com/zh-cn/config/example
 
 ```js
 window.$docsify = {
-  // Relative path enabled
+  // Standard relative path behavior (default)
   relativePath: true,
 
-  // Relative path disabled (default value)
+  // Legacy index-relative behavior
   relativePath: false,
 };
 ```

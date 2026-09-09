@@ -1,5 +1,4 @@
 import { marked } from 'marked';
-import { isAbsolutePath, getPath, getParentPath } from '../router/util.js';
 import { isFn, cached, isPrimitive } from '../util/core.js';
 import { tree as treeTpl } from './tpl.js';
 import { genTree } from './gen-tree.js';
@@ -16,6 +15,7 @@ import { taskListItemCompiler } from './compiler/taskListItem.js';
 import { linkCompiler } from './compiler/link.js';
 import { compileMedia } from './compiler/media.js';
 import { tableCellCompiler } from './compiler/tableCell.js';
+import { resolveResourcePath } from './path.js';
 
 const cachedLinks = {};
 
@@ -105,13 +105,12 @@ export class Compiler {
     title = str;
 
     if (config.include) {
-      if (!isAbsolutePath(href)) {
-        href = getPath(
-          this.contentBase,
-          getParentPath(this.router.getCurrentPath()),
-          href,
-        );
-      }
+      href = resolveResourcePath(href, {
+        config: this.config,
+        contentBase: this.contentBase,
+        currentPath: this.router.getCurrentPath(),
+        elementBasePath: config.basepath,
+      });
 
       let media;
       const mediaType = Array.isArray(config.type)
@@ -183,7 +182,12 @@ export class Compiler {
       compiler: this,
     });
     origin.paragraph = paragraphCompiler({ renderer });
-    origin.image = imageCompiler({ renderer, contentBase, router });
+    origin.image = imageCompiler({
+      renderer,
+      contentBase,
+      router,
+      compiler: this,
+    });
     origin.list = taskListCompiler({ renderer });
     origin.listitem = taskListItemCompiler({ renderer });
     origin.tablecell = tableCellCompiler({ renderer });

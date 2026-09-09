@@ -10,7 +10,7 @@ exports[`Docs Site coverpage renders and is unchanged 1`] = `
     </section>"
 `;
 
-exports[`Docs Site navbar renders and is unchanged 1`] = `"<nav class="app-nav" aria-label="secondary"><!-- markdownlint-disable first-line-h1 --><ul><li><p>Translations</p><ul><li><a href="#/">English</a></li><li><a href="#/zh-cn/">简体中文</a></li></ul></li></ul></nav>"`;
+exports[`Docs Site navbar renders and is unchanged 1`] = `"<nav class="app-nav" aria-label="secondary"><!-- markdownlint-disable first-line-h1 --><ul><li><p>Translations</p><ul><li><a href="/#/">English</a></li><li><a href="/#/zh-cn/">简体中文</a></li></ul></li></ul></nav>"`;
 
 exports[`Docs Site sidebar renders and is unchanged 1`] = `
 "<aside id="__sidebar" class="sidebar show" tabindex="-1" role="none">

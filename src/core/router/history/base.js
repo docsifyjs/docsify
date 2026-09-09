@@ -48,7 +48,7 @@ export class History {
   }
 
   getBasePath() {
-    return this.config.basePath;
+    return this.config.basePath || '';
   }
 
   /**
@@ -63,7 +63,15 @@ export class History {
     path = config.alias ? this.#getAlias(path, config.alias) : path;
     path = this.#getFileName(path, ext);
     path = path === `/README${ext}` ? config.homepage || path : path;
-    path = isAbsolutePath(path) ? path : getPath(base, path);
+
+    const normalizedBase = base && cleanPath(`/${base.replace(/^\/+/, '')}/`);
+    const isWithinLocalBase =
+      normalizedBase &&
+      !isAbsolutePath(base) &&
+      cleanPath(`/${path.replace(/^\/+/, '')}`).startsWith(normalizedBase);
+
+    path =
+      isAbsolutePath(path) || isWithinLocalBase ? path : getPath(base, path);
 
     if (isRelative) {
       path = path.replace(new RegExp(`^${base}`), '');

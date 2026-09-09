@@ -5,6 +5,54 @@ import { waitForText } from '../helpers/wait-for.js';
 // Suite
 // -----------------------------------------------------------------------------
 describe('render', function () {
+  describe('path handling', function () {
+    beforeEach(async () => {
+      await docsifyInit({
+        config: {
+          basePath: null,
+          routes: {
+            '/': '# Home',
+          },
+        },
+        testURL: `${process.env.TEST_HOST}/site/`,
+      });
+
+      window.history.replaceState(
+        {},
+        '',
+        `${process.env.TEST_HOST}/site/#/dir/page`,
+      );
+    });
+
+    test('uses standard relative and absolute paths for all resources', () => {
+      const output = window.marked(stripIndent`
+        [relative link](guide.md)
+
+        [absolute link](/guide.md)
+
+        ![relative image](image.png)
+
+        ![absolute image](/image.png)
+      `);
+
+      expect(output).toContain('href="#/dir/guide"');
+      expect(output).toContain('href="/#/guide"');
+      expect(output).toContain('src="/site/dir/image.png"');
+      expect(output).toContain('src="/image.png"');
+    });
+
+    test('supports per-element base paths', () => {
+      const output = window.marked(stripIndent`
+        [based link](guide.md ':basepath=/shared/')
+
+        ![based image](image.png ':basepath=/assets/')
+      `);
+
+      expect(output).toContain('href="/#/shared/guide"');
+      expect(output).toContain('src="/assets/image.png"');
+    });
+  });
+
   // Helpers
   // ---------------------------------------------------------------------------
   describe('callouts', () => {
@@ -356,7 +404,7 @@ Text</p></div>"
       const output = window.marked("[alt text](/url ':target=_blank')");
 
       expect(output).toMatchInlineSnapshot(
-        '"<p><a href="#/url" target="_blank">alt text</a></p>"',
+        '"<p><a href="/#/url" target="_blank">alt text</a></p>"',
       );
     });
 

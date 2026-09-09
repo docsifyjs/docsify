@@ -1,5 +1,6 @@
 import { escapeHtml, getAndRemoveConfig } from '../utils.js';
 import { isAbsolutePath } from '../../router/util.js';
+import { resolveDocumentPath } from '../path.js';
 
 export const linkCompiler = ({
   renderer,
@@ -27,9 +28,26 @@ export const linkCompiler = ({
       if (href === compiler.config.homepage) {
         href = 'README';
       }
-      href = router.toURL(href, null, router.getCurrentPath());
+      const resolved = resolveDocumentPath(href, {
+        config: compiler.config,
+        elementBasePath: config.basepath,
+      });
 
-      if (config.target && !isMailto) {
+      if (isAbsolutePath(resolved.path)) {
+        href = resolved.path;
+        attrs.push(`target="${linkTarget}"`);
+        if (linkRel !== '') {
+          attrs.push(`rel="${linkRel}"`);
+        }
+      } else {
+        href = router.toURL(resolved.path, null, router.getCurrentPath());
+
+        if (resolved.rooted && router.mode === 'hash') {
+          href = `/${href}`;
+        }
+      }
+
+      if (config.target && !isMailto && !attrs.length) {
         attrs.push(`target="${linkTarget}"`);
       }
     } else {

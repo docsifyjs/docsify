@@ -13,7 +13,7 @@ export class HashHistory extends History {
 
   getBasePath() {
     const path = window.location.pathname || '';
-    const base = this.config.basePath;
+    const base = this.config.basePath || '';
 
     // This handles the case where Docsify is served off an
     // explicit file path, i.e.`/base/index.html#/blah`. This
