@@ -52,13 +52,13 @@ export function Router(Base) {
         this._updateRender();
 
         if (lastRoute.path === this.route.path) {
-          this.onNavigate(params.source, params.event);
+          this.onNavigate(params.source, params.focusTarget);
           return;
         }
 
         this.$fetch(
           noop,
-          this.onNavigate.bind(this, params.source, params.event),
+          this.onNavigate.bind(this, params.source, params.focusTarget),
         );
         lastRoute = this.route;
       });

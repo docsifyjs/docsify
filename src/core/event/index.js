@@ -1,7 +1,11 @@
 import { isMobile, mobileBreakpoint } from '../util/env.js';
-import { isExternal, noop } from '../util/core.js';
+import { noop } from '../util/core.js';
 import * as dom from '../util/dom.js';
-import { stripUrlExceptId } from '../router/util.js';
+import {
+  findLinkByHref,
+  resolveHref,
+  stripUrlExceptId,
+} from '../router/util.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -403,10 +407,11 @@ export function Events(Base) {
      * @param {undefined|"history"|"navigate"} source Type of navigation where
      * undefined is initial load, "history" is forward/back, and "navigate" is
      * user click/tap
-     * @param {Event} [event] Navigation event
+     * @param {import('../router/util.js').SidebarNavigationTarget} [focusTarget]
+     * Sidebar link to restore after rendering
      * @void
      */
-    onNavigate(source, event) {
+    onNavigate(source, focusTarget) {
       const { auto2top, topMargin } = this.config;
       const { path, query } = this.route;
       const activeSidebarElm = this.#markSidebarActiveElm();
@@ -448,8 +453,7 @@ export function Events(Base) {
       // Clicked anchor link or page load with anchor ID
       if (hasId || isNavigate) {
         const sidebarFocused =
-          isNavigate &&
-          this.#focusSidebarNavigation(this.#getSidebarNavigationHref(event));
+          isNavigate && this.#focusSidebarNavigation(focusTarget);
 
         if (!sidebarFocused) {
           this.#focusContent();
@@ -502,37 +506,14 @@ export function Events(Base) {
     }
 
     /**
-     * Get the clicked sidebar link HREF from a navigation event.
-     *
-     * @param {Event} [event] Navigation event
-     * @returns {string|undefined}
-     */
-    #getSidebarNavigationHref(event) {
-      const target = event?.target;
-      const linkElm =
-        target instanceof Element
-          ? /** @type {HTMLAnchorElement|null} */ (target.closest('a'))
-          : null;
-
-      if (
-        !linkElm ||
-        !linkElm.matches('.app-name-link, .page-link, .section-link') ||
-        isExternal(linkElm.href)
-      ) {
-        return;
-      }
-
-      return linkElm.getAttribute('href') || undefined;
-    }
-
-    /**
      * Restore focus to the rendered sidebar link that initiated navigation.
      *
-     * @param {string} [href] Sidebar link HREF
+     * @param {import('../router/util.js').SidebarNavigationTarget} [target]
+     * Sidebar navigation target
      * @returns {boolean} True when focus was restored
      */
-    #focusSidebarNavigation(href) {
-      if (!href || isMobile()) {
+    #focusSidebarNavigation(target) {
+      if (!target || isMobile()) {
         return false;
       }
 
@@ -542,11 +523,14 @@ export function Events(Base) {
         return false;
       }
 
-      const focusElm = /** @type {HTMLElement|null} */ (
-        dom.find(
-          sidebarElm,
-          `a[href="${href}"], a[href="${decodeURIComponent(href)}"]`,
-        )
+      const focusElm = /** @type {HTMLElement|undefined} */ (
+        dom
+          .findAll(sidebarElm, 'a')
+          .find(
+            linkElm =>
+              linkElm.classList.contains(target.className) &&
+              /** @type {HTMLAnchorElement} */ (linkElm).href === target.href,
+          )
       );
 
       if (!focusElm) {
@@ -561,7 +545,7 @@ export function Events(Base) {
      * Marks the active app nav item
      */
     #markAppNavActiveElm() {
-      const href = decodeURIComponent(this.router.toURL(this.route.path));
+      const href = resolveHref(this.router.toURL(this.route.path));
 
       ['.app-nav', '.app-nav-merged'].forEach(selector => {
         const navElm = dom.find(selector);
@@ -574,13 +558,7 @@ export function Events(Base) {
           dom.findAll(navElm, 'a')
         )
           .sort((a, b) => b.href.length - a.href.length)
-          .find(
-            a =>
-              href.includes(/** @type {string} */ (a.getAttribute('href'))) ||
-              href.includes(
-                decodeURI(/** @type {string} */ (a.getAttribute('href'))),
-              ),
-          )
+          .find(a => href.includes(a.href))
           ?.closest('li');
         const oldActive = dom.find(navElm, 'li.active');
 
@@ -607,13 +585,14 @@ export function Events(Base) {
         return;
       }
 
-      href = stripUrlExceptId(href);
+      const matchingHref = stripUrlExceptId(/** @type {string} */ (href));
 
       const oldActive = dom.find(sidebar, 'li.active');
-      const sidebarSelector = `.sidebar-nav a[href="${href}"], .sidebar-nav a[href="${decodeURIComponent(
-        /** @type {string} */ (href),
-      )}"]`;
-      const newActive = dom.find(sidebar, sidebarSelector)?.closest('li');
+      const newActive = findLinkByHref(
+        sidebar,
+        matchingHref,
+        '.sidebar-nav a',
+      )?.closest('li');
 
       if (newActive && newActive !== oldActive) {
         oldActive?.classList.remove('active');
@@ -641,12 +620,9 @@ export function Events(Base) {
 
       const path = href?.split('?')[0];
       const oldPage = dom.find(sidebar, 'li[aria-current]');
-      const newPage = dom
-        .find(
-          sidebar,
-          `a[href="${path}"], a[href="${decodeURIComponent(/** @type {string} */ (path))}"]`,
-        )
-        ?.closest('li');
+      const newPage = path
+        ? findLinkByHref(sidebar, path, '.sidebar-nav a')?.closest('li')
+        : undefined;
 
       if (newPage && newPage !== oldPage) {
         oldPage?.removeAttribute('aria-current');
