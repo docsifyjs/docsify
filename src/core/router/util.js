@@ -4,6 +4,109 @@ const decode = decodeURIComponent;
 const encode = encodeURIComponent;
 
 /**
+ * @typedef {{
+ *   className: 'app-name-link' | 'page-link' | 'section-link';
+ *   href: string;
+ * }} SidebarNavigationTarget
+ */
+
+const sidebarNavigationClassNames = /** @type {const} */ ([
+  'app-name-link',
+  'page-link',
+  'section-link',
+]);
+
+/**
+ * Resolve a link value using the same URL normalization as an anchor element.
+ *
+ * @param {string} href Link value
+ * @returns {string}
+ */
+export function resolveHref(href) {
+  try {
+    return new URL(href, location.href).href;
+  } catch {
+    return href;
+  }
+}
+
+/**
+ * Find an anchor by its normalized URL without interpolating the URL into a
+ * CSS selector.
+ *
+ * @param {Element} rootElm Element to search within
+ * @param {string} href Link value
+ * @param {string} [selector] Anchor selector
+ * @returns {HTMLAnchorElement|null}
+ */
+export function findLinkByHref(rootElm, href, selector = 'a') {
+  const resolvedHref = resolveHref(href);
+
+  return (
+    /** @type {HTMLAnchorElement[]} */ (
+      Array.from(rootElm.querySelectorAll(selector))
+    ).find(linkElm => linkElm.href === resolvedHref) || null
+  );
+}
+
+/**
+ * Get the anchor associated with a click event.
+ *
+ * @param {MouseEvent} event Click event
+ * @returns {HTMLAnchorElement|null}
+ */
+export function getClickedLink(event) {
+  const target = event.target;
+
+  return target instanceof Element
+    ? /** @type {HTMLAnchorElement|null} */ (target.closest('a'))
+    : null;
+}
+
+/**
+ * Check whether a click will navigate the current browsing context.
+ *
+ * @param {MouseEvent} event Click event
+ * @param {HTMLAnchorElement} linkElm Clicked link
+ * @returns {boolean}
+ */
+export function isCurrentContextNavigation(event, linkElm) {
+  return !(
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey ||
+    linkElm.hasAttribute('download') ||
+    (linkElm.target && linkElm.target !== '_self')
+  );
+}
+
+/**
+ * Create a stable description of the clicked sidebar link so it can be found
+ * again after the sidebar has been rendered.
+ *
+ * @param {HTMLAnchorElement} linkElm Clicked link
+ * @returns {SidebarNavigationTarget|undefined}
+ */
+export function getSidebarNavigationTarget(linkElm) {
+  const sidebarElm = linkElm.closest('.sidebar');
+  const className = sidebarNavigationClassNames.find(className =>
+    linkElm.classList.contains(className),
+  );
+
+  if (!sidebarElm || !className) {
+    return;
+  }
+
+  return {
+    className,
+    href: linkElm.href,
+  };
+}
+
+/**
  * @param {string} query
  * @return {Record<string, string>}
  */

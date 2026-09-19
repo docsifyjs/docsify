@@ -641,6 +641,36 @@ test.describe('Sidebar Tests', () => {
 });
 
 test.describe('Mobile sidebar toggle', () => {
+  test('moves focus to content after sidebar navigation', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+
+    await docsifyInit({
+      markdown: {
+        homepage: '# Home',
+        sidebar: `
+          - [Home](/)
+          - [Guide](guide)
+        `,
+      },
+      routes: {
+        '/guide.md': '# Guide',
+      },
+      styleURLs: ['/dist/themes/core.css'],
+    });
+
+    await page.locator('.sidebar-toggle-button').click();
+
+    const guideLinkElm = page
+      .locator('.sidebar-nav')
+      .getByRole('link', { name: 'Guide' });
+
+    await guideLinkElm.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#guide')).toBeVisible();
+    await expect(page.locator('#guide')).toBeFocused();
+    await expect(page.locator('.sidebar')).not.toHaveClass(/show/);
+  });
+
   test('wraps long links without causing horizontal overflow', async ({
     page,
   }) => {
@@ -675,6 +705,175 @@ test.describe('Mobile sidebar toggle', () => {
     await page.mouse.wheel(0, -1200);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
   });
+});
+
+test('keeps focus on activated sidebar page links', async ({ page }) => {
+  const docsifyInitConfig = {
+    config: {
+      name: 'Docsify',
+      nameLink: '#/',
+    },
+    markdown: {
+      homepage: `
+          # Home
+        `,
+      sidebar: `
+          - [Home](/)
+          - [Guide](guide)
+        `,
+    },
+    routes: {
+      '/guide.md': `
+          # Guide
+        `,
+    },
+  };
+
+  await docsifyInit(docsifyInitConfig);
+
+  const guideLinkElm = page.locator('.sidebar-nav a[href="#/guide"]');
+
+  await guideLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/guide$/);
+  await expect(page.locator('#guide')).toBeVisible();
+  await expect(guideLinkElm).toBeFocused();
+
+  const homeLinkElm = page.locator('.sidebar-nav a[href="#/"]');
+
+  await homeLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/$/);
+  await expect(page.locator('#home')).toBeVisible();
+  await expect(homeLinkElm).toBeFocused();
+  await expect(page.locator('.app-name-link')).not.toBeFocused();
+});
+
+test('keeps focus on activated app name and section links', async ({
+  page,
+}) => {
+  await docsifyInit({
+    config: {
+      name: 'Docsify',
+      nameLink: '#/guide',
+      subMaxLevel: 2,
+    },
+    markdown: {
+      homepage: '# Home',
+      sidebar: `
+        - [Home](/)
+        - [Guide](guide)
+      `,
+    },
+    routes: {
+      '/guide.md': `
+        # Guide
+
+        ## Details
+      `,
+    },
+  });
+
+  const appNameLinkElm = page.locator('.app-name-link');
+
+  await appNameLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/guide$/);
+  await expect(page.locator('#guide')).toBeVisible();
+  await expect(appNameLinkElm).toBeFocused();
+
+  const sectionLinkElm = page
+    .locator('.sidebar-nav')
+    .getByRole('link', { name: 'Details' });
+
+  await sectionLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/guide\?id=details$/);
+  await expect(sectionLinkElm).toBeFocused();
+});
+
+test('restores sidebar focus for encoded URLs', async ({ page }) => {
+  await docsifyInit({
+    markdown: {
+      homepage: '# Home',
+      sidebar: '- [Quoted path](say%22hi)',
+    },
+    routes: {
+      '/say%22hi.md': '# Quoted path',
+    },
+  });
+
+  const quotedLinkElm = page
+    .locator('.sidebar-nav')
+    .getByRole('link', { name: 'Quoted path' });
+
+  await quotedLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#quoted-path')).toBeVisible();
+  await expect(quotedLinkElm).toBeFocused();
+});
+
+test('does not reuse focus from a cancelled sidebar navigation', async ({
+  page,
+}) => {
+  await docsifyInit({
+    markdown: {
+      homepage: '# Home',
+      sidebar: `
+        - [Guide](guide)
+        - [Other](other)
+      `,
+    },
+    routes: {
+      '/guide.md': '# Guide',
+      '/other.md': '# Other',
+    },
+  });
+
+  const guideLinkElm = page.getByRole('link', { name: 'Guide' });
+
+  await guideLinkElm.evaluate(linkElm => {
+    linkElm.addEventListener('click', event => event.preventDefault(), {
+      once: true,
+    });
+  });
+  await guideLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#\/$/);
+
+  await page.evaluate(() => {
+    location.hash = '#/other';
+  });
+  await expect(page).toHaveURL(/#\/other$/);
+  await expect(page.locator('#other')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Guide' })).not.toBeFocused();
+});
+
+test('keeps focus on sidebar page links in history mode', async ({ page }) => {
+  await docsifyInit({
+    config: {
+      name: 'Docsify',
+      nameLink: '/guide',
+      routerMode: 'history',
+    },
+    markdown: {
+      homepage: '# Home',
+      sidebar: '- [Guide](guide)',
+    },
+    routes: {
+      '/guide.md': '# Guide',
+    },
+    waitForSelector: '.sidebar-nav a[href="/guide"]',
+  });
+
+  const guideLinkElm = page.locator('.sidebar-nav a[href="/guide"]');
+
+  await guideLinkElm.focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/\/guide$/);
+  await expect(page.locator('#guide')).toBeVisible();
+  await expect(guideLinkElm).toBeFocused();
+  await expect(page.locator('.app-name-link')).not.toBeFocused();
 });
 
 test.describe('Configuration: autoHeader', () => {

@@ -1,6 +1,11 @@
 import tinydate from 'tinydate';
 import * as dom from '../util/dom.js';
-import { cleanPath, getPath, isAbsolutePath } from '../router/util.js';
+import {
+  cleanPath,
+  findLinkByHref,
+  getPath,
+  isAbsolutePath,
+} from '../router/util.js';
 import { isMobile } from '../util/env.js';
 import { isExternal, isPrimitive } from '../util/core.js';
 import { Compiler } from './compiler.js';
@@ -360,11 +365,8 @@ export function Render(Base) {
 
       sidebarToggleEl.setAttribute('aria-expanded', String(!isMobile()));
 
-      const activeElmHref = decodeURIComponent(
-        this.router.toURL(this.route.path),
-      );
       const activeEl = /** @type {HTMLElement | null} */ (
-        dom.find(`.sidebar-nav a[href="${activeElmHref}"]`)
+        findLinkByHref(sidebarNavEl, this.router.toURL(this.route.path), 'a')
       );
 
       this.#addTextAsTitleAttribute('.sidebar-nav a');
