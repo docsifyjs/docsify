@@ -206,7 +206,7 @@ export class Compiler {
     let html = '';
 
     // compile sidebar from _sidebar.md
-    if (text) {
+    if (typeof text === 'string') {
       return this.compile(text);
     }
     // compile sidebar from content's headings toc
