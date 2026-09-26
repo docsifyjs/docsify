@@ -372,12 +372,16 @@ export function Render(Base) {
       this.#addTextAsTitleAttribute('.sidebar-nav a');
 
       if (loadSidebar && activeEl) {
-        activeEl
-          .closest('li')
-          ?.insertAdjacentHTML(
-            'beforeend',
-            this.compiler.subSidebar(subMaxLevel) || '',
-          );
+        const activeItem = activeEl.closest('li');
+
+        activeItem?.insertAdjacentHTML(
+          'beforeend',
+          this.compiler.subSidebar(subMaxLevel) || '',
+        );
+
+        if (activeItem?.querySelector(':scope > .app-sub-sidebar')) {
+          activeEl.setAttribute('aria-expanded', 'true');
+        }
       } else {
         this.compiler.resetToc();
       }

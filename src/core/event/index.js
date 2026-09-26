@@ -274,7 +274,8 @@ export function Events(Base) {
         const hasSubSidebar = linkParent?.querySelector('.app-sub-sidebar');
 
         if (hasSubSidebar) {
-          linkParent.classList.toggle('collapse');
+          const isCollapsed = linkParent.classList.toggle('collapse');
+          linkElm?.setAttribute('aria-expanded', String(!isCollapsed));
         }
       });
 
