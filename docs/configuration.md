@@ -227,7 +227,19 @@ window.$docsify = {
 </script>
 ```
 
-Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin.
+Inline ES modules are supported with `type="module"`:
+
+```html
+<script type="module">
+  import { message } from './example.js';
+
+  console.log(message);
+</script>
+```
+
+Modules execute asynchronously, and Docsify does not wait for them before running its lifecycle hooks. Relative imports resolve against the HTML document URL, rather than the Markdown file URL. Only the first non-template script is considered for execution, whether it is a classic script or a module.
+
+Note that if you are running an external script with a `src` attribute, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin. This also applies to `<script type="module" src="...">`.
 
 ## ext
 
