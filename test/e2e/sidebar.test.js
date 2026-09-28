@@ -638,6 +638,57 @@ test.describe('Sidebar Tests', () => {
     await expect(subSidebar).toBeHidden();
     await expect(quickStartLink).toBeVisible();
   });
+
+  test('exposes the expanded state of page links that toggle a sub-sidebar', async ({
+    page,
+  }) => {
+    await docsifyInit({
+      config: {
+        subMaxLevel: 2,
+      },
+      markdown: {
+        homepage: '# Home',
+        sidebar: `
+          - [Quick start](quickstart.md)
+          - [Adding pages](adding-pages.md)
+        `,
+      },
+      routes: {
+        '/quickstart.md': `
+          # Quick start
+
+          ## Installation
+        `,
+        '/adding-pages.md': '# Adding pages',
+      },
+      styleURLs: ['/dist/themes/core.css'],
+    });
+
+    const quickStartLink = page.locator('.sidebar-nav a[href="#/quickstart"]');
+    const addingPagesLink = page.locator(
+      '.sidebar-nav a[href="#/adding-pages"]',
+    );
+    const subSidebar = page.locator('.sidebar-nav .app-sub-sidebar');
+
+    await expect(quickStartLink).not.toHaveAttribute('aria-expanded');
+
+    await quickStartLink.click();
+    await expect(subSidebar).toBeVisible();
+    await expect(quickStartLink).toHaveAttribute('aria-expanded', 'true');
+
+    await quickStartLink.click();
+    await expect(subSidebar).toBeHidden();
+    await expect(quickStartLink).toHaveAttribute('aria-expanded', 'false');
+
+    await quickStartLink.press('Enter');
+    await expect(subSidebar).toBeVisible();
+    await expect(quickStartLink).toHaveAttribute('aria-expanded', 'true');
+
+    // Pages without headings have no sub-sidebar to toggle
+    await addingPagesLink.click();
+    await expect(quickStartLink).not.toHaveAttribute('aria-expanded');
+    await expect(addingPagesLink).not.toHaveAttribute('aria-expanded');
+  });
 });
 
 test.describe('Mobile sidebar toggle', () => {
