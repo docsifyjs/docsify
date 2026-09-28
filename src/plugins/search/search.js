@@ -257,12 +257,14 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         indexKey: indexKey,
       };
     } else {
+      const code = token.type === 'code' ? token.text : null;
+
       if (tokenIndex === 0) {
         slug = router.toURL(path);
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: markdownToTxt(/** @type {any} */ (token).text || ''),
+          body: code ?? markdownToTxt(/** @type {any} */ (token).text || ''),
           path: path,
           indexKey: indexKey,
         };
@@ -281,7 +283,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         token.text = getListData(token);
 
         // @ts-expect-error
-        index[slug].body += '\n' + markdownToTxt(token.text || '');
+        index[slug].body += '\n' + (code ?? markdownToTxt(token.text || ''));
       } else {
         // @ts-expect-error
         token.text = getTableData(token);
@@ -289,7 +291,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         token.text = getListData(token);
 
         // @ts-expect-error
-        index[slug].body = markdownToTxt(token.text || '');
+        index[slug].body = code ?? markdownToTxt(token.text || '');
       }
 
       index[slug].path = path;

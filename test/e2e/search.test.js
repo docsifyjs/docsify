@@ -524,6 +524,39 @@ console.log('Hello World');
     );
   });
 
+  for (const [name, markdown, title] of [
+    [
+      'after a heading',
+      '# Code examples\n\n```html\n<customwidget />\n```',
+      'Code examples',
+    ],
+    [
+      'after a paragraph',
+      '# Code examples\n\nAn example:\n\n```html\n<customwidget />\n```',
+      'Code examples',
+    ],
+    ['without a heading', '```html\n<customwidget />\n```', 'Home Page'],
+    [
+      'in an indented code block',
+      '# Code examples\n\n    <customwidget />',
+      'Code examples',
+    ],
+  ]) {
+    test(`searches HTML examples ${name}`, async ({ page }) => {
+      await docsifyInit({
+        markdown: { homepage: markdown },
+        scriptURLs: ['/dist/plugins/search.js'],
+      });
+
+      await page.locator('input[type=search]').fill('customwidget');
+      await expect(page.locator('.results-panel .title')).toHaveText(title);
+      await expect(page.locator('.results-panel .content')).toContainText(
+        '<customwidget />',
+      );
+      await expect(page.locator('.results-panel customwidget')).toHaveCount(0);
+    });
+  }
+
   test('search result should remove file markdown and keep href attribution for files', async ({
     page,
   }) => {
