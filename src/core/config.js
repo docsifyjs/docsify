@@ -1,9 +1,12 @@
 import { stripIndent } from 'common-tags';
+import { getDocsifyModuleUrl, getDocsifyScript } from './script.js';
 import { hyphenate, isPrimitive } from './util/core.js';
+import {
+  isDocsifyScriptUrl,
+  warnIfUnpinnedDocsifyVersion,
+} from './version-check.js';
 /** @import { Docsify } from './Docsify.js' */
 /** @import { Hooks } from './init/lifecycle.js' */
-
-const currentScript = document.currentScript;
 
 const defaultDocsifyConfig = () => ({
   alias: /** @type {Record<string, string>} */ ({}),
@@ -160,11 +163,15 @@ export default function (vm, config = {}) {
     );
   }
 
-  const script =
-    currentScript ||
-    Array.from(document.getElementsByTagName('script')).filter(n =>
-      /docsify\./.test(n.src),
-    )[0];
+  const moduleUrl = getDocsifyModuleUrl();
+  const script = getDocsifyScript();
+  const scriptUrl = moduleUrl
+    ? isDocsifyScriptUrl(moduleUrl)
+      ? moduleUrl
+      : undefined
+    : script?.src;
+
+  warnIfUnpinnedDocsifyVersion(scriptUrl);
 
   if (script) {
     for (const prop of /** @type {(keyof DocsifyConfig)[]} */ (
