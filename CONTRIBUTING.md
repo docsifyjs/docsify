@@ -40,7 +40,7 @@ So that you can start straight away.
 
 ## Submitting code
 
-Any code change should be submitted as a pull request. The description should explain what the code does and give steps to execute it. The pull request should also contain tests.
+Any code change should be submitted as a pull request. The description should explain what the code does and give steps to execute it. The pull request should also contain tests. When making a new pull request, the pull request template should be filled out as best you can.
 
 ## Testing
 
