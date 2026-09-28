@@ -4,8 +4,7 @@ import { isAbsolutePath } from '../../router/util.js';
 export const linkCompiler = ({
   renderer,
   router,
-  linkTarget,
-  linkRel,
+  linkTarget: defaultLinkTarget,
   compiler,
 }) =>
   (renderer.link = function ({ href, title = '', tokens }) {
@@ -16,8 +15,8 @@ export const linkCompiler = ({
     const isNotCompilable = compiler._matchNotCompileLink(href);
     const isMailto = href.startsWith('mailto:');
 
-    linkTarget = config.target || linkTarget;
-    linkRel =
+    const linkTarget = config.target || defaultLinkTarget;
+    const linkRel =
       linkTarget === '_blank'
         ? compiler.config.externalLinkRel || 'noopener'
         : '';
