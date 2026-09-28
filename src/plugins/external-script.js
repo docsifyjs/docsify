@@ -11,7 +11,7 @@ function handleExternalScript() {
       const newScript = document.createElement('script');
 
       Array.from(script.attributes).forEach(attribute => {
-        newScript[attribute.name] = attribute.value;
+        newScript.setAttribute(attribute.name, attribute.value);
       });
 
       script.before(newScript);
