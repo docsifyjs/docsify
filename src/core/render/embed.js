@@ -132,7 +132,12 @@ function walkFetchEmbed({ embedTokens, compile, fetch, frontMatter }, cb) {
 }
 
 export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
-  const hit = cached[raw];
+  const cacheKey = JSON.stringify([
+    compiler.contentBase,
+    compiler.router.getCurrentPath(),
+    raw,
+  ]);
+  const hit = cached[cacheKey];
   if (hit) {
     const copy = hit.slice();
     copy.links = hit.links;
@@ -271,8 +276,8 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
           }
         }
       } else if (!token) {
-        cached[raw] = tokens.concat();
-        tokens.links = cached[raw].links = links;
+        cached[cacheKey] = tokens.concat();
+        tokens.links = cached[cacheKey].links = links;
         done(tokens);
       }
     },
