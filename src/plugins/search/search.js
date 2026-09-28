@@ -20,7 +20,7 @@ db.version(1).stores({
   expires: 'key, value',
 });
 
-async function saveData(maxAge, expireKey) {
+async function saveData(maxAge, expireKey, indexKey) {
   const records = [];
 
   Object.values(INDEXES).forEach(entry => {
@@ -43,10 +43,15 @@ async function saveData(maxAge, expireKey) {
   });
 
   INDEXES = records;
-  await /** @type {any} */ (db).search.bulkPut(records);
-  await /** @type {any} */ (db).expires.put({
-    key: expireKey,
-    value: Date.now() + maxAge,
+  const searchTable = db.table('search');
+  const expiresTable = db.table('expires');
+  await db.transaction('rw', searchTable, expiresTable, async () => {
+    await searchTable.where({ indexKey }).delete();
+    await searchTable.bulkPut(records);
+    await expiresTable.put({
+      key: expireKey,
+      value: Date.now() + maxAge,
+    });
   });
 }
 
@@ -448,7 +453,7 @@ export async function init(config, vm) {
 
   const markComplete = async () => {
     if (len === ++count) {
-      await saveData(config.maxAge, expireKey);
+      await saveData(config.maxAge, expireKey, indexKey);
     }
   };
 

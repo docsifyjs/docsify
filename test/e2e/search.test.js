@@ -340,6 +340,67 @@ test.describe('Search Plugin Tests', () => {
     await expect(resultsHeadingElm).toHaveText('EmptyContent');
   });
 
+  test('does not restore deleted sections after rebuilding an expired cache', async ({
+    page,
+  }) => {
+    const options = {
+      config: {
+        search: { paths: ['/'], namespace: 'cache-refresh', maxAge: -1 },
+      },
+      markdown: { homepage: '# Obsolete\n\nretiredkeyword' },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+    const searchField = page.locator('input[type=search]');
+    const results = page.locator('.results-panel .title');
+
+    await docsifyInit(options);
+    await searchField.fill('retiredkeyword');
+    await expect(results).toHaveText('Obsolete');
+
+    options.config.search.maxAge = 60000;
+    options.markdown.homepage = '# Current\n\ncurrentkeyword';
+    await docsifyInit(options);
+    await searchField.fill('currentkeyword');
+    await expect(results).toHaveText('Current');
+    await searchField.fill('retiredkeyword');
+    await expect(page.getByText('No Results!', { exact: true })).toBeVisible();
+
+    await docsifyInit(options);
+    await searchField.fill('currentkeyword');
+    await expect(results).toHaveText('Current');
+    await searchField.fill('retiredkeyword');
+    await expect(page.getByText('No Results!', { exact: true })).toBeVisible();
+  });
+
+  test('preserves another namespace when saving a search index', async ({
+    page,
+  }) => {
+    const otherSite = {
+      config: { search: { paths: ['/'], namespace: 'other-site' } },
+      markdown: { homepage: '# Other site\n\nprotectedkeyword' },
+      scriptURLs: ['/dist/plugins/search.js'],
+    };
+    const searchField = page.locator('input[type=search]');
+    const results = page.locator('.results-panel .title');
+
+    await docsifyInit(otherSite);
+    await searchField.fill('protectedkeyword');
+    await expect(results).toHaveText('Other site');
+
+    await docsifyInit({
+      config: { search: { paths: ['/'], namespace: 'current-site' } },
+      markdown: { homepage: '# Current site\n\ncurrentkeyword' },
+      scriptURLs: ['/dist/plugins/search.js'],
+    });
+    await searchField.fill('currentkeyword');
+    await expect(results).toHaveText('Current site');
+
+    otherSite.markdown.homepage = '# Changed\n\nchangedkeyword';
+    await docsifyInit(otherSite);
+    await searchField.fill('protectedkeyword');
+    await expect(results).toHaveText('Other site');
+  });
+
   test('keeps saving index when one auto path request fails with cached records', async ({
     page,
   }) => {
