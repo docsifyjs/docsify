@@ -154,8 +154,8 @@ const markdownToTxtRenderer = {
     return this.parser?.parseInline(token.tokens) || '';
   },
 
-  strong({ text }) {
-    return text;
+  strong({ tokens }) {
+    return this.parser?.parseInline(tokens) || '';
   },
 
   em({ tokens }) {
