@@ -3,6 +3,47 @@ import { waitForFunction } from '../helpers/wait-for.js';
 import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Plugins', () => {
+  test('external scripts retain their HTML attributes when executed', async ({
+    page,
+  }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # External script
+
+          <script src="/widget.js" data-message="hello" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        `,
+      },
+      routes: {
+        '/widget.js': `
+          const script = document.currentScript;
+          window.widgetAttributes = {
+            message: script.dataset.message,
+            crossOrigin: script.crossOrigin,
+            referrerPolicy: script.referrerPolicy,
+          };
+        `,
+      },
+      scriptURLs: ['/dist/plugins/external-script.js'],
+    });
+
+    await expect
+      .poll(async () => ({
+        attributes: await page.evaluate(() => window.widgetAttributes),
+        errors: pageErrors,
+      }))
+      .toEqual({
+        attributes: {
+          message: 'hello',
+          crossOrigin: 'anonymous',
+          referrerPolicy: 'no-referrer',
+        },
+        errors: [],
+      });
+  });
+
   test('Hook order', async ({ page }) => {
     const consoleMsgs = [];
     const expectedMsgs = [
