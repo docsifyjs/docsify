@@ -160,7 +160,7 @@ export class Compiler {
 
   _initRenderer() {
     const renderer = new marked.Renderer();
-    const { linkTarget, linkRel, router, contentBase } = this;
+    const { linkTarget, router, contentBase } = this;
     // Supports mermaid
     const origin = {};
 
@@ -179,7 +179,6 @@ export class Compiler {
       renderer,
       router,
       linkTarget,
-      linkRel,
       compiler: this,
     });
     origin.paragraph = paragraphCompiler({ renderer });
