@@ -10,7 +10,6 @@ Other CDNs are available and may be required in locations where jsDelivr is not 
 
 - https://cdnjs.com/libraries/docsify
 - https://unpkg.com/browse/docsify/
-- https://www.bootcdn.cn/docsify/
 
 ## Specifying versions
 
