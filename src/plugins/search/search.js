@@ -264,7 +264,7 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: code ?? markdownToTxt(/** @type {any} */ (token).text || ''),
+          body: '',
           path: path,
           indexKey: indexKey,
         };
