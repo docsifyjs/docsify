@@ -339,6 +339,11 @@ export function search(query) {
     const postUrl = post.slug || '';
 
     if (postTitle) {
+      handlePostTitle = escapeHtml(ignoreDiacriticalMarks(postTitle));
+      handlePostContent = postContent
+        ? escapeHtml(ignoreDiacriticalMarks(postContent))
+        : postContent;
+
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
@@ -348,13 +353,6 @@ export function search(query) {
           ),
           'gi',
         );
-        handlePostTitle = postTitle
-          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
-          : postTitle;
-        handlePostContent = postContent
-          ? escapeHtml(ignoreDiacriticalMarks(postContent))
-          : postContent;
-
         const indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
         let indexContent = postContent ? handlePostContent.search(regEx) : -1;
 

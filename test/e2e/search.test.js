@@ -553,6 +553,12 @@ console.log('Hello World');
       await expect(page.locator('.results-panel .content')).toContainText(
         '<customwidget />',
       );
+      if (name === 'without a heading') {
+        const resultText = await page
+          .locator('.results-panel .content')
+          .textContent();
+        expect(resultText?.match(/<customwidget \/>/g)).toHaveLength(1);
+      }
       await expect(page.locator('.results-panel customwidget')).toHaveCount(0);
     });
   }
