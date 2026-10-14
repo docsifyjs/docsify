@@ -257,12 +257,14 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         indexKey: indexKey,
       };
     } else {
+      const codeText = token.type === 'code' ? token.text : null;
+
       if (tokenIndex === 0) {
         slug = router.toURL(path);
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: markdownToTxt(/** @type {any} */ (token).text || ''),
+          body: '',
           path: path,
           indexKey: indexKey,
         };
@@ -280,16 +282,17 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         // @ts-expect-error
         token.text = getListData(token);
 
-        // @ts-expect-error
-        index[slug].body += '\n' + markdownToTxt(token.text || '');
+        index[slug].body +=
+          '\n' +
+          (codeText ?? markdownToTxt(/** @type {any} */ (token).text || ''));
       } else {
         // @ts-expect-error
         token.text = getTableData(token);
         // @ts-expect-error
         token.text = getListData(token);
 
-        // @ts-expect-error
-        index[slug].body = markdownToTxt(token.text || '');
+        index[slug].body =
+          codeText ?? markdownToTxt(/** @type {any} */ (token).text || '');
       }
 
       index[slug].path = path;
@@ -337,6 +340,11 @@ export function search(query) {
     const postUrl = post.slug || '';
 
     if (postTitle) {
+      handlePostTitle = escapeHtml(ignoreDiacriticalMarks(postTitle));
+      handlePostContent = postContent
+        ? escapeHtml(ignoreDiacriticalMarks(postContent))
+        : postContent;
+
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
@@ -346,13 +354,6 @@ export function search(query) {
           ),
           'gi',
         );
-        handlePostTitle = postTitle
-          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
-          : postTitle;
-        handlePostContent = postContent
-          ? escapeHtml(ignoreDiacriticalMarks(postContent))
-          : postContent;
-
         const indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
         let indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
