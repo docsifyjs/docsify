@@ -352,6 +352,21 @@ Text</p></div>"
       );
     });
 
+    test.each([
+      'https://example.org/first',
+      '/first',
+      'mailto:first@example.org',
+    ])('does not leak a target override from %s into later links', href => {
+      const container = document.createElement('div');
+      container.innerHTML = window.marked(
+        `[First](${href} ':target=_self')\n\n[Second](https://example.org/second)`,
+      );
+
+      const secondLink = container.querySelectorAll('a')[1];
+      expect(secondLink.target).toBe('_blank');
+      expect(secondLink.rel).toBe('noopener');
+    });
+
     test('target for relative path', async function () {
       const output = window.marked("[alt text](/url ':target=_blank')");
 
