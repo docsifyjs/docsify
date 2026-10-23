@@ -81,7 +81,23 @@ export function Render(Base) {
         return false;
       }
 
-      new Function(code)();
+      if (script.getAttribute('type') === 'module') {
+        // External scripts are handled by the external-script plugin.
+        if (script.hasAttribute('src')) {
+          return false;
+        }
+
+        // Scripts inserted via innerHTML are inert. Create a fresh element
+        // so the browser can execute imports and exports as an ES module.
+        const moduleScript = document.createElement('script');
+        for (const { name, value } of script.attributes) {
+          moduleScript.setAttribute(name, value);
+        }
+        moduleScript.textContent = code;
+        script.replaceWith(moduleScript);
+      } else {
+        new Function(code)();
+      }
     }
 
     #formatUpdated(html, updated, fn) {
