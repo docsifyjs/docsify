@@ -256,3 +256,14 @@ To deploy your Docsify site using DeployHQ:
 Your Docsify site will be deployed to your server. You can enable automatic deployments to deploy on every Git push, or schedule deployments for specific times.
 
 For more information on advanced deployment features, see [DeployHQ's documentation](https://www.deployhq.com/support).
+
+## deed.page
+
+[deed.page](https://deed.page) hosts static sites published with one HTTP `PUT`. No account or build step is needed, so you can upload the `docs` folder as it is:
+
+```bash
+tar -C docs -czf site.tar.gz .
+curl -T site.tar.gz "https://deed.page/v1/sites?slug=my-docs"
+```
+
+The response includes the live `https://my-docs.deed.page/` URL and a token. To publish an update to the same slug, run the same command with `-H "Authorization: Bearer <token>"`. A single upload is capped at 4 MB; see the [deed.page docs](https://deed.page/docs) for larger sites.
