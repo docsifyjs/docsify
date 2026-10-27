@@ -20,7 +20,7 @@ db.version(1).stores({
   expires: 'key, value',
 });
 
-async function saveData(maxAge, expireKey) {
+async function saveData(maxAge, expireKey, indexKey) {
   const records = [];
 
   Object.values(INDEXES).forEach(entry => {
@@ -43,10 +43,15 @@ async function saveData(maxAge, expireKey) {
   });
 
   INDEXES = records;
-  await /** @type {any} */ (db).search.bulkPut(records);
-  await /** @type {any} */ (db).expires.put({
-    key: expireKey,
-    value: Date.now() + maxAge,
+  const searchTable = db.table('search');
+  const expiresTable = db.table('expires');
+  await db.transaction('rw', searchTable, expiresTable, async () => {
+    await searchTable.where({ indexKey }).delete();
+    await searchTable.bulkPut(records);
+    await expiresTable.put({
+      key: expireKey,
+      value: Date.now() + maxAge,
+    });
   });
 }
 
@@ -257,12 +262,14 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         indexKey: indexKey,
       };
     } else {
+      const codeText = token.type === 'code' ? token.text : null;
+
       if (tokenIndex === 0) {
         slug = router.toURL(path);
         index[slug] = {
           slug,
           title: path !== '/' ? path.slice(1) : 'Home Page',
-          body: markdownToTxt(/** @type {any} */ (token).text || ''),
+          body: '',
           path: path,
           indexKey: indexKey,
         };
@@ -280,16 +287,17 @@ export function genIndex(path, content = '', router, depth, indexKey) {
         // @ts-expect-error
         token.text = getListData(token);
 
-        // @ts-expect-error
-        index[slug].body += '\n' + markdownToTxt(token.text || '');
+        index[slug].body +=
+          '\n' +
+          (codeText ?? markdownToTxt(/** @type {any} */ (token).text || ''));
       } else {
         // @ts-expect-error
         token.text = getTableData(token);
         // @ts-expect-error
         token.text = getListData(token);
 
-        // @ts-expect-error
-        index[slug].body = markdownToTxt(token.text || '');
+        index[slug].body =
+          codeText ?? markdownToTxt(/** @type {any} */ (token).text || '');
       }
 
       index[slug].path = path;
@@ -337,6 +345,11 @@ export function search(query) {
     const postUrl = post.slug || '';
 
     if (postTitle) {
+      handlePostTitle = escapeHtml(ignoreDiacriticalMarks(postTitle));
+      handlePostContent = postContent
+        ? escapeHtml(ignoreDiacriticalMarks(postContent))
+        : postContent;
+
       keywords.forEach(keyword => {
         // From https://github.com/sindresorhus/escape-string-regexp
         const regEx = new RegExp(
@@ -346,13 +359,6 @@ export function search(query) {
           ),
           'gi',
         );
-        handlePostTitle = postTitle
-          ? escapeHtml(ignoreDiacriticalMarks(postTitle))
-          : postTitle;
-        handlePostContent = postContent
-          ? escapeHtml(ignoreDiacriticalMarks(postContent))
-          : postContent;
-
         const indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
         let indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
@@ -448,7 +454,7 @@ export async function init(config, vm) {
 
   const markComplete = async () => {
     if (len === ++count) {
-      await saveData(config.maxAge, expireKey);
+      await saveData(config.maxAge, expireKey, indexKey);
     }
   };
 
