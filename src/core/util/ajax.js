@@ -4,7 +4,7 @@ import progressbar from '../render/progressbar.js';
 import { noop } from './core.js';
 
 /** @typedef {{updatedAt: string}} CacheOpt */
-/** @typedef {{content: string, opt: CacheOpt}} CacheItem */
+/** @typedef {{content: string, opt: CacheOpt, response: ResponseStatus}} CacheItem */
 /** @typedef {{ok: boolean, status: number, statusText: string}} ResponseStatus */
 /** @type {Record<string, CacheItem>} */
 
@@ -30,7 +30,10 @@ export function get(url, hasBar = false, headers = {}) {
   const cached = cache[url];
 
   if (cached) {
-    return { then: cb => cb(cached.content, cached.opt), abort: noop };
+    return {
+      then: cb => cb(cached.content, cached.opt, cached.response),
+      abort: noop,
+    };
   }
 
   xhr.open('GET', url);
@@ -87,9 +90,10 @@ export function get(url, hasBar = false, headers = {}) {
             opt: {
               updatedAt: xhr.getResponseHeader('last-modified') ?? '',
             },
+            response: getResponseStatus(event),
           });
 
-          success(result.content, result.opt, getResponseStatus(event));
+          success(result.content, result.opt, result.response);
         }
       });
     },
