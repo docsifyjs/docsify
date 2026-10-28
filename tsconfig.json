@@ -5,6 +5,11 @@
 
     "module": "esnext",
     "moduleResolution": "node",
+    // The synchronous JS build shares the main entry's types, but legacy
+    // node resolution does not read package.json subpath exports.
+    "paths": {
+      "es-module-lexer/js": ["./node_modules/es-module-lexer/types/lexer.d.ts"]
+    },
     "target": "es2023",
     "lib": ["ES2023", "DOM", "DOM.AsyncIterable", "DOM.Iterable"],
     "declaration": true,

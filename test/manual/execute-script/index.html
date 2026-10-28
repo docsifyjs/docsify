@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Markdown-relative module imports</title>
+    <link rel="stylesheet" href="/dist/themes/core.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const routerMode = location.pathname.includes('/history')
+        ? 'history'
+        : 'hash';
+      window.$docsify = {
+        name: `Module imports (${routerMode})`,
+        executeScript: true,
+        routerMode,
+        relativePath: true,
+        basePath: '/test/manual/execute-script/content/',
+        alias: {
+          '/module-demo/history/?': '/',
+          '/module-demo/history/(.*)': '/$1',
+        },
+      };
+    </script>
+    <script src="/dist/docsify.js"></script>
+  </body>
+</html>
