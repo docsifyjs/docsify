@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/docsifyjs/docsify/compare/v5.0.0...v5.1.0) (2026-10-30)
+
+
+### Features
+
+* add configurable right sidebar ([#2772](https://github.com/docsifyjs/docsify/issues/2772)) ([ee7063c](https://github.com/docsifyjs/docsify/commit/ee7063cfd95387c9e948c7adc4f88579c408c0ce))
+* add ESM configuration for Docsify ([#2751](https://github.com/docsifyjs/docsify/issues/2751)) ([72fd7f9](https://github.com/docsifyjs/docsify/commit/72fd7f93ef401c08d77af2afeb125991b6dfaa1e))
+* **navbar:** add navbarPreservePath option ([#2780](https://github.com/docsifyjs/docsify/issues/2780)) ([879f02e](https://github.com/docsifyjs/docsify/commit/879f02e25e8f8e7af65e2e0ecdcbc7f1eb6209ef))
+* **search:** resultSource option shows where results come from ([#2767](https://github.com/docsifyjs/docsify/issues/2767)) ([24a16c6](https://github.com/docsifyjs/docsify/commit/24a16c630ade3d443b252aea8665111af75a4c67))
+* **sidebar:** add collapsible root sidebar groups ([#2784](https://github.com/docsifyjs/docsify/issues/2784)) ([5099294](https://github.com/docsifyjs/docsify/commit/50992940f32b98469c2ffae5dddaa06c2927e98e))
+* **sidebar:** normalize page links and control root chevrons ([#2790](https://github.com/docsifyjs/docsify/issues/2790)) ([84c2d67](https://github.com/docsifyjs/docsify/commit/84c2d67813362f55cfe06064e007abfb37fa78db))
+
+
+### Bug Fixes
+
+* **a11y:** preserve sidebar focus after navigation ([#2740](https://github.com/docsifyjs/docsify/issues/2740)) ([a408e76](https://github.com/docsifyjs/docsify/commit/a408e76cc9115ce40c54463acfb5f8b181f2f291))
+* **a11y:** set aria-expanded on sidebar links that toggle a sub-sidebar ([#2809](https://github.com/docsifyjs/docsify/issues/2809)) ([d823dbe](https://github.com/docsifyjs/docsify/commit/d823dbe51c1b2dea4c2091e2b952ded0d1e16616))
+* **ajax:** retain response status in cached results ([#2813](https://github.com/docsifyjs/docsify/issues/2813)) ([91c923a](https://github.com/docsifyjs/docsify/commit/91c923accf6e215fb3083c490a4ba64aec63a674))
+* avoid quadratic slugify cache lookup ([#2783](https://github.com/docsifyjs/docsify/issues/2783)) ([a8f151e](https://github.com/docsifyjs/docsify/commit/a8f151ed79dff0ad8d857f99f073ef7969c14d80))
+* **docs:** script source for zoom-image plugin ([#2776](https://github.com/docsifyjs/docsify/issues/2776)) ([e446bf9](https://github.com/docsifyjs/docsify/commit/e446bf9bc67256b2875ebcf64c2abc5eaba19221))
+* **external-script:** preserve HTML attributes ([#2819](https://github.com/docsifyjs/docsify/issues/2819)) ([3d82b26](https://github.com/docsifyjs/docsify/commit/3d82b261fa76283dd1fd6980c342d1c9caf0c75c))
+* **link:** isolate per-link target overrides ([#2818](https://github.com/docsifyjs/docsify/issues/2818)) ([f991523](https://github.com/docsifyjs/docsify/commit/f991523d2ade8e2db2a4ad6a2bcc6dcc70e1f0c7))
+* preserve loose-list sidebar links when collapsed ([#2787](https://github.com/docsifyjs/docsify/issues/2787)) ([92cdd13](https://github.com/docsifyjs/docsify/commit/92cdd136da499e6d927ab0540ff339da23e5eb7e))
+* prevent long links from causing horizontal overflow ([#2786](https://github.com/docsifyjs/docsify/issues/2786)) ([5c50b9b](https://github.com/docsifyjs/docsify/commit/5c50b9b93a04505b977a4e8c14432ed9287d13d7))
+* **search:** parse inline formatting inside bold text ([#2815](https://github.com/docsifyjs/docsify/issues/2815)) ([ffbc2f1](https://github.com/docsifyjs/docsify/commit/ffbc2f105861088668a3e74ef676dcc976d3cde6))
+* **search:** preserve literal code block content in index ([#2816](https://github.com/docsifyjs/docsify/issues/2816)) ([7272bfa](https://github.com/docsifyjs/docsify/commit/7272bfa1fb857c5d5f69f8ad89e789e7511a7510))
+* **search:** replace stale records when saving an index ([#2817](https://github.com/docsifyjs/docsify/issues/2817)) ([2d8cb5a](https://github.com/docsifyjs/docsify/commit/2d8cb5a74c29797e6016dea857e36d1e339675bf))
+* **sidebar:** complete loading when nested sidebar is missing ([#2801](https://github.com/docsifyjs/docsify/issues/2801)) ([f34374b](https://github.com/docsifyjs/docsify/commit/f34374b7423340e5ddec81c8ff565c26cc056fb5))
+* update sidebar anchor activation logic ([#2779](https://github.com/docsifyjs/docsify/issues/2779)) ([030652c](https://github.com/docsifyjs/docsify/commit/030652c895aff083bfe1156b6f0d7f86c05c8147))
+
 ## [5.0.0](https://github.com/docsifyjs/docsify/compare/v5.0.0-rc.4...v5.0.0) (2026-07-23)
 
 
