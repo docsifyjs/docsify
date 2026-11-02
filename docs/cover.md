@@ -31,7 +31,7 @@ window.$docsify = {
 
 ## Customization
 
-The cover page can be customized using [theme properties](themes#theme-properties):
+The cover page can be customized using [theme properties](../src/themes/core.css#theme-properties):
 
 <!-- prettier-ignore -->
 ```css

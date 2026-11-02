@@ -77,7 +77,7 @@ Support for additional [languages](https://prismjs.com/#supported-languages) is 
 
 ## Theme support
 
-Docsify's official [themes](themes) are compatible with Prism syntax highlighting themes.
+Docsify's official [themes](../src/themes/core.css) are compatible with Prism syntax highlighting themes.
 
 > [!IMPORTANT] Prism themes must be loaded after Docsify themes.
 
@@ -107,7 +107,7 @@ Themes can be applied in light and/or dark mode
 />
 ```
 
-The following Docsify [theme properties](themes#theme-properties) will override Prism theme styles by default:
+The following Docsify [theme properties](../src/themes/core.css#theme-properties) will override Prism theme styles by default:
 
 ```text
 --border-radius

@@ -84,7 +84,7 @@ renders as
 
 ## Combining custom navbars with the emoji plugin
 
-If you use the [emoji plugin](plugins#emoji):
+If you use the [emoji plugin](../src/plugins/ga.js#emoji):
 
 ```html
 <!-- index.html -->
