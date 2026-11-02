@@ -1,6 +1,6 @@
 # Cover
 
-Activate the cover feature by setting `coverpage` to **true**. See [coverpage configuration](configuration#coverpage).
+Activate the cover feature by setting `coverpage` to **true**. See [coverpage configuration](configuration.md#coverpage).
 
 ## Basic usage
 
@@ -31,7 +31,7 @@ window.$docsify = {
 
 ## Customization
 
-The cover page can be customized using [theme properties](themes#theme-properties):
+The cover page can be customized using [theme properties](themes.md#theme-properties):
 
 <!-- prettier-ignore -->
 ```css
@@ -60,7 +60,7 @@ Alternatively, a background color or image can be specified in the cover page ma
 
 ## Coverpage as homepage
 
-Normally, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [`onlyCover`](configuration#onlycover) option.
+Normally, the coverpage and the homepage appear at the same time. Of course, you can also separate the coverpage by [`onlyCover`](configuration.md#onlycover) option.
 
 ## Multiple covers
 

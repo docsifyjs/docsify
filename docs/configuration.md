@@ -211,7 +211,7 @@ window.$docsify = {
 - Type: `Boolean`
 - Default: `null`
 
-Execute the script on the page. Only parses the first script tag ([demo](themes)). If Vue is detected, this is `true` by default.
+Execute the script on the page. Only parses the first script tag ([demo](themes.md)). If Vue is detected, this is `true` by default.
 
 ```js
 window.$docsify = {
@@ -389,7 +389,7 @@ window.$docsify = {
 - Type: `Boolean|Object`
 - Default: `Object`
   - <kbd>\\</kbd> Toggle the sidebar menu
-  - <kbd>/</kbd> Focus on [search](plugins#full-text-search) field. Also supports <kbd>alt</kbd>&nbsp;/&nbsp;<kbd>ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>.
+  - <kbd>/</kbd> Focus on [search](plugins.md#full-text-search) field. Also supports <kbd>alt</kbd>&nbsp;/&nbsp;<kbd>ctrl</kbd>&nbsp;+&nbsp;<kbd>k</kbd>.
 
 Binds key combination(s) to a custom callback function.
 
@@ -1059,7 +1059,7 @@ For more details, see [#1131](https://github.com/docsifyjs/docsify/issues/1131).
 
 ## themeColor ⚠️ :id=themecolor
 
-> [!IMPORTANT] Deprecated as of v5. Use the `--theme-color` [theme property](themes#theme-properties) to [customize](themes#customization) your theme color.
+> [!IMPORTANT] Deprecated as of v5. Use the `--theme-color` [theme property](themes.md#theme-properties) to [customize](themes.md#customization) your theme color.
 
 - Type: `String`
 
@@ -1073,7 +1073,7 @@ window.$docsify = {
 
 ## topMargin ⚠️ :id=topmargin
 
-> [!IMPORTANT] Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes#theme-properties) to specify a scroll margin when using a sticky navbar.
+> [!IMPORTANT] Deprecated as of v5. Use the `--scroll-padding-top` [theme property](themes.md#theme-properties) to specify a scroll margin when using a sticky navbar.
 
 - Type: `Number|String`
 - Default: `0`
