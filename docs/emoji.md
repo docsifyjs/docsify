@@ -1,6 +1,6 @@
 # Emoji
 
-Below is a complete list of emoji shorthand codes. Docsify can be configured to render emoji using GitHub-style emoji images or native emoji characters using the [`nativeEmoji`](configuration#nativeemoji) configuration option.
+Below is a complete list of emoji shorthand codes. Docsify can be configured to render emoji using GitHub-style emoji images or native emoji characters using the [`nativeEmoji`](configuration.md#nativeemoji) configuration option.
 
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));">
 
