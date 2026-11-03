@@ -2,6 +2,28 @@ import docsifyInit from '../helpers/docsify-init.js';
 import { test, expect } from './fixtures/docsify-init-fixture.js';
 
 test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
+  test('warns once when the Docsify script URL is not versioned', async ({
+    page,
+  }) => {
+    const errors = [];
+
+    page.on('console', message => {
+      if (
+        message.type() === 'error' &&
+        message.text().includes('[Docsify] Unpinned version')
+      ) {
+        errors.push(message.text());
+      }
+    });
+
+    await page.setContent('<div id="app"></div>');
+    await page.addScriptTag({ url: '/dist/docsify.js' });
+    await page.locator('#main').waitFor();
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('This site WILL BREAK');
+  });
+
   test('manual docsify site using playwright methods', async ({ page }) => {
     // Add docsify target element
     await page.setContent('<div id="app"></div>');
@@ -18,7 +40,7 @@ test.describe('Creating a Docsify site (e2e tests in Playwright)', () => {
     await page.addStyleTag({ url: '/dist/themes/core.css' });
 
     // Inject docsify.js
-    await page.addScriptTag({ url: '/dist/docsify.js' });
+    await page.addScriptTag({ url: '/dist/docsify.js?v=5.0.0' });
 
     // Wait for docsify to initialize
     await page.locator('#main').waitFor();
