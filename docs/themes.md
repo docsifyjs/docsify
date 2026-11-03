@@ -334,7 +334,7 @@ Advanced theme properties are also available for use but typically do not need t
 
 ## Community
 
-See [Awesome Docsify](awesome) for additional community themes.
+See [Awesome Docsify](awesome?id=themes) for additional community themes.
 
 <script>
   (function () {
