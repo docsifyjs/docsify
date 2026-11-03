@@ -4,11 +4,33 @@ import {
   getClickedLink,
   getSidebarNavigationTarget,
   isCurrentContextNavigation,
+  parseQuery,
 } from '../../src/core/router/util.js';
 
 // Suite
 // -----------------------------------------------------------------------------
 describe('router/util', () => {
+  describe('parseQuery()', () => {
+    test('preserves equals signs inside query values', () => {
+      expect(parseQuery('?id=a=b=c&other=ok')).toEqual({
+        id: 'a=b=c',
+        other: 'ok',
+      });
+    });
+
+    test.each([
+      ['?value==', { value: '=' }],
+      ['?value=a%3Db', { value: 'a=b' }],
+      ['?value=a+b=c', { value: 'a b=c' }],
+      ['?empty=&flag', { empty: '', flag: undefined }],
+    ])(
+      'parses %s without changing empty or encoded values',
+      (query, expected) => {
+        expect(parseQuery(query)).toEqual(expected);
+      },
+    );
+  });
+
   describe('navigation click helpers', () => {
     test('finds a link from a nested click target', () => {
       document.body.innerHTML = '<a href="/guide"><span>Guide</span></a>';
