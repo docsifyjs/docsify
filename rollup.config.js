@@ -55,6 +55,14 @@ const baseConfig = {
     resolve(),
     commonjs(),
     css(),
+    // Run the synchronous lexer as plain JS. asm.js is only an optimization
+    // hint and produces a deprecation warning in Firefox, even before use.
+    replace({
+      include: '**/es-module-lexer/dist/lexer.asm.js',
+      preventAssignment: true,
+      delimiters: ['', ''],
+      values: { '"use asm";': '' },
+    }),
     replace({
       preventAssignment: true,
       values: {
