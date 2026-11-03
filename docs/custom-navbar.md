@@ -20,7 +20,7 @@ If you need custom navigation, you can create a HTML-based navigation bar.
 
 ## Markdown
 
-Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [loadNavbar configuration](configuration#loadnavbar).
+Alternatively, you can create a custom markdown-based navigation file by setting `loadNavbar` to **true** and creating `_navbar.md`, compare [loadNavbar configuration](configuration.md#loadnavbar).
 
 ```html
 <!-- index.html -->
@@ -84,7 +84,7 @@ renders as
 
 ## Combining custom navbars with the emoji plugin
 
-If you use the [emoji plugin](plugins#emoji):
+If you use the [emoji plugin](plugins.md#emoji):
 
 ```html
 <!-- index.html -->

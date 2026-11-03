@@ -192,7 +192,7 @@ hook.ready(() => {
 
 - Access Docsify methods and properties using `window.Docsify`
 - Access the current Docsify instance using the `vm` argument
-- Developers who prefer using a debugger can set the [`catchPluginErrors`](configuration#catchpluginerrors) configuration option to `false` to allow their debugger to pause JavaScript execution on error
+- Developers who prefer using a debugger can set the [`catchPluginErrors`](configuration.md#catchpluginerrors) configuration option to `false` to allow their debugger to pause JavaScript execution on error
 - Be sure to test your plugin on all supported platforms and with related configuration options (if applicable) before publishing
 
 ## Examples
