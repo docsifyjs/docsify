@@ -219,6 +219,33 @@ Disqus comments. https://disqus.com/
 </script>
 ```
 
+## OneTag AI
+
+[OneTag AI](https://onetagai.com) adds an "ask this page" button. Visitors type a question and get an answer drawn from the page they are reading.
+
+The key is a public site key with a hard usage cap, so it can be committed with your docs. Get one for free at https://onetagai.com.
+
+```html
+<script>
+  window.$docsify = {
+    onetag: 'your-onetag-key',
+  };
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/onetag.min.js"></script>
+```
+
+Pass an object to set the [widget options](https://onetagai.com/docs#widget):
+
+```js
+window.$docsify = {
+  onetag: {
+    key: 'your-onetag-key',
+    title: 'Ask the docs',
+    theme: 'dark', // 'light', 'dark' or 'auto' (default)
+  },
+};
+```
+
 ## Pagination
 
 Pagination for docsify. By [@imyelo](https://github.com/imyelo)
