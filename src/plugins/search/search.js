@@ -322,6 +322,24 @@ export function ignoreDiacriticalMarks(keyword) {
   return keyword;
 }
 
+// The escaped title and body of an index record only depend on the record,
+// so they are worked out on first use instead of on every search.
+const preparedPosts = new WeakMap();
+
+function preparePost(post, postTitle, postContent) {
+  let prepared = preparedPosts.get(post);
+  if (!prepared) {
+    prepared = {
+      title: escapeHtml(ignoreDiacriticalMarks(postTitle)),
+      content: postContent
+        ? escapeHtml(ignoreDiacriticalMarks(postContent))
+        : postContent,
+    };
+    preparedPosts.set(post, prepared);
+  }
+  return prepared;
+}
+
 /**
  * @param {String} query Search query
  * @returns {Array} Array of results
@@ -335,30 +353,31 @@ export function search(query) {
     keywords = [query, ...keywords];
   }
 
+  const regExps = keywords.map(
+    keyword =>
+      // From https://github.com/sindresorhus/escape-string-regexp
+      new RegExp(
+        escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
+          /[|\\{}()[\]^$+*?.]/g,
+          '\\$&',
+        ),
+        'gi',
+      ),
+  );
+
   for (const post of INDEXES) {
     let matchesScore = 0;
     let resultStr = '';
-    let handlePostTitle = '';
-    let handlePostContent = '';
     const postTitle = post.title && post.title.trim();
     const postContent = post.body && post.body.trim();
     const postUrl = post.slug || '';
 
     if (postTitle) {
-      handlePostTitle = escapeHtml(ignoreDiacriticalMarks(postTitle));
-      handlePostContent = postContent
-        ? escapeHtml(ignoreDiacriticalMarks(postContent))
-        : postContent;
+      const { title: handlePostTitle, content: handlePostContent } =
+        preparePost(post, postTitle, postContent);
 
-      keywords.forEach(keyword => {
-        // From https://github.com/sindresorhus/escape-string-regexp
-        const regEx = new RegExp(
-          escapeHtml(ignoreDiacriticalMarks(keyword)).replace(
-            /[|\\{}()[\]^$+*?.]/g,
-            '\\$&',
-          ),
-          'gi',
-        );
+      keywords.forEach((keyword, i) => {
+        const regEx = regExps[i];
         const indexTitle = postTitle ? handlePostTitle.search(regEx) : -1;
         let indexContent = postContent ? handlePostContent.search(regEx) : -1;
 
