@@ -11,6 +11,7 @@ import { isExternal, isPrimitive } from '../util/core.js';
 import { Compiler } from './compiler.js';
 import * as tpl from './tpl.js';
 import { prerenderEmbed } from './embed.js';
+import { resolveModuleSpecifiers } from './module-script.js';
 
 /** @typedef {import('../Docsify.js').Constructor} Constructor */
 
@@ -66,7 +67,8 @@ export function Render(Base) {
       });
     }
 
-    #executeScript() {
+    /** @param {string} moduleBaseURL */
+    #executeScript(moduleBaseURL) {
       const script = dom
         .findAll('.markdown-section>script')
         .filter(
@@ -81,7 +83,34 @@ export function Render(Base) {
         return false;
       }
 
-      new Function(code)();
+      if (script.getAttribute('type') === 'module') {
+        // External scripts are handled by the external-script plugin.
+        if (script.hasAttribute('src')) {
+          return false;
+        }
+
+        // Scripts inserted via innerHTML are inert. Create a fresh element
+        // so the browser can execute imports and exports as an ES module.
+        const moduleScript = document.createElement('script');
+        for (const { name, value } of script.attributes) {
+          moduleScript.setAttribute(name, value);
+        }
+        try {
+          moduleScript.textContent = resolveModuleSpecifiers(
+            code,
+            moduleBaseURL,
+          );
+        } catch (error) {
+          // Report invalid modules without interrupting document rendering.
+          queueMicrotask(() => {
+            throw error;
+          });
+          return false;
+        }
+        script.replaceWith(moduleScript);
+      } else {
+        new Function(code)();
+      }
     }
 
     #formatUpdated(html, updated, fn) {
@@ -95,7 +124,7 @@ export function Render(Base) {
       return html.replace(/{docsify-updated}/g, updated);
     }
 
-    #renderMain(html) {
+    #renderMain(html, moduleBaseURL) {
       const docsifyConfig = this.config;
       const markdownElm = dom.find('.markdown-section');
       const vueVersion =
@@ -135,7 +164,7 @@ export function Render(Base) {
         docsifyConfig.executeScript ||
         ('Vue' in window && docsifyConfig.executeScript !== false)
       ) {
-        this.#executeScript();
+        this.#executeScript(moduleBaseURL);
       }
 
       // Handle Vue content not mounted by markdown <script>
@@ -556,6 +585,12 @@ export function Render(Base) {
 
     _renderMain(text, opt = {}, next) {
       const { response } = this.route;
+      // Fetch metadata identifies redirects, fallback pages, and 404 pages.
+      // Virtual routes use their mapped file URL instead. Capture this before
+      // asynchronous hooks run, while the route still belongs to this content.
+      const moduleBaseURL =
+        opt.url ||
+        new URL(this.router.getFile(this.route.path), document.baseURI).href;
 
       // Note: It is possible for the response to be undefined in environments
       // where XMLHttpRequest has been modified or mocked
@@ -575,7 +610,7 @@ export function Render(Base) {
           }
 
           this.callHook('afterEach', html, hookData => {
-            this.#renderMain(hookData);
+            this.#renderMain(hookData, moduleBaseURL);
             next();
           });
         };
