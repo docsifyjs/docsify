@@ -1,7 +1,8 @@
 import { stripIndent } from 'common-tags';
+import { getParentPath, getPath } from '../router/util.js';
 import { get } from '../util/ajax.js';
 
-const cached = {};
+const cached = new Map();
 
 /**
  * Extracts the content between matching fragment markers in the text.
@@ -132,14 +133,20 @@ function walkFetchEmbed({ embedTokens, compile, fetch, frontMatter }, cb) {
 }
 
 export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
-  const cacheKey = JSON.stringify([
+  // Match the base used by compileEmbed to resolve relative includes.
+  const contentDirectory = getPath(
     compiler.contentBase,
-    compiler.router.getCurrentPath(),
-    raw,
-  ]);
-  const hit = cached[cacheKey];
+    getParentPath(compiler.router.getCurrentPath()),
+  );
+  let directoryCache = cached.get(contentDirectory);
+  if (!directoryCache) {
+    directoryCache = new Map();
+    cached.set(contentDirectory, directoryCache);
+  }
+
+  const hit = directoryCache.get(raw);
   if (hit) {
-    const copy = hit.slice();
+    const copy = hit.tokens.slice();
     copy.links = hit.links;
     return done(copy);
   }
@@ -276,8 +283,8 @@ export function prerenderEmbed({ compiler, raw = '', fetch }, done) {
           }
         }
       } else if (!token) {
-        cached[cacheKey] = tokens.concat();
-        tokens.links = cached[cacheKey].links = links;
+        directoryCache.set(raw, { tokens: tokens.concat(), links });
+        tokens.links = links;
         done(tokens);
       }
     },
