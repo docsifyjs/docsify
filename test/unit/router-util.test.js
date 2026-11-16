@@ -4,11 +4,32 @@ import {
   getClickedLink,
   getSidebarNavigationTarget,
   isCurrentContextNavigation,
+  parseQuery,
 } from '../../src/core/router/util.js';
 
 // Suite
 // -----------------------------------------------------------------------------
 describe('router/util', () => {
+  describe('parseQuery()', () => {
+    test('does not throw on malformed percent-encoding', () => {
+      expect(parseQuery('?a=100%&b=%E0%A4%A&c=b%zz')).toEqual({
+        a: '100%',
+        b: '%E0%A4%A',
+        c: 'b%zz',
+      });
+    });
+
+    test('still decodes valid percent-encoding', () => {
+      expect(parseQuery('?a=50%25&b=x%20y&c=m+n&d=&e')).toEqual({
+        a: '50%',
+        b: 'x y',
+        c: 'm n',
+        d: '',
+        e: undefined,
+      });
+    });
+  });
+
   describe('navigation click helpers', () => {
     test('finds a link from a nested click target', () => {
       document.body.innerHTML = '<a href="/guide"><span>Guide</span></a>';

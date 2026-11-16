@@ -107,6 +107,21 @@ export function getSidebarNavigationTarget(linkElm) {
 }
 
 /**
+ * Decode a query value, keeping the raw text when it is not valid
+ * percent-encoding (e.g. a literal "%") instead of throwing a URIError.
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+function safeDecode(str) {
+  try {
+    return decode(str);
+  } catch {
+    return str;
+  }
+}
+
+/**
  * @param {string} query
  * @return {Record<string, string>}
  */
@@ -124,7 +139,7 @@ export function parseQuery(query) {
   query.split('&').forEach(param => {
     const parts = param.replace(/\+/g, ' ').split('=');
 
-    res[parts[0]] = parts[1] && decode(parts[1]);
+    res[parts[0]] = parts[1] && safeDecode(parts[1]);
   });
 
   return res;
