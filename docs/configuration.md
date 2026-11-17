@@ -227,7 +227,27 @@ window.$docsify = {
 </script>
 ```
 
-Note that if you are running an external script, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin.
+Inline ES modules are supported with `type="module"`:
+
+```html
+<script type="module">
+  import { message } from './example.js';
+
+  console.log(message);
+</script>
+```
+
+Modules execute asynchronously, and Docsify does not wait for them before running its lifecycle hooks. Only the first non-template script is considered for execution, whether it is a classic script or a module.
+
+Relative specifiers (`./` and `../`) in inline modules resolve against the URL of the Markdown content being rendered, in both `hash` and `history` router modes. This applies to static imports, re-exports, and dynamic imports with quoted string literals, such as `import('./example.js')`. Docsify uses the content URL after applying `basePath`, `alias`, and `homepage`, including redirects, language fallback pages, and custom 404 pages. Virtual routes use their mapped Markdown file URL.
+
+For example, if the Markdown file is `/content/guide/page.md`, `./example.js` resolves to `/content/guide/example.js` and `../shared.js` resolves to `/content/shared.js`. A hash route at `/app/index.html#/guide/page` with the default `basePath` loads `/app/guide/page.md`; `index.html` is not treated as a directory.
+
+Absolute URLs, root-relative paths (`/example.js`), and bare specifiers (`vue`) retain their native browser behavior, including import maps. `import.meta.url` and computed dynamic imports such as `import(path)`, `import('./' + name)`, and template literals are not rewritten; they retain the HTML document as their base. Imports inside external modules resolve relative to those modules, as usual.
+
+If an inline module cannot be parsed, Docsify reports the error without executing it, and continues rendering the document.
+
+Note that if you are running an external script with a `src` attribute, e.g. an embedded jsfiddle demo, make sure to include the [external-script](plugins.md?id=external-script) plugin. This also applies to `<script type="module" src="...">`.
 
 ## ext
 

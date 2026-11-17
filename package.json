@@ -47,6 +47,7 @@
   "dependencies": {
     "common-tags": "^1.8.0",
     "dexie": "^4.0.11",
+    "es-module-lexer": "^3.0.4",
     "marked": "^18.0.3",
     "medium-zoom": "^1.1.0",
     "opencollective-postinstall": "^2.0.2",

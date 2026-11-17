@@ -3,7 +3,7 @@
 import progressbar from '../render/progressbar.js';
 import { noop } from './core.js';
 
-/** @typedef {{updatedAt: string}} CacheOpt */
+/** @typedef {{updatedAt: string, url: string}} CacheOpt */
 /** @typedef {{content: string, opt: CacheOpt, response: ResponseStatus}} CacheItem */
 /** @typedef {{ok: boolean, status: number, statusText: string}} ResponseStatus */
 /** @type {Record<string, CacheItem>} */
@@ -89,6 +89,8 @@ export function get(url, hasBar = false, headers = {}) {
             content: target.response,
             opt: {
               updatedAt: xhr.getResponseHeader('last-modified') ?? '',
+              // Preserve the content location across redirects and cache hits.
+              url: xhr.responseURL || new URL(url, document.baseURI).href,
             },
             response: getResponseStatus(event),
           });
