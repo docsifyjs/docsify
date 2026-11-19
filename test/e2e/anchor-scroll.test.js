@@ -719,4 +719,71 @@ test.describe('Anchor scrolling', () => {
     expect(scrollStopsAfterWheel).toEqual([]);
     expect(Math.abs(scrollYAfterImage - scrollYBeforeImage)).toBeLessThan(200);
   });
+
+  test('finishes navigation to an anchor id that starts with a digit', async ({
+    page,
+  }) => {
+    const pageErrors = [];
+
+    page.on('pageerror', error => pageErrors.push(error.message));
+
+    await docsifyInit({
+      config: {
+        plugins: [
+          function (hook) {
+            hook.doneEach(() => {
+              window.__doneEachRoutes = window.__doneEachRoutes || [];
+              window.__doneEachRoutes.push(location.hash);
+            });
+          },
+        ],
+      },
+      markdown: {
+        homepage: `
+          # Home
+
+          [Usage](guide.md#2-usage)
+        `,
+      },
+      routes: {
+        '/guide.md': `
+          # Guide
+
+          ## 1. Install
+
+          ## 2. Usage
+        `,
+      },
+    });
+
+    await page.getByRole('link', { name: 'Usage' }).click();
+    await expect(page.locator('#guide')).toBeVisible();
+
+    await expect
+      .poll(async () => ({
+        doneEachRoutes: await page.evaluate(() => window.__doneEachRoutes),
+        errors: pageErrors,
+      }))
+      .toEqual({
+        doneEachRoutes: ['#/', '#/guide?id=2-usage'],
+        errors: [],
+      });
+  });
+
+  test('focuses an element whose id is a number', async ({ page }) => {
+    await docsifyInit({
+      markdown: {
+        homepage: `
+          # Home
+
+          [Jump to 2024](#2024)
+
+          <h2 id="2024">Releases in 2024</h2>
+        `,
+      },
+    });
+
+    await page.getByRole('link', { name: 'Jump to 2024' }).click();
+    await expect(page.locator('[id="2024"]')).toBeFocused();
+  });
 });

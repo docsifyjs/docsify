@@ -482,7 +482,7 @@ export function Events(Base) {
       const focusEl = /** @type {HTMLElement|null} */ (
         query.id
           ? // Heading ID
-            dom.find(`#${query.id}`)
+            dom.find(`[id="${query.id}"]`)
           : // First heading
             dom.find('#main :where(h1, h2, h3, h4, h5, h6)') ||
             // Content container
